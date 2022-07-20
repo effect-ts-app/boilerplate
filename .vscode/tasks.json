@@ -1,0 +1,560 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Clean Dist",
+			"type": "shell",
+			"command": "yarn clean-dist",
+			"group": "build"
+		},
+		// {
+		// 	"label": "Watch API & Libs",
+		// 	"type": "shell",
+		// 	"command": "yarn watch",
+		// 	"options": {
+		// 		"cwd": "apps/api"
+		// 	},
+		// 	"dependsOn": [
+		// 		"Clean Dist"
+		// 	],
+		// 	"group": "build",
+		// 	"isBackground": true,
+		// 	"presentation": {
+		// 		"group": "watch-libs"
+		// 	},
+		// 	"problemMatcher": [
+		// 		{
+		// 			"base": "$tsc-watch",
+		// 			"fileLocation": [
+		// 				"relative",
+		// 				"${workspaceRoot}/apps/api",
+		// 			],
+		// 		}
+		// 	]
+		// },
+		{
+			"label": "Watch API",
+			"type": "shell",
+			"command": "yarn watch",
+			"options": {
+				"cwd": "apps/api/_test"
+			},
+			"dependsOn": [
+				"Clean Dist"
+				//"Watch API & Libs"
+			],
+			"group": "build",
+			"isBackground": true,
+			"presentation": {
+				"group": "watch-test"
+			},
+			"problemMatcher": [
+				{
+					"base": "$tsc-watch",
+					"fileLocation": [
+						"relative",
+						"${workspaceRoot}/apps/api",
+					],
+				}
+			]
+		},
+		{
+			"label": "Watch E2E",
+			"type": "shell",
+			"command": "yarn watch",
+			"options": {
+				"cwd": "e2e"
+			},
+			"dependsOn": [
+				"Watch API"
+			],
+			"group": "build",
+			"isBackground": true,
+			"presentation": {
+				"group": "watch-test"
+			},
+			"problemMatcher": [
+				{
+					"base": "$tsc-watch",
+					"fileLocation": [
+						"relative",
+						"${workspaceRoot}/e2e",
+					],
+				}
+			]
+		},
+		{
+			"label": "Watch Frontend",
+			"type": "shell",
+			"command": "yarn compile -w",
+			"options": {
+				"cwd": "apps/frontend"
+			},
+			"dependsOn": [
+				"Watch E2E"
+			],
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"isBackground": true,
+			"presentation": {
+				"group": "watch-libs"
+			},
+			"problemMatcher": [
+				{
+					"base": "$tsc-watch",
+					"fileLocation": [
+						"relative",
+						"${workspaceRoot}/apps/frontend",
+					],
+				}
+			]
+		},
+		// {
+		// 	"label": "Types Build",
+		// 	"type": "shell",
+		// 	"command": "../../node_modules/.bin/ultra --raw build",
+		// 	"options": {
+		// 		"cwd": "packages/types"
+		// 	},
+		// 	"group": "build",
+		// 	"problemMatcher": [
+		// 		{
+		// 			"base": "$tsc",
+		// 			"fileLocation": [
+		// 				"relative",
+		// 				"${workspaceRoot}/packages/types"
+		// 			],
+		// 		}
+		// 	]
+		// },
+		// {
+		// 	"label": "Client Build",
+		// 	"type": "shell",
+		// 	"command": "../../node_modules/.bin/ultra --raw build",
+		// 	"options": {
+		// 		"cwd": "packages/client"
+		// 	},
+		// 	"group": "build",
+		// 	"problemMatcher": [
+		// 		{
+		// 			"base": "$tsc",
+		// 			"fileLocation": [
+		// 				"relative",
+		// 				"${workspaceRoot}/packages/client"
+		// 			],
+		// 		}
+		// 	]
+		// },
+		{
+			"label": "Clean",
+			"type": "shell",
+			"command": "yarn clean",
+			"group": "build"
+		},
+		// {
+		// 	"label": "API Build",
+		// 	"type": "shell",
+		// 	"command": "../../node_modules/.bin/ultra --raw build",
+		// 	"options": {
+		// 		"cwd": "apps/api"
+		// 	},
+		// 	"group": "build",
+		// 	"problemMatcher": [
+		// 		{
+		// 			"base": "$tsc",
+		// 			"fileLocation": [
+		// 				"relative",
+		// 				"${workspaceRoot}/apps/api"
+		// 			],
+		// 		}
+		// 	]
+		// },
+		// {
+		// 	"label": "Types Watch",
+		// 	"type": "shell",
+		// 	"command": "../../node_modules/.bin/ultra --raw watch2",
+		// 	"options": {
+		// 		"cwd": "packages/types"
+		// 	},
+		// 	"group": "build",
+		// 	"isBackground": true,
+		// 	"presentation": {
+		// 		"group": "watch-libs"
+		// 	},
+		// 	"problemMatcher": [
+		// 		{
+		// 			"base": "$tsc-watch",
+		// 			"fileLocation": [
+		// 				"relative",
+		// 				"${workspaceRoot}/packages/types"
+		// 			],
+		// 		}
+		// 	]
+		// },
+		// {
+		// 	"label": "Client Watch",
+		// 	"type": "shell",
+		// 	"command": "../../node_modules/.bin/ultra --raw watch2",
+		// 	"options": {
+		// 		"cwd": "packages/client"
+		// 	},
+		// 	"group": "build",
+		// 	"isBackground": true,
+		// 	"presentation": {
+		// 		"group": "watch-libs"
+		// 	},
+		// 	"problemMatcher": [
+		// 		{
+		// 			"base": "$tsc-watch",
+		// 			"fileLocation": [
+		// 				"relative",
+		// 				"${workspaceRoot}/packages/client"
+		// 			],
+		// 		}
+		// 	]
+		// },
+		// {
+		// 	"label": "API Watch 2",
+		// 	"type": "shell",
+		// 	"command": "../../node_modules/.bin/ultra --raw watch2",
+		// 	"options": {
+		// 		"cwd": "apps/api"
+		// 	},
+		// 	"group": "build",
+		// 	"isBackground": true,
+		// 	// "problemMatcher": [
+		// 	// 	{
+		// 	// 		"base": "$tsc-watch",
+		// 	// 		"fileLocation": [
+		// 	// 			"relative",
+		// 	// 			"${workspaceRoot}/apps/api"
+		// 	// 		],
+		// 	// 	}
+		// 	// ],
+		// 	// FAKE... but works..
+		// 	"problemMatcher": {
+		// 		"severity": "warning",
+		// 		"pattern": [
+		// 			{
+		// 				"regexp": "^\\s+(.*)\\((\\d+),(\\d+)\\):\\s+(.*)$",
+		// 				"file": 1,
+		// 				"line": 2,
+		// 				"column": 3,
+		// 				"message": 4
+		// 			}
+		// 		],
+		// 		"background": {
+		// 			"beginsPattern": "Starting",
+		// 			"endsPattern": "Watching for",
+		// 		}
+		// 	},
+		// 	"presentation": {
+		// 		"group": "watch"
+		// 	}
+		// },
+		// {
+		// 	"label": "API Watch",
+		// 	"type": "shell",
+		// 	"command": "../../node_modules/.bin/ultra --raw watch",
+		// 	"options": {
+		// 		"cwd": "apps/api"
+		// 	},
+		// 	"group": "build",
+		// 	"isBackground": true,
+		// 	// "problemMatcher": [
+		// 	// 	{
+		// 	// 		"base": "$tsc-watch",
+		// 	// 		"fileLocation": [
+		// 	// 			"relative",
+		// 	// 			"${workspaceRoot}/apps/api"
+		// 	// 		],
+		// 	// 	}
+		// 	// ],
+		// 	// FAKE... but works..
+		// 	"problemMatcher": {
+		// 		"severity": "warning",
+		// 		"pattern": [
+		// 			{
+		// 				"regexp": "^\\s+(.*)\\((\\d+),(\\d+)\\):\\s+(.*)$",
+		// 				"file": 1,
+		// 				"line": 2,
+		// 				"column": 3,
+		// 				"message": 4
+		// 			}
+		// 		],
+		// 		"background": {
+		// 			"beginsPattern": "Starting",
+		// 			"endsPattern": "Watching for",
+		// 		}
+		// 	},
+		// 	"presentation": {
+		// 		"group": "watch"
+		// 	}
+		// },
+		{
+			"label": "API Run",
+			"type": "shell",
+			"command": "../../node_modules/.bin/ultra --raw dev",
+			"options": {
+				"cwd": "apps/api"
+			},
+			"isBackground": true,
+			// FAKE... but works..
+			"problemMatcher": {
+				"severity": "warning",
+				"pattern": [
+					{
+						"regexp": "^\\s+(.*)\\((\\d+),(\\d+)\\):\\s+(.*)$",
+						"file": 1,
+						"line": 2,
+						"column": 3,
+						"message": 4
+					}
+				],
+				"background": {
+					"beginsPattern": "starting",
+					"endsPattern": "Running on",
+				}
+			},
+			"presentation": {
+				"group": "run"
+			}
+		},
+		// {
+		// 	"label": "UI Watch 2",
+		// 	"type": "shell",
+		// 	"command": "../../node_modules/.bin/ultra --raw watch2",
+		// 	"options": {
+		// 		"cwd": "apps/frontend"
+		// 	},
+		// 	"group": "build",
+		// 	// "dependsOrder": "sequence",
+		// 	// "dependsOn": [
+		// 	// 	"API Watch"
+		// 	// ],
+		// 	"isBackground": true,
+		// 	// "problemMatcher": [
+		// 	// 	{
+		// 	// 		"base": "$tsc-watch",
+		// 	// 		"fileLocation": [
+		// 	// 			"relative",
+		// 	// 			"${workspaceRoot}/apps/frontend"
+		// 	// 		],
+		// 	// 	}
+		// 	// ],
+		// 	"problemMatcher": {
+		// 		"severity": "warning",
+		// 		"pattern": [
+		// 			{
+		// 				"regexp": "^\\s+(.*)\\((\\d+),(\\d+)\\):\\s+(.*)$",
+		// 				"file": 1,
+		// 				"line": 2,
+		// 				"column": 3,
+		// 				"message": 4
+		// 			}
+		// 		],
+		// 		"background": {
+		// 			"beginsPattern": "Starting",
+		// 			"endsPattern": "Watching for",
+		// 		}
+		// 	},
+		// 	"presentation": {
+		// 		"group": "watch"
+		// 	}
+		// },
+		// {
+		// 	"label": "UI Watch",
+		// 	"type": "shell",
+		// 	"command": "../../node_modules/.bin/ultra --raw watch",
+		// 	"options": {
+		// 		"cwd": "apps/frontend"
+		// 	},
+		// 	"group": "build",
+		// 	// "dependsOrder": "sequence",
+		// 	// "dependsOn": [
+		// 	// 	"API Watch"
+		// 	// ],
+		// 	"isBackground": true,
+		// 	// "problemMatcher": [
+		// 	// 	{
+		// 	// 		"base": "$tsc-watch",
+		// 	// 		"fileLocation": [
+		// 	// 			"relative",
+		// 	// 			"${workspaceRoot}/apps/frontend"
+		// 	// 		],
+		// 	// 	}
+		// 	// ],
+		// 	"problemMatcher": {
+		// 		"severity": "warning",
+		// 		"pattern": [
+		// 			{
+		// 				"regexp": "^\\s+(.*)\\((\\d+),(\\d+)\\):\\s+(.*)$",
+		// 				"file": 1,
+		// 				"line": 2,
+		// 				"column": 3,
+		// 				"message": 4
+		// 			}
+		// 		],
+		// 		"background": {
+		// 			"beginsPattern": "Starting",
+		// 			"endsPattern": "Watching for",
+		// 		}
+		// 	},
+		// 	"presentation": {
+		// 		"group": "watch"
+		// 	}
+		// },
+		{
+			"label": "UI Run",
+			"type": "shell",
+			"command": "yarn dev",
+			"options": {
+				"cwd": "apps/frontend"
+			},
+			"dependsOrder": "sequence",
+			"dependsOn": [
+				//				"Clean",
+				// "API Watch",
+				// "UI Watch",
+				"API Run",
+			],
+			"isBackground": true,
+			// FAKE...
+			"problemMatcher": {
+				"severity": "warning",
+				"pattern": [
+					{
+						"regexp": "^\\s+(.*)\\((\\d+),(\\d+)\\):\\s+(.*)$",
+						"file": 1,
+						"line": 2,
+						"column": 3,
+						"message": 4
+					}
+				],
+				"background": {
+					"activeOnStart": true,
+					"beginsPattern": "compiling",
+					"endsPattern": "compiled successfully",
+				}
+			},
+			"presentation": {
+				"group": "run"
+			}
+		},
+		{
+			"label": "UI Run 2",
+			"type": "shell",
+			"command": "../../node_modules/.bin/ultra --raw dev",
+			"options": {
+				"cwd": "apps/frontend"
+			},
+			"dependsOrder": "sequence",
+			"dependsOn": [
+				"Types Watch",
+				"Client Watch",
+				"API Watch 2",
+				"UI Watch 2",
+				"API Run",
+			],
+			"isBackground": true,
+			// FAKE...
+			"problemMatcher": {
+				"severity": "warning",
+				"pattern": [
+					{
+						"regexp": "^\\s+(.*)\\((\\d+),(\\d+)\\):\\s+(.*)$",
+						"file": 1,
+						"line": 2,
+						"column": 3,
+						"message": 4
+					}
+				],
+				"background": {
+					"activeOnStart": true,
+					"beginsPattern": "compiling",
+					"endsPattern": "compiled successfully",
+				}
+			},
+			"presentation": {
+				"group": "run"
+			}
+		},
+		{
+			"label": "API-E2E",
+			"type": "shell",
+			"command": "yarn test --watch",
+			"options": {
+				"cwd": "apps/api/_test"
+			},
+			"group": "test",
+			"isBackground": true,
+			// FAKE... but works..
+			"problemMatcher": {
+				"severity": "warning",
+				"pattern": [
+					{
+						"regexp": "^\\s+(.*)\\((\\d+),(\\d+)\\):\\s+(.*)$",
+						"file": 1,
+						"line": 2,
+						"column": 3,
+						"message": 4
+					}
+				],
+				"background": {
+					"beginsPattern": "starting",
+					"endsPattern": "Running on",
+				}
+			},
+			"presentation": {
+				"group": "test"
+			}
+		},
+		{
+			"label": "E2E",
+			"type": "shell",
+			"command": "yarn test",
+			"options": {
+				"cwd": "e2e"
+			},
+			"group": "test",
+			"isBackground": true,
+			// FAKE... but works..
+			"problemMatcher": {
+				"severity": "warning",
+				"pattern": [
+					{
+						"regexp": "^\\s+(.*)\\((\\d+),(\\d+)\\):\\s+(.*)$",
+						"file": 1,
+						"line": 2,
+						"column": 3,
+						"message": 4
+					}
+				],
+				"background": {
+					"beginsPattern": "starting",
+					"endsPattern": "Running on",
+				}
+			},
+			"presentation": {
+				"group": "run"
+			}
+		},
+		{
+			"label": "UI Build Prod",
+			"type": "shell",
+			"command": "../../node_modules/.bin/ultra --raw build",
+			"options": {
+				"cwd": "apps/frontend"
+			},
+			"group": "build",
+			"dependsOrder": "sequence",
+			"dependsOn": [
+				"Types Build",
+				"Client Build"
+			],
+			"problemMatcher": []
+		}
+	]
+}

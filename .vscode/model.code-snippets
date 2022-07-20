@@ -1,0 +1,110 @@
+{
+    "ModelConstructor": {
+        "prefix": "mocns",
+        "body": [
+            "// @ts-expect-error bla",
+            "// eslint-disable-next-line unused-imports/no-unused-vars",
+            "type $1Constructor = typeof $1"
+        ]
+    },
+    "ModelCodegen": {
+        "prefix": "genmod",
+        "body": [
+            "// codegen:start {preset: model}"
+        ]
+    },
+    "ModelComplete": {
+        "prefix": "moc",
+        "body": [
+            "export class $1 extends ModelEnc<$1, $1>()({ // TODO MNModel<$1, $1.ConstructorInput, $1.Encoded, $1.Props> ()({",
+            "$2",
+            "}) {}",
+            "// @ts-expect-error bla",
+            "// eslint-disable-next-line unused-imports/no-unused-vars",
+            "type $1Constructor = typeof $1"
+        ],
+        "description": "Defines a Model signature"
+    },
+    "Model": {
+        "prefix": "mo",
+        "body": [
+            "export class $1 extends Model<$1>()({$2}) {}",
+            ""
+        ],
+        "description": "Defines a Model signature"
+    },
+    "UnionOpaque": {
+        "prefix": "un",
+        "body": [
+            "const $1__ = union({ $2 })",
+            "const $1_ = enhanceClassUnion(OpaqueSchema<$1, $1.Encoded>()($1__))",
+            "export type $1 = ParsedShapeOfCustom<typeof $1__> & UnionBrand",
+            "export interface $1Schema extends Identity<typeof $1_> {}",
+            "export const $1: $1Schema = $1_",
+            "export namespace $1 {",
+            "  export type Encoded = EncodedOf<typeof $1__> & UnionBrand",
+            "}"
+        ]
+    },
+    "GetRequest": {
+        "prefix": "gr",
+        "body": [
+            "export default class Request extends Get(\"/$1\")<Request>()({$2}) {}",
+            ""
+        ],
+        "description": "Defines a GetRequest signature"
+    },
+    "DeleteRequest": {
+        "prefix": "dr",
+        "body": [
+            "export default class Request extends Delete(\"/$1\")<Request>()({$2}) {}",
+            ""
+        ],
+        "description": "Defines a DeleteRequest signature"
+    },
+    "PatchRequest": {
+        "prefix": "par",
+        "body": [
+            "export default class Request extends Patch(\"/$1\")<Request>()({$2}) {}",
+            ""
+        ],
+        "description": "Defines a PatchRequest signature"
+    },
+    "PutRequest": {
+        "prefix": "pur",
+        "body": [
+            "export default class Request extends Put(\"/$1\")<Request>()({$2}) {}",
+            ""
+        ],
+        "description": "Defines a PutRequest signature"
+    },
+    "PostRequest": {
+        "prefix": "por",
+        "body": [
+            "export default class Request extends Post(\"/$1\")<Request>()({$2}) {}",
+            ""
+        ],
+        "description": "Defines a PostRequest signature"
+    },
+    "Response": {
+        "prefix": "res",
+        "body": [
+            "export class Response extends Model<Response()({$1}) {}",
+            ""
+        ],
+        "description": "Defines a Response signature"
+    },
+    "handle": {
+        "prefix": "handle",
+        "body": [
+            "import { handle } from \"@effect-ts-app/infra/app\"",
+            "import { $2s } from \"@effect-ts-app/boilerplate-client/$2s\"",
+            "import { Effect, NonEmptyArray, Maybe, Sync } from \"@effect-ts-app/boilerplate-types/Prelude\"",
+            "",
+            "export const $1$2 = handle($2s.$1)((req) =>",
+            "Effect.gen(function* ($) {",
+            "   yield* $(Effect(null))",
+            "}))"
+        ]
+    }
+}

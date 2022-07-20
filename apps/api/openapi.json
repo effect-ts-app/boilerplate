@@ -1,0 +1,93 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "@effect-ts-app/boilerplate-api",
+    "version": "X"
+  },
+  "tags": [],
+  "paths": {
+    "/hello-world": {
+      "get": {
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "now": {
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    "user": {
+                      "properties": {
+                        "id": {
+                          "format": "uuid",
+                          "type": "string"
+                        },
+                        "name": {
+                          "$ref": "#/components/schemas/FullName"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "name"
+                      ],
+                      "type": "object"
+                    },
+                    "context": {
+                      "properties": {},
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "now",
+                    "user",
+                    "context"
+                  ],
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "ValidationError"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "schemas": {
+      "FullName": {
+        "title": "FullName",
+        "properties": {
+          "firstName": {
+            "minLength": 1,
+            "maxLength": 255,
+            "type": "string"
+          },
+          "lastName": {
+            "minLength": 1,
+            "maxLength": 255,
+            "type": "string"
+          }
+        },
+        "required": [
+          "firstName",
+          "lastName"
+        ],
+        "type": "object"
+      }
+    },
+    "parameters": {}
+  }
+}

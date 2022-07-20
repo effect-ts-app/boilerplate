@@ -1,0 +1,78 @@
+{
+    "extends": "../../tsconfig.base.json",
+    "compilerOptions": {
+        "lib": [
+            "esnext"
+        ],
+        "tsPlusConfig": "../../tsplus.config.json",
+        "tsBuildInfoFile": "./dist/.tsbuildinfo",
+        "esModuleInterop": true,
+        // temp disbaled to support ts-plus ops
+        "importsNotUsedAsValues": "preserve",
+        "baseUrl": "./",
+        "rootDir": "./_src",
+        // keep in here, cause madge can't detect it from extended tsconfig
+        "moduleResolution": "Node16",
+        "paths": {
+            "@/*": [
+                "./_src/*"
+            ]
+        },
+        "outDir": "./dist",
+        "types": [
+            "../../types/prelude",
+            "../../types/global",
+            "../../types/modules"
+        ],
+        "plugins": [
+            // Transform paths in output .js files
+            {
+                "transform": "ts-transform-paths"
+            },
+            // Transform paths in output .d.ts files (Include this line if you output declarations files)
+            {
+                "transform": "ts-transform-paths",
+                "afterDeclarations": true
+            },
+            {
+                "transform": "@effect-ts/tracing-plugin"
+            }
+        ]
+    },
+    "include": [
+        "./_src/**/*.ts"
+    ],
+    "exclude": [
+        ".jest-cache",
+        "./dist",
+        "node_modules",
+        "build",
+        "lib",
+        "dist",
+        "**/*.d.ts.map",
+        ".git",
+        ".data",
+        "**/.*",
+        "**/*.tmp"
+    ],
+    "ts-node": {
+        "require": [
+            "tsconfig-paths/register"
+        ],
+        "compiler": "ttypescript",
+        "compilerOptions": {
+            "module": "CommonJS"
+        }
+    },
+    "references": [
+        {
+            "path": "../../packages/client"
+        },
+        {
+            "path": "../../packages/types"
+        },
+        {
+            "path": "../../packages/prelude"
+        }
+    ]
+}

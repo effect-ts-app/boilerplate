@@ -1,0 +1,67 @@
+{
+    "extends": "../../../tsconfig.base.json",
+    "compilerOptions": {
+        "lib": [
+            "dom",
+            "esnext"
+        ],
+        "tsPlusConfig": "../../../tsplus.config.json",
+        "esModuleInterop": true,
+        "baseUrl": "./",
+        "rootDir": "_src",
+        // keep in here, cause madge can't detect it from extended tsconfig
+        "moduleResolution": "Node16",
+        "paths": {
+            // this will point to the wrong folder at runtime, (dist/../api)
+            // but jest config works around it for tests.
+            "@/*": [
+                "../_src/*"
+            ]
+        },
+        "outDir": "./dist",
+        "tsBuildInfoFile": "./dist/.tsbuildinfo",
+        "types": [
+            "../../../types/prelude",
+            "../../../types/global",
+            "../../../types/modules"
+        ],
+        "plugins": [
+            {
+                "transform": "@effect-ts/tracing-plugin"
+            }
+        ]
+    },
+    "include": [
+        "./_src/**/*.ts"
+    ],
+    "exclude": [
+        ".jest-cache",
+        "./dist",
+        "node_modules",
+        "build",
+        "lib",
+        "dist",
+        "**/*.d.ts.map",
+        "**/.*"
+    ],
+    "ts-node": {
+        "compiler": "ttypescript",
+        "require": [
+            "tsconfig-paths/register"
+        ]
+    },
+    "references": [
+        {
+            "path": ".."
+        },
+        {
+            "path": "../../../packages/types"
+        },
+        {
+            "path": "../../../packages/client"
+        },
+        {
+            "path": "../../../packages/prelude"
+        }
+    ]
+}

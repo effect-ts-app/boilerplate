@@ -1,0 +1,44 @@
+{
+    "extends": "../../tsconfig.base.json",
+    "compilerOptions": {
+        "lib": [
+            "esnext",
+            "DOM"
+        ],
+        "tsPlusConfig": "../../tsplus.config.json",
+        "moduleResolution": "Node16",
+        "outDir": "./dist",
+        "rootDir": "./_src",
+        "tsBuildInfoFile": "./dist/.tsbuildinfo",
+        "types": [
+            "../../types/prelude",
+            "../../types/global",
+            "../../types/modules"
+        ],
+        "plugins": [
+            {
+                "transform": "@effect-ts/tracing-plugin",
+            }
+        ],
+    },
+    "include": [
+        "./_src/**/*.ts"
+    ],
+    "ts-node": {
+        "compiler": "ttypescript",
+        "require": [
+            "tsconfig-paths/register"
+        ],
+        "compilerOptions": {
+            "module": "CommonJS"
+        }
+    },
+    "references": [
+        {
+            "path": "../types"
+        },
+        {
+            "path": "../prelude"
+        }
+    ]
+}

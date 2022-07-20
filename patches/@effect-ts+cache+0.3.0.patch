@@ -1,0 +1,80 @@
+diff --git a/node_modules/@effect-ts/cache/package.json b/node_modules/@effect-ts/cache/package.json
+index b6dbb59..07598c4 100644
+--- a/node_modules/@effect-ts/cache/package.json
++++ b/node_modules/@effect-ts/cache/package.json
+@@ -12,39 +12,66 @@
+   "sideEffects": [],
+   "exports": {
+     "./Cache": {
+-      "import": "./_mjs/Cache/index.mjs",
++      "import": {
++        "types": "./Cache/index.d.ts",
++        "default": "./_mjs/Cache/index.mjs"
++      },
+       "require": "./Cache/index.js"
+     },
+     "./CacheStats": {
+-      "import": "./_mjs/CacheStats/index.mjs",
++      "import": {
++        "types": "./CacheStats/index.d.ts",
++        "default": "./_mjs/CacheStats/index.mjs"
++      },
+       "require": "./CacheStats/index.js"
+     },
+     "./EntryStats": {
+-      "import": "./_mjs/EntryStats/index.mjs",
++      "import": {
++        "types": "./EntryStats/index.d.ts",
++        "default": "./_mjs/EntryStats/index.mjs"
++      },
+       "require": "./EntryStats/index.js"
+     },
+     "./Internal/CacheState": {
+-      "import": "./_mjs/Internal/CacheState/index.mjs",
++      "import": {
++        "types": "./Internal/CacheState/index.d.ts",
++        "default": "./_mjs/Internal/CacheState/index.mjs"
++      },
+       "require": "./Internal/CacheState/index.js"
+     },
+     "./Internal/KeySet": {
+-      "import": "./_mjs/Internal/KeySet/index.mjs",
++      "import": {
++        "types": "./Internal/KeySet/index.d.ts",
++        "default": "./_mjs/Internal/KeySet/index.mjs"
++      },
+       "require": "./Internal/KeySet/index.js"
+     },
+     "./Internal/MapKey": {
+-      "import": "./_mjs/Internal/MapKey/index.mjs",
++      "import": {
++        "types": "./Internal/MapKey/index.d.ts",
++        "default": "./_mjs/Internal/MapKey/index.mjs"
++      },
+       "require": "./Internal/MapKey/index.js"
+     },
+     "./Internal/MapValue": {
+-      "import": "./_mjs/Internal/MapValue/index.mjs",
++      "import": {
++        "types": "./Internal/MapValue/index.d.ts",
++        "default": "./_mjs/Internal/MapValue/index.mjs"
++      },
+       "require": "./Internal/MapValue/index.js"
+     },
+     "./Lookup": {
+-      "import": "./_mjs/Lookup/index.mjs",
++      "import": {
++        "types": "./Lookup/index.d.ts",
++        "default": "./_mjs/Lookup/index.mjs"
++      },
+       "require": "./Lookup/index.js"
+     },
+     "./*": {
+-      "import": "./_mjs/*.mjs",
++      "import": {
++        "types": "./*.d.ts",
++        "default": "./_mjs/*.mjs"
++      },
+       "require": "./*.js"
+     }
+   }

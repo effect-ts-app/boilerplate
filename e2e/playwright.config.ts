@@ -1,0 +1,23 @@
+// This config file will be imported into each test
+import "./playwright/extend"
+
+import type { PlaywrightTestConfig } from "@playwright/test"
+
+const config: PlaywrightTestConfig = {
+  globalSetup: require.resolve("./global-setup"),
+  forbidOnly: !!process.env["CI"],
+  retries: process.env["CI"] ? 2 : 0,
+  // workers: process.env["CI"] ? 4 : 2,
+  use: {
+    baseURL: process.env["CYPRESS_BASE_URL"] ?? "http://localhost:4000",
+    // Tell all tests to load signed-in state from 'storageState.json'.
+    storageState: "storageState.supplier.json",
+    viewport: { width: 1280, height: 720 },
+    ignoreHTTPSErrors: true,
+    video: process.env["VIDEO"] ? "retain-on-failure" : "on-first-retry",
+    screenshot: "only-on-failure"
+    // video: process.env["CI"] ? "on-first-retry" : "retain-on-failure",
+  }
+}
+
+export default config

@@ -1,0 +1,64 @@
+diff --git a/node_modules/@effect-ts/node/package.json b/node_modules/@effect-ts/node/package.json
+index 38b6ef6..fdc008f 100644
+--- a/node_modules/@effect-ts/node/package.json
++++ b/node_modules/@effect-ts/node/package.json
+@@ -13,31 +13,52 @@
+   "sideEffects": [],
+   "exports": {
+     ".": {
+-      "import": "./_mjs/index.mjs",
++      "import": {
++        "types": "./index.d.ts",
++        "default": "./_mjs/index.mjs"
++      },
+       "require": "./index.js"
+     },
+     "./Byte": {
+-      "import": "./_mjs/Byte/index.mjs",
++      "import": {
++        "types": "./Byte/index.d.ts",
++        "default": "./_mjs/Byte/index.mjs"
++      },
+       "require": "./Byte/index.js"
+     },
+     "./FileSystem": {
+-      "import": "./_mjs/FileSystem/index.mjs",
++      "import": {
++        "types": "./FileSystem/index.d.ts",
++        "default": "./_mjs/FileSystem/index.mjs"
++      },
+       "require": "./FileSystem/index.js"
+     },
+     "./Process": {
+-      "import": "./_mjs/Process/index.mjs",
++      "import": {
++        "types": "./Process/index.d.ts",
++        "default": "./_mjs/Process/index.mjs"
++      },
+       "require": "./Process/index.js"
+     },
+     "./Runtime": {
+-      "import": "./_mjs/Runtime/index.mjs",
++      "import": {
++        "types": "./Runtime/index.d.ts",
++        "default": "./_mjs/Runtime/index.mjs"
++      },
+       "require": "./Runtime/index.js"
+     },
+     "./Stream": {
+-      "import": "./_mjs/Stream/index.mjs",
++      "import": {
++        "types": "./Stream/index.d.ts",
++        "default": "./_mjs/Stream/index.mjs"
++      },
+       "require": "./Stream/index.js"
+     },
+     "./*": {
+-      "import": "./_mjs/*.mjs",
++      "import": {
++        "types": "./*.d.ts",
++        "default": "./_mjs/*.mjs"
++      },
+       "require": "./*.js"
+     }
+   }

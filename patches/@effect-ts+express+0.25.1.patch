@@ -1,0 +1,24 @@
+diff --git a/node_modules/@effect-ts/express/package.json b/node_modules/@effect-ts/express/package.json
+index f9904e1..07345ef 100644
+--- a/node_modules/@effect-ts/express/package.json
++++ b/node_modules/@effect-ts/express/package.json
+@@ -14,11 +14,17 @@
+   "sideEffects": [],
+   "exports": {
+     ".": {
+-      "import": "./_mjs/index.mjs",
++      "import": {
++        "types": "./index.d.ts",
++        "default": "./_mjs/index.mjs"
++      },
+       "require": "./index.js"
+     },
+     "./*": {
+-      "import": "./_mjs/*.mjs",
++      "import": {
++        "types": "./*.d.ts",
++        "default": "./_mjs/*.mjs"
++      },
+       "require": "./*.js"
+     }
+   }

@@ -1,0 +1,38 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "module": "ESNext",
+    // TODO: we need these paths for nextjs build, but we don't want to use them
+    // during development (we dont want to import from them)
+    "paths": {
+      "@effect-ts-app/boilerplate-client/*": [
+        "../../packages/client/_src/*"
+      ],
+      "@effect-ts-app/boilerplate-types/*": [
+        "../../packages/types/_src/*"
+      ],
+      "@effect-ts-app/boilerplate-prelude/*": [
+        "../../packages/prelude/_src/*"
+      ],
+      "@effect-ts-app/boilerplate-prelude": [
+        "../../packages/prelude/_src"
+      ],
+      "@/*": [
+        "./src/*"
+      ]
+    },
+    "types": [
+      "../../types/prelude",
+      "../../types/global",
+      "../../types/modules",
+      "../../node_modules/@effect-ts-app/core/fluent/_ext/awesome/browser"
+    ]
+  },
+  "exclude": [
+    "**/node_modules",
+    "**/dist",
+    ".jest-cache",
+    "node_modules",
+    ".next"
+  ]
+}
