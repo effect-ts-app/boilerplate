@@ -5,3 +5,22 @@
 1. `yarn` from root
 2. open a typescript file, and set VSCode's Typescript version to use the workspace version:
    - TypeScript: Select TypeScript version: Use workspace version
+
+## Run
+
+(VSCode tasks.json in progress)
+
+### API & Libs
+
+a) `yarn build -w`
+b) `cd apps/api && yarn dev`
+
+Visit: http://localhost:3540/docs
+The API is also proxied in the frontend on /api
+
+### Frontend
+
+- `cd apps/frontend-vue && yarn dev`
+
+Visit: http://localhost:5173/about
+API Docs: http://localhost:5173/api/docs
