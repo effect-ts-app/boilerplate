@@ -1,0 +1,18 @@
+{
+    "plugins": [
+        [
+            "replace-import-extension",
+            {
+                "extMapping": {
+                    ".js": ".cjs"
+                }
+            }
+        ],
+        [
+            "@babel/plugin-proposal-export-namespace-from"
+        ],
+        [
+            "@babel/transform-modules-commonjs"
+        ]
+    ]
+}
