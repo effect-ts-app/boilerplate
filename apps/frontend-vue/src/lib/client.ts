@@ -35,7 +35,7 @@ export function make<R, E, A>(self: Effect<R, E, FetchResponse<A>>) {
 
 const Layers = HF.Client(fetch)["+++"](LiveApiConfig({ apiUrl: "/api" }))
 
-export function make2<E, A>(self: Effect<Has<ApiConfig> & Has<Http>, E, FetchResponse<A>>) {
+export function makeRun<E, A>(self: Effect<Has<ApiConfig> & Has<Http>, E, FetchResponse<A>>) {
   const { execute, ...rest } = make(self)
   return {
     execute: () => run(execute),

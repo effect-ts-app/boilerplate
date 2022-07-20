@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { onMounted } from "vue";
 import { helloWorldClient } from "@effect-ts-app/boilerplate-client/HelloWorld";
-import { make2 } from "@/lib/client.js";
+import { makeRun } from "@/lib/client.js";
 
-const { data, loading, error, execute } = make2(helloWorldClient.get);
+const { data, loading, error, execute } = makeRun(helloWorldClient.get);
 
 onMounted(() => {
-  execute().then(() => console.log(data.value));
+  execute().catch(console.error);
 });
 </script>
 
