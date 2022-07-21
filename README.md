@@ -18,7 +18,19 @@ b) `cd apps/api && yarn dev`
 Visit: http://localhost:3540/docs
 The API is also proxied in the frontend on /api
 
-### Frontend
+
+### Frontend (Nuxt)
+
+- `cd apps/frontend-nuxt && yarn dev -o`
+
+Visit: http://localhost:5174
+API Docs: http://localhost:5174/api/docs
+
+Notes
+
+- Make sure you don't have the old Vue/Vetur vs code plugin installed, but the new ones only: "Vue.volar", "Vue.vscode-typescript-vue-plugin"
+
+### Frontend (Vue)
 
 - `cd apps/frontend-vue && yarn dev`
 
