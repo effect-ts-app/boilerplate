@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { makeRun } from "@effect-ts-app/boilerplate-vue/client"
-import { helloWorldClient } from "@effect-ts-app/boilerplate-client/HelloWorld"
-import { onMounted } from "vue"
+import { makeRun } from "@effect-ts-app/boilerplate-vue/client";
+import { helloWorldClient } from "@effect-ts-app/boilerplate-client/HelloWorld";
+import { onMounted } from "vue";
 
-const [result, latestResult, execute] = makeRun(helloWorldClient.get)
+const [result, latestResult, execute] = makeRun(helloWorldClient.get);
 
 onMounted(() => {
   const t = setInterval(() => execute().catch(console.error), 2000)
