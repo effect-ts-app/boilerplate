@@ -1,4 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import type {
+  InvalidStateError,
+  NotFoundError,
+  NotLoggedInError,
+  OptimisticConcurrencyException,
+  UnauthorizedError,
+  ValidationError
+} from "@/errors.js"
+import { CauseException } from "@/errors.js"
+import { RequestContext, RequestId } from "@/RequestContext.js"
 import {
   Encoder,
   extractSchema,
@@ -8,6 +18,7 @@ import {
   Void
 } from "@effect-ts-app/boilerplate-prelude/schema"
 import * as MO from "@effect-ts-app/boilerplate-prelude/schema"
+import { typedKeysOf } from "@effect-ts-app/core/utils"
 import type {
   Middleware,
   RequestHandler,
@@ -20,36 +31,16 @@ import {
 } from "@effect-ts-app/infra/express/schema/requestHandler"
 import type { RouteDescriptorAny } from "@effect-ts-app/infra/express/schema/routing"
 import { makeRouteDescriptor } from "@effect-ts-app/infra/express/schema/routing"
-import * as Ex from "@effect-ts/express"
-import type express from "express"
-
-import type {
-  InvalidStateError,
-  NotFoundError,
-  NotLoggedInError,
-  OptimisticConcurrencyException,
-  UnauthorizedError,
-  ValidationError
-} from "@/errors.js"
-import { CauseException } from "@/errors.js"
-import { LiveRequestContext, RequestContext, RequestId } from "@/RequestContext.js"
-import { reportError } from "./errorReporter.js"
-// import { InternalRequestLayers, RequestLayers2 } from "@/RequestLayers.js"
-// import { logger } from "@/services.js"
-// import { getAppInsightsContext, Instrument } from "@/services/AppInsights.js"
-
-// import type { AppInsights, AppInsightsContext } from "@/services/AppInsights.js"
-// import type { Intl, IntlInstance } from "@/services/Intl.js"
-// import type { UserProfile } from "@/services/User.js"
-import type { Erase } from "@effect-ts/system/Utils"
-import type { StopWatch } from "stopwatch-node"
-
-// import type { Config } from "@/services/Config.js"
-import { typedKeysOf } from "@effect-ts-app/core/utils"
+import { makeChild, WinstonInstance } from "@effect-ts-app/infra/logger/Winston"
 import type { HasClock } from "@effect-ts/core/Effect/Clock"
+import * as Ex from "@effect-ts/express"
+import type { Erase } from "@effect-ts/system/Utils"
+import type express from "express"
+import type { StopWatch } from "stopwatch-node"
 import { demandLoggedIn } from "./authorization.js"
+import { reportError } from "./errorReporter.js"
 import { Instrument } from "./instrument.js"
-// import { demandLoggedIn } from "./middleware.js"
+import { logger } from "./logger.js"
 
 const optimisticConcurrencySchedule = Schedule.once["&&"](
   Schedule.recurWhile<SupportedErrors>(a => a._tag === "OptimisticConcurrencyException")
@@ -146,17 +137,17 @@ export class RequestException<E> extends CauseException<E> {
 }
 const reportRequestError = reportError(cause => new RequestException(cause))
 
-const logger = {
-  debug: (...args: any[]) => Effect.succeedWith(() => console.debug(...args)),
-  info: (...args: any[]) => Effect.succeedWith(() => console.info(...args)),
-  warn: (...args: any[]) => Effect.succeedWith(() => console.warn(...args)),
-  error: (...args: any[]) => Effect.succeedWith(() => console.error(...args))
+function getRequestPars(pars: RequestContext) {
+  return {
+    request: pars,
+    requestId: pars.id,
+    requestLocale: pars.locale,
+    requestName: pars.name
+  }
 }
 
-export const InternalRequestLayers = (pars: RequestContext) => LiveRequestContext(pars)
-// LiveAiContext["<+<"](LiveRequestContext(pars))
-//   ["<+<"](Layer.fromEffect(WinstonInstance)(makeChild(getRequestPars(pars))))
-//   ["<+<"](Intl.LiveIntlInstance(pars.locale))
+export const InternalRequestLayers = (pars: RequestContext) =>
+  RequestContext.Live(pars)["<+<"](Layer.fromEffect(WinstonInstance)(makeChild(getRequestPars(pars))))
 
 export function makeRequestHandler<
   R,
@@ -395,16 +386,17 @@ type RouteAll<T extends RequestHandlers> = {
     : never
 }
 
-// type AppDeps =     & Has<CacheScope>
-//     & Has<BoilerplateContext>
-//     & Has<logger.Logger>
-//     & Has<Config>
-//     & Has<AppInsightsContext>
-//     & Has<RequestContext>
-//     & Has<WinstonInstance>
-//     & Has<IntlInstance>
-//     & Has<AppInsights>
-//     & Has<Intl>
+type AppDeps =
+  & Has<RequestContext>
+  & Has<WinstonInstance>
+  & Has<logger.Logger>
+// & Has<CacheScope>
+// & Has<BoilerplateContext>
+// & Has<Config>
+// & Has<AppInsightsContext>
+// & Has<IntlInstance>
+// & Has<AppInsights>
+// & Has<Intl>
 
 type RouteMatch<
   R,
@@ -420,13 +412,13 @@ type RouteMatch<
 > = Effect<
   & Has<Ex.ExpressAppConfig>
   & Has<Ex.ExpressApp>
-  // & Has<logger.Logger>
+  & Has<logger.Logger>
   & Erase<
     & R
     & R2,
     & PR
     & HasClock
-    // & AppDeps
+    & AppDeps
     & {
       sw: StopWatch
     }

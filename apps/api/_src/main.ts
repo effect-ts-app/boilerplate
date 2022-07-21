@@ -1,17 +1,19 @@
+import { LoggerFactory, WinstonLogger } from "@effect-ts-app/infra/logger/Winston"
 import * as Ex from "@effect-ts/express"
 import { app } from "./app.js"
 import * as cfg from "./config.js"
+import { loggerConfig, logLocation, logServerStart } from "./lib/logSetup.js"
 import { writeOpenapiDocs } from "./lib/writeDocs.js"
 
-const logStart = Effect.succeedWith(() =>
-  `Running on ${cfg.HOST}:${cfg.PORT} at version: ${cfg.API_VERSION}. ENV: ${cfg.ENV}`
-)
-  .flatMap(msg => Effect.succeedWith(() => console.log(msg)))
-
-const server = app // API
-  .flatMap(writeOpenapiDocs)
-  .zipRight(logStart)
-  .zipRight(Effect.never)
-  .inject(Ex.LiveExpress(cfg.HOST, cfg.PORT))
+const server = logLocation >
+  app // API
+    .flatMap(writeOpenapiDocs)
+    .zipRight(logServerStart)
+    .zipRight(Effect.never)
+    .inject(
+      Ex.LiveExpress(cfg.HOST, cfg.PORT)["<+<"](
+        WinstonLogger["<<<"](LoggerFactory(loggerConfig))
+      )
+    )
 
 server.runMain()

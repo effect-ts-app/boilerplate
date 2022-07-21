@@ -1,4 +1,8 @@
-import type { ConstructorInputFromApi, GetProvidedProps, ParsedShapeOfCustom } from "@effect-ts-app/boilerplate-prelude/schema"
+import type {
+  ConstructorInputFromApi,
+  GetProvidedProps,
+  ParsedShapeOfCustom
+} from "@effect-ts-app/boilerplate-prelude/schema"
 import {
   date,
   defaultProp,
@@ -33,6 +37,10 @@ export function makeRequestId() {
   return RequestId(StringId.make())
 }
 
+/**
+ * @tsplus type RequestContext
+ * @tsplus companion RequestContext.Ops
+ */
 export class RequestContext extends MNModel<
   RequestContext,
   RequestContext.ConstructorInput,
@@ -71,9 +79,15 @@ export class RequestContext extends MNModel<
 // eslint-disable-next-line unused-imports/no-unused-vars
 type RequestContextConstructor = typeof RequestContext
 
-export const RequestContextService = Has.tag<RequestContext>()
+/**
+ * @tsplus static RequestContext.Ops Tag
+ */
+export const Tag = Has.tag<RequestContext>()
 
-export const LiveRequestContext = (pars: RequestContext) => Layer.fromValue(RequestContextService)(pars)
+/**
+ * @tsplus static RequestContext.Ops Live
+ */
+export const LiveRequestContext = (pars: RequestContext) => Layer.fromValue(Tag)(pars)
 
 // codegen:start {preset: model}
 //

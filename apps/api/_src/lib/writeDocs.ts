@@ -4,6 +4,7 @@ import * as Plutus from "@effect-ts-app/infra/Openapi/atlas-plutus"
 import { writeTextFile } from "@effect-ts-app/infra/simpledb/fileutil"
 
 import { typedValuesOf } from "@effect-ts-app/core/utils"
+import { logger } from "./logger.js"
 
 export function writeOpenapiDocs(rdescs: Record<string, Record<string, RouteDescriptorAny>>) {
   return makeOpenApiSpecs(
@@ -22,5 +23,5 @@ export function writeOpenapiDocs(rdescs: Record<string, Record<string, RouteDesc
       ]
     }))
     .flatMap(_ => writeTextFile("./openapi.json", JSON.stringify(_, undefined, 2)).orDie())
-    .flatMap(() => Effect.succeedWith(() => console.log("OpenAPI spec written to './openapi.json'")))
+    .flatMap(() => logger.info("OpenAPI spec written to './openapi.json'"))
 }
