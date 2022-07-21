@@ -24,3 +24,7 @@ The API is also proxied in the frontend on /api
 
 Visit: http://localhost:5173/about
 API Docs: http://localhost:5173/api/docs
+
+Notes
+
+- Make sure you don't have the old Vue/Vetur vs code plugin installed, but the new ones only: "Vue.volar", "Vue.vscode-typescript-vue-plugin"

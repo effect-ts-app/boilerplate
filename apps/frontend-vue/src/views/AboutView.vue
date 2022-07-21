@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { onMounted } from "vue";
+import { makeRun } from "@/lib/client";
 import { helloWorldClient } from "@effect-ts-app/boilerplate-client/HelloWorld";
-import { makeRun } from "@/lib/client.js";
+import { onMounted } from "vue";
 
 const { data, loading, error, execute } = makeRun(helloWorldClient.get);
 
