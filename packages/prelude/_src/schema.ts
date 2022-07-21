@@ -4,4 +4,4 @@ export * from "./schema/api.js"
 export * from "./schema/shared.js"
 // codegen:end
 
-export { Email, FullName, PhoneNumber } from "./schema/shared.js"
+export { Email, PhoneNumber } from "./schema/shared.js"

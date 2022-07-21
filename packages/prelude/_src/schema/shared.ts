@@ -18,7 +18,6 @@ import {
   makeUuid,
   mapConstructorError,
   mapParserError,
-  MNModel,
   named,
   nonEmpty,
   nonEmptyStringFromString,
@@ -31,13 +30,7 @@ import validator from "validator"
 import { curriedMagix } from "../utils.js"
 
 import type { Chunk } from "@effect-ts-app/prelude"
-import type {
-  ConstructorInputFromApi,
-  GetProvidedProps,
-  ParsedShapeOfCustom,
-  ReasonableStringBrand,
-  UnionBrand
-} from "./_schema.js"
+import type { ParsedShapeOfCustom, ReasonableStringBrand, UnionBrand } from "./_schema.js"
 import {
   Arbitrary,
   arbitrary,
@@ -45,7 +38,6 @@ import {
   fakerArb,
   fromString,
   makeConstrainedFromString,
-  prop,
   ReasonableString,
   string
 } from "./_schema.js"
@@ -118,53 +110,6 @@ export const reasonableString3FromString = pipe(
 export const ReasonableString3 = extendWithUtils(
   pipe(string[">>>"](reasonableString3FromString), brand<ReasonableString3>())
 )
-
-export const FirstName = ReasonableString["|>"](
-  arbitrary(FC =>
-    // eslint-disable-next-line @typescript-eslint/unbound-method
-    fakerArb(faker => faker.name.firstName)(FC).map(x => x as ReasonableString)
-  )
-)
-export type FirstName = ParsedShapeOfCustom<typeof FirstName>
-
-export const DisplayName = FirstName
-export type DisplayName = ParsedShapeOfCustom<typeof DisplayName>
-
-export const LastName = ReasonableString["|>"](
-  arbitrary(FC =>
-    // eslint-disable-next-line @typescript-eslint/unbound-method
-    fakerArb(faker => faker.name.lastName)(FC).map(x => x as ReasonableString)
-  )
-)
-export type LastName = ParsedShapeOfCustom<typeof LastName>
-
-export class FullName extends MNModel<
-  FullName,
-  FullName.ConstructorInput,
-  FullName.Encoded,
-  FullName.Props
->("FullName")({
-  firstName: prop(FirstName),
-  lastName: prop(LastName)
-}) {
-  static render(this: void, fn: FullName) {
-    return `${fn.firstName} ${fn.lastName}` as ReasonableString
-  }
-
-  static create(this: void, firstName: FirstName, lastName: LastName) {
-    return new FullName({ firstName, lastName })
-  }
-}
-// @ts-expect-error bla
-// eslint-disable-next-line unused-imports/no-unused-vars
-type FullNameConstructor = typeof FullName
-
-/**
- * @tsplus static FullName.Encoded.Ops create
- */
-export function createFullName(firstName: string, lastName: string) {
-  return { firstName, lastName }
-}
 
 /**
  * A string that is at least 6 characters long and a maximum of 50.
@@ -388,35 +333,3 @@ export const Email: EmailSchema = Email__
 export type Email = ParsedShapeOfCustom<typeof Email_> & {
   split: (separator: "@") => [ReasonableString, ReasonableString]
 }
-
-// codegen:start {preset: model}
-//
-/* eslint-disable */
-export interface FullName {
-  readonly firstName: ReasonableString
-  readonly lastName: ReasonableString
-}
-export namespace FullName {
-  /**
-   * @tsplus type FullName.Encoded
-   */
-  export interface Encoded {
-    readonly firstName: string
-    readonly lastName: string
-  }
-  export const Encoded: EncodedOps = { $: {} }
-  /**
-   * @tsplus type FullName.Encoded.Aspects
-   */
-  export interface EncodedAspects {}
-  /**
-   * @tsplus type FullName.Encoded.Ops
-   */
-  export interface EncodedOps { $: EncodedAspects }
-  export interface ConstructorInput
-    extends ConstructorInputFromApi<typeof FullName> {}
-  export interface Props extends GetProvidedProps<typeof FullName> {}
-}
-/* eslint-enable */
-//
-// codegen:end
