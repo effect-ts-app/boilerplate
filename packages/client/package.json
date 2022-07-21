@@ -29,6 +29,16 @@
         "default": "./_cjs/HelloWorld.cjs"
       }
     },
+    "./QueryResult": {
+      "import": {
+        "types": "./dist/QueryResult.d.ts",
+        "default": "./dist/QueryResult.js"
+      },
+      "require": {
+        "types": "./dist/QueryResult.d.ts",
+        "default": "./_cjs/QueryResult.cjs"
+      }
+    },
     "./clientFor": {
       "import": {
         "types": "./dist/clientFor.d.ts",

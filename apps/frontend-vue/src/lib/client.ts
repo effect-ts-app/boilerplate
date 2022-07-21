@@ -1,46 +1,51 @@
-import { ref } from "vue";
+import { computed, shallowRef } from "vue";
 import { Effect, Has } from "@effect-ts-app/boilerplate-prelude";
 import { pipe } from "@effect-ts-app/boilerplate-prelude/Function";
 import { ApiConfig, LiveApiConfig } from "@effect-ts-app/boilerplate-client/config";
 import * as HF from "@effect-ts-app/core/http/http-client-fetch";
 import type { FetchResponse } from "@effect-ts-app/boilerplate-client/fetch";
 import type { Http } from "@effect-ts-app/core/http/http-client";
+import { Initial, Loading, queryResult, Refreshing } from "@effect-ts-app/boilerplate-client/QueryResult"
+import type { QueryResult } from "@effect-ts-app/boilerplate-client/QueryResult"
+
+export { isFailed, isSuccess } from "@effect-ts-app/boilerplate-client/QueryResult"
 
 export function make<R, E, A>(self: Effect<R, E, FetchResponse<A>>) {
-  const data = ref<A>();
-  const loading = ref(true);
-  const error = ref<E>();
+  const result = shallowRef(new Initial() as QueryResult<E, A>);
 
   const execute = pipe(
-    self,
+    Effect.succeedWith(() => { 
+      result.value =
+              result.value._tag === "Initial" ||
+          result.value._tag === "Loading"
+          ? new Loading()
+          : new Refreshing(result.value)
+    }),
+    Effect.zipRight(self),
     Effect.map((_) => _.body),
-    Effect.flatMap((_) =>
-      Effect.succeedWith(() => {
-        data.value = _;
-        error.value = undefined;
-        loading.value = false;
-      })
-    ),
-    Effect.catchAll((_) => Effect.succeedWith(() => { error.value = _; loading.value = false }))
+    queryResult,
+    Effect.flatMap((r) => Effect.succeedWith(() => result.value = r))
   );
 
-  // TODO: nicer is tagged union where: Initial, Loading, Success, Failure, Refreshing etc.
-  return {
-    execute,
-    data,
-    loading,
-    error,
-  };
+  const latestResult = computed(() => {
+    const value = result.value
+    return value._tag === "Refreshing" || value._tag === "Done" ?
+      value.current._tag === "Right"
+        ? value.current.right
+        : value.previous._tag === "Some"
+          ? value.previous.value
+          : undefined
+      : undefined
+  })
+
+  return [result, latestResult, execute] as const;
 }
 
 const Layers = HF.Client(fetch)["+++"](LiveApiConfig({ apiUrl: "/api" }))
 
 export function makeRun<E, A>(self: Effect<Has<ApiConfig> & Has<Http>, E, FetchResponse<A>>) {
-  const { execute, ...rest } = make(self)
-  return {
-    execute: () => run(execute),
-    ...rest,
-  }
+  const [result, latestResult, execute] = make(self)
+  return [result, latestResult, () => run(execute)] as const
 }
 
 export function run<E, A>(self: Effect<Has<ApiConfig> & Has<Http>, E, A>) {

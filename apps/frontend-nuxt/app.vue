@@ -1,19 +1,25 @@
 <script setup lang="ts">
-import { makeRun } from "./lib/client";
+import { makeRun, isFailed } from "./lib/client";
 import { helloWorldClient } from "@effect-ts-app/boilerplate-client/HelloWorld";
 import { onMounted } from "vue";
 
-const { data, loading, error, execute } = makeRun(helloWorldClient.get);
+const [result, latestResult, execute] = makeRun(helloWorldClient.get);
+
 
 onMounted(() => {
-  execute().catch(console.error);
+  const t = setInterval(() => execute().catch(console.error), 2000)
+  return () => clearInterval(t)
 });
+
 </script>
 <template>
   <div>
-    <div v-if="loading">Loading...</div>
-    <pre v-if="data" v-html="JSON.stringify(data, undefined, 2)"></pre>
-    <pre v-if="error" v-html="JSON.stringify(error, undefined, 2)"></pre>
+    <div v-if="result._tag === 'Initial' || result._tag === 'Loading'">Loading...</div>
+    <div v-else>
+      <pre v-if="latestResult" v-html="JSON.stringify(latestResult, undefined, 2)" />
+      <pre v-if="result.current._tag === 'Left'" v-html="JSON.stringify(result.current.left, undefined, 2)" />
+      <div v-if="result._tag === 'Refreshing'">Refreshing...</div>
+    </div>
     <NuxtWelcome />
   </div>
 </template>
