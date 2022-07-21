@@ -13,18 +13,14 @@ export function make<R, E, A>(self: Effect<R, E, FetchResponse<A>>) {
   const result = shallowRef(new Initial() as QueryResult<E, A>)
 
   const execute = Effect.succeedWith(() => {
-    result.value = result.value._tag === "Initial" ||
-        result.value._tag === "Loading"
+    result.value = result.value._tag === "Initial" || result.value._tag === "Loading"
       ? new Loading()
       : new Refreshing(result.value)
   })
-    .zipRight(
-      self.map(_ => _.body)
-        >= queryResult
-    )
+    .zipRight(self.map(_ => _.body) >= queryResult)
     .flatMap(r => Effect.succeedWith(() => result.value = r))
 
-  const latestResult = computed(() => {
+  const latestSuccess = computed(() => {
     const value = result.value
     return value._tag === "Refreshing" || value._tag === "Done" ?
       value.current._tag === "Right"
@@ -35,14 +31,14 @@ export function make<R, E, A>(self: Effect<R, E, FetchResponse<A>>) {
       undefined
   })
 
-  return [result, latestResult, execute] as const
+  return [result, latestSuccess, execute] as const
 }
 
 const Layers = HF.Client(fetch)["+++"](LiveApiConfig({ apiUrl: "/api" }))
 
 export function makeRun<E, A>(self: Effect<Has<ApiConfig> & Has<Http>, E, FetchResponse<A>>) {
-  const [result, latestResult, execute] = make(self)
-  return [result, latestResult, () => run(execute)] as const
+  const [result, latestSuccess, execute] = make(self)
+  return [result, latestSuccess, () => run(execute)] as const
 }
 
 export function run<E, A>(self: Effect<Has<ApiConfig> & Has<Http>, E, A>) {
