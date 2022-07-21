@@ -23,21 +23,30 @@
         "types": "./dist/User.d.ts",
         "default": "./dist/User.js"
       },
-      "require": "./_cjs/User.cjs"
+      "require": {
+        "types": "./dist/User.d.ts",
+        "default": "./_cjs/User.cjs"
+      }
     },
     "./*.js": {
       "import": {
         "types": "./dist/*.d.ts",
         "default": "./dist/*.js"
       },
-      "require": "./_cjs/*.cjs"
+      "require": {
+        "types": "./dist/*.d.ts",
+        "default": "./_cjs/*.cjs"
+      }
     },
     "./*": {
       "import": {
         "types": "./dist/*.d.ts",
         "default": "./dist/*.js"
       },
-      "require": "./_cjs/*.cjs"
+      "require": {
+        "types": "./dist/*.d.ts",
+        "default": "./_cjs/*.cjs"
+      }
     }
   },
   "devDependencies": {

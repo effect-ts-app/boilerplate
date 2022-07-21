@@ -7,6 +7,8 @@
     "typescript": "https://cdn.jsdelivr.net/npm/@tsplus/installer@0.0.127/compiler/typescript.tgz"
   },
   "dependencies": {
+    "@effect-ts-app/boilerplate-client": "*",
+    "@effect-ts-app/boilerplate-prelude": "*",
     "@effect-ts-app/boilerplate-types": "*"
   },
   "peerDependencies": {
@@ -18,7 +20,10 @@
         "types": "./dist/client.d.ts",
         "default": "./dist/client.js"
       },
-      "require": "./_cjs/client.cjs"
+      "require": {
+        "types": "./dist/client.d.ts",
+        "default": "./_cjs/client.cjs"
+      }
     }
   },
   "devDependencies": {},
