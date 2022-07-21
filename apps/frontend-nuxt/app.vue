@@ -1,17 +1,16 @@
 <script setup lang="ts">
-import { makeRun, isFailed } from "./lib/client";
+import { makeRun } from "@effect-ts-app/boilerplate-vue/client";
 import { helloWorldClient } from "@effect-ts-app/boilerplate-client/HelloWorld";
 import { onMounted } from "vue";
 
 const [result, latestResult, execute] = makeRun(helloWorldClient.get);
 
-
 onMounted(() => {
   const t = setInterval(() => execute().catch(console.error), 2000)
   return () => clearInterval(t)
 });
-
 </script>
+
 <template>
   <div>
     <div v-if="result._tag === 'Initial' || result._tag === 'Loading'">Loading...</div>

@@ -4,14 +4,15 @@ module.exports = {
   // **optional** default: `{}`
   // override vscode settings part
   // Notice: It only affects the settings used by Vetur.
-  // settings: {
-  //   "vetur.useWorkspaceDependencies": true,
-  //   "vetur.experimental.templateInterpolationService": true
-  // },
+  settings: {
+    "vetur.useWorkspaceDependencies": true,
+    "vetur.experimental.templateInterpolationService": true
+  },
   // **optional** default: `[{ root: './' }]`
   // support monorepos
   projects: [
     './apps/frontend-vue', // shorthand for only root.
+    './apps/frontend-nuxt',
     // {
     //   // **required**
     //   // Where is your project?

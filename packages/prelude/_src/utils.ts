@@ -1,8 +1,3 @@
-// eslint-disable-next-line import/no-duplicates
-import { isAfter, isBefore } from "date-fns"
-// eslint-disable-next-line import/no-duplicates
-import { set } from "date-fns/fp"
-
 import { Option as Maybe } from "@effect-ts-app/prelude"
 
 export function assertUnreachable(x: never): never {
@@ -52,42 +47,6 @@ export function makeAzureFriendly(path: string) {
 
 export function undoAzureFriendly<T extends string>(path: T): T {
   return path.replace(/___SL@SH___/g, "/") as T
-}
-
-export const setTimeToStartOfDay = set({
-  hours: 0,
-  minutes: 0,
-  seconds: 0,
-  milliseconds: 0
-})
-
-export const setTimeToMidday = set({
-  hours: 12,
-  minutes: 0,
-  seconds: 0,
-  milliseconds: 0
-})
-
-export const setTimeToEndOfDay = set({
-  hours: 23,
-  minutes: 59,
-  seconds: 59,
-  milliseconds: 999
-})
-
-export function todayAtNoon() {
-  return setTimeToMidday(new Date())
-}
-
-export function isBetween(minDate?: Date, maxDate?: Date) {
-  return (d: Date) => !((minDate && isBefore(d, minDate)) || (maxDate && isAfter(d, maxDate)))
-}
-
-export function isBetweenMidnightAndEndOfDay(minDate?: Date, maxDate?: Date) {
-  return isBetween(
-    minDate && setTimeToStartOfDay(minDate),
-    maxDate && setTimeToEndOfDay(maxDate)
-  )
 }
 
 export function arrayMove<T>(
