@@ -439,7 +439,7 @@ export function matchAll<T extends RequestHandlers>(handlers: T) {
   return mapped
 }
 
-export function matchAllTest<T extends RequestHandlersTest>(handlers: T) {
+export function matchAllAlt<T extends RequestHandlersTest>(handlers: T) {
   const mapped = typedKeysOf(handlers).reduce((prev, cur) => {
     const matches = matchAll(handlers[cur])
     typedKeysOf(matches).forEach(key => prev[`${cur as string}.${key as string}`] = matches[key])
