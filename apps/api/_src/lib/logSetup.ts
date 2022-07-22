@@ -1,5 +1,5 @@
 import * as cfg from "../config.js"
-import { createLoggerConfig } from "./createLoggedConfig.js"
+import { createLoggerConfig } from "./createLoggerConfig.js"
 import { logger } from "./logger.js"
 
 export const logServerStart = Effect.succeedWith(() =>
