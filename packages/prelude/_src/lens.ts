@@ -1,6 +1,6 @@
 import { identity } from "@effect-ts-app/core/Function"
-import type { Lens } from "@effect-ts-app/prelude"
-import { Effect, Sync } from "@effect-ts-app/prelude"
+import type { Lens } from "@effect-ts-app/core/Prelude"
+import { Effect, Sync } from "@effect-ts-app/core/Prelude"
 
 export function setIfDefined_<S, A>(lens: Lens<S, A>) {
   return <B>(b: B | undefined, map: (b: B) => A) => b !== undefined ? lens.set(map(b)) : identity

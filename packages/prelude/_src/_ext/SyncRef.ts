@@ -1,4 +1,4 @@
-import { Effect, Sync } from "@effect-ts-app/prelude"
+import { Effect, Sync } from "@effect-ts-app/core/Prelude"
 
 export interface SyncRef<A> {
   readonly [Effect._A]: () => A

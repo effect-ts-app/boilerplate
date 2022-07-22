@@ -12,7 +12,7 @@ Problems and thoughts:
   The problem is if you want to read from the state (but not write).
 
 */
-import { type Chunk, Effect, Either, Tuple } from "@effect-ts-app/prelude"
+import { type Chunk, Effect, Either, Tuple } from "@effect-ts-app/core/Prelude"
 import { type PureEnv, type PureLog, type PureState, makePureEnv } from "./PureProgram.js"
 import { SyncRef } from "./SyncRef.js"
 

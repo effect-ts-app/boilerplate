@@ -1,4 +1,4 @@
-import type { Tag } from "@effect-ts-app/prelude"
+import type { Tag } from "@effect-ts-app/core/Prelude"
 
 import { Effect } from "../index.js"
 

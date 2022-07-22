@@ -1,6 +1,6 @@
-import "@effect-ts-app/prelude/_ext/Prelude.ext"
+import "@effect-ts-app/core/_ext/Prelude.ext"
 
-import { Effect, Either, Sync, type SyncMaybe, type XPure } from "@effect-ts-app/prelude"
+import { Effect, Either, Sync, type SyncMaybe, type XPure } from "@effect-ts-app/core/Prelude"
 import "./Chunk.ext.js"
 import "./Either.ext.js"
 import "./Has.ext.js"

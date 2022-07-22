@@ -12,7 +12,7 @@ Problems and thoughts:
   The problem is if you want to read from the state (but not write).
 
 */
-import { Chunk, Effect, Either, Sync, Tuple } from "@effect-ts-app/prelude"
+import { Chunk, Effect, Either, Sync, Tuple } from "@effect-ts-app/core/Prelude"
 import { SyncRef } from "./SyncRef.js"
 
 /**

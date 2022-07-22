@@ -13,8 +13,8 @@ import {
   set as setOriginal
 } from "@effect-ts-app/schema"
 
-import { Ord, ROSet } from "@effect-ts-app/prelude"
-import type { Equal, NonEmptyArray } from "@effect-ts-app/prelude"
+import { Ord, ROSet } from "@effect-ts-app/core/Prelude"
+import type { Equal, NonEmptyArray } from "@effect-ts-app/core/Prelude"
 
 export const positiveNumber = positive(number)["|>"](brand<PositiveNumber>())
 export type PositiveNumber = number & PositiveBrand

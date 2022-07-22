@@ -2022,10 +2022,10 @@
     lodash "^4.17.11"
     moment "^2.24.0"
 
-"@effect-ts-app/core@0.75.0", "@effect-ts-app/core@^0.75.0":
-  version "0.75.0"
-  resolved "https://registry.yarnpkg.com/@effect-ts-app/core/-/core-0.75.0.tgz#c84871f1a594b71ed4bc91bf4b58badcd230c73b"
-  integrity sha512-NCpK3fC5Y6orfVIqLSWfIDB9mzRFrVOnIYVp6wnxTGqC5wzcYlRgC/mErf+7O0P5hHOkxE/ZGjCE3KL1gEvMaA==
+"@effect-ts-app/core@0.77.3", "@effect-ts-app/core@^0.77.3":
+  version "0.77.3"
+  resolved "https://registry.yarnpkg.com/@effect-ts-app/core/-/core-0.77.3.tgz#bf8476a2e988a60bc7983d6c9585c56119735bc7"
+  integrity sha512-drhlRJXWGgs4Y4XEgdXch+kgJD/bk88QT5nWt+sWfjbpqO+ENK37xhokhYflC9ep1JcL5BdISSfjZF8nrId+GQ==
   dependencies:
     cross-fetch "^3.1.5"
     lodash "^4.17.21"
@@ -2034,39 +2034,31 @@
     uuid "^8.3.2"
     validator "^13.7.0"
 
-"@effect-ts-app/infra@0.75.0":
-  version "0.75.0"
-  resolved "https://registry.yarnpkg.com/@effect-ts-app/infra/-/infra-0.75.0.tgz#d24b9f6cabef2eea0f363aed09239ebe677c37e2"
-  integrity sha512-UTfBBGOshs+2J6YK9HYZxo3d/R9gaDdQTUCciAftSasCJB+GYIrOsMXsq07CcmRB2ms923f+1P58yuf5YT5mzw==
+"@effect-ts-app/infra@0.77.3":
+  version "0.77.3"
+  resolved "https://registry.yarnpkg.com/@effect-ts-app/infra/-/infra-0.77.3.tgz#0949c7bd8b0453ba8b63ee31b9781d3a30a4bf25"
+  integrity sha512-3HE/cYSSIH9CiLZnCyFtdwxFwwEhQIYoOLhmUi2+SNFXPxld8hiKVV7ROqcUfY9mJIAgvo5FRIYc9chIgUp85g==
   dependencies:
-    "@effect-ts-app/core" "^0.75.0"
-    "@effect-ts-app/schema" "^0.75.0"
+    "@effect-ts-app/core" "^0.77.3"
+    "@effect-ts-app/schema" "^0.77.3"
     proper-lockfile "^4.1.2"
     query-string "^7.1.1"
     winston "^3.8.0"
 
-"@effect-ts-app/prelude@0.75.0":
-  version "0.75.0"
-  resolved "https://registry.yarnpkg.com/@effect-ts-app/prelude/-/prelude-0.75.0.tgz#32d3836e6dafe0278bb3e1580d553bcea1e7e3d0"
-  integrity sha512-Y0JtlDmnjKXl2im7QnU7Y184qxvZiGFEwKfWWbd4Zuf88MGXVLR86LhSnB94O3iBm0ok0B3w4AAe6CnXnUxeWg==
-  dependencies:
-    "@effect-ts-app/core" "^0.75.0"
-    "@effect-ts-app/schema" "^0.75.0"
-
-"@effect-ts-app/react@0.75.0":
-  version "0.75.0"
-  resolved "https://registry.yarnpkg.com/@effect-ts-app/react/-/react-0.75.0.tgz#8ae298793ef4caa31cf36297172859f17d321e70"
-  integrity sha512-nVyF9S1cMZh301MV8z1J8MwJK7iE57/6ATIi8q6uyRaVhDdjXPyRSjg+oj/pQ1znXrzpK817AuVaS21uZuzvHQ==
+"@effect-ts-app/react@0.77.0":
+  version "0.77.0"
+  resolved "https://registry.yarnpkg.com/@effect-ts-app/react/-/react-0.77.0.tgz#5cec3e6d250bcd9939a380193cf8b5772aed2c43"
+  integrity sha512-D4/Ob7tctL+IWGg59dpaUYzg0lB1YmSxT/qMb6d7mDQI+xBqGurKz5wDMNbOhtJKQ6efy0O8g69W2Tk/bdv2cQ==
   dependencies:
     cross-fetch "^3.1.5"
     path-parser "^6.1.0"
 
-"@effect-ts-app/schema@0.75.0", "@effect-ts-app/schema@^0.75.0":
-  version "0.75.0"
-  resolved "https://registry.yarnpkg.com/@effect-ts-app/schema/-/schema-0.75.0.tgz#fee3b601c1b2f3bab01ae7428e970bdbb1438c3a"
-  integrity sha512-Nf8/6TNsiJgmYXk03IWc/SvD2UvLQB6f9tAajnwBZrq2KqGcfAmy0yD9mol+0OmNXqEKsLs7k0RkPRyiE69N4g==
+"@effect-ts-app/schema@0.77.3", "@effect-ts-app/schema@^0.77.3":
+  version "0.77.3"
+  resolved "https://registry.yarnpkg.com/@effect-ts-app/schema/-/schema-0.77.3.tgz#c193f65a83aed588100529252eca423633962f13"
+  integrity sha512-jzGKz2hF/0dcJNs2SY7F8XLoOoVaiJ25DsuifFY+AplUJpOMfG8IrxALKYO0EX9JJ12fHtZpeMQMbnbpnnZsEA==
   dependencies:
-    "@effect-ts-app/core" "^0.75.0"
+    "@effect-ts-app/core" "^0.77.3"
     cross-fetch "^3.1.5"
     lodash "^4.17.21"
     path-parser "^6.1.0"

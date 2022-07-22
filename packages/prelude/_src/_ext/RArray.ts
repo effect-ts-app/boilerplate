@@ -1,4 +1,4 @@
-import { ROArray } from "@effect-ts-app/prelude"
+import { ROArray } from "@effect-ts-app/core/Prelude"
 
 /**
  * @tsplus fluent ets/Array groupByT

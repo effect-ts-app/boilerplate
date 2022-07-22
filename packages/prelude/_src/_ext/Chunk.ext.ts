@@ -1,5 +1,5 @@
-import type { Ord, ROArray } from "@effect-ts-app/prelude"
-import { Chunk } from "@effect-ts-app/prelude"
+import type { Ord, ROArray } from "@effect-ts-app/core/Prelude"
+import { Chunk } from "@effect-ts-app/core/Prelude"
 
 /**
  * @tsplus fluent ets/Chunk mapWithIndex

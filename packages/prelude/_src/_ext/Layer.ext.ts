@@ -1,4 +1,4 @@
-import { Cause, Effect, Either, Layer, Tuple } from "@effect-ts-app/prelude"
+import { Cause, Effect, Either, Layer, Tuple } from "@effect-ts-app/core/Prelude"
 
 /**
  * Recovers from all errors.

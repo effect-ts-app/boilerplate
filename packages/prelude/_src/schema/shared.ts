@@ -29,7 +29,7 @@ import type * as FC from "fast-check"
 import validator from "validator"
 import { curriedMagix } from "../utils.js"
 
-import type { Chunk } from "@effect-ts-app/prelude"
+import type { Chunk } from "@effect-ts-app/core/Prelude"
 import type { ParsedShapeOfCustom, ReasonableStringBrand, UnionBrand } from "./_schema.js"
 import {
   Arbitrary,
@@ -43,7 +43,7 @@ import {
 } from "./_schema.js"
 
 import { pipe } from "@effect-ts-app/core/Function"
-import { Equal } from "@effect-ts-app/prelude"
+import { Equal } from "@effect-ts-app/core/Prelude"
 
 /**
  * A string that is at least 3 character long and a maximum of 50.
