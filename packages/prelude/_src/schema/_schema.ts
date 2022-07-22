@@ -36,7 +36,7 @@ import type * as Th from "@effect-ts-app/schema/custom/These"
 import type { EnforceNonEmptyRecord } from "@effect-ts/core/Utils"
 
 import type { ROArray } from "@effect-ts-app/prelude"
-import { Effect, Either, Option as Maybe, Sync } from "@effect-ts-app/prelude"
+import { Effect, Either, Maybe, Sync } from "@effect-ts-app/prelude"
 import * as S from "@effect-ts-app/schema"
 import { faker, fakerToArb } from "../faker.js"
 

@@ -14,9 +14,6 @@ export { XPure } from "./_ext/Prelude/XPure.js"
 
 export {
   Array as ROArray,
-  EffectOption as EffectMaybe,
   Map as ROMap,
-  Option as Maybe,
   Set as ROSet,
-  SyncOption as SyncMaybe
 } from "@effect-ts-app/prelude"

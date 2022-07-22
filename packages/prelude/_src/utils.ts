@@ -1,4 +1,4 @@
-import { Option as Maybe } from "@effect-ts-app/prelude"
+import { Maybe } from "@effect-ts-app/prelude"
 
 export function assertUnreachable(x: never): never {
   throw new Error("Unknown case " + x)

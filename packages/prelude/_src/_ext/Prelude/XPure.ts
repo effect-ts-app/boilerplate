@@ -1,4 +1,4 @@
-import type { Either, Option as Maybe } from "@effect-ts-app/prelude"
+import type { Either, Maybe } from "@effect-ts-app/prelude"
 import * as P from "@effect-ts/core/Prelude"
 import type { XPure as XPureOrig } from "@effect-ts/core/XPure"
 import * as XP from "@effect-ts/core/XPure"
