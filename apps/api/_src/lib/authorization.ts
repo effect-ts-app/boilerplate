@@ -20,7 +20,7 @@ export const checkJwt = (audience: string, issuer: string) =>
       rateLimit: true,
       jwksRequestsPerMinute: 5,
       jwksUri: `${issuer}/.well-known/jwks.json`
-    }),
+    }) as jwksRsa.GetVerificationKey,
 
     // Validate the audience and the issuer.
     audience,
