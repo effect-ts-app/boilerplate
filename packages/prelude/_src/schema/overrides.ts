@@ -13,7 +13,7 @@ import {
   set as setOriginal
 } from "@effect-ts-app/schema"
 
-import { Ord, ImmutableSet } from "@effect-ts-app/core/Prelude"
+import { ImmutableSet, Ord } from "@effect-ts-app/core/Prelude"
 import type { Equal, NonEmptyArray } from "@effect-ts-app/core/Prelude"
 
 export const positiveNumber = positive(number)["|>"](brand<PositiveNumber>())

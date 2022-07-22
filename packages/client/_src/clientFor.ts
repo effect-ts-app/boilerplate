@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import type * as H from "@effect-ts-app/core/http/http-client"
 import type {
   EncodedOf,
   GetResponse,
@@ -13,6 +12,7 @@ import type {
 import { condemnCustom } from "@effect-ts-app/boilerplate-prelude/schema"
 import * as utils from "@effect-ts-app/boilerplate-prelude/utils"
 import { typedKeysOf } from "@effect-ts-app/boilerplate-prelude/utils"
+import type * as H from "@effect-ts-app/core/http/http-client"
 import { Path } from "path-parser"
 
 import type { ApiConfig } from "./config.js"

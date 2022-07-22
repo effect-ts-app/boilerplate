@@ -89,8 +89,6 @@ export const Tag = Has.tag<RequestContext>()
  */
 export const LiveRequestContext = (pars: RequestContext) => Layer.fromValue(Tag)(pars)
 
-// codegen:start {preset: model}
-//
 /* eslint-disable */
 export interface RequestContextParent {
   readonly createdAt: Date
@@ -155,5 +153,3 @@ export namespace RequestContext {
   export interface Props extends GetProvidedProps<typeof RequestContext> {}
 }
 /* eslint-enable */
-//
-// codegen:end
