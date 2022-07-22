@@ -176,15 +176,15 @@ export function processNode(tc: ts.TypeChecker, root: ts.Node) {
                 const sub = unions[rpl]
                 return (sub ? sub : rpl)
               })
-              .replaceAll(" Array<", " ROArray<") // .replaceAll(/(Array|Set|Map)\</", "ROArray<") //
-              .replaceAll(" Set<", " ROSet<")
-              .replaceAll(" Map<", " ROMap<")
-              .replaceAll("(Array<", "(ROArray<") // .replaceAll(/(Array|Set|Map)\</", "ROArray<") //
-              .replaceAll("(Set<", "(ROSet<")
-              .replaceAll("(Map<", "(ROMap<")
-                .replaceAll(" Array.Array<", " ROArray<") // .replaceAll(/(Array|Set|Map)\</", "ROArray<") //
-                .replaceAll(" Set.Set<", " ROSet<")
-                .replaceAll(" Map.Map<", " ROMap<")
+              .replaceAll(" Array<", " ImmutableArray<") // .replaceAll(/(Array|Set|Map)\</", "ImmutableArray<") //
+              .replaceAll(" Set<", " ImmutableSet<")
+              .replaceAll(" Map<", " ImmutableMap<")
+              .replaceAll("(Array<", "(ImmutableArray<") // .replaceAll(/(Array|Set|Map)\</", "ImmutableArray<") //
+              .replaceAll("(Set<", "(ImmutableSet<")
+              .replaceAll("(Map<", "(ImmutableMap<")
+                .replaceAll(" Array.Array<", " ImmutableArray<") // .replaceAll(/(Array|Set|Map)\</", "ImmutableArray<") //
+                .replaceAll(" Set.Set<", " ImmutableSet<")
+                .replaceAll(" Map.Map<", " ImmutableMap<")
             )
           // we sort for now, because otherwise we have sometimes multiple times changing back and forth between editor and console.
           .sort(sortAlpha)

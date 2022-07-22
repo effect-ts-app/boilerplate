@@ -12,4 +12,4 @@ export * as Schema from "@effect-ts-app/schema"
 
 export { XPure } from "./_ext/Prelude/XPure.js"
 
-export { Array as ROArray, Map as ROMap, Set as ROSet } from "@effect-ts-app/core/Prelude"
+export { Array as ImmutableArray, Map as ImmutableMap, Set as ImmutableSet } from "@effect-ts-app/core/Prelude"

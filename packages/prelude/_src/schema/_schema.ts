@@ -35,7 +35,7 @@ import {
 import type * as Th from "@effect-ts-app/schema/custom/These"
 import type { EnforceNonEmptyRecord } from "@effect-ts/core/Utils"
 
-import type { ROArray } from "@effect-ts-app/core/Prelude"
+import type { ImmutableArray } from "@effect-ts-app/core/Prelude"
 import { Effect, Either, Maybe, Sync } from "@effect-ts-app/core/Prelude"
 import * as S from "@effect-ts-app/schema"
 import { faker, fakerToArb } from "../faker.js"
@@ -66,7 +66,7 @@ export function fitIntoLongString(str: string) {
 
 export class CustomSchemaException extends Error {
   readonly _tag = "ValidationError"
-  readonly errors: ROArray<unknown>
+  readonly errors: ImmutableArray<unknown>
   constructor(error: S.AnyError) {
     super(S.drawError(error))
     this.errors = [error]

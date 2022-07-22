@@ -1,4 +1,4 @@
-import type { Ord, ROArray } from "@effect-ts-app/core/Prelude"
+import type { ImmutableArray, Ord } from "@effect-ts-app/core/Prelude"
 import { Chunk } from "@effect-ts-app/core/Prelude"
 
 /**
@@ -11,5 +11,5 @@ export const mapWithIndex_ = Chunk.mapWithIndex_
  */
 export const sortBy_ = Chunk.sortBy_ as <A>(
   as: Chunk<A>,
-  ords: ROArray<Ord<A>>
+  ords: ImmutableArray<Ord<A>>
 ) => Chunk<A>

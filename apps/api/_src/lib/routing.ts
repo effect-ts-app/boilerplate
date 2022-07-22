@@ -119,7 +119,7 @@ function snipValue(value: string | readonly string[] | undefined) {
   if (!value) {
     return value
   }
-  return ROArray.isArray(value)
+  return ImmutableArray.isArray(value)
     ? value.map(snipString)
     : typeof value === "string" && value.length > 50
     ? snipString(value)
@@ -235,7 +235,7 @@ export function makeRequestHandler<
         : req.headers,
       cookies: req.cookies
         ? Object.entries(req.cookies).reduce((prev, [key, value]) => {
-          prev[key] = typeof value === "string" || ROArray.isArray(value)
+          prev[key] = typeof value === "string" || ImmutableArray.isArray(value)
             ? snipValue(value)
             : value
           return prev

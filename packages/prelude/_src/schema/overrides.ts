@@ -13,7 +13,7 @@ import {
   set as setOriginal
 } from "@effect-ts-app/schema"
 
-import { Ord, ROSet } from "@effect-ts-app/core/Prelude"
+import { Ord, ImmutableSet } from "@effect-ts-app/core/Prelude"
 import type { Equal, NonEmptyArray } from "@effect-ts-app/core/Prelude"
 
 export const positiveNumber = positive(number)["|>"](brand<PositiveNumber>())
@@ -62,6 +62,6 @@ export function set<ParsedShape, ConstructorInput, Encoded, Api>(
   const eq_ = eq ?? Ord.getEqual(ord)
   const arbitrarySelf = Arbitrary.for(self)
   return setOriginal(self, ord, eq)["|>"](
-    arbitrary(_ => _.uniqueArray(arbitrarySelf(_), { maxLength: MAX_LENGTH }).map(ROSet.fromArray(eq_)))
+    arbitrary(_ => _.uniqueArray(arbitrarySelf(_), { maxLength: MAX_LENGTH }).map(ImmutableSet.fromArray(eq_)))
   )
 }

@@ -15,7 +15,7 @@ import { spread } from "../utils.js"
  * @tsplus global
  */
 import {
-  ROArray,
+  ImmutableArray,
   Cause,
   Chunk,
   Effect,
@@ -28,7 +28,7 @@ import {
   Layer,
   Lens,
   Managed,
-  ROMap,
+  ImmutableMap,
   NonEmptyArray,
   NonEmptySet,
   Option,
@@ -39,7 +39,7 @@ import {
   Schedule,
   Schema,
   Semaphore,
-  ROSet,
+  ImmutableSet,
   Sync,
   SyncOption,
   Tuple,
