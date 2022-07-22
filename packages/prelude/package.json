@@ -7,8 +7,8 @@
     "typescript": "https://cdn.jsdelivr.net/npm/@tsplus/installer@0.0.127/compiler/typescript.tgz"
   },
   "dependencies": {
-    "@effect-ts-app/core": "0.78.0",
-    "@effect-ts-app/schema": "0.78.0",
+    "@effect-ts-app/core": "0.78.1",
+    "@effect-ts-app/schema": "0.78.1",
     "@effect-ts/core": "0.60.2",
     "@effect-ts/monocle": "0.43.0",
     "uuid": "^8.3.2",
@@ -106,7 +106,7 @@
     "@types/faker": "5.5.9",
     "@types/uuid": "^8.3.4",
     "faker": "^5.5.3",
-    "fast-check": "^3.0.1"
+    "fast-check": "^3.1.0"
   },
   "scripts": {
     "build": "yarn clean-dist && NODE_OPTIONS=--max-old-space-size=6144 ttsc --build && yarn build2:cjs",
