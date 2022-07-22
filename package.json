@@ -47,7 +47,7 @@
         "watch": "yarn build-api || echo build-fail && concurrently -k -p \"[{name}]\" -n \"API,Frontend\" -c \"cyan.bold,green.bold\" \"cd apps/api && yarn build -w\" \"cd apps/frontend && yarn compile -w\""
     },
     "resolutions": {
-        "@types/react": "^18.0.14",
+        "@types/react": "^18.0.15",
         "typescript": "https://cdn.jsdelivr.net/npm/@tsplus/installer@0.0.127/compiler/typescript.tgz"
     },
     "dependencies": {
