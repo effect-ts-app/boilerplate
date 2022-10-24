@@ -33,19 +33,16 @@
       "cypress",
       "cypress-file-upload",
     ],
-    "plugins": [
+    "transformers": [
       // Transform paths in output .js files
       {
-        "transform": "ts-transform-paths"
+        "name": "ts-transform-paths"
       },
       // Transform paths in output .d.ts files (Include this line if you output declarations files)
       {
-        "transform": "ts-transform-paths",
-        "afterDeclarations": true
+        "name": "ts-transform-paths",
+        "position": "afterDeclaration"
       },
-      {
-        "transform": "@effect-ts/tracing-plugin"
-      }
     ]
   },
   "include": [

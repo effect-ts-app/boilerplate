@@ -14,18 +14,12 @@
             "../../types/prelude",
             "../../types/global",
             "../../types/modules"
-        ],
-        "plugins": [
-            {
-                "transform": "@effect-ts/tracing-plugin",
-            }
         ]
     },
     "include": [
         "./_src/**/*.ts"
     ],
     "ts-node": {
-        "compiler": "ttypescript",
         "require": [
             "tsconfig-paths/register"
         ],

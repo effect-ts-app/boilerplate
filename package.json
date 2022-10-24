@@ -40,7 +40,7 @@
         "testsuite-libs": "cd packages/prelude && yarn testsuite && cd ../types && yarn testsuite && cd ../client && yarn testsuite",
         "build-api": "cd apps/api && yarn build",
         "watch-libs": "yarn build-libs && ultra -r --filter \"packages/*\" watch",
-        "build": "NODE_OPTIONS=--max-old-space-size=6144 ttsc --build ./tsconfig.all.json",
+        "build": "NODE_OPTIONS=--max-old-space-size=6144 tsc --build ./tsconfig.all.json",
         "build-prod": "yarn build-libs && yarn build-frontend-prod",
         "build-frontend-prod": "cd apps/frontend-nuxt && yarn build && CI=1 yarn build-next",
         "build-e2e": "cd apps/api && yarn e2e:build",
@@ -102,7 +102,6 @@
         "ts-transform-paths": "^2.0.3",
         "tsc-watch": "^5.0.3",
         "tsconfig-paths": "^4.1.0",
-        "ttypescript": "^1.5.13",
         "typescript": "https://cdn.jsdelivr.net/npm/@tsplus/installer@0.0.147/compiler/typescript.tgz",
         "typescript-transform-paths": "^3.4.3",
         "ultra-runner": "^3.10.5"

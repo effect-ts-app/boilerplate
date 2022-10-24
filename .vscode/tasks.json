@@ -88,7 +88,7 @@
 			"type": "shell",
 			"command": "yarn compile -w",
 			"options": {
-				"cwd": "apps/frontend"
+				"cwd": "apps/frontend-nuxt"
 			},
 			"dependsOn": [
 				"Watch E2E"
@@ -106,7 +106,7 @@
 					"base": "$tsc-watch",
 					"fileLocation": [
 						"relative",
-						"${workspaceRoot}/apps/frontend",
+						"${workspaceRoot}/apps/frontend-nuxt",
 					],
 				}
 			]
