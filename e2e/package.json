@@ -4,8 +4,7 @@
   "license": "NONE",
   "private": true,
   "scripts": {
-    "dev": "cypress open",
-    "test": "cd ../packages/prelude && yarn build2:cjs && cd ../types && yarn build2:cjs && cd ../client && yarn build2:cjs && cd ../../e2e && npx playwright test",
+    "test": "cd ../packages/prelude && yarn build2:cjs && cd ../types && yarn build2:cjs && cd ../client && yarn build2:cjs && cd ../../e2e && TSCONFIG=tsconfig.test.json npx playwright test",
     "test:watch": "npx playwright-watch test",
     "lint": "NODE_OPTIONS=--max-old-space-size=6144 ESLINT_TS=1 eslint .",
     "lint:watch": "ESLINT_TS=1 esw -w --changed --clear --ext ts,tsx .",
@@ -14,7 +13,7 @@
     "up": "yarn update && yarn exec-update",
     "update": "yarn ncu -u",
     "exec-update": "yarn && yarn upgrade",
-    "ncu": "ncu -x cypress",
+    "ncu": "ncu",
     "watch": "tsc --watch"
   },
   "devDependencies": {
@@ -26,13 +25,9 @@
     "@babel/preset-env": "^7.19.4",
     "@babel/preset-typescript": "^7.18.6",
     "@babel/node": "^7.19.1",
-    "@cypress/webpack-preprocessor": "^5.15.0",
     "@playwright/test": "~1.27.1",
     "@types/node": "^18.11.4",
     "babel-loader": "^8.2.5",
-    "cypress": "^7.7.0",
-    "cypress-file-upload": "^5.0.8",
-    "cypress-plugin-tab": "^1.0.5",
     "date-fns": "^2.29.3",
     "eslint": "^8.26.0",
     "eslint-config-prettier": "^8.5.0",
@@ -48,7 +43,7 @@
     "puppeteer": "^19.1.1",
     "ts-loader": "^9.4.1",
     "tsconfig-paths-webpack-plugin": "^4.0.0",
-    "typescript": "^4.8.4",
+    "typescript": "https://cdn.jsdelivr.net/npm/@tsplus/installer@0.0.147/compiler/typescript.tgz",
     "webpack": "^5.74.0"
   },
   "dependencies": {

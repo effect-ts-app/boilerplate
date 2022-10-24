@@ -21,19 +21,17 @@
     },
     "types": [
       "../node_modules/@effect-ts-app/core/fluent/_ext/awesome/node",
-      "../types/global",
-      "cypress",
-      "cypress-file-upload",
+      "../types/global"
     ],
-    "transformers": [
+    "plugins": [
       // Transform paths in output .js files
       {
-        "name": "ts-transform-paths"
+        "transform": "ts-transform-paths"
       },
       // Transform paths in output .d.ts files (Include this line if you output declarations files)
       {
-        "name": "ts-transform-paths",
-        "position": "afterDeclaration"
+        "transform": "ts-transform-paths",
+        "afterDeclarations": true
       },
     ]
   },
