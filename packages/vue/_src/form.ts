@@ -51,8 +51,7 @@ function buildFieldInfo(propOrSchema: AnyProperty | SchemaAny, fieldKey: Propert
   const schema = isSchema(propOrSchema) ? propOrSchema : propOrSchema._schema
   const parse = Parser.for(schema)
 
-  return {
-    _: undefined as any,
+  const info = {
     type: "text", // TODO: various types
     rules: [
       (v: string) => !metadata.required || !!v || "The field cannot be empty",
@@ -63,19 +62,20 @@ function buildFieldInfo(propOrSchema: AnyProperty | SchemaAny, fieldKey: Propert
         metadata.maxLength === undefined || v.length <= metadata.maxLength ||
         `The field cannot have more than ${metadata.maxLength} characters`,
       (v: unknown) =>
-        parse(v)
-          ["|>"](These.result)
-          ["|>"](
-            r =>
-              r.fold(
-                () => `The entered value is not a valid ${capitalize(fieldKey.toString())}`,
-                ({ tuple: [_, optErr] }) =>
-                  optErr.isSome()
-                    ? `The entered value is not a valid ${capitalize(fieldKey.toString())}`
-                    : true
-              )
+        pipe(
+          parse(v),
+          These.result,
+          Either.$.fold(
+            () => `The entered value is not a valid ${capitalize(fieldKey.toString())}`,
+            ({ tuple: [_, optErr] }) =>
+              optErr.isSome()
+                ? `The entered value is not a valid ${capitalize(fieldKey.toString())}`
+                : true
           )
+        )
     ],
     metadata
-  } as any
+  }
+
+  return info as any
 }
