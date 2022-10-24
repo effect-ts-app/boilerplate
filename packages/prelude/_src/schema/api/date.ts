@@ -14,6 +14,10 @@ const addNow = (amount: number): Date => todayAtUTCNoon().addDays(amount)
 
 const dateParser = Parser.for(date)
 
+function isProbablyADate(u: unknown): u is Date {
+  return (u instanceof Object && "toISOString" in u && "getTime" in u)
+}
+
 /**
  * As we want to use actual Date Objects in inputs,
  * and instead of leveraging the parser as a decoder from JSON, we wish to use it as a validator from Inputs.
@@ -23,7 +27,7 @@ export const inputDate = pipe(
   date,
   parser((u, env) =>
     // if it quacks like a ... Date..
-    u instanceof Date || (u instanceof Object && "toISOString" in u && "getTime" in u)
+    u instanceof Date || isProbablyADate(u)
       ? Number.isNaN(u.getTime())
         ? Th.fail(leafE(parseDateE(u)))
         : Th.succeed(u)

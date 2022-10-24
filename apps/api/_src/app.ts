@@ -1,4 +1,4 @@
-import * as Ex from "@effect-ts/express"
+import * as Ex from "@effect-ts-app/infra/express"
 import * as MW from "./middleware/index.js"
 import * as R from "./routes.js"
 

@@ -1,7 +1,7 @@
 /**
  * @tsplus global
  */
-import { PureProgram } from "../_ext/PureProgram.js"
+import { Pure } from "../_ext/Pure.js"
 
 /**
  * @tsplus global
@@ -15,7 +15,7 @@ import { spread } from "../utils.js"
  * @tsplus global
  */
 import {
-  ImmutableArray,
+  ROArray,
   Cause,
   Chunk,
   Effect,
@@ -28,7 +28,7 @@ import {
   Layer,
   Lens,
   Managed,
-  ImmutableMap,
+  ROMap,
   NonEmptyArray,
   NonEmptySet,
   Option,
@@ -39,10 +39,7 @@ import {
   Schedule,
   Schema,
   Semaphore,
-  ImmutableSet,
-  Sync,
-  SyncOption,
-  Tuple,
+  ROSet,
   Utils,
   XPure,
 } from "../index.js"

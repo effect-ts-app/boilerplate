@@ -1,4 +1,3 @@
-import { clientFor } from "./clientFor.js"
 import * as HelloWorld from "./HelloWorld/_index.js"
 
 export { HelloWorld }
@@ -6,4 +5,3 @@ export { HelloWorld }
 export * from "./HelloWorld/Get.js"
 // codegen:end
 
-export const helloWorldClient = clientFor(HelloWorld)

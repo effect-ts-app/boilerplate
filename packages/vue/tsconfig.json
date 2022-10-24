@@ -15,11 +15,6 @@
             "../../types/global",
             "../../types/modules"
         ],
-        "plugins": [
-            {
-                "transform": "@effect-ts/tracing-plugin",
-            }
-        ]
     },
     "include": [
         "./_src/**/*.ts"
@@ -34,6 +29,12 @@
         }
     },
     "references": [
+        {
+            "path": "../client"
+        },
+        {
+            "path": "../types"
+        },
         {
             "path": "../prelude"
         }

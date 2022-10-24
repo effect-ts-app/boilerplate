@@ -16,18 +16,13 @@
             "../../types/modules"
         ],
         "paths": {
-            "@effect-ts-app/boilerplate-prelude/*": [
-                "./_src/*"
-            ],
             "@effect-ts-app/boilerplate-prelude": [
                 "./_src"
             ],
+            "@effect-ts-app/boilerplate-prelude/*": [
+                "./_src/*"
+            ],
         },
-        "plugins": [
-            {
-                "transform": "@effect-ts/tracing-plugin",
-            }
-        ]
     },
     "include": [
         // "./_src/**/*.mts",

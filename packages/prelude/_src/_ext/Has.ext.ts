@@ -1,45 +1,34 @@
-import type { Tag } from "@effect-ts-app/core/Prelude"
-
-import { Effect } from "../index.js"
-
 /**
- * @tsplus getter ets/Tag get
+ * @tsplus getter Tag get
  */
 export function get<T>(self: Tag<T>) {
-  return Effect.accessService(self)(_ => _)
+  return Effect.service(self)
 }
 
 /**
- * @tsplus getter ets/Tag get2
+ * @tsplus getter Tag with
  */
-export function get2<T>(_: Tag<T>) {
-  return Effect.access((env: Has<T>) => env)
+export function with_<T>(self: Tag<T>) {
+  return <B>(f: (x: T) => B) => Effect.serviceWith(self, f)
 }
 
 /**
- * @tsplus getter ets/Tag access
- */
-export function access<T>(self: Tag<T>) {
-  return Effect.accessService(self)
-}
-
-/**
- * @tsplus getter ets/Tag accessM
+ * @tsplus getter Tag withEffect
  */
 export function accessM<T>(self: Tag<T>) {
-  return Effect.accessServiceM(self)
+  return <R, E, A>(f: (x: T) => Effect<R, E, A>) => Effect.serviceWithEffect(self, f)
 }
 
 /**
- * @tsplus fluent ets/Tag accessM_
+ * @tsplus fluent Tag withEffect_
  */
 export function accessM_<T, R, E, A>(self: Tag<T>, f: (x: T) => Effect<R, E, A>) {
-  return Effect.accessServiceM(self)(f)
+  return Effect.serviceWithEffect(self, f)
 }
 
 /**
- * @tsplus fluent ets/Tag access_
+ * @tsplus fluent Tag with_
  */
 export function access_<T, B>(self: Tag<T>, f: (x: T) => B) {
-  return Effect.accessService(self)(f)
+  return Effect.serviceWith(self, f)
 }

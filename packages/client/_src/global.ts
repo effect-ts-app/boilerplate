@@ -1,17 +1,14 @@
+/* eslint-disable import/no-duplicates */
 /* eslint-disable unused-imports/no-unused-imports */
 
-import "@effect-ts-app/boilerplate-prelude/schema.global"
+/**
+ * @tsplus global
+ */
+import { clientFor } from "@effect-ts-app/boilerplate-client/lib/clientFor"
 
-// // TODO: these behave weird when imported globally...
-// /**
-//  * @tsplus global
-//  */
-// import {
-//   Delete,
-//   Get,
-//   MNModel,
-//   Model,
-//   ModelEnc,
-//   Patch,
-//   Post,
-// }
+/**
+ * @tsplus global
+ */
+import { Delete, Get, Patch, Post } from "@effect-ts-app/boilerplate-prelude/schema"
+
+import "@effect-ts-app/boilerplate-types/global"

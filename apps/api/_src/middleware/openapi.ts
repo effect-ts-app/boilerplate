@@ -1,5 +1,5 @@
 import { readTextFile } from "@effect-ts-app/infra/simpledb/fileutil"
-import * as Ex from "@effect-ts/express"
+import * as Ex from "@effect-ts-app/infra/express"
 import redoc from "redoc-express"
 import { serve as serve_, setup as setup_ } from "swagger-ui-express"
 
@@ -8,7 +8,7 @@ const serve: any = serve_
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const setup: any = setup_
 
-const readOpenApiDoc = readTextFile("./openapi.json").orDie()
+const readOpenApiDoc = readTextFile("./openapi.json").orDie
 
 export const openapiRoutes = Ex.get("/openapi.json", (_req, res) => readOpenApiDoc.map(js => res.send(js)))
   > Ex.get(
@@ -25,6 +25,6 @@ export const openapiRoutes = Ex.get("/openapi.json", (_req, res) => readOpenApiD
     "/swagger",
     (req, res, next) =>
       readOpenApiDoc.flatMap(docs =>
-        Effect.succeedWith(() => setup(docs, { swaggerOptions: { url: "./openapi.json" } })(req, res, next))
+        Effect.sync(() => setup(docs, { swaggerOptions: { url: "./openapi.json" } })(req, res, next))
       )
   )

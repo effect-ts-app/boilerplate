@@ -4,89 +4,29 @@
   "license": "MIT",
   "type": "module",
   "resolutions": {
-    "typescript": "https://cdn.jsdelivr.net/npm/@tsplus/installer@0.0.127/compiler/typescript.tgz"
+    "typescript": "https://cdn.jsdelivr.net/npm/@tsplus/installer@0.0.147/compiler/typescript.tgz"
   },
   "peerDependencies": {
     "@effect-ts-app/boilerplate-types": "*"
   },
   "dependencies": {
     "@effect-ts-app/boilerplate-types": "*",
-    "auth0": "2.42.0",
+    "auth0": "2.44.0",
     "cross-fetch": "^3.1.5",
     "path-parser": "^6.1.0"
   },
   "devDependencies": {
-    "@jest/globals": "28.1.3"
+    "@jest/globals": "29.2.1"
   },
   "exports": {
-    "./HelloWorld": {
+    ".": {
       "import": {
-        "types": "./dist/HelloWorld.d.ts",
-        "default": "./dist/HelloWorld.js"
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
       },
       "require": {
-        "types": "./dist/HelloWorld.d.ts",
-        "default": "./_cjs/HelloWorld.cjs"
-      }
-    },
-    "./QueryResult": {
-      "import": {
-        "types": "./dist/QueryResult.d.ts",
-        "default": "./dist/QueryResult.js"
-      },
-      "require": {
-        "types": "./dist/QueryResult.d.ts",
-        "default": "./_cjs/QueryResult.cjs"
-      }
-    },
-    "./clientFor": {
-      "import": {
-        "types": "./dist/clientFor.d.ts",
-        "default": "./dist/clientFor.js"
-      },
-      "require": {
-        "types": "./dist/clientFor.d.ts",
-        "default": "./_cjs/clientFor.cjs"
-      }
-    },
-    "./config": {
-      "import": {
-        "types": "./dist/config.d.ts",
-        "default": "./dist/config.js"
-      },
-      "require": {
-        "types": "./dist/config.d.ts",
-        "default": "./_cjs/config.cjs"
-      }
-    },
-    "./errors": {
-      "import": {
-        "types": "./dist/errors.d.ts",
-        "default": "./dist/errors.js"
-      },
-      "require": {
-        "types": "./dist/errors.d.ts",
-        "default": "./_cjs/errors.cjs"
-      }
-    },
-    "./fetch": {
-      "import": {
-        "types": "./dist/fetch.d.ts",
-        "default": "./dist/fetch.js"
-      },
-      "require": {
-        "types": "./dist/fetch.d.ts",
-        "default": "./_cjs/fetch.cjs"
-      }
-    },
-    "./url": {
-      "import": {
-        "types": "./dist/url.d.ts",
-        "default": "./dist/url.js"
-      },
-      "require": {
-        "types": "./dist/url.d.ts",
-        "default": "./_cjs/url.cjs"
+        "types": "./dist/index.d.ts",
+        "default": "./_cjs/index.cjs"
       }
     },
     "./*.js": {

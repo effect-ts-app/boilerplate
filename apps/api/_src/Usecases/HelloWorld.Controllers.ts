@@ -1,13 +1,15 @@
-import { RequestContext } from "@/RequestContext.js"
-import { generateFromArbitrary } from "@/test.arbs.js"
+import { RequestContext } from "@/lib/RequestContext.js"
 import { HelloWorld } from "@effect-ts-app/boilerplate-client/HelloWorld"
 import { User } from "@effect-ts-app/boilerplate-types/User"
 
-export const GetHelloWorld = handle(HelloWorld.Get)(
-  () =>
-    RequestContext.Tag.access(rc => ({
-      context: rc,
-      now: new Date(),
-      user: generateFromArbitrary(User.Arbitrary).value
-    }))
+export const HelloWorldControllers = Effect(
+  matchResource(HelloWorld)({
+    Get: () =>
+      RequestContext.Tag.with(rc => ({
+        context: rc,
+        now: new Date(),
+        user: User.Arbitrary.generate.value
+      }))
+  }
+  )
 )

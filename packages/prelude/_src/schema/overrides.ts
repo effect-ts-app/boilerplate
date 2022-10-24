@@ -13,11 +13,27 @@ import {
   set as setOriginal
 } from "@effect-ts-app/schema"
 
-import { ImmutableSet, Ord } from "@effect-ts-app/core/Prelude"
-import type { Equal, NonEmptyArray } from "@effect-ts-app/core/Prelude"
+import { ROSet } from "@effect-ts-app/core/Prelude"
+import type { NonEmptyArray } from "@effect-ts-app/core/Prelude"
 
-export const positiveNumber = positive(number)["|>"](brand<PositiveNumber>())
+export const PositiveNumber = positive(number)["|>"](brand<PositiveNumber>())
 export type PositiveNumber = number & PositiveBrand
+
+export interface CentimeterBrand extends PositiveBrand {
+  readonly CentimeterBrand: unique symbol
+}
+
+export type Centimeter = number & CentimeterBrand
+
+export const Centimeter = positive(number)["|>"](brand<Centimeter>())
+
+export interface KilogramBrand extends PositiveBrand {
+  readonly KilogramBrand: unique symbol
+}
+
+export type Kilogram = number & KilogramBrand
+
+export const Kilogram = positive(number)["|>"](brand<Kilogram>())
 
 // Limit arbitrary collections to generate a max of 6 entries
 // TODO: dictionary, map
@@ -57,11 +73,11 @@ export function array<ParsedShape, ConstructorInput, Encoded, Api>(
 export function set<ParsedShape, ConstructorInput, Encoded, Api>(
   self: Schema<unknown, ParsedShape, ConstructorInput, Encoded, Api>,
   ord: Ord<ParsedShape>,
-  eq?: Equal<ParsedShape>
+  eq?: Equivalence<ParsedShape>
 ) {
-  const eq_ = eq ?? Ord.getEqual(ord)
+  const eq_ = eq ?? ord.equivalence
   const arbitrarySelf = Arbitrary.for(self)
   return setOriginal(self, ord, eq)["|>"](
-    arbitrary(_ => _.uniqueArray(arbitrarySelf(_), { maxLength: MAX_LENGTH }).map(ImmutableSet.fromArray(eq_)))
+    arbitrary(_ => _.uniqueArray(arbitrarySelf(_), { maxLength: MAX_LENGTH }).map(ROSet.fromArray(eq_)))
   )
 }

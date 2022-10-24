@@ -1,6 +1,13 @@
 import * as L from "../lens.js"
 
 /**
+ * @tsplus fluent ets/Lens set_
+ */
+export function set_<S, A>(l: Lens<S, A>, s: S, a: A) {
+  return l.set(a)(s)
+}
+
+/**
  * @tsplus fluent ets/Lens setIfDefined
  */
 export const setIfDefined_ = L.setIfDefined_
@@ -31,16 +38,6 @@ export const modifyM__ = L.modifyM__
 export const modify__ = L.modify__
 
 /**
- * @tsplus fluent ets/Lens modifyS
- */
-export const modifyS_ = L.modifyS_
-
-/**
- * @tsplus fluent ets/Lens modifyS_
- */
-export const modifyS__ = L.modifyS__
-
-/**
  * @tsplus fluent ets/Lens modify2M_
  */
 export const modify2M__ = L.modify2M__
@@ -59,13 +56,3 @@ export const modify2M_ = L.modify2M_
  * @tsplus fluent ets/Lens modify2
  */
 export const modify2_ = L.modify2_
-
-/**
- * @tsplus fluent ets/Lens modify2S_
- */
-export const modify2S__ = L.modify2S__
-
-/**
- * @tsplus fluent ets/Lens modify2S
- */
-export const modify2S_ = L.modify2S_

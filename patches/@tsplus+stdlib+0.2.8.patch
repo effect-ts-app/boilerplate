@@ -1,0 +1,81 @@
+diff --git a/node_modules/@tsplus/stdlib/package.json b/node_modules/@tsplus/stdlib/package.json
+index f8ca47b..9f51b36 100644
+--- a/node_modules/@tsplus/stdlib/package.json
++++ b/node_modules/@tsplus/stdlib/package.json
+@@ -19,6 +19,76 @@
+         "default": "./index.js"
+       }
+     },
++    "./prelude/Equivalence": {
++      "import": {
++        "types": "./prelude/Equivalence.d.ts",
++        "default": "./_mjs/prelude/Equivalence.mjs"
++      },
++      "require": {
++        "types": "./prelude/Equivalence.d.ts",
++        "default": "./prelude/Equivalence.js"
++      }
++    },
++    "./collections/Collection": {
++      "import": {
++        "types": "./collections/Collection.d.ts",
++        "default": "./_mjs/collections/Collection.mjs"
++      },
++      "require": {
++        "types": "./collections/Collection.d.ts",
++        "default": "./collections/Collection.js"
++      }
++    },
++    "./collections/Chunk": {
++      "import": {
++        "types": "./collections/Chunk.d.ts",
++        "default": "./_mjs/collections/Chunk.mjs"
++      },
++      "require": {
++        "types": "./collections/Chunk.d.ts",
++        "default": "./collections/Chunk.js"
++      }
++    },
++    "./data/Either": {
++      "import": {
++        "types": "./data/Either.d.ts",
++        "default": "./_mjs/data/Either.mjs"
++      },
++      "require": {
++        "types": "./data/Either.d.ts",
++        "default": "./data/Either.js"
++      }
++    },
++    "./data/Maybe": {
++      "import": {
++        "types": "./data/Maybe.d.ts",
++        "default": "./_mjs/data/Maybe.mjs"
++      },
++      "require": {
++        "types": "./data/Maybe.d.ts",
++        "default": "./data/Maybe.js"
++      }
++    },
++    "./service/Tag": {
++      "import": {
++        "types": "./service/Tag.d.ts",
++        "default": "./_mjs/service/Tag.mjs"
++      },
++      "require": {
++        "types": "./service/Tag.d.ts",
++        "default": "./service/Tag.js"
++      }
++    },
++    "./*.js": {
++      "import": {
++        "types": "./*.d.ts",
++        "default": "./_mjs/*.mjs"
++      },
++      "require": {
++        "types": "./*.d.ts",
++        "default": "./*.js"
++      }
++    },
+     "./*": {
+       "import": {
+         "types": "./*.d.ts",

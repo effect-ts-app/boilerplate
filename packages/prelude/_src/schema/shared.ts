@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-types */
 import type {
   ApiSelfType,
   DefaultSchema,
@@ -27,9 +28,8 @@ import {
 import type { Refinement } from "@effect-ts/core/Function"
 import type * as FC from "fast-check"
 import validator from "validator"
-import { curriedMagix } from "../utils.js"
+import { curriedMagix } from "../Function.js"
 
-import type { Chunk } from "@effect-ts-app/core/Prelude"
 import type { ParsedShapeOfCustom, ReasonableStringBrand, UnionBrand } from "./_schema.js"
 import {
   Arbitrary,
@@ -38,12 +38,23 @@ import {
   fakerArb,
   fromString,
   makeConstrainedFromString,
+  PositiveInt,
   ReasonableString,
-  string
+  string,
+  stringNumber,
+  withDefaults
 } from "./_schema.js"
 
 import { pipe } from "@effect-ts-app/core/Function"
-import { Equal } from "@effect-ts-app/core/Prelude"
+
+export const stringPositiveIntIdentifier = makeAnnotation<{}>()
+
+export const StringPositiveInt: DefaultSchema<unknown, PositiveInt, PositiveInt, string, {}> = pipe(
+  stringNumber[">>>"](PositiveInt),
+  withDefaults,
+  annotate(stringPositiveIntIdentifier, {})
+)
+export type StringPositiveInt = PositiveInt
 
 /**
  * A string that is at least 3 character long and a maximum of 50.
@@ -215,7 +226,7 @@ export function prefixedStringId<Brand extends StringId>() {
         prefixSafe: <REST extends string>(str: `${Prefix}${Separator}${REST}`) => ex(str),
         is: refinement,
         prefix,
-        eq: Equal.string as Equal<Brand>
+        eq: Equivalence.string as Equivalence<Brand>
       })
     )
   }
@@ -232,7 +243,7 @@ export interface PrefixedStringUtils<
   prefixSafe: <REST extends string>(str: `${Prefix}${Separator}${REST}`) => Brand
   readonly is: (x: StringId) => x is Brand
   readonly prefix: Prefix
-  eq: Equal<Brand>
+  eq: Equivalence<Brand>
 }
 
 export interface UrlBrand {

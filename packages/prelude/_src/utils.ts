@@ -1,4 +1,5 @@
-import { Maybe } from "@effect-ts-app/core/Prelude"
+import { typedKeysOf } from "@effect-ts-app/core/utils"
+import * as Tuple from "@effect-ts/core/Collections/Immutable/Tuple"
 
 export function assertUnreachable(x: never): never {
   throw new Error("Unknown case " + x)
@@ -40,6 +41,64 @@ export function spreadS<
 >(props: Props, fnc: (props: Props) => Props) {
   return fnc(props)
 }
+
+type Key<T> = T extends Record<infer TKey, any> ? TKey : never
+type Values<T> =  T extends { [s: string]: infer S } ? S : any
+
+function object_$<T extends object>(self: T) {
+  return {
+    get subject() {
+      return self
+    },
+
+    // TODO: move to extensions
+    spread<P>(this: void, fnc: (t: T) => P) {
+      return spread(self, fnc)
+    },
+    spreadS(this: void, fnc: (t: T) => T) {
+      return spreadS(self, fnc)
+    },
+  }
+}
+
+type BasicObjectOps<T extends object> = ReturnType<typeof object_$<T>>
+
+/**
+ * @tsplus getter Object $$
+ */
+export function object$<T extends object>(self: T): ObjectOps<T> { return object_$(self) }
+
+/**
+ * @tsplus type Object.Ops
+ */
+export interface ObjectOps<T extends object> extends BasicObjectOps<T> {}
+
+function entries<TT extends object>(o: TT): [Key<TT>, Values<TT>][] {
+  return Object.entries(o) as any
+}
+
+
+/**
+ * @tsplus getter Object.Ops entries
+ */
+export function RecordEntries<TT extends object>(o: ObjectOps<TT>) {
+  return entries(o.subject)
+}
+
+/**
+ * @tsplus getter Object.Ops keys
+ */
+export function RecordKeys<TT extends object>(o: ObjectOps<TT>) {
+  return typedKeysOf(o.subject)
+}
+
+/**
+ * @tsplus getter Object.Ops values
+ */
+export function RecordValues<TT extends object>(o: ObjectOps<TT>): Values<TT>[] {
+  return Object.values(o.subject)
+}
+
 
 export function makeAzureFriendly(path: string) {
   return path.replace(/\//g, "___SL@SH___")
@@ -94,7 +153,6 @@ export function setMoveElDropUndefined<T>(el: T, newIndex: number) {
   return (arrInput: ReadonlySet<T | undefined>): Maybe<ReadonlySet<T>> =>
     [...arrInput]["|>"](arMoveElDropUndefined(el, newIndex)).map(ar => new Set(ar))
 }
-export * from "@effect-ts-app/core/Function"
 export * from "@effect-ts-app/core/utils"
 export { default as get } from "lodash/get.js"
 export { default as omit } from "lodash/omit.js"
@@ -114,7 +172,7 @@ interface Lazy {
   [LazySymbol]: Record<symbol, any>
 }
 
-export function lazy<T extends object, T2>(creator: (target: T) => T2) {
+export function lazyGetter<T extends object, T2>(creator: (target: T) => T2) {
   const key = Symbol(creator.name)
   const f = (target: T): T2 => {
     let lazy = (target as unknown as Lazy)[LazySymbol]
@@ -133,4 +191,14 @@ export function lazy<T extends object, T2>(creator: (target: T) => T2) {
     value: `Lazy<${creator.name}>`
   })
   return f
+}
+
+export function pretty(o: unknown) {
+  return JSON.stringify(o, undefined, 2)
+}
+
+
+// added readonly or it won't work with readonly types
+export function isTuple(self: unknown): self is Tuple.Tuple<readonly unknown[]> {
+  return typeof self === "object" && self != null && Tuple.TupleSym in self
 }

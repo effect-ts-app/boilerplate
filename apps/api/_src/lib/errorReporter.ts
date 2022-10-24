@@ -1,11 +1,10 @@
-import { interrupted, pretty } from "@effect-ts/core/Effect/Cause"
 import * as Sentry from "@sentry/node"
 
 export function reportError<E, E2 extends { toJSON(): Record<string, unknown> }>(
   makeError: (cause: Cause<E>) => E2
 ) {
   return (cause: Cause<E>, context?: Record<string, unknown>) => {
-    if (interrupted(cause)) {
+    if (cause.isInterrupted) {
       console.log("Interrupted", context)
       return
     }
@@ -14,8 +13,13 @@ export function reportError<E, E2 extends { toJSON(): Record<string, unknown> }>
     const extras = { context, error: error.toJSON() }
     scope.setExtras(extras)
     Sentry.captureException(error, scope)
-    console.error(pretty(cause), extras)
+    console.error(JSON.stringify(cause, undefined, 2), extras)
   }
+}
+
+export function captureException(error: unknown) {
+  Sentry.captureException(error)
+  console.error(error)
 }
 
 export function reportMessage(message: string) {
@@ -25,5 +29,5 @@ export function reportMessage(message: string) {
 }
 
 export function reportMessageM(message: string) {
-  return Effect.succeedWith(() => reportMessage(message))
+  return Effect.sync(() => reportMessage(message))
 }

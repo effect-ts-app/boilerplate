@@ -2,7 +2,7 @@
 /**
  * @tsplus global
  */
-import { PureProgram } from "@effect-ts-app/boilerplate-prelude/_ext/PureProgram"
+import { Pure } from "@effect-ts-app/boilerplate-prelude/_ext/Pure"
 
 /**
  * @tsplus global
@@ -16,7 +16,7 @@ import { flow, pipe, tuple, tupled } from "@effect-ts-app/boilerplate-prelude/Fu
 /**
  * @tsplus global
  */
-import { spread } from "@effect-ts-app/boilerplate-prelude/utils"
+import { spread, spreadS } from "@effect-ts-app/boilerplate-prelude/utils"
 /**
  * @tsplus global
  */
@@ -41,14 +41,12 @@ import {
   Queue,
   Record,
   Ref,
-  ImmutableArray,
-  ImmutableMap,
-  ImmutableSet,
+  ROArray,
+  ROMap,
+  ROSet,
   Schedule,
   Schema,
   Semaphore,
-  Sync,
-  SyncMaybe as SyncMaybe,
   Tuple,
   Utils,
   XPure,

@@ -1,5 +1,5 @@
 // This config file will be imported into each test
-import "./playwright/extend"
+//import "./playwright/extend"
 
 import type { PlaywrightTestConfig } from "@playwright/test"
 

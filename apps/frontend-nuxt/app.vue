@@ -1,9 +1,12 @@
 <script setup lang="ts">
-import { makeRun } from "@effect-ts-app/boilerplate-vue/client";
-import { helloWorldClient } from "@effect-ts-app/boilerplate-client/HelloWorld";
+import { useSafeQuery } from "@effect-ts-app/boilerplate-vue";
+import { clientFor } from "@effect-ts-app/boilerplate-client/lib/clientFor"
+import { HelloWorld } from "@effect-ts-app/boilerplate-client/HelloWorld";
 import { onMounted } from "vue";
 
-const [result, latestSuccess, execute] = makeRun(helloWorldClient.get);
+const helloWorldClient = clientFor(HelloWorld)
+
+const [result, latestSuccess, execute] = useSafeQuery(helloWorldClient.get.mapPath, helloWorldClient.get);
 
 onMounted(() => {
   const t = setInterval(() => execute().catch(console.error), 2000)

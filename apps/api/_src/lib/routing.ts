@@ -8,44 +8,29 @@ import type {
   ValidationError
 } from "@/errors.js"
 import { CauseException } from "@/errors.js"
-import { RequestContext, RequestId } from "@/RequestContext.js"
-import {
-  Encoder,
-  extractSchema,
-  ReasonableString,
-  SchemaNamed,
-  StringId,
-  Void
-} from "@effect-ts-app/boilerplate-prelude/schema"
-import * as MO from "@effect-ts-app/boilerplate-prelude/schema"
+import { reportError } from "@/lib/errorReporter.js"
+import { logger } from "@/lib/logger.js"
+import { InternalRequestLayers, RequestContext, RequestId } from "@/lib/RequestContext.js"
 import { typedKeysOf } from "@effect-ts-app/core/utils"
+import * as Ex from "@effect-ts-app/infra/express/index"
 import type {
+  Encode,
   Middleware,
   RequestHandler,
   RequestHandlerOptRes
 } from "@effect-ts-app/infra/express/schema/requestHandler"
-import {
-  makeRequestParsers,
-  parseRequestParams,
-  respondSuccess
-} from "@effect-ts-app/infra/express/schema/requestHandler"
+import { makeRequestParsers, parseRequestParams } from "@effect-ts-app/infra/express/schema/requestHandler"
 import type { RouteDescriptorAny } from "@effect-ts-app/infra/express/schema/routing"
 import { makeRouteDescriptor } from "@effect-ts-app/infra/express/schema/routing"
-import { makeChild, WinstonInstance } from "@effect-ts-app/infra/logger/Winston"
-import type { HasClock } from "@effect-ts/core/Effect/Clock"
-import * as Ex from "@effect-ts/express"
-import type { Erase } from "@effect-ts/system/Utils"
+import type { _E, _R } from "@effect-ts-app/boilerplate-prelude/_ext/Prelude.ext"
+import type { GetRequest, GetResponse } from "@effect-ts-app/boilerplate-prelude/schema"
+import { extractSchema, SchemaNamed } from "@effect-ts-app/boilerplate-prelude/schema"
+import * as MO from "@effect-ts-app/boilerplate-prelude/schema"
 import type express from "express"
 import type { StopWatch } from "stopwatch-node"
-import { demandLoggedIn } from "./authorization.js"
-import { reportError } from "./errorReporter.js"
-import { Instrument } from "./instrument.js"
-import { logger } from "./logger.js"
 
-const optimisticConcurrencySchedule = Schedule.once["&&"](
+const optimisticConcurrencySchedule = Schedule.once &&
   Schedule.recurWhile<SupportedErrors>(a => a._tag === "OptimisticConcurrencyException")
-)
-const retryOptimisticConcurrency = Effect.retry(optimisticConcurrencySchedule)
 
 export type SupportedErrors =
   | ValidationError
@@ -64,8 +49,8 @@ export function match<
   HeaderA,
   ReqA extends PathA & QueryA & BodyA,
   ResA,
-  R2 = unknown,
-  PR = unknown
+  R2 = never,
+  PR = never
 >(
   requestHandler: RequestHandler<
     R,
@@ -105,7 +90,7 @@ export function match<
       makeMiddlewareLayer
     )
   ).zipRight(
-    Effect.succeedWith(() =>
+    Effect.sync(() =>
       makeRouteDescriptor(
         requestHandler.Request.path,
         requestHandler.Request.method,
@@ -119,7 +104,7 @@ function snipValue(value: string | readonly string[] | undefined) {
   if (!value) {
     return value
   }
-  return ImmutableArray.isArray(value)
+  return ROArray.isArray(value)
     ? value.map(snipString)
     : typeof value === "string" && value.length > 50
     ? snipString(value)
@@ -137,17 +122,20 @@ export class RequestException<E> extends CauseException<E> {
 }
 const reportRequestError = reportError(cause => new RequestException(cause))
 
-function getRequestPars(pars: RequestContext) {
-  return {
-    request: pars,
-    requestId: pars.id,
-    requestLocale: pars.locale,
-    requestName: pars.name
-  }
+export function respondSuccess<ReqA, A, E>(
+  encodeResponse: (req: ReqA) => Encode<A, E>
+) {
+  return (req: ReqA, res: express.Response) =>
+    flow(encodeResponse(req), Effect.succeed, _ =>
+      _.flatMap(r =>
+        Effect.sync(() => {
+          r === undefined
+            ? res.status(204).send()
+            : res.status(200)
+              .send(JSON.stringify(r))
+        })
+      ))
 }
-
-export const InternalRequestLayers = (pars: RequestContext) =>
-  RequestContext.Live(pars)["<+<"](Layer.fromEffect(WinstonInstance)(makeChild(getRequestPars(pars))))
 
 export function makeRequestHandler<
   R,
@@ -158,11 +146,11 @@ export function makeRequestHandler<
   HeaderA,
   ReqA extends PathA & QueryA & BodyA,
   ResA = void,
-  R2 = unknown,
-  PR = unknown
+  R2 = never,
+  PR = never
 >(
   handler: RequestHandlerOptRes<
-    R & PR,
+    R | PR,
     PathA,
     CookieA,
     QueryA,
@@ -223,7 +211,7 @@ export function makeRequestHandler<
 
     res.setHeader("Content-Language", locale)
 
-    const handleRequest = Effect.succeedWith(() => ({
+    const handleRequest = Effect.sync(() => ({
       path: req.params,
       query: req.query,
       body: req.body,
@@ -235,7 +223,7 @@ export function makeRequestHandler<
         : req.headers,
       cookies: req.cookies
         ? Object.entries(req.cookies).reduce((prev, [key, value]) => {
-          prev[key] = typeof value === "string" || ImmutableArray.isArray(value)
+          prev[key] = typeof value === "string" || ROArray.isArray(value)
             ? snipValue(value)
             : value
           return prev
@@ -243,7 +231,7 @@ export function makeRequestHandler<
         : req.cookies
     }))
       .tap(pars =>
-        logger.debug(
+        logger.info(
           `${start.toISOString()} ${req.method} ${req.originalUrl} processing request`,
           pars
         )
@@ -258,50 +246,50 @@ export function makeRequestHandler<
             } as unknown as ReqA
             return hn
           })
-          .inject(Instrument("Performance.ParseRequest"))
+          .instrument("Performance.ParseRequest")
       )
       .flatMap(inp => {
         const handler = handle(inp as any) // TODO
         const handleRequest_: Effect<
-          Effect.Erase<R & R2, PR>,
+          Exclude<R | R2, PR>,
           SupportedErrors,
           ResA
         > = makeMiddlewareLayer
-          ? handler.inject(makeMiddlewareLayer(req, res)) as any
+          ? handler.provideSomeLayer(makeMiddlewareLayer(req, res)) as any
           : (handler as any)
 
-        const handleRequest = handleRequest_ // .inject(RequestLayers2)
+        const handleRequest = handleRequest_ // .provideSomeLayer(RequestLayers2)
 
         return (
           req.method === "PATCH"
-            ? retryOptimisticConcurrency(handleRequest)
+            ? handleRequest.retry(optimisticConcurrencySchedule)
             : handleRequest
         )
-          .inject(Instrument("Performance.HandleRequest"))
-          .flatMap(r => respond(inp, res)(r).inject(Instrument("Performance.EncodeResponse")))
+          .instrument("Performance.HandleRequest")
+          .flatMap(r => respond(inp, res)(r).instrument("Performance.EncodeResponse"))
       })
       .catchTag("ValidationError", err =>
-        Effect.succeedWith(() => {
+        Effect.sync(() => {
           res.status(400).send(err.errors)
         }))
       .catchTag("NotFoundError", err =>
-        Effect.succeedWith(() => {
+        Effect.sync(() => {
           res.status(404).send(err)
         }))
       .catchTag("NotLoggedInError", err =>
-        Effect.succeedWith(() => {
+        Effect.sync(() => {
           res.status(401).send(err)
         }))
       .catchTag("UnauthorizedError", err =>
-        Effect.succeedWith(() => {
+        Effect.sync(() => {
           res.status(403).send(err)
         }))
       .catchTag("InvalidStateError", err =>
-        Effect.succeedWith(() => {
+        Effect.sync(() => {
           res.status(422).send(err)
         }))
       .catchTag("OptimisticConcurrencyException", err =>
-        Effect.succeedWith(() => {
+        Effect.sync(() => {
           // 412 or 409.. https://stackoverflow.com/questions/19122088/which-http-status-code-to-use-to-reject-a-put-due-to-optimistic-locking-failure
           res.status(412).send(err)
         }))
@@ -315,8 +303,8 @@ export function makeRequestHandler<
           .map(() => err as unknown)
           .flatMap(Effect.die)
       )
-      .tapCause(cause =>
-        Effect.succeedWith(() => {
+      .tapErrorCause(cause =>
+        Effect.sync(() => {
           res.status(500).send()
           reportRequestError(cause, {
             requestContext,
@@ -343,7 +331,7 @@ export function makeRequestHandler<
         },
         () => {
           const headers = res.getHeaders()
-          return logger.debug(
+          return logger.info(
             `${new Date().toISOString()} ${req.method} ${req.originalUrl} processed request`,
             {
               statusCode: res.statusCode,
@@ -357,11 +345,11 @@ export function makeRequestHandler<
           )
         }
       )
-      .inject(InternalRequestLayers(requestContext))
+      .provideSomeLayer(InternalRequestLayers(requestContext))
     // Commands should not be interruptable.
     return (
-      req.method !== "GET" ? Effect.uninterruptible(handleRequest) : handleRequest
-    ).inject(Instrument("Performance.RequestResponse"))
+      req.method !== "GET" ? handleRequest.uninterruptible : handleRequest
+    ).instrument("Performance.RequestResponse")
   }
 }
 
@@ -381,17 +369,15 @@ type RouteAll<T extends RequestHandlers> = {
   > ? RouteMatch<
     R,
     /*PathA, CookieA,QueryA, BodyA, */ /*HeaderA, ReqA, ResA,*/ never, // Has<Config>,
-    never // Has<UserProfile> & Has<LoggedInUserContext> /*, R2, PR*/
+    unknown //UserProfile // & LoggedInUserContext /*, R2, PR*/
   >
     : never
 }
 
-type AppDeps =
-  & Has<RequestContext>
-  & Has<WinstonInstance>
-  & Has<logger.Logger>
+type LayerA<X> = X extends Layer<any, any, infer A> ? A : never
+
+export type RequestDeps = LayerA<ReturnType<typeof InternalRequestLayers>>
 // & Has<CacheScope>
-// & Has<BoilerplateContext>
 // & Has<Config>
 // & Has<AppInsightsContext>
 // & Has<IntlInstance>
@@ -407,19 +393,19 @@ type RouteMatch<
   // HeaderA,
   // ReqA extends PathA & QueryA & BodyA,
   // ResA,
-  R2 = unknown,
-  PR = unknown
+  R2 = never,
+  PR = never
 > = Effect<
-  & Has<Ex.ExpressAppConfig>
-  & Has<Ex.ExpressApp>
-  & Has<logger.Logger>
-  & Erase<
-    & R
-    & R2,
-    & PR
-    & HasClock
-    & AppDeps
-    & {
+  | Ex.ExpressAppConfig
+  | Ex.ExpressApp
+  | logger.Logger
+  | Exclude<
+    | R
+    | R2,
+    | PR
+    //    | HasClock
+    | RequestDeps
+    | {
       sw: StopWatch
     }
   >,
@@ -427,21 +413,54 @@ type RouteMatch<
   RouteDescriptorAny // RouteDescriptor<R, PathA, CookieA, QueryA, BodyA, HeaderA, ReqA, ResA, SupportedErrors, Methods>
 >
 
+// /**
+//  * Gather all handlers of a module and attach them to the Server.
+//  * Requires login for each route.
+//  */
+// export function matchAll<T extends RequestHandlers>(handlers: T) {
+//   const mapped = typedKeysOf(handlers).reduce((prev, cur) => {
+//     prev[cur] = match(handlers[cur] as any, demandLoggedIn)
+//     return prev
+//   }, {} as any) as RouteAll<typeof handlers>
+
+//   return mapped
+// }
+
+// /**
+//  * Gather all handlers of a module and attach them to the Server.
+//  * Requires login for each route.
+//  */
+
+// export function matchAllAlt<T extends RequestHandlersTest>(handlers: T) {
+//   const mapped = typedKeysOf(handlers).reduce((prev, cur) => {
+//     const matches = matchAll(handlers[cur])
+//     typedKeysOf(matches).forEach(key => prev[`${cur as string}.${key as string}`] = matches[key])
+//     return prev
+//   }, {} as any) as Flatten<RouteAllTest<typeof handlers>>
+
+//   return mapped
+// }
+
 /**
- * TODO: This could probably be better done by a code generator, definitely would reduce the type system load.
+ * Gather all handlers of a module and attach them to the Server.
+ * Requires no login.
  */
-export function matchAll<T extends RequestHandlers>(handlers: T) {
+export function matchAllAnonymous<T extends RequestHandlers>(handlers: T) {
   const mapped = typedKeysOf(handlers).reduce((prev, cur) => {
-    prev[cur] = match(handlers[cur] as any, demandLoggedIn)
+    prev[cur] = match(handlers[cur] as any)
     return prev
   }, {} as any) as RouteAll<typeof handlers>
 
   return mapped
 }
 
-export function matchAllAlt<T extends RequestHandlersTest>(handlers: T) {
+/**
+ * Gather all handlers of a module and attach them to the Server.
+ * Requires no login.
+ */
+export function matchAllAltAnonymous<T extends RequestHandlersTest>(handlers: T) {
   const mapped = typedKeysOf(handlers).reduce((prev, cur) => {
-    const matches = matchAll(handlers[cur])
+    const matches = matchAllAnonymous(handlers[cur])
     typedKeysOf(matches).forEach(key => prev[`${cur as string}.${key as string}`] = matches[key])
     return prev
   }, {} as any) as Flatten<RouteAllTest<typeof handlers>>
@@ -542,3 +561,54 @@ export interface ReqHandler<
   Response: ResSchema
   ResponseOpenApi: any
 }
+
+/**
+ * Provided a module with resources, and provided an Object with resource handlers, will prepare route handlers to be attached to server.
+ * @param mod The module with Resources you want to match.
+ * @returns A function that must be called with an Object with a handler "Request -> Effect<R, E, Response>" for each resource defined in the Module.
+ *
+ * Example:
+ * ```
+ * class SayHelloRequest extends Get("/say-hello")<SayHelloRequest>()({ name: prop(ReasonableString) }) {}
+ * class SayHelloResponse extends Model<SayHelloRequest>()({ message: prop(LongString) }) {}
+ *
+ * export const SayHelloControllers = matchResource({ SayHello: { SayHelloRequest, SayHelloResponse } })({
+ *   SayHello: (req) => Effect({ message: `Hi ${req.name}` })
+ * })
+ * ```
+ */
+export function matchResource<TModules extends Record<string, Record<string, any>>>(mod: TModules) {
+  type Keys = keyof TModules
+  return <
+    THandlers extends {
+      [K in Keys]: (
+        req: ReqFromSchema<GetRequest<TModules[K]>>
+      ) => Effect<any, SupportedErrors, ResFromSchema<GetResponse<TModules[K]>>>
+    }
+  >(
+    handlers: THandlers
+  ) => {
+    const handler = typedKeysOf(mod).reduce((prev, cur) => {
+      prev[cur] = handle(mod[cur])(handlers[cur] as any)
+      return prev
+    }, {} as any)
+    type HNDLRS = typeof handlers
+    return handler as {
+      [K in Keys]: ReqHandler<
+        ReqFromSchema<GetRequest<TModules[K]>>,
+        _R<ReturnType<HNDLRS[K]>>,
+        _E<ReturnType<HNDLRS[K]>>,
+        ResFromSchema<GetResponse<TModules[K]>>,
+        GetRequest<TModules[K]>,
+        GetResponse<TModules[K]>
+      >
+    }
+  }
+}
+
+type ReqFromSchema<ReqSchema> = InstanceType<
+  ReqSchema extends { new(...args: any[]): any } ? ReqSchema
+    : never
+>
+
+type ResFromSchema<ResSchema> = ParsedShapeOf<Extr<ResSchema>>

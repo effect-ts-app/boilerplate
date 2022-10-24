@@ -25,6 +25,7 @@ import {
   LongString,
   maxLengthIdentifier,
   minLengthIdentifier,
+  named,
   nullableIdentifier,
   Parser,
   ReasonableString,
@@ -35,8 +36,7 @@ import {
 import type * as Th from "@effect-ts-app/schema/custom/These"
 import type { EnforceNonEmptyRecord } from "@effect-ts/core/Utils"
 
-import type { ImmutableArray } from "@effect-ts-app/core/Prelude"
-import { Effect, Either, Maybe, Sync } from "@effect-ts-app/core/Prelude"
+import type { ROArray } from "@effect-ts-app/core/Prelude"
 import * as S from "@effect-ts-app/schema"
 import { faker, fakerToArb } from "../faker.js"
 
@@ -66,7 +66,7 @@ export function fitIntoLongString(str: string) {
 
 export class CustomSchemaException extends Error {
   readonly _tag = "ValidationError"
-  readonly errors: ImmutableArray<unknown>
+  readonly errors: ROArray<unknown>
   constructor(error: S.AnyError) {
     super(S.drawError(error))
     this.errors = [error]
@@ -91,20 +91,19 @@ export const fakerArb = (
 export function condemnCustom_<X, A>(
   self: Parser.Parser<X, AnyError, A>,
   a: X,
-  env?: Parser.ParserEnv,
-  __trace?: string
+  env?: Parser.ParserEnv
 ) {
-  return Effect.fromEither(() => {
+  return Effect.suspendSucceed(() => {
     const res = self(a, env).effect
     if (res._tag === "Left") {
-      return Either.left(new CustomSchemaException(res.left))
+      return Effect.fail(new CustomSchemaException(res.left))
     }
     const warn = res.right.get(1)
     if (warn._tag === "Some") {
-      return Either.left(new CustomSchemaException(warn.value))
+      return Effect.fail(new CustomSchemaException(warn.value))
     }
-    return Either(res.right.get(0))
-  }, __trace)
+    return Effect(res.right.get(0))
+  })
 }
 
 /**
@@ -114,25 +113,24 @@ export function condemnCustom_<X, A>(
 export function condemn_<X, E, A>(
   self: Parser.Parser<X, E, A>,
   x: X,
-  env?: Parser.ParserEnv,
-  __trace?: string
+  env?: Parser.ParserEnv
 ) {
   return Effect.suspend(() => {
     const y = self(x, env).effect
     if (y._tag === "Left") {
-      return Effect.fail(y.left, __trace)
+      return Effect.fail(y.left)
     }
     const {
       tuple: [a, w]
     } = y.right
     return w._tag === "Some"
-      ? Effect.fail(w.value, __trace)
-      : Effect(a, __trace)
+      ? Effect.fail(w.value)
+      : Effect(a)
   })
 }
 
 export function condemnCustom<X, A>(self: Parser.Parser<X, AnyError, A>) {
-  return (a: X, env?: Parser.ParserEnv, __trace?: string) => condemnCustom_(self, a, env, __trace)
+  return (a: X, env?: Parser.ParserEnv) => condemnCustom_(self, a, env)
 }
 
 export function condemnLeft_<X, A>(
@@ -162,7 +160,7 @@ export function parseCondemnCustom_<A, B, C, D, E>(
   __trace?: string
 ) {
   const parser = Parser.for(self)
-  return condemnCustom_(parser, a, env, __trace)
+  return condemnCustom_(parser, a, env)
 }
 
 export function parseECondemnCustom_<B, C, D, E>(
@@ -172,7 +170,7 @@ export function parseECondemnCustom_<B, C, D, E>(
   __trace?: string
 ) {
   const parser = EParserFor(self)
-  return condemnCustom_(parser, a, env, __trace)
+  return condemnCustom_(parser, a, env)
 }
 
 /**
@@ -186,7 +184,7 @@ export function condemnDie_<X, A>(
   __trace?: string
 ) {
   const cl = condemnLeft(self)
-  return Effect.fromEither(() => cl(a, env), __trace).orDie()
+  return Effect.fromEither(cl(a, env)).orDie
 }
 
 export function parseCondemnDie_<A, B, C, D, E>(
@@ -196,7 +194,7 @@ export function parseCondemnDie_<A, B, C, D, E>(
   __trace?: string
 ) {
   const parser = Parser.for(self)
-  return condemnDie_(parser, a, env, __trace)
+  return condemnDie_(parser, a, env)
 }
 
 export function parseECondemnDie_<B, C, D, E>(
@@ -206,20 +204,20 @@ export function parseECondemnDie_<B, C, D, E>(
   __trace?: string
 ) {
   const parser = EParserFor(self)
-  return condemnDie_(parser, a, env, __trace)
+  return condemnDie_(parser, a, env)
 }
 
 export function parseECondemnDie<B, C, D, E>(self: Schema<unknown, B, C, D, E>) {
   const parser = EParserFor(self)
-  return (a: D, env?: Parser.ParserEnv, __trace?: string) => {
-    return condemnDie_(parser, a, env, __trace)
+  return (a: D, env?: Parser.ParserEnv) => {
+    return condemnDie_(parser, a, env)
   }
 }
 
 export function parseECondemnFail<B, C, D, E>(self: Schema<unknown, B, C, D, E>) {
   const parser = EParserFor(self)
-  return (a: D, env?: Parser.ParserEnv, __trace?: string) => {
-    return condemnFail_(parser, a, env, __trace)
+  return (a: D, env?: Parser.ParserEnv) => {
+    return condemnFail_(parser, a, env)
   }
 }
 export function parseECondemnLeft<B, C, D, E>(self: Schema<unknown, B, C, D, E>) {
@@ -230,22 +228,22 @@ export function parseECondemnLeft<B, C, D, E>(self: Schema<unknown, B, C, D, E>)
 }
 export function parseECondemnCustom<B, C, D, E>(self: Schema<unknown, B, C, D, E>) {
   const parser = EParserFor(self)
-  return (a: D, env?: Parser.ParserEnv, __trace?: string) => {
-    return condemnCustom_(parser, a, env, __trace)
+  return (a: D, env?: Parser.ParserEnv) => {
+    return condemnCustom_(parser, a, env)
   }
 }
 
 export function parseCondemnDie<A, B, C, D, E>(self: Schema<A, B, C, D, E>) {
   const parser = Parser.for(self)
-  return (a: A, env?: Parser.ParserEnv, __trace?: string) => {
-    return condemnDie_(parser, a, env, __trace)
+  return (a: A, env?: Parser.ParserEnv) => {
+    return condemnDie_(parser, a, env)
   }
 }
 
 export function parseCondemnFail<A, B, C, D, E>(self: Schema<A, B, C, D, E>) {
-  return (a: A, env?: Parser.ParserEnv, __trace?: string) => {
+  return (a: A, env?: Parser.ParserEnv) => {
     const parser = Parser.for(self)
-    return condemnFail_(parser, a, env, __trace)
+    return condemnFail_(parser, a, env)
   }
 }
 export function parseCondemnLeft<A, B, C, D, E>(self: Schema<A, B, C, D, E>) {
@@ -257,15 +255,15 @@ export function parseCondemnLeft<A, B, C, D, E>(self: Schema<A, B, C, D, E>) {
 
 export function parseCondemnCustom<A, B, C, D, E>(self: Schema<A, B, C, D, E>) {
   const parser = Parser.for(self)
-  return (a: A, env?: Parser.ParserEnv, __trace?: string) => {
-    return condemnCustom_(parser, a, env, __trace)
+  return (a: A, env?: Parser.ParserEnv) => {
+    return condemnCustom_(parser, a, env)
   }
 }
 
 export function parseCondemn<A, B, C, D, E>(self: Schema<A, B, C, D, E>) {
   const parser = Parser.for(self)
-  return (a: A, env?: Parser.ParserEnv, __trace?: string) => {
-    return condemn_(parser, a, env, __trace)
+  return (a: A, env?: Parser.ParserEnv) => {
+    return condemn_(parser, a, env)
   }
 }
 
@@ -276,13 +274,13 @@ export function parseECondemn_<B, C, D, E>(
   __trace?: string
 ) {
   const parser = EParserFor(self)
-  return condemn_(parser, a, env, __trace)
+  return condemn_(parser, a, env)
 }
 
 export function parseECondemn<B, C, D, E>(self: Schema<unknown, B, C, D, E>) {
   const parser = EParserFor(self)
-  return (a: D, env?: Parser.ParserEnv, __trace?: string) => {
-    return condemn_(parser, a, env, __trace)
+  return (a: D, env?: Parser.ParserEnv) => {
+    return condemn_(parser, a, env)
   }
 }
 
@@ -313,7 +311,7 @@ export function condemnFail_<X, A>(
   __trace?: string
 ) {
   const cl = condemnLeft(self)
-  return Effect.fromEither(() => cl(a, env), __trace)
+  return Effect.fromEither(cl(a, env))
 }
 
 export function parseCondemnFail_<A, B, C, D, E>(
@@ -323,7 +321,7 @@ export function parseCondemnFail_<A, B, C, D, E>(
   __trace?: string
 ) {
   const parser = Parser.for(self)
-  return condemnFail_(parser, a, env, __trace)
+  return condemnFail_(parser, a, env)
 }
 
 export function parseECondemnFail_<B, C, D, E>(
@@ -333,7 +331,7 @@ export function parseECondemnFail_<B, C, D, E>(
   __trace?: string
 ) {
   const parser = EParserFor(self)
-  return condemnFail_(parser, a, env, __trace)
+  return condemnFail_(parser, a, env)
 }
 
 export function parseCondemnLeft_<A, B, C, D, E>(
@@ -526,10 +524,10 @@ export type OpaqueEncoded<OpaqueE, Schema> = Schema extends DefaultSchema<
 // TODO: Add `is` guards (esp. for tagged unions.)
 export function smartClassUnion<
   T extends Record<PropertyKey, SchemaUPI & { new(i: any): any }>
->(members: T & EnforceNonEmptyRecord<T>) {
+>(members: T & EnforceNonEmptyRecord<T>, name?: string) {
   // @ts-expect-error we know this is NonEmpty
   const u = unionOrig(members)
-  return enhanceClassUnion(u)
+  return enhanceClassUnion(name ? u["|>"](named(name)) as typeof u : u)
 }
 
 export function enhanceClassUnion<
@@ -679,22 +677,6 @@ export interface SmartUnion<
   EParser: Parser.Parser<Encoded, any, ParsedShape>
 }
 
-export function condemnSync<X, E, A>(
-  self: (a: X) => Th.These<E, A>
-): (a: X) => Sync.IO<E, A> {
-  return x =>
-    Sync.suspend(() => {
-      const y = self(x).effect
-      if (y._tag === "Left") {
-        return Sync.fail(y.left)
-      }
-      const {
-        tuple: [a, w]
-      } = y.right
-      return w._tag === "Some" ? Sync.fail(w.value) : Sync(a)
-    })
-}
-
 /**
  * The Either's left is returned with the parser errors when the parser produces an invalid result
  * Otherwise right with the valid result.
@@ -784,6 +766,37 @@ export function OpaqueSchema<A, E = A, CI = A>() {
 }
 
 export interface UnionBrand {}
+
+/**
+ * @tsplus type PreparedLens
+ * Currently does not implement composition, but is useful as a quick set/modify.
+ */
+export class PreparedLens<S, T> {
+  constructor(private readonly s: S, readonly lens: Lens<S, T>) {}
+  get = () => this.lens.get(this.s)
+  set = (t: T) => this.lens.set_(this.s, t)
+}
+
+/**
+ * @tsplus fluent PreparedLens modify
+ */
+export function modify<S, T>(l: PreparedLens<S, T>, mod: (t: T) => T) {
+  return l.set(mod(l.get()))
+}
+
+export function makePreparedLenses<S, Props extends PropertyRecord>(
+  props: Props,
+  s: S
+): { [K in keyof Props]: PreparedLens<S, ParsedShapeOf<Props[K]["_schema"]>> } {
+  function makeLens<T>(l: Lens<S, T>) {
+    return new PreparedLens(s, l)
+  }
+  const id = Lens.id<S>()
+  return Object.keys(props).reduce((prev, cur) => {
+    prev[cur] = makeLens(id.prop(cur as any))
+    return prev
+  }, {} as any)
+}
 
 export * from "@effect-ts-app/schema"
 export * from "./overrides.js"
