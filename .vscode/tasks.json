@@ -327,7 +327,7 @@
 		// 	"type": "shell",
 		// 	"command": "../../node_modules/.bin/ultra --raw watch2",
 		// 	"options": {
-		// 		"cwd": "apps/frontend"
+		// 		"cwd": "apps/frontend-nuxt"
 		// 	},
 		// 	"group": "build",
 		// 	// "dependsOrder": "sequence",
@@ -340,7 +340,7 @@
 		// 	// 		"base": "$tsc-watch",
 		// 	// 		"fileLocation": [
 		// 	// 			"relative",
-		// 	// 			"${workspaceRoot}/apps/frontend"
+		// 	// 			"${workspaceRoot}/apps/frontend-nuxt"
 		// 	// 		],
 		// 	// 	}
 		// 	// ],
@@ -369,7 +369,7 @@
 		// 	"type": "shell",
 		// 	"command": "../../node_modules/.bin/ultra --raw watch",
 		// 	"options": {
-		// 		"cwd": "apps/frontend"
+		// 		"cwd": "apps/frontend-nuxt"
 		// 	},
 		// 	"group": "build",
 		// 	// "dependsOrder": "sequence",
@@ -382,7 +382,7 @@
 		// 	// 		"base": "$tsc-watch",
 		// 	// 		"fileLocation": [
 		// 	// 			"relative",
-		// 	// 			"${workspaceRoot}/apps/frontend"
+		// 	// 			"${workspaceRoot}/apps/frontend-nuxt"
 		// 	// 		],
 		// 	// 	}
 		// 	// ],
@@ -411,7 +411,7 @@
 			"type": "shell",
 			"command": "yarn dev",
 			"options": {
-				"cwd": "apps/frontend"
+				"cwd": "apps/frontend-nuxt"
 			},
 			"dependsOrder": "sequence",
 			"dependsOn": [
@@ -448,7 +448,7 @@
 			"type": "shell",
 			"command": "../../node_modules/.bin/ultra --raw dev",
 			"options": {
-				"cwd": "apps/frontend"
+				"cwd": "apps/frontend-nuxt"
 			},
 			"dependsOrder": "sequence",
 			"dependsOn": [
@@ -546,7 +546,7 @@
 			"type": "shell",
 			"command": "../../node_modules/.bin/ultra --raw build",
 			"options": {
-				"cwd": "apps/frontend"
+				"cwd": "apps/frontend-nuxt"
 			},
 			"group": "build",
 			"dependsOrder": "sequence",

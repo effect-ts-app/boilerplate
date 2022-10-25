@@ -1613,20 +1613,12 @@
   resolved "https://registry.yarnpkg.com/@effect-ts/tracing-plugin/-/tracing-plugin-0.20.0.tgz#f88921bd9d58bc75491552ac8901c031f79d8383"
   integrity sha512-EVjlK7Bu3JL4HcUZehU8HFy5KLXgrSTvAkgUVjMGSp52Oi+3nTzLkVFgmBXF7K2OUqI4kxOUfGNRMnpQlknGAA==
 
-"@effect/core@^0.0.16":
-  version "0.0.16"
-  resolved "https://registry.yarnpkg.com/@effect/core/-/core-0.0.16.tgz#b3199462a12609fbaf1c52f218f3ff11d9c8f3f6"
-  integrity sha512-JugbKcqo9CPdm4n7t/buO4nYxKwThafh0tXVvPgRC3RcwuOS1dzo3tIk6RVq1wYh8Kg4df5SwmdED2VvN4c/RA==
+"@effect/core@0.0.15":
+  version "0.0.15"
+  resolved "https://registry.yarnpkg.com/@effect/core/-/core-0.0.15.tgz#54204a9222d826a0e12499eb14dcf441656bac25"
+  integrity sha512-cl7KBKJ7RnAK/DjP3l/62021erSCXUyQ3G9b2AFA7IfdyxsZnmDWvdvT0fQUauXC2KxJ1/UmIOgeAzj1f1ulrQ==
   dependencies:
-    "@effect/printer" "^0.0.4"
     "@tsplus/stdlib" "^0.2.8"
-
-"@effect/printer@^0.0.4":
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/@effect/printer/-/printer-0.0.4.tgz#3c829e0c3f42c64cb2e7768573b3b49a6e81ebc2"
-  integrity sha512-oTn6U9GCg01E+kYwUBs4LM6k6hVq0pA7ZAYKdj972n2LjYeqg4+We6ZqoYWH2Pw5TDHOavtIEdYqt61uUxiZgg==
-  dependencies:
-    "@tsplus/stdlib" "^0.2.6"
 
 "@esbuild/android-arm@0.15.12":
   version "0.15.12"
@@ -3667,7 +3659,7 @@
     ts-node "^10.4.0"
     zlib "^1.0.5"
 
-"@tsplus/stdlib@^0.2.6", "@tsplus/stdlib@^0.2.8":
+"@tsplus/stdlib@^0.2.8":
   version "0.2.8"
   resolved "https://registry.yarnpkg.com/@tsplus/stdlib/-/stdlib-0.2.8.tgz#060380d9d16d5ae059750c469f52e4257a1b6e66"
   integrity sha512-UKAN06h9V/wUflSbOU1WwACisXEi4+PHwGqR+bwxqcClrEAA8KKTTLZ0ATMbqbVAVTudE0vW4pd5iY6vGvSFBw==
@@ -15539,6 +15531,11 @@ vue-router@^4.1.5:
   integrity sha512-DYWYwsG6xNPmLq/FmZn8Ip+qrhFEzA14EI12MsMgVxvHFDYvlr4NXpVF5hrRH1wVcDP8fGi5F4rxuJSl8/r+EQ==
   dependencies:
     "@vue/devtools-api" "^6.4.5"
+
+vue-toastification@^2.0.0-rc.5:
+  version "2.0.0-rc.5"
+  resolved "https://registry.yarnpkg.com/vue-toastification/-/vue-toastification-2.0.0-rc.5.tgz#92798604d806ae473cfb76ed776fae294280f8f8"
+  integrity sha512-q73e5jy6gucEO/U+P48hqX+/qyXDozAGmaGgLFm5tXX4wJBcVsnGp4e/iJqlm9xzHETYOilUuwOUje2Qg1JdwA==
 
 vue@^3.2.41:
   version "3.2.41"
