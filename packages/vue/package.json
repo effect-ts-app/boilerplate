@@ -52,7 +52,7 @@
     "build": "yarn clean-dist && NODE_OPTIONS=--max-old-space-size=6144 tsc --build",
     "build2:cjs": "rm -rf _cjs && babel dist --config-file ../../.babel.cjs.json --out-dir _cjs --out-file-extension .cjs --source-maps",
     "watch": "yarn build --watch",
-    "watch2": "yarn clean-dist && NODE_OPTIONS=--max-old-space-size=6144 tsc-w",
+    "watch2": "yarn clean-dist && NODE_OPTIONS=--max-old-space-size=6144 tsc -w",
     "prepare": "yarn build",
     "clean": "rm -rf dist && rm -rf _cjs",
     "clean-dist": "sh ../../scripts/clean-dist.sh",
@@ -64,7 +64,7 @@
     "prettier": "prettier \"**/*.ts\"",
     "autofix": "yarn lint --fix",
     "test": "TEST_COMPILED=1 jest",
-    "testsuite": "yarn lint && yarn test && yarn circular && yarn circular:dist",
+    "testsuite": "yarn lint && yarn test --passWithNoTests && yarn circular && yarn circular:dist",
     "ncu": "ncu -x @types/faker,faker,date-fns"
   },
   "gitHead": "bd8e27eea3eff97db8739d577d67e7336c078d28",
