@@ -37,7 +37,7 @@ export const barrel: Preset<{
   export?:
     | string
     | { name: string; keys: 'path' | 'camelCase' }
-    | { as: 'PascalCase' };
+    | { as: 'PascalCase', postfix?: string };
   nodir?: boolean;
 }> = ({ meta, options: opts }) => {
   const cwd = path.dirname(meta.filename);
@@ -56,19 +56,23 @@ export const barrel: Preset<{
         : true,
     )
     .map((f) => f.replace(/\.\w+$/, '').replace(/\/$/, ''));
+  
+  function last<T>(list: readonly T[]) {
+    return list[list.length - 1]
+  }
 
   const expectedContent = match(opts.import)
     .case(undefined, () =>
       match(opts.export)
-        .case({ as: 'PascalCase' }, () =>
+        .case({ as: 'PascalCase' as const }, (v) =>
           lodash
             .chain(relativeFiles)
             .map(
               (f) =>
                 `export * as ${lodash
-                  .startCase(lodash.camelCase(f))
+                  .startCase(lodash.camelCase(last(f.split("/"))))
                   .replace(/ /g, "") // why?
-                  .replace(/\//, '')} from '${f}.js'`,
+                  .replace(/\//, '')}${"postfix" in v ? v.postfix : ''} from '${f}.js'`,
             )
             .value()
             .join('\n'),
@@ -102,7 +106,7 @@ export const barrel: Preset<{
         .value();
 
       const imports = withIdentifiers
-        .map((i) => `import ${importPrefix}${i.identifier} from '${i.file}'`)
+        .map((i) => `import ${importPrefix}${i.identifier} from '${i.file}.js'`)
         .join('\n');
       const exportProps = match(opts.export)
         .case({ name: String, keys: 'path' }, () =>

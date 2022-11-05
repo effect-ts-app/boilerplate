@@ -1,0 +1,79 @@
+{
+    "extends": "../../tsconfig.base.json",
+    "compilerOptions": {
+        "lib": [
+            "esnext"
+        ],
+        "tsPlusConfig": "./tsplus.config.json",
+        "tsBuildInfoFile": "./dist/.tsbuildinfo",
+        "esModuleInterop": true,
+        // temp disbaled to support ts-plus ops
+        "importsNotUsedAsValues": "preserve",
+        "baseUrl": "./",
+        "rootDir": "./_src",
+        // keep in here, cause madge can't detect it from extended tsconfig
+        "moduleResolution": "Node16",
+        "paths": {
+            "@/*": [
+                "./_src/*"
+            ]
+        },
+        "outDir": "./dist",
+        "types": [
+            "../../types/global",
+            "../../types/modules"
+        ],
+        "transformers": [
+            // Transform paths in output .js files
+            {
+                "name": "ts-transform-paths"
+            },
+            // Transform paths in output .d.ts files (Include this line if you output declarations files)
+            {
+                "name": "ts-transform-paths",
+                "position": "afterDeclaration"
+            },
+        ]
+    },
+    "include": [
+        "./_src/**/*.ts"
+    ],
+    "exclude": [
+        ".jest-cache",
+        "./dist",
+        "node_modules",
+        "build",
+        "lib",
+        "dist",
+        "**/*.d.ts.map",
+        ".git",
+        ".data",
+        "**/.*",
+        "**/*.tmp"
+    ],
+    "ts-node": {
+        "require": [
+            "tsconfig-paths/register"
+        ],
+        "compilerOptions": {
+            "module": "CommonJS"
+        }
+    },
+    "references": [
+        {
+            "path": "../../packages/infra"
+        },
+        {
+            "path": "../../packages/messages"
+        },
+        {
+            "path": "../../packages/client"
+        },
+        {
+            "path": "../../packages/types"
+        },
+        {
+            "path": "../../packages/prelude"
+        }
+    ]
+}

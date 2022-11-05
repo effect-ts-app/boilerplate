@@ -5,3 +5,11 @@ export * from "./schema/shared.js"
 // codegen:end
 
 export { Email, PhoneNumber } from "./schema/shared.js"
+
+/**
+ * Allow anonymous access
+ */
+export function allowAnonymous(cls: any) {
+  Object.assign(cls, { allowAnonymous: true })
+  return cls
+}

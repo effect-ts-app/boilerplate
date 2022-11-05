@@ -99,6 +99,13 @@ export function RecordValues<TT extends object>(o: ObjectOps<TT>): Values<TT>[] 
   return Object.values(o.subject)
 }
 
+/**
+ * @tsplus getter Object.Ops pretty
+ */
+export function RecordPretty<TT extends object>(o: ObjectOps<TT>) {
+  return pretty(o.subject)
+}
+
 
 export function makeAzureFriendly(path: string) {
   return path.replace(/\//g, "___SL@SH___")

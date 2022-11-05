@@ -4,9 +4,10 @@
   "license": "MIT",
   "type": "module",
   "resolutions": {
-    "typescript": "https://cdn.jsdelivr.net/npm/@tsplus/installer@0.0.149/compiler/typescript.tgz"
+    "typescript": "https://cdn.jsdelivr.net/npm/@tsplus/installer@0.0.150/compiler/typescript.tgz"
   },
   "dependencies": {
+    "@effect-ts-app/boilerplate-prelude": "*",
     "uuid": "^9.0.0",
     "validator": "^13.7.0"
   },
@@ -14,6 +15,26 @@
     "date-fns": "2.23.0"
   },
   "exports": {
+    "./PickList": {
+      "import": {
+        "types": "./dist/PickList.d.ts",
+        "default": "./dist/PickList.js"
+      },
+      "require": {
+        "types": "./dist/PickList.d.ts",
+        "default": "./_cjs/PickList.cjs"
+      }
+    },
+    "./PickItem": {
+      "import": {
+        "types": "./dist/PickItem.d.ts",
+        "default": "./dist/PickItem.js"
+      },
+      "require": {
+        "types": "./dist/PickItem.d.ts",
+        "default": "./_cjs/PickItem.cjs"
+      }
+    },
     "./User": {
       "import": {
         "types": "./dist/User.d.ts",
@@ -46,8 +67,8 @@
     }
   },
   "devDependencies": {
-    "@types/validator": "^13.7.9",
-    "@jest/globals": "29.2.1",
+    "@types/validator": "^13.7.10",
+    "@jest/globals": "29.2.2",
     "@types/faker": "5.5.9",
     "@types/uuid": "^8.3.4",
     "faker": "^5.5.3",
@@ -57,7 +78,7 @@
     "build": "yarn clean-dist && NODE_OPTIONS=--max-old-space-size=6144 tsc --build",
     "build2:cjs": "rm -rf _cjs && babel dist --config-file ../../.babel.cjs.json --out-dir _cjs --out-file-extension .cjs --source-maps",
     "watch": "yarn build --watch",
-    "watch2": "yarn clean-dist && NODE_OPTIONS=--max-old-space-size=6144 tsc-w",
+    "watch2": "yarn clean-dist && NODE_OPTIONS=--max-old-space-size=6144 tsc -w",
     "prepare": "yarn build",
     "clean": "rm -rf dist && rm -rf _cjs",
     "clean-dist": "sh ../../scripts/clean-dist.sh",
@@ -69,7 +90,7 @@
     "prettier": "prettier \"**/*.ts\"",
     "autofix": "yarn lint --fix",
     "test": "TEST_COMPILED=1 jest",
-    "testsuite": "yarn lint && yarn test && yarn circular && yarn circular:dist",
+    "testsuite": "yarn lint && yarn test --passWithNoTests && yarn circular && yarn circular:dist",
     "ncu": "ncu -x @types/faker,faker,date-fns"
   },
   "gitHead": "bd8e27eea3eff97db8739d577d67e7336c078d28",

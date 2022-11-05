@@ -1,8 +1,8 @@
 diff --git a/node_modules/@effect/core/package.json b/node_modules/@effect/core/package.json
-index 104a4f2..7322c2d 100644
+index 104a4f2..f56919e 100644
 --- a/node_modules/@effect/core/package.json
 +++ b/node_modules/@effect/core/package.json
-@@ -22,6 +22,76 @@
+@@ -22,6 +22,86 @@
          "default": "./index.js"
        }
      },
@@ -54,6 +54,16 @@ index 104a4f2..7322c2d 100644
 +      "require": {
 +        "types": "./io/Fiber.d.ts",
 +        "default": "./io/Fiber.js"
++      }
++    },
++    "./io/FiberRef": {
++      "import": {
++        "types": "./io/FiberRef.d.ts",
++        "default": "./_mjs/io/FiberRef.mjs"
++      },
++      "require": {
++        "types": "./io/FiberRef.d.ts",
++        "default": "./io/FiberRef.js"
 +      }
 +    },
 +    "./io/Scope": {

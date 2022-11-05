@@ -4,12 +4,12 @@
   "license": "MIT",
   "type": "module",
   "resolutions": {
-    "typescript": "https://cdn.jsdelivr.net/npm/@tsplus/installer@0.0.149/compiler/typescript.tgz"
+    "typescript": "https://cdn.jsdelivr.net/npm/@tsplus/installer@0.0.150/compiler/typescript.tgz"
   },
   "dependencies": {
     "@effect-ts-app/core": "1.0.15",
     "@effect-ts-app/schema": "1.0.15",
-    "@effect/core": "0.0.15",
+    "@effect/core": "^0.0.16",
     "@tsplus/stdlib": "^0.2.8",
     "@effect-ts/core": "0.60.4",
     "@effect-ts/monocle": "0.43.0",
@@ -91,6 +91,16 @@
         "default": "./_cjs/_ext/Pure.cjs"
       }
     },
+    "./prelude": {
+      "import": {
+        "types": "./dist/prelude.d.ts",
+        "default": "./dist/prelude.js"
+      },
+      "require": {
+        "types": "./dist/prelude.d.ts",
+        "default": "./_cjs/prelude.cjs"
+      }
+    },
     "./*.js": {
       "import": {
         "types": "./dist/*.d.ts",
@@ -113,8 +123,8 @@
     }
   },
   "devDependencies": {
-    "@types/validator": "^13.7.9",
-    "@jest/globals": "29.2.1",
+    "@types/validator": "^13.7.10",
+    "@jest/globals": "29.2.2",
     "@types/faker": "5.5.9",
     "@types/uuid": "^8.3.4",
     "faker": "^5.5.3",

@@ -33,27 +33,29 @@
 		// 	]
 		// },
 		{
-			"label": "Watch API",
+			"label": "Watch API & Libs",
 			"type": "shell",
-			"command": "yarn watch",
-			"options": {
-				"cwd": "apps/api/_test"
-			},
+			"command": "yarn build -w",
+			// "options": {
+			// 	"cwd": "apps/api/_test",
+			// },
 			"dependsOn": [
 				"Clean Dist"
 				//"Watch API & Libs"
 			],
-			"group": "build",
+			"group": {
+				"kind": "build",
+			},
 			"isBackground": true,
 			"presentation": {
-				"group": "watch-test"
+				"group": "watch-build",
 			},
 			"problemMatcher": [
 				{
 					"base": "$tsc-watch",
 					"fileLocation": [
 						"relative",
-						"${workspaceRoot}/apps/api",
+						"${workspaceRoot}",
 					],
 				}
 			]
@@ -66,12 +68,12 @@
 				"cwd": "e2e"
 			},
 			"dependsOn": [
-				"Watch API"
+				"Watch API & Libs"
 			],
 			"group": "build",
 			"isBackground": true,
 			"presentation": {
-				"group": "watch-test"
+				"group": "watch-build"
 			},
 			"problemMatcher": [
 				{
@@ -99,7 +101,7 @@
 			},
 			"isBackground": true,
 			"presentation": {
-				"group": "watch-libs"
+				"group": "watch-build"
 			},
 			"problemMatcher": [
 				{
@@ -409,7 +411,7 @@
 		{
 			"label": "UI Run",
 			"type": "shell",
-			"command": "yarn dev",
+			"command": "yarn dev -o",
 			"options": {
 				"cwd": "apps/frontend-nuxt"
 			},
@@ -443,44 +445,44 @@
 				"group": "run"
 			}
 		},
-		{
-			"label": "UI Run 2",
-			"type": "shell",
-			"command": "../../node_modules/.bin/ultra --raw dev",
-			"options": {
-				"cwd": "apps/frontend-nuxt"
-			},
-			"dependsOrder": "sequence",
-			"dependsOn": [
-				"Types Watch",
-				"Client Watch",
-				"API Watch 2",
-				"UI Watch 2",
-				"API Run",
-			],
-			"isBackground": true,
-			// FAKE...
-			"problemMatcher": {
-				"severity": "warning",
-				"pattern": [
-					{
-						"regexp": "^\\s+(.*)\\((\\d+),(\\d+)\\):\\s+(.*)$",
-						"file": 1,
-						"line": 2,
-						"column": 3,
-						"message": 4
-					}
-				],
-				"background": {
-					"activeOnStart": true,
-					"beginsPattern": "compiling",
-					"endsPattern": "compiled successfully",
-				}
-			},
-			"presentation": {
-				"group": "run"
-			}
-		},
+		// {
+		// 	"label": "UI Run 2",
+		// 	"type": "shell",
+		// 	"command": "../../node_modules/.bin/ultra --raw dev",
+		// 	"options": {
+		// 		"cwd": "apps/frontend-nuxt"
+		// 	},
+		// 	"dependsOrder": "sequence",
+		// 	"dependsOn": [
+		// 		"Types Watch",
+		// 		"Client Watch",
+		// 		"API Watch 2",
+		// 		"UI Watch 2",
+		// 		"API Run",
+		// 	],
+		// 	"isBackground": true,
+		// 	// FAKE...
+		// 	"problemMatcher": {
+		// 		"severity": "warning",
+		// 		"pattern": [
+		// 			{
+		// 				"regexp": "^\\s+(.*)\\((\\d+),(\\d+)\\):\\s+(.*)$",
+		// 				"file": 1,
+		// 				"line": 2,
+		// 				"column": 3,
+		// 				"message": 4
+		// 			}
+		// 		],
+		// 		"background": {
+		// 			"activeOnStart": true,
+		// 			"beginsPattern": "compiling",
+		// 			"endsPattern": "compiled successfully",
+		// 		}
+		// 	},
+		// 	"presentation": {
+		// 		"group": "run"
+		// 	}
+		// },
 		{
 			"label": "API-E2E",
 			"type": "shell",

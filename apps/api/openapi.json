@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "@effect-ts-app/boilerplate-api",
+    "title": "api",
     "version": "X"
   },
   "tags": [],
@@ -20,31 +20,56 @@
                       "format": "date-time",
                       "type": "string"
                     },
-                    "user": {
-                      "properties": {
-                        "id": {
-                          "format": "uuid",
-                          "type": "string"
-                        },
-                        "name": {
-                          "$ref": "#/components/schemas/FullName"
-                        }
-                      },
-                      "required": [
-                        "id",
-                        "name"
-                      ],
-                      "type": "object"
-                    },
                     "context": {
                       "properties": {},
                       "type": "object"
+                    },
+                    "currentUser": {
+                      "$ref": "#/components/schemas/User",
+                      "nullable": true
+                    },
+                    "randomUser": {
+                      "$ref": "#/components/schemas/User"
                     }
                   },
                   "required": [
                     "now",
-                    "user",
-                    "context"
+                    "context",
+                    "currentUser",
+                    "randomUser"
+                  ],
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "ValidationError"
+          }
+        }
+      }
+    },
+    "/me": {
+      "get": {
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "id": {
+                      "format": "uuid",
+                      "type": "string"
+                    },
+                    "name": {
+                      "$ref": "#/components/schemas/FullName"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name"
                   ],
                   "type": "object"
                 }
@@ -84,6 +109,23 @@
         "required": [
           "firstName",
           "lastName"
+        ],
+        "type": "object"
+      },
+      "User": {
+        "title": "User",
+        "properties": {
+          "id": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "name": {
+            "$ref": "#/components/schemas/FullName"
+          }
+        },
+        "required": [
+          "id",
+          "name"
         ],
         "type": "object"
       }

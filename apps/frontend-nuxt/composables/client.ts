@@ -11,10 +11,13 @@ import type {
   UnauthorizedError,
   ValidationError
 } from "@effect-ts-app/boilerplate-client/lib"
-import { flow, tuple } from "@effect-ts-app/boilerplate-prelude/Function"
+import { flow, pipe, tuple } from "@effect-ts-app/boilerplate-prelude/Function"
 import { useAction, useMutation } from "@effect-ts-app/boilerplate-vue"
+import type { ComputedRef } from "nuxt/dist/app/compat/capi"
 import { useToast } from "vue-toastification"
-import type { Effect, Either } from "./prelude"
+import type { Either } from "./prelude"
+
+import { Effect } from "./prelude"
 
 export { clientFor, isFailed, isInitializing, isRefreshing, isSuccess } from "@effect-ts-app/boilerplate-client/lib"
 export { run, useAction, useMutation, useSafeQuery } from "@effect-ts-app/boilerplate-vue"
@@ -26,42 +29,83 @@ export { run, useAction, useMutation, useSafeQuery } from "@effect-ts-app/boiler
 export function useAndHandleMutation<I, E extends ResponseError | FetchError, A, X>(
   self: (i: I) => Effect.Effect<ApiConfig | Http, E, A>,
   action: string,
-  onSuccess?: () => Promise<X>
+  onSuccess: (_: A) => Promise<X>
+): Resp<I, E, X>
+export function useAndHandleMutation<I, E extends ResponseError | FetchError, A>(
+  self: (i: I) => Effect.Effect<ApiConfig | Http, E, A>,
+  action: string
+): Resp<I, E, A>
+export function useAndHandleMutation<I, E extends ResponseError | FetchError, A, X>(
+  self: (i: I) => Effect.Effect<ApiConfig | Http, E, A>,
+  action: string,
+  onSuccess?: (_: A) => Promise<X>
 ) {
-  const [a, b] = useMutation(self)
+  const eff = onSuccess ?
+    (i: I) =>
+      pipe(
+        self(i),
+        Effect.flatMap(_ => Effect.promise(() => onSuccess(_)))
+      ) :
+    self
+  const [a, b] = useMutation(eff as (i: I) => Effect.Effect<ApiConfig | Http, E, X | A>)
 
-  return tuple(a, handleRequest(b, action, onSuccess))
+  return tuple(a, handleRequest(b, action))
 }
+
+interface Res<E, A> {
+  loading: boolean
+  value: A | undefined
+  error: E | undefined
+}
+
+type Resp<I, E, A> = readonly [
+  ComputedRef<Res<E, A>>,
+  (I: I) => Promise<void>
+]
+
+type ActResp<E, A> = readonly [
+  ComputedRef<Res<E, A>>,
+  () => Promise<void>
+]
 
 /**
  * Pass an Effect, e.g from a client action, give it a name, and optionally pass an onSuccess callback.
  * Returns a tuple with state ref and execution function which reports errors as Toast.
  */
+export function useAndHandleAction<E extends ResponseError | FetchError, A>(
+  self: Effect.Effect<ApiConfig | Http, E, A>,
+  action: string
+): ActResp<E, A>
+export function useAndHandleAction<E extends ResponseError | FetchError, A, X>(
+  self: Effect.Effect<ApiConfig | Http, E, A>,
+  action: string,
+  onSuccess: (a: A) => Promise<X>
+): ActResp<E, X>
 export function useAndHandleAction<E extends ResponseError | FetchError, A, X>(
   self: Effect.Effect<ApiConfig | Http, E, A>,
   action: string,
   onSuccess?: (a: A) => Promise<X>
 ) {
-  const [a, b] = useAction(self)
+  const eff = onSuccess ? pipe(self, Effect.flatMap(_ => Effect.promise(() => onSuccess(_)))) : self
+  const [a, b] = useAction(eff)
 
-  return tuple(a, handleRequest(b, action, onSuccess))
+  return tuple(a, handleRequest(b, action))
 }
 
 /**
  * Pass a function that returns a Promise.
  * Returns an execution function which reports errors as Toast.
  */
-export function handleRequest<X, E extends ResponseError | FetchError, A, Args extends unknown[]>(
+export function handleRequest<E extends ResponseError | FetchError, A, Args extends unknown[]>(
   f: (...args: Args) => Promise<Either.Either<E, A>>,
-  action: string,
-  onSuccess?: (a: A) => Promise<X>
+  action: string
 ) {
   const toast = useToast()
   return flow(f, p =>
     p.then(r =>
       r._tag === "Right"
         // eslint-disable-next-line @typescript-eslint/no-empty-function
-        ? onSuccess ? onSuccess(r.right).then(() => {}) : Promise.resolve(void 0 as void)
+        ? Promise.resolve(void 0 as void)
         : Promise.resolve(toast.error(`Error trying to ${action}: ` + renderError(r.left)))
           // eslint-disable-next-line @typescript-eslint/no-empty-function
           .then(_ => {}), err => {
@@ -92,7 +136,7 @@ export function renderError(e: ResponseError | FetchError) {
 
 function parseError(e: string) {
   try {
-    const js = JSON.parse(e)
+    const js = JSON.parse(e) as any
     if ("_tag" in js) {
       if ("message" in js) {
         return `${js._tag}: ${js.message}`

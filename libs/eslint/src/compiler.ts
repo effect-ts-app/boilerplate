@@ -17,6 +17,8 @@ const sortAlpha = (a: string, b: string) => {
   if(a > b) { return 1; }
   return 0;
 }
+
+// TODO: we don't support string literals with spaces in them currently.
 const rx = /(([^\s\<\>\,\[\(]+)? \| ([^\s\<\>\,\]\)]+))+/
 
 function sortIt(str: string) {
@@ -55,7 +57,7 @@ export function processNode(tc: ts.TypeChecker, root: ts.Node) {
 
 
           tt.getProperties().forEach(p => {
-            const isLookup = debug && p.escapedName === "action"
+            const isLookup = debug && p.escapedName === "carrier"
 
             //kind = 207, 
             //arguments[0].escapedText === "HosterRole"
@@ -176,15 +178,15 @@ export function processNode(tc: ts.TypeChecker, root: ts.Node) {
                 const sub = unions[rpl]
                 return (sub ? sub : rpl)
               })
-              .replaceAll(" Array<", " ImmutableArray<") // .replaceAll(/(Array|Set|Map)\</", "ImmutableArray<") //
-              .replaceAll(" Set<", " ImmutableSet<")
-              .replaceAll(" Map<", " ImmutableMap<")
-              .replaceAll("(Array<", "(ImmutableArray<") // .replaceAll(/(Array|Set|Map)\</", "ImmutableArray<") //
-              .replaceAll("(Set<", "(ImmutableSet<")
-              .replaceAll("(Map<", "(ImmutableMap<")
-                .replaceAll(" Array.Array<", " ImmutableArray<") // .replaceAll(/(Array|Set|Map)\</", "ImmutableArray<") //
-                .replaceAll(" Set.Set<", " ImmutableSet<")
-                .replaceAll(" Map.Map<", " ImmutableMap<")
+              .replaceAll(" Array<", " ROArray<") // .replaceAll(/(Array|Set|Map)\</", "ROArray<") //
+              .replaceAll(" Set<", " ROSet<")
+              .replaceAll(" Map<", " ROMap<")
+              .replaceAll("(Array<", "(ROArray<") // .replaceAll(/(Array|Set|Map)\</", "ROArray<") //
+              .replaceAll("(Set<", "(ROSet<")
+              .replaceAll("(Map<", "(ROMap<")
+                .replaceAll(" Array.Array<", " ROArray<") // .replaceAll(/(Array|Set|Map)\</", "ROArray<") //
+                .replaceAll(" Set.Set<", " ROSet<")
+                .replaceAll(" Map.Map<", " ROMap<")
             )
           // we sort for now, because otherwise we have sometimes multiple times changing back and forth between editor and console.
           .sort(sortAlpha)

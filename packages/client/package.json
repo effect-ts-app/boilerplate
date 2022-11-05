@@ -4,19 +4,18 @@
   "license": "MIT",
   "type": "module",
   "resolutions": {
-    "typescript": "https://cdn.jsdelivr.net/npm/@tsplus/installer@0.0.149/compiler/typescript.tgz"
+    "typescript": "https://cdn.jsdelivr.net/npm/@tsplus/installer@0.0.150/compiler/typescript.tgz"
   },
-  "peerDependencies": {
-    "@effect-ts-app/boilerplate-types": "*"
-  },
+  "peerDependencies": {},
   "dependencies": {
+    "@effect-ts-app/boilerplate-prelude": "*",
     "@effect-ts-app/boilerplate-types": "*",
-    "auth0": "2.44.0",
+    "change-case": "^4.1.2",
     "cross-fetch": "^3.1.5",
     "path-parser": "^6.1.0"
   },
   "devDependencies": {
-    "@jest/globals": "29.2.1"
+    "@jest/globals": "29.2.2"
   },
   "exports": {
     ".": {
@@ -54,7 +53,7 @@
     "build": "yarn clean-dist && NODE_OPTIONS=--max-old-space-size=6144 tsc --build",
     "build2:cjs": "rm -rf _cjs && babel dist --config-file ../../.babel.cjs.json --out-dir _cjs --out-file-extension .cjs --source-maps",
     "watch": "yarn build --watch",
-    "watch2": "yarn clean-dist && NODE_OPTIONS=--max-old-space-size=6144 tsc-w",
+    "watch2": "yarn clean-dist && NODE_OPTIONS=--max-old-space-size=6144 tsc -w",
     "prepare": "yarn build",
     "clean": "rm -rf dist && rm -rf _cjs",
     "clean-dist": "sh ../../scripts/clean-dist.sh",
@@ -67,7 +66,7 @@
     "autofix": "yarn lint --fix",
     "test": "TEST_COMPILED=1 jest",
     "testsuite": "yarn lint && yarn test --passWithNoTests && yarn circular && yarn circular:dist",
-    "client": "node --experimental-specifier-resolution=node -r source-map-support/register -r @effect-ts/system/Tracing/Enable ./dist/client.bin.js",
+    "client": "node --experimental-specifier-resolution=node -r source-map-support/register ./dist/client.bin.js",
     "ncu": "ncu -x date-fns"
   },
   "gitHead": "bd8e27eea3eff97db8739d577d67e7336c078d28",

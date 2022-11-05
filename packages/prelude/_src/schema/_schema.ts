@@ -527,7 +527,7 @@ export function smartClassUnion<
 >(members: T & EnforceNonEmptyRecord<T>, name?: string) {
   // @ts-expect-error we know this is NonEmpty
   const u = unionOrig(members)
-  return enhanceClassUnion(name ? u["|>"](named(name)) as typeof u : u)
+  return enhanceClassUnion(u, name)
 }
 
 export function enhanceClassUnion<
@@ -535,7 +535,8 @@ export function enhanceClassUnion<
   A,
   E,
   CI
->(u: DefaultSchema<any, A, CI, E, UnionApi<T>>) {
+>(u: DefaultSchema<any, A, CI, E, UnionApi<T>>, name?: string) {
+  if (name) u = u["|>"](named(name)) as typeof u
   const members = findAnnotation(u, unionIdentifier)!.props as T
 
   const entries = Object.entries(members)
@@ -768,8 +769,8 @@ export function OpaqueSchema<A, E = A, CI = A>() {
 export interface UnionBrand {}
 
 /**
- * @tsplus type PreparedLens
  * Currently does not implement composition, but is useful as a quick set/modify.
+ * @tsplus type PreparedLens
  */
 export class PreparedLens<S, T> {
   constructor(private readonly s: S, readonly lens: Lens<S, T>) {}

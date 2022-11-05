@@ -11,18 +11,9 @@
         "rootDir": "./_src",
         "tsBuildInfoFile": "./dist/.tsbuildinfo",
         "types": [
-            "../../types/prelude",
             "../../types/global",
             "../../types/modules"
-        ],
-        "paths": {
-            "@effect-ts-app/boilerplate-prelude": [
-                "./_src"
-            ],
-            "@effect-ts-app/boilerplate-prelude/*": [
-                "./_src/*"
-            ],
-        },
+        ]
     },
     "include": [
         // "./_src/**/*.mts",

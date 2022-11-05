@@ -6,6 +6,7 @@ module.exports = (dirName, forceTS = false) => {
       // https://github.com/typescript-eslint/typescript-eslint/issues/2094
       EXPERIMENTAL_useSourceOfProjectReferenceRedirect: true,
       enableTS,
+      parser: "@typescript-eslint/parser",
       ecmaVersion: 2020, // Allows for the parsing of modern ECMAScript features
       sourceType: "module", // Allows for the use of imports
       ...(enableTS ? { 

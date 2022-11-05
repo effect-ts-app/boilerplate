@@ -32,6 +32,7 @@ export declare const barrel: Preset<{
         keys: 'path' | 'camelCase';
     } | {
         as: 'PascalCase';
+        postfix?: string;
     };
     nodir?: boolean;
 }>;

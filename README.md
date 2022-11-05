@@ -1,4 +1,4 @@
-# effect-ts-app boilerplate
+# @effect-ts-app/boilerplate
 
 ## Setup
 
@@ -15,28 +15,31 @@
 a) `yarn build -w`
 b) `cd apps/api && yarn dev`
 
-Visit: http://localhost:3540/docs
+Visit: http://localhost:3651/docs
 The API is also proxied in the frontend on /api
-
 
 ### Frontend (Nuxt)
 
 - `cd apps/frontend-nuxt && yarn dev -o`
 
-Visit: http://localhost:5174
-API Docs: http://localhost:5174/api/docs
+Visit: http://localhost:5281
+API Docs: http://localhost:5281/api/docs
 
 Notes
 
 - Make sure you don't have the old Vue/Vetur vs code plugin installed, but the new ones only: "Vue.volar", "Vue.vscode-typescript-vue-plugin"
 
-### Frontend (Vue)
+### Helpful editor hints
 
-- `cd apps/frontend-vue && yarn dev`
+Add to keybinds:
 
-Visit: http://localhost:5173/about
-API Docs: http://localhost:5173/api/docs
-
-Notes
-
-- Make sure you don't have the old Vue/Vetur vs code plugin installed, but the new ones only: "Vue.volar", "Vue.vscode-typescript-vue-plugin"
+```json
+{
+    "key": "ctrl+shift+i",
+    "command": "editor.action.sourceAction",
+    "args": {
+        "kind": "source.addMissingImports",
+        "apply": "first"
+    }
+}
+```

@@ -1,6 +1,5 @@
 import "playwright-core"
 
-import type { Effect } from "@effect-ts-app/boilerplate-prelude"
 import type { Page } from "@playwright/test"
 
 import type { TestSelector } from "../helpers/@types/enhanced-selectors"

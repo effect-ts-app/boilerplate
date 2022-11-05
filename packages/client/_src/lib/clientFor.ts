@@ -5,7 +5,6 @@ import type * as H from "@effect-ts-app/core/http/http-client"
 import type { GetResponse, Methods, QueryRequest, RequestSchemed } from "@effect-ts-app/boilerplate-prelude/schema"
 import { condemnCustom } from "@effect-ts-app/boilerplate-prelude/schema"
 import * as utils from "@effect-ts-app/boilerplate-prelude/utils"
-import { typedKeysOf } from "@effect-ts-app/boilerplate-prelude/utils"
 import { Path } from "path-parser"
 
 import type { ApiConfig } from "./config.js"
@@ -28,7 +27,7 @@ type AnyRequest = Omit<QueryRequest<any, any, any, any, any>, "method"> & {
 } & RequestSchemed<any, any>
 export function clientFor<M extends Requests>(models: M) {
   return (
-    typedKeysOf(models)
+    models.$$.keys
       // ignore module interop with automatic default exports..
       .filter(x => x !== "default")
       .reduce(

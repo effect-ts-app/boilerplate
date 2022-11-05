@@ -2,9 +2,8 @@
     "ModelConstructor": {
         "prefix": "mocns",
         "body": [
-            "// @ts-expect-error bla",
-            "// eslint-disable-next-line unused-imports/no-unused-vars",
-            "type $1Constructor = typeof $1"
+            "/** @ignore @internal @deprecated */",
+            "export type $1Constructor = typeof $1"
         ]
     },
     "ModelCodegen": {
@@ -19,9 +18,8 @@
             "export class $1 extends ModelEnc<$1, $1>()({ // TODO MNModel<$1, $1.ConstructorInput, $1.Encoded, $1.Props> ()({",
             "$2",
             "}) {}",
-            "// @ts-expect-error bla",
-            "// eslint-disable-next-line unused-imports/no-unused-vars",
-            "type $1Constructor = typeof $1"
+            "/** @ignore @internal @deprecated */",
+            "export type $1Constructor = typeof $1"
         ],
         "description": "Defines a Model signature"
     },

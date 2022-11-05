@@ -1,0 +1,40 @@
+{
+    "extends": "../../tsconfig.base.json",
+    "compilerOptions": {
+        "lib": [
+            "esnext",
+            "DOM"
+        ],
+        "tsPlusConfig": "../../tsplus.config.json",
+        "moduleResolution": "Node16",
+        "outDir": "./dist",
+        "rootDir": "./_src",
+        "tsBuildInfoFile": "./dist/.tsbuildinfo",
+        "types": [
+            "../../types/global",
+            "../../types/modules"
+        ],
+    },
+    "include": [
+        "./_src/**/*.ts"
+    ],
+    "ts-node": {
+        "require": [
+            "tsconfig-paths/register"
+        ],
+        "compilerOptions": {
+            "module": "CommonJS"
+        }
+    },
+    "references": [
+        {
+            "path": "../infra"
+        },
+        {
+            "path": "../types"
+        },
+        {
+            "path": "../prelude"
+        }
+    ]
+}

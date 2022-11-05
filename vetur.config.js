@@ -11,13 +11,12 @@ module.exports = {
   // **optional** default: `[{ root: './' }]`
   // support monorepos
   projects: [
-    './apps/frontend-vue', // shorthand for only root.
-    './apps/frontend-nuxt',
+    './apps/frontend-nuxt', // shorthand for only root.
     // {
     //   // **required**
     //   // Where is your project?
     //   // It is relative to `vetur.config.js`.
-    //   root: './apps/frontend-vue',
+    //   root: './apps/frontend-nuxt',
     //   // **optional** default: `'package.json'`
     //   // Where is `package.json` in the project?
     //   // We use it to determine the version of vue.

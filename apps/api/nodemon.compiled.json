@@ -1,20 +1,9 @@
 {
-    "ignore": [
-        "*.test.ts",
-        "*.test.js",
-        "openapi.json",
-        ".tsbuild.info",
-        "**/src/*",
-        "**/.swc/*",
-        "**/.data/*",
-        "**/.jest-cache/*",
-        "**/.logs/*",
-        "**/*.ts",
-        "**/*.ts.map"
-    ],
+    "ignore": [],
     "ext": "js,env,local",
     "watch": [
-        "../../packages/*/dist",
+        "../api-*/dist/**/*",
+        "../../packages/*/dist/**/*",
         "./dist",
         ".env",
         ".env.local"

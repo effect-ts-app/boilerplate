@@ -1,14 +1,13 @@
-const _S1 = Symbol()
-const _S2 = Symbol()
-const _W = Symbol()
-
+const S1 = Symbol()
+const S2 = Symbol()
+const W = Symbol()
 
 /**
  * @tsplus type PureEnv
  */
 export interface PureState<S, S2 = S> {
-  readonly [_S1]: (_: S) => void
-  readonly [_S2]: () => S2
+  readonly [S1]: (_: S) => void
+  readonly [S2]: () => S2
 
   readonly state: Ref<S2>
 }
@@ -17,7 +16,7 @@ export interface PureState<S, S2 = S> {
  * @tsplus type PureEnv
  */
 export interface PureLog<W> {
-  readonly [_W]: () => W
+  readonly [W]: () => W
   readonly log: Ref<Chunk<W>>
 }
 
@@ -29,9 +28,9 @@ export interface PureEnv<W, S, S2 = S> extends PureState<S, S2>, PureLog<W> {}
 export interface PureEnvTest extends PureState<any>, PureLog<any> {}
 
 class PureEnvBase<W, S, S2 = S> implements PureEnv<W, S, S2> {
-  readonly [_W]!: () => W
-  readonly [_S1]!: (_: S) => void
-  readonly [_S2]!: () => S2
+  readonly [W]!: () => W
+  readonly [S1]!: (_: S) => void
+  readonly [S2]!: () => S2
   readonly state: Ref<S2>
   readonly log: Ref<Chunk<W>>
 
@@ -52,9 +51,9 @@ export function makePureEnv<W, S, S2 = S>(s: S2): PureEnv<W, S, S2> {
 export function unifyPureEnv<X extends PureEnv<any, any, any>>(
   self: X
 ): PureEnv<
-  [X] extends [{ [_W]: () => infer W }] ? W : never,
-  [X] extends [{ [_S1]: (_: infer S) => void }] ? S : never,
-  [X] extends [{ [_S2]: () => infer S2 }] ? S2 : never
+  [X] extends [{ [W]: () => infer W }] ? W : never,
+  [X] extends [{ [S1]: (_: infer S) => void }] ? S : never,
+  [X] extends [{ [S2]: () => infer S2 }] ? S2 : never
 > {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-return
   return self
@@ -237,7 +236,10 @@ export function modifyM<W, R, E, A, S2, S3>(
  * @tsplus static Pure.Ops updateWith
  */
 export function update<S2, S3>(mod: (s: S2) => S3) {
-  return modify((_: S2) => tuple(mod(_), void 0 as void))
+  return modify((_: S2) => {
+    const r = mod(_)
+    return tuple(r, r)
+  })
 }
 
 export type FixEnv<R, W, S, S2> =
@@ -249,8 +251,8 @@ export type FixEnv<R, W, S, S2> =
  */
 export function updateM<W, R, E, S2, S3>(
   mod: (s: S2, log: (evt: W) => PureLogT<W>) => Effect<FixEnv<R, W, S2, S3>, E, S3>
-): Effect<FixEnv<R, W, S2, S3>, E, void> {
-  return modifyM((_: S2) => mod(_, Pure.log).map(_ => tuple(_, void 0 as void)))
+): Effect<FixEnv<R, W, S2, S3>, E, S3> {
+  return modifyM((_: S2) => mod(_, Pure.log).map(_ => tuple(_, _)))
 }
 
 // export function getMA<W, S, A>(self: (s: S) => A): Pure<W, S, never, never, A> {

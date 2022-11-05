@@ -15,6 +15,12 @@ module.exports = (tsconfigPath, mapSrcTo = "/dist", requiresTs = false) => {
     "@effect-ts-app/boilerplate-client/*": [
       "../../packages/client/_src/*"
     ],
+    "@effect-ts-app/boilerplate-messages/*": [
+      "../../packages/messages/_src/*"
+    ],
+    "@effect-ts-app/boilerplate-infra/*": [
+      "../../packages/infra/_src/*"
+    ],
     "@effect-ts-app/boilerplate-types/*": [
       "../../packages/types/_src/*"
     ],

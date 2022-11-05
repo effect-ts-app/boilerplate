@@ -10,7 +10,8 @@
     ],
     "ext": "ts,env,local",
     "watch": [
-        "../../packages/*",
+        "../api-*/**/*",
+        "../../packages/**/*",
         ".",
         ".env",
         ".env.local"

@@ -1,5 +1,4 @@
-import type { ParsedShapeOfCustom } from "@effect-ts-app/boilerplate-prelude/schema"
-import { arbitrary, fakerArb, MNModel, ReasonableString } from "@effect-ts-app/boilerplate-prelude/schema"
+import { makePreparedLenses } from "@effect-ts-app/boilerplate-prelude/schema"
 
 export const FirstName = ReasonableString["|>"](
   arbitrary(FC =>
@@ -20,26 +19,36 @@ export const LastName = ReasonableString["|>"](
 )
 export type LastName = ParsedShapeOfCustom<typeof LastName>
 
+/**
+ * @tsplus type FullName
+ */
+@useClassNameForSchema
 export class FullName extends MNModel<
   FullName,
   FullName.ConstructorInput,
   FullName.Encoded,
   FullName.Props
->("FullName")({
+>()({
   firstName: prop(FirstName),
   lastName: prop(LastName)
 }) {
   static render(this: void, fn: FullName) {
-    return `${fn.firstName} ${fn.lastName}` as ReasonableString
+    return `${fn.firstName} ${fn.lastName}` as ReasonableString // LongString really :P
   }
 
   static create(this: void, firstName: FirstName, lastName: LastName) {
     return new FullName({ firstName, lastName })
   }
 }
-// @ts-expect-error bla
-// eslint-disable-next-line unused-imports/no-unused-vars
-type FullNameConstructor = typeof FullName
+/** @ignore @internal @deprecated */
+export type FullNameConstructor = typeof FullName
+
+/**
+ * @tsplus fluent FullName show
+ */
+export function showFullName(fn: FullName) {
+  return FullName.render(fn)
+}
 
 /**
  * @tsplus static FullName.Encoded.Ops create
@@ -48,14 +57,48 @@ export function createFullName(firstName: string, lastName: string) {
   return { firstName, lastName }
 }
 
+export const UserId = UUID
+export type UserId = UUID
+
+/**
+ * @tsplus type User
+ * @tsplus companion User
+ */
+@useClassNameForSchema
 export class User extends MNModel<User, User.ConstructorInput, User.Encoded, User.Props>()({
-  id: defaultProp(UUID),
+  id: defaultProp(UserId),
   name: prop(FullName)
 }) {}
 
-// @ts-expect-error bla
-// eslint-disable-next-line unused-imports/no-unused-vars
-type UserConstructor = typeof User
+function getProps(u: User) {
+  return makePreparedLenses(User.Api.props, u)
+}
+
+/**
+ * @tsplus getter User props
+ */
+export const props = lazyGetter(getProps)
+
+/**
+ * @tsplus static User equal
+ */
+export const defaultEqual = Equivalence.$.contramap((u: User) => u.id)(Equivalence.string)
+
+// TODO
+// let userPool: readonly User[] | null = null
+// export function setUserPool(pool: readonly User[] | null) {
+//   userPool = pool
+// }
+
+// const User___ = union({ RegisteredUser, Guest, Ghost, Archived })
+// const userArb = Arbitrary.for(User___)
+// const User_ = enhanceClassUnion(
+//   OpaqueSchema<User, User.Encoded>()(User___)
+//     ["|>"](arbitrary(_ => (userPool ? _.constantFrom(...userPool) : userArb(_))))
+//     ["|>"](withDefaults)
+
+/** @ignore @internal @deprecated */
+export type UserConstructor = typeof User
 
 // codegen:start {preset: model}
 //

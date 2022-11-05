@@ -39,7 +39,7 @@ abstract class PhantomTypeParameter<Identifier extends keyof any, InstantiatedTy
   }
 }
 export interface FieldInfo<Tin, Tout> extends PhantomTypeParameter<typeof f, { in: Tin; out: Tout }> {
-  rules: readonly ((v: string) => boolean | string)[]
+  rules: ((v: string) => boolean | string)[]
   metadata: FieldMetadata
   type: "text"
 }

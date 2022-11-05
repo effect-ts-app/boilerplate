@@ -15,6 +15,7 @@ import {
   extendWithUtils,
   extendWithUtilsAnd,
   leafE,
+  literal,
   makeAnnotation,
   makeUuid,
   mapConstructorError,
@@ -23,6 +24,7 @@ import {
   nonEmpty,
   nonEmptyStringFromString,
   parseUuidE,
+  prop,
   refine
 } from "@effect-ts-app/schema"
 import type { Refinement } from "@effect-ts/core/Function"
@@ -46,6 +48,10 @@ import {
 } from "./_schema.js"
 
 import { pipe } from "@effect-ts-app/core/Function"
+
+export function tag<K extends string>(tag: K) {
+  return prop(literal(tag))
+}
 
 export const stringPositiveIntIdentifier = makeAnnotation<{}>()
 

@@ -17,10 +17,11 @@
 //   })
 // })
 
+import * as cookie from "cookie"
 import httpProxy from "http-proxy"
 
 const proxy = httpProxy.createProxyServer({
-  target: process.env.API_ROOT || "http://localhost:3540", // change to your backend api url
+  target: process.env.API_ROOT || "http://127.0.0.1:3651", // change to your backend api url
   changeOrigin: true
 })
 
@@ -30,11 +31,11 @@ proxy.on("proxyReq", (proxyReq, req, res, options) => {
   const cookieHeader = proxyReq.getHeader("Cookie")
   if (!cookieHeader || (typeof cookieHeader !== "string")) return
 
-  // const cookies = cookie.parse(cookieHeader)
-  // const userId = cookies["user-id"]
-  // if (userId) {
-  //   proxyReq.setHeader("x-user", JSON.stringify({ sub: userId }))
-  // }
+  const cookies = cookie.parse(cookieHeader)
+  const userId = cookies["user-id"]
+  if (userId) {
+    proxyReq.setHeader("x-user", JSON.stringify({ sub: userId }))
+  }
 })
 
 export default defineEventHandler(event => {

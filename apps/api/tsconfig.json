@@ -1,6 +1,8 @@
 {
     "extends": "../../tsconfig.base.json",
     "compilerOptions": {
+        // workaround for tsplus global imports; hardcode the required dependencies so that the api master project can properly consume it in editor.
+        "disableSourceOfProjectReferenceRedirect": true,
         "lib": [
             "esnext"
         ],
@@ -20,7 +22,6 @@
         },
         "outDir": "./dist",
         "types": [
-            "../../types/prelude",
             "../../types/global",
             "../../types/modules"
         ],
@@ -61,6 +62,15 @@
         }
     },
     "references": [
+        {
+            "path": "../api-api"
+        },
+        {
+            "path": "../../packages/infra"
+        },
+        {
+            "path": "../../packages/messages"
+        },
         {
             "path": "../../packages/client"
         },
