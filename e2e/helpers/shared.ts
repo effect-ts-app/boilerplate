@@ -1,10 +1,10 @@
 // TODO
 // import "@effect-ts-app/core/fluent/polyfill/browser"
 
-import type * as H from "@effect-ts-app/core/http/http-client"
-import * as HF from "@effect-ts-app/core/http/http-client-fetch"
 import type { ApiConfig } from "@effect-ts-app/boilerplate-client/lib/config"
 import { Live as LiveApiConfig } from "@effect-ts-app/boilerplate-client/lib/config"
+import type * as H from "@effect-ts-app/core/http/http-client"
+import * as HF from "@effect-ts-app/core/http/http-client-fetch"
 import fetch from "cross-fetch"
 
 export interface AppConfig {

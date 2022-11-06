@@ -1,4 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import type { _E, _R } from "@effect-ts-app/boilerplate-prelude/_ext/Prelude.ext"
+import type { GetRequest } from "@effect-ts-app/boilerplate-prelude/schema"
+import { extractSchema, SchemaNamed } from "@effect-ts-app/boilerplate-prelude/schema"
+import * as MO from "@effect-ts-app/boilerplate-prelude/schema"
 import * as Ex from "@effect-ts-app/infra/express/index"
 import type {
   Encode,
@@ -9,10 +13,6 @@ import type {
 import { makeRequestParsers, parseRequestParams } from "@effect-ts-app/infra/express/schema/requestHandler"
 import type { RouteDescriptorAny } from "@effect-ts-app/infra/express/schema/routing"
 import { makeRouteDescriptor } from "@effect-ts-app/infra/express/schema/routing"
-import type { _E, _R } from "@effect-ts-app/boilerplate-prelude/_ext/Prelude.ext"
-import type { GetRequest, GetResponse } from "@effect-ts-app/boilerplate-prelude/schema"
-import { extractSchema, SchemaNamed } from "@effect-ts-app/boilerplate-prelude/schema"
-import * as MO from "@effect-ts-app/boilerplate-prelude/schema"
 import type express from "express"
 import type { StopWatch } from "stopwatch-node"
 import type {
