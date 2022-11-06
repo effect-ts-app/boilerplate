@@ -101,6 +101,16 @@
         "default": "./_cjs/prelude.cjs"
       }
     },
+    "./service": {
+      "import": {
+        "types": "./dist/service.d.ts",
+        "default": "./dist/service.js"
+      },
+      "require": {
+        "types": "./dist/service.d.ts",
+        "default": "./_cjs/service.cjs"
+      }
+    },
     "./*.js": {
       "import": {
         "types": "./dist/*.d.ts",

@@ -1,44 +1,29 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type { _E, _R } from "@effect-ts-app/boilerplate-prelude/_ext/Prelude.ext"
-import type { GetRequest } from "@effect-ts-app/boilerplate-prelude/schema"
-import { extractSchema, SchemaNamed } from "@effect-ts-app/boilerplate-prelude/schema"
-import * as MO from "@effect-ts-app/boilerplate-prelude/schema"
 import * as Ex from "@effect-ts-app/infra/express/index"
-import type {
-  Encode,
-  Middleware,
-  RequestHandler,
-  RequestHandlerOptRes
-} from "@effect-ts-app/infra/express/schema/requestHandler"
+import type { Encode, RequestHandler, RequestHandlerOptRes } from "@effect-ts-app/infra/express/schema/requestHandler"
 import { makeRequestParsers, parseRequestParams } from "@effect-ts-app/infra/express/schema/requestHandler"
 import type { RouteDescriptorAny } from "@effect-ts-app/infra/express/schema/routing"
 import { makeRouteDescriptor } from "@effect-ts-app/infra/express/schema/routing"
+import type { _E, _R } from "@effect-ts-app/boilerplate-prelude/_ext/Prelude.ext"
+import type { GetRequest, GetResponse } from "@effect-ts-app/boilerplate-prelude/schema"
+import { extractSchema, SchemaNamed } from "@effect-ts-app/boilerplate-prelude/schema"
+import * as MO from "@effect-ts-app/boilerplate-prelude/schema"
 import type express from "express"
-import type { StopWatch } from "stopwatch-node"
-import type {
-  InvalidStateError,
-  NotFoundError,
-  NotLoggedInError,
-  OptimisticConcurrencyException,
-  UnauthorizedError,
-  ValidationError
-} from "../../errors.js"
-import { InternalRequestLayers, RequestContext, RequestId } from "../../lib/RequestContext.js"
+import type { ValidationError } from "../../errors.js"
+import { RequestContext, RequestId } from "../../lib/RequestContext.js"
 import { logger } from "../logger.js"
+import type { SupportedErrors } from "./defaultErrorHandler.js"
+import { defaultBasicErrorHandler } from "./defaultErrorHandler.js"
 import { reportRequestError } from "./reportError.js"
+import { snipString, snipValue } from "./util.js"
 
-const optimisticConcurrencySchedule = Schedule.once &&
-  Schedule.recurWhile<SupportedErrors>(a => a._tag === "OptimisticConcurrencyException")
+export type MiddlewareHandler<ResE, R2 = never, PR = never> = (
+  req: express.Request,
+  res: express.Response,
+  context: RequestContext
+) => Layer<R2, ResE, PR>
 
-export type SupportedErrors =
-  | ValidationError
-  | NotFoundError
-  | NotLoggedInError
-  | UnauthorizedError
-  | InvalidStateError
-  | OptimisticConcurrencyException
-
-export function match<
+export type Middleware<
   R,
   PathA,
   CookieA,
@@ -47,8 +32,29 @@ export function match<
   HeaderA,
   ReqA extends PathA & QueryA & BodyA,
   ResA,
+  ResE,
   R2 = never,
   PR = never
+> = (
+  handler: RequestHandler<R, PathA, CookieA, QueryA, BodyA, HeaderA, ReqA, ResA, ResE>
+) => {
+  handler: typeof handler
+  handle: MiddlewareHandler<ResE, R2, PR>
+}
+
+export function match<
+  R,
+  E,
+  PathA,
+  CookieA,
+  QueryA,
+  BodyA,
+  HeaderA,
+  ReqA extends PathA & QueryA & BodyA,
+  ResA,
+  R2 = never,
+  PR = never,
+  RErr = never
 >(
   requestHandler: RequestHandler<
     R,
@@ -59,8 +65,14 @@ export function match<
     HeaderA,
     ReqA,
     ResA,
-    SupportedErrors
+    E
   >,
+  errorHandler: <R>(
+    req: express.Request,
+    res: express.Response,
+    requestContext: RequestContext,
+    r2: Effect<R, E | ValidationError, void>
+  ) => Effect<RErr, never, void>,
   middleware?: Middleware<
     R,
     PathA,
@@ -70,7 +82,7 @@ export function match<
     HeaderA,
     ReqA,
     ResA,
-    SupportedErrors,
+    E,
     R2,
     PR
   >
@@ -83,8 +95,9 @@ export function match<
   }
   return Ex.match(requestHandler.Request.method.toLowerCase() as any)(
     requestHandler.Request.path.split("?")[0],
-    makeRequestHandler<R, PathA, CookieA, QueryA, BodyA, HeaderA, ReqA, ResA, R2, PR>(
+    makeRequestHandler<R, E, PathA, CookieA, QueryA, BodyA, HeaderA, ReqA, ResA, R2, PR, RErr>(
       requestHandler,
+      errorHandler,
       makeMiddlewareLayer
     )
   ).zipRight(
@@ -98,38 +111,24 @@ export function match<
   )
 }
 
-function snipValue(value: string | readonly string[] | undefined) {
-  if (!value) {
-    return value
-  }
-  return ROArray.isArray(value)
-    ? value.map(snipString)
-    : typeof value === "string" && value.length > 50
-    ? snipString(value)
-    : value
-}
-
-function snipString(value: string) {
-  return value.length > 255 ? value.slice(0, 255) + "...snip" : value
-}
-
 export function respondSuccess<ReqA, A, E>(
   encodeResponse: (req: ReqA) => Encode<A, E>
 ) {
-  return (req: ReqA, res: express.Response) =>
-    flow(encodeResponse(req), Effect.succeed, _ =>
-      _.flatMap(r =>
+  return (req: ReqA, res: express.Response, a: A) =>
+    Effect.sync(() => encodeResponse(req)(a))
+      .flatMap(r =>
         Effect.sync(() => {
           r === undefined
             ? res.status(204).send()
             : res.status(200)
               .send(JSON.stringify(r))
         })
-      ))
+      )
 }
 
 export function makeRequestHandler<
   R,
+  E,
   PathA,
   CookieA,
   QueryA,
@@ -138,7 +137,8 @@ export function makeRequestHandler<
   ReqA extends PathA & QueryA & BodyA,
   ResA = void,
   R2 = never,
-  PR = never
+  PR = never,
+  RErr = never
 >(
   handler: RequestHandlerOptRes<
     R | PR,
@@ -149,29 +149,75 @@ export function makeRequestHandler<
     HeaderA,
     ReqA,
     ResA,
-    SupportedErrors
+    E
   >,
-  makeMiddlewareLayer?: (
+  errorHandler: <R>(
     req: express.Request,
-    res: express.Response
-  ) => Layer<R2, SupportedErrors, PR>
+    res: express.Response,
+    requestContext: RequestContext,
+    r2: Effect<R, E | ValidationError, void>
+  ) => Effect<RErr | R, never, void>,
+  makeMiddlewareLayer?: MiddlewareHandler<E, R2, PR>
 ) {
   const { Request, Response, adaptResponse, h: handle } = handler
   const response = Response ? extractSchema(Response as any) : Void
+  const encoder = Encoder.for(response)
   const encodeResponse = adaptResponse
     ? (req: ReqA) => Encoder.for(adaptResponse(req))
-    : () => Encoder.for(response)
+    : () => encoder
 
   const requestParsers = makeRequestParsers(Request)
   const parseRequest = parseRequestParams(requestParsers)
   const respond = respondSuccess(encodeResponse)
-  return (req: express.Request, res: express.Response) => {
+
+  function logParams(req: express.Request, requestContext: RequestContext) {
+    return Effect.sync(() => ({
+      path: req.params,
+      query: req.query,
+      body: req.body,
+      headers: req.headers
+        ? Object.entries(req.headers).reduce((prev, [key, value]) => {
+          prev[key] = snipValue(value)
+          return prev
+        }, {} as Record<string, any>)
+        : req.headers,
+      cookies: req.cookies
+        ? Object.entries(req.cookies).reduce((prev, [key, value]) => {
+          prev[key] = typeof value === "string" || ROArray.isArray(value)
+            ? snipValue(value)
+            : value
+          return prev
+        }, {} as Record<string, any>)
+        : req.cookies
+    }))
+      .tap(pars =>
+        logger.info(
+          `${requestContext.createdAt.toISOString()} ${req.method} ${req.originalUrl} processing request`,
+          pars
+        )
+      )
+  }
+
+  function parse(req: express.Request, requestContext: RequestContext) {
+    return logParams(req, requestContext)
+      .zipRight(
+        parseRequest(req)
+          .map(({ body, path, query }) => {
+            const hn = {
+              ...body.value,
+              ...query.value,
+              ...path.value
+            } as unknown as ReqA
+            return hn
+          })
+          .instrument("Performance.ParseRequest")
+      )
+  }
+
+  function makeContext(req: express.Request) {
     const start = new Date()
     const supported = ["en", "de"] as const
     const desiredLocale = req.headers["x-locale"]
-    if (req.method === "GET") {
-      res.setHeader("Cache-Control", "no-store")
-    }
     const locale = desiredLocale && supported.includes(desiredLocale as any)
       ? (desiredLocale as typeof supported[number])
       : ("en" as const)
@@ -199,101 +245,36 @@ export function makeRequestHandler<
       //   : {})
     })
     // context.requestContext = requestContext
+    return requestContext
+  }
 
-    res.setHeader("Content-Language", locale)
-
-    const handleRequest = Effect.sync(() => ({
-      path: req.params,
-      query: req.query,
-      body: req.body,
-      headers: req.headers
-        ? Object.entries(req.headers).reduce((prev, [key, value]) => {
-          prev[key] = snipValue(value)
-          return prev
-        }, {} as Record<string, any>)
-        : req.headers,
-      cookies: req.cookies
-        ? Object.entries(req.cookies).reduce((prev, [key, value]) => {
-          prev[key] = typeof value === "string" || ROArray.isArray(value)
-            ? snipValue(value)
-            : value
-          return prev
-        }, {} as Record<string, any>)
-        : req.cookies
-    }))
-      .tap(pars =>
-        logger.info(
-          `${start.toISOString()} ${req.method} ${req.originalUrl} processing request`,
-          pars
-        )
-      )
-      .zipRight(
-        parseRequest(req)
-          .map(({ body, path, query }) => {
-            const hn = {
-              ...body.value,
-              ...query.value,
-              ...path.value
-            } as unknown as ReqA
-            return hn
-          })
-          .instrument("Performance.ParseRequest")
-      )
-      .flatMap(inp => {
-        const handler = handle(inp as any) // TODO
-        const handleRequest_: Effect<
-          Exclude<R | R2, PR>,
-          SupportedErrors,
-          ResA
-        > = makeMiddlewareLayer
-          ? handler.provideSomeLayer(makeMiddlewareLayer(req, res)) as any
-          : (handler as any)
-
-        const handleRequest = handleRequest_ // .provideSomeLayer(RequestLayers2)
-
-        return (
-          req.method === "PATCH"
-            ? handleRequest.retry(optimisticConcurrencySchedule)
-            : handleRequest
-        )
-          .instrument("Performance.HandleRequest")
-          .flatMap(r => respond(inp, res)(r).instrument("Performance.EncodeResponse"))
-      })
-      .catchTag("ValidationError", err =>
-        Effect.sync(() => {
-          res.status(400).send(err.errors)
-        }))
-      .catchTag("NotFoundError", err =>
-        Effect.sync(() => {
-          res.status(404).send(err)
-        }))
-      .catchTag("NotLoggedInError", err =>
-        Effect.sync(() => {
-          res.status(401).send(err)
-        }))
-      .catchTag("UnauthorizedError", err =>
-        Effect.sync(() => {
-          res.status(403).send(err)
-        }))
-      .catchTag("InvalidStateError", err =>
-        Effect.sync(() => {
-          res.status(422).send(err)
-        }))
-      .catchTag("OptimisticConcurrencyException", err =>
-        Effect.sync(() => {
-          // 412 or 409.. https://stackoverflow.com/questions/19122088/which-http-status-code-to-use-to-reject-a-put-due-to-optimistic-locking-failure
-          res.status(412).send(err)
-        }))
-      // final catch all; expecting never so that unhandled known errors will show up
-      .catchAll((err: never) =>
-        logger
-          .error(
-            "Program error, compiler probably silenced, got an unsupported Error in Error Channel of Effect",
-            { err }
+  return (req: express.Request, res: express.Response) => {
+    const requestContext = makeContext(req)
+    if (req.method === "GET") {
+      res.setHeader("Cache-Control", "no-store")
+    }
+    res.setHeader("Content-Language", requestContext.locale)
+    // just parse once.
+    return parse(req, requestContext)
+      .exit
+      .flatMap(ex => {
+        const handleRequest = ex
+          .toEffect
+          .flatMap(parsedReq =>
+            handle(parsedReq as any)
+              .instrument("Performance.HandleRequest")
+              .flatMap(r =>
+                respond(parsedReq, res, r)
+                  .instrument("Performance.EncodeResponse")
+              )
           )
-          .map(() => err as unknown)
-          .flatMap(Effect.die)
-      )
+        // Commands should not be interruptable.
+        const r = (
+          req.method !== "GET" ? handleRequest.uninterruptible : handleRequest
+        ).instrument("Performance.RequestResponse")
+        const r2 = makeMiddlewareLayer ? r.provideSomeLayer(makeMiddlewareLayer(req, res, requestContext)) : r
+        return errorHandler(req, res, requestContext, r2)
+      })
       .tapErrorCause(cause =>
         Effect.sync(() => {
           res.status(500).send()
@@ -336,15 +317,13 @@ export function makeRequestHandler<
           )
         }
       )
-      .provideSomeLayer(InternalRequestLayers(requestContext))
-    // Commands should not be interruptable.
-    return (
-      req.method !== "GET" ? handleRequest.uninterruptible : handleRequest
-    ).instrument("Performance.RequestResponse")
   }
 }
 
-export type RequestHandlers = { [key: string]: RequestHandler<any, any, any, any, any, any, any, any, any> }
+export type RequestHandlers = { [key: string]: BasicRequestHandler }
+export type BasicRequestHandler = RequestHandler<any, any, any, any, any, any, any, any, ValidationError>
+
+export type AnyRequestHandler = RequestHandler<any, any, any, any, any, any, any, any, any>
 
 type RouteAll<T extends RequestHandlers> = {
   [K in keyof T]: T[K] extends RequestHandler<
@@ -356,24 +335,10 @@ type RouteAll<T extends RequestHandlers> = {
     any, // infer HeaderA,
     any, // infer ReqA,
     any, // infer ResA,
-    any // infer ResE
-  > ? RouteMatch<
-    R,
-    /*PathA, CookieA,QueryA, BodyA, */ /*HeaderA, ReqA, ResA,*/ never, // Has<Config>,
-    never // & LoggedInUserContext /*, R2, PR*/
-  >
+    ValidationError // infer ResE
+  > ? RouteMatch<R, never>
     : never
 }
-
-type LayerA<X> = X extends Layer<any, any, infer A> ? A : never
-
-export type RequestDeps = LayerA<ReturnType<typeof InternalRequestLayers>>
-// & Has<CacheScope>
-// & Has<Config>
-// & Has<AppInsightsContext>
-// & Has<IntlInstance>
-// & Has<AppInsights>
-// & Has<Intl>
 
 export type RouteMatch<
   R,
@@ -384,21 +349,14 @@ export type RouteMatch<
   // HeaderA,
   // ReqA extends PathA & QueryA & BodyA,
   // ResA,
-  R2 = never,
   PR = never
 > = Effect<
   | Ex.ExpressAppConfig
   | Ex.ExpressApp
   | logger.Logger
   | Exclude<
-    | R
-    | R2,
-    | PR
-    //    | HasClock
-    | RequestDeps
-    | {
-      sw: StopWatch
-    }
+    R,
+    PR
   >,
   never,
   RouteDescriptorAny // RouteDescriptor<R, PathA, CookieA, QueryA, BodyA, HeaderA, ReqA, ResA, SupportedErrors, Methods>
@@ -410,7 +368,7 @@ export type RouteMatch<
  */
 export function matchAll<T extends RequestHandlers>(handlers: T) {
   const mapped = handlers.$$.keys.reduce((prev, cur) => {
-    prev[cur] = match(handlers[cur] as any)
+    prev[cur] = match(handlers[cur] as AnyRequestHandler, defaultBasicErrorHandler)
     return prev
   }, {} as any) as RouteAll<typeof handlers>
 
@@ -432,7 +390,7 @@ export function matchAllAlt<T extends RequestHandlersTest>(handlers: T) {
 }
 
 export type RequestHandlersTest = {
-  [key: string]: Record<string, RequestHandler<any, any, any, any, any, any, any, any, any>>
+  [key: string]: Record<string, BasicRequestHandler>
 }
 
 export type RouteAllTest<T extends RequestHandlersTest> = {

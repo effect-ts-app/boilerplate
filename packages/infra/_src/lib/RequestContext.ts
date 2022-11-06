@@ -1,6 +1,3 @@
-import { makeChild, WinstonInstance } from "@effect-ts-app/infra/logger/Winston"
-import { LiveContextMap } from "../services/Store.js"
-
 export const RequestId = LongString
 export type RequestId = ParsedShapeOfCustom<typeof RequestId>
 
@@ -138,15 +135,3 @@ export namespace RequestContext {
   export interface Props extends GetProvidedProps<typeof RequestContext> {}
 }
 /* eslint-enable */
-
-function getRequestPars(pars: RequestContext) {
-  return {
-    request: pars,
-    requestId: pars.id,
-    requestLocale: pars.locale,
-    requestName: pars.name
-  }
-}
-
-export const InternalRequestLayers = (pars: RequestContext) =>
-  RequestContext.Live(pars) + LiveContextMap + Layer.fromEffect(WinstonInstance)(makeChild(getRequestPars(pars)))

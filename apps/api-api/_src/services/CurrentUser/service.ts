@@ -1,10 +1,12 @@
 import type { User } from "@effect-ts-app/boilerplate-types/User"
 import type { NotLoggedInError } from "@effect-ts-app/infra/errors"
 
+export const CurrentUserId = Symbol()
+
 /**
  * @tsplus type CurrentUser
  */
-export interface CurrentUser {
+export interface CurrentUser extends ServiceTagged<typeof CurrentUserId> {
   get: Effect<never, NotLoggedInError, User>
 }
 

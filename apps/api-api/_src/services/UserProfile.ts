@@ -9,13 +9,20 @@ export class UserProfileScheme extends MO.Model<UserProfileScheme>()({
   id: propFrom(MO.prop(UUID), "sub")
 }) {}
 
-export interface UserProfile {
+export const UserProfileId = Symbol()
+
+export interface UserProfile extends ServiceTagged<typeof UserProfileId> {
   get: Effect<never, NotLoggedInError, UserProfileScheme>
 }
 export const UserProfile = Tag<UserProfile>()
 
 export const LiveUserProfile = (profile: UserProfileScheme | null) =>
-  Layer.fromValue(UserProfile, { get: Maybe.fromNullable(profile).encaseInEffect(() => new NotLoggedInError()) })
+  Layer.fromValue(
+    UserProfile,
+    UserProfile.make({
+      get: Maybe.fromNullable(profile).encaseInEffect(() => new NotLoggedInError())
+    })
+  )
 
 const userProfileFromJson = MO.json[">>>"](UserProfileScheme)
 const userProfileFromJWT = jwt[">>>"](UserProfileScheme)
