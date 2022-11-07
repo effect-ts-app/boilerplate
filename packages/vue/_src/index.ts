@@ -1,14 +1,14 @@
-import type { FetchResponse } from "@effect-ts-app/boilerplate-client/lib"
-import { ApiConfig, Done, isInitializing, isSuccess } from "@effect-ts-app/boilerplate-client/lib"
 import type { Http } from "@effect-ts-app/core/http/http-client"
 import * as HF from "@effect-ts-app/core/http/http-client-fetch"
+import type { FetchResponse } from "@macs-scanner/client/lib"
+import { ApiConfig, Done } from "@macs-scanner/client/lib"
 import * as swrv from "swrv"
 import type { fetcherFn, IKey, IResponse } from "swrv/dist/types.js"
 // import type { default as useSWRVType } from "swrv"
 import type { Ref } from "vue"
-import { computed, ref, shallowRef, watch } from "vue"
+import { computed, ref, shallowRef } from "vue"
 
-export { isFailed, isInitializing, isSuccess } from "@effect-ts-app/boilerplate-client/lib"
+export { isFailed, isInitializing, isSuccess } from "@macs-scanner/client/lib"
 
 declare function useSWRVType<Data = any, Error = any>(key: IKey): IResponse<Data, Error>
 declare function useSWRVType<Data = any, Error = any>(
@@ -79,11 +79,15 @@ export function useSafeQuery<E, A>(key: string, self: Effect<ApiConfig | Http, E
   const result = computed(() =>
     swrToQuery({ data: swr.data.value, error: swr.error.value, isValidating: swr.isValidating.value })
   ) // ref<QueryResult<E, A>>()
-  const latestSuccess = ref<A>()
-  watch(result, _ => {
-    if (isSuccess(_)) {
-      latestSuccess.value = _.current.right
-    }
+  const latestSuccess = computed(() => {
+    const value = result.value
+    return value.isSuccess() ?
+      value.current.isRight()
+        ? value.current.right
+        : value.previous.isSome()
+        ? value.previous.value
+        : undefined :
+      undefined
   })
 
   return tuple(result, latestSuccess, () => swr.mutate(), swr)
@@ -126,7 +130,7 @@ export function make<R, E, A>(self: Effect<R, E, FetchResponse<A>>) {
   const result = shallowRef(new Initial() as QueryResult<E, A>)
 
   const execute = Effect.sync(() => {
-    result.value = isInitializing(result.value)
+    result.value = result.value.isInitializing()
       ? new Loading()
       : new Refreshing(result.value)
   })
@@ -135,10 +139,10 @@ export function make<R, E, A>(self: Effect<R, E, FetchResponse<A>>) {
 
   const latestSuccess = computed(() => {
     const value = result.value
-    return value._tag === "Refreshing" || value._tag === "Done" ?
-      value.current._tag === "Right"
+    return value.hasValue() ?
+      value.current.isRight()
         ? value.current.right
-        : value.previous._tag === "Some"
+        : value.previous.isSome()
         ? value.previous.value
         : undefined :
       undefined
@@ -158,7 +162,7 @@ function handleExit<E, A>(
 ) {
   return (exit: Exit<E, A>): Either<E, A> => {
     loading.value = false
-    if (exit._tag === "Success") {
+    if (exit.isSuccess()) {
       value.value = exit.value
       error.value = undefined
       return Either.right(exit.value)

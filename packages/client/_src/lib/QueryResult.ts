@@ -61,7 +61,16 @@ type Result<E, A> = Omit<Done<E, A>, "current"> | Omit<Refreshing<E, A>, "curren
 export function isSuccess<E, A>(
   qr: QueryResult<E, A>
 ): qr is Result<E, A> & { current: Right<A> } {
-  return (qr._tag === "Done" || qr._tag === "Refreshing") && qr.current._tag === "Right"
+  return qr.hasValue() && qr.current.isRight()
+}
+
+/**
+ * @tsplus fluent QueryResult hasValue
+ */
+export function hasValue<E, A>(
+  qr: QueryResult<E, A>
+): qr is Done<E, A> | Refreshing<E, A> {
+  return qr.isDone() || qr.isRefreshing()
 }
 
 /**
@@ -71,6 +80,15 @@ export function isRefreshing<E, A>(
   qr: QueryResult<E, A>
 ): qr is Refreshing<E, A> {
   return qr._tag === "Refreshing"
+}
+
+/**
+ * @tsplus fluent QueryResult isDone
+ */
+export function isDone<E, A>(
+  qr: QueryResult<E, A>
+): qr is Done<E, A> {
+  return qr._tag === "Done"
 }
 
 /**
@@ -88,7 +106,7 @@ export function isInitializing<E, A>(
 export function isFailed<E, A>(
   qr: QueryResult<E, A>
 ): qr is Result<E, A> & { current: Left<E> } {
-  return (qr._tag === "Done" || qr._tag === "Refreshing") && qr.current._tag === "Left"
+  return qr.hasValue() && qr.current.isLeft()
 }
 
 export type ResultTuple<Result> = readonly [result: Result, refresh: () => void]
