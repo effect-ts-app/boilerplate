@@ -98,3 +98,134 @@ index a68b98c..549ffed 100644
          if (value._tag === "Complete" && value.exit._tag === "Success") {
            values.push(value.exit.value);
          }
+diff --git a/node_modules/@effect/cache/tsconfig.base.json b/node_modules/@effect/cache/tsconfig.base.json
+new file mode 100644
+index 0000000..cc7c28d
+--- /dev/null
++++ b/node_modules/@effect/cache/tsconfig.base.json
+@@ -0,0 +1,62 @@
++{
++    "compilerOptions": {
++        "moduleDetection": "force",
++        "composite": true,
++        "downlevelIteration": true,
++        "resolveJsonModule": true,
++        "esModuleInterop": true,
++        "declaration": true,
++        "skipLibCheck": true,
++        "emitDecoratorMetadata": true,
++        "experimentalDecorators": true,
++        "preserveSymlinks": true,
++        "moduleResolution": "node",
++        "noEmit": false,
++        "lib": [
++            "ES2021"
++        ],
++        "sourceMap": true,
++        "declarationMap": true,
++        "strict": true,
++        "noImplicitReturns": false,
++        "noUnusedLocals": true,
++        "noUnusedParameters": false,
++        "noFallthroughCasesInSwitch": true,
++        "noEmitOnError": false,
++        "noErrorTruncation": false,
++        "allowJs": false,
++        "checkJs": false,
++        "forceConsistentCasingInFileNames": true,
++        "suppressImplicitAnyIndexErrors": true,
++        "stripInternal": true,
++        "noImplicitAny": true,
++        "noImplicitThis": true,
++        "noUncheckedIndexedAccess": true,
++        "strictNullChecks": true,
++        "baseUrl": ".",
++        "target": "ES2021",
++        "module": "ES6",
++        "incremental": true,
++        "removeComments": false,
++        // "paths": {
++        //     "@effect/core": [
++        //         "./packages/core/src/index.ts"
++        //     ],
++        //     "@effect/core/test/*": [
++        //         "./packages/core/test/*"
++        //     ],
++        //     "@effect/core/examples/*": [
++        //         "./packages/core/examples/*"
++        //     ],
++        //     "@effect/core/*": [
++        //         "./packages/core/src/*"
++        //     ],
++        // }
++    },
++    "include": [],
++    "exclude": [
++        "node_modules",
++        "build",
++        "lib"
++    ]
++}
+\ No newline at end of file
+diff --git a/node_modules/@effect/cache/tsconfig.build.json b/node_modules/@effect/cache/tsconfig.build.json
+new file mode 100644
+index 0000000..148b428
+--- /dev/null
++++ b/node_modules/@effect/cache/tsconfig.build.json
+@@ -0,0 +1,13 @@
++{
++    "extends": "./tsconfig.base.json",
++    "compilerOptions": {
++        "outDir": "build/esm",
++        "declarationDir": "build/dts",
++        "tsBuildInfoFile": "build/tsbuildinfo/esm.tsbuildinfo",
++        "tsPlusConfig": "./tsplus.config.json",
++        "rootDir": "_src"
++    },
++    "include": [
++        "_src/**/*.ts"
++    ]
++}
+\ No newline at end of file
+diff --git a/node_modules/@effect/cache/tsconfig.json b/node_modules/@effect/cache/tsconfig.json
+new file mode 100644
+index 0000000..597ce10
+--- /dev/null
++++ b/node_modules/@effect/cache/tsconfig.json
+@@ -0,0 +1,18 @@
++{
++  "extends": "./tsconfig.base.json",
++  "compilerOptions": {
++    "tsPlusConfig": "./tsplus.config.json",
++    "tsBuildInfoFile": "build/tsbuildinfo/tsconfig.tsbuildinfo"
++  },
++  "references": [
++    {
++      "path": "./tsconfig.build.json"
++    }
++  ],
++  "ts-node": {
++    "files": true,
++    "require": [
++      "tsconfig-paths/register"
++    ]
++  }
++}
+\ No newline at end of file
+diff --git a/node_modules/@effect/cache/tsplus.config.json b/node_modules/@effect/cache/tsplus.config.json
+new file mode 100644
+index 0000000..1f1ceb8
+--- /dev/null
++++ b/node_modules/@effect/cache/tsplus.config.json
+@@ -0,0 +1,11 @@
++{
++  "importMap": {
++    "^(.*)/packages/([^/]*)/src(.*)/index\\.ts$": "@effect/$2$3",
++    "^(.*)/packages/([^/]*)/src(.*)\\.ts$": "@effect/$2$3",
++    "^(.*)/packages/([^/]*)/test/(.*)\\.ts$": "@effect/$2/test/$3",
++    "^(.*)/packages/([^/]*)/examples/(.*)\\.ts$": "@effect/$2/examples/$3"
++  },
++  "traceMap": {
++    "^(.*)/packages/([^/]*)/(.*)$": "(@effect/$2) $3"
++  }
++}
