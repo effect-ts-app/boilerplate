@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import * as RedisClient from "@effect-ts-app/infra/redis-client"
 import { NotFoundError } from "../../errors.js"
+import { memFilter } from "./Memory.js"
 
 import type { Filter, FilterJoinSelect, PersistenceModelType, StorageConfig, Store, StoreConfig } from "./service.js"
 import { StoreMaker } from "./service.js"
-import { codeFilter, codeFilterJoinSelect, makeETag, makeUpdateETag } from "./utils.js"
+import { codeFilterJoinSelect, makeETag, makeUpdateETag } from "./utils.js"
 
 function makeRedisStore({ STORAGE_PREFIX }: StorageConfig) {
   return Effect.gen(function*($) {
@@ -58,7 +59,8 @@ function makeRedisStore({ STORAGE_PREFIX }: StorageConfig) {
             ).provideService(RedisClient.RedisClient, redis)
           const s: Store<PM, Id> = {
             all,
-            filter: <T extends PM = PM>(filter: Filter<T>) => all.map(c => c.collect(codeFilter(filter))),
+            filter: (filter: Filter<PM>, cursor?: { skip?: number; limit?: number }) =>
+              all.map(memFilter(filter, cursor)),
             filterJoinSelect: <T extends object>(filter: FilterJoinSelect) =>
               all.map(c => c.flatMap(codeFilterJoinSelect<PM, T>(filter))),
             find: id => asMap.map(ROMap.lookup(id)),

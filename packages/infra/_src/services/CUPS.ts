@@ -6,7 +6,6 @@ import { isTruthy } from "@effect-ts-app/core/utils"
 import fs from "fs"
 import os from "os"
 import path from "path"
-import { Logger, logger } from "../lib/logger.js"
 import type { PrinterId } from "./CUPS/service.js"
 import { CUPS } from "./CUPS/service.js"
 
@@ -20,29 +19,26 @@ export function LiveCUPS(cupsServer?: URL) {
 }
 
 function makeCUPS(cupsServer?: URL) {
-  return Effect.gen(function*($) {
-    const logger = yield* $(Logger)
-    const loggerL = Layer.fromValue(Logger, logger)
+  return Effect.sync(() => {
     function print_(buffer: ArrayBuffer, printerId: PrinterId) {
       const print = printBuffer({
         id: printerId,
         url: cupsServer
       })
       return print(buffer)
-        .provideSomeLayer(loggerL)
     }
     return {
       print: print_,
-      getAvailablePrinters: getAvailablePrinters(cupsServer?.host).provideSomeLayer(loggerL)
+      getAvailablePrinters: getAvailablePrinters(cupsServer?.host)
     }
   })
 }
 
 const exec_ = util.promisify(cp.exec)
 const exec = (command: string) =>
-  logger.debug(`Executing: ${command}`)
+  Effect.logDebug(`Executing: ${command}`)
     > Effect.tryPromise(() => exec_(command))
-      .tap(r => (logger.debug(`Executed result: ${JSON.stringify(r, undefined, 2)}`)))
+      .tap(r => (Effect.logDebug(`Executed result: ${JSON.stringify(r, undefined, 2)}`)))
 type PrinterConfig = { url?: URL; id: string }
 
 function printFile(printer?: PrinterConfig) {
@@ -66,12 +62,10 @@ function* buildPrintArgs(filePath: string, printer?: PrinterConfig) {
   yield `"${filePath}"`
 }
 
-const tempDirName = StringId.make()
-
 export const prepareTempDir = Effect.sync(() => {
   // TODO
   try {
-    fs.mkdirSync(path.join(os.tmpdir(), tempDirName))
+    fs.mkdirSync(path.join(os.tmpdir(), "macs-scanner"))
   } catch (err) {
     if (`${err}`.includes("EEXIST")) {
       return
@@ -80,7 +74,7 @@ export const prepareTempDir = Effect.sync(() => {
   }
 })
 
-const makeTempFile = tempFile(tempDirName)
+const makeTempFile = tempFile("macs-scanner")
 const makePrintJobTempFile = makeTempFile("print-job")
 
 function printBuffer(printer: PrinterConfig) {

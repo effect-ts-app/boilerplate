@@ -4,6 +4,24 @@ import type { Filter, FilterJoinSelect, PersistenceModelType, Store, StoreConfig
 import { StoreMaker } from "./service.js"
 import { codeFilter, codeFilterJoinSelect, makeETag, makeUpdateETag } from "./utils.js"
 
+export function memFilter<T extends { id: string }>(filter: Filter<T>, cursor?: { skip?: number; limit?: number }) {
+  return ((c: Chunk<T>) => {
+    const skip = cursor?.skip
+    const limit = cursor?.limit
+    if (!skip && limit === 1) {
+      return c.findMap(codeFilter(filter)).map(Chunk.single).getOrElse(() => Chunk.empty())
+    }
+    let r: Collection<T> = c.collect(codeFilter(filter))
+    if (skip) {
+      r = r.skip(skip)
+    }
+    if (limit !== undefined) {
+      r = r.take(limit)
+    }
+    return r.toChunk
+  })
+}
+
 export const makeMemoryStore = () => ({
   make: <Id extends string, Id2 extends Id, PM extends PersistenceModelType<Id>>(
     name: string,
@@ -40,7 +58,7 @@ export const makeMemoryStore = () => ({
       const s: Store<PM, Id> = {
         all,
         find: id => store.get.map(ROMap.lookup(id)),
-        filter: <T extends PM = PM>(filter: Filter<T>) => all.map(c => c.collect(codeFilter(filter))),
+        filter: (filter: Filter<PM>, cursor?: { skip?: number; limit?: number }) => all.map(memFilter(filter, cursor)),
         filterJoinSelect: <T extends object>(filter: FilterJoinSelect) =>
           all.map(c => c.flatMap(codeFilterJoinSelect<PM, T>(filter))),
         set: e =>

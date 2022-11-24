@@ -84,7 +84,7 @@ export function subscribe<RMsg, RErr>(hndlr: MessageHandlers<RMsg, RErr>) {
               hndlr.processMessage(msg)
                 .provideEnvironment(env)
                 .unsafeRunPromise()
-                .catch(console.error)
+            // DO NOT CATCH ERRORS here as they should return to the queue!
           })
         ),
         subscription => Effect.promise(() => subscription.close())

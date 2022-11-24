@@ -1,5 +1,5 @@
-import type { FetchResponse } from "@effect-ts-app/boilerplate-client/lib"
-import { ApiConfig, Done } from "@effect-ts-app/boilerplate-client/lib"
+import type { FetchResponse } from "@effect-ts-app/boilerplate-prelude/client"
+import { ApiConfig, Done } from "@effect-ts-app/boilerplate-prelude/client"
 import type { Http } from "@effect-ts-app/core/http/http-client"
 import * as HF from "@effect-ts-app/core/http/http-client-fetch"
 import * as swrv from "swrv"
@@ -8,7 +8,7 @@ import type { fetcherFn, IKey, IResponse } from "swrv/dist/types.js"
 import type { Ref } from "vue"
 import { computed, ref, shallowRef } from "vue"
 
-export { isFailed, isInitializing, isSuccess } from "@effect-ts-app/boilerplate-client/lib"
+export { isFailed, isInitializing, isSuccess } from "@effect-ts-app/boilerplate-prelude/client"
 
 declare function useSWRVType<Data = any, Error = any>(key: IKey): IResponse<Data, Error>
 declare function useSWRVType<Data = any, Error = any>(

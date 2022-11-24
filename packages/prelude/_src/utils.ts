@@ -209,3 +209,11 @@ export function pretty(o: unknown) {
 export function isTuple(self: unknown): self is Tuple.Tuple<readonly unknown[]> {
   return typeof self === "object" && self != null && Tuple.TupleSym in self
 }
+
+export function exhaustiveMatch<T extends string>() {
+  return <Out extends Record<T, (t: T) => any>>(handlers: Out) => (t: T): ReturnType<Out[keyof Out]> => handlers[t](t)
+}
+
+export function exhaustiveMatch_<T extends string>(t: T) {
+  return <Out extends Record<T, (t: T) => any>>(handlers: Out): ReturnType<Out[keyof Out]> => handlers[t](t)
+}

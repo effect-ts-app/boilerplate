@@ -12,3 +12,17 @@ export const reportRequestErrorEffect_ = reportErrorEffect(cause => new RequestE
 
 export const reportRequestErrorEffect = (cause: Cause<unknown>, context?: Record<string, unknown> | undefined) =>
   RequestContext.Tag.withEffect(requestContext => reportRequestErrorEffect_(cause, { requestContext, ...context }))
+
+/**
+ * Forks the effect into a new fiber attached to the global scope. Because the
+ * new fiber is attached to the global scope, when the fiber executing the
+ * returned effect terminates, the forked fiber will continue running.
+ *
+ * Reports errors.
+ *
+ * @tsplus getter effect/core/io/Effect forkDaemonReportRequest
+ */
+export function forkDaemonReportRequest<R, E, A>(self: Effect<R, E, A>) {
+  return self.tapErrorCause(reportRequestErrorEffect)
+    .fork.daemonChildren
+}

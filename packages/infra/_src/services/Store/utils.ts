@@ -18,7 +18,7 @@ export const makeUpdateETag = (name: string) =>
     Effect.gen(function*($) {
       if (current.isSome() && current.value._etag !== e._etag) {
         return yield* $(
-          Effect.fail(new OptimisticConcurrencyException(name, current.value.id))
+          Effect.fail(new OptimisticConcurrencyException(name, current.value.id, current.value._etag, e._etag))
         )
       }
       const newE = makeETag(e)
@@ -43,12 +43,8 @@ export function codeFilter<E extends { id: string }, NE extends E>(filter: Filte
       ? lowercaseIfString((x as any)[filter.by]).includes(filter.value.toLowerCase())
         ? Maybe(x as unknown as NE)
         : Maybe.none
-      : filter.type === "where"
-      ? // TODO: support AND, and also mixed..
-        filter.where.some(p => compareCaseInsensitive(get(x, p.key), p.value))
-          ? Maybe(x as unknown as NE)
-          : Maybe.none
-      : filter.keys.some(k => {
+      : filter.type === "join_find"
+      ? filter.keys.some(k => {
           const value = get(x, k) as Record<string, unknown>[]
           // we mimic the behavior of cosmosdb; if the shape in db does not match what we're looking for, we imagine false hit
           return (
@@ -56,8 +52,34 @@ export function codeFilter<E extends { id: string }, NE extends E>(filter: Filte
             value.some(v => compareCaseInsensitive(v[filter.valueKey], filter.value))
           )
         })
-      ? Maybe(x as unknown as NE)
-      : Maybe.none
+        ? Maybe(x as unknown as NE)
+        : Maybe.none
+      : // TODO: support mixed or/and
+        filter.mode === "or"
+        ? filter.where
+            .some(p =>
+              p.t === "in"
+                ? p.value.includes(get(x, p.key))
+                : p.t === "not-in"
+                ? !p.value.includes(get(x, p.key))
+                : p.t === "not-eq"
+                ? !compareCaseInsensitive(get(x, p.key), p.value)
+                : compareCaseInsensitive(get(x, p.key), p.value)
+            )
+          ? Maybe(x as unknown as NE)
+          : Maybe.none
+        : filter.where
+            .every(p =>
+              p.t === "in"
+                ? p.value.includes(get(x, p.key))
+                : p.t === "not-in"
+                ? !p.value.includes(get(x, p.key))
+                : p.t === "not-eq"
+                ? !compareCaseInsensitive(get(x, p.key), p.value)
+                : compareCaseInsensitive(get(x, p.key), p.value)
+            )
+        ? Maybe(x as unknown as NE)
+        : Maybe.none
 }
 
 export function codeFilterJoinSelect<E extends { id: string }, NE>(

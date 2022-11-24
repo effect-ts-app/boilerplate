@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+import type * as H from "@effect-ts-app/core/http/http-client"
 import type { GetResponse, Methods, QueryRequest, RequestSchemed } from "@effect-ts-app/boilerplate-prelude/schema"
 import { condemnCustom } from "@effect-ts-app/boilerplate-prelude/schema"
 import * as utils from "@effect-ts-app/boilerplate-prelude/utils"
-import type * as H from "@effect-ts-app/core/http/http-client"
 import { Path } from "path-parser"
 
 import type { ApiConfig } from "./config.js"
@@ -25,7 +25,24 @@ type Requests = Record<string, Record<string, any>>
 type AnyRequest = Omit<QueryRequest<any, any, any, any, any>, "method"> & {
   method: Methods
 } & RequestSchemed<any, any>
-export function clientFor<M extends Requests>(models: M) {
+
+const cache = new Map<any, Client<any>>()
+
+export type Client<M extends Requests> =
+  & RequestHandlers<ApiConfig | H.Http, FetchError | ResponseError, M>
+  & RequestHandlersE<ApiConfig | H.Http, FetchError | ResponseError, M>
+
+export function clientFor<M extends Requests>(models: M): Client<M> {
+  const found = cache.get(models)
+  if (found) {
+    return found
+  }
+  const m = clientFor_(models)
+  cache.set(models, m)
+  return m
+}
+
+function clientFor_<M extends Requests>(models: M) {
   return (
     models.$$.keys
       // ignore module interop with automatic default exports..
@@ -123,9 +140,7 @@ export function clientFor<M extends Requests>(models: M) {
 
           return prev
         },
-        {} as
-          & RequestHandlers<ApiConfig | H.Http, FetchError | ResponseError, M>
-          & RequestHandlersE<ApiConfig | H.Http, FetchError | ResponseError, M>
+        {} as Client<M>
       )
   )
 }

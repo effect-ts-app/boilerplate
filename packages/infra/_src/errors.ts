@@ -46,7 +46,7 @@ export class CauseException<E> extends Error {
 export class OptimisticConcurrencyException {
   readonly _tag = "OptimisticConcurrencyException"
   readonly message: string
-  constructor(readonly type: string, readonly id: string) {
+  constructor(readonly type: string, readonly id: string, readonly current?: string, readonly found?: string) {
     this.message = `Existing ${type} ${id} record changed`
   }
 }

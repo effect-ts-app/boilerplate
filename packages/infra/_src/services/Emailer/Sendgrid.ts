@@ -1,4 +1,3 @@
-import { Logger } from "@effect-ts-app/infra/logger/Logger"
 import type { EmailData } from "@sendgrid/helpers/classes/email-address.js"
 import sgMail from "@sendgrid/mail"
 import { inspect } from "util"
@@ -6,8 +5,7 @@ import { Emailer } from "./service.js"
 import type { EmailMsg, EmailMsgOptionalFrom, SendgridConfig } from "./service.js"
 
 const makeLiveSendgrid = ({ ENV, FAKE_MAIL, FROM, SENDGRID_API_KEY }: SendgridConfig) =>
-  Effect.gen(function*($) {
-    const logger = yield* $(Logger)
+  Effect.sync(() => {
     sgMail.setApiKey(SENDGRID_API_KEY)
 
     return {
@@ -18,7 +16,7 @@ const makeLiveSendgrid = ({ ENV, FAKE_MAIL, FROM, SENDGRID_API_KEY }: SendgridCo
 
           const renderedMsg_ = render(msg)
           const renderedMsg = { ...renderedMsg_, subject: `[scan] [${ENV}] ${renderedMsg_.subject}` }
-          yield* $(logger.debug("Sending email: " + inspect(renderedMsg, false, 5)))
+          yield* $(Effect.logDebug("Sending email: " + inspect(renderedMsg, false, 5)))
 
           const ret = yield* $(
             Effect.async<
@@ -37,7 +35,7 @@ const makeLiveSendgrid = ({ ENV, FAKE_MAIL, FROM, SENDGRID_API_KEY }: SendgridCo
           //     templateId: msg.templateId
           //   }
           // }
-          // yield* $(logger.debug("Tracking email event", event))
+          // yield* $(Effect.logDebug("Tracking email event " + event.$$.pretty, ))
           // const { trackEvent } = yield* $(AiContextService)
           // trackEvent(event)
           return ret

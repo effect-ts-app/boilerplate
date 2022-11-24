@@ -10,6 +10,16 @@ export type StoreConfig<E> = {
   partitionValue: (e: E) => string | undefined
 }
 
+type SupportedValues = string | boolean | number | null
+
+// default is eq
+export type Where = { key: string; t?: "eq" | "not-eq"; value: SupportedValues } | {
+  key: string
+  t: "in" | "not-in"
+  value: readonly (SupportedValues)[]
+}
+
+// default is where
 export type Filter<E> =
   | { by: keyof E; type: "startsWith"; value: any }
   | { by: keyof E; type: "endsWith"; value: any }
@@ -21,10 +31,11 @@ export type Filter<E> =
     value: any /* value path[valueKey] of E */
   }
   | {
-    type: "where"
+    type?: "where"
+    mode?: "and" | "or" // default is and
     where: readonly [
-      { _tag: "INITIAL"; key: string; t: "eq"; value: any },
-      ...(readonly { _tag: "OR"; key: string; t: "eq"; value: any }[])
+      Where,
+      ...(Where[])
     ]
   }
 
@@ -37,7 +48,10 @@ export type FilterJoinSelect = {
 
 export interface Store<PM extends PersistenceModelType<Id>, Id extends string> {
   all: Effect<never, never, Chunk<PM>>
-  filter: <T extends PM = PM>(filter: Filter<T>) => Effect<never, never, Chunk<T>>
+  filter: (
+    filter: Filter<PM>,
+    cursor?: { limit?: number; skip?: number }
+  ) => Effect<never, never, Chunk<PM>>
   filterJoinSelect: <T extends object>(
     filter: FilterJoinSelect
   ) => Effect<never, never, Chunk<T & { _rootId: string }>>

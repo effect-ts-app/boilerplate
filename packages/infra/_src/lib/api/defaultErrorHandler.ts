@@ -22,11 +22,9 @@ export function defaultBasicErrorHandler<R>(
       }))
     // final catch all; expecting never so that unhandled known errors will show up
     .catchAll((err: never) =>
-      logger
-        .error(
-          "Program error, compiler probably silenced, got an unsupported Error in Error Channel of Effect",
-          { err }
-        )
+      Effect.logError(
+        "Program error, compiler probably silenced, got an unsupported Error in Error Channel of Effect" + err
+      )
         .map(() => err as unknown)
         .flatMap(Effect.die)
     )
@@ -74,11 +72,9 @@ export function defaultErrorHandler<R>(
       }))
     // final catch all; expecting never so that unhandled known errors will show up
     .catchAll((err: never) =>
-      logger
-        .error(
-          "Program error, compiler probably silenced, got an unsupported Error in Error Channel of Effect",
-          { err }
-        )
+      Effect.logError(
+        "Program error, compiler probably silenced, got an unsupported Error in Error Channel of Effect" + err
+      )
         .map(() => err as unknown)
         .flatMap(Effect.die)
     )
