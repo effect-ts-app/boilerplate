@@ -4,7 +4,6 @@ node_modules/
 **/*/.next/
 apps/**/dist/
 packages/**/dist/
-!**/jest.config.js
 !**/.eslintrc*.js
 .build/
 dist/
@@ -16,7 +15,6 @@ tsconfig.tsbuildinfo
 .tsbuildinfo
 .ultra.cache.json
 .jest-cache
-
 .next
 .data/
 
@@ -50,3 +48,6 @@ fabric.properties
 # End of https://www.toptal.com/developers/gitignore/api/intellij
 
 .infra/*_rev.yaml
+
+# vitest?
+*.timestamp-*.mjs
