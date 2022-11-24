@@ -324,9 +324,8 @@ export function handleByIdAndSaveWithPure<
   PM extends { id: string },
   Evt,
   ItemType extends string,
-  Context,
 >(self: Repository<T, PM, Evt, Id, ItemType>) {
-  return <Req extends { id: Id }, R, A, E, S2 extends T>(pure: (req: Req, ctx: Context) => Effect<FixEnv<R, Evt, T, S2>, E, A>) => (req: Req, ctx: Context) => byIdAndSaveWithPure(self, req.id)(pure(req, ctx))
+  return <Req extends { id: Id }, Context, R, A, E, S2 extends T>(pure: (req: Req, ctx: Context) => Effect<FixEnv<R, Evt, T, S2>, E, A>) => (req: Req, ctx: Context) => byIdAndSaveWithPure(self, req.id)(pure(req, ctx))
 }
 
 /**
