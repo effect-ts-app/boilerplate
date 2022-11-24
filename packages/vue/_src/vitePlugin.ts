@@ -4,13 +4,15 @@ import path from "path"
 import ts from "typescript"
 import type * as V from "vite"
 
+import json5 from "json5"
+
 function tsPlugin(options?: { include?: Array<string>; exclude?: Array<string> }): V.Plugin {
   const filter = createFilter(options?.include, options?.exclude)
 
   const configPath = ts.findConfigFile(
     "./",
     ts.sys.fileExists.bind(ts.sys),
-    "tsconfig.test.json"
+    "tsconfig.json" // "tsconfig.test.json"
   )
 
   if (!configPath) {
@@ -24,18 +26,20 @@ function tsPlugin(options?: { include?: Array<string>; exclude?: Array<string> }
   let program: ts.Program
 
   const initTS = () => {
-    const config = JSON.parse(fs.readFileSync(configPath).toString()) as any
+    const config = json5.parse(fs.readFileSync(configPath).toString())
 
     Object.assign(config.compilerOptions, {
       sourceMap: false,
       inlineSourceMap: true,
       inlineSources: true,
       noEmit: false,
-      declaration: false,
-      declarationMap: false,
-      module: "ESNext",
-      target: "ES2022",
-      moduleResolution: "node"
+      // should mean faster tests, but requires a background compiler for the dependencies
+      "disableSourceOfProjectReferenceRedirect": true
+      // declaration: false,
+      // declarationMap: false,
+      // module: "ESNext",
+      // target: "ES2022",
+      // moduleResolution: "node16"
     })
 
     const tsconfig = ts.parseJsonConfigFileContent(
@@ -137,8 +141,27 @@ function tsPlugin(options?: { include?: Array<string>; exclude?: Array<string> }
       }
     },
     transform(code, id) {
+      const split = id.split("?")
+      id = split[0]
+
       if (filter(id)) {
         if (/\.tsx?/.test(id)) {
+          // TODO: wallaby may run code from the editor buffer,
+          // so we need a way to check ts files that live in buffer, or write them to disk?
+          // remove ?wallaby etc
+          // const wallabyId = split[1]
+          // const fn = id + "_" + wallabyId + ".tmp" + ".ts"
+          // if (wallabyId) {
+          //   fs.writeFileSync(fn, code, "utf-8")
+          //   id = fn
+          //   initTS()
+          // }
+          // wallaby workaround
+          const f = files[id]
+          if (f) {
+            f.version = f.version + 1
+          } else files[id] = { version: 0 }
+
           const syntactic = services.getSyntacticDiagnostics(id)
           if (syntactic.length > 0) {
             throw new Error(syntactic.map(_ => ts.flattenDiagnosticMessageText(_.messageText, "\n")).join("\n"))

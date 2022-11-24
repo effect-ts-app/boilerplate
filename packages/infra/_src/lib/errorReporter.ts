@@ -1,5 +1,4 @@
 import * as Sentry from "@sentry/node"
-import { Logger } from "./logger.js"
 
 export function reportError<E, E2 extends { toJSON(): Record<string, unknown> }>(
   makeError: (cause: Cause<E>) => E2
@@ -22,10 +21,9 @@ export function reportErrorEffect<E, E2 extends { toJSON(): Record<string, unkno
   makeError: (cause: Cause<E>) => E2
 ) {
   return (cause: Cause<E>, context?: Record<string, unknown>) =>
-    Do($ => {
-      const logger = $(Logger.get)
+    Effect.gen(function*($) {
       if (cause.isInterrupted) {
-        logger.debug("Interrupted", context)
+        yield* $(Effect.logDebug("Interrupted: " + (context ? context.$$.pretty : "")))
         return
       }
       const scope = new Sentry.Scope()
@@ -33,7 +31,8 @@ export function reportErrorEffect<E, E2 extends { toJSON(): Record<string, unkno
       const extras = { context, error: error.toJSON() }
       scope.setExtras(extras)
       Sentry.captureException(error, scope)
-      logger.error(cause.$$.pretty, extras)
+      yield* $(Effect.logErrorCauseMessage(`reportError: ${extras.$$.pretty}`, cause))
+      console.error(cause.$$.pretty, extras)
     })
 }
 

@@ -10,7 +10,7 @@ import type {
   ResponseError,
   UnauthorizedError,
   ValidationError
-} from "@effect-ts-app/boilerplate-client/lib"
+} from "@effect-ts-app/boilerplate-prelude/client"
 import { flow, pipe, tuple } from "@effect-ts-app/boilerplate-prelude/Function"
 import { useAction, useMutation } from "@effect-ts-app/boilerplate-vue"
 import type { ComputedRef } from "nuxt/dist/app/compat/capi"
@@ -19,7 +19,7 @@ import type { Either } from "./prelude"
 
 import { Effect } from "./prelude"
 
-export { clientFor, isFailed, isInitializing, isRefreshing, isSuccess } from "@effect-ts-app/boilerplate-client/lib"
+export { clientFor, isFailed, isInitializing, isRefreshing, isSuccess } from "@effect-ts-app/boilerplate-prelude/client"
 export { run, useAction, useMutation, useSafeQuery } from "@effect-ts-app/boilerplate-vue"
 
 /**

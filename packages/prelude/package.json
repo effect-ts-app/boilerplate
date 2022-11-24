@@ -1,6 +1,6 @@
 {
   "name": "@effect-ts-app/boilerplate-prelude",
-  "version": "0.5.0",
+  "version": "0.6.2",
   "license": "MIT",
   "type": "module",
   "resolutions": {
@@ -30,6 +30,16 @@
       "require": {
         "types": "./dist/index.d.ts",
         "default": "./_cjs/index.cjs"
+      }
+    },
+    "./client": {
+      "import": {
+        "types": "./dist/client.d.ts",
+        "default": "./dist/client.js"
+      },
+      "require": {
+        "types": "./dist/client.d.ts",
+        "default": "./_cjs/client.cjs"
       }
     },
     "./schema": {
@@ -135,7 +145,6 @@
   },
   "devDependencies": {
     "@types/validator": "^13.7.10",
-    "@jest/globals": "29.3.1",
     "@types/faker": "5.5.9",
     "@types/uuid": "^8.3.4",
     "faker": "^5.5.3",
@@ -149,26 +158,27 @@
     "prepare": "yarn build",
     "clean": "rm -rf dist && rm -rf _cjs",
     "clean-dist": "sh ../../scripts/clean-dist.sh",
-    "circular": "madge --circular --ts-config ./tsconfig.json --extensions ts ./_src",
+    "circular": "yarn circular:src && yarn circular:dist",
+    "circular:src": "madge --circular --ts-config ./tsconfig.json --extensions ts ./_src",
     "circular:dist": "madge --circular --extensions js ./dist",
     "compile": "NODE_OPTIONS=--max-old-space-size=6144 tsc --noEmit",
-    "lint": "NODE_OPTIONS=--max-old-space-size=6144 ESLINT_TS=1 eslint .",
+    "lint": "NODE_OPTIONS=--max-old-space-size=6144 ESLINT_TS=1 eslint ./_src",
     "lint:watch": "ESLINT_TS=1 esw -w --changed --clear --ext ts,tsx .",
     "prettier": "prettier \"**/*.ts\"",
     "autofix": "yarn lint --fix",
-    "test": "TEST_COMPILED=1 jest",
-    "testsuite": "yarn lint && yarn test --passWithNoTests && yarn circular && yarn circular:dist",
-    "ncu": "ncu -x @types/faker,faker,date-fns"
+    "test": "vitest",
+    "test:run": "yarn test run --passWithNoTests",
+    "testsuite": "yarn lint && yarn circular && yarn test:run",
+    "ncu": "ncu -x @types/faker,faker,date-fns",
+    "pub": "yarn build && npm publish --access public"
   },
   "gitHead": "bd8e27eea3eff97db8739d577d67e7336c078d28",
   "sideEffects": [
     "./dist/faker.js",
     "./faker",
-    "./src/faker",
+    "./_src/faker",
     "./dist/faker",
     "./dist/src/faker.js",
-    "./dist/faker.js",
-    "./_cjs/_ext/Prelude.polyfill.cjs",
-    "./dist/_ext/Prelude.polyfill.js"
+    "./dist/faker.js"
   ]
 }

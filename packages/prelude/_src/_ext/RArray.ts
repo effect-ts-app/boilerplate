@@ -1,16 +1,17 @@
 import type { Predicate } from "../Function.js"
+import { ROArray } from "../index.js"
 
 /**
- * @tsplus getter ets/Array randomElement
+ * @tsplus fluent ets/Array randomElement 1
  */
 export function randomElement<A>(a: ROArray<A>) {
   return a[Math.floor(Math.random() * a.length)]
 }
 
 /**
- * @tsplus getter ets/Array randomElement
+ * @tsplus fluent ets/NonEmptyArray randomElement 2
  */
-export function randomElementNA<A>(a: NonEmptyArray<A>) {
+export function randomElementNA<A>(a: NonEmptyArray<A>): A {
   return a[Math.floor(Math.random() * a.length)] as A
 }
 
@@ -18,6 +19,20 @@ export function randomElementNA<A>(a: NonEmptyArray<A>) {
  * @tsplus fluent ets/NonEmptyArray mapRA
  */
 export const mapRA = NonEmptyArray.map_
+
+/**
+ * @tsplus fluent ets/NonEmptyArray sortBy
+ */
+export function sortBy<A>(na: NonEmptyArray<A>, ords: readonly Ord<A>[]) {
+  return ROArray.sortBy(ords)(na) as NonEmptyArray<A>
+}
+
+/**
+ * @tsplus fluent ets/NonEmptyArray sortWith
+ */
+export function sortWith<A>(na: NonEmptyArray<A>, ord: Ord<A>) {
+  return NonEmptyArray.sort(ord)(na)
+}
 
 /**
  * @tsplus static ets/NonEmptyArray __call
@@ -239,3 +254,17 @@ export function ext_forEachWithIndex<A, R, E, B>(as: Iterable<A>, f: (a: A, i: n
 export function ext_forEachParWithIndex<A, R, E, B>(as: Iterable<A>, f: (a: A, i: number) => Effect<R, E, B>) {
   return Effect.forEachParWithIndex(as, f)
 }
+
+/**
+ * @tsplus getter Iterable toArray
+ * @tsplus getter Iterator toArray
+ * @tsplus getter Generator toArray
+ */
+export const ext_itToArray = ROArray.from
+
+/**
+ * @tsplus getter Iterable toChunk
+ * @tsplus getter Iterator toChunk
+ * @tsplus getter Generator toChunk
+ */
+export const ext_itToChunk = Chunk.from

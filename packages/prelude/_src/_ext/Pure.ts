@@ -1,3 +1,5 @@
+import type { ServiceTagged } from "../service.js"
+
 const S1 = Symbol()
 const S2 = Symbol()
 const W = Symbol()
@@ -114,7 +116,10 @@ function castTag<W, S, S2>() {
   return tagg as any as Tag<PureEnvEnv<W, S, S2>>
 }
 
-export type PureEnvEnv<W, S, S2> = { env: PureEnv<W, S, S2> }
+export const PureEnvEnv = Symbol()
+export interface PureEnvEnv<W, S, S2> extends ServiceTagged<typeof PureEnvEnv> {
+  env: PureEnv<W, S, S2>
+}
 
 /**
  * @tsplus static Pure.Ops get
@@ -137,6 +142,13 @@ export type PureLogT<W> = Pure<W, unknown, never, never, never, void>
  */
 export function log<W>(w: W): PureLogT<W> {
   return Effect.serviceWithEffect(castTag<W, unknown, never>(), _ => _.env.log.update(l => l.append(w)))
+}
+
+/**
+ * @tsplus static Pure.Ops logMany
+ */
+export function logMany<W>(w: Collection<W>): PureLogT<W> {
+  return Effect.serviceWithEffect(castTag<W, unknown, never>(), _ => _.env.log.update(l => l.concat(w.toChunk)))
 }
 
 /**
@@ -235,9 +247,9 @@ export function modifyM<W, R, E, A, S2, S3>(
 /**
  * @tsplus static Pure.Ops updateWith
  */
-export function update<S2, S3>(mod: (s: S2) => S3) {
+export function update<S2, S3>(upd: (s: S2) => S3) {
   return modify((_: S2) => {
-    const r = mod(_)
+    const r = upd(_)
     return tuple(r, r)
   })
 }
@@ -250,9 +262,9 @@ export type FixEnv<R, W, S, S2> =
  * @tsplus static Pure.Ops updateWithEffect
  */
 export function updateM<W, R, E, S2, S3>(
-  mod: (s: S2, log: (evt: W) => PureLogT<W>) => Effect<FixEnv<R, W, S2, S3>, E, S3>
+  upd: (s: S2, log: (evt: W) => PureLogT<W>) => Effect<FixEnv<R, W, S2, S3>, E, S3>
 ): Effect<FixEnv<R, W, S2, S3>, E, S3> {
-  return modifyM((_: S2) => mod(_, Pure.log).map(_ => tuple(_, _)))
+  return modifyM((_: S2) => upd(_, Pure.log).map(_ => tuple(_, _)))
 }
 
 // export function getMA<W, S, A>(self: (s: S) => A): Pure<W, S, never, never, A> {
@@ -339,12 +351,12 @@ export const Pure: PureOps = {
 //     ) as any
 //   }
 
-//   function update<S3>(mod: (s: S2) => S3) {
-//     return modify(_ => tuple(mod(_), void 0 as void))
+//   function update<S3>(upd: (s: S2) => S3) {
+//     return modify(_ => tuple(upd(_), void 0 as void))
 //   }
 
-//   function updateM<R, E, S3>(mod: (s: S2) => Effect<R, E, S3>) {
-//     return modifyM(_ => mod(_).map(_ => tuple(_, void 0 as void)))
+//   function updateM<R, E, S3>(upd: (s: S2) => Effect<R, E, S3>) {
+//     return modifyM(_ => upd(_).map(_ => tuple(_, void 0 as void)))
 //   }
 
 //   const accessLog = Effect.serviceWithEffect(tag, _ => _.env.log.get)
@@ -425,15 +437,15 @@ export const Pure: PureOps = {
 // /**
 //  * @tsplus fluent Pure/DSL updateWithEffect
 //  */
-// export function dslupdateM<W, S, R, E, S2, S3>(dsl: ProgramDSL<W, S, S2>, mod: (s: S2, dsl: ProgramDSL<W, S, S2>) => Effect<R, E, S3>) {
-//     return dsl.updateM(_ => mod(_, dsl))
+// export function dslupdateM<W, S, R, E, S2, S3>(dsl: ProgramDSL<W, S, S2>, upd: (s: S2, dsl: ProgramDSL<W, S, S2>) => Effect<R, E, S3>) {
+//     return dsl.updateM(_ => upd(_, dsl))
 // }
 
 // /**
 //  * @tsplus fluent Pure/DSL updateWith
 //  */
-// export function dslupdate<W, S>(dsl: ProgramDSL<W, S>, mod: (s: S, dsl: ProgramDSL<W, S>) => S) {
-//     return dsl.update(_ => mod(_, dsl))
+// export function dslupdate<W, S>(dsl: ProgramDSL<W, S>, upd: (s: S, dsl: ProgramDSL<W, S>) => S) {
+//     return dsl.update(_ => upd(_, dsl))
 // }
 
 // export interface ZPure<out W, in S1, out S2, in R, out E, out A> {}

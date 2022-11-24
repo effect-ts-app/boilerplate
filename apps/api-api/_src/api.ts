@@ -14,7 +14,7 @@ export function api(cfg: typeof _cfg & ReturnType<typeof _cfg.API>) {
   const logServerStart = Effect.sync(() =>
     `Running on ${cfg.HOST}:${cfg.PORT} at version: ${cfg.API_VERSION}. ENV: ${cfg.ENV}`
   )
-    .flatMap(msg => Effect.sync(() => console.log(msg)) > logger.info(msg))
+    .flatMap(Effect.logInfo)
 
   const middleware = MW.events
     > Ex.use(MW.urlEncoded({ extended: false }), MW.json())

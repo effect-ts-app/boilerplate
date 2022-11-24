@@ -34,6 +34,20 @@ export function batchNPar<R, E, A, R2, E2, A2, T>(
 }
 
 /**
+ * @tsplus pipeable Collection batch
+ * @tsplus static Collection.Aspects batch
+ */
+export function batch<R, E, A, R2, E2, A2, T>(
+  n: number,
+  forEachItem: (i: T) => Effect<R, E, A>,
+  forEachBatch: (a: Chunk<A>) => Effect<R2, E2, A2>
+) {
+  return (items: Iterable<T>) =>
+    items.chunk(n)
+      .forEachEffect(_ => _.forEachPar(forEachItem).flatMap(forEachBatch))
+}
+
+/**
  * @tsplus pipeable Collection rateLimit
  * @tsplus static Collection.Aspects rateLimit
  */

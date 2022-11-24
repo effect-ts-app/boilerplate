@@ -1,25 +1,15 @@
 /* eslint-disable unused-imports/no-unused-imports */
-/**
- * @tsplus global
- */
-import "@effect-ts-app/boilerplate-client/_global"
-/**
- * @tsplus global
- */
-import "@effect-ts-app/boilerplate-infra/_global"
 
-/**
- * @tsplus global
- */
-import type {} from "@effect-ts-app/boilerplate-infra/test.arbs"
+import "@effect-ts-app/boilerplate-messages/_global"
 
-/**
- * @tsplus global
- */
-import { logger } from "@effect-ts-app/boilerplate-infra/lib/logger"
-
-/* eslint-disable unused-imports/no-unused-imports */
 /**
  * @tsplus global
  */
 import { handle, matchResource } from "@/lib/routing.js"
+
+/**
+ * @tsplus global
+ */
+import { User$, Users$ } from "@/services/DBContext/UserRepository.js"
+
+import "./_global.ext.js"

@@ -210,8 +210,11 @@ function makeCosmosStore({ STORAGE_PREFIX }: StorageConfig) {
             /**
              * May return duplicate results for "join_find", when matching more than once.
              */
-            filter: <T extends PM = PM>(filter: Filter<T>) =>
-              filter.type === "join_find"
+            filter: (filter: Filter<PM>, cursor?: { skip?: number; limit?: number }) => {
+              const skip = cursor?.skip
+              const limit = cursor?.limit
+              const lm = skip !== undefined || limit !== undefined ? `OFFSET ${skip ?? 0} LIMIT ${limit ?? 999999}` : ""
+              return filter.type === "join_find"
                 ? // This is a problem if one of the multiple joined arrays can be empty!
                 // https://stackoverflow.com/questions/60320780/azure-cosmosdb-sql-join-not-returning-results-when-the-child-contains-empty-arra
                 // so we use multiple queries instead.
@@ -219,12 +222,13 @@ function makeCosmosStore({ STORAGE_PREFIX }: StorageConfig) {
                     .forEachEffect(k =>
                       Effect.promise(() =>
                         container.items
-                          .query<T>({
+                          .query<PM>({
                             query: `
             SELECT DISTINCT VALUE c
             FROM ${name} c
             JOIN r IN c.${k}
-            WHERE LOWER(r.${filter.valueKey}) = LOWER(@value)`,
+            WHERE LOWER(r.${filter.valueKey}) = LOWER(@value)
+            ${lm}`,
                             parameters: [{ name: "@value", value: filter.value }]
                           })
                           .fetchAll()
@@ -234,7 +238,7 @@ function makeCosmosStore({ STORAGE_PREFIX }: StorageConfig) {
                     .map(_ => _.flatMap(_ => _))
                 : Effect.promise(() =>
                   container.items
-                    .query<T>(
+                    .query<PM>(
                       filter.type === "startsWith" ||
                         filter.type === "endsWith" ||
                         filter.type === "contains"
@@ -243,7 +247,8 @@ function makeCosmosStore({ STORAGE_PREFIX }: StorageConfig) {
                             String(
                               filter.by
                             )
-                          } LIKE @filter`,
+                          } LIKE @filter
+                          ${lm}`,
                           parameters: [
                             { name: "@id", value: importedMarkerId },
                             {
@@ -260,10 +265,16 @@ function makeCosmosStore({ STORAGE_PREFIX }: StorageConfig) {
                           query: `SELECT * FROM ${name} f WHERE ${
                             filter.where
                               .mapWithIndex(
-                                (i, x) => `LOWER(f.${x.key}) = LOWER(@v${i})`
+                                (i, x) =>
+                                  x.t === "in"
+                                    ? `ARRAY_CONTAINS(@v${i}, f.${x.key})`
+                                    : x.t === "not-in"
+                                    ? `ARRAY_CONTAINS(@v${i}, f.${x.key}, false)`
+                                    : `LOWER(f.${x.key}) = LOWER(@v${i})`
                               )
-                              .join(" OR ")
-                          }`,
+                              .join(filter.mode === "or" ? " OR " : " AND ")
+                          }
+                          ${lm}`,
                           parameters: filter.where
                             .mapWithIndex((i, x) => ({
                               name: `@v${i}`,
@@ -274,7 +285,8 @@ function makeCosmosStore({ STORAGE_PREFIX }: StorageConfig) {
                     )
                     .fetchAll()
                     .then(({ resources }) => resources.toChunk)
-                ),
+                )
+            },
             find: id =>
               Effect.promise(() =>
                 container

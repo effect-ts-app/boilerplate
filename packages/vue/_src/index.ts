@@ -1,5 +1,5 @@
-import type { FetchResponse } from "@effect-ts-app/boilerplate-client/lib"
-import { ApiConfig, Done } from "@effect-ts-app/boilerplate-client/lib"
+import type { FetchResponse } from "@effect-ts-app/boilerplate-prelude/client"
+import { ApiConfig, Done } from "@effect-ts-app/boilerplate-prelude/client"
 import type { Http } from "@effect-ts-app/core/http/http-client"
 import * as HF from "@effect-ts-app/core/http/http-client-fetch"
 import * as swrv from "swrv"
@@ -8,17 +8,31 @@ import type { fetcherFn, IKey, IResponse } from "swrv/dist/types.js"
 import type { Ref } from "vue"
 import { computed, ref, shallowRef } from "vue"
 
-export { isFailed, isInitializing, isSuccess } from "@effect-ts-app/boilerplate-client/lib"
+export { isFailed, isInitializing, isSuccess } from "@effect-ts-app/boilerplate-prelude/client"
 
-declare function useSWRVType<Data = any, Error = any>(key: IKey): IResponse<Data, Error>
-declare function useSWRVType<Data = any, Error = any>(
-  key: IKey,
-  fn?: fetcherFn<Data>,
-  config?: swrv.IConfig
-): IResponse<Data, Error>
-
+type useSWRVType = {
+  <Data, Error>(key: IKey): IResponse<Data, Error>
+  <Data, Error>(
+    key: IKey,
+    fn?: fetcherFn<Data>,
+    config?: swrv.IConfig<Data, fetcherFn<Data>>
+  ): IResponse<Data, Error>
+}
+type MutateType = {
+  <Data>(
+    key: string,
+    res: Data | Promise<Data>,
+    cache?: swrv.SWRVCache<Omit<IResponse<any, any>, "mutate">>,
+    ttl?: number
+  ): Promise<{
+    data: any
+    error: any
+    isValidating: any
+  }>
+}
 // madness - workaround different import behavior on server and client
-const useSWRV = (swrv.default.default ? swrv.default.default : swrv.default) as unknown as typeof useSWRVType
+const useSWRV = (swrv.default.default ? swrv.default.default : swrv.default) as unknown as useSWRVType
+export const mutate = (swrv.default.mutate ? swrv.default.mutate : swrv.mutate) as unknown as MutateType
 
 const Layers = HF.Client(fetch) + (ApiConfig.Live({
   apiUrl: "/api"
@@ -41,7 +55,48 @@ function swrToQuery<E, A>(
   return r.isValidating ? new Loading() : new Initial()
 }
 
-export function useSafeQuery<E, A>(key: string, self: Effect<ApiConfig | Http, E, FetchResponse<A>>) {
+export function useMutate<E, A>(self: Effect<ApiConfig | Http, E, FetchResponse<A>> & { mapPath: string }) {
+  const fn = () => run(self).then(_ => _.body)
+  return () => mutate(self.mapPath, fn)
+}
+
+export function useMutateWithArg<Arg, E, A>(
+  self: ((arg: Arg) => Effect<ApiConfig | Http, E, FetchResponse<A>>) & { mapPath: (arg: Arg) => string }
+) {
+  const fn = (arg: Arg) => run(self(arg)).then(_ => _.body)
+  return (arg: Arg) => mutate(self.mapPath(arg), fn(arg))
+}
+
+// TODO: same trick with mutations/actions
+export function useSafeQueryWithArg<Arg, E, A>(
+  self: ((arg: Arg) => Effect<ApiConfig | Http, E, FetchResponse<A>>) & { mapPath: (arg: Arg) => string },
+  arg: Arg,
+  config?: swrv.IConfig<A, fetcherFn<A>> | undefined
+) {
+  return useSafeQueryWithArg_(self, self.mapPath, arg, config)
+}
+
+export function useSafeQuery<E, A>(
+  self: Effect<ApiConfig | Http, E, FetchResponse<A>> & { mapPath: string },
+  config?: swrv.IConfig<A, fetcherFn<A>> | undefined
+) {
+  return useSafeQuery_(self.mapPath, self, config)
+}
+
+export function useSafeQueryWithArg_<Arg, E, A>(
+  self: (arg: Arg) => Effect<ApiConfig | Http, E, FetchResponse<A>>,
+  mapPath: (arg: Arg) => string,
+  arg: Arg,
+  config?: swrv.IConfig<A, fetcherFn<A>> | undefined
+) {
+  return useSafeQuery_(mapPath(arg), self(arg), config)
+}
+
+export function useSafeQuery_<E, A>(
+  key: string,
+  self: Effect<ApiConfig | Http, E, FetchResponse<A>>,
+  config?: swrv.IConfig<A, fetcherFn<A>> | undefined
+) {
   // const [result, latestSuccess, execute] = make(self)
 
   // TODO: support with interruption
@@ -75,7 +130,7 @@ export function useSafeQuery<E, A>(key: string, self: Effect<ApiConfig | Http, E
   // }
 
   // const swr = useSWRV<A, E>(key, () => execWithInterruption().then(_ => _?.body as any)) // Effect.runPromise(self.provideSomeLayer(Layers))
-  const swr = useSWRV<A, E>(key, () => run(self).then(_ => _.body))
+  const swr = useSWRV<A, E>(key, () => run(self).then(_ => _.body), config)
   const result = computed(() =>
     swrToQuery({ data: swr.data.value, error: swr.error.value, isValidating: swr.isValidating.value })
   ) // ref<QueryResult<E, A>>()

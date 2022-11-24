@@ -3,9 +3,11 @@
     "compilerOptions": {
         "lib": [
             "esnext",
-            "DOM"
         ],
         "tsPlusConfig": "../../tsplus.config.json",
+        //        "tsPlusGlobalFiles": [
+        //            "./_src/_global.ts"
+        //        ],
         "moduleResolution": "Node16",
         "outDir": "./dist",
         "rootDir": "./_src",
@@ -13,7 +15,15 @@
         "types": [
             "../../types/global",
             "../../types/modules"
-        ]
+        ],
+        // "paths": {
+        //     "@effect-ts-app/boilerplate-prelude": [
+        //         "./_src"
+        //     ],
+        //     "@effect-ts-app/boilerplate-prelude/*": [
+        //         "./_src/*"
+        //     ],
+        // },
     },
     "include": [
         // "./_src/**/*.mts",

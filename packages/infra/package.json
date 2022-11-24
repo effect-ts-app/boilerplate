@@ -1,22 +1,20 @@
 {
   "name": "@effect-ts-app/boilerplate-infra",
-  "version": "0.1.0",
+  "version": "0.6.2",
   "license": "MIT",
   "type": "module",
   "resolutions": {
     "typescript": "https://cdn.jsdelivr.net/npm/@tsplus/installer@0.0.156/compiler/typescript.tgz"
   },
-  "peerDependencies": {},
+  "peerDependencies": {
+    "@effect-ts-app/boilerplate-prelude": "^0.6.2"
+  },
   "dependencies": {
-    "@effect-ts-app/boilerplate-prelude": "*",
-    "@effect-ts-app/boilerplate-types": "*",
     "change-case": "^4.1.2",
     "cross-fetch": "^3.1.5",
     "path-parser": "^6.1.0"
   },
-  "devDependencies": {
-    "@jest/globals": "29.3.1"
-  },
+  "devDependencies": {},
   "exports": {
     ".": {
       "import": {
@@ -26,6 +24,46 @@
       "require": {
         "types": "./dist/index.d.ts",
         "default": "./_cjs/index.cjs"
+      }
+    },
+    "./prelude": {
+      "import": {
+        "types": "./dist/prelude.d.ts",
+        "default": "./dist/prelude.js"
+      },
+      "require": {
+        "types": "./dist/prelude.d.ts",
+        "default": "./_cjs/prelude.cjs"
+      }
+    },
+    "./lib/api/errorReporter": {
+      "import": {
+        "types": "./dist/lib/api/errorReporter.d.ts",
+        "default": "./dist/lib/api/errorReporter.js"
+      },
+      "require": {
+        "types": "./dist/lib/api/errorReporter.d.ts",
+        "default": "./_cjs/lib/api/errorReporter.cjs"
+      }
+    },
+    "./lib/api/defaultErrorHandler": {
+      "import": {
+        "types": "./dist/lib/api/defaultErrorHandler.d.ts",
+        "default": "./dist/lib/api/defaultErrorHandler.js"
+      },
+      "require": {
+        "types": "./dist/lib/api/defaultErrorHandler.d.ts",
+        "default": "./_cjs/lib/api/defaultErrorHandler.cjs"
+      }
+    },
+    "./lib/filter": {
+      "import": {
+        "types": "./dist/lib/filter.d.ts",
+        "default": "./dist/lib/filter.js"
+      },
+      "require": {
+        "types": "./dist/lib/filter.d.ts",
+        "default": "./_cjs/lib/filter.cjs"
       }
     },
     "./lib/RequestContext": {
@@ -38,6 +76,36 @@
         "default": "./_cjs/lib/RequestContext.cjs"
       }
     },
+    "./services/Emailer/Fake": {
+      "import": {
+        "types": "./dist/services/Emailer/Fake.d.ts",
+        "default": "./dist/services/Emailer/Fake.js"
+      },
+      "require": {
+        "types": "./dist/services/Emailer/Fake.d.ts",
+        "default": "./_cjs/services/Emailer/Fake.cjs"
+      }
+    },
+    "./services/Emailer/service": {
+      "import": {
+        "types": "./dist/services/Emailer/service.d.ts",
+        "default": "./dist/services/Emailer/service.js"
+      },
+      "require": {
+        "types": "./dist/services/Emailer/service.d.ts",
+        "default": "./_cjs/services/Emailer/service.cjs"
+      }
+    },
+    "./services/Emailer/Sendgrid": {
+      "import": {
+        "types": "./dist/services/Emailer/Sendgrid.d.ts",
+        "default": "./dist/services/Emailer/Sendgrid.js"
+      },
+      "require": {
+        "types": "./dist/services/Emailer/Sendgrid.d.ts",
+        "default": "./_cjs/services/Emailer/Sendgrid.cjs"
+      }
+    },
     "./services/memQueue": {
       "import": {
         "types": "./dist/services/memQueue.d.ts",
@@ -46,6 +114,16 @@
       "require": {
         "types": "./dist/services/memQueue.d.ts",
         "default": "./_cjs/services/memQueue.cjs"
+      }
+    },
+    "./services/Repository": {
+      "import": {
+        "types": "./dist/services/Repository.d.ts",
+        "default": "./dist/services/Repository.js"
+      },
+      "require": {
+        "types": "./dist/services/Repository.d.ts",
+        "default": "./_cjs/services/Repository.cjs"
       }
     },
     "./services/Store": {
@@ -80,24 +158,27 @@
     }
   },
   "scripts": {
-    "build": "yarn clean-dist && NODE_OPTIONS=--max-old-space-size=6144 tsc --build",
+    "build": "yarn clean-dist && NODE_OPTIONS=--max-old-space-size=6144 tsc --build && yarn build2:cjs",
     "build2:cjs": "rm -rf _cjs && babel dist --config-file ../../.babel.cjs.json --out-dir _cjs --out-file-extension .cjs --source-maps",
     "watch": "yarn build --watch",
     "watch2": "yarn clean-dist && NODE_OPTIONS=--max-old-space-size=6144 tsc -w",
     "prepare": "yarn build",
     "clean": "rm -rf dist && rm -rf _cjs",
     "clean-dist": "sh ../../scripts/clean-dist.sh",
-    "circular": "madge --circular --ts-config ./tsconfig.json --extensions ts ./_src",
+    "circular": "yarn circular:src && yarn circular:dist",
+    "circular:src": "madge --circular --ts-config ./tsconfig.json --extensions ts ./_src",
     "circular:dist": "madge --circular --extensions js ./dist",
     "compile": "NODE_OPTIONS=--max-old-space-size=6144 tsc --noEmit",
-    "lint": "NODE_OPTIONS=--max-old-space-size=6144 ESLINT_TS=1 eslint .",
+    "lint": "NODE_OPTIONS=--max-old-space-size=6144 ESLINT_TS=1 eslint ./_src",
     "lint:watch": "ESLINT_TS=1 esw -w --changed --clear --ext ts,tsx .",
     "prettier": "prettier \"**/*.ts\"",
     "autofix": "yarn lint --fix",
-    "test": "TEST_COMPILED=1 jest",
-    "testsuite": "yarn lint && yarn test --passWithNoTests && yarn circular && yarn circular:dist",
+    "test": "vitest",
+    "test:run": "yarn test run --passWithNoTests",
+    "testsuite": "yarn lint && yarn circular && yarn test:run",
     "client": "node --experimental-specifier-resolution=node -r source-map-support/register ./dist/client.bin.js",
-    "ncu": "ncu -x date-fns"
+    "ncu": "ncu -x date-fns",
+    "pub": "yarn build && npm publish --access public"
   },
   "gitHead": "bd8e27eea3eff97db8739d577d67e7336c078d28",
   "sideEffects": false

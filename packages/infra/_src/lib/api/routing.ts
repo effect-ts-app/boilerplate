@@ -1,21 +1,97 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import * as Ex from "@effect-ts-app/infra/express/index"
-import type { Encode, RequestHandler, RequestHandlerOptRes } from "@effect-ts-app/infra/express/schema/requestHandler"
-import { makeRequestParsers, parseRequestParams } from "@effect-ts-app/infra/express/schema/requestHandler"
-import type { RouteDescriptorAny } from "@effect-ts-app/infra/express/schema/routing"
-import { makeRouteDescriptor } from "@effect-ts-app/infra/express/schema/routing"
 import type { _E, _R } from "@effect-ts-app/boilerplate-prelude/_ext/Prelude.ext"
 import type { GetRequest, GetResponse } from "@effect-ts-app/boilerplate-prelude/schema"
 import { extractSchema, SchemaNamed } from "@effect-ts-app/boilerplate-prelude/schema"
 import * as MO from "@effect-ts-app/boilerplate-prelude/schema"
+import * as Ex from "@effect-ts-app/infra/express/index"
+import type {
+  Encode,
+  RequestHandler,
+  RequestHandlerOptRes,
+  RequestParsers
+} from "@effect-ts-app/infra/express/schema/requestHandler"
+import { parseRequestParams } from "@effect-ts-app/infra/express/schema/requestHandler"
+import type { RouteDescriptorAny } from "@effect-ts-app/infra/express/schema/routing"
+import { makeRouteDescriptor } from "@effect-ts-app/infra/express/schema/routing"
 import type express from "express"
 import type { ValidationError } from "../../errors.js"
 import { RequestContext, RequestId } from "../../lib/RequestContext.js"
-import { logger } from "../logger.js"
 import type { SupportedErrors } from "./defaultErrorHandler.js"
 import { defaultBasicErrorHandler } from "./defaultErrorHandler.js"
 import { reportRequestError } from "./reportError.js"
 import { snipString, snipValue } from "./util.js"
+
+export function makeRequestParsers<
+  R,
+  PathA,
+  CookieA,
+  QueryA,
+  BodyA,
+  HeaderA,
+  ReqA extends PathA & QueryA & BodyA,
+  ResA,
+  Errors
+>(
+  Request: RequestHandler<
+    R,
+    PathA,
+    CookieA,
+    QueryA,
+    BodyA,
+    HeaderA,
+    ReqA,
+    ResA,
+    Errors
+  >["Request"]
+): RequestParsers<PathA, CookieA, QueryA, BodyA, HeaderA> {
+  const ph = Effect(
+    Maybe.fromNullable(Request.Headers)
+      .map(s => s)
+      .map(Parser.for)
+      .map(MO.condemnFail)
+  )
+  const parseHeaders = (u: unknown) => ph.flatMapMaybe(d => d(u))
+
+  const pq = Effect(
+    Maybe.fromNullable(Request.Query)
+      .map(s => s)
+      .map(Parser.for)
+      .map(MO.condemnFail)
+  )
+  const parseQuery = (u: unknown) => pq.flatMapMaybe(d => d(u))
+
+  const pb = Effect(
+    Maybe.fromNullable(Request.Body)
+      .map(s => s)
+      .map(Parser.for)
+      .map(MO.condemnFail)
+  )
+  const parseBody = (u: unknown) => pb.flatMapMaybe(d => d(u))
+
+  const pp = Effect(
+    Maybe.fromNullable(Request.Path)
+      .map(s => s)
+      .map(Parser.for)
+      .map(MO.condemnFail)
+  )
+  const parsePath = (u: unknown) => pp.flatMapMaybe(d => d(u))
+
+  const pc = Effect(
+    Maybe.fromNullable(Request.Cookie)
+      .map(s => s)
+      .map(Parser.for)
+      .map(MO.condemnFail)
+  )
+  const parseCookie = (u: unknown) => pc.flatMapMaybe(d => d(u))
+
+  return {
+    parseBody,
+    parseCookie,
+    parseHeaders,
+    parsePath,
+    parseQuery
+  }
+}
 
 export type MiddlewareHandler<ResE, R2 = never, PR = never> = (
   req: express.Request,
@@ -170,7 +246,7 @@ export function makeRequestHandler<
   const parseRequest = parseRequestParams(requestParsers)
   const respond = respondSuccess(encodeResponse)
 
-  function logParams(req: express.Request, requestContext: RequestContext) {
+  function getParams(req: express.Request) {
     return Effect.sync(() => ({
       path: req.params,
       query: req.query,
@@ -190,28 +266,6 @@ export function makeRequestHandler<
         }, {} as Record<string, any>)
         : req.cookies
     }))
-      .tap(pars =>
-        logger.info(
-          `${requestContext.createdAt.toISOString()} ${req.method} ${req.originalUrl} processing request`,
-          pars
-        )
-      )
-  }
-
-  function parse(req: express.Request, requestContext: RequestContext) {
-    return logParams(req, requestContext)
-      .zipRight(
-        parseRequest(req)
-          .map(({ body, path, query }) => {
-            const hn = {
-              ...body.value,
-              ...query.value,
-              ...path.value
-            } as unknown as ReqA
-            return hn
-          })
-          .instrument("Performance.ParseRequest")
-      )
   }
 
   function makeContext(req: express.Request) {
@@ -254,26 +308,46 @@ export function makeRequestHandler<
       res.setHeader("Cache-Control", "no-store")
     }
     res.setHeader("Content-Language", requestContext.locale)
-    // just parse once.
-    return parse(req, requestContext)
+    // get params once
+    return getParams(req)
       .exit
       .flatMap(ex => {
         const handleRequest = ex
           .toEffect
+          .tap(pars =>
+            Effect.logInfo(
+              `Processing Request: ${req.method} ${req.originalUrl} parameters: ${pars.$$.pretty}`
+            )
+          )
+          .zipRight(
+            parseRequest(req)
+              .map(({ body, path, query }) => {
+                const hn = {
+                  ...body.value,
+                  ...query.value,
+                  ...path.value
+                } as unknown as ReqA
+                return hn
+              })
+            // .instrument("Performance.ParseRequest")
+          )
           .flatMap(parsedReq =>
             handle(parsedReq as any)
-              .instrument("Performance.HandleRequest")
-              .flatMap(r =>
-                respond(parsedReq, res, r)
-                  .instrument("Performance.EncodeResponse")
+              // .instrument("Performance.HandleRequest")
+              .flatMap(r => respond(parsedReq, res, r) // .instrument("Performance.EncodeResponse")
               )
           )
         // Commands should not be interruptable.
         const r = (
           req.method !== "GET" ? handleRequest.uninterruptible : handleRequest
-        ).instrument("Performance.RequestResponse")
+        ) // .instrument("Performance.RequestResponse")
         const r2 = makeMiddlewareLayer ? r.provideSomeLayer(makeMiddlewareLayer(req, res, requestContext)) : r
-        return errorHandler(req, res, requestContext, r2)
+        return errorHandler(
+          req,
+          res,
+          requestContext,
+          r2.setupRequest(requestContext)
+        )
       })
       .tapErrorCause(cause =>
         Effect.sync(() => {
@@ -288,32 +362,34 @@ export function makeRequestHandler<
       .tapBothInclAbort(
         () => {
           const headers = res.getHeaders()
-          return logger.error(
-            `${new Date().toISOString()} ${req.method} ${req.originalUrl} processed request`,
-            {
-              statusCode: res.statusCode,
-              headers: headers
-                ? Object.entries(headers).reduce((prev, [key, value]) => {
-                  prev[key] = value && typeof value === "string" ? snipString(value) : value
-                  return prev
-                }, {} as Record<string, any>)
-                : headers
-            }
+          return Effect.logError(
+            `Processed request: ${req.method} ${req.originalUrl} ${
+              {
+                statusCode: res.statusCode,
+                headers: headers
+                  ? Object.entries(headers).reduce((prev, [key, value]) => {
+                    prev[key] = value && typeof value === "string" ? snipString(value) : value
+                    return prev
+                  }, {} as Record<string, any>)
+                  : headers
+              }.$$.pretty
+            }`
           )
         },
         () => {
           const headers = res.getHeaders()
-          return logger.info(
-            `${new Date().toISOString()} ${req.method} ${req.originalUrl} processed request`,
-            {
-              statusCode: res.statusCode,
-              headers: headers
-                ? Object.entries(headers).reduce((prev, [key, value]) => {
-                  prev[key] = value && typeof value === "string" ? snipString(value) : value
-                  return prev
-                }, {} as Record<string, any>)
-                : headers
-            }
+          return Effect.logInfo(
+            `Processed request ${req.method} ${req.originalUrl} ${
+              {
+                statusCode: res.statusCode,
+                headers: headers
+                  ? Object.entries(headers).reduce((prev, [key, value]) => {
+                    prev[key] = value && typeof value === "string" ? snipString(value) : value
+                    return prev
+                  }, {} as Record<string, any>)
+                  : headers
+              }.$$.pretty
+            }`
           )
         }
       )
@@ -353,7 +429,6 @@ export type RouteMatch<
 > = Effect<
   | Ex.ExpressAppConfig
   | Ex.ExpressApp
-  | logger.Logger
   | Exclude<
     R,
     PR
@@ -475,9 +550,10 @@ export interface ReqHandler<
   E,
   Res,
   ReqSchema extends MO.SchemaAny,
-  ResSchema extends MO.SchemaAny
+  ResSchema extends MO.SchemaAny,
+  CTX = any
 > {
-  h: (r: Req) => Effect<R, E, Res>
+  h: (r: Req, ctx: CTX) => Effect<R, E, Res>
   Request: ReqSchema
   Response: ResSchema
   ResponseOpenApi: any
@@ -527,9 +603,9 @@ export function matchResource<TModules extends Record<string, Record<string, any
   }
 }
 
-type ReqFromSchema<ReqSchema> = InstanceType<
+export type ReqFromSchema<ReqSchema> = InstanceType<
   ReqSchema extends { new(...args: any[]): any } ? ReqSchema
     : never
 >
 
-type ResFromSchema<ResSchema> = ParsedShapeOf<Extr<ResSchema>>
+export type ResFromSchema<ResSchema> = ParsedShapeOf<Extr<ResSchema>>

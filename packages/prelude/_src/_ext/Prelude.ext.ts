@@ -6,6 +6,10 @@ import "./Lens.ext.js"
 import "./Ref.js"
 import "./Schema.ext.js"
 
+import { Option } from "@effect-ts/core"
+import { asUnit } from "@effect/core/io/Effect"
+import { concreteChunkId } from "@tsplus/stdlib/collections/Chunk"
+
 export type _R<T extends Effect<any, any, any>> = [T] extends [
   Effect<infer R, any, any>
 ] ? R
@@ -152,4 +156,113 @@ export function flatMapScoped<R, E, A, R2, E2, A2>(
  */
 export function catchAllMap<E, A2>(f: (e: E) => A2) {
   return <R, A>(self: Effect<R, E, A>): Effect<R, never, A2 | A> => self.catchAll(err => Effect(f(err)))
+}
+
+/**
+ * @tsplus static effect/core/io/Effect.Aspects asUnit
+ */
+export const asUnitE = asUnit
+
+/**
+ * @tsplus getter Maybe toOption
+ * @tsplus static ets/Maybe.Ops toOption
+ */
+export function toOption<A>(o: Maybe<A>): Option.Option<A> {
+  return o._tag === "None" ? Option.none : Option.some(o.value)
+}
+
+/**
+ * @tsplus fluent effect/core/io/Effect withSpan
+ */
+export function withSpan<R, E, A>(self: Effect<R, E, A>, label: string) {
+  return self.apply(Effect.logSpan(label))
+}
+
+/**
+ * Annotates each log in this effect with the specified log annotations.
+ * @tsplus static effect/core/io/Effect.Ops logAnnotates
+ */
+export function logAnnotates(kvps: Record<string, string>) {
+  return <R, E, A>(effect: Effect<R, E, A>): Effect<R, E, A> =>
+    FiberRef.currentLogAnnotations
+      .get
+      .flatMap(annotations =>
+        Effect.suspendSucceed(() =>
+          effect.apply(
+            FiberRef.currentLogAnnotations.locally(
+              ImmutableMap.from([...annotations, ...kvps.$$.entries])
+            )
+          )
+        )
+      )
+}
+
+/**
+ * Annotates each log in this scope with the specified log annotation.
+ *
+ * @tsplus static effect/core/io/Effect.Ops logAnnotateScoped
+ */
+export function logAnnotateScoped(key: string, value: string) {
+  return FiberRef.currentLogAnnotations
+    .get
+    .flatMap(annotations =>
+      Effect.suspendSucceed(() =>
+        FiberRef.currentLogAnnotations.locallyScoped(
+          annotations.set(key, value)
+        )
+      )
+    )
+}
+
+/**
+ * Annotates each log in this scope with the specified log annotations.
+ *
+ * @tsplus static effect/core/io/Effect.Ops logAnnotatesScoped
+ */
+export function logAnnotatesScoped(kvps: Record<string, string>) {
+  return FiberRef.currentLogAnnotations
+    .get
+    .flatMap(annotations =>
+      Effect.suspendSucceed(() =>
+        FiberRef.currentLogAnnotations.locallyScoped(
+          ImmutableMap.from([...annotations, ...kvps.$$.entries])
+        )
+      )
+    )
+}
+
+/**
+ * Returns the first element that satisfies the predicate.
+ *
+ * @tsplus static Chunk.Aspects findMap
+ * @tsplus pipeable Chunk findMap
+ */
+export function findMap<A, B>(f: (a: A) => Maybe<B>): (self: Chunk<A>) => Maybe<B> {
+  return (self: Chunk<A>): Maybe<B> => {
+    const iterator = concreteChunkId(self)._arrayLikeIterator()
+    let next
+
+    while ((next = iterator.next()) && !next.done) {
+      const array = next.value
+      const len = array.length
+      let i = 0
+      while (i < len) {
+        const a = array[i]!
+        const r = f(a)
+        if (r._tag === "Some") {
+          return r
+        }
+        i++
+      }
+    }
+
+    return Maybe.none
+  }
+}
+
+/**
+ * @tsplus fluent function flow
+ */
+export function flow<A, B, C>(f: (a: A) => B, g: (b: B) => C): (a: A) => C {
+  return a => g(f(a))
 }
