@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import * as H from "@effect-ts-app/core/http/http-client"
 import { constant } from "@effect-ts-app/boilerplate-prelude/Function"
 import type { ReqRes, RequestSchemed } from "@effect-ts-app/boilerplate-prelude/schema"
+import * as H from "@effect-ts-app/core/http/http-client"
 import { Path } from "path-parser"
 import { stringify } from "querystring"
 

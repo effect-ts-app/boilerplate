@@ -65,7 +65,7 @@ function* buildPrintArgs(filePath: string, printer?: PrinterConfig) {
 export const prepareTempDir = Effect.sync(() => {
   // TODO
   try {
-    fs.mkdirSync(path.join(os.tmpdir(), "macs-scanner"))
+    fs.mkdirSync(path.join(os.tmpdir(), "effect-ts-app"))
   } catch (err) {
     if (`${err}`.includes("EEXIST")) {
       return
@@ -74,7 +74,7 @@ export const prepareTempDir = Effect.sync(() => {
   }
 })
 
-const makeTempFile = tempFile("macs-scanner")
+const makeTempFile = tempFile("effect-ts-app")
 const makePrintJobTempFile = makeTempFile("print-job")
 
 function printBuffer(printer: PrinterConfig) {
