@@ -1,6 +1,6 @@
 {
   "name": "@effect-ts-app/boilerplate-prelude",
-  "version": "0.5.3",
+  "version": "0.6.0",
   "license": "MIT",
   "type": "module",
   "resolutions": {
@@ -169,7 +169,8 @@
     "test": "vitest",
     "test:run": "yarn test run --passWithNoTests",
     "testsuite": "yarn lint && yarn circular && yarn test:run",
-    "ncu": "ncu -x @types/faker,faker,date-fns"
+    "ncu": "ncu -x @types/faker,faker,date-fns",
+    "pub": "yarn build && npm publish --access public"
   },
   "gitHead": "bd8e27eea3eff97db8739d577d67e7336c078d28",
   "sideEffects": [

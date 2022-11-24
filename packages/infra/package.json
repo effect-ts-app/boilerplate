@@ -1,6 +1,6 @@
 {
   "name": "@effect-ts-app/boilerplate-infra",
-  "version": "0.5.5",
+  "version": "0.6.0",
   "license": "MIT",
   "type": "module",
   "resolutions": {
@@ -8,7 +8,7 @@
   },
   "peerDependencies": {},
   "dependencies": {
-    "@effect-ts-app/boilerplate-prelude": "*",
+    "@effect-ts-app/boilerplate-prelude": "^0.6.0",
     "change-case": "^4.1.2",
     "cross-fetch": "^3.1.5",
     "path-parser": "^6.1.0"
@@ -176,7 +176,8 @@
     "test:run": "yarn test run --passWithNoTests",
     "testsuite": "yarn lint && yarn circular && yarn test:run",
     "client": "node --experimental-specifier-resolution=node -r source-map-support/register ./dist/client.bin.js",
-    "ncu": "ncu -x date-fns"
+    "ncu": "ncu -x date-fns",
+    "pub": "yarn build && npm publish --access public"
   },
   "gitHead": "bd8e27eea3eff97db8739d577d67e7336c078d28",
   "sideEffects": false
