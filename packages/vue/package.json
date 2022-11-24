@@ -1,6 +1,6 @@
 {
   "name": "@effect-ts-app/boilerplate-vue",
-  "version": "0.5.0",
+  "version": "0.5.2",
   "license": "MIT",
   "type": "module",
   "resolutions": {
@@ -8,15 +8,15 @@
   },
   "dependencies": {
     "@effect-ts-app/boilerplate-prelude": "*",
-    "swrv": "^1.0.1"
+    "swrv": "^1.0.1",
+    "vue2": "https://registry.yarnpkg.com/vue/-/vue-2.7.14.tgz#3743dcd248fd3a34d421ae456b864a0246bafb17"
   },
   "peerDependencies": {
     "vue": "^3.2.45"
   },
   "devDependencies": {
     "@rollup/pluginutils": "^5.0.2",
-    "vue": "^3.2.45",
-    "vue2": "https://registry.yarnpkg.com/vue/-/vue-2.7.14.tgz#3743dcd248fd3a34d421ae456b864a0246bafb17"
+    "vue": "^3.2.45"
   },
   "exports": {
     ".": {
