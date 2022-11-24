@@ -1,14 +1,22 @@
 import crypto from "crypto"
-import type EventEmitter from "events"
-import type { BaseEncodingOptions, Mode, OpenMode } from "fs"
+import type { Abortable } from "events"
+import type { Mode, ObjectEncodingOptions, OpenMode } from "fs"
 import fs from "fs/promises"
-import type internal from "stream"
-
 import os from "os"
 import path from "path"
+import type internal from "stream"
 
 export function readFile(fileName: string) {
   return Effect.tryPromise(() => fs.readFile(fileName))
+}
+
+export function createReadableStream(fileName: string) {
+  return openFile(fileName)
+    .map(file => file.createReadStream())
+}
+
+export function openFile(fileName: string) {
+  return Effect.acquireRelease(Effect.tryPromise(() => fs.open(fileName)), f => Effect.promise(() => f.close()))
 }
 
 export function tempFile(
@@ -25,13 +33,12 @@ type Data =
   | internal.Stream
 
 type Options =
-  | BufferEncoding
-  | (BaseEncodingOptions & {
+  | (ObjectEncodingOptions & {
     mode?: Mode | undefined
     flag?: OpenMode | undefined
-  } & EventEmitter.Abortable)
+  } & Abortable)
+  | BufferEncoding
   | null
-  | undefined
 export function tempFile_(
   folder: string,
   prefix: string,

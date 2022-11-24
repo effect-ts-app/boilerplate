@@ -163,7 +163,7 @@ function makeCosmosStore({ STORAGE_PREFIX }: StorageConfig) {
 
                   return batch.mapWithIndex((i, [e]) => ({
                     ...e,
-                    _etag: result[i].eTag
+                    _etag: result[i]?.eTag
                   }))
                 })
               )
