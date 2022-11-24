@@ -1,7 +1,7 @@
 /**
  * @tsplus global
  */
-import type {} from "@effect-ts-app/boilerplate-infra/services/Emailer/Fake"
+import type {} from "@effect-ts-app/boilerplate-infra/services/Emailer/fake"
 /**
  * @tsplus global
  */

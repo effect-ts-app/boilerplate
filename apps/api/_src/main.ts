@@ -7,7 +7,7 @@ import { LoggerFactory, WinstonLogger } from "@effect-ts-app/infra/logger/Winsto
 import * as _cfg from "./config.js"
 import { Emailer, MemQueue } from "./services.js"
 
-import type {} from "@effect-ts-app/boilerplate-infra/services/Emailer/Fake"
+import type {} from "@effect-ts-app/boilerplate-infra/services/Emailer/fake"
 import type {} from "@effect-ts-app/boilerplate-infra/services/Emailer/Sendgrid"
 
 const { ENV, LOG, QUEUE_URL, SENDGRID_API_KEY } = _cfg
