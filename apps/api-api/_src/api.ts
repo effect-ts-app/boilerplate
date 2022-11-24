@@ -1,4 +1,4 @@
-import { writeOpenapiDocs } from "@effect-ts-app/boilerplate-infra/lib/api/writeDocs.js"
+import { writeOpenapiDocs } from "@effect-ts-app/boilerplate-infra/lib/api/writeDocs"
 import * as MW from "./middleware/index.js"
 import * as R from "./routes.js"
 
@@ -32,8 +32,8 @@ export function api(cfg: typeof _cfg & ReturnType<typeof _cfg.API>) {
         env: cfg.ENV,
         serviceName: cfg.serviceName,
         STORAGE_PREFIX: cfg.STORAGE_PREFIX
-      }) >
-        UserRepository.Live()
+      })
+        > UserRepository.Live()
     )
     .provideSomeLayer(Events.Live)
 }

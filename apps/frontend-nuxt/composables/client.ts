@@ -1,5 +1,3 @@
-import type { Http } from "@effect-ts-app/core/http/http-client"
-import { InterruptedException } from "@effect/core/io/Cause"
 import type {
   ApiConfig,
   FetchError,
@@ -13,6 +11,8 @@ import type {
 } from "@effect-ts-app/boilerplate-prelude/client"
 import { flow, pipe, tuple } from "@effect-ts-app/boilerplate-prelude/Function"
 import { useAction, useMutation } from "@effect-ts-app/boilerplate-vue"
+import type { Http } from "@effect-ts-app/core/http/http-client"
+import { InterruptedException } from "@effect/core/io/Cause"
 import type { ComputedRef } from "nuxt/dist/app/compat/capi"
 import { useToast } from "vue-toastification"
 import type { Either } from "./prelude"

@@ -10,19 +10,12 @@ export default defineNuxtConfig({
       // https://github.com/nuxt/framework/issues/7698
       .concat(process.env.NODE_ENV === "production" ? ["vue-toastification"] : [])
   },
-  head: {
-    title: "Configurator"
-  },
   runtimeConfig: {
     basicAuthCredentials: ""
   },
   modules: [
     "@vueuse/nuxt"
   ],
-  vuetify: {
-    customVariables: ["~/assets/variables.scss"],
-    treeShake: true
-  },
   vite: {
     // plugins: [tsPlugin({ exclude: ["plugin"] })],
     server: {

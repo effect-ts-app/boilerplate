@@ -1,8 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { api } from "@effect-ts-app/boilerplate-api-api/api"
 
-import { createLoggerConfig } from "@effect-ts-app/boilerplate-infra/lib/createLoggerConfig"
-import { LoggerFactory, WinstonLogger } from "@effect-ts-app/infra/logger/Winston"
 // import * as Sentry from "@sentry/node"
 import * as _cfg from "./config.js"
 import { Emailer, MemQueue } from "./services.js"
@@ -10,7 +8,7 @@ import { Emailer, MemQueue } from "./services.js"
 import type {} from "@effect-ts-app/boilerplate-infra/services/Emailer/fake"
 import type {} from "@effect-ts-app/boilerplate-infra/services/Emailer/Sendgrid"
 
-const { ENV, LOG, QUEUE_URL, SENDGRID_API_KEY } = _cfg
+const { QUEUE_URL, SENDGRID_API_KEY } = _cfg
 const SUPPORTED_MODES = ["ALL", "API"] as const
 
 // Sentry.init({
@@ -24,17 +22,6 @@ const SUPPORTED_MODES = ["ALL", "API"] as const
 //   tracesSampleRate: 1.0
 // })
 
-const logLocation = Effect.sync(() => {
-  if (ENV === "local-dev" && LOG !== "console") {
-    console.log("Logging to ./.logs")
-  }
-})
-
-const loggerConfig = createLoggerConfig({
-  devMode: ENV === "local-dev" && LOG !== "console",
-  service: "@effect-ts-app/boilerplate-api"
-})
-
 const main = Effect.gen(function*($) {
   const PROVIDED_MODE = process.argv[2] ?? "ALL"
   if (!PROVIDED_MODE || !SUPPORTED_MODES.includes(PROVIDED_MODE as any)) {
@@ -42,7 +29,6 @@ const main = Effect.gen(function*($) {
   }
   const mode: typeof SUPPORTED_MODES[number] = PROVIDED_MODE as any
   console.debug("Starting in MODE: " + mode)
-  yield* $(logLocation)
 
   switch (mode) {
     case "ALL": {
@@ -69,9 +55,9 @@ const processes = main
 
 const program = processes
   .provideSomeLayer(
-    LoggerFactory(loggerConfig)
-      > WinstonLogger > (SENDGRID_API_KEY ? Emailer.LiveSendgrid({ ..._cfg, SENDGRID_API_KEY }) : Emailer.Fake) >
-      MemQueue.Live
+    (SENDGRID_API_KEY ? Emailer.LiveSendgrid({ ..._cfg, SENDGRID_API_KEY }) : Emailer.Fake)
+      > MemQueue.Live
+      > Logger.consoleLoggerLayer
   )
 
 program.runMain()

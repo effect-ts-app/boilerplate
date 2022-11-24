@@ -1,6 +1,7 @@
 import type { InvalidStateError, OptimisticConcurrencyException } from "@/errors.js"
 import { NotFoundError } from "@/errors.js"
 import type { RequestContext } from "@effect-ts-app/boilerplate-infra/lib/RequestContext.js"
+import { makeAllDSL, makeOneDSL } from "@effect-ts-app/boilerplate-infra/services/Repository"
 import { ContextMap, LiveContextMap, StoreMaker } from "@effect-ts-app/boilerplate-infra/services/Store"
 import type { UserId } from "@effect-ts-app/boilerplate-types/User"
 import { User } from "@effect-ts-app/boilerplate-types/User"
@@ -168,3 +169,6 @@ export function update(repo: UserRepository, mod: (user: User) => User) {
 export function userUpdateWithEffect<R, E>(repo: UserRepository, mod: (user: User) => Effect<R, E, User>) {
   return UserProfile.withEffect(_ => _.get.flatMap(_ => repo.get(_.id)).flatMap(mod).flatMap(repo.save))
 }
+
+export const Users$ = makeAllDSL<User, never>()
+export const User$ = makeOneDSL<User, never>()

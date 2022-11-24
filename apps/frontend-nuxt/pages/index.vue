@@ -3,7 +3,7 @@ import { HelloWorldRsc } from '@effect-ts-app/boilerplate-client';
 
 const helloWorldClient = clientFor(HelloWorldRsc)
 
-const [result, latestSuccess, execute] = useSafeQuery(helloWorldClient.get.mapPath, helloWorldClient.get);
+const [result, latestSuccess, execute] = useSafeQuery(helloWorldClient.get);
 
 onMounted(() => {
   const t = setInterval(() => execute().catch(console.error), 2000)
