@@ -1,6 +1,6 @@
 {
   "name": "@effect-ts-app/boilerplate-prelude",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "license": "MIT",
   "type": "module",
   "resolutions": {
@@ -176,11 +176,9 @@
   "sideEffects": [
     "./dist/faker.js",
     "./faker",
-    "./src/faker",
+    "./_src/faker",
     "./dist/faker",
     "./dist/src/faker.js",
-    "./dist/faker.js",
-    "./_cjs/_ext/Prelude.polyfill.cjs",
-    "./dist/_ext/Prelude.polyfill.js"
+    "./dist/faker.js"
   ]
 }

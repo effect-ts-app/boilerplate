@@ -2,4 +2,4 @@
 /**
  * @tsplus global
  */
-import "@effect-ts-app/boilerplate-types/prelude"
+import "@effect-ts-app/boilerplate-prelude/_global"
