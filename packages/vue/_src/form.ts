@@ -1,4 +1,9 @@
-import type { EncodedOf, ParsedShapeOfCustom, Property, PropertyRecord } from "@effect-ts-app/boilerplate-prelude/schema"
+import type {
+  EncodedOf,
+  ParsedShapeOfCustom,
+  Property,
+  PropertyRecord
+} from "@effect-ts-app/boilerplate-prelude/schema"
 import {
   type AnyProperty,
   getMetadataFromSchemaOrProp,
