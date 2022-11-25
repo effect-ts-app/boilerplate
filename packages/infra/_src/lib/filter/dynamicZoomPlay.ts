@@ -1,6 +1,8 @@
 import type { FocusInitial, FocusPrimitive, FocusStructure } from "@fp-ts/optic/experimental"
 
 import { ZoomerTypeId } from "@fp-ts/optic/experimental"
+import type { FieldValues } from "./types/fields"
+import type { FieldPath, FieldPathValue } from "./types/index.js"
 
 const focus = <S>(
   ops: Array<PropertyKey> = []
@@ -38,7 +40,7 @@ export type Where<V> = { key: string; t?: "eq" | "not-eq"; value: V } | {
 }
 
 function makeFilter<T extends "in" | "not-in" | "eq" | "not-eq">(path: any, value: any, t: T) {
-  return { key: (path(focus() as any)[ZoomerTypeId]).join("."), t, value }
+  return { key: typeof path === "string" ? path : (path(focus() as any)[ZoomerTypeId]).join("."), t, value }
 }
 
 type Filter<S, K extends string, T extends "in" | "not-in" | "eq" | "not-eq", V> = {
@@ -136,13 +138,6 @@ type Filter<S, K extends string, T extends "in" | "not-in" | "eq" | "not-eq", V>
 
 // const subjectFilters = makeHelper<Subject>()
 
-export interface Subject {
-  a: number
-  b: { c: string }
-  d: readonly string[]
-  e: readonly ("a" | "b" | "c")[]
-}
-
 // const filters1 = subjectsWhere(
 //   _ => [
 //     _.in(_ => _.b.c, ["something", "somethingElse"]),
@@ -213,13 +208,16 @@ function $isnt<A>(v: A) {
 function $contains<A>(v: A) {
   return { t: "contains" as const, v }
 }
-function $includes<A>(v: A) {
+function $notContains<A>(v: A) {
+  return { t: "not-contains" as const, v }
+}
+function $includes<A extends string>(v: A) {
   return { t: "includes" as const, v }
 }
-function $startsWith<A>(v: A) {
+function $startsWith<A extends string>(v: A) {
   return { t: "starts-with" as const, v }
 }
-function $endsWith<A>(v: A) {
+function $endsWith<A extends string>(v: A) {
   return { t: "ends-with" as const, v }
 }
 
@@ -278,8 +276,12 @@ function $endsWith<A>(v: A) {
 //   return Filters3
 // }
 
-function build4<S>() {
+function build4<S extends FieldValues>() {
   type Fil = Filter<S, string, any, any>
+
+  type Paths = FieldPath<S>
+  type Value<TFieldName extends Paths> = FieldPathValue<S, TFieldName>
+
   class Filters4 {
     readonly filters: readonly Fil[]
     constructor(readonly mode: "OR" | "AND", ...filters: readonly Fil[]) {
@@ -290,6 +292,29 @@ function build4<S>() {
     // }
 
     where: {
+      // string path
+      <TFieldName extends Paths, A extends Value<TFieldName>>(
+        path: TFieldName,
+        value: A
+      ): Filters4
+      <
+        TFieldName extends Paths,
+        A extends Value<TFieldName> & readonly A[],
+        Val extends { t: "contains" | "not-contains"; v: A[number] }
+      >(
+        path: TFieldName,
+        value: Val
+      ): Filters4
+      <
+        TFieldName extends Paths,
+        A extends Value<TFieldName> & string,
+        Val extends { t: "starts-with" | "ends-with" | "includes"; v: A }
+      >(
+        path: TFieldName,
+        value: Val
+      ): Filters4
+
+      // focus
       <A>(
         path: (s: FocusInitial<S>) => FocusPrimitive<A>,
         value: A
@@ -306,13 +331,31 @@ function build4<S>() {
         path: (s: FocusInitial<S>) => FocusPrimitive<A>,
         value: Val
       ): Filters4
-      <A extends readonly any[], Val extends { t: "contains"; v: A[number] }>(
+      <A extends readonly any[], Val extends { t: "contains" | "not-contains"; v: A[number] }>(
+        path: (s: FocusInitial<S>) => FocusPrimitive<A>,
+        value: Val
+      ): Filters4
+      <A extends string, Val extends { t: "starts-with" | "ends-with" | "includes"; v: A }>(
         path: (s: FocusInitial<S>) => FocusPrimitive<A>,
         value: Val
       ): Filters4
     } = (path: any, val: any) => new Filters4(this.mode, ...this.filters, f(path, val) as any) as any
   }
   return Filters4
+}
+
+export interface Subject2 {
+  g: string
+  h: readonly string[]
+  i: number
+}
+
+export interface Subject {
+  a: number
+  b: { c: string }
+  d: readonly string[]
+  e: readonly ("a" | "b" | "c")[]
+  f: readonly Subject2[]
 }
 
 function f(a, b) {
@@ -324,16 +367,34 @@ function f(a, b) {
 // const where = (k, v) => ({ key: k, ...v })
 
 const b4 = build4<Subject>()
-const b33 = new b4("AND") // f(_ => _.b.c, $in(["something", "somethingElse"]))
+// const b33 = new b4("AND") // f(_ => _.b.c, $in(["something", "somethingElse"]))
+
+function filterSubject(mode: "OR" | "AND" = "AND") {
+  return new b4(mode)
+}
+
+type test = { is: (v: number) => Filter<any, any, any, any> }
+declare const b: test
+b.is(5)
+
+// TODO: combining and/or
 
 console.log(
-  b33
+  filterSubject()
     .where(_ => _.b.c, $in(["something", "somethingElse"]))
     .where(_ => _.a, 1)
     .where(_ => _.a, $is(2))
     .where(_ => _.a, $isnt(3))
     .where(_ => _.d, $contains("something"))
     .where(_ => _.e, $contains("a" as const))
+    .where(_ => _.b.c, $startsWith("some"))
+    // .[number]. here is arbitrary, it just means: "I want to filter on elements of the array"
+    .where("f.0.g", $startsWith("some"))
+    .where("f.0.i", 2)
+    .where("f.0.h", $notContains("some"))
+  // .orderBy(_ => _.f)
+  // .skip(5)
+  // .take(5)
 )
 
 // const fil2 = <T extends [Filter<any, any, any, any>, ...Filter<any, any, any, any>[]]>(...f: T) => f
