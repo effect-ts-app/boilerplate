@@ -325,22 +325,14 @@ function build4<S extends FieldValues>() {
       ): Filters4
 
       // alt
-      <
-        TFieldName extends Paths,
-        A extends Value<TFieldName> & string,
-        Val extends ValueType<A> | StringType<A>
-      >(
-        path: TFieldName,
-        value: (v: StringFilters<A> & AFilters<A>) => Val
-      ): Filters4
-
-      <TFieldName extends Paths,
-        A extends Value<TFieldName>,
-        Val extends ValueType<A>
-      >(
-        path: TFieldName,
-        value: (v: AFilters<A>) => Val
-      ): Filters4
+      // <
+      //   TFieldName extends Paths,
+      //   A extends Value<TFieldName> & string,
+      //   Val extends (ValueType<A> | StringType<A>)
+      // >(
+      //   path: TFieldName,
+      //   value: (v: StringFilters<A> & AFilters<A>) => Val
+      // ): Filters4
       <
         TFieldName extends Paths,
         A extends Value<TFieldName> & readonly A[],
@@ -349,19 +341,17 @@ function build4<S extends FieldValues>() {
         path: TFieldName,
         value: (v: ListFilters<A>) => Val
       ): Filters4
+      <TFieldName extends Paths,
+        A extends Value<TFieldName>,
+        Val extends ValueType<A>
+      >(
+        path: TFieldName,
+        value: (v: AFilters<A>) => Val
+      ): Filters4
+
 
 
       // focus
-      <A>(
-        path: (s: FocusInitial<S>) => FocusPrimitive<A>,
-        value: A
-      ): Filters4
-      <A>(
-        path: (s: FocusInitial<S>) => FocusStructure<A>,
-        value: A
-      ): Filters4
-
-
       // <A, Val extends ValueType<A>
       // >(
       //   path: (s: FocusInitial<S>) => FocusPrimitive<A>,
@@ -374,17 +364,18 @@ function build4<S extends FieldValues>() {
       // ): Filters4
 
       <A, Val extends ValueType<A>>(
-        path: (s: FocusInitial<S>) => FocusStructure<A>,
-        value: Val
-      ): Filters4
-      <A, Val extends ValueType<A>>(
         path: (s: FocusInitial<S>) => FocusPrimitive<A>,
         value: Val
-      ): Filters4
+        ): Filters4
+        <A, Val extends ValueType<A>>(
+          path: (s: FocusInitial<S>) => FocusStructure<A>,
+          value: Val
+        ): Filters4
       <A extends readonly any[], Val extends ListType<A>>(
         path: (s: FocusInitial<S>) => FocusPrimitive<A>,
         value: Val
       ): Filters4
+
       <A extends string, Val extends StringType<A>>(
         path: (s: FocusInitial<S>) => FocusPrimitive<A>,
         value: Val
@@ -392,50 +383,60 @@ function build4<S extends FieldValues>() {
 
 
       // alt
-      <
-        A extends string,
-        Val extends ValueType<A> | StringType<A>
-      >(
-        path: (s: FocusInitial<S>) => FocusStructure<A>,
-        value: (v: StringFilters<A> & AFilters<A>) => Val
-      ): Filters4
+//       <
+//       A extends string,
+//       Val extends ValueType<A> | StringType<A>
+//     >(
+//       path: (s: FocusInitial<S>) => FocusPrimitive<A>,
+//       value: (v: StringFilters<A> & AFilters<A>) => Val
+//     ): Filters4
+//   <
+//   A extends string,
+//   Val extends ValueType<A> | StringType<A>
+// >(
+//   path: (s: FocusInitial<S>) => FocusStructure<A>,
+//   value: (v: StringFilters<A> & AFilters<A>) => Val
+// ): Filters4
 
-      <
-        A,
-        Val extends ValueType<A>
-      >(
-        path: (s: FocusInitial<S>) => FocusStructure<A>,
-        value: (v: AFilters<A>) => Val
-      ): Filters4
-      <
-        A extends readonly A[],
-        Val extends ListType<A>
-      >(
-        path: (s: FocusInitial<S>) => FocusStructure<A>,
-        value: (v: ListFilters<A>) => Val
-      ): Filters4
+      // <
+      // A,
+      // Val extends ValueType<A>
+      // >(
+      //   path: (s: FocusInitial<S>) => FocusPrimitive<A>,
+      //   value: (v: AFilters<A>) => Val
+      //   ): Filters4
+      //   <
+      //     A,
+      //     Val extends ValueType<A>
+      //   >(
+      //     path: (s: FocusInitial<S>) => FocusStructure<A>,
+      //     value: (v: AFilters<A>) => Val
+      //   ): Filters4
+      //   <
+      //     A extends readonly A[],
+      //     Val extends ListType<A>
+      //   >(
+      //     path: (s: FocusInitial<S>) => FocusPrimitive<A>,
+      //     value: (v: ListFilters<A>) => Val
+      //   ): Filters4
+      //   <
+      //   A extends readonly A[],
+      //   Val extends ListType<A>
+      //   >(
+      //     path: (s: FocusInitial<S>) => FocusStructure<A>,
+      //     value: (v: ListFilters<A>) => Val
+      //     ): Filters4
 
-      <
-        A extends string,
-        Val extends ValueType<A> | StringType<A>
-      >(
-        path: (s: FocusInitial<S>) => FocusPrimitive<A>,
-        value: (v: StringFilters<A> & AFilters<A>) => Val
-      ): Filters4
 
-      <
-        A,
-        Val extends ValueType<A>
-      >(
+
+
+      <A>(
         path: (s: FocusInitial<S>) => FocusPrimitive<A>,
-        value: (v: AFilters<A>) => Val
+        value: A
       ): Filters4
-      <
-        A extends readonly A[],
-        Val extends ListType<A>
-      >(
-        path: (s: FocusInitial<S>) => FocusPrimitive<A>,
-        value: (v: ListFilters<A>) => Val
+      <A>(
+        path: (s: FocusInitial<S>) => FocusStructure<A>,
+        value: A
       ): Filters4
     } = (path: any, val: any) => new Filters4(this.mode, ...this.filters, f(path, val) as any) as any
   }
@@ -467,7 +468,7 @@ const helpers = {
   notInt: $notIn,
 }
 
-function f(a, b) {
+function f(a: any, b: any) {
   if (typeof b === "function") { b = b(helpers) }
   return makeFilter(a, typeof b === "object" ? b.v : b, b.t ?? "eq")
 }
@@ -485,23 +486,44 @@ function filterSubject(mode: "OR" | "AND" = "AND") {
 
 // TODO: combining and/or
 
+// console.log(
+//   filterSubject()
+
+//     .where("f.0.g", _ => _.includes("something"))
+//     .where("f.0.g", _ => _.in(["abc"]))
+//   // zoom
+//     .where(_ => _.a, 1)
+//     .where(_ => _.a, _ => _.is(2))
+//     .where(_ => _.a, _ => _.isnt(3))
+//     .where(_ => _.d, _ => _.contains("something"))
+//     .where(_ => _.e, _ => _.contains("a" as const))
+//     .where(_ => _.b.c, _ => _.in(["something", "somethingElse"]))
+//     .where(_ => _.b.c, _ => _.startsWith("some"))
+//     // .[number]. here is arbitrary, it just means: "I want to filter on elements of the array"
+//     .where("f.0.g", $startsWith("some"))
+//     .where("f.0.i", 2)
+//     .where("f.0.h", $notContains("some"))
+//   // .orderBy(_ => _.f)
+//   // .skip(5)
+//   // .take(5)
+// )
+
 console.log(
   filterSubject()
-
     .where("f.0.g", _ => _.includes("something"))
     .where("f.0.g", _ => _.in(["abc"]))
   // zoom
-    .where(_ => _.a, 1)
-    .where(_ => _.b.c, _ => _.in(["something", "somethingElse"]))
-    .where(_ => _.a, _ => _.is(2))
-    .where(_ => _.a, _ => _.isnt(3))
-    .where(_ => _.d, $contains("something"))
-    .where(_ => _.e, $contains("a" as const))
-    .where(_ => _.b.c, $startsWith("some"))
+    .where("a", 1)
+    .where("a", _ => _.is(2))
+    .where("a", _ => _.isnt(3))
+    .where("d", _ => _.contains("something"))
+    .where("e", _ => _.contains("a" as const))
+    .where("b.c", _ => _.in(["something", "somethingElse"]))
+    .where("b.c", _ => _.startsWith("some"))
     // .[number]. here is arbitrary, it just means: "I want to filter on elements of the array"
-    .where("f.0.g", $startsWith("some"))
-    .where("f.0.i", 2)
-    .where("f.0.h", $notContains("some"))
+    // .where("f.0.g", $startsWith("some"))
+    // .where("f.0.i", 2)
+    // .where("f.0.h", $notContains("some"))
   // .orderBy(_ => _.f)
   // .skip(5)
   // .take(5)
