@@ -276,6 +276,15 @@ function $endsWith<A extends string>(v: A) {
 //   return Filters3
 // }
 
+type AFilters<A> = { is: typeof $is<A>; isnt: typeof $isnt<A>; in: typeof $in<readonly A[]>; notIn: typeof $notIn<readonly A[]> }
+type StringFilters<A extends string> = { startsWith: typeof $startsWith<A>; endsWith: typeof $endsWith<A>; includes: typeof $includes<A> }
+type StringType<A extends string> = { t: "starts-with" | "ends-with" | "includes"; v: A }
+type ListFilters<A> = { contains: typeof $contains<A>; notContains: typeof $notContains<A> }
+type ListType<A extends readonly any[]> = { t: "contains" | "not-contains"; v: A[number] }
+
+
+// TODO: NumberAndDateFilters = { gt, gte, lt, lte }
+
 function build4<S extends FieldValues>() {
   type Fil = Filter<S, string, any, any>
 
@@ -297,10 +306,11 @@ function build4<S extends FieldValues>() {
         path: TFieldName,
         value: A
       ): Filters4
+
       <
         TFieldName extends Paths,
         A extends Value<TFieldName> & readonly A[],
-        Val extends { t: "contains" | "not-contains"; v: A[number] }
+        Val extends ListType<A>
       >(
         path: TFieldName,
         value: Val
@@ -308,11 +318,38 @@ function build4<S extends FieldValues>() {
       <
         TFieldName extends Paths,
         A extends Value<TFieldName> & string,
-        Val extends { t: "starts-with" | "ends-with" | "includes"; v: A }
+        Val extends StringType<A>
       >(
         path: TFieldName,
         value: Val
       ): Filters4
+
+      // alt
+      <
+        TFieldName extends Paths,
+        A extends Value<TFieldName> & string,
+        Val extends ValueType<A> | StringType<A>
+      >(
+        path: TFieldName,
+        value: (v: StringFilters<A> & AFilters<A>) => Val
+      ): Filters4
+
+      <TFieldName extends Paths,
+        A extends Value<TFieldName>,
+        Val extends ValueType<A>
+      >(
+        path: TFieldName,
+        value: (v: AFilters<A>) => Val
+      ): Filters4
+      <
+        TFieldName extends Paths,
+        A extends Value<TFieldName> & readonly A[],
+        Val extends ListType<A>
+      >(
+        path: TFieldName,
+        value: (v: ListFilters<A>) => Val
+      ): Filters4
+
 
       // focus
       <A>(
@@ -323,6 +360,19 @@ function build4<S extends FieldValues>() {
         path: (s: FocusInitial<S>) => FocusStructure<A>,
         value: A
       ): Filters4
+
+
+      // <A, Val extends ValueType<A>
+      // >(
+      //   path: (s: FocusInitial<S>) => FocusPrimitive<A>,
+      //   value: (v: AFilters<A>) => Val
+      // ): Filters4
+      // <A, Val extends ValueType<A>
+      // >(
+      //   path: (s: FocusInitial<S>) => FocusStructure<A>,
+      //   value: (v: AFilters<A>) => Val
+      // ): Filters4
+
       <A, Val extends ValueType<A>>(
         path: (s: FocusInitial<S>) => FocusStructure<A>,
         value: Val
@@ -331,13 +381,61 @@ function build4<S extends FieldValues>() {
         path: (s: FocusInitial<S>) => FocusPrimitive<A>,
         value: Val
       ): Filters4
-      <A extends readonly any[], Val extends { t: "contains" | "not-contains"; v: A[number] }>(
+      <A extends readonly any[], Val extends ListType<A>>(
         path: (s: FocusInitial<S>) => FocusPrimitive<A>,
         value: Val
       ): Filters4
-      <A extends string, Val extends { t: "starts-with" | "ends-with" | "includes"; v: A }>(
+      <A extends string, Val extends StringType<A>>(
         path: (s: FocusInitial<S>) => FocusPrimitive<A>,
         value: Val
+      ): Filters4
+
+
+      // alt
+      <
+        A extends string,
+        Val extends ValueType<A> | StringType<A>
+      >(
+        path: (s: FocusInitial<S>) => FocusStructure<A>,
+        value: (v: StringFilters<A> & AFilters<A>) => Val
+      ): Filters4
+
+      <
+        A,
+        Val extends ValueType<A>
+      >(
+        path: (s: FocusInitial<S>) => FocusStructure<A>,
+        value: (v: AFilters<A>) => Val
+      ): Filters4
+      <
+        A extends readonly A[],
+        Val extends ListType<A>
+      >(
+        path: (s: FocusInitial<S>) => FocusStructure<A>,
+        value: (v: ListFilters<A>) => Val
+      ): Filters4
+
+      <
+        A extends string,
+        Val extends ValueType<A> | StringType<A>
+      >(
+        path: (s: FocusInitial<S>) => FocusPrimitive<A>,
+        value: (v: StringFilters<A> & AFilters<A>) => Val
+      ): Filters4
+
+      <
+        A,
+        Val extends ValueType<A>
+      >(
+        path: (s: FocusInitial<S>) => FocusPrimitive<A>,
+        value: (v: AFilters<A>) => Val
+      ): Filters4
+      <
+        A extends readonly A[],
+        Val extends ListType<A>
+      >(
+        path: (s: FocusInitial<S>) => FocusPrimitive<A>,
+        value: (v: ListFilters<A>) => Val
       ): Filters4
     } = (path: any, val: any) => new Filters4(this.mode, ...this.filters, f(path, val) as any) as any
   }
@@ -358,7 +456,19 @@ export interface Subject {
   f: readonly Subject2[]
 }
 
+const helpers = {
+  startsWith: $startsWith,
+  endsWith: $endsWith,
+  contains: $contains,
+  includes: $includes,
+  is: $is,
+  isnt: $isnt,
+  in: $in,
+  notInt: $notIn,
+}
+
 function f(a, b) {
+  if (typeof b === "function") { b = b(helpers) }
   return makeFilter(a, typeof b === "object" ? b.v : b, b.t ?? "eq")
 }
 
@@ -373,18 +483,18 @@ function filterSubject(mode: "OR" | "AND" = "AND") {
   return new b4(mode)
 }
 
-type test = { is: (v: number) => Filter<any, any, any, any> }
-declare const b: test
-b.is(5)
-
 // TODO: combining and/or
 
 console.log(
   filterSubject()
-    .where(_ => _.b.c, $in(["something", "somethingElse"]))
+
+    .where("f.0.g", _ => _.includes("something"))
+    .where("f.0.g", _ => _.in(["abc"]))
+  // zoom
     .where(_ => _.a, 1)
-    .where(_ => _.a, $is(2))
-    .where(_ => _.a, $isnt(3))
+    .where(_ => _.b.c, _ => _.in(["something", "somethingElse"]))
+    .where(_ => _.a, _ => _.is(2))
+    .where(_ => _.a, _ => _.isnt(3))
     .where(_ => _.d, $contains("something"))
     .where(_ => _.e, $contains("a" as const))
     .where(_ => _.b.c, $startsWith("some"))
