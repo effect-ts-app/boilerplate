@@ -64,7 +64,7 @@ function makeWhereFilter_<TFieldValues extends FieldValues>() {
 
 export type WhereValue<
   T extends "eq" | "not-eq" | "starts-with" | "ends-with" | "includes" | "contains" | "not-contains",
-  A extends SupportedValues,
+  A, // extends SupportedValues,
   V extends A = A
 > = { t: T; v: V }
 type SupportedValues = string | boolean | number | null
@@ -77,21 +77,21 @@ export type WhereIn<T extends "in" | "not-in", V, Values extends readonly V[] = 
 /**
  * @tsplus fluent Collection $contains
  */
-export function $$contains<A extends SupportedValues, V extends A>(
+export function $contains<A extends SupportedValues, V extends A>(
   _: readonly A[],
   v: V
 ): WhereValue<"contains", A, V> {
-  return $contains(v)
+  return $$contains(v)
 }
 
 /**
  * @tsplus fluent Collection $notContains
  */
-export function $$notContains<A extends SupportedValues, V extends A>(
+export function $notContains<A extends SupportedValues, V extends A>(
   _: readonly A[],
   v: V
 ): WhereValue<"not-contains", A, V> {
-  return $notContains(v)
+  return $$notContains(v)
 }
 
 /**
@@ -99,11 +99,11 @@ export function $$notContains<A extends SupportedValues, V extends A>(
  * @tsplus fluent boolean $in
  * @tsplus fluent number $in
  */
-export function $$in<A extends SupportedValues, Values extends readonly A[]>(
+export function $in<A extends SupportedValues, Values extends readonly A[]>(
   _: A,
   ...v: Values
 ): WhereIn<"in", A, Values> {
-  return $in(v)
+  return $$in(v)
 }
 
 /**
@@ -111,80 +111,174 @@ export function $$in<A extends SupportedValues, Values extends readonly A[]>(
  * @tsplus fluent boolean $notIn
  * @tsplus fluent number $notIn
  */
-export function $$notIn<A extends SupportedValues, Values extends readonly A[]>(
+export function $notIn<A extends SupportedValues, Values extends readonly A[]>(
   _: A,
   ...v: Values
 ): WhereIn<"not-in", A, Values> {
-  return $notIn(v)
+  return $$notIn(v)
 }
 
 /**
  * @tsplus fluent string $is
  * @tsplus fluent boolean $is
  * @tsplus fluent number $is
+ * @tsplus fluent Object $is
  */
-export function $$is<A extends SupportedValues, V extends A>(_: A, v: V): WhereValue<"eq", A, V> {
-  return $is(v)
+export function $is<A, V extends A>(_: A, v: V): WhereValue<"eq", A, V> {
+  return $$is(v)
 }
 /**
  * @tsplus fluent string $isnt
  * @tsplus fluent boolean $isnt
  * @tsplus fluent number $isnt
+ * @tsplus fluent Object $isnt
  */
-export function $$isnt<A extends SupportedValues, V extends A>(_: A, v: V): WhereValue<"not-eq", A, V> {
-  return $isnt(v)
+export function $isnt<A, V extends A>(_: A, v: V): WhereValue<"not-eq", A, V> {
+  return $$isnt(v)
+}
+
+function $is__<V extends A, A>(v: V) {
+  return (_: A) => $is(_, v)
+}
+
+function $isnt__<V extends A, A>(v: V) {
+  return (_: A) => $isnt(_, v)
+}
+
+
+function $in__<A extends SupportedValues, Values extends readonly A[]>(
+...v: Values
+) {
+  return (_: A) => $in(_, ...v)
+}
+
+function $notIn__<A extends SupportedValues, Values extends readonly A[]>(
+  ...v: Values
+) {
+  return (_: A) => $notIn(_, ...v)
+}
+
+// function $contains__<A extends SupportedValues, V extends A>(
+//   v: V
+// ) {
+//   return (_: readonly A[]) => $contains(_, v)
+// }
+
+// function $notContains__<A extends SupportedValues, V extends A>(
+//   v: V
+// ) {
+//   return (_: readonly A[]) => $notContains(_, v)
+// }
+
+export const Filters = {
+  $is: $is__,
+  $isnt: $isnt__,
+  $in: $in__,
+  $notIn: $notIn__,
+  // $contains: $contains__,
+  // $notContains: $notContains__,
 }
 
 /**
  * @tsplus fluent string $startsWith
  */
-export function $$startsWith<A extends string, V extends A>(_: A, v: V): WhereValue<"starts-with", A, V> {
-  return $startsWith(v)
+export function $startsWith<A extends string, V extends A>(_: A, v: V): WhereValue<"starts-with", A, V> {
+  return $$startsWith(v)
 }
 
 /**
  * @tsplus fluent string $endsWith
  */
-export function $$endsWith<A extends string, V extends A>(_: A, v: V): WhereValue<"ends-with", A, V> {
-  return $endsWith(v)
+export function $endsWith<A extends string, V extends A>(_: A, v: V): WhereValue<"ends-with", A, V> {
+  return $$endsWith(v)
 }
 
 /**
  * @tsplus fluent string $includes
  */
-export function $$includes<A extends string, V extends A>(_: A, v: V): WhereValue<"includes", A, V> {
-  return $includes(v)
+export function $includes<A extends string, V extends A>(_: A, v: V): WhereValue<"includes", A, V> {
+  return $$includes(v)
 }
 
-function $in<L extends readonly any[]>(v: L) {
+function $$in<L extends readonly any[]>(v: L) {
   return { t: "in" as const, v }
 }
 
-function $notIn<L extends readonly any[]>(v: L) {
+function $$notIn<L extends readonly any[]>(v: L) {
   return { t: "not-in" as const, v }
 }
-function $is<A>(v: A) {
+function $$is<A>(v: A) {
   return { t: "eq" as const, v }
 }
-function $isnt<A>(v: A) {
+function $$isnt<A>(v: A) {
   return { t: "not-eq" as const, v }
 }
 
 // containsAny, containsAll?
-function $contains<A>(v: A) {
+function $$contains<A>(v: A) {
   return { t: "contains" as const, v }
 }
-function $notContains<A>(v: A) {
+function $$notContains<A>(v: A) {
   return { t: "not-contains" as const, v }
 }
-function $includes<A extends string>(v: A) {
+function $$includes<A extends string>(v: A) {
   return { t: "includes" as const, v }
 }
-function $startsWith<A extends string>(v: A) {
+function $$startsWith<A extends string>(v: A) {
   return { t: "starts-with" as const, v }
 }
-function $endsWith<A extends string>(v: A) {
+function $$endsWith<A extends string>(v: A) {
   return { t: "ends-with" as const, v }
+}
+
+type ValueType<V> = {
+  t: "in" | "not-in"
+  v: readonly V[]
+} | { t: "eq" | "not-eq"; v: V }
+
+type TType<T> = T extends ValueType<any> ? T["t"] : never
+type VType<T> = T extends ValueType<any> ? T["v"] : never
+
+function f(p: string, b: any) {
+  if (typeof b === "function") b = b(undefined)
+  return makeFilter(p, typeof b === "object" ? b.v : b, b.t ?? "eq")
+}
+
+function makeFilter<T extends "in" | "not-in" | "eq" | "not-eq">(path: string, value: any, t: T) {
+  return { key: path, t, value }
+}
+
+type FIL<S, K extends string, T extends "in" | "not-in" | "eq" | "not-eq", V> = {
+  key: K
+  t: T
+  value: V
+  readonly S: S
+}
+
+
+export function makeFilters<T extends FieldValues>() {
+  type Paths = FieldPath<T>
+  type Value<TFieldName extends Paths> = FieldPathValue<T, TFieldName>
+
+  function test<
+    TFieldName extends Paths,
+    A extends Value<TFieldName>,
+    Val
+  >(
+    path: TFieldName,
+    value: (v: A) => Val
+  ): FIL<T, string, TType<Val>, VType<Val>>
+  function test<
+    TFieldName extends Paths,
+    A extends Value<TFieldName>
+  >(
+    path: TFieldName,
+    value: A
+  ): FIL<T, string, "eq", A>
+  function test(p: string, v: any) {
+    return f(p, v) as any
+  }
+  return test
 }
 
 
