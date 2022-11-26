@@ -1,9 +1,9 @@
 import type { FocusInitial, FocusPrimitive, FocusStructure } from "@fp-ts/optic/experimental"
 
 import { ZoomerTypeId } from "@fp-ts/optic/experimental"
-import type {} from "../filter.js"
-import type { FieldValues } from "./types/fields"
-import type { FieldPath, FieldPathValue } from "./types/index.js"
+import "@effect-ts-app/boilerplate-infra/lib/filter"
+import type { FieldValues } from "@effect-ts-app/boilerplate-infra/lib/filter/types/fields"
+import type { FieldPath, FieldPathValue } from "@effect-ts-app/boilerplate-infra/lib/filter/types/index"
 
 const focus = <S>(
   ops: Array<PropertyKey> = []
@@ -304,27 +304,35 @@ function build4<S extends FieldValues>() {
     <
       TFieldName extends Paths,
       A extends Value<TFieldName>,
-      Val extends { t: "contains" | "not-contains"; v: A[number] }
+      Val
     >(
       path: TFieldName,
       value: (v: A) => Val
     ): Filters4
-    <
-      TFieldName extends Paths,
-      A extends Value<TFieldName>,
-      Val extends { t: "starts-with" | "ends-with" | "includes"; v: A } | ValueType<A>
-    >(
-      path: TFieldName,
-      value: (v: A) => Val
-    ): Filters4
-    <
-      TFieldName extends Paths,
-      A extends Value<TFieldName>,
-      Val extends ValueType<A>
-    >(
-      path: TFieldName,
-      value: (v: A) => Val
-    ): Filters4
+    // <
+    //   TFieldName extends Paths,
+    //   A extends Value<TFieldName>,
+    //   Val extends { t: "contains" | "not-contains"; v: A[number] }
+    // >(
+    //   path: TFieldName,
+    //   value: (v: A) => Val
+    // ): Filters4
+    // <
+    //   TFieldName extends Paths,
+    //   A extends Value<TFieldName>,
+    //   Val extends { t: "starts-with" | "ends-with" | "includes"; v: A } | ValueType<A>
+    // >(
+    //   path: TFieldName,
+    //   value: (v: A) => Val
+    // ): Filters4
+    // <
+    //   TFieldName extends Paths,
+    //   A extends Value<TFieldName>,
+    //   Val extends ValueType<A>
+    // >(
+    //   path: TFieldName,
+    //   value: (v: A) => Val
+    // ): Filters4
   }
 
   type WhereFocusAlt = {

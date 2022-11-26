@@ -1,11 +1,11 @@
 {
-    "extends": "../../tsconfig.base.json",
+    "extends": "../tsconfig.base.json",
     "compilerOptions": {
         "lib": [
             "esnext",
             "DOM"
         ],
-        "tsPlusConfig": "../../tsplus.config.json",
+        "tsPlusConfig": "../tsplus.config.json",
         //        "tsPlusGlobalFiles": [
         //            "./_src/_global.ts"
         //        ],
@@ -14,15 +14,15 @@
         "rootDir": "./_src",
         "tsBuildInfoFile": "./dist/.tsbuildinfo",
         "types": [
-            "../../types/global",
-            "../../types/modules"
+            "../types/global",
+            "../types/modules"
         ],
         // temp disbaled to support ts-plus ops
         "importsNotUsedAsValues": "preserve",
     },
     "include": [
         "./_src/**/*.ts"
-    ],  
+    ],
     "ts-node": {
         "require": [
             "tsconfig-paths/register"
@@ -31,12 +31,5 @@
             "module": "CommonJS"
         }
     },
-    "references": [
-        {
-            "path": "../types"
-        },
-        {
-            "path": "../prelude"
-        }
-    ]
+    "references": []
 }
