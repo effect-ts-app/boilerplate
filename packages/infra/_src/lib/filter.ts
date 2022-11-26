@@ -101,7 +101,7 @@ export function $$notContains<A extends SupportedValues, V extends A>(
  */
 export function $$in<A extends SupportedValues, Values extends readonly A[]>(
   _: A,
-  v: Values
+  ...v: Values
 ): WhereIn<"in", A, Values> {
   return $in(v)
 }
@@ -113,7 +113,7 @@ export function $$in<A extends SupportedValues, Values extends readonly A[]>(
  */
 export function $$notIn<A extends SupportedValues, Values extends readonly A[]>(
   _: A,
-  v: Values
+  ...v: Values
 ): WhereIn<"not-in", A, Values> {
   return $notIn(v)
 }

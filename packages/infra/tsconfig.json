@@ -14,15 +14,14 @@
         "rootDir": "./_src",
         "tsBuildInfoFile": "./dist/.tsbuildinfo",
         "types": [
-            "../../types/global",
-            "../../types/modules"
+            "./types/modules"
         ],
         // temp disbaled to support ts-plus ops
         "importsNotUsedAsValues": "preserve",
     },
     "include": [
         "./_src/**/*.ts"
-    ],  
+    ],
     "ts-node": {
         "require": [
             "tsconfig-paths/register"
@@ -32,9 +31,6 @@
         }
     },
     "references": [
-        {
-            "path": "../types"
-        },
         {
             "path": "../prelude"
         }
