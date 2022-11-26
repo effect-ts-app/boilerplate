@@ -10,7 +10,7 @@ export type StoreConfig<E> = {
   partitionValue: (e: E) => string | undefined
 }
 
-type SupportedValues = string | boolean | number | null
+export type SupportedValues = string | boolean | number | null
 
 // default is eq
 export type Where = { key: string; t?: "eq" | "not-eq"; value: SupportedValues } | {
