@@ -241,7 +241,8 @@ type VType<T> = T extends ValueType<any> ? T["v"] : never
 
 function f(p: string, b: any) {
   if (typeof b === "function") b = b(undefined)
-  return makeFilter(p, typeof b === "object" ? b.v : b, b.t ?? "eq")
+  const obj = typeof b === "object" && b !== null
+  return makeFilter(p, obj ? b.v : b, obj ? b.t ?? "eq" : "eq");
 }
 
 function makeFilter<T extends "in" | "not-in" | "eq" | "not-eq">(path: string, value: any, t: T) {
