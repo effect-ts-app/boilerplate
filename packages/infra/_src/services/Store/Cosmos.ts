@@ -15,7 +15,7 @@ import type {
   StorageConfig,
   Store,
   StoreConfig,
-  WhereFilter
+  StoreWhereFilter
 } from "./service.js"
 import { StoreMaker } from "./service.js"
 
@@ -331,6 +331,9 @@ function makeCosmosStore({ STORAGE_PREFIX }: StorageConfig) {
   })
 }
 
+/**
+ * @deprecated: should build Select into Where query
+ */
 export function buildFilterJoinSelectCosmosQuery(
   filter: FilterJoinSelect,
   k: string,
@@ -351,6 +354,9 @@ ${lm}
   }
 }
 
+/**
+ * @deprecated: is now part of Where query as k.-1.valueKey
+ */
 export function buildFindJoinCosmosQuery(
   filter: JoinFindFilter,
   k: string,
@@ -370,6 +376,9 @@ ${lm}`,
   }
 }
 
+/**
+ * @deprecated: should build into Where query
+ */
 export function buildLegacyCosmosQuery<PM>(
   filter: LegacyFilter<PM>,
   name: string,
@@ -400,7 +409,7 @@ export function buildLegacyCosmosQuery<PM>(
 }
 
 export function buildWhereCosmosQuery(
-  filter: WhereFilter,
+  filter: StoreWhereFilter,
   name: string,
   skip?: number,
   limit?: number
@@ -442,7 +451,7 @@ export function buildWhereCosmosQuery(
 }
 
 export function buildCosmosQuery<PM>(
-  filter: LegacyFilter<PM> | WhereFilter,
+  filter: LegacyFilter<PM> | StoreWhereFilter,
   name: string,
   importedMarkerId: string,
   skip?: number,
