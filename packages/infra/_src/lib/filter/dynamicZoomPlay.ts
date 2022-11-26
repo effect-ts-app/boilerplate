@@ -221,6 +221,8 @@ function $endsWith<A extends string>(v: A) {
   return { t: "ends-with" as const, v }
 }
 
+type Funcs = { startsWith: typeof $startsWith; endsWith: typeof $endsWith; includes: typeof $includes; in: typeof $in; notIn: typeof $notIn; is: typeof $is; isnt: typeof $isnt; contains: typeof $contains; notContains: typeof $notContains }
+
 // todo: andWhere, orWhere
 
 // function makeFilters<S>() {
@@ -323,15 +325,15 @@ function build4<S extends FieldValues>() {
       Val extends { t: "contains" | "not-contains"; v: A[number] }
     >(
       path: TFieldName,
-      value: (v: { contains: typeof $contains<A[number]>; notContains: typeof $notContains<A[number]> }) => Val
+      value: (v: Funcs) => Val
     ): Filters4
     <
       TFieldName extends Paths,
       A extends Value<TFieldName> & string,
-      Val extends { t: "starts-with" | "ends-with" | "includes"; v: A }
+      Val extends { t: "starts-with" | "ends-with" | "includes"; v: A } | ValueType<A>
     >(
       path: TFieldName,
-      value: (v: { startsWith: typeof $startsWith<A>; endsWith: typeof $endsWith<A>; includes: typeof $includes<A> }) => Val
+      value: (v: Funcs) => Val
     ): Filters4
     <
       TFieldName extends Paths,
@@ -339,7 +341,7 @@ function build4<S extends FieldValues>() {
       Val extends ValueType<A>
     >(
       path: TFieldName,
-      value: (v: { in: typeof $in<readonly A[]>; notIn: typeof $notIn<readonly A[]>; is: typeof $is<A>; isnt: typeof $isnt<A> }) => Val
+      value: (v: Funcs) => Val
     ): Filters4
   }
 
@@ -404,7 +406,7 @@ function build4<S extends FieldValues>() {
     //   return new Filters4(...t, ...this.filters)
     // }
 
-    where: WhereFocusAlt //WherePath & WherePathAlt & WhereFocusAlt & WhereFocus
+    where: WherePath & WherePathAlt & WhereFocusAlt & WhereFocus
       // alt
       // <
       //   TFieldName extends Paths,
@@ -486,62 +488,62 @@ function filterSubject(mode: "OR" | "AND" = "AND") {
 
 // TODO: combining and/or
 // path
-// console.log(
-//   filterSubject()
-//     .where("a", 1)
-//     .where("a", $is(2))
-//     .where("a", $isnt(3))
-//     .where("d", $contains("something"))
-//     .where("e", $contains("a" as const))
-//     .where("b.c", $startsWith("some"))
-//     // .[number]. here is arbitrary, it just means: "I want to filter on elements of the array"
-//     .where("f.0.g", $startsWith("some"))
-//     .where("f.0.i", 2)
-//     .where("f.0.h", $notContains("some"))
-//     .where("f.0.g", $includes("something"))
-//     .where("f.0.g", $in(["abc"]))
-//     .where("b.c", $in(["something", "somethingElse"]))
-//   // .orderBy(_ => _.f)
-//   // .skip(5)
-//   // .take(5)
-// )
+console.log(
+  filterSubject()
+    .where("a", 1)
+    .where("a", $is(2))
+    .where("a", $isnt(3))
+    .where("d", $contains("something"))
+    .where("e", $contains("a" as const))
+    .where("b.c", $startsWith("some"))
+    // .[number]. here is arbitrary, it just means: "I want to filter on elements of the array"
+    .where("f.0.g", $startsWith("some"))
+    .where("f.0.i", 2)
+    .where("f.0.h", $notContains("some"))
+    .where("f.0.g", $includes("something"))
+    .where("f.0.g", $in(["abc"]))
+    .where("b.c", $in(["something", "somethingElse"]))
+  // .orderBy(_ => _.f)
+  // .skip(5)
+  // .take(5)
+)
 // // alt
-// console.log(
-//   filterSubject()
-//     .where("a", 1)
-//     .where("a", _ => _.is(2))
-//     .where("a", _ => _.isnt(3))
-//     .where("d", _ => _.contains("something"))
-//     .where("e", _ => _.contains("a" as const))
-//     .where("b.c", _ => _.startsWith("some"))
-//     // .[number]. here is arbitrary, it just means: "I want to filter on elements of the array"
-//     .where("f.0.g", _ => _.startsWith("some"))
-//     .where("f.0.i", 2)
-//     .where("f.0.h", _ => _.notContains("some"))
-//     .where("f.0.g", _ => _.includes("something"))
-//     .where("f.0.g", _ => _.in(["abc"]))
-//     .where("b.c", _ => _.in(["something", "somethingElse"]))
-//   // .orderBy(_ => _.f)
-//   // .skip(5)
-//   // .take(5)
-// )
+console.log(
+  filterSubject()
+    .where("a", 1)
+    .where("a", _ => _.is(2))
+    .where("a", _ => _.isnt(3))
+    .where("d", _ => _.contains("something"))
+    .where("e", _ => _.contains("a" as const))
+    .where("b.c", _ => _.startsWith("some"))
+    // .[number]. here is arbitrary, it just means: "I want to filter on elements of the array"
+    .where("f.0.g", _ => _.startsWith("some"))
+    .where("f.0.i", 2)
+    .where("f.0.h", _ => _.notContains("some"))
+    .where("f.0.g", _ => _.includes("something"))
+    .where("f.0.g", _ => _.in(["abc"]))
+    .where("b.c", _ => _.in(["something", "somethingElse"]))
+  // .orderBy(_ => _.f)
+  // .skip(5)
+  // .take(5)
+)
 
 // // zoom
-// console.log(
-//   filterSubject()
-//   // zoom
-//     .where(_ => _.b.c, $in(["something", "somethingElse"]))
-//     .where(_ => _.a, 1)
-//     .where(_ => _.a, $is(2))
-//     .where(_ => _.a, $isnt(3))
-//     .where(_ => _.d, $contains("something"))
-//     .where(_ => _.e, $contains("a" as const))
-//     .where(_ => _.b.c, $startsWith("some"))
-//     // .[number]. here is arbitrary, it just means: "I want to filter on elements of the array"
-//   // .orderBy(_ => _.f)
-//   // .skip(5)
-//   // .take(5)
-// )
+console.log(
+  filterSubject()
+  // zoom
+    .where(_ => _.b.c, $in(["something", "somethingElse"]))
+    .where(_ => _.a, 1)
+    .where(_ => _.a, $is(2))
+    .where(_ => _.a, $isnt(3))
+    .where(_ => _.d, $contains("something"))
+    .where(_ => _.e, $contains("a" as const))
+    .where(_ => _.b.c, $startsWith("some"))
+    // .[number]. here is arbitrary, it just means: "I want to filter on elements of the array"
+  // .orderBy(_ => _.f)
+  // .skip(5)
+  // .take(5)
+)
 
 console.log(
   filterSubject()
