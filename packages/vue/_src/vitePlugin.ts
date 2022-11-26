@@ -49,6 +49,9 @@ function tsPlugin(options?: { include?: Array<string>; exclude?: Array<string> }
     )
 
     if (!tsconfig.options) tsconfig.options = {}
+    // fix tsplus not initialising
+    const opts = (tsconfig.options as any)
+    opts.configFilePath = configPath
 
     tsconfig.fileNames.forEach(fileName => {
       if (!(fileName in files)) {
