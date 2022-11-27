@@ -48,7 +48,7 @@
         "watch": "pnpm build-api || echo build-fail && concurrently -k -p \"[{name}]\" -n \"API,Frontend\" -c \"cyan.bold,green.bold\" \"cd apps/api && pnpm build -w\" \"cd apps/frontend && pnpm compile -w\""
     },
     "resolutions": {
-        "@effect-ts/core": "0.60.4",
+        "@effect-ts/core": "^0.60.4",
         "@effect/core": "^0.0.15",
         "@types/node": "~18.11.9",
         "@types/react": "^18.0.25",

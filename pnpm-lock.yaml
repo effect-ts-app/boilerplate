@@ -1,7 +1,7 @@
 lockfileVersion: 5.4
 
 overrides:
-  '@effect-ts/core': 0.60.4
+  '@effect-ts/core': ^0.60.4
   '@effect/core': ^0.0.15
   '@types/node': ~18.11.9
   '@types/react': ^18.0.25
@@ -524,7 +524,6 @@ importers:
       '@babel/cli': ^7.19.3
       '@effect-ts-app/core': 1.1.2
       '@effect-ts-app/schema': 1.1.3
-      '@effect-ts/core': 0.60.4
       '@effect/core': ^0.0.15
       '@tsplus/stdlib': ^0.2.8
       '@types/faker': 5.5.9
@@ -541,9 +540,8 @@ importers:
       uuid: ^9.0.0
       validator: ^13.7.0
     dependencies:
-      '@effect-ts-app/core': 1.1.2_@effect-ts+core@0.60.4
-      '@effect-ts-app/schema': 1.1.3_@effect-ts+core@0.60.4
-      '@effect-ts/core': 0.60.4
+      '@effect-ts-app/core': 1.1.2
+      '@effect-ts-app/schema': 1.1.3
       '@effect/core': 0.0.15
       '@tsplus/stdlib': 0.2.8
       date-fns: 2.29.3
@@ -2152,23 +2150,6 @@ packages:
       - encoding
     dev: false
 
-  /@effect-ts-app/core/1.1.2_@effect-ts+core@0.60.4:
-    resolution: {integrity: sha512-nE4NlUkeGpVI6vJXKZc5fZMR4tFjiVttPNmQmbzihX4/dU1QCzLCTWdgE9kEdlhQp8B/2uQAo6j6C/71iyp6tw==}
-    peerDependencies:
-      '@effect-ts/core': ^0.60.4
-      node-libcurl: ^2.3.4
-    dependencies:
-      '@effect-ts/core': 0.60.4
-      cross-fetch: 3.1.5
-      lodash: 4.17.21
-      path-parser: 6.1.0
-      short-uuid: 4.2.2
-      uuid: 9.0.0
-      validator: 13.7.0
-    transitivePeerDependencies:
-      - encoding
-    dev: false
-
   /@effect-ts-app/infra/1.1.3_pvfbyko74jwdombhwdaokgjkty:
     resolution: {integrity: sha512-y3qDOvwdOaJCwFUN/j9eZS9LZNT0cOlbg0n6H14AAazEB1o9syvLRGvAZPzCDYw1pdQeKxA+K4g7uteFXtWNkg==}
     peerDependencies:
@@ -2213,38 +2194,10 @@ packages:
       - encoding
     dev: false
 
-  /@effect-ts-app/schema/1.1.3_@effect-ts+core@0.60.4:
-    resolution: {integrity: sha512-wMUFPCJtBAsSNWL/YIAsmzutzxcetBJA9NYTuK19nQNDbVPE8Xxl62UPWH0bg7YYc1niVFJDmIRX5JS8R5AZLw==}
-    peerDependencies:
-      '@effect-ts/core': ^0.60.4
-      node-libcurl: ^2.3.4
-    dependencies:
-      '@effect-ts-app/core': 1.1.2_@effect-ts+core@0.60.4
-      '@effect-ts/core': 0.60.4
-      cross-fetch: 3.1.5
-      lodash: 4.17.21
-      path-parser: 6.1.0
-      short-uuid: 4.2.2
-      uuid: 9.0.0
-      validator: 13.7.0
-    transitivePeerDependencies:
-      - encoding
-    dev: false
-
-  /@effect-ts/core/0.60.4:
-    resolution: {integrity: sha512-kplDLAsiuidDAOipNcZJPbo3YF7eJHdIWe9sK+6l83HjnTwAp8+56s3hgVhTti0mMO7/Wzo9ZnuQlbjo9IykZA==}
-    dependencies:
-      '@effect-ts/system': 0.57.4
-    dev: false
-
   /@effect-ts/monocle/0.43.0:
     resolution: {integrity: sha512-EGMRp2MPhAdJMK3KCQPc6votppHa+18xXlXYC3zCHTGXhycsYoAdMH8wp+R5RzHmUKlsz9kK0A3kJVmY6abPTA==}
     peerDependencies:
       '@effect-ts/core': ^0.58.0
-    dev: false
-
-  /@effect-ts/system/0.57.4:
-    resolution: {integrity: sha512-gGnOCvDv6829EeeC+NgTnwIt4XxclR0KqrG7BRemmNX5cm75cF0CKiuEB/o902wjAlt+MdrxTtFC+XsYdLnxzA==}
     dev: false
 
   /@effect/cache/0.0.4:
