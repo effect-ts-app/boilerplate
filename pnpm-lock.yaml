@@ -12,6 +12,7 @@ importers:
   .:
     specifiers:
       '@babel/cli': ^7.19.3
+      '@effect-ts-app/boilerplate-eslint': workspace:*
       '@effect-ts-app/boilerplate-prelude': workspace:*
       '@effect-ts-app/core': 1.1.0
       '@effect-ts-app/schema': 1.1.0
@@ -63,6 +64,7 @@ importers:
       ultra-runner: ^3.10.5
       vitest: ^0.25.1
     dependencies:
+      '@effect-ts-app/boilerplate-eslint': link:libs/eslint
       '@effect-ts-app/boilerplate-prelude': link:packages/prelude
       '@effect-ts-app/core': 1.1.0
       '@effect-ts-app/schema': 1.1.0
