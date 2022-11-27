@@ -486,7 +486,7 @@
 		{
 			"label": "API-E2E",
 			"type": "shell",
-			"command": "pnpm test --watch",
+			"command": "pnpm run test --watch",
 			"options": {
 				"cwd": "apps/api/_test"
 			},
@@ -516,7 +516,7 @@
 		{
 			"label": "E2E",
 			"type": "shell",
-			"command": "pnpm test",
+			"command": "pnpm run test",
 			"options": {
 				"cwd": "e2e"
 			},

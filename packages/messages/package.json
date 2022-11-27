@@ -82,7 +82,7 @@
     "prettier": "prettier \"**/*.ts\"",
     "autofix": "pnpm lint --fix",
     "test": "TEST_COMPILED=1 vitest",
-    "testsuite": "pnpm lint && pnpm test --passWithNoTests && pnpm circular && pnpm circular:dist",
+    "testsuite": "pnpm lint && pnpm run test --passWithNoTests && pnpm circular && pnpm circular:dist",
     "client": "node --experimental-specifier-resolution=node -r source-map-support/register ./dist/client.bin.js",
     "ncu": "ncu -x date-fns"
   },

@@ -78,7 +78,7 @@
     "prettier": "prettier \"**/*.ts\"",
     "autofix": "pnpm lint --fix",
     "test": "TEST_COMPILED=1 vitest",
-    "testsuite": "pnpm lint && pnpm test --passWithNoTests && pnpm circular && pnpm circular:dist",
+    "testsuite": "pnpm lint && pnpm run test --passWithNoTests && pnpm circular && pnpm circular:dist",
     "ncu": "ncu -x @types/faker,faker,date-fns"
   },
   "gitHead": "bd8e27eea3eff97db8739d577d67e7336c078d28",

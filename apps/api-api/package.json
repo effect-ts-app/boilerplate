@@ -19,7 +19,7 @@
     "prettier": "prettier \"_src/**/*.ts\"",
     "autofix": "pnpm lint --fix",
     "test": "TEST_COMPILED=1 vitest",
-    "testsuite": "pnpm lint && pnpm circular && pnpm circular:dist && pnpm test --passWithNoTests",
+    "testsuite": "pnpm lint && pnpm circular && pnpm circular:dist && pnpm run test --passWithNoTests",
     "debug": "node --inspect --experimental-specifier-resolution=node -r source-map-support/register ./dist/main.js",
     "dev": "pnpm dev:compiled:run",
     "dev:traced": "NODE_ENV=development nodemon --exec pnpm debug:traced",

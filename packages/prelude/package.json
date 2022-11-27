@@ -170,8 +170,8 @@
     "prettier": "prettier \"**/*.ts\"",
     "autofix": "pnpm lint --fix",
     "test": "vitest",
-    "test:run": "pnpm test run --passWithNoTests",
-    "testsuite": "pnpm lint && pnpm circular && pnpm test:run",
+    "test:run": "pnpm run test run --passWithNoTests",
+    "testsuite": "pnpm lint && pnpm circular && pnpm run test:run",
     "ncu": "ncu -x @types/faker,faker,date-fns",
     "pub": "pnpm build && npm publish --access public"
   },

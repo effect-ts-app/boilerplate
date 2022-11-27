@@ -56,8 +56,8 @@
     "prettier": "prettier \"**/*.ts\"",
     "autofix": "pnpm lint --fix",
     "test": "vitest",
-    "test:run": "pnpm test run --passWithNoTests",
-    "testsuite": "pnpm lint && pnpm circular && pnpm test:run",
+    "test:run": "pnpm run test run --passWithNoTests",
+    "testsuite": "pnpm lint && pnpm circular && pnpm run test:run",
     "client": "node --experimental-specifier-resolution=node -r source-map-support/register ./dist/client.bin.js",
     "ncu": "ncu -x date-fns",
     "pub": "pnpm build && npm publish --access public"
