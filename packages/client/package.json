@@ -14,9 +14,6 @@
     "cross-fetch": "^3.1.5",
     "path-parser": "^6.1.0"
   },
-  "devDependencies": {
-    "@jest/globals": "29.3.1"
-  },
   "exports": {
     ".": {
       "import": {
@@ -63,7 +60,7 @@
     "lint:watch": "ESLINT_TS=1 esw -w --changed --clear --ext ts,tsx .",
     "prettier": "prettier \"**/*.ts\"",
     "autofix": "pnpm lint --fix",
-    "test": "TEST_COMPILED=1 jest",
+    "test": "TEST_COMPILED=1 vitest",
     "testsuite": "pnpm lint && pnpm test --passWithNoTests && pnpm circular && pnpm circular:dist",
     "client": "node --experimental-specifier-resolution=node -r source-map-support/register ./dist/client.bin.js",
     "ncu": "ncu -x date-fns"

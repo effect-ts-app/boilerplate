@@ -18,7 +18,7 @@
     "lint:watch": "ESLINT_TS=1 esw -w --changed --clear --ext ts,tsx _src",
     "prettier": "prettier \"_src/**/*.ts\"",
     "autofix": "pnpm lint --fix",
-    "test": "TEST_COMPILED=1 jest",
+    "test": "TEST_COMPILED=1 vitest",
     "testsuite": "pnpm lint && pnpm circular && pnpm circular:dist && pnpm test --passWithNoTests",
     "debug": "node --inspect --experimental-specifier-resolution=node -r source-map-support/register ./dist/main.js",
     "dev": "pnpm dev:compiled:run",
@@ -41,7 +41,7 @@
     "e2e:lint:watch": "cd _test && ESLINT_TS=1 esw -w --changed --clear --ext ts,tsx _src/",
     "e2e:prettier": "prettier \"_test/_src/**/*.ts\"",
     "e2e:autofix": "pnpm e2e:lint --fix",
-    "e2e:test": "cd _test && TEST_COMPILED=1 jest -c ./jest.config.cjs",
+    "e2e:test": "cd _test && TEST_COMPILED=1 vitest",
     "e2e:testsuite": "pnpm e2e:lint && pnpm e2e:test && pnpm e2e:circular && pnpm e2e:circular:dist"
   },
   "exports": {
@@ -80,7 +80,6 @@
     "express-jwt-authz": "^2.4.1",
     "faker": "^5.5.3",
     "fast-check": "^3.3.0",
-    "jest-esm-transformer": "^1.0.0",
     "jwks-rsa": "2.1.4",
     "jwt-decode": "^3.1.2",
     "object-hash": "^3.0.0",
@@ -95,7 +94,6 @@
     "xlsx": "^0.18.5"
   },
   "devDependencies": {
-    "@jest/globals": "29.3.1",
     "@types/body-parser": "^1.19.2",
     "@types/cors": "^2.8.12",
     "@types/draft-js": "^0.11.9",
