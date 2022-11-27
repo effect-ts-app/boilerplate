@@ -1,12 +1,16 @@
 {
   "name": "@effect-ts-app/boilerplate-prelude",
-  "version": "0.7.1",
+  "version": "0.7.3",
   "license": "MIT",
   "type": "module",
   "resolutions": {
     "typescript": "https://cdn.jsdelivr.net/npm/@tsplus/installer@0.0.156/compiler/typescript.tgz"
   },
   "dependencies": {
+    "@effect-ts-app/core": "1.1.0",
+    "@effect-ts-app/schema": "1.1.0",
+    "date-fns": "^2.29.3",
+    "lodash": "^4.17.21",
     "@effect/core": "^0.0.16",
     "@tsplus/stdlib": "^0.2.8",
     "@effect-ts/core": "0.60.4",
@@ -14,12 +18,6 @@
     "ts-pattern": "^4.0.6",
     "uuid": "^9.0.0",
     "validator": "^13.7.0"
-  },
-  "peerDependencies": {
-    "@effect-ts-app/core": "1.1.0",
-    "@effect-ts-app/schema": "1.1.0",
-    "date-fns": "^2.29.3",
-    "lodash": "^4.17.21"
   },
   "devDependencies": {
     "@types/validator": "^13.7.10",
