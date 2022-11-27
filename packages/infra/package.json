@@ -1,12 +1,13 @@
 {
   "name": "@effect-ts-app/boilerplate-infra",
-  "version": "0.8.2",
+  "version": "0.8.3",
   "license": "MIT",
   "type": "module",
   "resolutions": {
     "typescript": "https://cdn.jsdelivr.net/npm/@tsplus/installer@0.0.156/compiler/typescript.tgz"
   },
   "dependencies": {
+    "@effect-ts-app/boilerplate-prelude": "*",
     "change-case": "^4.1.2",
     "cross-fetch": "^3.1.5",
     "path-parser": "^6.1.0"
