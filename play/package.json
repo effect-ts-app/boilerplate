@@ -1,44 +1,24 @@
 {
-  "name": "@effect-ts-app/boilerplate-vue",
+  "name": "@effect-ts-app/playground",
   "version": "0.6.3",
   "license": "MIT",
   "type": "module",
   "resolutions": {
     "typescript": "https://cdn.jsdelivr.net/npm/@tsplus/installer@0.0.156/compiler/typescript.tgz"
   },
-  "dependencies": {
-    "swrv": "^1.0.1",
-    "vue2": "https://registry.yarnpkg.com/vue/-/vue-2.7.14.tgz#3743dcd248fd3a34d421ae456b864a0246bafb17"
-  },
   "peerDependencies": {
-    "@effect-ts-app/boilerplate-prelude": "^0.6.2",
-    "vue": "^3.2.45"
+    "@effect-ts-app/boilerplate-prelude": "^0.6.2"
+  },
+  "dependencies": {
+    "@fp-ts/optic": "^0.0.3",
+    "change-case": "^4.1.2",
+    "cross-fetch": "^3.1.5",
+    "path-parser": "^6.1.0"
   },
   "devDependencies": {
-    "@rollup/pluginutils": "^5.0.2",
-    "vue": "^3.2.45"
+    "ts-node": "^10.9.1"
   },
   "exports": {
-    ".": {
-      "import": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
-      },
-      "require": {
-        "types": "./dist/index.d.ts",
-        "default": "./_cjs/index.cjs"
-      }
-    },
-    "./vue2": {
-      "import": {
-        "types": "./dist/vue2.d.ts",
-        "default": "./dist/vue2.js"
-      },
-      "require": {
-        "types": "./dist/vue2.d.ts",
-        "default": "./_cjs/vue2.cjs"
-      }
-    },
     "./*.js": {
       "import": {
         "types": "./dist/*.d.ts",
@@ -62,12 +42,12 @@
   },
   "scripts": {
     "build": "yarn clean-dist && NODE_OPTIONS=--max-old-space-size=6144 tsc --build && yarn build2:cjs",
-    "build2:cjs": "rm -rf _cjs && babel dist --config-file ../../.babel.cjs.json --out-dir _cjs --out-file-extension .cjs --source-maps",
+    "build2:cjs": "rm -rf _cjs && babel dist --config-file ../.babel.cjs.json --out-dir _cjs --out-file-extension .cjs --source-maps",
     "watch": "yarn build --watch",
     "watch2": "yarn clean-dist && NODE_OPTIONS=--max-old-space-size=6144 tsc -w",
     "prepare": "yarn build",
     "clean": "rm -rf dist && rm -rf _cjs",
-    "clean-dist": "sh ../../scripts/clean-dist.sh",
+    "clean-dist": "sh ../scripts/clean-dist.sh",
     "circular": "yarn circular:src && yarn circular:dist",
     "circular:src": "madge --circular --ts-config ./tsconfig.json --extensions ts ./_src",
     "circular:dist": "madge --circular --extensions js ./dist",
@@ -79,16 +59,10 @@
     "test": "vitest",
     "test:run": "yarn test run --passWithNoTests",
     "testsuite": "yarn lint && yarn circular && yarn test:run",
-    "ncu": "ncu -x @types/faker,faker,date-fns",
+    "client": "node --experimental-specifier-resolution=node -r source-map-support/register ./dist/client.bin.js",
+    "ncu": "ncu -x date-fns",
     "pub": "yarn build && npm publish --access public"
   },
   "gitHead": "bd8e27eea3eff97db8739d577d67e7336c078d28",
-  "sideEffects": [
-    "./dist/faker.js",
-    "./faker",
-    "./src/faker",
-    "./dist/faker",
-    "./dist/src/faker.js",
-    "./dist/faker.js"
-  ]
+  "sideEffects": false
 }

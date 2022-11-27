@@ -1,10 +1,11 @@
 {
-    "extends": "../../tsconfig.base.json",
+    "extends": "../tsconfig.base.json",
     "compilerOptions": {
         "lib": [
             "esnext",
+            "DOM"
         ],
-        "tsPlusConfig": "../../tsplus.config.json",
+        "tsPlusConfig": "../tsplus.config.json",
         //        "tsPlusGlobalFiles": [
         //            "./_src/_global.ts"
         //        ],
@@ -12,17 +13,10 @@
         "outDir": "./dist",
         "rootDir": "./_src",
         "tsBuildInfoFile": "./dist/.tsbuildinfo",
-        // "paths": {
-        //     "@effect-ts-app/boilerplate-prelude": [
-        //         "./_src"
-        //     ],
-        //     "@effect-ts-app/boilerplate-prelude/*": [
-        //         "./_src/*"
-        //     ],
-        // },
+        // temp disbaled to support ts-plus ops
+        "importsNotUsedAsValues": "preserve",
     },
     "include": [
-        // "./_src/**/*.mts",
         "./_src/**/*.ts"
     ],
     "ts-node": {

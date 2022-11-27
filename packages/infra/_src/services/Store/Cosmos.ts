@@ -6,7 +6,17 @@ import { OptimisticConcurrencyException } from "../../errors.js"
 
 import { omit } from "@effect-ts-app/boilerplate-prelude/utils"
 
-import type { Filter, FilterJoinSelect, PersistenceModelType, StorageConfig, Store, StoreConfig } from "./service.js"
+import type {
+  Filter,
+  FilterJoinSelect,
+  JoinFindFilter,
+  LegacyFilter,
+  PersistenceModelType,
+  StorageConfig,
+  Store,
+  StoreConfig,
+  StoreWhereFilter
+} from "./service.js"
 import { StoreMaker } from "./service.js"
 
 // TODO: Retry operation when running into RU limit.
@@ -179,19 +189,15 @@ function makeCosmosStore({ STORAGE_PREFIX }: StorageConfig) {
                 .fetchAll()
                 .then(({ resources }) => resources.toChunk)
             ),
-            filterJoinSelect: <T extends object>(filter: FilterJoinSelect) =>
+            filterJoinSelect: <T extends object>(
+              filter: FilterJoinSelect,
+              cursor?: { skip?: number; limit?: number }
+            ) =>
               filter.keys
                 .forEachEffect(k =>
                   Effect.promise(() =>
                     container.items
-                      .query<T>({
-                        query: `
-      SELECT r, c.id as _rootId
-      FROM ${name} c
-      JOIN r IN c.${k}
-      WHERE LOWER(r.${filter.valueKey}) = LOWER(@value)`,
-                        parameters: [{ name: "@value", value: filter.value }]
-                      })
+                      .query<T>(buildFilterJoinSelectCosmosQuery(filter, k, name, cursor?.skip, cursor?.limit))
                       .fetchAll()
                       .then(({ resources }) => resources.toChunk)
                   )
@@ -213,7 +219,6 @@ function makeCosmosStore({ STORAGE_PREFIX }: StorageConfig) {
             filter: (filter: Filter<PM>, cursor?: { skip?: number; limit?: number }) => {
               const skip = cursor?.skip
               const limit = cursor?.limit
-              const lm = skip !== undefined || limit !== undefined ? `OFFSET ${skip ?? 0} LIMIT ${limit ?? 999999}` : ""
               return filter.type === "join_find"
                 ? // This is a problem if one of the multiple joined arrays can be empty!
                 // https://stackoverflow.com/questions/60320780/azure-cosmosdb-sql-join-not-returning-results-when-the-child-contains-empty-arra
@@ -222,15 +227,7 @@ function makeCosmosStore({ STORAGE_PREFIX }: StorageConfig) {
                     .forEachEffect(k =>
                       Effect.promise(() =>
                         container.items
-                          .query<PM>({
-                            query: `
-            SELECT DISTINCT VALUE c
-            FROM ${name} c
-            JOIN r IN c.${k}
-            WHERE LOWER(r.${filter.valueKey}) = LOWER(@value)
-            ${lm}`,
-                            parameters: [{ name: "@value", value: filter.value }]
-                          })
+                          .query<PM>(buildFindJoinCosmosQuery(filter, k, name, skip, limit))
                           .fetchAll()
                           .then(({ resources }) => resources.toChunk)
                       )
@@ -239,49 +236,7 @@ function makeCosmosStore({ STORAGE_PREFIX }: StorageConfig) {
                 : Effect.promise(() =>
                   container.items
                     .query<PM>(
-                      filter.type === "startsWith" ||
-                        filter.type === "endsWith" ||
-                        filter.type === "contains"
-                        ? {
-                          query: `SELECT * FROM ${name} f WHERE f.id != @id AND f.${
-                            String(
-                              filter.by
-                            )
-                          } LIKE @filter
-                          ${lm}`,
-                          parameters: [
-                            { name: "@id", value: importedMarkerId },
-                            {
-                              name: "@filter",
-                              value: filter.type === "endsWith"
-                                ? `%${filter.value}`
-                                : filter.type === "contains"
-                                ? `%${filter.value}%`
-                                : `${filter.value}%`
-                            }
-                          ]
-                        }
-                        : {
-                          query: `SELECT * FROM ${name} f WHERE ${
-                            filter.where
-                              .mapWithIndex(
-                                (i, x) =>
-                                  x.t === "in"
-                                    ? `ARRAY_CONTAINS(@v${i}, f.${x.key})`
-                                    : x.t === "not-in"
-                                    ? `ARRAY_CONTAINS(@v${i}, f.${x.key}, false)`
-                                    : `LOWER(f.${x.key}) = LOWER(@v${i})`
-                              )
-                              .join(filter.mode === "or" ? " OR " : " AND ")
-                          }
-                          ${lm}`,
-                          parameters: filter.where
-                            .mapWithIndex((i, x) => ({
-                              name: `@v${i}`,
-                              value: x.value
-                            }))
-                            .mutable
-                        }
+                      buildCosmosQuery(filter, name, importedMarkerId, skip, limit)
                     )
                     .fetchAll()
                     .then(({ resources }) => resources.toChunk)
@@ -374,6 +329,139 @@ function makeCosmosStore({ STORAGE_PREFIX }: StorageConfig) {
         })
     }
   })
+}
+
+/**
+ * @deprecated: should build Select into Where query
+ */
+export function buildFilterJoinSelectCosmosQuery(
+  filter: FilterJoinSelect,
+  k: string,
+  name: string,
+  skip?: number,
+  limit?: number
+) {
+  const lm = skip !== undefined || limit !== undefined ? `OFFSET ${skip ?? 0} LIMIT ${limit ?? 999999}` : ""
+  return {
+    query: `
+SELECT r, c.id as _rootId
+FROM ${name} c
+JOIN r IN c.${k}
+WHERE LOWER(r.${filter.valueKey}) = LOWER(@value)
+${lm}
+`,
+    parameters: [{ name: "@value", value: filter.value }]
+  }
+}
+
+/**
+ * @deprecated: is now part of Where query as k.-1.valueKey
+ */
+export function buildFindJoinCosmosQuery(
+  filter: JoinFindFilter,
+  k: string,
+  name: string,
+  skip?: number,
+  limit?: number
+) {
+  const lm = skip !== undefined || limit !== undefined ? `OFFSET ${skip ?? 0} LIMIT ${limit ?? 999999}` : ""
+  return {
+    query: `
+SELECT DISTINCT VALUE c
+FROM ${name} c
+JOIN r IN c.${k}
+WHERE LOWER(r.${filter.valueKey}) = LOWER(@value)
+${lm}`,
+    parameters: [{ name: "@value", value: filter.value }]
+  }
+}
+
+/**
+ * @deprecated: should build into Where query
+ */
+export function buildLegacyCosmosQuery<PM>(
+  filter: LegacyFilter<PM>,
+  name: string,
+  importedMarkerId: string,
+  skip?: number,
+  limit?: number
+) {
+  const lm = skip !== undefined || limit !== undefined ? `OFFSET ${skip ?? 0} LIMIT ${limit ?? 999999}` : ""
+  return {
+    query: `SELECT * FROM ${name} f WHERE f.id != @id AND f.${
+      String(
+        filter.by
+      )
+    } LIKE @filter
+  ${lm}`,
+    parameters: [
+      { name: "@id", value: importedMarkerId },
+      {
+        name: "@filter",
+        value: filter.type === "endsWith"
+          ? `%${filter.value}`
+          : filter.type === "contains"
+          ? `%${filter.value}%`
+          : `${filter.value}%`
+      }
+    ]
+  }
+}
+
+export function buildWhereCosmosQuery(
+  filter: StoreWhereFilter,
+  name: string,
+  skip?: number,
+  limit?: number
+) {
+  const lm = skip !== undefined || limit !== undefined ? `OFFSET ${skip ?? 0} LIMIT ${limit ?? 999999}` : ""
+  return {
+    query: `
+    SELECT * FROM ${name} f
+    ${
+      filter.where.filter(_ => _.key.includes(".-1."))
+        .map(_ => _.key.split(".-1.")[0])
+        .map(_ => `JOIN ${_} IN c.${_}`)
+    }
+    WHERE ${
+      filter.where
+        .map(_ =>
+          _.key.includes(".-1.") ?
+            { ..._, f: _.key.split(".-1.")[0], key: _.key.split(".-1.")[1]! } :
+            { ..._, f: "f" }
+        )
+        .mapWithIndex(
+          (i, x) =>
+            x.t === "in"
+              ? `ARRAY_CONTAINS(@v${i}, ${x.f}.${x.key})`
+              : x.t === "not-in"
+              ? `ARRAY_CONTAINS(@v${i}, ${x.f}.${x.key}, false)`
+              : `LOWER(${x.f}.${x.key}) = LOWER(@v${i})`
+        )
+        .join(filter.mode === "or" ? " OR " : " AND ")
+    }
+    ${lm}`,
+    parameters: filter.where
+      .mapWithIndex((i, x) => ({
+        name: `@v${i}`,
+        value: x.value
+      }))
+      .mutable
+  }
+}
+
+export function buildCosmosQuery<PM>(
+  filter: LegacyFilter<PM> | StoreWhereFilter,
+  name: string,
+  importedMarkerId: string,
+  skip?: number,
+  limit?: number
+) {
+  return filter.type === "startsWith" ||
+      filter.type === "endsWith" ||
+      filter.type === "contains"
+    ? buildLegacyCosmosQuery(filter, name, importedMarkerId, skip, limit)
+    : buildWhereCosmosQuery(filter, name, skip, limit)
 }
 
 class CosmosDbOperationError {

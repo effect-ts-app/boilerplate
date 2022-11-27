@@ -75,7 +75,15 @@ export function codeFilter<E extends { id: string }, NE extends E>(filter: Filte
                 : p.t === "not-in"
                 ? !p.value.includes(get(x, p.key))
                 : p.t === "not-eq"
-                ? !compareCaseInsensitive(get(x, p.key), p.value)
+                ? p.key.includes(".-1.")
+                  ? (get(x, p.key.split(".-1.")[0]) as any[])
+                    // TODO: or vs and
+                    .every(_ => !compareCaseInsensitive(get(_, p.key.split(".-1.")[1]!), p.value))
+                  : !compareCaseInsensitive(get(x, p.key), p.value)
+                : p.key.includes(".-1.")
+                ? (get(x, p.key.split(".-1.")[0]) as any[])
+                  // TODO: or vs and
+                  .some(_ => compareCaseInsensitive(get(_, p.key.split(".-1.")[1]!), p.value))
                 : compareCaseInsensitive(get(x, p.key), p.value)
             )
         ? Maybe(x as unknown as NE)

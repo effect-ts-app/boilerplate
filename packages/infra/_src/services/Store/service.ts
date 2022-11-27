@@ -10,7 +10,7 @@ export type StoreConfig<E> = {
   partitionValue: (e: E) => string | undefined
 }
 
-type SupportedValues = string | boolean | number | null
+export type SupportedValues = string | boolean | number | null
 
 // default is eq
 export type Where = { key: string; t?: "eq" | "not-eq"; value: SupportedValues } | {
@@ -20,24 +20,28 @@ export type Where = { key: string; t?: "eq" | "not-eq"; value: SupportedValues }
 }
 
 // default is where
-export type Filter<E> =
+export type StoreWhereFilter = {
+  type?: "where"
+  mode?: "and" | "or" // default is and
+  where: readonly [
+    Where,
+    ...(Where[])
+  ]
+}
+export type LegacyFilter<E> =
   | { by: keyof E; type: "startsWith"; value: any }
   | { by: keyof E; type: "endsWith"; value: any }
   | { by: keyof E; type: "contains"; value: any }
-  | {
-    type: "join_find"
-    keys: readonly string[] /* value paths of E */
-    valueKey: string /* value paths of E[keys][valueKey] */
-    value: any /* value path[valueKey] of E */
-  }
-  | {
-    type?: "where"
-    mode?: "and" | "or" // default is and
-    where: readonly [
-      Where,
-      ...(Where[])
-    ]
-  }
+export type JoinFindFilter = {
+  type: "join_find"
+  keys: readonly string[] /* value paths of E */
+  valueKey: string /* value paths of E[keys][valueKey] */
+  value: any /* value path[valueKey] of E */
+}
+export type Filter<E> =
+  | JoinFindFilter
+  | StoreWhereFilter
+  | LegacyFilter<E>
 
 export type FilterJoinSelect = {
   type: "filter_join_select"
