@@ -22,9 +22,9 @@
         "postinstall": "patch-package",
         "test": "ultra -r pnpm test",
         "testsuite": "ultra -r pnpm testsuite",
-        "up": "pnpm update && pnpm exec-update",
+        "up": "pnpm run update && pnpm run exec-update",
         "update": "ultra -r --root ncu -u --packageFile package.json",
-        "exec-update": "pnpm && pnpm upgrade",
+        "exec-update": "pnpm update",
         "build-libs": "cd packages/prelude && pnpm build && cd ../types && pnpm build && cd ../client && pnpm build && cd ../vue && pnpm build && cd ../infra && pnpm build && cd ../messages && pnpm build && cd ../../libs/eslint && pnpm build",
         "lint:watch": "ESLINT_TS=1 esw -w --changed --clear --ext ts,tsx",
         "ultra-api": "ultra --concurrency 1 --filter \"apps/api*\" -r",
@@ -56,8 +56,8 @@
     "dependencies": {
         "@effect-ts-app/boilerplate-prelude": "workspace:*",
         "@effect-ts-app/boilerplate-eslint": "workspace:*",
-        "@effect-ts-app/core": "1.1.0",
-        "@effect-ts-app/schema": "1.1.0",
+        "@effect-ts-app/core": "1.1.1",
+        "@effect-ts-app/schema": "1.1.1",
         "@swc/helpers": "0.4.12",
         "@types/react": "^18.0.25",
         "cross-env": "^7.0.3",
@@ -108,5 +108,10 @@
         "typescript-transform-paths": "^3.4.4",
         "ultra-runner": "^3.10.5",
         "vitest": "^0.25.1"
+    },
+    "pnpm": {
+        "overrides": {
+            "@effect-ts/core": "0.60.4"
+        }
     }
 }
