@@ -2,7 +2,7 @@
 
 ## Setup
 
-1. `yarn` from root
+1. `pnpm` from root
 2. open a typescript file, and set VSCode's Typescript version to use the workspace version:
    - TypeScript: Select TypeScript version: Use workspace version
 
@@ -12,15 +12,15 @@
 
 ### API & Libs
 
-a) `yarn build -w`
-b) `cd apps/api && yarn dev`
+a) `pnpm build -w`
+b) `cd apps/api && pnpm dev`
 
 Visit: http://localhost:3651/docs
 The API is also proxied in the frontend on /api
 
 ### Frontend (Nuxt)
 
-- `cd apps/frontend-nuxt && yarn dev -o`
+- `cd apps/frontend-nuxt && pnpm dev -o`
 
 Visit: http://localhost:5281
 API Docs: http://localhost:5281/api/docs

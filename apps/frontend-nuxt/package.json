@@ -11,7 +11,7 @@
     "start": "node .output/server/index.mjs",
     "ncu": "ncu",
     "lint": "NODE_OPTIONS=--max-old-space-size=6144 ESLINT_TS=1 eslint .",
-    "testsuite": "yarn lint",
+    "testsuite": "pnpm lint",
     "clean": "rm -rf ./.nuxt && rm -rf ./node_modules/.vite"
   },
   "dependencies": {

@@ -7,8 +7,8 @@ Look at the [nuxt 3 documentation](https://v3.nuxtjs.org) to learn more.
 Make sure to install the dependencies:
 
 ```bash
-# yarn
-yarn install
+# pnpm
+pnpm install
 
 # npm
 npm install

@@ -71,11 +71,10 @@
     }
   },
   "scripts": {
-    "build": "yarn clean-dist && NODE_OPTIONS=--max-old-space-size=6144 tsc --build",
+    "build": "pnpm clean-dist && NODE_OPTIONS=--max-old-space-size=6144 tsc --build",
     "build2:cjs": "rm -rf _cjs && babel dist --config-file ../../.babel.cjs.json --out-dir _cjs --out-file-extension .cjs --source-maps",
-    "watch": "yarn build --watch",
-    "watch2": "yarn clean-dist && NODE_OPTIONS=--max-old-space-size=6144 tsc -w",
-    "prepare": "yarn build",
+    "watch": "pnpm build --watch",
+    "watch2": "pnpm clean-dist && NODE_OPTIONS=--max-old-space-size=6144 tsc -w",
     "clean": "rm -rf dist && rm -rf _cjs",
     "clean-dist": "sh ../../scripts/clean-dist.sh",
     "circular": "madge --circular --ts-config ./tsconfig.json --extensions ts ./_src",
@@ -84,9 +83,9 @@
     "lint": "NODE_OPTIONS=--max-old-space-size=6144 ESLINT_TS=1 eslint .",
     "lint:watch": "ESLINT_TS=1 esw -w --changed --clear --ext ts,tsx .",
     "prettier": "prettier \"**/*.ts\"",
-    "autofix": "yarn lint --fix",
+    "autofix": "pnpm lint --fix",
     "test": "TEST_COMPILED=1 jest",
-    "testsuite": "yarn lint && yarn test --passWithNoTests && yarn circular && yarn circular:dist",
+    "testsuite": "pnpm lint && pnpm test --passWithNoTests && pnpm circular && pnpm circular:dist",
     "client": "node --experimental-specifier-resolution=node -r source-map-support/register ./dist/client.bin.js",
     "ncu": "ncu -x date-fns"
   },

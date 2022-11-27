@@ -4,13 +4,13 @@
 		{
 			"label": "Clean Dist",
 			"type": "shell",
-			"command": "yarn clean-dist",
+			"command": "pnpm clean-dist",
 			"group": "build"
 		},
 		// {
 		// 	"label": "Watch API & Libs",
 		// 	"type": "shell",
-		// 	"command": "yarn watch",
+		// 	"command": "pnpm watch",
 		// 	"options": {
 		// 		"cwd": "apps/api"
 		// 	},
@@ -35,7 +35,7 @@
 		{
 			"label": "Watch API & Libs",
 			"type": "shell",
-			"command": "yarn build -w",
+			"command": "pnpm build -w",
 			// "options": {
 			// 	"cwd": "apps/api/_test",
 			// },
@@ -63,7 +63,7 @@
 		{
 			"label": "Watch E2E",
 			"type": "shell",
-			"command": "yarn watch",
+			"command": "pnpm watch",
 			"options": {
 				"cwd": "e2e"
 			},
@@ -88,7 +88,7 @@
 		{
 			"label": "Watch Frontend",
 			"type": "shell",
-			"command": "yarn compile -w",
+			"command": "pnpm compile -w",
 			"options": {
 				"cwd": "apps/frontend-nuxt"
 			},
@@ -152,7 +152,7 @@
 		{
 			"label": "Clean",
 			"type": "shell",
-			"command": "yarn clean",
+			"command": "pnpm clean",
 			"group": "build"
 		},
 		// {
@@ -411,7 +411,7 @@
 		{
 			"label": "UI Run",
 			"type": "shell",
-			"command": "yarn dev -o",
+			"command": "pnpm dev -o",
 			"options": {
 				"cwd": "apps/frontend-nuxt"
 			},
@@ -486,7 +486,7 @@
 		{
 			"label": "API-E2E",
 			"type": "shell",
-			"command": "yarn test --watch",
+			"command": "pnpm test --watch",
 			"options": {
 				"cwd": "apps/api/_test"
 			},
@@ -516,7 +516,7 @@
 		{
 			"label": "E2E",
 			"type": "shell",
-			"command": "yarn test",
+			"command": "pnpm test",
 			"options": {
 				"cwd": "e2e"
 			},
