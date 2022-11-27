@@ -21,6 +21,17 @@
     "date-fns": "2.23.0",
     "lodash": "^4.17.21"
   },
+  "devDependencies": {
+    "@types/validator": "^13.7.10",
+    "@types/faker": "5.5.9",
+    "@types/uuid": "^8.3.4",
+    "faker": "^5.5.3",
+    "fast-check": "^3.3.0",
+    "@babel/cli": "^7.19.3",
+    "@types/node": "~18.11.9",
+    "ts-node": "^10.9.1",
+    "typescript": "https://cdn.jsdelivr.net/npm/@tsplus/installer@0.0.156/compiler/typescript.tgz"
+  },
   "exports": {
     ".": {
       "import": {
@@ -142,13 +153,6 @@
         "default": "./_cjs/*.cjs"
       }
     }
-  },
-  "devDependencies": {
-    "@types/validator": "^13.7.10",
-    "@types/faker": "5.5.9",
-    "@types/uuid": "^8.3.4",
-    "faker": "^5.5.3",
-    "fast-check": "^3.3.0"
   },
   "scripts": {
     "build": "pnpm clean-dist && NODE_OPTIONS=--max-old-space-size=6144 tsc --build && pnpm build2:cjs",
