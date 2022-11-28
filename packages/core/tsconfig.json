@@ -1,0 +1,22 @@
+{
+    "extends": "../../tsconfig.base.json",
+    "compilerOptions": {
+        "moduleResolution": "Node16",
+        "outDir": "./dist",
+        "baseUrl": "./",
+        "rootDir": "./_src",
+        "noEmit": false,
+        "tsPlusConfig": "../../tsplus.config.json",
+    },
+    "include": [
+        "./_src"
+    ],
+    "exclude": [
+        "./dist",
+        "node_modules",
+        "build",
+        "lib",
+        "dist",
+        "**/*.d.ts.map"
+    ]
+}

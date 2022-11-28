@@ -1,0 +1,30 @@
+{
+    "extends": "../../tsconfig.base.json",
+    "compilerOptions": {
+        "moduleResolution": "Node16",
+        "outDir": "./dist",
+        "baseUrl": "./",
+        "rootDir": "./_src",
+        "noEmit": false,
+        "tsPlusConfig": "../../tsplus.config.json",
+        "types": [
+            "@effect-ts-app/core/fluent/_ext/awesome/node"
+        ]
+    },
+    "include": [
+        "./_src"
+    ],
+    "exclude": [
+        "./dist",
+        "node_modules",
+        "build",
+        "lib",
+        "dist",
+        "**/*.d.ts.map"
+    ],
+    "references": [
+        {
+            "path": "../core"
+        }
+    ]
+}
