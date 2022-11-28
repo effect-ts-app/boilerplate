@@ -26,7 +26,7 @@
     }
   },
   "scripts": {
-    "build": "pnpm clean-dist && tsc --build && pnpm build2:cjs && pnpm generate-exports && cp -f ./_src/Prelude.d.ts ./dist/Prelude.d.ts && mv -f ./index.js ./dist/Prelude.js && mv -f ./_cjs/index.cjs ./_cjs/Prelude.cjs",
+    "build": "pnpm clean-dist && tsc --build && pnpm build2:cjs && cp -f ./_src/Prelude.d.ts ./dist/Prelude.d.ts && mv -f ./index.js ./dist/Prelude.js && mv -f ./_cjs/index.cjs ./_cjs/Prelude.cjs",
     "build2:cjs": "rm -rf _cjs && babel dist --config-file ../../.babel.cjs.json --out-dir _cjs --out-file-extension .cjs --source-maps",
     "build2:mjs": "babel dist --config-file ../../.babel.mjs.json --out-dir _mjs --out-file-extension .mjs --source-maps",
     "clean": "rm -rf dist && rm -rf _cjs",
