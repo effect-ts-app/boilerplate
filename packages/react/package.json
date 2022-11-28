@@ -38,46 +38,46 @@
   },
   "exports": {
     ".": {
-      "import": {
-        "types": "./index.d.ts",
-        "default": "./_mjs/index.mjs"
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./_cjs/index.cjs"
       },
-      "require": "./index.js"
+      "import": "./dist/index.js"
     },
     "./data": {
-      "import": {
-        "types": "./data.d.ts",
-        "default": "./_mjs/data.mjs"
+      "require": {
+        "types": "./dist/data.d.ts",
+        "default": "./_cjs/data.cjs"
       },
-      "require": "./data.js"
+      "import": "./dist/data.js"
     },
     "./hooks": {
-      "import": {
-        "types": "./hooks.d.ts",
-        "default": "./_mjs/hooks.mjs"
+      "require": {
+        "types": "./dist/hooks.d.ts",
+        "default": "./_cjs/hooks.cjs"
       },
-      "require": "./hooks.js"
+      "import": "./dist/hooks.js"
     },
     "./context": {
-      "import": {
-        "types": "./context.d.ts",
-        "default": "./_mjs/context.mjs"
+      "require": {
+        "types": "./dist/context.d.ts",
+        "default": "./_cjs/context.cjs"
       },
-      "require": "./context.js"
+      "import": "./dist/context.js"
     },
     "./*.js": {
-      "import": {
-        "types": "./*.d.ts",
-        "default": "./_mjs/*.mjs"
+      "require": {
+        "types": "./dist/*.d.ts",
+        "default": "./_cjs/*.cjs"
       },
-      "require": "./*.js"
+      "import": "./dist/*.js"
     },
     "./*": {
-      "import": {
-        "types": "./*.d.ts",
-        "default": "./_mjs/*.mjs"
+      "require": {
+        "types": "./dist/*.d.ts",
+        "default": "./_cjs/*.cjs"
       },
-      "require": "./*.js"
+      "import": "./dist/*.js"
     }
   },
   "sideEffects": false,
