@@ -31,7 +31,8 @@
     "autofix": "pnpm lint --fix && pnpm prettier --write",
     "test": "echo 'no tests yet'",
     "testsuite": "pnpm compile && pnpm lint && pnpm test && pnpm circular",
-    "ncu": "ncu"
+    "ncu": "ncu",
+    "pub": "pnpm build && npm publish --access public"
   },
   "publishConfig": {
     "access": "public"
