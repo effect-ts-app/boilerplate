@@ -26,15 +26,15 @@
     }
   },
   "scripts": {
-    "build": "pnpm clean && pnpm ets:tsc --build && pnpm build2:mjs && pnpm build2:cjs && pnpm generate-exports && cp -f ./_src/Prelude.d.ts ./dist/Prelude.d.ts && mv -f ./index.js ./dist/Prelude.js && mv -f ./_cjs/index.cjs ./_cjs/Prelude.cjs",
+    "build": "pnpm clean && tsc --build && pnpm build2:mjs && pnpm build2:cjs && pnpm generate-exports && cp -f ./_src/Prelude.d.ts ./dist/Prelude.d.ts && mv -f ./index.js ./dist/Prelude.js && mv -f ./_cjs/index.cjs ./_cjs/Prelude.cjs",
     "build2:cjs": "rm -rf _cjs && babel dist --config-file ../../.babel.cjs.json --out-dir _cjs --out-file-extension .cjs --source-maps",
-    "build2:mjs": "pnpm ets:babel _esm --config-file ../../.babel.mjs.json --out-dir _mjs --out-file-extension .mjs --source-maps",
+    "build2:mjs": "babel _esm --config-file ../../.babel.mjs.json --out-dir _mjs --out-file-extension .mjs --source-maps",
     "clean": "rm -rf ./_esm && rm -rf ./_mjs && rm -rf ./_cjs && find . | egrep '\\.m?js(\\.map)?$|\\.ts(\\.map)?$|\\.tsbuildinfo' | grep -v /types/ | grep -v /_src/ | grep -v .eslint | grep -v jest.config | xargs rm -f",
     "generate-exports": "sh ../../utils/extract.sh > package.log",
     "postpublish": "pnpm clean",
     "circular": "madge --circular --ts-config ./tsconfig.json --extensions ts ./_src",
     "circular:dist": "madge --circular --extensions js ./",
-    "compile": "pnpm ets:tsc --noEmit",
+    "compile": "tsc --noEmit",
     "lint": "eslint .",
     "prettier": "prettier \"**/*.ts\"",
     "autofix": "pnpm lint --fix && pnpm prettier --write",
