@@ -17,10 +17,11 @@
     "react": "^18.2.0"
   },
   "scripts": {
-    "build": "pnpm clean && tsc --build && pnpm build2:mjs && pnpm build2:cjs && pnpm generate-exports",
-    "build2:cjs": "babel _esm --config-file ../../.babel.cjs.json --out-dir _cjs --out-file-extension .js --source-maps",
-    "build2:mjs": "babel _esm --config-file ../../.babel.mjs.json --out-dir _mjs --out-file-extension .mjs --source-maps",
-    "clean": "rm -rf ./_esm && rm -rf ./_mjs && rm -rf ./_cjs && find . | egrep '\\.m?js(\\.map)?$|\\.ts(\\.map)?$|\\.tsbuildinfo' | grep -v /_src/ | grep -v .eslint | grep -v jest.config | xargs rm -f",
+    "build": "pnpm clean-dist && tsc --build && pnpm build2:cjs && pnpm generate-exports",
+    "build2:cjs": "babel dist --config-file ../../.babel.cjs.json --out-dir _cjs --out-file-extension .js --source-maps",
+    "build2:mjs": "babel dist --config-file ../../.babel.mjs.json --out-dir _mjs --out-file-extension .mjs --source-maps",
+    "clean": "rm -rf dist && rm -rf _cjs",
+    "clean-dist": "sh ../../scripts/clean-dist.sh",
     "postpublish": "pnpm clean",
     "generate-exports": "sh ../../utils/extract.sh > package.log",
     "circular": "madge --circular --ts-config ./tsconfig.json --extensions ts ./",
