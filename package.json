@@ -24,7 +24,7 @@
         "testsuite": "ultra -r pnpm testsuite",
         "up": "pnpm run update && pnpm run exec-update",
         "update": "ultra -r --root ncu -u --packageFile package.json",
-        "exec-update": "pnpm run update",
+        "exec-update": "pnpm i",
         "ncu": "ncu",
         "build-libs": "cd packages/prelude && pnpm build && cd ../types && pnpm build && cd ../client && pnpm build && cd ../vue && pnpm build && cd ../infra && pnpm build && cd ../messages && pnpm build && cd ../../libs/eslint && pnpm build",
         "lint:watch": "ESLINT_TS=1 esw -w --changed --clear --ext ts,tsx",
