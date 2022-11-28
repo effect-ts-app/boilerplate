@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { MeRsc } from "@effect-ts-app/boilerplate-client"
+import { MeRsc } from "@effect-ts-app/boilerplate-demo-client"
 import { isAfter } from "date-fns"
 
 const meClient = clientFor(MeRsc)

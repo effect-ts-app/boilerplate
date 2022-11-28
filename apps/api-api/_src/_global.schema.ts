@@ -1,1 +1,1 @@
-import "@effect-ts-app/boilerplate-messages/_global.schema"
+import "@effect-ts-app/boilerplate-demo-messages/_global.schema"

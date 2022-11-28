@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { unsafe } from "@effect-ts-app/schema";
-import { ClientEvents } from "@effect-ts-app/boilerplate-client";
+import { ClientEvents } from "@effect-ts-app/boilerplate-demo-client";
 const parseEvent = unsafe(ClientEvents.Parser)
 onMountedWithCleanup(() => {
   const source = new EventSource('/api/events');

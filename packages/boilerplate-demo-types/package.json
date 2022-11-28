@@ -1,30 +1,40 @@
 {
-  "name": "@effect-ts-app/boilerplate-client",
+  "name": "@effect-ts-app/boilerplate-demo-types",
   "version": "0.5.0",
   "license": "MIT",
   "type": "module",
   "resolutions": {
     "typescript": "https://cdn.jsdelivr.net/npm/@tsplus/installer@0.0.159/compiler/typescript.tgz"
   },
-  "peerDependencies": {},
   "dependencies": {
     "@effect-ts-app/boilerplate-prelude": "*",
-    "@effect-ts-app/boilerplate-types": "*",
     "@effect-ts-app/core": "^1.2.6",
     "@effect-ts-app/schema": "^1.2.6",
-    "change-case": "^4.1.2",
-    "cross-fetch": "^3.1.5",
-    "path-parser": "^6.1.0"
+    "uuid": "^9.0.0",
+    "validator": "^13.7.0"
+  },
+  "peerDependencies": {
+    "date-fns": "^2.29.3"
   },
   "exports": {
-    ".": {
+    "./PickList": {
       "import": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
+        "types": "./dist/PickList.d.ts",
+        "default": "./dist/PickList.js"
       },
       "require": {
-        "types": "./dist/index.d.ts",
-        "default": "./_cjs/index.cjs"
+        "types": "./dist/PickList.d.ts",
+        "default": "./_cjs/PickList.cjs"
+      }
+    },
+    "./User": {
+      "import": {
+        "types": "./dist/User.d.ts",
+        "default": "./dist/User.js"
+      },
+      "require": {
+        "types": "./dist/User.d.ts",
+        "default": "./_cjs/User.cjs"
       }
     },
     "./*.js": {
@@ -48,6 +58,13 @@
       }
     }
   },
+  "devDependencies": {
+    "@types/validator": "^13.7.10",
+    "@types/faker": "5.5.9",
+    "@types/uuid": "^8.3.4",
+    "faker": "^5.5.3",
+    "fast-check": "^3.3.0"
+  },
   "scripts": {
     "build": "pnpm clean-dist && NODE_OPTIONS=--max-old-space-size=6144 tsc --build",
     "build2:cjs": "rm -rf _cjs && babel dist --config-file ../../.babel.cjs.json --out-dir _cjs --out-file-extension .cjs --source-maps",
@@ -64,9 +81,15 @@
     "autofix": "pnpm lint --fix",
     "test": "TEST_COMPILED=1 vitest",
     "testsuite": "pnpm lint && pnpm run test --passWithNoTests && pnpm circular && pnpm circular:dist",
-    "client": "node --experimental-specifier-resolution=node -r source-map-support/register ./dist/client.bin.js",
-    "ncu": "ncu -x date-fns"
+    "ncu": "ncu -x @types/faker,faker,date-fns"
   },
   "gitHead": "bd8e27eea3eff97db8739d577d67e7336c078d28",
-  "sideEffects": false
+  "sideEffects": [
+    "./dist/faker.js",
+    "./faker",
+    "./src/faker",
+    "./dist/faker",
+    "./dist/src/faker.js",
+    "./dist/faker.js"
+  ]
 }

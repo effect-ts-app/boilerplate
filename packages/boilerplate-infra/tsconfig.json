@@ -6,10 +6,18 @@
             "DOM"
         ],
         "tsPlusConfig": "../../tsplus.config.json",
+        //        "tsPlusGlobalFiles": [
+        //            "./_src/_global.ts"
+        //        ],
         "moduleResolution": "Node16",
         "outDir": "./dist",
         "rootDir": "./_src",
         "tsBuildInfoFile": "./dist/.tsbuildinfo",
+        "types": [
+            "./types/modules"
+        ],
+        // temp disbaled to support ts-plus ops
+        "importsNotUsedAsValues": "preserve",
     },
     "include": [
         "./_src/**/*.ts"
@@ -24,7 +32,7 @@
     },
     "references": [
         {
-            "path": "../prelude"
+            "path": "../boilerplate-prelude"
         }
     ]
 }

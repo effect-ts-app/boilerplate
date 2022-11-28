@@ -2,6 +2,8 @@
 import type Faker from "faker"
 import type * as FC from "fast-check"
 
+// TODO: inject faker differently, so we dont care about multiple instances of library.
+
 // eslint-disable-next-line prefer-const
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 let faker: typeof Faker = undefined as any as typeof Faker

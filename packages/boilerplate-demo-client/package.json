@@ -1,5 +1,5 @@
 {
-  "name": "@effect-ts-app/boilerplate-messages",
+  "name": "@effect-ts-app/boilerplate-demo-client",
   "version": "0.5.0",
   "license": "MIT",
   "type": "module",
@@ -8,15 +8,12 @@
   },
   "peerDependencies": {},
   "dependencies": {
-    "@effect-ts-app/core": "^1.2.6",
-    "@effect-ts-app/infra": "^1.2.6",
-    "@effect-ts-app/schema": "^1.2.6",
-    "@effect-ts-app/boilerplate-infra": "*",
     "@effect-ts-app/boilerplate-prelude": "*",
-    "@effect-ts-app/boilerplate-types": "*",
+    "@effect-ts-app/boilerplate-demo-types": "*",
+    "@effect-ts-app/core": "^1.2.6",
+    "@effect-ts-app/schema": "^1.2.6",
     "change-case": "^4.1.2",
     "cross-fetch": "^3.1.5",
-    "dotenv": "^16.0.3",
     "path-parser": "^6.1.0"
   },
   "exports": {
@@ -28,26 +25,6 @@
       "require": {
         "types": "./dist/index.d.ts",
         "default": "./_cjs/index.cjs"
-      }
-    },
-    "./Messages/PrintQueue/PrintOnePick": {
-      "import": {
-        "types": "./dist/Messages/PrintQueue/PrintOnePick.d.ts",
-        "default": "./dist/Messages/PrintQueue/PrintOnePick.js"
-      },
-      "require": {
-        "types": "./dist/Messages/PrintQueue/PrintOnePick.d.ts",
-        "default": "./_cjs/Messages/PrintQueue/PrintOnePick.cjs"
-      }
-    },
-    "./RequestLayers": {
-      "import": {
-        "types": "./dist/RequestLayers.d.ts",
-        "default": "./dist/RequestLayers.js"
-      },
-      "require": {
-        "types": "./dist/RequestLayers.d.ts",
-        "default": "./_cjs/RequestLayers.cjs"
       }
     },
     "./*.js": {

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { HelloWorldRsc } from '@effect-ts-app/boilerplate-client';
+import { HelloWorldRsc } from '@effect-ts-app/boilerplate-demo-client';
 
 const helloWorldClient = clientFor(HelloWorldRsc)
 

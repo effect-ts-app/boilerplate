@@ -1,4 +1,4 @@
-import { ENV } from "@effect-ts-app/boilerplate-messages/config"
+import { ENV } from "@effect-ts-app/boilerplate-demo-messages/config"
 
 export function API() {
   const {
@@ -22,4 +22,4 @@ export function API() {
   }
 }
 
-export * from "@effect-ts-app/boilerplate-messages/config"
+export * from "@effect-ts-app/boilerplate-demo-messages/config"

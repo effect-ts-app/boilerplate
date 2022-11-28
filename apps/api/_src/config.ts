@@ -1,1 +1,1 @@
-export * from "@effect-ts-app/boilerplate-api-api/config"
+export * from "@effect-ts-app/boilerplate-demo-api-api/config"

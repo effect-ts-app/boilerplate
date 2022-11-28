@@ -29,6 +29,6 @@ const SENDGRID_API_KEY = PROVIDED_SENDGRID_API_KEY ?
   ReasonableString(PROVIDED_SENDGRID_API_KEY) :
   null
 
-export const serviceName = "@effect-ts-app/boilerplate-api"
+export const serviceName = "@effect-ts-app/boilerplate-demo-api"
 
 export { API_VERSION, ENV, FAKE_MAIL, FROM, LOG, QUEUE_URL, SENDGRID_API_KEY }
