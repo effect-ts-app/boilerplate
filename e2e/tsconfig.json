@@ -10,25 +10,34 @@
       "dom"
     ],
     "paths": {
-      "@effect-ts-app/boilerplate-client/*": [
+      "@effect-ts-app/core": [
+        "../node_modules/@effect-ts-app/core/dist"
+      ],
+      "@effect-ts-app/core/*": [
+        "../node_modules/@effect-ts-app/core/dist/*"
+      ],
+      "@effect-ts-app/schema": [
+        "../node_modules/@effect-ts-app/schema/dist"
+      ],
+      "@effect-ts-app/schema/*": [
+        "../node_modules/@effect-ts-app/schema/dist/*"
+      ],
+      "@effect-ts-app/client/*": [
         "../packages/client/_src/*"
       ],
-      "@effect-ts-app/boilerplate-types/*": [
+      "@effect-ts-app/types/*": [
         "../packages/types/_src/*"
       ],
       "@effect-ts-app/boilerplate-prelude/*": [
-        "../packages/prelude/_src/*"
+        "../node_modules/@effect-ts-app/boilerplate-prelude/dist/*"
       ],
       "@effect-ts-app/boilerplate-prelude": [
-        "../packages/prelude/_src"
+        "../node_modules/@effect-ts-app/boilerplate-prelude/dist"
       ],
       "@/*": [
         "./*"
       ]
     },
-    "types": [
-      "../node_modules/@effect-ts-app/core/fluent/_ext/awesome/browser"
-    ],
     "transformers": [
       // Transform paths in output .js files
       {
@@ -55,8 +64,5 @@
     {
       "path": "../packages/client"
     },
-    {
-      "path": "../packages/prelude"
-    }
   ]
 }

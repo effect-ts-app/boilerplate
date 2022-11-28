@@ -1,4 +1,4 @@
-import { User } from "@effect-ts-app/boilerplate-types/User"
+import { User } from "@effect-ts-app/types/User"
 
 export class GetMeRequest extends Get("/me")<GetMeRequest>()({}) {}
 

@@ -1,4 +1,4 @@
-import type { ClientEvents } from "@effect-ts-app/boilerplate-client"
+import type { ClientEvents } from "@effect-ts-app/client"
 
 const makeEvents = Do($ => {
   const q = $(Hub.unbounded<Evt>())

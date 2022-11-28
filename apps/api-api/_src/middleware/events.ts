@@ -1,4 +1,4 @@
-import { ClientEvents } from "@effect-ts-app/boilerplate-client"
+import { ClientEvents } from "@effect-ts-app/client"
 import * as Ex from "@effect-ts-app/infra/express/index"
 import { Events } from "../services/Events.js"
 

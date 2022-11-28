@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { api } from "@effect-ts-app/boilerplate-api-api/api"
+import { api } from "@effect-ts-app/api-api/api"
 
 // import * as Sentry from "@sentry/node"
 import * as _cfg from "./config.js"

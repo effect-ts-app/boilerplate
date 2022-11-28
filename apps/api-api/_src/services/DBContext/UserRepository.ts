@@ -3,9 +3,9 @@ import { NotFoundError } from "@/errors.js"
 import type { RequestContext } from "@effect-ts-app/boilerplate-infra/lib/RequestContext.js"
 import { makeAllDSL, makeOneDSL } from "@effect-ts-app/boilerplate-infra/services/Repository"
 import { ContextMap, LiveContextMap, StoreMaker } from "@effect-ts-app/boilerplate-infra/services/Store"
-import type { UserId } from "@effect-ts-app/boilerplate-types/User"
-import { User } from "@effect-ts-app/boilerplate-types/User"
 import { makeCodec } from "@effect-ts-app/infra/context/schema"
+import type { UserId } from "@effect-ts-app/types/User"
+import { User } from "@effect-ts-app/types/User"
 import { UserProfile } from "../UserProfile.js"
 
 export interface UserPersistenceModel extends User.Encoded {

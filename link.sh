@@ -1,4 +1,2 @@
-cd packages
-cd infra && pnpm link && cd ..
-cd vue && pnpm link && cd ..
-cd prelude && pnpm link && cd ..
+sed -i '' 's"  # - boilerplate/packages/\*"  - boilerplate/packages/\*"g' pnpm-workspace.yaml
+pnpm i

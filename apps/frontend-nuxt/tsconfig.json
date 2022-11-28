@@ -11,29 +11,41 @@
     //"moduleResolution": "Node16",
     "strict": true,
     "paths": {
+      "@effect-ts-app/core": [
+        "../../node_modules/@effect-ts-app/core/dist"
+      ],
+      "@effect-ts-app/core/*": [
+        "../../node_modules/@effect-ts-app/core/dist/*"
+      ],
+      "@effect-ts-app/schema": [
+        "../../node_modules/@effect-ts-app/schema/dist"
+      ],
+      "@effect-ts-app/schema/*": [
+        "../../node_modules/@effect-ts-app/schema/dist/*"
+      ],
       "@effect-ts-app/boilerplate-vue": [
-        "../../packages/vue/dist"
+        "../../node_modules/@effect-ts-app/boilerplate-vue/dist"
       ],
       "@effect-ts-app/boilerplate-vue/*": [
-        "../../packages/vue/dist/*"
-      ],
-      "@effect-ts-app/boilerplate-client": [
-        "../../packages/client/dist"
-      ],
-      "@effect-ts-app/boilerplate-client/*": [
-        "../../packages/client/dist/*"
-      ],
-      "@effect-ts-app/boilerplate-types": [
-        "../../packages/types/dist"
-      ],
-      "@effect-ts-app/boilerplate-types/*": [
-        "../../packages/types/dist/*"
+        "../../node_modules/@effect-ts-app/boilerplate-vue/dist/*"
       ],
       "@effect-ts-app/boilerplate-prelude": [
-        "../../packages/prelude/dist"
+        "../../node_modules/@effect-ts-app/boilerplate-prelude/dist"
       ],
       "@effect-ts-app/boilerplate-prelude/*": [
-        "../../packages/prelude/dist/*"
+        "../../node_modules/@effect-ts-app/boilerplate-prelude/dist/*"
+      ],
+      "@effect-ts-app/client": [
+        "../../packages/client/dist"
+      ],
+      "@effect-ts-app/client/*": [
+        "../../packages/client/dist/*"
+      ],
+      "@effect-ts-app/types": [
+        "../../packages/types/dist"
+      ],
+      "@effect-ts-app/types/*": [
+        "../../packages/types/dist/*"
       ],
       // copied from ./.nuxt/tsconfig.json
       "~~": [
