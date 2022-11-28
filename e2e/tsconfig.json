@@ -10,6 +10,18 @@
       "dom"
     ],
     "paths": {
+      "@effect-ts-app/core": [
+        "../node_modules/@effect-ts-app/core/dist"
+      ],
+      "@effect-ts-app/core/*": [
+        "../node_modules/@effect-ts-app/core/dist/*"
+      ],
+      "@effect-ts-app/schema": [
+        "../node_modules/@effect-ts-app/schema/dist"
+      ],
+      "@effect-ts-app/schema/*": [
+        "../node_modules/@effect-ts-app/schema/dist/*"
+      ],
       "@effect-ts-app/boilerplate-demo-client/*": [
         "../packages/boilerplate-demo-client/_src/*"
       ],
