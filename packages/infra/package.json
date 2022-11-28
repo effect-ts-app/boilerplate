@@ -4,8 +4,8 @@
   "license": "MIT",
   "type": "module",
   "dependencies": {
-    "@effect-ts-app/core": "^1.2.6",
-    "@effect-ts-app/schema": "^1.2.6",
+    "@effect-ts-app/core": "^1.3.0",
+    "@effect-ts-app/schema": "^1.3.0",
     "@effect-ts/core": "*",
     "@effect-ts/monocle": "*",
     "@effect/core": "*",
@@ -48,7 +48,7 @@
     "autofix": "pnpm lint --fix && pnpm prettier --write",
     "test": "echo 'no tests yet'",
     "testsuite": "pnpm compile && pnpm lint && pnpm test && pnpm circular",
-    "ncu": "ncu",
+    "ncu": "ncu -x redis,@types/redis",
     "pub": "pnpm build && npm publish --access public"
   },
   "publishConfig": {
