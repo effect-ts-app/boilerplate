@@ -2,6 +2,7 @@
 import "@effect/core/global"
 import "@tsplus/stdlib/global"
 import "@effect-ts-app/core/_ext/Prelude.ext"
+import "@effect-ts-app/core/EffectBase"
 
 /**
  * @tsplus global
