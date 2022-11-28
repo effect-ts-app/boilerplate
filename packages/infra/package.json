@@ -39,7 +39,6 @@
     "build2:mjs": "babel dist --config-file ../../.babel.mjs.json --out-dir _mjs --out-file-extension .mjs --source-maps",
     "clean": "rm -rf dist && rm -rf _cjs",
     "clean-dist": "sh ../../scripts/clean-dist.sh",
-    "postpublish": "pnpm clean",
     "generate-exports": "sh ../../utils/extract.sh > package.log",
     "circular": "madge --circular --ts-config ./tsconfig.json --extensions ts ./",
     "compile": "tsc --noEmit",

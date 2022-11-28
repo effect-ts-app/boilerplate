@@ -32,7 +32,6 @@
     "clean": "rm -rf dist && rm -rf _cjs",
     "clean-dist": "sh ../../scripts/clean-dist.sh",
     "generate-exports": "sh ../../utils/extract.sh > package.log",
-    "postpublish": "pnpm clean",
     "circular": "madge --circular --ts-config ./tsconfig.json --extensions ts ./_src",
     "circular:dist": "madge --circular --extensions js ./",
     "compile": "tsc --noEmit",
