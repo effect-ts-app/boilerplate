@@ -616,20 +616,20 @@ importers:
       ts-node: ^10.9.1
       typescript: https://cdn.jsdelivr.net/npm/@tsplus/installer@0.0.156/compiler/typescript.tgz
       vue: ^3.2.45
-      vue2: https://registry.yarnpkg.com/vue/-/vue-2.7.14.tgz#3743dcd248fd3a34d421ae456b864a0246bafb17
+      vue2: npm:vue@2.7.14
     dependencies:
       '@effect-ts-app/boilerplate-prelude': link:../prelude
       '@effect-ts-app/core': 1.2.6
       '@effect-ts-app/schema': 1.2.6
       swrv: 1.0.1_vue@3.2.45
-      vue2: '@registry.yarnpkg.com/vue/-/vue-2.7.14.tgz#3743dcd248fd3a34d421ae456b864a0246bafb17'
+      vue: 3.2.45
+      vue2: /vue/2.7.14
     devDependencies:
       '@babel/cli': 7.19.3
       '@rollup/pluginutils': 5.0.2
       '@types/node': 18.11.9
       ts-node: 10.9.1_3syu3os2l2t6nhhpgogkf2e32i
       typescript: '@cdn.jsdelivr.net/npm/@tsplus/installer@0.0.156/compiler/typescript.tgz'
-      vue: 3.2.45
 
 packages:
 
@@ -14910,6 +14910,13 @@ packages:
       '@volar/vue-typescript': 1.0.9
     dev: true
 
+  /vue/2.7.14:
+    resolution: {integrity: sha512-b2qkFyOM0kwqWFuQmgd4o+uHGU7T+2z3T+WQp8UBjADfEv2n4FEMffzBmCKNP0IGzOEEfYjvtcC62xaSKeQDrQ==}
+    dependencies:
+      '@vue/compiler-sfc': 2.7.14
+      csstype: 3.1.1
+    dev: false
+
   /vue/3.2.45:
     resolution: {integrity: sha512-9Nx/Mg2b2xWlXykmCwiTUCWHbWIj53bnkizBxKai1g61f2Xit700A1ljowpTIM11e3uipOeiPcSqnmBg6gyiaA==}
     dependencies:
@@ -15350,12 +15357,3 @@ packages:
     version: 5.0.0-tsplus.20221124
     engines: {node: '>=4.2.0'}
     hasBin: true
-
-  '@registry.yarnpkg.com/vue/-/vue-2.7.14.tgz#3743dcd248fd3a34d421ae456b864a0246bafb17':
-    resolution: {tarball: https://registry.yarnpkg.com/vue/-/vue-2.7.14.tgz#3743dcd248fd3a34d421ae456b864a0246bafb17}
-    name: vue
-    version: 2.7.14
-    dependencies:
-      '@vue/compiler-sfc': 2.7.14
-      csstype: 3.1.1
-    dev: false
