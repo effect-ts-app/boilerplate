@@ -24,10 +24,16 @@
         "../../node_modules/@effect-ts-app/schema/dist/*"
       ],
       "@effect-ts-app/boilerplate-vue": [
-        "../../packages/boilerplate-vue/dist"
+        "../../node_modules/@effect-ts-app/boilerplate-vue/dist"
       ],
       "@effect-ts-app/boilerplate-vue/*": [
-        "../../packages/boilerplate-vue/dist/*"
+        "../../node_modules/@effect-ts-app/boilerplate-vue/dist/*"
+      ],
+      "@effect-ts-app/boilerplate-prelude": [
+        "../../node_modules/@effect-ts-app/boilerplate-prelude/dist"
+      ],
+      "@effect-ts-app/boilerplate-prelude/*": [
+        "../../node_modules/@effect-ts-app/boilerplate-prelude/dist/*"
       ],
       "@effect-ts-app/client": [
         "../../packages/client/dist"
@@ -40,12 +46,6 @@
       ],
       "@effect-ts-app/types/*": [
         "../../packages/types/dist/*"
-      ],
-      "@effect-ts-app/boilerplate-prelude": [
-        "../../packages/boilerplate-prelude/dist"
-      ],
-      "@effect-ts-app/boilerplate-prelude/*": [
-        "../../packages/boilerplate-prelude/dist/*"
       ],
       // copied from ./.nuxt/tsconfig.json
       "~~": [
