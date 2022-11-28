@@ -1,4 +1,5 @@
-const base = require("../../.eslintrc.base")
+const makeBase = require("../../.eslintrc.base")
+const base = makeBase(__dirname, true)
 
 module.exports = {
   ...base,
