@@ -9,7 +9,7 @@ import {
   UnauthorizedError,
   ValidationError,
 } from "../errors.js"
-import * as Ex from "./index"
+import * as Ex from "./index.js"
 import {
   Encode,
   makeRequestParsers,

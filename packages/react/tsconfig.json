@@ -1,5 +1,5 @@
 {
-    "extends": "../../tsconfig.base.json",
+    "extends": "../../tsconfig.lib.json",
     "compilerOptions": {
         "moduleResolution": "Node16",
         "outDir": "./dist",
@@ -8,8 +8,6 @@
         "tsPlusConfig": "../../tsplus.config.json",
         "baseUrl": "./",
         "rootDir": "./_src",
-        // temp
-        "importsNotUsedAsValues": "remove",
     },
     "include": [
         "./_src"

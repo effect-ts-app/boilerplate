@@ -1,5 +1,5 @@
 {
-    "extends": "../../tsconfig.base.json",
+    "extends": "../../tsconfig.lib.json",
     "compilerOptions": {
         "lib": [
             "es2020"
@@ -10,8 +10,6 @@
         "noEmit": false,
         "rootDir": "./_src",
         "tsPlusConfig": "../../tsplus.config.json",
-        // temp
-        "importsNotUsedAsValues": "remove",
         // "types": [
         //     "@effect-ts-app/core/fluent/_ext/awesome/node"
         // ],
