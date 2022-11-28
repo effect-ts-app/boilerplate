@@ -50,7 +50,7 @@ importers:
       eslint-watch: ^8.0.0
       fast-check: ^3.3.0
       history: ^5.3.0
-      http-proxy: npm:http-proxy-node16@^1.0.0
+      http-proxy: npm:http-proxy-node16@1.0.0
       json5: ^2.2.1
       lerna: ^6.0.3
       madge: ^5.0.1
@@ -69,7 +69,7 @@ importers:
       ultra-runner: ^3.10.5
       vitest: ^0.25.3
     dependencies:
-      '@effect-ts-app/boilerplate-eslint': link:libs/eslint
+      '@effect-ts-app/boilerplate-eslint': link:packages/eslint
       '@effect-ts-app/boilerplate-infra': link:packages/infra
       '@effect-ts-app/boilerplate-prelude': link:packages/prelude
       '@effect-ts-app/boilerplate-vue': link:packages/vue
@@ -432,7 +432,25 @@ importers:
       typescript: '@cdn.jsdelivr.net/npm/@tsplus/installer@0.0.159/compiler/typescript.tgz'
       webpack: 5.75.0
 
-  libs/eslint:
+  packages/client:
+    specifiers:
+      '@effect-ts-app/boilerplate-prelude': '*'
+      '@effect-ts-app/boilerplate-types': '*'
+      '@effect-ts-app/core': ^1.2.6
+      '@effect-ts-app/schema': ^1.2.6
+      change-case: ^4.1.2
+      cross-fetch: ^3.1.5
+      path-parser: ^6.1.0
+    dependencies:
+      '@effect-ts-app/boilerplate-prelude': link:../prelude
+      '@effect-ts-app/boilerplate-types': link:../types
+      '@effect-ts-app/core': 1.2.6
+      '@effect-ts-app/schema': 1.2.6
+      change-case: 4.1.2
+      cross-fetch: 3.1.5
+      path-parser: 6.1.0
+
+  packages/eslint:
     specifiers:
       '@babel/generator': 7.12.0
       '@babel/parser': 7.11.5
@@ -468,24 +486,6 @@ importers:
       madge: 5.0.1
       ts-node: 10.4.0_atfpk6h5myfikbojzh5nbn4vxy
       typescript: '@cdn.jsdelivr.net/npm/@tsplus/installer@0.0.159/compiler/typescript.tgz'
-
-  packages/client:
-    specifiers:
-      '@effect-ts-app/boilerplate-prelude': '*'
-      '@effect-ts-app/boilerplate-types': '*'
-      '@effect-ts-app/core': ^1.2.6
-      '@effect-ts-app/schema': ^1.2.6
-      change-case: ^4.1.2
-      cross-fetch: ^3.1.5
-      path-parser: ^6.1.0
-    dependencies:
-      '@effect-ts-app/boilerplate-prelude': link:../prelude
-      '@effect-ts-app/boilerplate-types': link:../types
-      '@effect-ts-app/core': 1.2.6
-      '@effect-ts-app/schema': 1.2.6
-      change-case: 4.1.2
-      cross-fetch: 3.1.5
-      path-parser: 6.1.0
 
   packages/infra:
     specifiers:
@@ -917,7 +917,7 @@ packages:
   /@babel/generator/7.12.0:
     resolution: {integrity: sha512-8lnf4QcyiQMf5XQp47BltuMTocsOh6P0z/vueEh8GzhmWWlDbdvOoI5Ziddg0XYhmnx35HyByUW51/9NprF8cA==}
     dependencies:
-      '@babel/types': 7.12.11
+      '@babel/types': 7.20.2
       jsesc: 2.5.2
       source-map: 0.5.7
 
@@ -1169,7 +1169,8 @@ packages:
     engines: {node: '>=6.0.0'}
     hasBin: true
     dependencies:
-      '@babel/types': 7.12.11
+      '@babel/types': 7.20.2
+    dev: false
 
   /@babel/parser/7.20.3:
     resolution: {integrity: sha512-OP/s5a94frIPXwjzEcv5S/tpQfc6XhxYUnmWpgdqMWGgYCuErA3SzozaRAMQgSZWKeTJxht9aWAkUY+0UzvOFg==}
@@ -2108,6 +2109,7 @@ packages:
       '@babel/helper-validator-identifier': 7.19.1
       lodash: 4.17.21
       to-fast-properties: 2.0.0
+    dev: true
 
   /@babel/types/7.20.2:
     resolution: {integrity: sha512-FnnvsNWgZCr232sqtXggapvlkk/tuwR/qhGzcmxI0GXLCjmPYQPzio2FbdlWuY6y1sHFfQKk+rRbUZ9VStQMog==}
@@ -4222,13 +4224,13 @@ packages:
   /@types/babel__generator/7.6.2:
     resolution: {integrity: sha512-MdSJnBjl+bdwkLskZ3NGFp9YcXGx5ggLpQQPqtgakVhsWK0hTtNYhjpZLlWQTviGTvF8at+Bvli3jV7faPdgeQ==}
     dependencies:
-      '@babel/types': 7.12.11
+      '@babel/types': 7.20.2
     dev: true
 
   /@types/babel__traverse/7.11.0:
     resolution: {integrity: sha512-kSjgDMZONiIfSH1Nxcr5JIRMwUetDki63FSQfpTCz8ogF3Ulqm8+mr5f78dUYs6vMiB6gBusQqfQmBvHZj/lwg==}
     dependencies:
-      '@babel/types': 7.12.11
+      '@babel/types': 7.20.2
     dev: true
 
   /@types/body-parser/1.19.2:
@@ -7463,14 +7465,14 @@ packages:
     dependencies:
       '@babel/core': 7.20.2
       '@babel/generator': 7.12.0
-      '@babel/parser': 7.11.5
+      '@babel/parser': 7.20.3
       '@babel/traverse': 7.20.1
       expect: 26.6.2
       fp-ts: 2.13.1
-      glob: 7.1.4
+      glob: 7.2.3
       io-ts: 2.2.4_fp-ts@2.13.1
       io-ts-extra: 0.11.6
-      js-yaml: 3.14.0
+      js-yaml: 3.14.1
       lodash: 4.17.21
       read-pkg-up: 7.0.1
       string.prototype.matchall: 4.0.8
@@ -9506,6 +9508,7 @@ packages:
     dependencies:
       argparse: 1.0.10
       esprima: 4.0.1
+    dev: false
 
   /js-yaml/3.14.1:
     resolution: {integrity: sha512-okMH7OXXJ7YrN9Ok3/SXrnu4iX9yOk+25nqX4imS2npuvTYDmo/QEZoqwZkYaIDk3jVvBOTOIEgEhaLOynBS9g==}
@@ -9513,7 +9516,6 @@ packages:
     dependencies:
       argparse: 1.0.10
       esprima: 4.0.1
-    dev: true
 
   /js-yaml/4.1.0:
     resolution: {integrity: sha512-wpxZs9NoxZaJESJGIZTyDEaYpl0FKSA+FB9aJiyemKhMwkxQg63h4T1KJgUGHpTqPDNRcmmYLugrRjJlBtWvRA==}

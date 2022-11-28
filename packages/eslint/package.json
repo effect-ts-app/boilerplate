@@ -6,7 +6,9 @@
   "version": "1.0.0",
   "scripts": {
     "build": "tsc",
-    "circular": "madge --circular --ts-config ./tsconfig.json --extensions ts ./src"
+    "circular": "madge --circular --ts-config ./tsconfig.json --extensions ts ./src",
+    "ncu": "ncu",
+    "pub": "pnpm build && npm publish --access public"
   },
   "dependencies": {
     "@babel/generator": "7.12.0",
