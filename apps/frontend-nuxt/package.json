@@ -1,5 +1,5 @@
 {
-  "name": "@effect-ts-app/boilerplate-demo-frontend-nuxt",
+  "name": "@effect-ts-app/frontend-nuxt",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -15,9 +15,9 @@
     "clean": "rm -rf ./.nuxt && rm -rf ./node_modules/.vite"
   },
   "dependencies": {
-    "@effect-ts-app/boilerplate-demo-client": "*",
+    "@effect-ts-app/client": "*",
     "@effect-ts-app/boilerplate-prelude": "*",
-    "@effect-ts-app/boilerplate-demo-types": "*",
+    "@effect-ts-app/types": "*",
     "@effect-ts-app/boilerplate-vue": "*",
     "@vueuse/core": "^9.6.0",
     "@vueuse/nuxt": "^9.6.0",

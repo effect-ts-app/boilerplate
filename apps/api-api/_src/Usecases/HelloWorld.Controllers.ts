@@ -1,5 +1,5 @@
-import { HelloWorldRsc } from "@effect-ts-app/boilerplate-demo-client"
-import { User } from "@effect-ts-app/boilerplate-demo-types/User"
+import { HelloWorldRsc } from "@effect-ts-app/client"
+import { User } from "@effect-ts-app/types/User"
 
 export const HelloWorldControllers = Effect(
   matchResource(HelloWorldRsc)({

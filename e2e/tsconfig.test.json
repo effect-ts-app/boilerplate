@@ -9,11 +9,11 @@
       "dom"
     ],
     "paths": {
-      // "@effect-ts-app/boilerplate-demo-client/*": [
-      //   "../packages/boilerplate-demo-client/_src/*"
+      // "@effect-ts-app/client/*": [
+      //   "../packages/client/_src/*"
       // ],
-      // "@effect-ts-app/boilerplate-demo-types/*": [
-      //   "../packages/boilerplate-demo-types/_src/*"
+      // "@effect-ts-app/types/*": [
+      //   "../packages/types/_src/*"
       // ],
       "@/*": [
         "./*"
@@ -43,10 +43,10 @@
   ],
   "references": [
     {
-      "path": "../packages/boilerplate-demo-types"
+      "path": "../packages/types"
     },
     {
-      "path": "../packages/boilerplate-demo-client"
+      "path": "../packages/client"
     },
     {
       "path": "../packages/boilerplate-prelude"
