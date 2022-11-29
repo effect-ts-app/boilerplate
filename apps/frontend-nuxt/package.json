@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "build": "nuxt build",
-    "compile": "vue-tsc --noEmit",
+    "compile": "nuxt prepare && vue-tsc --noEmit",
     "dev": "PORT=5281 nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
