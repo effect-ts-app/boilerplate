@@ -1,7 +1,7 @@
-diff --git a/node_modules/@playwright/test/lib/third_party/tsconfig-loader.js b/node_modules/@playwright/test/lib/third_party/tsconfig-loader.js
+diff --git a/lib/third_party/tsconfig-loader.js b/lib/third_party/tsconfig-loader.js
 index 1b5780a..14282f4 100644
---- a/node_modules/@playwright/test/lib/third_party/tsconfig-loader.js
-+++ b/node_modules/@playwright/test/lib/third_party/tsconfig-loader.js
+--- a/lib/third_party/tsconfig-loader.js
++++ b/lib/third_party/tsconfig-loader.js
 @@ -73,8 +73,11 @@ function resolveConfigPath(cwd) {
    const configAbsolutePath = walkForTsConfig(cwd);
    return configAbsolutePath ? path.resolve(configAbsolutePath) : undefined;

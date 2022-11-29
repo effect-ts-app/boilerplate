@@ -1,6 +1,22 @@
 {
     "name": "@effect-ts-app/boilerplate-root",
     "private": true,
+    "pnpm": {
+        "patchedDependencies": {
+            "@effect-ts/core@0.60.4": "patches/@effect-ts+core+0.60.4.patch",
+            "@effect-ts/monocle@0.43.0": "patches/@effect-ts+monocle+0.43.0.patch",
+            "@effect-ts/system@0.57.4": "patches/@effect-ts+system+0.57.4.patch",
+            "@effect/cache@0.0.4": "patches/@effect+cache+0.0.4.patch",
+            "@effect/core@0.0.16": "patches/@effect+core+0.0.16.patch",
+            "@playwright/test@1.28.1": "patches/@playwright+test+1.28.1.patch",
+            "@tsplus/stdlib@0.2.8": "patches/@tsplus+stdlib+0.2.8.patch",
+            "@typescript-eslint/scope-manager@5.45.0": "patches/@typescript-eslint+scope-manager+5.45.0.patch",
+            "eslint-plugin-codegen@0.16.1": "patches/eslint-plugin-codegen+0.16.1.patch",
+            "eslint-plugin-unused-imports@2.0.0": "patches/eslint-plugin-unused-imports+2.0.0.patch",
+            "ts-pattern@4.0.6": "patches/ts-pattern+4.0.6.patch",
+            "typescript@5.0.0-tsplus.20221127": "patches/typescript+5.0.0-tsplus.20221127.patch"
+        }
+    },
     "scripts": {
         "preinstall": "npx only-allow pnpm",
         "clean": "ultra -r clean",
@@ -56,11 +72,11 @@
         "typescript": "https://cdn.jsdelivr.net/npm/@tsplus/installer@0.0.159/compiler/typescript.tgz"
     },
     "dependencies": {
-        "@effect-ts-app/boilerplate-infra": "1.0.2",
-        "@effect-ts-app/boilerplate-prelude": "1.0.2",
-        "@effect-ts-app/boilerplate-vue": "1.0.2",
-        "@effect-ts-app/core": "^1.3.2",
-        "@effect-ts-app/schema": "^1.3.2",
+        "@effect-ts-app/boilerplate-infra": "^1.1.0",
+        "@effect-ts-app/boilerplate-prelude": "^1.1.0",
+        "@effect-ts-app/boilerplate-vue": "^1.1.0",
+        "@effect-ts-app/core": "^1.4.0",
+        "@effect-ts-app/schema": "^1.4.0",
         "@effect-ts/core": "^0.60.4",
         "@effect-ts/monocle": "^0.43.0",
         "@effect-ts/system": "^0.57.4",
@@ -83,9 +99,9 @@
         "@tsplus/installer": "0.0.159",
         "@types/lodash": "^4.14.190",
         "@types/node": "~18.11.9",
-        "@typescript-eslint/eslint-plugin": "^5.44.0",
-        "@typescript-eslint/parser": "^5.44.0",
-        "@typescript-eslint/scope-manager": "^5.44.0",
+        "@typescript-eslint/eslint-plugin": "^5.45.0",
+        "@typescript-eslint/parser": "^5.45.0",
+        "@typescript-eslint/scope-manager": "^5.45.0",
         "babel-plugin-replace-import-extension": "^1.1.3",
         "concurrently": "^7.6.0",
         "dprint": "^0.33.0",
