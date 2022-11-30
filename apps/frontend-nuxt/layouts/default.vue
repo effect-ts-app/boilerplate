@@ -3,7 +3,7 @@ import { MeRsc } from "@effect-ts-app/client"
 import { isAfter } from "date-fns"
 
 const meClient = clientFor(MeRsc)
-const [userResult, currentUser, getCurrentUser] = useSafeQuery(meClient.get.mapPath, meClient.get)
+const [userResult, currentUser, getCurrentUser] = useSafeQuery(meClient.get)
 
 
 const appConfig = {
