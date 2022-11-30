@@ -29,9 +29,8 @@ export function api(cfg: typeof _cfg & ReturnType<typeof _cfg.API>) {
     .provideSomeLayer(Ex.LiveExpress(cfg.HOST, cfg.PORT))
     .provideSomeLayer(
       StoreMakerLive(cfg.STORAGE_URL, {
-        env: cfg.ENV,
-        serviceName: cfg.serviceName,
-        STORAGE_PREFIX: cfg.STORAGE_PREFIX
+        dbName: cfg.serviceName,
+        prefix: cfg.STORAGE_PREFIX
       })
         > UserRepository.Live()
     )

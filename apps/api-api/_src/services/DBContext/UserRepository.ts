@@ -1,6 +1,6 @@
 import type { InvalidStateError, OptimisticConcurrencyException } from "@/errors.js"
 import { NotFoundError } from "@/errors.js"
-import type { RequestContext } from "@effect-ts-app/boilerplate-infra/lib/RequestContext.js"
+import type { RequestContext } from "@effect-ts-app/boilerplate-infra/lib/RequestContext"
 import { makeAllDSL, makeOneDSL } from "@effect-ts-app/boilerplate-infra/services/Repository"
 import { ContextMap, LiveContextMap, StoreMaker } from "@effect-ts-app/boilerplate-infra/services/Store"
 import { makeCodec } from "@effect-ts-app/infra/context/schema"
