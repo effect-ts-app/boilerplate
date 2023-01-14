@@ -16,7 +16,7 @@
         }
     },
     "scripts": {
-        "all": "pnpm -r --filter \"!./play\"",
+        "all": "pnpm -r --filter \"!./play\" --filter \"!./libs/**/*\"",
         "preinstall": "npx only-allow pnpm",
         "clean": "pnpm all clean",
         "clean-dist": "pnpm all clean-dist",
