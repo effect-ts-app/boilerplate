@@ -1,11 +1,8 @@
-import { makePreparedLenses } from "@effect-ts-app/boilerplate-prelude/schema"
+
 
 export const FirstName = ReasonableString["|>"](
-  arbitrary(FC =>
-    // eslint-disable-next-line @typescript-eslint/unbound-method
-    fakerArb(faker => faker.name.firstName)(FC).map(x => x as ReasonableString)
-  )
-)["|>"](withDefaults)
+  Schema.arbitrary(FC => fakerArb(faker => faker.name.firstName)(FC).map(_ => ReasonableString.parse(_)))
+)
 export type FirstName = ParsedShapeOfCustom<typeof FirstName>
 
 export const DisplayName = FirstName

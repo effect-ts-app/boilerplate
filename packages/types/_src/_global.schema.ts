@@ -1,5 +1,5 @@
 /* eslint-disable unused-imports/no-unused-imports */
-import "@effect-ts-app/boilerplate-prelude/_global.schema"
+import "@effect-ts-app/boilerplate-prelude/_global.schema2"
 
 /**
  * @tsplus global
