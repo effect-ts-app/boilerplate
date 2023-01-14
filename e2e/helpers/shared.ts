@@ -7,7 +7,7 @@ import { initializeSync } from "@effect-ts-app/boilerplate-vue/runtime"
 import type * as H from "@effect-ts-app/core/http/http-client"
 import * as HF from "@effect-ts-app/core/http/http-client-fetch"
 import fetch from "cross-fetch"
-import { Tag, Effect, Layer } from "../prelude.js"
+import { Effect, Layer, Tag } from "../prelude.js"
 
 export interface AppConfig {
   AUTH_DISABLED: boolean
@@ -18,7 +18,9 @@ const AppConfig = Tag.Tag<AppConfig>()
 export const accessAppConfig = Effect.environment<AppConfig>()
 
 export function makeEnv(config: ApiConfig, appConfig: AppConfig) {
-  const layers = LiveApiConfig(config)["|>"](Layer.provideToAndMerge(HF.Client(fetch)))["|>"](Layer.provideToAndMerge(Layer.succeed(AppConfig)(appConfig)))
+  const layers = LiveApiConfig(config)["|>"](Layer.provideToAndMerge(HF.Client(fetch)))["|>"](
+    Layer.provideToAndMerge(Layer.succeed(AppConfig)(appConfig))
+  )
   const runtime = initializeSync(layers)
 
   return runtime

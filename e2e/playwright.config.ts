@@ -12,9 +12,11 @@ const config: PlaywrightTestConfig = {
   // workers: process.env["CI"] ? 4 : 2,
   use: {
     baseURL: process.env["BASE_URL"] ?? "http://localhost:4000",
-    extraHTTPHeaders: basicAuthCredentials ? {
-      'authorization': `Basic ${Buffer.from(basicAuthCredentials).toString("base64")}`
-    }: {},
+    extraHTTPHeaders: basicAuthCredentials ?
+      {
+        "authorization": `Basic ${Buffer.from(basicAuthCredentials).toString("base64")}`
+      } :
+      {},
     // Tell all tests to load signed-in state from 'storageState.json'.
     storageState: "storageState.user.json",
     viewport: { width: 1280, height: 720 },

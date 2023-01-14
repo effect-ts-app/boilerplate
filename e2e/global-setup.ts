@@ -1,5 +1,5 @@
-import { Browser, expect, FullConfig } from "@playwright/test"
-import { chromium } from "@playwright/test"
+import type { Browser, FullConfig } from "@playwright/test"
+import { chromium, expect } from "@playwright/test"
 
 async function globalSetup(_config: FullConfig) {
   if (process.env["SKIP_LOGIN"]) {
@@ -22,10 +22,11 @@ function login(baseUrl: string, browser: Browser) {
     const page = await browser.newPage()
     const basicAuthCredentials = process.env["BASIC_AUTH_CREDENTIALS"]
     if (basicAuthCredentials) {
-      page.context().setExtraHTTPHeaders(
-      {
-        "authorization": `Basic ${Buffer.from(basicAuthCredentials).toString("base64")}`
-      })
+      await page.context().setExtraHTTPHeaders(
+        {
+          "authorization": `Basic ${Buffer.from(basicAuthCredentials).toString("base64")}`
+        }
+      )
     }
     await page.goto(baseUrl + "/login")
     await page.click(`text=${name}`)
