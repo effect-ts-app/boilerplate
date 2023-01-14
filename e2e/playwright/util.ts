@@ -1,5 +1,5 @@
-import type { TestSelector } from "../helpers/@types/enhanced-selectors"
-import type { LocatorAble } from "./types"
+import type { TestSelector } from "../helpers/@types/enhanced-selectors.js"
+import type { LocatorAble } from "./types.js"
 
 export function enhancePageWithLocateTest(page: LocatorAble) {
   return (sel: TestSelector) => locateTest_(page, sel)

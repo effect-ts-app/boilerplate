@@ -5,13 +5,13 @@
         "**/dist/*",
         "**/.swc/*",
         "**/.data/*",
-        "**/.jest-cache/*",
         "**/.logs/*"
     ],
     "ext": "ts,env,local",
     "watch": [
         "../api-*/**/*",
         "../../packages/**/*",
+        "../../libs/packages/**/*",
         ".",
         ".env",
         ".env.local"

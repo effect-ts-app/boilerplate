@@ -3,6 +3,8 @@
   "extends": "./.nuxt/tsconfig.json",
   "compilerOptions": {
     "tsPlusConfig": "../../tsplus.config.json",
+    "tsPlusTypes": [],
+    "tsPlusEnabled": false,
     "lib": [
       "DOM",
       "dom.iterable",
@@ -11,40 +13,16 @@
     //"moduleResolution": "Node16",
     "strict": true,
     "paths": {
-      "@effect-ts-app/core": [
-        "../../node_modules/@effect-ts-app/core/dist"
-      ],
-      "@effect-ts-app/core/*": [
-        "../../node_modules/@effect-ts-app/core/dist/*"
-      ],
-      "@effect-ts-app/schema": [
-        "../../node_modules/@effect-ts-app/schema/dist"
-      ],
-      "@effect-ts-app/schema/*": [
-        "../../node_modules/@effect-ts-app/schema/dist/*"
-      ],
-      "@effect-ts-app/boilerplate-vue": [
-        "../../node_modules/@effect-ts-app/boilerplate-vue/dist"
-      ],
-      "@effect-ts-app/boilerplate-vue/*": [
-        "../../node_modules/@effect-ts-app/boilerplate-vue/dist/*"
-      ],
-      "@effect-ts-app/boilerplate-prelude": [
-        "../../node_modules/@effect-ts-app/boilerplate-prelude/dist"
-      ],
-      "@effect-ts-app/boilerplate-prelude/*": [
-        "../../node_modules/@effect-ts-app/boilerplate-prelude/dist/*"
-      ],
-      "@effect-ts-app/client": [
+      "@effect-ts-app/boilerplate-client": [
         "../../packages/client/dist"
       ],
-      "@effect-ts-app/client/*": [
+      "@effect-ts-app/boilerplate-client/*": [
         "../../packages/client/dist/*"
       ],
-      "@effect-ts-app/types": [
+      "@effect-ts-app/boilerplate-types": [
         "../../packages/types/dist"
       ],
-      "@effect-ts-app/types/*": [
+      "@effect-ts-app/boilerplate-types/*": [
         "../../packages/types/dist/*"
       ],
       // copied from ./.nuxt/tsconfig.json
@@ -79,19 +57,19 @@
         "public"
       ],
       "#app": [
-        "../../node_modules/nuxt/dist/app"
+        "./node_modules/nuxt/dist/app"
       ],
       "#app/*": [
-        "../../node_modules/nuxt/dist/app/*"
+        "./node_modules/nuxt/dist/app/*"
       ],
       "vue-demi": [
-        "../../node_modules/nuxt/dist/app/compat/vue-demi"
+        "./node_modules/nuxt/dist/app/compat/vue-demi"
       ],
       "#head": [
-        "../../node_modules/nuxt/dist/head/runtime"
+        "./node_modules/nuxt/dist/head/runtime"
       ],
       "#head/*": [
-        "../../node_modules/nuxt/dist/head/runtime/*"
+        "./node_modules/nuxt/dist/head/runtime/*"
       ],
       "#components": [
         ".nuxt/components"

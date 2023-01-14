@@ -1,4 +1,3 @@
-// codegen:start {preset: barrel, include: ./DBContext/*, nodir: false }
-export * from "./DBContext/Repository.js"
+// codegen:start {preset: barrel, include: ./DBContext/* }
 export * from "./DBContext/UserRepository.js"
 // codegen:end

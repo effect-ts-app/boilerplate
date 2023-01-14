@@ -3,9 +3,11 @@
     "compilerOptions": {
         "lib": [
             "esnext",
-            "DOM"
         ],
         "tsPlusConfig": "../../tsplus.config.json",
+        //        "tsPlusGlobalFiles": [
+        //            "./_src/_global.ts"
+        //        ],
         "moduleResolution": "Node16",
         // temp disbaled to support ts-plus ops
         "importsNotUsedAsValues": "preserve",
@@ -27,6 +29,6 @@
     "references": [
         {
             "path": "../types"
-        },
+        }
     ]
 }

@@ -1,4 +1,5 @@
-import { NotLoggedInError } from "@effect-ts-app/boilerplate-infra/errors"
+/* eslint-disable @typescript-eslint/ban-types */
+import { NotLoggedInError, UnauthorizedError } from "@effect-ts-app/boilerplate-infra/errors"
 import type { SupportedErrors } from "@effect-ts-app/boilerplate-infra/lib/api/defaultErrorHandler"
 import { defaultErrorHandler } from "@effect-ts-app/boilerplate-infra/lib/api/defaultErrorHandler"
 import type {
@@ -10,34 +11,57 @@ import type {
 } from "@effect-ts-app/boilerplate-infra/lib/api/routing"
 import { handle, match } from "@effect-ts-app/boilerplate-infra/lib/api/routing"
 import { RequestContext } from "@effect-ts-app/boilerplate-infra/lib/RequestContext"
+import { BasicRequestEnv } from "@effect-ts-app/boilerplate-messages/RequestLayers"
 import type { GetRequest, GetResponse, ReqRes, ReqResSchemed } from "@effect-ts-app/boilerplate-prelude/schema"
+import { Role } from "@effect-ts-app/boilerplate-types/User"
+import type { User } from "@effect-ts-app/boilerplate-types/User"
 import type { _E, _R, Request } from "@effect-ts-app/infra/express/schema/requestHandler"
-import { RequestLayers } from "@effect-ts-app/messages/RequestLayers"
-import type { User } from "@effect-ts-app/types/User"
 import type express from "express"
 import { CurrentUser, UserRepository } from "../services.js"
 import { makeUserProfileFromUserHeader, UserProfile } from "../services/UserProfile.js"
 
-function RequestLayer(handler: { Request: any }) {
+function RequestEnv(handler: { Request: any }) {
   return (req: express.Request, _res: express.Response, requestContext: RequestContext) => {
-    return RequestLayers(requestContext)
-      > Layer.fromEffect(UserProfile)(
-        Effect.suspendSucceed(() => {
-          const p = makeUserProfileFromUserHeader(req.headers["x-user"])
-            .map(Maybe.some)
-          const r = handler.Request.allowAnonymous
-            ? p.catchAll(() => Effect(Maybe.none))
-            : p.mapError(() => new NotLoggedInError())
-          return r
-        })
-          .map(_ => UserProfile.make({ get: _.encaseInEffect(() => new NotLoggedInError()) }))
+    const allowAnonymous = !!handler.Request.allowAnonymous
+    const allowedRoles: readonly Role[] = handler.Request.allowedRoles ?? ["manager"]
+    return Effect.gen(function*($) {
+      const ctx = yield* $(BasicRequestEnv(requestContext))
+
+      const p = makeUserProfileFromUserHeader(req.headers["x-user"])
+        .map(Opt.some)
+      const userProfile = allowAnonymous
+        ? p.catchAll(() => Effect.succeed(Opt.none))
+        : p.mapError(() => new NotLoggedInError())
+
+      return pipe(
+        ctx,
+        Context.add(UserProfile)(
+          UserProfile.make({ get: userProfile.flatMap(_ => _.encaseInEffect(() => new NotLoggedInError())) })
+        )
       )
-      > Layer.fromEffect(CurrentUser)(
-        Effect.serviceWithEffect(UserRepository, _ => _.getCurrentUser)
-          .map(Maybe.some)
-          .catchAll(() => Effect(Maybe.none))
-          .map(_ => CurrentUser.make({ get: _.encaseInEffect(() => new NotLoggedInError()) }))
-      )
+    }).flatMap(ctx =>
+      Effect.gen(function*($) {
+        const currentUser = yield* $(
+          UserRepository.withEffect(_ => _.getCurrentUser)
+            .map(Opt.some)
+            .catchAll(() => allowAnonymous ? Effect.succeed(Opt.none) : Effect.fail(new NotLoggedInError()))
+            .tap(_ => {
+              const userRoles = _.map(_ => _.role === "manager" ? [Role("manager"), Role("user")] : [_.role]).getOrElse(
+                () => [Role("user")]
+              )
+              return allowedRoles.some(_ => userRoles.includes(_))
+                ? Effect.unit
+                : Effect.fail(new UnauthorizedError())
+            })
+            .map(_ => CurrentUser.make({ get: _.encaseInEffect(() => new NotLoggedInError()) }))
+        )
+
+        return pipe(
+          ctx,
+          Context.add(CurrentUser)(currentUser)
+        )
+      }).provideSomeEnvironmentReal(ctx)
+    )
   }
 }
 
@@ -47,7 +71,7 @@ function RequestLayer(handler: { Request: any }) {
  */
 export function matchAll<T extends RequestHandlers>(handlers: T) {
   const mapped = handlers.$$.keys.reduce((prev, cur) => {
-    prev[cur] = match(handlers[cur] as any, defaultErrorHandler, handleRequestLayer)
+    prev[cur] = match(handlers[cur] as any, defaultErrorHandler, handleRequestEnv)
     return prev
   }, {} as any) as RouteAllLoggedIn<typeof handlers>
 
@@ -113,10 +137,10 @@ export type RouteAllTest<T extends RequestHandlersTest> = {
   [K in keyof T]: RouteAll<T[K]>
 }
 
-type LayerA<X> = X extends Layer<any, any, infer A> ? A : never
-export type RequestLayer = LayerA<ReturnType<ReturnType<typeof RequestLayer>>>
+type ContextA<X> = X extends Context<infer A> ? A : never
+export type RequestEnv = ContextA<Effect.Success<ReturnType<ReturnType<typeof RequestEnv>>>>
 
-function handleRequestLayer<
+function handleRequestEnv<
   R,
   PathA,
   CookieA,
@@ -135,11 +159,11 @@ function handleRequestLayer<
       h: (pars: any) =>
         Effect.struct({
           context: RequestContext.Tag.get,
-          user: CurrentUser.get.catchTag("NotLoggedInError", () => Effect(null))
+          user: CurrentUser.get.catchTag("NotLoggedInError", () => Effect.succeed(null))
         })
           .flatMap(ctx => (handler.h as (i: any, ctx: any) => Effect<R, ResE, ResA>)(pars, ctx))
     },
-    handle: RequestLayer(handler)
+    makeContext: RequestEnv(handler)
   }
 }
 
@@ -154,7 +178,7 @@ type RouteAllLoggedIn<T extends RequestHandlers> = {
     any, // infer ReqA,
     any, // infer ResA,
     SupportedErrors // infer ResE
-  > ? RouteMatch<R, RequestLayer>
+  > ? RouteMatch<R, RequestEnv>
     : never
 }
 

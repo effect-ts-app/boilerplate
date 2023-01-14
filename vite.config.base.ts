@@ -1,23 +1,26 @@
 /// <reference types="vitest" />
-import { tsPlugin } from "@effect-ts-app/boilerplate-vue/vitePlugin"
+import { tsPlugin } from "@effect-ts-app/compiler/vitePlugin"
 import path from "path"
-import { defineConfig } from "vite"
+import fs from "fs"
 
-export default function makeConfig() {
-  return defineConfig({
+const useDist = process.env.TEST_USE_DIST === "true"
+
+export default function makeConfig(dirName?: string) {
+  return {
     // eslint-disable-next-line @typescript-eslint/no-var-requires
-    plugins: [tsPlugin({})],
+    plugins: useDist ? [] : [tsPlugin({})],
     test: {
-      include: ["./_src/**/*.test.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"],
+      include: useDist ? ["./dist/**/*.test.js"] : ["./_src/**/*.test.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"],
       exclude: ["./_test/**/*"],
       reporters: "verbose",
-      globals: true
+      globals: true,
+      deps: useDist ? { inline: [new RegExp(dirName + "/dist")], } : undefined,
     },
-    // resolve: {
-    //   alias: {
-    //     "@effect/io/test": path.resolve(__dirname, "/test"),
-    //     "@effect/io": path.resolve(__dirname, "/src")
-    //   }
-    // }
-  })
+    resolve: dirName
+      ? {
+        alias: {
+          [JSON.parse(fs.readFileSync(dirName + "/package.json", "utf-8")).name]: path.resolve(dirName, useDist ? "/dist" : "/_src")
+        } }
+      : undefined,
+  }
 }

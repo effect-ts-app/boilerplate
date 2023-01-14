@@ -1,7 +1,6 @@
 .DS_Store
 node_modules/
 *.log
-**/*/.next/
 apps/**/dist/
 packages/**/dist/
 !**/.eslintrc*.js
@@ -15,9 +14,7 @@ tsconfig.tsbuildinfo
 .tsbuildinfo
 .ultra.cache.json
 .jest-cache
-.next
-.data/
-libs/
+
 .env.local
 .env
 

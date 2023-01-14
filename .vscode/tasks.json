@@ -7,41 +7,16 @@
 			"command": "pnpm clean-dist",
 			"group": "build"
 		},
-		// {
-		// 	"label": "Watch API & Libs",
-		// 	"type": "shell",
-		// 	"command": "pnpm watch",
-		// 	"options": {
-		// 		"cwd": "apps/api"
-		// 	},
-		// 	"dependsOn": [
-		// 		"Clean Dist"
-		// 	],
-		// 	"group": "build",
-		// 	"isBackground": true,
-		// 	"presentation": {
-		// 		"group": "watch-libs"
-		// 	},
-		// 	"problemMatcher": [
-		// 		{
-		// 			"base": "$tsc-watch",
-		// 			"fileLocation": [
-		// 				"relative",
-		// 				"${workspaceRoot}/apps/api",
-		// 			],
-		// 		}
-		// 	]
-		// },
 		{
-			"label": "Watch API & Libs",
+			"label": "Watch API & Packages",
 			"type": "shell",
 			"command": "pnpm build -w",
 			// "options": {
 			// 	"cwd": "apps/api/_test",
 			// },
 			"dependsOn": [
+				//"Scan Resources",
 				"Clean Dist"
-				//"Watch API & Libs"
 			],
 			"group": {
 				"kind": "build",
@@ -61,16 +36,15 @@
 			]
 		},
 		{
-			"label": "Watch Boilerplate",
+			"label": "Watch Libs",
 			"type": "shell",
-			"command": "pnpm build-boilerplate -w",
+			"command": "pnpm build-libs -w",
 			// "options": {
 			// 	"cwd": "apps/api/_test",
 			// },
 			"dependsOn": [
 				//"Scan Resources",
 				"Clean Dist"
-				//"Watch API & Libs"
 			],
 			"group": {
 				"kind": "build",
@@ -84,7 +58,7 @@
 					"base": "$tsc-watch",
 					"fileLocation": [
 						"relative",
-						"${workspaceRoot}/boilerplate",
+						"${workspaceRoot}/libs",
 					],
 				}
 			]
@@ -97,7 +71,7 @@
 				"cwd": "e2e"
 			},
 			"dependsOn": [
-				"Watch API & Libs"
+				"Watch API & Packages"
 			],
 			"group": "build",
 			"isBackground": true,
@@ -142,192 +116,10 @@
 				}
 			]
 		},
-		// {
-		// 	"label": "Types Build",
-		// 	"type": "shell",
-		// 	"command": "../../node_modules/.bin/ultra --raw build",
-		// 	"options": {
-		// 		"cwd": "packages/types"
-		// 	},
-		// 	"group": "build",
-		// 	"problemMatcher": [
-		// 		{
-		// 			"base": "$tsc",
-		// 			"fileLocation": [
-		// 				"relative",
-		// 				"${workspaceRoot}/packages/types"
-		// 			],
-		// 		}
-		// 	]
-		// },
-		// {
-		// 	"label": "Client Build",
-		// 	"type": "shell",
-		// 	"command": "../../node_modules/.bin/ultra --raw build",
-		// 	"options": {
-		// 		"cwd": "packages/client"
-		// 	},
-		// 	"group": "build",
-		// 	"problemMatcher": [
-		// 		{
-		// 			"base": "$tsc",
-		// 			"fileLocation": [
-		// 				"relative",
-		// 				"${workspaceRoot}/packages/client"
-		// 			],
-		// 		}
-		// 	]
-		// },
 		{
-			"label": "Clean",
+			"label": "Run API",
 			"type": "shell",
-			"command": "pnpm clean",
-			"group": "build"
-		},
-		// {
-		// 	"label": "API Build",
-		// 	"type": "shell",
-		// 	"command": "../../node_modules/.bin/ultra --raw build",
-		// 	"options": {
-		// 		"cwd": "apps/api"
-		// 	},
-		// 	"group": "build",
-		// 	"problemMatcher": [
-		// 		{
-		// 			"base": "$tsc",
-		// 			"fileLocation": [
-		// 				"relative",
-		// 				"${workspaceRoot}/apps/api"
-		// 			],
-		// 		}
-		// 	]
-		// },
-		// {
-		// 	"label": "Types Watch",
-		// 	"type": "shell",
-		// 	"command": "../../node_modules/.bin/ultra --raw watch2",
-		// 	"options": {
-		// 		"cwd": "packages/types"
-		// 	},
-		// 	"group": "build",
-		// 	"isBackground": true,
-		// 	"presentation": {
-		// 		"group": "watch-libs"
-		// 	},
-		// 	"problemMatcher": [
-		// 		{
-		// 			"base": "$tsc-watch",
-		// 			"fileLocation": [
-		// 				"relative",
-		// 				"${workspaceRoot}/packages/types"
-		// 			],
-		// 		}
-		// 	]
-		// },
-		// {
-		// 	"label": "Client Watch",
-		// 	"type": "shell",
-		// 	"command": "../../node_modules/.bin/ultra --raw watch2",
-		// 	"options": {
-		// 		"cwd": "packages/client"
-		// 	},
-		// 	"group": "build",
-		// 	"isBackground": true,
-		// 	"presentation": {
-		// 		"group": "watch-libs"
-		// 	},
-		// 	"problemMatcher": [
-		// 		{
-		// 			"base": "$tsc-watch",
-		// 			"fileLocation": [
-		// 				"relative",
-		// 				"${workspaceRoot}/packages/client"
-		// 			],
-		// 		}
-		// 	]
-		// },
-		// {
-		// 	"label": "API Watch 2",
-		// 	"type": "shell",
-		// 	"command": "../../node_modules/.bin/ultra --raw watch2",
-		// 	"options": {
-		// 		"cwd": "apps/api"
-		// 	},
-		// 	"group": "build",
-		// 	"isBackground": true,
-		// 	// "problemMatcher": [
-		// 	// 	{
-		// 	// 		"base": "$tsc-watch",
-		// 	// 		"fileLocation": [
-		// 	// 			"relative",
-		// 	// 			"${workspaceRoot}/apps/api"
-		// 	// 		],
-		// 	// 	}
-		// 	// ],
-		// 	// FAKE... but works..
-		// 	"problemMatcher": {
-		// 		"severity": "warning",
-		// 		"pattern": [
-		// 			{
-		// 				"regexp": "^\\s+(.*)\\((\\d+),(\\d+)\\):\\s+(.*)$",
-		// 				"file": 1,
-		// 				"line": 2,
-		// 				"column": 3,
-		// 				"message": 4
-		// 			}
-		// 		],
-		// 		"background": {
-		// 			"beginsPattern": "Starting",
-		// 			"endsPattern": "Watching for",
-		// 		}
-		// 	},
-		// 	"presentation": {
-		// 		"group": "watch"
-		// 	}
-		// },
-		// {
-		// 	"label": "API Watch",
-		// 	"type": "shell",
-		// 	"command": "../../node_modules/.bin/ultra --raw watch",
-		// 	"options": {
-		// 		"cwd": "apps/api"
-		// 	},
-		// 	"group": "build",
-		// 	"isBackground": true,
-		// 	// "problemMatcher": [
-		// 	// 	{
-		// 	// 		"base": "$tsc-watch",
-		// 	// 		"fileLocation": [
-		// 	// 			"relative",
-		// 	// 			"${workspaceRoot}/apps/api"
-		// 	// 		],
-		// 	// 	}
-		// 	// ],
-		// 	// FAKE... but works..
-		// 	"problemMatcher": {
-		// 		"severity": "warning",
-		// 		"pattern": [
-		// 			{
-		// 				"regexp": "^\\s+(.*)\\((\\d+),(\\d+)\\):\\s+(.*)$",
-		// 				"file": 1,
-		// 				"line": 2,
-		// 				"column": 3,
-		// 				"message": 4
-		// 			}
-		// 		],
-		// 		"background": {
-		// 			"beginsPattern": "Starting",
-		// 			"endsPattern": "Watching for",
-		// 		}
-		// 	},
-		// 	"presentation": {
-		// 		"group": "watch"
-		// 	}
-		// },
-		{
-			"label": "API Run",
-			"type": "shell",
-			"command": "../../node_modules/.bin/ultra --raw dev",
+			"command": "pnpm dev",
 			"options": {
 				"cwd": "apps/api"
 			},
@@ -353,92 +145,8 @@
 				"group": "run"
 			}
 		},
-		// {
-		// 	"label": "UI Watch 2",
-		// 	"type": "shell",
-		// 	"command": "../../node_modules/.bin/ultra --raw watch2",
-		// 	"options": {
-		// 		"cwd": "apps/frontend-nuxt"
-		// 	},
-		// 	"group": "build",
-		// 	// "dependsOrder": "sequence",
-		// 	// "dependsOn": [
-		// 	// 	"API Watch"
-		// 	// ],
-		// 	"isBackground": true,
-		// 	// "problemMatcher": [
-		// 	// 	{
-		// 	// 		"base": "$tsc-watch",
-		// 	// 		"fileLocation": [
-		// 	// 			"relative",
-		// 	// 			"${workspaceRoot}/apps/frontend-nuxt"
-		// 	// 		],
-		// 	// 	}
-		// 	// ],
-		// 	"problemMatcher": {
-		// 		"severity": "warning",
-		// 		"pattern": [
-		// 			{
-		// 				"regexp": "^\\s+(.*)\\((\\d+),(\\d+)\\):\\s+(.*)$",
-		// 				"file": 1,
-		// 				"line": 2,
-		// 				"column": 3,
-		// 				"message": 4
-		// 			}
-		// 		],
-		// 		"background": {
-		// 			"beginsPattern": "Starting",
-		// 			"endsPattern": "Watching for",
-		// 		}
-		// 	},
-		// 	"presentation": {
-		// 		"group": "watch"
-		// 	}
-		// },
-		// {
-		// 	"label": "UI Watch",
-		// 	"type": "shell",
-		// 	"command": "../../node_modules/.bin/ultra --raw watch",
-		// 	"options": {
-		// 		"cwd": "apps/frontend-nuxt"
-		// 	},
-		// 	"group": "build",
-		// 	// "dependsOrder": "sequence",
-		// 	// "dependsOn": [
-		// 	// 	"API Watch"
-		// 	// ],
-		// 	"isBackground": true,
-		// 	// "problemMatcher": [
-		// 	// 	{
-		// 	// 		"base": "$tsc-watch",
-		// 	// 		"fileLocation": [
-		// 	// 			"relative",
-		// 	// 			"${workspaceRoot}/apps/frontend-nuxt"
-		// 	// 		],
-		// 	// 	}
-		// 	// ],
-		// 	"problemMatcher": {
-		// 		"severity": "warning",
-		// 		"pattern": [
-		// 			{
-		// 				"regexp": "^\\s+(.*)\\((\\d+),(\\d+)\\):\\s+(.*)$",
-		// 				"file": 1,
-		// 				"line": 2,
-		// 				"column": 3,
-		// 				"message": 4
-		// 			}
-		// 		],
-		// 		"background": {
-		// 			"beginsPattern": "Starting",
-		// 			"endsPattern": "Watching for",
-		// 		}
-		// 	},
-		// 	"presentation": {
-		// 		"group": "watch"
-		// 	}
-		// },
 		{
-			"label": "UI Run",
+			"label": "Run UI",
 			"type": "shell",
 			"command": "pnpm dev -o",
 			"options": {
@@ -449,7 +157,7 @@
 				//				"Clean",
 				// "API Watch",
 				// "UI Watch",
-				"API Run",
+				"Run API",
 			],
 			"isBackground": true,
 			// FAKE...
@@ -474,44 +182,6 @@
 				"group": "run"
 			}
 		},
-		// {
-		// 	"label": "UI Run 2",
-		// 	"type": "shell",
-		// 	"command": "../../node_modules/.bin/ultra --raw dev",
-		// 	"options": {
-		// 		"cwd": "apps/frontend-nuxt"
-		// 	},
-		// 	"dependsOrder": "sequence",
-		// 	"dependsOn": [
-		// 		"Types Watch",
-		// 		"Client Watch",
-		// 		"API Watch 2",
-		// 		"UI Watch 2",
-		// 		"API Run",
-		// 	],
-		// 	"isBackground": true,
-		// 	// FAKE...
-		// 	"problemMatcher": {
-		// 		"severity": "warning",
-		// 		"pattern": [
-		// 			{
-		// 				"regexp": "^\\s+(.*)\\((\\d+),(\\d+)\\):\\s+(.*)$",
-		// 				"file": 1,
-		// 				"line": 2,
-		// 				"column": 3,
-		// 				"message": 4
-		// 			}
-		// 		],
-		// 		"background": {
-		// 			"activeOnStart": true,
-		// 			"beginsPattern": "compiling",
-		// 			"endsPattern": "compiled successfully",
-		// 		}
-		// 	},
-		// 	"presentation": {
-		// 		"group": "run"
-		// 	}
-		// },
 		{
 			"label": "API-E2E",
 			"type": "shell",
@@ -575,7 +245,7 @@
 		{
 			"label": "UI Build Prod",
 			"type": "shell",
-			"command": "../../node_modules/.bin/ultra --raw build",
+			"command": "pnpm build",
 			"options": {
 				"cwd": "apps/frontend-nuxt"
 			},

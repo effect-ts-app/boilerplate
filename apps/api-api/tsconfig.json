@@ -5,6 +5,9 @@
             "esnext"
         ],
         "tsPlusConfig": "../../tsplus.config.json",
+        //        "tsPlusGlobalFiles": [
+        //            "./_src/_global.ts"
+        //        ],
         "tsBuildInfoFile": "./dist/.tsbuildinfo",
         "esModuleInterop": true,
         // temp disbaled to support ts-plus ops
@@ -19,6 +22,9 @@
             ]
         },
         "outDir": "./dist",
+        "types": [
+            "./types/modules"
+        ],
         "transformers": [
             // Transform paths in output .js files
             {
@@ -29,13 +35,17 @@
                 "name": "ts-transform-paths",
                 "position": "afterDeclaration"
             },
+            {
+                "name": "@effect/language-service/transformer",
+                "trace": {},
+                //"debug": {}
+            },
         ]
     },
     "include": [
         "./_src/**/*.ts"
     ],
     "exclude": [
-        ".jest-cache",
         "./dist",
         "node_modules",
         "build",
@@ -64,6 +74,6 @@
         },
         {
             "path": "../../packages/types"
-        }
+        },
     ]
 }

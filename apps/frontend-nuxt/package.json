@@ -1,44 +1,55 @@
 {
-  "name": "@effect-ts-app/frontend-nuxt",
+  "name": "@effect-ts-app/boilerplate-frontend",
   "version": "0.0.1",
   "private": true,
   "scripts": {
     "build": "nuxt build",
     "compile": "nuxt prepare && vue-tsc --noEmit",
-    "dev": "PORT=5281 nuxt dev",
+    "dev": "PORT=4000 nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "start": "node .output/server/index.mjs",
     "ncu": "ncu",
-    "lint": "NODE_OPTIONS=--max-old-space-size=6144 ESLINT_TS=1 eslint .",
+    "lint": "NODE_OPTIONS=--max-old-space-size=6144 eslint --ext .ts,.vue --ignore-path ../../.gitignore .",
+    "autofix": "pnpm lint --fix",
     "testsuite": "pnpm lint",
     "clean": "rm -rf ./.nuxt && rm -rf ./node_modules/.vite"
   },
   "dependencies": {
-    "@effect-ts-app/boilerplate-prelude": "^1.2.1",
-    "@effect-ts-app/boilerplate-vue": "^1.2.1",
-    "@effect-ts-app/client": "*",
-    "@effect-ts-app/types": "*",
-    "@vueuse/core": "^9.6.0",
-    "@vueuse/nuxt": "^9.6.0",
+    "@effect-ts-app/boilerplate-prelude": "^2.3.16",
+    "@effect-ts-app/boilerplate-vue": "^2.3.16",
+    "@effect-ts-app/core": "^2.3.9",
+    "@effect-ts-app/schema": "^2.3.9",
+    "@effect-ts/core": "^0.60.5",
+    "@effect-ts/system": "^0.57.5",
+    "@effect/io": "^0.0.63",
+    "@fp-ts/core": "^0.0.11",
+    "@fp-ts/data": "^0.0.39",
+    "@effect-ts-app/boilerplate-client": "*",
+    "@effect-ts-app/boilerplate-types": "*",
+    "@vueuse/core": "^9.10.0",
+    "@vueuse/nuxt": "^9.10.0",
     "cookie": "^0.5.0",
     "date-fns": "^2.29.3",
+    "http-proxy": "npm:http-proxy-node16@^1.0.0",
     "mitt": "^3.0.0",
+    "papaparse": "^5.3.2",
     "vue-timeago3": "^2.3.0",
     "vue-toastification": "^2.0.0-rc.5",
     "vuetify": "^3.0.2",
     "xlsx": "^0.18.5"
   },
   "devDependencies": {
-    "@mdi/js": "^7.0.96",
+    "@mdi/js": "^7.1.96",
     "@types/cookie": "^0.5.1",
     "@types/http-proxy": "^1.17.9",
-    "eslint-plugin-vue": "^9.8.0",
+    "eslint-plugin-vue": "^9.9.0",
+    "h3": "^1.0.2",
     "nuxt": "3.0.0",
-    "sass": "^1.56.1",
-    "vue-tsc": "^1.0.10"
+    "sass": "^1.57.1",
+    "vue-tsc": "^1.0.24"
   },
   "resolutions": {
-    "typescript": "https://cdn.jsdelivr.net/npm/@tsplus/installer@0.0.159/compiler/typescript.tgz"
+    "http-proxy": "npm:http-proxy-node16@1.0.0"
   }
 }

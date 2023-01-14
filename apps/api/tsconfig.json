@@ -1,7 +1,8 @@
 {
     "extends": "../../tsconfig.base.json",
     "compilerOptions": {
-        // workaround for tsplus global imports; hardcode the required dependencies so that the api master project can properly consume it in editor.
+        // workaround for tsplus non-global extension functions, like on particular Service implementations;
+        // hardcode the required dependencies so that the api master project can properly consume it in editor.
         "disableSourceOfProjectReferenceRedirect": true,
         "lib": [
             "esnext"
@@ -31,13 +32,17 @@
                 "name": "ts-transform-paths",
                 "position": "afterDeclaration"
             },
+            {
+                "name": "@effect/language-service/transformer",
+                "trace": {},
+                //"debug": {}
+            },
         ]
     },
     "include": [
         "./_src/**/*.ts"
     ],
     "exclude": [
-        ".jest-cache",
         "./dist",
         "node_modules",
         "build",
@@ -67,8 +72,5 @@
         {
             "path": "../../packages/client"
         },
-        {
-            "path": "../../packages/types"
-        }
     ]
 }

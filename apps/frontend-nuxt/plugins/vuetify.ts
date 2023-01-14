@@ -1,9 +1,10 @@
 import { defineNuxtPlugin } from "#imports"
 import { createVuetify } from "vuetify"
-import { aliases, mdi } from "vuetify/iconsets/mdi-svg"
-
 import * as components from "vuetify/components"
 import * as directives from "vuetify/directives"
+import { aliases, mdi } from "vuetify/iconsets/mdi-svg"
+
+import "vuetify/styles"
 
 export default defineNuxtPlugin(nuxtApp => {
   const vuetify = createVuetify({
@@ -13,17 +14,17 @@ export default defineNuxtPlugin(nuxtApp => {
       defaultSet: "mdi",
       aliases,
       sets: {
-        mdi
-      }
+        mdi,
+      },
     },
     display: {
       thresholds: {
         xs: 340,
         sm: 540,
         md: 800,
-        lg: 1280
-      }
-    }
+        lg: 1280,
+      },
+    },
   })
 
   nuxtApp.vueApp.use(vuetify)

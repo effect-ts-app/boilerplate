@@ -1,12 +1,12 @@
-import * as MO from "@effect-ts-app/boilerplate-prelude/schema"
+import { json, Model, prop, propFrom } from "@effect-ts-app/boilerplate-prelude/schema"
 import { NotLoggedInError } from "@effect-ts-app/infra/errors"
 import { jwt } from "@effect-ts-app/infra/express/schema/jwt"
 
-export class UserProfileScheme extends MO.Model<UserProfileScheme>()({
+export class UserProfileScheme extends Model<UserProfileScheme>()({
   /**
    * Mapped from "sub"
    */
-  id: propFrom(MO.prop(UUID), "sub")
+  id: propFrom(prop(StringId), "sub")
 }) {}
 
 export const UserProfileId = Symbol()
@@ -17,14 +17,13 @@ export interface UserProfile extends ServiceTagged<typeof UserProfileId> {
 export const UserProfile = Tag<UserProfile>()
 
 export const LiveUserProfile = (profile: UserProfileScheme | null) =>
-  Layer.fromValue(
-    UserProfile,
+  UserProfile.of(
     UserProfile.make({
-      get: Maybe.fromNullable(profile).encaseInEffect(() => new NotLoggedInError())
+      get: Opt.fromNullable(profile).encaseInEffect(() => new NotLoggedInError())
     })
   )
 
-const userProfileFromJson = MO.json[">>>"](UserProfileScheme)
+const userProfileFromJson = json[">>>"](UserProfileScheme)
 const userProfileFromJWT = jwt[">>>"](UserProfileScheme)
 export const makeUserProfileFromAuthorizationHeader = (
   authorization: string | undefined

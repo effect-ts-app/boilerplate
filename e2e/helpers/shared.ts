@@ -3,30 +3,27 @@
 
 import type { ApiConfig } from "@effect-ts-app/boilerplate-prelude/client/config"
 import { Live as LiveApiConfig } from "@effect-ts-app/boilerplate-prelude/client/config"
+import { initializeSync } from "@effect-ts-app/boilerplate-vue/runtime"
 import type * as H from "@effect-ts-app/core/http/http-client"
 import * as HF from "@effect-ts-app/core/http/http-client-fetch"
 import fetch from "cross-fetch"
+import { Effect, Layer, Tag } from "../prelude.js"
 
 export interface AppConfig {
   AUTH_DISABLED: boolean
 }
 
-const AppConfig = Tag<AppConfig>()
+const AppConfig = Tag.Tag<AppConfig>()
 
 export const accessAppConfig = Effect.environment<AppConfig>()
 
 export function makeEnv(config: ApiConfig, appConfig: AppConfig) {
-  const layers = LiveApiConfig(config)
-    > HF.Client(fetch)
-    > Layer.fromValue(AppConfig, appConfig)
+  const layers = LiveApiConfig(config)["|>"](Layer.provideToAndMerge(HF.Client(fetch)))["|>"](
+    Layer.provideToAndMerge(Layer.succeed(AppConfig)(appConfig))
+  )
+  const runtime = initializeSync(layers)
 
-  function runPromise<E, A>(eff: Effect<SupportedEnv, E, A>) {
-    return eff.provideLayer(layers).unsafeRunPromise()
-  }
-
-  return {
-    runPromise
-  }
+  return runtime
 }
 
 type Env = ApiConfig | H.HttpOps | { AUTH_DISABLED: boolean }
@@ -46,7 +43,7 @@ function cypressEnv(entry: string) {
   return process.env["CYPRESS_" + entry]
 }
 
-export const { runPromise } = makeEnv(
+export const { runtime } = makeEnv(
   {
     apiUrl: "/api/proxy",
     headers: {

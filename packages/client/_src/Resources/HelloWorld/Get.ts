@@ -1,7 +1,8 @@
-import { User } from "@effect-ts-app/types/User"
+import { User } from "@effect-ts-app/boilerplate-types/User"
 import { Get, Model } from "@effect-ts-app/schema"
 
 @allowAnonymous
+@allowRoles("user")
 export class GetHelloWorldRequest extends Get("/hello-world")<GetHelloWorldRequest>()({}) {}
 
 export class GetHelloWorldResponse extends Model<GetHelloWorldResponse>()({

@@ -1,4 +1,35 @@
 import { RequestContext } from "@effect-ts-app/boilerplate-infra/lib/RequestContext"
-import { LiveContextMap } from "@effect-ts-app/boilerplate-infra/services/Store"
+import { ContextMap } from "@effect-ts-app/boilerplate-infra/services/Store"
 
-export const RequestLayers = (pars: RequestContext) => RequestContext.Live(pars) + LiveContextMap
+export const BasicRequestEnv = (pars: RequestContext) =>
+  Effect.gen(function*($) {
+    const rc = Context.make(RequestContext.Tag)(pars)
+
+    return pipe(rc, Context.add(ContextMap)(yield* $(ContextMap.Make)))
+  })
+
+function makeInternalRequestContext(name: string) {
+  const id = StringId.make()
+  return new RequestContext({
+    id,
+    rootId: id,
+    locale: "en",
+    name: ReasonableString(name)
+  })
+}
+
+/**
+ * @tsplus fluent effect/io/Effect setupNamedRequest
+ */
+export function setupReq2<R, E, A>(self: Effect<R, E, A>, name: string) {
+  return self.setupNamedRequest3(makeInternalRequestContext(name))
+}
+
+/**
+ * @tsplus fluent effect/io/Effect setupNamedRequest3
+ */
+export function setupReq3<R, E, A>(self: Effect<R, E, A>, requestContext: RequestContext) {
+  return self
+    .setupRequestFrom
+    .provideSomeEnvironmentEffect(BasicRequestEnv(requestContext))
+}

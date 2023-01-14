@@ -7,6 +7,7 @@
     "node_modules/@azure/cosmos",
     "node_modules/@effect-ts-app/schema",
     "node_modules/lodash",
+    "node_modules/typescript",
     "node_modules/@types/lodash"
   ],
   "typescript.tsdk": "node_modules/typescript/lib",
@@ -21,7 +22,7 @@
   "editor.formatOnSave": true,
   "eslint.format.enable": true,
   "[vue]": {
-    "editor.defaultFormatter": "Vue.volar"
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint" // "Vue.volar"
   },
   "[javascript]": {
     "editor.defaultFormatter": "dbaeumer.vscode-eslint"
@@ -44,5 +45,8 @@
     "composables",
     "pipeable",
     "tsplus"
+  ],
+  "githubPullRequests.ignoredPullRequestBranches": [
+    "main"
   ]
 }

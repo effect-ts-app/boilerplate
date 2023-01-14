@@ -2,10 +2,15 @@
     "extends": "../../../tsconfig.base.json",
     "compilerOptions": {
         "lib": [
-            "dom",
             "esnext"
         ],
         "tsPlusConfig": "../../../tsplus.config.json",
+        "tsPlusTypes": [
+            "../node_modules/@effect-ts-app/core/vendor/effect-ts-tsplus.json",
+            "../node_modules/@effect-ts-app/core/vendor/effect-io-tsplus.json",
+            "../node_modules/@effect-ts-app/core/vendor/effect-stm-tsplus.json",
+            "../node_modules/@effect-ts-app/core/vendor/fp-ts-data-tsplus.json"
+        ],
         "esModuleInterop": true,
         "importsNotUsedAsValues": "preserve",
         "baseUrl": "./",
@@ -21,13 +26,11 @@
         },
         "outDir": "./dist",
         "tsBuildInfoFile": "./dist/.tsbuildinfo",
-        "transformers": []
     },
     "include": [
         "./_src/**/*.ts"
     ],
     "exclude": [
-        ".jest-cache",
         "./dist",
         "node_modules",
         "build",
@@ -44,6 +47,18 @@
     "references": [
         {
             "path": ".."
-        }
+        },
+        {
+            "path": "../../api-api"
+        },
+        {
+            "path": "../../../packages/messages"
+        },
+        {
+            "path": "../../../packages/client"
+        },
+        {
+            "path": "../../../packages/types"
+        },
     ]
 }

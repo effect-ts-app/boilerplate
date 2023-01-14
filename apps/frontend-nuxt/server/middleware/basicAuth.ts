@@ -6,20 +6,32 @@ export default defineEventHandler(event => {
 
   const { originalUrl } = event.req as IncomingMessageExtended
 
-  let allow = !config.basicAuthCredentials || originalUrl?.startsWith("/api/") ||
-    originalUrl === "/api" || false
+  let allow =
+    !config.basicAuthCredentials ||
+    config.basicAuthCredentials === "false" ||
+    (originalUrl &&
+      (originalUrl.startsWith("/api/") ||
+        originalUrl === "/.version" ||
+        originalUrl === "/api" ||
+        originalUrl === "/manifest.json" ||
+        originalUrl.startsWith("/_nuxt/") ||
+        originalUrl.startsWith("/icons/")))
+
   if (!allow && base64Credentials) {
-    const credentials = Buffer.from(base64Credentials, "base64").toString("ascii")
+    const credentials = Buffer.from(base64Credentials, "base64").toString(
+      "ascii"
+    )
 
     const [username, password] = credentials.split(":")
-    const [requiredUserName, requiredPassword] = config.basicAuthCredentials.split(":")
+    const [requiredUserName, requiredPassword] =
+      config.basicAuthCredentials.split(":")
 
     allow = username === requiredUserName && password === requiredPassword
   }
 
   if (!allow) {
     event.res.statusCode = 401
-    event.res.setHeader("WWW-Authenticate", "Basic realm=\"boilerplate\"")
+    event.res.setHeader("WWW-Authenticate", 'Basic realm="boilerplate"')
     event.res.end("Unauthorized")
   }
 })

@@ -1,21 +1,26 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { api } from "@effect-ts-app/api-api/api"
-
-// import * as Sentry from "@sentry/node"
-import * as _cfg from "./config.js"
+import { api } from "@effect-ts-app/boilerplate-api-api/api"
+import { CauseException } from "@effect-ts-app/boilerplate-infra/errors"
+import { reportError } from "@effect-ts-app/boilerplate-infra/lib/errorReporter"
+import { ApiConfig, BaseConfig } from "./config.js"
 import { Emailer, MemQueue } from "./services.js"
 
-import type {} from "@effect-ts-app/boilerplate-infra/services/Emailer/fake"
-import type {} from "@effect-ts-app/boilerplate-infra/services/Emailer/Sendgrid"
+import { runtimeDebug } from "@effect/io/Debug"
 
-const { QUEUE_URL, SENDGRID_API_KEY } = _cfg
-const SUPPORTED_MODES = ["ALL", "API"] as const
+if (process.argv.includes("--debug")) {
+  runtimeDebug.minumumLogLevel = "Debug"
+  runtimeDebug.traceExecutionLogEnabled = true
+}
+
+const SUPPORTED_MODES = ["PRINT", "ALL", "API"] as const
+
+const appConfig = BaseConfig.config.unsafeRunSync$
 
 // Sentry.init({
-//   dsn: SENTRY_DSN,
-//   environment: ENV,
-//   enabled: ENV !== "local-dev",
-//   release: _cfg.API_VERSION,
+//   dsn: appConfig.sentry.dsn.value,
+//   environment: appConfig.env,
+//   enabled: appConfig.env !== "local-dev",
+//   release: appConfig.apiVersion,
 //   // Set tracesSampleRate to 1.0 to capture 100%
 //   // of transactions for performance monitoring.
 //   // We recommend adjusting this value in production
@@ -32,32 +37,38 @@ const main = Effect.gen(function*($) {
 
   switch (mode) {
     case "ALL": {
-      const cfg = { ..._cfg, ..._cfg.API() }
+      const apiConfig = yield* $(ApiConfig.config)
+      const cfg = { ...appConfig, ...apiConfig }
       console.debug(`Config: ${JSON.stringify(cfg, undefined, 2)}`)
 
-      return [yield* $(api(cfg).fork)]
+      return yield* $(Effect.never().scoped.provideLayer(api(cfg)))
     }
 
     case "API": {
-      const cfg = { ..._cfg, ..._cfg.API() }
+      const apiConfig = yield* $(ApiConfig.config)
+      const cfg = { ...appConfig, ...apiConfig }
       console.debug(`Config: ${JSON.stringify(cfg, undefined, 2)}`)
 
-      if (!QUEUE_URL.startsWith("Endpoint=")) {
-        throw new Error("Cannot run with an in-process queue")
-      }
-      return [yield* $(api(cfg).fork)]
+      return yield* $(Effect.never().scoped.provideLayer(api(cfg)))
     }
   }
 })
 
-const processes = main
-  .flatMap(_ => Fiber.joinAll(_))
-
-const program = processes
+const program = main
   .provideSomeLayer(
-    (SENDGRID_API_KEY ? Emailer.LiveSendgrid({ ..._cfg, SENDGRID_API_KEY }) : Emailer.Fake)
+    (appConfig.sendgrid.apiKey
+      ? Emailer.LiveSendgrid(Config.succeed(appConfig.sendgrid))
+      : Emailer.Fake)
       > MemQueue.Live
-      > Logger.consoleLoggerLayer
   )
 
-program.runMain()
+export class AppException<E> extends CauseException<E> {
+  constructor(cause: Cause<E>) {
+    super(cause, "App")
+  }
+}
+export const reportAppError = reportError(cause => new AppException(cause))
+
+program
+  .tapErrorCause(reportAppError)
+  .runMain$()

@@ -1,16 +1,10 @@
 {
-  "name": "@effect-ts-app/playground",
-  "version": "0.6.3",
+  "name": "@effect-ts-app/boilerplate-playground",
+  "version": "0.0.1",
   "license": "MIT",
   "type": "module",
-  "resolutions": {
-    "typescript": "https://cdn.jsdelivr.net/npm/@tsplus/installer@0.0.159/compiler/typescript.tgz"
-  },
-  "peerDependencies": {
-    "@effect-ts-app/boilerplate-prelude": "^0.7.1"
-  },
   "dependencies": {
-    "@fp-ts/optic": "^0.0.3",
+    "@effect-ts-app/boilerplate-prelude": "^2.3.16",
     "change-case": "^4.1.2",
     "cross-fetch": "^3.1.5",
     "path-parser": "^6.1.0"
@@ -19,16 +13,6 @@
     "ts-node": "^10.9.1"
   },
   "exports": {
-    "./*.js": {
-      "import": {
-        "types": "./dist/*.d.ts",
-        "default": "./dist/*.js"
-      },
-      "require": {
-        "types": "./dist/*.d.ts",
-        "default": "./_cjs/*.cjs"
-      }
-    },
     "./*": {
       "import": {
         "types": "./dist/*.d.ts",
@@ -41,7 +25,7 @@
     }
   },
   "scripts": {
-    "build": "pnpm clean-dist && NODE_OPTIONS=--max-old-space-size=6144 tsc --build && pnpm build2:cjs",
+    "build": "pnpm clean-dist && NODE_OPTIONS=--max-old-space-size=6144 tsc --build",
     "build2:cjs": "rm -rf _cjs && babel dist --config-file ../.babel.cjs.json --out-dir _cjs --out-file-extension .cjs --source-maps",
     "watch": "pnpm build --watch",
     "watch2": "pnpm clean-dist && NODE_OPTIONS=--max-old-space-size=6144 tsc -w",

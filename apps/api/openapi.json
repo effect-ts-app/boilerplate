@@ -60,18 +60,148 @@
                 "schema": {
                   "properties": {
                     "id": {
-                      "format": "uuid",
+                      "minLength": 6,
+                      "maxLength": 50,
                       "type": "string"
                     },
-                    "name": {
-                      "$ref": "#/components/schemas/FullName"
+                    "displayName": {
+                      "minLength": 1,
+                      "maxLength": 255,
+                      "type": "string"
+                    },
+                    "role": {
+                      "enum": [
+                        "manager",
+                        "user"
+                      ],
+                      "type": "string"
                     }
                   },
                   "required": [
                     "id",
-                    "name"
+                    "displayName",
+                    "role"
                   ],
                   "type": "object"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "ValidationError"
+          }
+        }
+      }
+    },
+    "/operations/{id}": {
+      "get": {
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "minLength": 6,
+              "maxLength": 50,
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "id": {
+                      "minLength": 6,
+                      "maxLength": 50,
+                      "type": "string"
+                    },
+                    "progress": {
+                      "properties": {
+                        "completed": {
+                          "minimum": 0,
+                          "type": "number"
+                        },
+                        "total": {
+                          "minimum": 0,
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "completed",
+                        "total"
+                      ],
+                      "type": "object"
+                    },
+                    "result": {
+                      "oneOf": [
+                        {
+                          "properties": {
+                            "_tag": {
+                              "enum": [
+                                "Success"
+                              ],
+                              "type": "string"
+                            },
+                            "message": {
+                              "minLength": 1,
+                              "maxLength": 2047,
+                              "type": "string",
+                              "nullable": true
+                            }
+                          },
+                          "required": [
+                            "_tag",
+                            "message"
+                          ],
+                          "type": "object"
+                        },
+                        {
+                          "properties": {
+                            "_tag": {
+                              "enum": [
+                                "Failure"
+                              ],
+                              "type": "string"
+                            },
+                            "message": {
+                              "minLength": 1,
+                              "maxLength": 2047,
+                              "type": "string",
+                              "nullable": true
+                            }
+                          },
+                          "required": [
+                            "_tag",
+                            "message"
+                          ],
+                          "type": "object"
+                        }
+                      ],
+                      "discriminator": {
+                        "propertyName": "_tag"
+                      }
+                    },
+                    "createdAt": {
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    "updatedAt": {
+                      "format": "date-time",
+                      "type": "string",
+                      "nullable": true
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "createdAt",
+                    "updatedAt"
+                  ],
+                  "type": "object",
+                  "nullable": true
                 }
               }
             }
@@ -92,40 +222,31 @@
       }
     },
     "schemas": {
-      "FullName": {
-        "title": "FullName",
-        "properties": {
-          "firstName": {
-            "minLength": 1,
-            "maxLength": 255,
-            "type": "string"
-          },
-          "lastName": {
-            "minLength": 1,
-            "maxLength": 255,
-            "type": "string"
-          }
-        },
-        "required": [
-          "firstName",
-          "lastName"
-        ],
-        "type": "object"
-      },
       "User": {
         "title": "User",
         "properties": {
           "id": {
-            "format": "uuid",
+            "minLength": 6,
+            "maxLength": 50,
             "type": "string"
           },
-          "name": {
-            "$ref": "#/components/schemas/FullName"
+          "displayName": {
+            "minLength": 1,
+            "maxLength": 255,
+            "type": "string"
+          },
+          "role": {
+            "enum": [
+              "manager",
+              "user"
+            ],
+            "type": "string"
           }
         },
         "required": [
           "id",
-          "name"
+          "displayName",
+          "role"
         ],
         "type": "object"
       }

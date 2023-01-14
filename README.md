@@ -15,7 +15,7 @@
 a) `pnpm build -w`
 b) `cd apps/api && pnpm dev`
 
-Visit: http://localhost:3651/docs
+Visit: http://localhost:3610/docs
 The API is also proxied in the frontend on /api
 
 ### Frontend (Nuxt)

@@ -1,8 +1,8 @@
 {
   "importMap": {
-    "^(.*)/apps/(.*)/_src/(.*)\\.[cm]?[tj]s$": "@effect-ts-app/$2/$3",
-    "^(.*)/packages/(.*)/_src/(.*)\\.[cm]?[tj]s$": "@effect-ts-app/$2/$3",
-    "^(.*)/node_modules/@effect-ts-app/(.*)/_src/(.*)\\.[cm]?[tj]s$": "@effect-ts-app/$2/$3",
-    "^\\.pnpm/(.*)/node_modules/(.*)$": "$2"
+    "^(.*)/apps/(.*)/_src/(.*)\\.[cm]?[tj]s$": "@effect-ts-app/boilerplate-$2/$3",
+    "^(.*)/packages/(.*)/_src/(.*)\\.[cm]?[tj]s$": "@effect-ts-app/boilerplate-$2/$3",
+    "^(.*)/node_modules/@effect-ts-app/boilerplate-(.*)/_src/(.*)\\.[cm]?[tj]s$": "@effect-ts-app/boilerplate-$2/$3",
+    "^(.*)/node_modules/(.*)\\.[cm]?[tj]s$": "$2"
   }
 }

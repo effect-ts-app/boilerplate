@@ -1,39 +1,17 @@
 {
   "extends": "../tsconfig.base.json",
   "compilerOptions": {
+    "tsPlusEnabled": false,
+    "tsPlusTypes": [],
     "baseUrl": ".",
-    "target": "es5",
+    // "target": "es5",
     "noEmit": true,
-    "moduleResolution": "node",
+    // "moduleResolution": "node",
     "lib": [
       "es5",
       "dom"
     ],
     "paths": {
-      "@effect-ts-app/core": [
-        "../node_modules/@effect-ts-app/core/dist"
-      ],
-      "@effect-ts-app/core/*": [
-        "../node_modules/@effect-ts-app/core/dist/*"
-      ],
-      "@effect-ts-app/schema": [
-        "../node_modules/@effect-ts-app/schema/dist"
-      ],
-      "@effect-ts-app/schema/*": [
-        "../node_modules/@effect-ts-app/schema/dist/*"
-      ],
-      "@effect-ts-app/client/*": [
-        "../packages/client/_src/*"
-      ],
-      "@effect-ts-app/types/*": [
-        "../packages/types/_src/*"
-      ],
-      "@effect-ts-app/boilerplate-prelude/*": [
-        "../node_modules/@effect-ts-app/boilerplate-prelude/dist/*"
-      ],
-      "@effect-ts-app/boilerplate-prelude": [
-        "../node_modules/@effect-ts-app/boilerplate-prelude/dist"
-      ],
       "@/*": [
         "./*"
       ]
@@ -47,6 +25,11 @@
       {
         "name": "ts-transform-paths",
         "position": "afterDeclaration"
+      },
+      {
+        "name": "@effect/language-service/transformer",
+        "trace": {},
+        //"debug": {}
       },
     ]
   },
