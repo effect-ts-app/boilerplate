@@ -2,17 +2,17 @@ import "playwright-core"
 
 import type { Page } from "@playwright/test"
 
-import type { TestSelector } from "../helpers/@types/enhanced-selectors"
-import type { SupportedEnv } from "../helpers/shared"
-import { makeEnv, toBase64 } from "../helpers/shared"
-import type { LocatorAble } from "./types"
-import { locateTest_ } from "./util"
+import type { TestSelector } from "../helpers/@types/enhanced-selectors.js"
+import type { SupportedEnv } from "../helpers/shared.js"
+import { makeEnv, toBase64 } from "../helpers/shared.js"
+import type { LocatorAble } from "./types.js"
+import { locateTest_ } from "./util.js"
 
 declare module "playwright-core" {
   export interface Page {
     locateTest(this: Page, selector: TestSelector): Locator
 
-    runPromise<E, A>(this: Page, self: Effect<SupportedEnv, E, A>): Promise<A>
+    unsafeRunPromise<E, A>(this: Page, self: Effect<SupportedEnv, E, A>): Promise<A>
   }
 
   export interface Locator {
@@ -30,7 +30,7 @@ Object.defineProperty(Object.prototype, "locateTest", {
 })
 
 // TODO: the downside is that this is not "bound", so you can't pass the function around in pipes etc.
-Object.defineProperty(Object.prototype, "runPromise", {
+Object.defineProperty(Object.prototype, "unsafeRunPromise", {
   async value<E, A>(this: Page, self: Effect<SupportedEnv, E, A>) {
     // TODO; proper
     // TODO: we probably only need to create the ENV once per page object..
@@ -40,7 +40,7 @@ Object.defineProperty(Object.prototype, "runPromise", {
     }
     const user = env("BASIC_AUTH_USER")
     const pass = env("BASIC_AUTH_PASSWORD")
-    const { runPromise } = makeEnv(
+    const { runtime } = makeEnv(
       {
         apiUrl: `${env("BASE_URL") ?? "http://localhost:4000"}/api`,
         headers: {
@@ -55,7 +55,7 @@ Object.defineProperty(Object.prototype, "runPromise", {
       { AUTH_DISABLED: process.env["AUTH_DISABLED"] === "true" }
     )
 
-    return await self["|>"](runPromise)
+    return await self["|>"](runtime.unsafeRunPromise)
   }
 })
 

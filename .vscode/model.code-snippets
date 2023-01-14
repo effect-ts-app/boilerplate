@@ -96,12 +96,12 @@
         "prefix": "handle",
         "body": [
             "import { handle } from \"@effect-ts-app/infra/app\"",
-            "import { $2s } from \"@effect-ts-app/client/$2s\"",
-            "import { Effect, NonEmptyArray, Maybe, Sync } from \"@effect-ts-app/types/Prelude\"",
+            "import { $2s } from \"@effect-ts-app/boilerplate-client/$2s\"",
+            "import { Effect, NonEmptyArray, Maybe, Sync } from \"@effect-ts-app/boilerplate-types/Prelude\"",
             "",
             "export const $1$2 = handle($2s.$1)((req) =>",
             "Effect.gen(function* ($) {",
-            "   yield* $(Effect(null))",
+            "   yield* $(Effect.succeed(null))",
             "}))"
         ]
     }

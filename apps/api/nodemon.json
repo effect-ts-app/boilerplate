@@ -1,9 +1,11 @@
 {
     "ignore": [],
-    "ext": "js,env,local",
+    "ext": "js,env,local,csv",
     "watch": [
         "../api-*/dist/**/*",
         "../../packages/*/dist/**/*",
+        "../../libs/packages/*/dist/**/*",
+        "../../SampleFilePickingList.csv",
         "./dist",
         ".env",
         ".env.local"

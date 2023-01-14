@@ -5,7 +5,7 @@ export const FirstName = ReasonableString["|>"](
     // eslint-disable-next-line @typescript-eslint/unbound-method
     fakerArb(faker => faker.name.firstName)(FC).map(x => x as ReasonableString)
   )
-)
+)["|>"](withDefaults)
 export type FirstName = ParsedShapeOfCustom<typeof FirstName>
 
 export const DisplayName = FirstName
@@ -16,7 +16,7 @@ export const LastName = ReasonableString["|>"](
     // eslint-disable-next-line @typescript-eslint/unbound-method
     fakerArb(faker => faker.name.lastName)(FC).map(x => x as ReasonableString)
   )
-)
+)["|>"](withDefaults)
 export type LastName = ParsedShapeOfCustom<typeof LastName>
 
 /**
@@ -33,7 +33,7 @@ export class FullName extends MNModel<
   lastName: prop(LastName)
 }) {
   static render(this: void, fn: FullName) {
-    return `${fn.firstName} ${fn.lastName}` as ReasonableString // LongString really :P
+    return LongString(`${fn.firstName} ${fn.lastName}`)
   }
 
   static create(this: void, firstName: FirstName, lastName: LastName) {
@@ -44,7 +44,7 @@ export class FullName extends MNModel<
 export type FullNameConstructor = typeof FullName
 
 /**
- * @tsplus fluent FullName show
+ * @tsplus getter FullName show
  */
 export function showFullName(fn: FullName) {
   return FullName.render(fn)
@@ -57,8 +57,11 @@ export function createFullName(firstName: string, lastName: string) {
   return { firstName, lastName }
 }
 
-export const UserId = UUID
-export type UserId = UUID
+export const UserId = StringId
+export type UserId = StringId
+
+export const Role = literal("manager", "user")
+export type Role = ParsedShapeOfCustom<typeof Role>
 
 /**
  * @tsplus type User
@@ -66,9 +69,17 @@ export type UserId = UUID
  */
 @useClassNameForSchema
 export class User extends MNModel<User, User.ConstructorInput, User.Encoded, User.Props>()({
-  id: defaultProp(UserId),
-  name: prop(FullName)
+  id: defaultProp(UserId, UserId.make),
+  displayName: prop(DisplayName),
+  role: prop(Role)
 }) {}
+
+/**
+ * @tsplus getter User show
+ */
+export function showUser(user: User) {
+  return user.displayName
+}
 
 function getProps(u: User) {
   return makePreparedLenses(User.Api.props, u)
@@ -82,7 +93,7 @@ export const props = lazyGetter(getProps)
 /**
  * @tsplus static User equal
  */
-export const defaultEqual = Equivalence.$.contramap((u: User) => u.id)(Equivalence.string)
+export const defaultEqual = Equal.string.contramap((u: User) => u.id)
 
 // TODO
 // let userPool: readonly User[] | null = null
@@ -129,16 +140,18 @@ export namespace FullName {
   export interface Props extends GetProvidedProps<typeof FullName> {}
 }
 export interface User {
-  readonly id: UUID
-  readonly name: FullName
+  readonly displayName: ReasonableString
+  readonly id: StringId
+  readonly role: Role
 }
 export namespace User {
   /**
    * @tsplus type User.Encoded
    */
   export interface Encoded {
+    readonly displayName: string
     readonly id: string
-    readonly name: FullName.Encoded
+    readonly role: Role
   }
   export const Encoded: EncodedOps = { $: {} }
   /**

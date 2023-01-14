@@ -1,20 +1,34 @@
 {
-  "name": "@effect-ts-app/client",
+  "name": "@effect-ts-app/boilerplate-client",
   "version": "0.5.0",
   "license": "MIT",
   "type": "module",
-  "resolutions": {
-    "typescript": "https://cdn.jsdelivr.net/npm/@tsplus/installer@0.0.159/compiler/typescript.tgz"
-  },
   "peerDependencies": {},
   "dependencies": {
-    "@effect-ts-app/boilerplate-prelude": "^1.2.1",
-    "@effect-ts-app/types": "*",
-    "@effect-ts-app/core": "^1.5.1",
-    "@effect-ts-app/schema": "^1.5.1",
-    "change-case": "^4.1.2",
+    "@effect-ts-app/core": "^2.3.9",
+    "@effect-ts-app/schema": "^2.3.9",
+    "@effect-ts-app/boilerplate-prelude": "^2.3.16",
+    "@effect-ts/core": "^0.60.5",
+    "@effect/io": "^0.0.63",
+    "@fp-ts/core": "^0.0.11",
+    "@fp-ts/data": "^0.0.39",
+    "@effect-ts-app/boilerplate-types": "*",
+    "xlsx": "^0.18.5",
+    "camel-case": "^4.1.2",
     "cross-fetch": "^3.1.5",
+    "date-fns": "^2.29.3",
+    "papaparse": "^5.3.2",
     "path-parser": "^6.1.0"
+  },
+  "devDependencies": {
+    "@types/papaparse": "^5.3.7"
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "dist/*"
+      ]
+    }
   },
   "exports": {
     ".": {
@@ -27,14 +41,14 @@
         "default": "./_cjs/index.cjs"
       }
     },
-    "./*.js": {
+    "./Views": {
       "import": {
-        "types": "./dist/*.d.ts",
-        "default": "./dist/*.js"
+        "types": "./dist/Views.d.ts",
+        "default": "./dist/Views.js"
       },
       "require": {
-        "types": "./dist/*.d.ts",
-        "default": "./_cjs/*.cjs"
+        "types": "./dist/Views.d.ts",
+        "default": "./_cjs/Views.cjs"
       }
     },
     "./*": {
@@ -55,15 +69,16 @@
     "watch2": "pnpm clean-dist && NODE_OPTIONS=--max-old-space-size=6144 tsc -w",
     "clean": "rm -rf dist && rm -rf _cjs",
     "clean-dist": "sh ../../scripts/clean-dist.sh",
-    "circular": "madge --circular --ts-config ./tsconfig.json --extensions ts ./_src",
+    "circular": "pnpm circular:src && pnpm circular:dist",
+    "circular:src": "madge --circular --ts-config ./tsconfig.json --extensions ts ./_src",
     "circular:dist": "madge --circular --extensions js ./dist",
     "compile": "NODE_OPTIONS=--max-old-space-size=6144 tsc --noEmit",
-    "lint": "NODE_OPTIONS=--max-old-space-size=6144 ESLINT_TS=1 eslint .",
+    "lint": "NODE_OPTIONS=--max-old-space-size=6144 ESLINT_TS=1 eslint ./_src",
     "lint:watch": "ESLINT_TS=1 esw -w --changed --clear --ext ts,tsx .",
-    "prettier": "prettier \"**/*.ts\"",
     "autofix": "pnpm lint --fix",
-    "test": "TEST_COMPILED=1 vitest",
-    "testsuite": "pnpm lint && pnpm run test --passWithNoTests && pnpm circular && pnpm circular:dist",
+    "test": "vitest",
+    "test:run": "pnpm run test run --passWithNoTests",
+    "testsuite": "pnpm lint && pnpm circular && pnpm run test:run",
     "client": "node --experimental-specifier-resolution=node -r source-map-support/register ./dist/client.bin.js",
     "ncu": "ncu -x date-fns"
   },

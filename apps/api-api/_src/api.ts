@@ -1,38 +1,40 @@
 import { writeOpenapiDocs } from "@effect-ts-app/boilerplate-infra/lib/api/writeDocs"
+import * as Ex from "@effect-ts-app/infra/express/index"
+import type { ApiMainConfig } from "./config.js"
 import * as MW from "./middleware/index.js"
 import * as R from "./routes.js"
-
-import type * as _cfg from "@/config.js"
-import { StoreMakerLive } from "@effect-ts-app/boilerplate-infra/services/Store/index"
-import * as Ex from "@effect-ts-app/infra/express/index"
-import { UserRepository } from "./services.js"
+import { Operations, StoreMaker, UserRepository } from "./services.js"
 import { Events } from "./services/Events.js"
 
 const routes = Effect.struct(R)
 
-export function api(cfg: typeof _cfg & ReturnType<typeof _cfg.API>) {
+export const App = Tag<never>()
+
+export function api(cfg: ApiMainConfig) {
   const logServerStart = Effect.sync(() =>
-    `Running on ${cfg.HOST}:${cfg.PORT} at version: ${cfg.API_VERSION}. ENV: ${cfg.ENV}`
+    `Running on ${cfg.host}:${cfg.port} at version: ${cfg.apiVersion}. ENV: ${cfg.env}`
   )
     .flatMap(Effect.logInfo)
 
   const middleware = MW.events
-    > Ex.use(MW.urlEncoded({ extended: false }), MW.json())
-    > MW.serverHealth(cfg.API_VERSION)
+    > Ex.use(MW.compression())
+    > Ex.use(MW.urlEncoded({ extended: false }), MW.json({ limit: "10mb" /* TODO */ }))
+    > MW.serverHealth(cfg.apiVersion)
     > MW.openapiRoutes
 
   const app = middleware > routes
 
-  return app // API
-    .flatMap(writeOpenapiDocs)
-    .zipRight(logServerStart > Effect.never)
-    .provideSomeLayer(Ex.LiveExpress(cfg.HOST, cfg.PORT))
-    .provideSomeLayer(
-      StoreMakerLive(cfg.STORAGE_URL, {
-        dbName: cfg.serviceName,
-        prefix: cfg.STORAGE_PREFIX
-      })
-        > UserRepository.Live()
+  return Events.Live
+    > StoreMaker.Live(cfg.storage)
+    > UserRepository.Live(
+      cfg.fakeUsers === "sample" ? "sample" : ""
     )
-    .provideSomeLayer(Events.Live)
+    > Operations.Live
+    > Ex.LiveExpress(cfg.host, cfg.port)
+    > App.scoped( // API
+      app
+        .flatMap(writeOpenapiDocs)
+        .zipRight(logServerStart)
+        .map(_ => _ as never)
+    )
 }

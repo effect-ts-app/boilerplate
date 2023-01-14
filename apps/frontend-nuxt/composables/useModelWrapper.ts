@@ -38,6 +38,6 @@ export function useValueWrapper_<T, Name extends string>(
 ) {
   return computed({
     get: () => props[name],
-    set: value => emit(`update:${name}`, value)
+    set: value => emit(`update:${name}`, value),
   })
 }

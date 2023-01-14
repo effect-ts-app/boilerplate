@@ -1,20 +1,21 @@
 <script setup lang="ts">
-import { unsafe } from "@effect-ts-app/schema";
-import { ClientEvents } from "@effect-ts-app/client";
+import { unsafe } from "@effect-ts-app/schema"
+import { ClientEvents } from "@effect-ts-app/boilerplate-client"
+
 const parseEvent = unsafe(ClientEvents.Parser)
 onMountedWithCleanup(() => {
-  const source = new EventSource('/api/events');
+  const source = new EventSource("/api/events")
 
   const listener = (message: MessageEvent<any>) => {
-    console.log('Got', message);
+    console.log("Got", message)
     const evt = parseEvent(JSON.parse(message.data))
     bus.emit("serverEvents", evt)
   }
-  source.addEventListener('message', listener);
+  source.addEventListener("message", listener)
 
   return () => {
     console.log("$closing source")
-    source.removeEventListener('message', listener)
+    source.removeEventListener("message", listener)
     source.close()
   }
 })

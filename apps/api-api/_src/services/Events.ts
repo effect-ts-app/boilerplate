@@ -1,11 +1,12 @@
-import type { ClientEvents } from "@effect-ts-app/client"
+import type { ClientEvents } from "@effect-ts-app/boilerplate-client"
+import type { Dequeue } from "@effect/io/Queue"
 
 const makeEvents = Do($ => {
   const q = $(Hub.unbounded<Evt>())
   const svc: Events = {
     publish: (evt: Evt) => q.offer(evt),
-    publishAll: (events: Collection<Evt>) => q.offerAll(events),
-    subscribe: q.subscribe
+    publishAll: (events: Iterable<Evt>) => q.offerAll(events),
+    subscribe: q.subscribe()
   }
   return svc
 })
@@ -15,7 +16,7 @@ const makeEvents = Do($ => {
  */
 export interface Events {
   publish: (evt: Evt) => Effect<never, never, void>
-  publishAll: (events: NonEmptyArray<Evt>) => Effect<never, never, void>
+  publishAll: (events: NonEmptyReadonlyArray<Evt>) => Effect<never, never, void>
   subscribe: Effect<Scope, never, Dequeue<Evt>>
 }
 
@@ -28,6 +29,6 @@ export const Events: EventsOps = Tag<Events>()
 /**
  * @tsplus static Events.Ops Live
  */
-export const LiveEvents = Layer.fromEffect(Events)(makeEvents)
+export const LiveEvents = makeEvents.toLayer(Events)
 
 type Evt = ClientEvents

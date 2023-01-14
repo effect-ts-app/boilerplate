@@ -1,1 +1,1 @@
-declare module 'vue-timeago3';
+declare module "vue-timeago3"

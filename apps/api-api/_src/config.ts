@@ -1,25 +1,31 @@
-import { ENV } from "@effect-ts-app/messages/config"
+import { BaseConfig } from "@effect-ts-app/boilerplate-messages/config"
 
-export function API() {
-  const {
-    FAKE_DATA = "",
-    HOST = "0.0.0.0",
-    PORT: PROVIDED_PORT = "3651",
-    STORAGE_PREFIX: PROVIDED_STORAGE_PREFIX,
-    STORAGE_URL = "mem://"
-  } = process.env
-  const PORT = parseInt(PROVIDED_PORT)
+const STORAGE_VERSION = "1"
 
-  const STORAGE_VERSION = "1"
-  const STORAGE_PREFIX = PROVIDED_STORAGE_PREFIX ?? (ENV === "prod" ? "" : `${ENV}_v${STORAGE_VERSION}_`)
+const StorageConfig = Config.struct({
+  url: Config.secretURL("STORAGE_URL").withDefault(ConfigSecretURL.fromString("mem://")),
+  dbName: BaseConfig.map(({ env, serviceName }) =>
+    `${serviceName}${env === "prod" ? "" : env === "demo" ? "-demo" : "-dev"}`
+  ),
+  prefix: Config.string("STORAGE_PREFIX").orElse(() =>
+    BaseConfig.map(({ env }) => (env === "prod" ? "" : `${env}_v${STORAGE_VERSION}_`))
+  )
+})
 
-  return {
-    FAKE_DATA,
-    HOST,
-    PORT,
-    STORAGE_URL,
-    STORAGE_PREFIX
-  }
-}
+export const ApiConfig = Config.struct({
+  host: Config.string("HOST").withDefault("0.0.0.0"),
+  port: Config.integer("PORT").withDefault(3610),
 
-export * from "@effect-ts-app/messages/config"
+  fakeData: Config.string("FAKE_DATA").withDefault(""),
+  fakeUsers: Config.string("FAKE_USERS").withDefault("sample"),
+
+  storage: StorageConfig
+})
+
+type ConfigA<Cfg> = Cfg extends Config.Variance<infer A> ? A : never
+
+export interface ApiConfig extends ConfigA<typeof ApiConfig> {}
+
+export interface ApiMainConfig extends ApiConfig, BaseConfig {}
+
+export * from "@effect-ts-app/boilerplate-messages/config"

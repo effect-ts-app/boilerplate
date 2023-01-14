@@ -1,4 +1,5 @@
-import type { ClientEvents } from "@effect-ts-app/client"
+import type { ClientEvents } from "@effect-ts-app/boilerplate-client"
+
 import mitt from "mitt"
 
 type Events = {

@@ -1,30 +1,39 @@
 {
-  "name": "@effect-ts-app/types",
+  "name": "@effect-ts-app/boilerplate-types",
   "version": "0.5.0",
   "license": "MIT",
   "type": "module",
-  "resolutions": {
-    "typescript": "https://cdn.jsdelivr.net/npm/@tsplus/installer@0.0.159/compiler/typescript.tgz"
-  },
   "dependencies": {
-    "@effect-ts-app/boilerplate-prelude": "^1.2.1",
-    "@effect-ts-app/core": "^1.5.1",
-    "@effect-ts-app/schema": "^1.5.1",
+    "@effect-ts-app/core": "^2.3.9",
+    "@effect-ts-app/schema": "^2.3.9",
+    "@effect-ts-app/boilerplate-prelude": "^2.3.16",
+    "@effect-ts/core": "^0.60.5",
+    "@effect/io": "^0.0.63",
+    "@fp-ts/core": "^0.0.11",
+    "@fp-ts/data": "^0.0.39",
+    "date-fns": "^2.29.3",
     "uuid": "^9.0.0",
     "validator": "^13.7.0"
   },
   "peerDependencies": {
     "date-fns": "^2.29.3"
   },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "dist/*"
+      ]
+    }
+  },
   "exports": {
-    "./PickList": {
+    "./ext": {
       "import": {
-        "types": "./dist/PickList.d.ts",
-        "default": "./dist/PickList.js"
+        "types": "./dist/ext.d.ts",
+        "default": "./dist/ext.js"
       },
       "require": {
-        "types": "./dist/PickList.d.ts",
-        "default": "./_cjs/PickList.cjs"
+        "types": "./dist/ext.d.ts",
+        "default": "./_cjs/ext.cjs"
       }
     },
     "./User": {
@@ -35,16 +44,6 @@
       "require": {
         "types": "./dist/User.d.ts",
         "default": "./_cjs/User.cjs"
-      }
-    },
-    "./*.js": {
-      "import": {
-        "types": "./dist/*.d.ts",
-        "default": "./dist/*.js"
-      },
-      "require": {
-        "types": "./dist/*.d.ts",
-        "default": "./_cjs/*.cjs"
       }
     },
     "./*": {
@@ -63,7 +62,7 @@
     "@types/faker": "5.5.9",
     "@types/uuid": "^9.0.0",
     "faker": "^5.5.3",
-    "fast-check": "^3.3.0"
+    "fast-check": "^3.5.0"
   },
   "scripts": {
     "build": "pnpm clean-dist && NODE_OPTIONS=--max-old-space-size=6144 tsc --build",
@@ -72,15 +71,16 @@
     "watch2": "pnpm clean-dist && NODE_OPTIONS=--max-old-space-size=6144 tsc -w",
     "clean": "rm -rf dist && rm -rf _cjs",
     "clean-dist": "sh ../../scripts/clean-dist.sh",
-    "circular": "madge --circular --ts-config ./tsconfig.json --extensions ts ./_src",
+    "circular": "pnpm circular:src && pnpm circular:dist",
+    "circular:src": "madge --circular --ts-config ./tsconfig.json --extensions ts ./_src",
     "circular:dist": "madge --circular --extensions js ./dist",
     "compile": "NODE_OPTIONS=--max-old-space-size=6144 tsc --noEmit",
-    "lint": "NODE_OPTIONS=--max-old-space-size=6144 ESLINT_TS=1 eslint .",
+    "lint": "NODE_OPTIONS=--max-old-space-size=6144 ESLINT_TS=1 eslint ./_src",
     "lint:watch": "ESLINT_TS=1 esw -w --changed --clear --ext ts,tsx .",
-    "prettier": "prettier \"**/*.ts\"",
     "autofix": "pnpm lint --fix",
-    "test": "TEST_COMPILED=1 vitest",
-    "testsuite": "pnpm lint && pnpm run test --passWithNoTests && pnpm circular && pnpm circular:dist",
+    "test": "vitest",
+    "test:run": "pnpm run test run --passWithNoTests",
+    "testsuite": "pnpm lint && pnpm circular && pnpm run test:run",
     "ncu": "ncu -x @types/faker,faker,date-fns"
   },
   "gitHead": "bd8e27eea3eff97db8739d577d67e7336c078d28",

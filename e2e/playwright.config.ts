@@ -1,20 +1,25 @@
 // This config file will be imported into each test
-import "./playwright/extend"
+import "./playwright/extend.js"
 
 import type { PlaywrightTestConfig } from "@playwright/test"
 
+const basicAuthCredentials = process.env["BASIC_AUTH_CREDENTIALS"]
+
 const config: PlaywrightTestConfig = {
-  globalSetup: require.resolve("./global-setup"),
+  globalSetup: "./global-setup.ts",
   forbidOnly: !!process.env["CI"],
   retries: process.env["CI"] ? 2 : 0,
   // workers: process.env["CI"] ? 4 : 2,
   use: {
-    baseURL: process.env["CYPRESS_BASE_URL"] ?? "http://localhost:4000",
+    baseURL: process.env["BASE_URL"] ?? "http://localhost:4000",
+    extraHTTPHeaders: basicAuthCredentials ? {
+      'authorization': `Basic ${Buffer.from(basicAuthCredentials).toString("base64")}`
+    }: {},
     // Tell all tests to load signed-in state from 'storageState.json'.
-    storageState: "storageState.supplier.json",
+    storageState: "storageState.user.json",
     viewport: { width: 1280, height: 720 },
     ignoreHTTPSErrors: true,
-    video: process.env["VIDEO"] ? "retain-on-failure" : "on-first-retry",
+    video: process.env["VIDEO"] ? process.env["VIDEO"] as any : "on-first-retry",
     screenshot: "only-on-failure"
     // video: process.env["CI"] ? "on-first-retry" : "retain-on-failure",
   }

@@ -5,14 +5,15 @@
         "**/dist/*",
         "**/.swc/*",
         "**/.data/*",
-        "**/.jest-cache/*",
         "**/.logs/*"
     ],
-    "ext": "ts,env,local",
+    "ext": "ts,env,local,csv",
     "watch": [
         "../api-*/**/*",
         "../../packages/**/*",
+        "../../libs/packages/**/*",
         ".",
+        "../../SampleFilePickingList.csv",
         ".env",
         ".env.local"
     ],
