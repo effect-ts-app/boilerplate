@@ -3,9 +3,6 @@ import { MeRsc } from "@effect-ts-app/boilerplate-client"
 import { useSafeQuery, isInitializing } from "@effect-ts-app/boilerplate-vue"
 import { onMounted } from "vue"
 import { useRouter } from "vue-router"
-import { NuxtLink } from "~~/.nuxt/components"
-import { clientFor } from "~~/composables/client"
-import { getUserId } from "~~/composables/currentUser"
 
 const meClient = clientFor(MeRsc)
 const [userResult, currentUser, getCurrentUser] = useSafeQuery(meClient.get)
