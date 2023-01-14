@@ -1,170 +1,197 @@
+import { StringId } from "@effect-ts-app/boilerplate-prelude/schema"
+import { LongString } from "@effect-ts-app/schema"
+import type { Infer } from "@effect-ts-app/schema2"
 
+import * as S from "@fp-ts/schema/Schema"
 
-export const FirstName = ReasonableString["|>"](
-  Schema.arbitrary(FC => fakerArb(faker => faker.name.firstName)(FC).map(_ => ReasonableString.parse(_)))
-)
-export type FirstName = ParsedShapeOfCustom<typeof FirstName>
+export const FirstName: Schema<ReasonableString> = ReasonableString
+  .annotations({
+    [Annotations.CustomId]: { type: "FirstName" },
+    [Annotations.ArbitraryHookId]: Hook.hook(() =>
+      Arbitrary.make(
+        FirstName,
+        fc => fakerArb(faker => () => faker.name.firstName())(fc).map(s => s as ReasonableString)
+      )
+    )
+  })
+export type FirstName = Infer<typeof FirstName>
 
 export const DisplayName = FirstName
-export type DisplayName = ParsedShapeOfCustom<typeof DisplayName>
+export type DisplayName = Infer<typeof DisplayName>
 
-export const LastName = ReasonableString["|>"](
-  arbitrary(FC =>
-    // eslint-disable-next-line @typescript-eslint/unbound-method
-    fakerArb(faker => faker.name.lastName)(FC).map(x => x as ReasonableString)
-  )
-)["|>"](withDefaults)
-export type LastName = ParsedShapeOfCustom<typeof LastName>
+export const LastName: Schema<ReasonableString> = ReasonableString
+  .annotations({
+    [Annotations.CustomId]: { type: "LastName" },
+    [Annotations.ArbitraryHookId]: Hook.hook(() =>
+      Arbitrary.make(
+        LastName,
+        fc => fakerArb(faker => () => faker.name.lastName())(fc).map(s => s as ReasonableString)
+      )
+    )
+  })
+export type LastName = Infer<typeof LastName>
+
+// somehow must use S.struct, or tsplus breaks as soon as @tsplus type annotation is added
+export const FullName = S.struct({
+  firstName: FirstName,
+  lastName: LastName
+})
 
 /**
  * @tsplus type FullName
  */
-@useClassNameForSchema
-export class FullName extends MNModel<
-  FullName,
-  FullName.ConstructorInput,
-  FullName.Encoded,
-  FullName.Props
->()({
-  firstName: prop(FirstName),
-  lastName: prop(LastName)
-}) {
-  static render(this: void, fn: FullName) {
-    return LongString(`${fn.firstName} ${fn.lastName}`)
-  }
+export interface FullName extends Infer<typeof FullName> {}
 
-  static create(this: void, firstName: FirstName, lastName: LastName) {
-    return new FullName({ firstName, lastName })
-  }
-}
-/** @ignore @internal @deprecated */
-export type FullNameConstructor = typeof FullName
+// @useClassNameForSchema
+// export class FullName extends MNModel<
+//   FullName,
+//   FullName.ConstructorInput,
+//   FullName.Encoded,
+//   FullName.Props
+// >()({
+//   firstName: prop(FirstName),
+//   lastName: prop(LastName)
+// }) {
+//   static render(this: void, fn: FullName) {
+//     return LongString(`${fn.firstName} ${fn.lastName}`)
+//   }
+
+//   static create(this: void, firstName: FirstName, lastName: LastName) {
+//     return new FullName({ firstName, lastName })
+//   }
+// }
+// /** @ignore @internal @deprecated */
+// export type FullNameConstructor = typeof FullName
 
 /**
  * @tsplus getter FullName show
  */
 export function showFullName(fn: FullName) {
-  return FullName.render(fn)
+  return LongString(`${fn.firstName} ${fn.lastName}`)
 }
 
-/**
- * @tsplus static FullName.Encoded.Ops create
- */
-export function createFullName(firstName: string, lastName: string) {
-  return { firstName, lastName }
-}
+// /**
+//  * @tsplus static FullName.Encoded.Ops create
+//  */
+// export function createFullName(firstName: string, lastName: string): FullName {
+//   return { firstName, lastName }
+// }
 
 export const UserId = StringId
 export type UserId = StringId
 
-export const Role = literal("manager", "user")
-export type Role = ParsedShapeOfCustom<typeof Role>
+export const Role = Schema.literal("manager", "user")
+export type Role = Infer<typeof Role>
 
-/**
- * @tsplus type User
- * @tsplus companion User
- */
-@useClassNameForSchema
-export class User extends MNModel<User, User.ConstructorInput, User.Encoded, User.Props>()({
-  id: defaultProp(UserId, UserId.make),
-  displayName: prop(DisplayName),
-  role: prop(Role)
-}) {}
+// export const User = S.struct({
+//   id: UserId
+// })
 
-/**
- * @tsplus getter User show
- */
-export function showUser(user: User) {
-  return user.displayName
-}
+// /**
+//  * @tsplus type User
+//  * @tsplus companion User
+//  */
+// @useClassNameForSchema
+// export class User extends MNModel<User, User.ConstructorInput, User.Encoded, User.Props>()({
+//   id: defaultProp(UserId, UserId.make),
+//   displayName: prop(DisplayName),
+//   role: prop(Role)
+// }) {}
 
-function getProps(u: User) {
-  return makePreparedLenses(User.Api.props, u)
-}
-
-/**
- * @tsplus getter User props
- */
-export const props = lazyGetter(getProps)
-
-/**
- * @tsplus static User equal
- */
-export const defaultEqual = Equal.string.contramap((u: User) => u.id)
-
-// TODO
-// let userPool: readonly User[] | null = null
-// export function setUserPool(pool: readonly User[] | null) {
-//   userPool = pool
+// /**
+//  * @tsplus getter User show
+//  */
+// export function showUser(user: User) {
+//   return user.displayName
 // }
 
-// const User___ = union({ RegisteredUser, Guest, Ghost, Archived })
-// const userArb = Arbitrary.for(User___)
-// const User_ = enhanceClassUnion(
-//   OpaqueSchema<User, User.Encoded>()(User___)
-//     ["|>"](arbitrary(_ => (userPool ? _.constantFrom(...userPool) : userArb(_))))
-//     ["|>"](withDefaults)
+// function getProps(u: User) {
+//   return makePreparedLenses(User.Api.props, u)
+// }
 
-/** @ignore @internal @deprecated */
-export type UserConstructor = typeof User
+// /**
+//  * @tsplus getter User props
+//  */
+// export const props = lazyGetter(getProps)
 
-// codegen:start {preset: model}
-//
-/* eslint-disable */
-export interface FullName {
-  readonly firstName: ReasonableString
-  readonly lastName: ReasonableString
-}
-export namespace FullName {
-  /**
-   * @tsplus type FullName.Encoded
-   */
-  export interface Encoded {
-    readonly firstName: string
-    readonly lastName: string
-  }
-  export const Encoded: EncodedOps = { $: {} }
-  /**
-   * @tsplus type FullName.Encoded/Aspects
-   */
-  export interface EncodedAspects {}
-  /**
-   * @tsplus type FullName.Encoded/Ops
-   */
-  export interface EncodedOps { $: EncodedAspects }
-  export interface ConstructorInput
-    extends ConstructorInputFromApi<typeof FullName> {}
-  export interface Props extends GetProvidedProps<typeof FullName> {}
-}
-export interface User {
-  readonly displayName: ReasonableString
-  readonly id: StringId
-  readonly role: Role
-}
-export namespace User {
-  /**
-   * @tsplus type User.Encoded
-   */
-  export interface Encoded {
-    readonly displayName: string
-    readonly id: string
-    readonly role: Role
-  }
-  export const Encoded: EncodedOps = { $: {} }
-  /**
-   * @tsplus type User.Encoded/Aspects
-   */
-  export interface EncodedAspects {}
-  /**
-   * @tsplus type User.Encoded/Ops
-   */
-  export interface EncodedOps { $: EncodedAspects }
-  export interface ConstructorInput
-    extends ConstructorInputFromApi<typeof User> {}
-  export interface Props extends GetProvidedProps<typeof User> {}
-}
-/* eslint-enable */
-//
-// codegen:end
-//
-/* eslint-disable */
+// /**
+//  * @tsplus static User equal
+//  */
+// export const defaultEqual = Equal.string.contramap((u: User) => u.id)
+
+// // TODO
+// // let userPool: readonly User[] | null = null
+// // export function setUserPool(pool: readonly User[] | null) {
+// //   userPool = pool
+// // }
+
+// // const User___ = union({ RegisteredUser, Guest, Ghost, Archived })
+// // const userArb = Arbitrary.for(User___)
+// // const User_ = enhanceClassUnion(
+// //   OpaqueSchema<User, User.Encoded>()(User___)
+// //     ["|>"](arbitrary(_ => (userPool ? _.constantFrom(...userPool) : userArb(_))))
+// //     ["|>"](withDefaults)
+
+// /** @ignore @internal @deprecated */
+// export type UserConstructor = typeof User
+
+// // codegen:start {preset: model}
+// //
+// /* eslint-disable */
+// export interface FullName {
+//   readonly firstName: unknown
+//   readonly lastName: unknown
+// }
+// export namespace FullName {
+//   /**
+//    * @tsplus type FullName.Encoded
+//    */
+//   export interface Encoded {
+//     readonly firstName: unknown
+//     readonly lastName: unknown
+//   }
+//   export const Encoded: EncodedOps = { $: {} }
+//   /**
+//    * @tsplus type FullName.Encoded/Aspects
+//    */
+//   export interface EncodedAspects {}
+//   /**
+//    * @tsplus type FullName.Encoded/Ops
+//    */
+//   export interface EncodedOps { $: EncodedAspects }
+//   export interface ConstructorInput
+//     extends ConstructorInputFromApi<typeof FullName> {}
+//   export interface Props extends GetProvidedProps<typeof FullName> {}
+// }
+// export interface User {
+//   readonly displayName: unknown
+//   readonly id: StringId
+//   readonly role: Role
+// }
+// export namespace User {
+//   /**
+//    * @tsplus type User.Encoded
+//    */
+//   export interface Encoded {
+//     readonly displayName: unknown
+//     readonly id: string
+//     readonly role: Role
+//   }
+//   export const Encoded: EncodedOps = { $: {} }
+//   /**
+//    * @tsplus type User.Encoded/Aspects
+//    */
+//   export interface EncodedAspects {}
+//   /**
+//    * @tsplus type User.Encoded/Ops
+//    */
+//   export interface EncodedOps { $: EncodedAspects }
+//   export interface ConstructorInput
+//     extends ConstructorInputFromApi<typeof User> {}
+//   export interface Props extends GetProvidedProps<typeof User> {}
+// }
+// /* eslint-enable */
+// //
+// // codegen:end
+// //
+// /* eslint-disable */

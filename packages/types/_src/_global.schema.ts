@@ -1,5 +1,20 @@
 /* eslint-disable unused-imports/no-unused-imports */
-import "@effect-ts-app/boilerplate-prelude/_global.schema2"
+// import "@effect-ts-app/boilerplate-prelude/_global.schema2"
+
+/**
+ * @tsplus global
+ */
+import {
+  Annotations,
+  Arbitrary,
+  fakerArb,
+  Hook,
+  Parser,
+  ReasonableString,
+  Schema
+} from "@effect-ts-app/boilerplate-prelude/schema2"
+
+// import "@effect-ts-app/boilerplate-prelude/schema2/_global"
 
 /**
  * @tsplus global
