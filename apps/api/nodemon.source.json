@@ -7,13 +7,12 @@
         "**/.data/*",
         "**/.logs/*"
     ],
-    "ext": "ts,env,local,csv",
+    "ext": "ts,env,local",
     "watch": [
         "../api-*/**/*",
         "../../packages/**/*",
         "../../libs/packages/**/*",
         ".",
-        "../../SampleFilePickingList.csv",
         ".env",
         ".env.local"
     ],
