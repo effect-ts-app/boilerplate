@@ -1,7 +1,3 @@
-import { StringId } from "@effect-ts-app/boilerplate-prelude/schema"
-import { LongString } from "@effect-ts-app/schema"
-import type { Infer } from "@effect-ts-app/schema2"
-
 import * as S from "@fp-ts/schema/Schema"
 
 export const FirstName: Schema<ReasonableString> = ReasonableString
@@ -83,9 +79,9 @@ export type UserId = StringId
 export const Role = Schema.literal("manager", "user")
 export type Role = Infer<typeof Role>
 
-// export const User = S.struct({
-//   id: UserId
-// })
+export const User = S.struct({
+  id: UserId
+})
 
 // /**
 //  * @tsplus type User
