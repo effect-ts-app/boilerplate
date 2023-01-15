@@ -43,3 +43,10 @@ Add to keybinds:
     }
 }
 ```
+
+
+### Data type architecture/hierarchy
+
+Sketch..
+
+![alt text](doc/img/data-arch.png)
