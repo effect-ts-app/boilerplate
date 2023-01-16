@@ -7,7 +7,7 @@ import { initializeSync } from "@effect-ts-app/boilerplate-vue/runtime"
 import type * as H from "@effect-ts-app/core/http/http-client"
 import * as HF from "@effect-ts-app/core/http/http-client-fetch"
 import fetch from "cross-fetch"
-import { Effect, Layer, Tag } from "../prelude.js"
+import { Config, Effect, HashMap, Layer, Opt, Tag } from "../prelude.js"
 
 export interface AppConfig {
   AUTH_DISABLED: boolean
@@ -18,9 +18,9 @@ const AppConfig = Tag.Tag<AppConfig>()
 export const accessAppConfig = Effect.environment<AppConfig>()
 
 export function makeEnv(config: ApiConfig, appConfig: AppConfig) {
-  const layers = LiveApiConfig(config)["|>"](Layer.provideToAndMerge(HF.Client(fetch)))["|>"](
-    Layer.provideToAndMerge(Layer.succeed(AppConfig)(appConfig))
-  )
+  const layers = LiveApiConfig(
+    Config.struct({ apiUrl: Config.succeed(config.apiUrl), headers: Config.succeed(config.headers) })
+  )["|>"](Layer.provideToAndMerge(HF.Client(fetch)))["|>"](Layer.provideToAndMerge(Layer.succeed(AppConfig)(appConfig)))
   const runtime = initializeSync(layers)
 
   return runtime
@@ -46,15 +46,16 @@ function cypressEnv(entry: string) {
 export const { runtime } = makeEnv(
   {
     apiUrl: "/api/proxy",
-    headers: {
-      ...(cypressEnv("BASIC_AUTH_USER")
-        ? {
-          Authorization: toBase64(
+    headers: (cypressEnv("BASIC_AUTH_USER")
+      ? Opt.some(HashMap.make(
+        [
+          "Authorization",
+          toBase64(
             `${cypressEnv("BASIC_AUTH_USER")}:${cypressEnv("BASIC_AUTH_PASSWORD")}`
           )
-        }
-        : undefined)
-    }
+        ]
+      ))
+      : Opt.none)
   },
   { AUTH_DISABLED: cypressEnv("AUTH_DISABLED") === "true" }
 )

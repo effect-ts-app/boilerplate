@@ -22,7 +22,13 @@ const appLayer = Logger.minimumLogLevel(Level.Debug)
   > Logger.logFmt
   > Emailer.Fake
   > MemQueue.Live
-  > LiveApiConfig({ apiUrl: "http://127.0.0.1:" + cfg.port })
+  > LiveApiConfig(
+    Config.struct({
+      apiUrl: Config.string("apiUrl").withDefault("http://127.0.0.1:" + PORT),
+      headers: Config.string()
+        .table("headers").optional
+    })
+  )
   > HF.Client(fetch)
   > api(cfg)
 

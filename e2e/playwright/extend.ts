@@ -2,6 +2,7 @@ import "playwright-core"
 
 import type { Page } from "@playwright/test"
 
+import { HashMap, Opt } from "@/prelude.js"
 import type { TestSelector } from "../helpers/@types/enhanced-selectors.js"
 import type { SupportedEnv } from "../helpers/shared.js"
 import { makeEnv, toBase64 } from "../helpers/shared.js"
@@ -35,9 +36,10 @@ Object.defineProperty(Object.prototype, "unsafeRunPromise", {
     // TODO; proper
     // TODO: we probably only need to create the ENV once per page object..
     const cookies = await this.context().cookies()
-    const headers = {
-      Cookie: cookies.map(c => `${c.name}=${c.value}`).join("; ")
-    }
+    const cookieHeader = [
+      "Cookie",
+      cookies.map(c => `${c.name}=${c.value}`).join("; ")
+    ] as const
     const user = env("BASIC_AUTH_USER")
     const pass = env("BASIC_AUTH_PASSWORD")
     const { runtime } = makeEnv(
@@ -45,11 +47,14 @@ Object.defineProperty(Object.prototype, "unsafeRunPromise", {
         apiUrl: `${env("BASE_URL") ?? "http://localhost:4000"}/api`,
         headers: {
           ...(user && pass
-            ? {
-              Authorization: toBase64(`${user}:${pass}`),
-              ...headers
-            }
-            : headers)
+            ? Opt.some(HashMap.make(
+              cookieHeader,
+              [
+                "Authorization",
+                toBase64(`${user}:${pass}`)
+              ]
+            ))
+            : Opt.some(HashMap.make(cookieHeader)))
         }
       },
       { AUTH_DISABLED: process.env["AUTH_DISABLED"] === "true" }

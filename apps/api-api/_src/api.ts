@@ -25,7 +25,7 @@ export function api(cfg: ApiMainConfig) {
   const app = middleware > routes
 
   return Events.Live
-    > StoreMaker.Live(cfg.storage)
+    > StoreMaker.Live(Config.succeed(cfg.storage))
     > UserRepository.Live(
       cfg.fakeUsers === "sample" ? "sample" : ""
     )
