@@ -1,6 +1,4 @@
-import type { InvalidStateError, OptimisticConcurrencyException } from "@/errors.js"
 import { makeFilters } from "@effect-ts-app/boilerplate-infra/lib/filter"
-import type { RequestContext } from "@effect-ts-app/boilerplate-infra/lib/RequestContext"
 import type { Repository } from "@effect-ts-app/boilerplate-infra/services/Repository"
 import type { Filter, Where } from "@effect-ts-app/boilerplate-infra/services/Store"
 import { ContextMap, StoreMaker } from "@effect-ts-app/boilerplate-infra/services/Store"
@@ -197,13 +195,7 @@ function makeUserRepository(seed: UserSeed) {
 /**
  * @tsplus type UserRepository
  */
-export interface UserRepository extends Repository<User, UserPersistenceModel, never, UserId, "User"> {
-  all: Effect<ContextMap, never, Chunk<User>>
-  save: (
-    items: Iterable<User>,
-    events?: Iterable<never> | undefined
-  ) => Effect<ContextMap | RequestContext, OptimisticConcurrencyException | InvalidStateError, void>
-}
+export interface UserRepository extends Repository<User, UserPersistenceModel, never, UserId, "User"> {}
 
 /**
  * @tsplus type UserRepository.Ops
