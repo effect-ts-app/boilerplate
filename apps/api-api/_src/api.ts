@@ -11,7 +11,7 @@ const routes = Effect.struct(R)
 export const App = Tag<never>()
 
 export function api(cfg: ApiMainConfig) {
-  const logServerStart = Effect.sync(() =>
+  const logServerStart = Effect(() =>
     `Running on ${cfg.host}:${cfg.port} at version: ${cfg.apiVersion}. ENV: ${cfg.env}`
   )
     .flatMap(Effect.logInfo)
@@ -32,7 +32,7 @@ export function api(cfg: ApiMainConfig) {
     > logServerStart
 
   const services = Events.Live
-    > StoreMaker.Live(Config.succeed(cfg.storage))
+    > StoreMaker.Live(Config(cfg.storage))
     > UserRepository.Live(
       cfg.fakeUsers === "sample" ? "sample" : ""
     )

@@ -47,14 +47,14 @@ Object.defineProperty(Object.prototype, "unsafeRunPromise", {
         apiUrl: `${env("BASE_URL") ?? "http://localhost:4000"}/api`,
         headers: {
           ...(user && pass
-            ? Opt.some(HashMap.make(
+            ? Opt(HashMap(
               cookieHeader,
               [
                 "Authorization",
                 toBase64(`${user}:${pass}`)
               ]
             ))
-            : Opt.some(HashMap.make(cookieHeader)))
+            : Opt(HashMap(cookieHeader)))
         }
       },
       { AUTH_DISABLED: process.env["AUTH_DISABLED"] === "true" }

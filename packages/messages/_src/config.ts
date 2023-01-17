@@ -25,13 +25,13 @@ const SendgridConfig = Config.struct({
   apiKey: Config.secret("SENDGRID_API_KEY").withDefault(
     ConfigSecret.fromString("")
   ),
-  defaultFrom: Config.succeed(FROM),
+  defaultFrom: Config(FROM),
   subjectPrefix: envConfig.map(env => `[${serviceName}] [${env}] `)
 })
 
 export const BaseConfig = Config.struct({
   apiVersion: Config.string("API_VERSION").withDefault("local-dev"),
-  serviceName: Config.succeed(serviceName),
+  serviceName: Config(serviceName),
   env: envConfig,
   sendgrid: SendgridConfig
   //  log: Config.string("LOG").

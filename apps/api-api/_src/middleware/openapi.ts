@@ -25,6 +25,6 @@ export const openapiRoutes = Ex.get("/openapi.json", (_req, res) => readOpenApiD
     "/swagger",
     (req, res, next) =>
       readOpenApiDoc.flatMap(docs =>
-        Effect.sync(() => setup(docs, { swaggerOptions: { url: "./openapi.json" } })(req, res, next))
+        Effect(() => setup(docs, { swaggerOptions: { url: "./openapi.json" } })(req, res, next))
       )
   )

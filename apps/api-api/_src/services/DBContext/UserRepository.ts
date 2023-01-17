@@ -86,7 +86,7 @@ function makeUserRepository(seed: UserSeed) {
   return Do($ => {
     const { make } = $(Effect.service(StoreMaker))
 
-    const makeItems = Effect.sync(() => {
+    const makeItems = Effect(() => {
       const items = seed === "sample" ? fakeUsers : []
       return items
     })
@@ -140,7 +140,7 @@ function makeUserRepository(seed: UserSeed) {
     //             })
     //             : store.set(e)
     //         )
-    //           .flatMap(ret => Effect.sync(set(ret.id, ret._etag)))
+    //           .flatMap(ret => Effect(set(ret.id, ret._etag)))
     //       )
     //     )
     //   })
@@ -148,7 +148,7 @@ function makeUserRepository(seed: UserSeed) {
     // const save = (a: User) => saveE(User.Encoder(a))
 
     const saveAllE = (a: Iterable<User.Encoded>) =>
-      Effect.succeed(a.toNonEmptyArray)
+      Effect(a.toNonEmptyArray)
         .flatMapOpt(a =>
           Do($ => {
             const { get, set } = $(Effect.service(ContextMap))
@@ -163,13 +163,13 @@ function makeUserRepository(seed: UserSeed) {
 
     const save = (items: Iterable<User>, _: Iterable<never> = []) => saveAll(items)
     // .tap(() =>
-    //   Effect.succeed(items.toNonEmptyArray).tapOpt(items =>
+    //   Effect(items.toNonEmptyArray).tapOpt(items =>
     //     // TODO: Poor Man's state change report; should perhaps auto track and filter for: ItemChanged, ItemStateChanged, or not changed.
     //     publishClientEvent(ClientEvents.of.UserStatesUpdated({ items }))
     //   )
     // )
     // .zipRight(
-    //   Effect.succeed(events.toNonEmptyArray)
+    //   Effect(events.toNonEmptyArray)
     //     // TODO: for full consistency the events should be stored within the same database transaction, and then picked up.
     //     .flatMapOpt(publish)
     // )

@@ -11,11 +11,11 @@ export const CleanupTag = Tag<never>()
 /**
  * @tsplus static Operations.Ops Live
  */
-export const Live = Effect.sync(() => {
+export const Live = Effect(() => {
   const ops = new Map<OperationId, Operation>()
-  const makeOp = Effect.sync(() => OperationId.make())
+  const makeOp = Effect(() => OperationId.make())
 
-  const cleanup = Effect.sync(() => {
+  const cleanup = Effect(() => {
     const before = new Date().subHours(1)
     ops.entries().toChunk.forEach(([id, op]) => {
       const lastChanged = Opt.fromNullable(op.updatedAt).getOrElse(() => op.createdAt)
@@ -26,16 +26,16 @@ export const Live = Effect.sync(() => {
   })
 
   function addOp(id: OperationId) {
-    return Effect.sync(() => {
+    return Effect(() => {
       ops.set(id, new Operation({ id }))
     })
   }
   function findOp(id: OperationId) {
-    return Effect.sync(() => Opt.fromNullable(ops.get(id)))
+    return Effect(() => Opt.fromNullable(ops.get(id)))
   }
   function finishOp(id: OperationId, exit: Exit<unknown, unknown>) {
     return findOp(id).flatMap(_ =>
-      Effect.sync(() => {
+      Effect(() => {
         if (_.isNone()) {
           throw new Error("Not found")
         }
@@ -51,7 +51,7 @@ export const Live = Effect.sync(() => {
                 ? LongString("Unknown error")
                 : exit.cause.failureOption.flatMap(_ =>
                   typeof _ === "object" && _ !== null && "message" in _ && LongString.Guard(_.message)
-                    ? Opt.some(_.message)
+                    ? Opt(_.message)
                     : Opt.none
                 )?.value ?? null
             })
@@ -61,7 +61,7 @@ export const Live = Effect.sync(() => {
   }
   function update(id: OperationId, progress: OperationProgress) {
     return findOp(id).flatMap(_ =>
-      Effect.sync(() => {
+      Effect(() => {
         if (_.isNone()) {
           throw new Error("Not found")
         }

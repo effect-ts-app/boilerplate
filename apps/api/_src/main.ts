@@ -57,7 +57,7 @@ const main = Effect.gen(function*($) {
 const program = main
   .provideSomeLayer(
     (appConfig.sendgrid.apiKey
-      ? Emailer.LiveSendgrid(Config.succeed(appConfig.sendgrid))
+      ? Emailer.LiveSendgrid(Config(appConfig.sendgrid))
       : Emailer.Fake)
       > MemQueue.Live
   )

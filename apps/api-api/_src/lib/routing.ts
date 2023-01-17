@@ -30,7 +30,7 @@ function RequestEnv(handler: { Request: any }) {
       const p = makeUserProfileFromUserHeader(req.headers["x-user"])
         .map(Opt.some)
       const userProfile = allowAnonymous
-        ? p.catchAll(() => Effect.succeed(Opt.none))
+        ? p.catchAll(() => Effect(Opt.none))
         : p.mapError(() => new NotLoggedInError())
 
       return pipe(
@@ -44,7 +44,7 @@ function RequestEnv(handler: { Request: any }) {
         const currentUser = yield* $(
           UserRepository.accessWithEffect(_ => _.getCurrentUser)
             .map(Opt.some)
-            .catchAll(() => allowAnonymous ? Effect.succeed(Opt.none) : Effect.fail(new NotLoggedInError()))
+            .catchAll(() => allowAnonymous ? Effect(Opt.none) : Effect.fail(new NotLoggedInError()))
             .tap(_ => {
               const userRoles = _.map(_ => _.role === "manager" ? [Role("manager"), Role("user")] : [_.role]).getOrElse(
                 () => [Role("user")]
@@ -159,7 +159,7 @@ function handleRequestEnv<
       h: (pars: any) =>
         Effect.struct({
           context: RequestContext.Tag.access,
-          user: CurrentUser.get.catchTag("NotLoggedInError", () => Effect.succeed(null))
+          user: CurrentUser.get.catchTag("NotLoggedInError", () => Effect(null))
         })
           .flatMap(ctx => (handler.h as (i: any, ctx: any) => Effect<R, ResE, ResA>)(pars, ctx))
     },

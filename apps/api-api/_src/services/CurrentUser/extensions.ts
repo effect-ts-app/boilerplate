@@ -1,6 +1,6 @@
 // /** @tsplus fluent CurrentUser.Ops Live */
 // export function LiveCurrentUser(user: User) {
-//   return Layer.succeed(CurrentUser)(user)
+//   return Layer(CurrentUser)(user)
 // }
 
 import type { User } from "@effect-ts-app/boilerplate-types/User"
@@ -35,5 +35,5 @@ export function get(self: CurrentUserOps) {
 
 /** @tsplus static CurrentUser.Ops find */
 export const FindCurrentUser = CurrentUser.accessWithEffect(
-  _ => _.get.map(Opt.some).catchTag("NotLoggedInError", () => Effect.succeed(Opt.none))
+  _ => _.get.map(Opt.some).catchTag("NotLoggedInError", () => Effect(Opt.none))
 )

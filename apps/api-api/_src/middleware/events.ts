@@ -47,7 +47,7 @@ export const events = Ex.get("/events", (req, res) =>
     const f = $(
       subscribe.flatMap(_ =>
         _.take().flatMap(_ =>
-          Effect.sync(() => {
+          Effect(() => {
             writeAndLogError(
               `id: ${_.id}\ndata: ${JSON.stringify(ClientEvents.Encoder(_))}\n\n`
             )
@@ -65,7 +65,7 @@ export const events = Ex.get("/events", (req, res) =>
         res.on("close", () => {
           console.log("client dropped me res CLOSE")
           clearTimeout(keepAlive)
-          cb(Effect.succeed(void 0 as void))
+          cb(Effect(void 0 as void))
           res.end()
         })
       }).zipRight(f.interrupt)

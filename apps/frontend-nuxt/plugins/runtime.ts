@@ -23,7 +23,7 @@ function makeRuntime(feVersion: string) {
           "|>"
         ](
           Effect.tap(r =>
-            Effect.sync(() => {
+            Effect(() => {
               const remoteFeVersion = r.headers["x-fe-version"]
               if (remoteFeVersion) {
                 versionMatch.value = feVersion === remoteFeVersion
