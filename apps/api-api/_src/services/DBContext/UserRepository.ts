@@ -84,7 +84,7 @@ export type UserSeed = "sample" | ""
  */
 function makeUserRepository(seed: UserSeed) {
   return Do($ => {
-    const { make } = $(Effect.service(StoreMaker))
+    const { make } = $(StoreMaker.access)
 
     const makeItems = Effect(() => {
       const items = seed === "sample" ? fakeUsers : []
@@ -103,7 +103,7 @@ function makeUserRepository(seed: UserSeed) {
 
     const allE = store.all.flatMap(items =>
       Do($ => {
-        const { set } = $(Effect.service(ContextMap))
+        const { set } = $(ContextMap.access)
         return items.map(_ => mapReverse(_, set))
       })
     )
@@ -114,7 +114,7 @@ function makeUserRepository(seed: UserSeed) {
       return store.find(id)
         .flatMap(items =>
           Do($ => {
-            const { set } = $(Effect.service(ContextMap))
+            const { set } = $(ContextMap.access)
             return items.map(_ => mapReverse(_, set))
           })
         )
@@ -126,7 +126,7 @@ function makeUserRepository(seed: UserSeed) {
 
     // const saveE = (a: User.Encoded) =>
     //   Do($ => {
-    //     const { get, set } = $(Effect.service(ContextMap))
+    //     const { get, set } = $(ContextMap.access)
     //     const e = mapToPersistenceModel(a, get)
 
     //     $(
@@ -151,7 +151,7 @@ function makeUserRepository(seed: UserSeed) {
       Effect(a.toNonEmptyArray)
         .flatMapOpt(a =>
           Do($ => {
-            const { get, set } = $(Effect.service(ContextMap))
+            const { get, set } = $(ContextMap.access)
             const items = a.mapNonEmpty(_ => mapToPersistenceModel(_, get))
             // TODO: Check duplicate printer
             const ret = $(store.batchSet(items))
