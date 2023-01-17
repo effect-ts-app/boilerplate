@@ -83,16 +83,15 @@ export const Live = Effect.sync(() => {
     update
   })
 }).toLayer(Operations)
-  > CleanupTag.scoped(
-    Operations.withEffect(_ => _.cleanup).exit.flatMap(_ => {
-      if (_.isSuccess()) {
-        return Effect.unit
-      } else {
-        return reportAppError(_.cause)
-      }
-    })
-      .delay(DUR.minutes(1))
-      .forever
-      .forkScoped
-      .map(_ => _ as never)
-  )
+  > Operations.withEffect(_ => _.cleanup).exit.flatMap(_ => {
+    if (_.isSuccess()) {
+      return Effect.unit
+    } else {
+      return reportAppError(_.cause)
+    }
+  })
+    .delay(DUR.minutes(1))
+    .forever
+    .forkScoped
+    .map(_ => _ as never)
+    .toScopedLayer(CleanupTag)

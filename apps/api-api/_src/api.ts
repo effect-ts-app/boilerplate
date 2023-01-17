@@ -18,23 +18,29 @@ export function api(cfg: ApiMainConfig) {
 
   const middleware = MW.events
     > Ex.use(MW.compression())
-    > Ex.use(MW.urlEncoded({ extended: false }), MW.json({ limit: "10mb" /* TODO */ }))
+    > Ex.use(
+      MW.urlEncoded({ extended: false }),
+      MW.json({ limit: "10mb" /* TODO */ })
+    )
     > MW.serverHealth(cfg.apiVersion)
     > MW.openapiRoutes
 
   const app = middleware > routes
 
-  return Events.Live
+  const program = app
+    .flatMap(writeOpenapiDocs)
+    > logServerStart
+
+  const services = Events.Live
     > StoreMaker.Live(Config.succeed(cfg.storage))
     > UserRepository.Live(
       cfg.fakeUsers === "sample" ? "sample" : ""
     )
     > Operations.Live
     > Ex.LiveExpress(cfg.host, cfg.port)
-    > App.scoped( // API
-      app
-        .flatMap(writeOpenapiDocs)
-        .zipRight(logServerStart)
-        .map(_ => _ as never)
-    )
+
+  return services
+    > program
+      .map(_ => _ as never)
+      .toScopedLayer(App)
 }
