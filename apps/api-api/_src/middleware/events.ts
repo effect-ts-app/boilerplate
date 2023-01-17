@@ -42,7 +42,7 @@ export const events = Ex.get("/events", (req, res) =>
     // If client closes connection, stop sending events
     // req.on("error", err => console.log("$$$ req error", err))
 
-    const { subscribe } = $(Events.get)
+    const { subscribe } = $(Events.access)
     console.log("$ start listening to events")
     const f = $(
       subscribe.flatMap(_ =>

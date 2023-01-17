@@ -42,7 +42,7 @@ function RequestEnv(handler: { Request: any }) {
     }).flatMap(ctx =>
       Effect.gen(function*($) {
         const currentUser = yield* $(
-          UserRepository.withEffect(_ => _.getCurrentUser)
+          UserRepository.accessWithEffect(_ => _.getCurrentUser)
             .map(Opt.some)
             .catchAll(() => allowAnonymous ? Effect.succeed(Opt.none) : Effect.fail(new NotLoggedInError()))
             .tap(_ => {
@@ -158,7 +158,7 @@ function handleRequestEnv<
       ...handler,
       h: (pars: any) =>
         Effect.struct({
-          context: RequestContext.Tag.get,
+          context: RequestContext.Tag.access,
           user: CurrentUser.get.catchTag("NotLoggedInError", () => Effect.succeed(null))
         })
           .flatMap(ctx => (handler.h as (i: any, ctx: any) => Effect<R, ResE, ResA>)(pars, ctx))

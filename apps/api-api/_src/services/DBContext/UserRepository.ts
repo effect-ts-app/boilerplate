@@ -41,7 +41,7 @@ const encodeToMapPM = flow(
   _ =>
     _.flatMap(map =>
       Effect.gen(function*($) {
-        const { get } = yield* $(ContextMap.get)
+        const { get } = yield* $(ContextMap.access)
         return new Map(
           [...map.entries()].map(([k, v]) => [k, mapToPersistenceModel(v, get)])
         )
@@ -223,19 +223,19 @@ export function LiveUserRepository(seed: UserSeed) {
  * @tsplus getter UserRepository getCurrentUser
  */
 export function getCurrentUser(repo: UserRepository) {
-  return UserProfile.withEffect(_ => _.get.flatMap(_ => repo.get(_.id)))
+  return UserProfile.accessWithEffect(_ => _.get.flatMap(_ => repo.get(_.id)))
 }
 
 /**
  * @tsplus fluent UserRepository update
  */
 export function update(repo: UserRepository, mod: (user: User) => User) {
-  return UserProfile.withEffect(_ => _.get.flatMap(_ => repo.get(_.id)).map(mod).flatMap(_ => repo.save([_])))
+  return UserProfile.accessWithEffect(_ => _.get.flatMap(_ => repo.get(_.id)).map(mod).flatMap(_ => repo.save([_])))
 }
 
 /**
  * @tsplus fluent UserRepository updateWithEffect
  */
 export function userUpdateWithEffect<R, E>(repo: UserRepository, mod: (user: User) => Effect<R, E, User>) {
-  return UserProfile.withEffect(_ => _.get.flatMap(_ => repo.get(_.id)).flatMap(mod).flatMap(_ => repo.save([_])))
+  return UserProfile.accessWithEffect(_ => _.get.flatMap(_ => repo.get(_.id)).flatMap(mod).flatMap(_ => repo.save([_])))
 }

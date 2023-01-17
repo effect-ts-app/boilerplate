@@ -17,7 +17,7 @@ export interface UserProfile extends ServiceTagged<typeof UserProfileId> {
 export const UserProfile = Tag<UserProfile>()
 
 export const LiveUserProfile = (profile: UserProfileScheme | null) =>
-  UserProfile.of(
+  UserProfile.makeLayer(
     UserProfile.make({
       get: Opt.fromNullable(profile).encaseInEffect(() => new NotLoggedInError())
     })

@@ -19,7 +19,7 @@ export const Operations: OperationsOps = Tag<Operations>()
  * @tsplus getter effect/io/Effect forkOperation
  */
 export function forkOperation<R, E, A>(self: Effect<R, E, A>) {
-  return Operations.withEffect(
+  return Operations.accessWithEffect(
     Operations =>
       Scope.make()
         .flatMap(scope =>

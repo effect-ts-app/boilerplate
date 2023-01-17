@@ -83,7 +83,7 @@ export const Live = Effect.sync(() => {
     update
   })
 }).toLayer(Operations)
-  > Operations.withEffect(_ => _.cleanup).exit.flatMap(_ => {
+  > Operations.accessWithEffect(_ => _.cleanup).exit.flatMap(_ => {
     if (_.isSuccess()) {
       return Effect.unit
     } else {

@@ -30,10 +30,10 @@ export function withEffect_(self: CurrentUserOps) {
  * @tsplus getter CurrentUser.Ops get
  */
 export function get(self: CurrentUserOps) {
-  return self.withEffect_(_ => _.get)
+  return self.accessWithEffect(_ => _.get)
 }
 
 /** @tsplus static CurrentUser.Ops find */
-export const FindCurrentUser = CurrentUser.withEffect_(
+export const FindCurrentUser = CurrentUser.accessWithEffect(
   _ => _.get.map(Opt.some).catchTag("NotLoggedInError", () => Effect.succeed(Opt.none))
 )
