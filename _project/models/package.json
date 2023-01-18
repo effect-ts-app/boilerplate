@@ -35,6 +35,16 @@
         "default": "./_cjs/ext.cjs"
       }
     },
+    "./Blog": {
+      "import": {
+        "types": "./dist/Blog.d.ts",
+        "default": "./dist/Blog.js"
+      },
+      "require": {
+        "types": "./dist/Blog.d.ts",
+        "default": "./_cjs/Blog.cjs"
+      }
+    },
     "./User": {
       "import": {
         "types": "./dist/User.d.ts",
