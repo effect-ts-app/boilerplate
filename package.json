@@ -66,17 +66,18 @@
         "http-proxy": "npm:http-proxy-node16@1.0.0"
     },
     "dependencies": {
-        "@types/react": "^18.0.26",
+        "@types/react": "^18.0.27",
         "cross-env": "^7.0.3",
         "fast-check": "^3.6.0",
         "patch-package": "^6.5.1",
-        "ts-node": "^10.9.1"
+        "ts-node": "^10.9.1",
+        "vite-node": "^0.27.2"
     },
     "devDependencies": {
         "@babel/cli": "^7.20.7",
         "@effect-ts-app/boilerplate-eslint": "^2.1.2",
-        "@effect-ts-app/boilerplate-prelude": "^2.4.7",
-        "@effect-ts-app/core": "^2.4.7",
+        "@effect-ts-app/boilerplate-prelude": "^2.4.8",
+        "@effect-ts-app/core": "^2.4.8",
         "@effect-ts-app/compiler": "^1.0.4",
         "@effect/language-service": "^0.0.15",
         "@phaphoso/eslint-plugin-dprint": "^0.5.2",
