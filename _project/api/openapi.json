@@ -111,6 +111,67 @@
         }
       }
     },
+    "/blog/posts/{id}": {
+      "get": {
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "minLength": 6,
+              "maxLength": 50,
+              "title": "BlogPostId",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "id": {
+                      "minLength": 6,
+                      "maxLength": 50,
+                      "title": "BlogPostId",
+                      "type": "string"
+                    },
+                    "title": {
+                      "minLength": 1,
+                      "maxLength": 255,
+                      "type": "string"
+                    },
+                    "body": {
+                      "minLength": 1,
+                      "maxLength": 2047,
+                      "type": "string"
+                    },
+                    "createdAt": {
+                      "format": "date-time",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "title",
+                    "body",
+                    "createdAt"
+                  ],
+                  "type": "object",
+                  "nullable": true
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "ValidationError"
+          }
+        }
+      }
+    },
     "/hello-world": {
       "get": {
         "parameters": [],

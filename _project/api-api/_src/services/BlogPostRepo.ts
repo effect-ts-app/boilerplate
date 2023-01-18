@@ -1,7 +1,8 @@
-import type { BlogPost } from "@effect-ts-app/boilerplate-types/Blog"
+import type { BlogPost, BlogPostId } from "@effect-app-boilerplate/models/Blog"
 
 export interface BlogPostRepo {
   all: Effect<never, never, readonly BlogPost[]>
+  find: (id: BlogPostId) => Effect<never, never, Option<BlogPost>>
   save: (post: BlogPost) => Effect<never, never, void>
 }
 export const BlogPostRepo = Tag<BlogPostRepo>()
@@ -11,6 +12,7 @@ export const BlogPostRepoLive = Layer(BlogPostRepo, () => {
 
   return {
     all: Effect([...items]),
+    find: id => Effect(items.findFirst(_ => _.id === id)),
     save: post => Effect(items.push(post))
   }
 })
