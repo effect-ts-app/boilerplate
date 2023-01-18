@@ -1,13 +1,14 @@
 import { NotFoundError } from "@/errors.js"
-import { BlogPostRepo, Operations } from "@/services.js"
+import { BlogPostRepo, Events, Operations } from "@/services.js"
 import { BlogPost } from "@effect-app-boilerplate/models/Blog"
 import { BlogRsc } from "@effect-app-boilerplate/resources"
+import { BogusEvent } from "@effect-app-boilerplate/resources/Events"
 import { matchResource } from "@effect-app/infra/api/routing"
 import { PositiveInt } from "@effect-app/prelude/schema"
 
 export const BlogControllers = Effect.servicesWith(
-  { BlogPostRepo, Operations },
-  ({ BlogPostRepo, Operations }) =>
+  { BlogPostRepo, Operations, Events },
+  ({ BlogPostRepo, Events, Operations }) =>
     matchResource(BlogRsc)({
       FindPost: req =>
         BlogPostRepo.find(req.id)
@@ -51,6 +52,7 @@ export const BlogControllers = Effect.servicesWith(
                 total: PositiveInt(targets.length),
                 completed: PositiveInt(done.length)
               })
+                .zipRight(Events.publish(new BogusEvent({})))
             )
               .delay(DUR.seconds(1))
               .forever
