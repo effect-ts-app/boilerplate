@@ -1,7 +1,8 @@
 import { NotFoundError } from "@/errors.js"
-import { BlogPostRepo, Operations } from "@/services.js"
+import { BlogPostRepo, Events, Operations } from "@/services.js"
 import { BlogPost } from "@effect-app-boilerplate/models/Blog"
 import { BlogRsc } from "@effect-app-boilerplate/resources"
+import { BogusEvent } from "@effect-app-boilerplate/resources/Events"
 import { PositiveInt } from "@effect-app/prelude/schema"
 
 const { controllers, matchWithServices } = matchFor(BlogRsc)
@@ -27,8 +28,8 @@ const CreatePost = matchWithServices("CreatePost")(
 )
 
 const PublishPost = matchWithServices("PublishPost")(
-  { BlogPostRepo, Operations },
-  (req, { BlogPostRepo, Operations }) =>
+  { BlogPostRepo, Events, Operations },
+  (req, { BlogPostRepo, Events, Operations }) =>
     Do($ => {
       $(
         BlogPostRepo.find(req.id)
@@ -44,7 +45,7 @@ const PublishPost = matchWithServices("PublishPost")(
       const done: string[] = []
 
       const operationId = $(
-        Effect.forkOperation(
+        Effect.forkOperationWithEffect(
           opId =>
             Operations.update(opId, {
               total: PositiveInt(targets.length),
@@ -61,7 +62,12 @@ const PublishPost = matchWithServices("PublishPost")(
                     )
                     .delay(Duration.seconds(4))
                 )
-                .map(() => "the answer to the universe is 41")
+                .map(() => "the answer to the universe is 41"),
+          // while operation is running...
+          _opId =>
+            Effect.suspendSucceed(() => Events.publish(new BogusEvent({})))
+              .delay(DUR.seconds(1))
+              .forever
         )
       )
 
