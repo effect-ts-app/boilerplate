@@ -1,4 +1,5 @@
 // codegen:start {preset: barrel, include: ./*.ts, exclude: [./_global*.ts, ./index.ts, ./lib.ts, ./Views.ts], export: { as: 'PascalCase', postfix: 'Rsc' }}
+export * as BlogRsc from "./Blog.js"
 export * as EventsRsc from "./Events.js"
 export * as HelloWorldRsc from "./HelloWorld.js"
 export * as MeRsc from "./Me.js"
