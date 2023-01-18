@@ -116,6 +116,50 @@
         }
       }
     },
+    "/blog/posts/{id}/publish": {
+      "post": {
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "minLength": 6,
+              "maxLength": 50,
+              "title": "BlogPostId",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {},
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "minLength": 6,
+                  "maxLength": 50,
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "ValidationError"
+          }
+        }
+      }
+    },
     "/hello-world": {
       "get": {
         "parameters": [],
