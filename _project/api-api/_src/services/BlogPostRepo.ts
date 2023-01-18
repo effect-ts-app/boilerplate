@@ -1,4 +1,4 @@
-import type { BlogPost, BlogPostId } from "@effect-app-boilerplate/models/Blog"
+import { BlogPost, BlogPostId } from "@effect-app-boilerplate/models/Blog"
 
 export interface BlogPostRepo {
   all: Effect<never, never, readonly BlogPost[]>
@@ -8,7 +8,13 @@ export interface BlogPostRepo {
 export const BlogPostRepo = Tag<BlogPostRepo>()
 
 export const BlogPostRepoLive = Layer(BlogPostRepo, () => {
-  const items: BlogPost[] = []
+  const items: BlogPost[] = [
+    new BlogPost({
+      id: BlogPostId("post-test123"),
+      title: ReasonableString("Test post"),
+      body: LongString("imma test body")
+    })
+  ]
 
   return {
     all: Effect([...items]),
