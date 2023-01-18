@@ -11,14 +11,6 @@ const createPost = flow(createPost_, _ => _.then(_ => reloadPosts()))
 
 <template>
   <div>
-    Here's a Post List
-
-    <ul v-if="latestPosts">
-      <li v-for="post in latestPosts.items" :key="post.id">
-        {{ post.title }}
-      </li>
-    </ul>
-
     <div>
       a new Title and a new body
       <button
@@ -32,5 +24,13 @@ const createPost = flow(createPost_, _ => _.then(_ => reloadPosts()))
         Create new post
       </button>
     </div>
+    Here's a Post List
+    <ul v-if="latestPosts">
+      <li v-for="post in latestPosts.items" :key="post.id">
+        <nuxt-link :to="{ name: 'blog-id', params: { id: post.id } }">{{
+          post.title
+        }}</nuxt-link>
+      </li>
+    </ul>
   </div>
 </template>
