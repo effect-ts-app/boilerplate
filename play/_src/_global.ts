@@ -1,1 +1,1 @@
-import "@effect-ts-app/core/_global"
+import "@effect-ts-app/boilerplate-prelude/_global"
