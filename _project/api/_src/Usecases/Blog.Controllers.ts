@@ -1,7 +1,8 @@
 import { BlogPost } from "@effect-app-boilerplate/models/Blog"
 import { BlogRsc } from "@effect-app-boilerplate/resources"
+import { BogusEvent } from "@effect-app-boilerplate/resources/Events"
 import { NotFoundError } from "api/errors.js"
-import { BlogPostRepo, Operations } from "api/services.js"
+import { BlogPostRepo, Events, Operations } from "api/services.js"
 
 const blog = matchFor(BlogRsc)
 
@@ -28,8 +29,8 @@ const CreatePost = blog.CreatePost(
 )
 
 const PublishPost = blog.PublishPost(
-  { BlogPostRepo, Operations },
-  (req, { blogPostRepo, operations }) =>
+  { BlogPostRepo, Events, Operations },
+  (req, { blogPostRepo, events, operations }) =>
     Do(($) => {
       $(
         blogPostRepo
@@ -46,7 +47,7 @@ const PublishPost = blog.PublishPost(
       const done: string[] = []
 
       const operationId = $(
-        Effect.forkOperation(
+        Effect.forkOperationWithEffect(
           (opId) =>
             operations
               .update(opId, {
@@ -65,7 +66,12 @@ const PublishPost = blog.PublishPost(
                     )
                     .delay(Duration.seconds(4))
                 ))
-              .map(() => "the answer to the universe is 41")
+              .map(() => "the answer to the universe is 41"),
+          // while operation is running...
+          (_opId) =>
+            Effect
+              .suspend(() => events.publish(new BogusEvent()))
+              .schedule(Schedule.spaced(Duration.seconds(1)))
         )
       )
 
