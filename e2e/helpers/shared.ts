@@ -19,8 +19,8 @@ export const accessAppConfig = Effect.environment<AppConfig>()
 
 export function makeEnv(config: ApiConfig, appConfig: AppConfig) {
   const layers = LiveApiConfig(
-    Config.struct({ apiUrl: Config(config.apiUrl), headers: Config(config.headers) })
-  )["|>"](Layer.provideToAndMerge(HF.Client(fetch)))["|>"](Layer.provideToAndMerge(Layer(AppConfig)(appConfig)))
+    Config.struct({ apiUrl: Config.succeed(config.apiUrl), headers: Config.succeed(config.headers) })
+  )["|>"](Layer.provideToAndMerge(HF.Client(fetch)))["|>"](Layer.provideToAndMerge(Layer.succeed(AppConfig)(appConfig)))
   const runtime = initializeSync(layers)
 
   return runtime
@@ -47,7 +47,7 @@ export const { runtime } = makeEnv(
   {
     apiUrl: "/api/proxy",
     headers: (cypressEnv("BASIC_AUTH_USER")
-      ? Opt(HashMap(
+      ? Opt.some(HashMap.make(
         [
           "Authorization",
           toBase64(
