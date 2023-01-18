@@ -6,6 +6,83 @@
   },
   "tags": [],
   "paths": {
+    "/blog/posts": {
+      "post": {
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "title": {
+                    "minLength": 1,
+                    "maxLength": 255,
+                    "type": "string"
+                  },
+                  "body": {
+                    "minLength": 1,
+                    "maxLength": 2047,
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "title",
+                  "body"
+                ],
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "minLength": 6,
+                  "maxLength": 50,
+                  "title": "BlogPostId",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "ValidationError"
+          }
+        }
+      },
+      "get": {
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "items": {
+                      "items": {
+                        "$ref": "#/components/schemas/BlogPost"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "items"
+                  ],
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "ValidationError"
+          }
+        }
+      }
+    },
     "/hello-world": {
       "get": {
         "parameters": [],
@@ -135,6 +212,38 @@
       }
     },
     "schemas": {
+      "BlogPost": {
+        "title": "BlogPost",
+        "properties": {
+          "id": {
+            "minLength": 6,
+            "maxLength": 50,
+            "title": "BlogPostId",
+            "type": "string"
+          },
+          "title": {
+            "minLength": 1,
+            "maxLength": 255,
+            "type": "string"
+          },
+          "body": {
+            "minLength": 1,
+            "maxLength": 2047,
+            "type": "string"
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "body",
+          "createdAt"
+        ],
+        "type": "object"
+      },
       "User": {
         "title": "User",
         "properties": {

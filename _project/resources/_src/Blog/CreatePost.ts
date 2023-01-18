@@ -1,6 +1,7 @@
 import { BlogPost, BlogPostId } from "@effect-app-boilerplate/models/Blog"
 
-export class CreatePostRequest extends Req()<CreatePostRequest>()(
+@allowRoles("user")
+export class CreatePostRequest extends Req(cfg({ allowAnonymous: true }))<CreatePostRequest>()(
   BlogPost.fields.$$.pick("title", "body")
 ) {}
 

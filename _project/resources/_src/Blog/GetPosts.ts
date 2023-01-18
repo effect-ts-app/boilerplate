@@ -1,6 +1,7 @@
 import { BlogPost } from "@effect-app-boilerplate/models/Blog"
 
-export class GetPostsRequest extends Req()<GetPostsRequest>()(
+@allowRoles("user")
+export class GetPostsRequest extends Req(cfg({ allowAnonymous: true }))<GetPostsRequest>()(
   {}
 ) {}
 
