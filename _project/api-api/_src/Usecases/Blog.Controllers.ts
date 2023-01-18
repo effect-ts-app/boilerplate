@@ -1,18 +1,19 @@
+import { BlogPostRepo } from "@/services.js"
 import { BlogPost } from "@effect-app-boilerplate/models/Blog"
 import { BlogRsc } from "@effect-app-boilerplate/resources"
 
-const items: BlogPost[] = []
+const { controllers, matchWithServices } = matchFor(BlogRsc)
 
-const { controllers, matchWith } = matchFor(BlogRsc)
-
-const GetPosts = matchWith("GetPosts")(
-  () => Effect({ items })
+const GetPosts = matchWithServices("GetPosts")(
+  { BlogPostRepo },
+  (_, { BlogPostRepo }) => BlogPostRepo.all.map(items => ({ items }))
 )
 
-const CreatePost = matchWith("CreatePost")(
-  req =>
+const CreatePost = matchWithServices("CreatePost")(
+  { BlogPostRepo },
+  (req, { BlogPostRepo }) =>
     Effect(new BlogPost({ ...req }))
-      .tap(post => Effect(items.push(post)))
+      .tap(BlogPostRepo.save)
       .map(_ => _.id)
 )
 
