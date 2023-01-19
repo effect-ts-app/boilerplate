@@ -37,26 +37,30 @@ export const BlogControllers = Effect.servicesWith(
           const done: string[] = []
 
           const operationId = $(
-            targets
-              .forEachEffect(_ =>
-                Effect(done.push(_))
-                  .delay(DUR.seconds(4))
-              )
-              .map(() => "the answer to the universe is 41")
-              .forkOperation
-          )
-
-          $(
-            Effect.suspendSucceed(() =>
-              Operations.update(operationId, {
-                total: PositiveInt(targets.length),
-                completed: PositiveInt(done.length)
-              })
-                .zipRight(Events.publish(new BogusEvent({})))
+            Effect.forkOperationWithEffect(
+              opId =>
+                Operations.update(opId, {
+                  total: PositiveInt(targets.length),
+                  completed: PositiveInt(done.length)
+                }) >
+                  targets
+                    .forEachEffect(_ =>
+                      Effect(done.push(_))
+                        .tap(() =>
+                          Operations.update(opId, {
+                            total: PositiveInt(targets.length),
+                            completed: PositiveInt(done.length)
+                          })
+                        )
+                        .delay(DUR.seconds(4))
+                    )
+                    .map(() => "the answer to the universe is 41"),
+              // while operation is running...
+              _opId =>
+                Effect.suspendSucceed(() => Events.publish(new BogusEvent({})))
+                  .delay(DUR.seconds(1))
+                  .forever
             )
-              .delay(DUR.seconds(1))
-              .forever
-              .fork
           )
 
           return operationId
