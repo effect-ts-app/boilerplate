@@ -1,7 +1,7 @@
-import * as MO from "@effect-app/prelude/schema"
 import * as ROArray from "@effect-app/core/Array"
 import * as Chunk from "@effect-app/core/Chunk"
 import * as Option from "@effect-app/core/Option"
+import * as MO from "@effect-app/prelude/schema"
 import * as These from "@effect-app/schema/custom/These"
 import * as Ord from "@effect-ts/core/Ord"
 import * as Config from "@effect/io/Config"

@@ -1,11 +1,11 @@
 // TODO
 // import "@effect-app/core/fluent/polyfill/browser"
 
+import type * as H from "@effect-app/core/http/http-client"
+import * as HF from "@effect-app/core/http/http-client-fetch"
 import type { ApiConfig } from "@effect-app/prelude/client/config"
 import { Live as LiveApiConfig } from "@effect-app/prelude/client/config"
 import { initializeSync } from "@effect-app/vue/runtime"
-import type * as H from "@effect-app/core/http/http-client"
-import * as HF from "@effect-app/core/http/http-client-fetch"
 import fetch from "cross-fetch"
 import { Config, Effect, HashMap, Layer, Opt, Tag } from "../prelude.js"
 
