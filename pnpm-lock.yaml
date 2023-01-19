@@ -44,7 +44,7 @@ importers:
       '@babel/cli': ^7.20.7
       '@effect-ts-app/boilerplate-eslint': ^2.1.2
       '@effect-ts-app/boilerplate-prelude': ^2.4.8
-      '@effect-ts-app/compiler': ^1.0.4
+      '@effect-ts-app/compiler': ^1.0.5
       '@effect-ts-app/core': ^2.4.8
       '@effect/language-service': ^0.0.15
       '@phaphoso/eslint-plugin-dprint': ^0.5.2
@@ -98,7 +98,7 @@ importers:
       '@babel/cli': 7.20.7
       '@effect-ts-app/boilerplate-eslint': 2.1.2
       '@effect-ts-app/boilerplate-prelude': 2.4.8
-      '@effect-ts-app/compiler': 1.0.4_@types+node@18.11.11
+      '@effect-ts-app/compiler': 1.0.5_@types+node@18.11.11
       '@effect-ts-app/core': 2.4.8
       '@effect/language-service': 0.0.15_a4uvuf3pdfkyyq2ka2mtqp5yfi
       '@phaphoso/eslint-plugin-dprint': 0.5.2_eslint@8.32.0
@@ -144,7 +144,7 @@ importers:
       '@azure/storage-blob': ^12.12.0
       '@effect-ts-app/boilerplate-api-api': '*'
       '@effect-ts-app/boilerplate-client': '*'
-      '@effect-ts-app/boilerplate-infra': ^3.10.10
+      '@effect-ts-app/boilerplate-infra': ^3.10.12
       '@effect-ts-app/boilerplate-messages': '*'
       '@effect-ts-app/boilerplate-prelude': ^2.4.8
       '@effect-ts-app/boilerplate-types': '*'
@@ -196,7 +196,7 @@ importers:
       '@azure/storage-blob': 12.12.0
       '@effect-ts-app/boilerplate-api-api': link:../api-api
       '@effect-ts-app/boilerplate-client': link:../../packages/client
-      '@effect-ts-app/boilerplate-infra': 3.10.10
+      '@effect-ts-app/boilerplate-infra': 3.10.12
       '@effect-ts-app/boilerplate-messages': link:../../packages/messages
       '@effect-ts-app/boilerplate-prelude': 2.4.8
       '@effect-ts-app/boilerplate-types': link:../../packages/types
@@ -250,7 +250,7 @@ importers:
       '@azure/service-bus': ^7.7.3
       '@azure/storage-blob': ^12.12.0
       '@effect-ts-app/boilerplate-client': '*'
-      '@effect-ts-app/boilerplate-infra': ^3.10.10
+      '@effect-ts-app/boilerplate-infra': ^3.10.12
       '@effect-ts-app/boilerplate-messages': '*'
       '@effect-ts-app/boilerplate-prelude': ^2.4.8
       '@effect-ts-app/boilerplate-types': '*'
@@ -308,7 +308,7 @@ importers:
       '@azure/service-bus': 7.7.3
       '@azure/storage-blob': 12.12.0
       '@effect-ts-app/boilerplate-client': link:../../packages/client
-      '@effect-ts-app/boilerplate-infra': 3.10.10
+      '@effect-ts-app/boilerplate-infra': 3.10.12
       '@effect-ts-app/boilerplate-messages': link:../../packages/messages
       '@effect-ts-app/boilerplate-prelude': 2.4.8
       '@effect-ts-app/boilerplate-types': link:../../packages/types
@@ -556,7 +556,7 @@ importers:
   packages/messages:
     specifiers:
       '@effect-ts-app/boilerplate-client': '*'
-      '@effect-ts-app/boilerplate-infra': ^3.10.10
+      '@effect-ts-app/boilerplate-infra': ^3.10.12
       '@effect-ts-app/boilerplate-prelude': ^2.4.8
       '@effect-ts-app/boilerplate-types': '*'
       '@effect-ts-app/core': ^2.4.8
@@ -573,7 +573,7 @@ importers:
       path-parser: ^6.1.0
     dependencies:
       '@effect-ts-app/boilerplate-client': link:../client
-      '@effect-ts-app/boilerplate-infra': 3.10.10
+      '@effect-ts-app/boilerplate-infra': 3.10.12
       '@effect-ts-app/boilerplate-prelude': 2.4.8
       '@effect-ts-app/boilerplate-types': link:../types
       '@effect-ts-app/core': 2.4.8
@@ -2240,8 +2240,8 @@ packages:
       - supports-color
     dev: true
 
-  /@effect-ts-app/boilerplate-infra/3.10.10:
-    resolution: {integrity: sha512-8pYpyoTrSQz3Vj3o6sgo5AzUsWxJ/omDCtUiewmBH7ve2L3zAH5YqndKsTbF6nfXCP8LuMkmHC/bQSLXGeqzbw==}
+  /@effect-ts-app/boilerplate-infra/3.10.12:
+    resolution: {integrity: sha512-G3/a9Uy7j4xGjFC+wuXEREJZJRYWg6C+WovyHrq8NpqHaWbe6u1EOegKXCwCq+lOcmZViA0qmnnUQbUc6jUFgg==}
     dependencies:
       '@effect-ts-app/boilerplate-prelude': 2.4.8
       '@effect-ts-app/core': 2.4.8
@@ -2304,8 +2304,8 @@ packages:
       - encoding
     dev: false
 
-  /@effect-ts-app/compiler/1.0.4_@types+node@18.11.11:
-    resolution: {integrity: sha512-yHGozhtPWthT+HF/ID0xV+jS0fsNdOa5aZs+6/gJRQhMXAQ4pqj/T4WUroDH+zbjpU+4vs0QNm2ARiX/KAHb5g==}
+  /@effect-ts-app/compiler/1.0.5_@types+node@18.11.11:
+    resolution: {integrity: sha512-8Nrf4c/WxL79+F4YlBUeDoB5UxFeVcixo81olZHu4SOhh5zfClKAzMlVSO3+4M33K8puCQap0S8AqvE1DXNstQ==}
     dependencies:
       '@rollup/pluginutils': 5.0.2
       vite: 4.0.4_@types+node@18.11.11
