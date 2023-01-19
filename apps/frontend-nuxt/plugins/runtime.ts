@@ -1,5 +1,5 @@
-import { makeApiLayers, initializeSync } from "@effect-ts-app/boilerplate-vue"
-import * as Http from "@effect-ts-app/core/http/http-client"
+import { makeApiLayers, initializeSync } from "@effect-app/vue"
+import * as Http from "@effect-app/core/http/http-client"
 
 export const versionMatch = ref(true)
 export const runtime = ref<ReturnType<typeof makeRuntime>>()

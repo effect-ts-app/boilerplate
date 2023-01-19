@@ -1,6 +1,6 @@
 /* eslint-disable unused-imports/no-unused-imports */
 
-import "@effect-ts-app/boilerplate-messages/_global"
+import "@effect-app-boilerplate/messages/_global"
 
 /**
  * @tsplus global

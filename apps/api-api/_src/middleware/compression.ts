@@ -1,4 +1,4 @@
-import * as Ex from "@effect-ts-app/infra/express/index"
+import * as Ex from "@effect-app/infra-adapters/express/index"
 import c from "express-compression"
 
 export function compression(options?: any) {

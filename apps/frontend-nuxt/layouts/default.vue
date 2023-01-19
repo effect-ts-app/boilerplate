@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { MeRsc } from "@effect-ts-app/boilerplate-client"
-import { useSafeQuery, isInitializing } from "@effect-ts-app/boilerplate-vue"
+import { MeRsc } from "@effect-app-boilerplate/client"
+import { useSafeQuery, isInitializing } from "@effect-app/vue"
 import { onMounted } from "vue"
 import { useRouter } from "vue-router"
 
@@ -8,7 +8,7 @@ const meClient = clientFor(MeRsc)
 const [userResult, currentUser, getCurrentUser] = useSafeQuery(meClient.get)
 
 const appConfig = {
-  title: "@effect-ts-app/boilerplate",
+  title: "@effect-app/boilerplate",
 }
 
 useHead({

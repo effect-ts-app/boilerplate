@@ -1,4 +1,4 @@
-# @effect-ts-app/boilerplate
+# @effect-app/boilerplate
 
 ## Setup
 

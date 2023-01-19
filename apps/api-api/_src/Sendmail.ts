@@ -1,4 +1,4 @@
-import type { EmailMsgOptionalFrom } from "@effect-ts-app/boilerplate-infra/services/Emailer"
+import type { EmailMsgOptionalFrom } from "@effect-app/infra/services/Emailer"
 
 export interface SendMailRequest {
   readonly _tag: "SendMailRequest"

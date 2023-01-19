@@ -1,4 +1,4 @@
-import { defaultTeardown } from "@effect-ts-app/infra/runMain"
+import { defaultTeardown } from "@effect-app/infra-adapters/runMain"
 import * as Effect from "@effect/io/Effect"
 import * as Fiber from "@effect/io/Fiber"
 import * as Logger from "@effect/io/Logger"

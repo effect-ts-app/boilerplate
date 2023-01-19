@@ -1,4 +1,4 @@
-import { BaseConfig } from "@effect-ts-app/boilerplate-messages/config"
+import { BaseConfig } from "@effect-app-boilerplate/messages/config"
 
 const STORAGE_VERSION = "1"
 
@@ -28,4 +28,4 @@ export interface ApiConfig extends ConfigA<typeof ApiConfig> {}
 
 export interface ApiMainConfig extends ApiConfig, BaseConfig {}
 
-export * from "@effect-ts-app/boilerplate-messages/config"
+export * from "@effect-app-boilerplate/messages/config"

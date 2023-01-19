@@ -1,4 +1,4 @@
-import { clientFor, type FetchResponse } from "@effect-ts-app/boilerplate-prelude/client"
+import { clientFor, type FetchResponse } from "@effect-app/prelude/client"
 import { OperationsRsc } from "../Resources.js"
 import type { Operation, OperationId } from "../Views.js"
 

@@ -1,4 +1,4 @@
-import { optProp } from "@effect-ts-app/boilerplate-prelude/schema"
+import { optProp } from "@effect-app/prelude/schema"
 
 export type OperationId = StringId
 export const OperationId = StringId

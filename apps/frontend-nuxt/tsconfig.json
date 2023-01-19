@@ -13,16 +13,16 @@
     //"moduleResolution": "Node16",
     "strict": true,
     "paths": {
-      "@effect-ts-app/boilerplate-client": [
+      "@effect-app-boilerplate/client": [
         "../../packages/client/dist"
       ],
-      "@effect-ts-app/boilerplate-client/*": [
+      "@effect-app-boilerplate/client/*": [
         "../../packages/client/dist/*"
       ],
-      "@effect-ts-app/boilerplate-types": [
+      "@effect-app-boilerplate/types": [
         "../../packages/types/dist"
       ],
-      "@effect-ts-app/boilerplate-types/*": [
+      "@effect-app-boilerplate/types/*": [
         "../../packages/types/dist/*"
       ],
       // copied from ./.nuxt/tsconfig.json

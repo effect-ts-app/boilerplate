@@ -1,6 +1,6 @@
 import dotenv from "dotenv"
 
-import { SendgridConfig } from "@effect-ts-app/boilerplate-infra/services/Emailer"
+import { SendgridConfig } from "@effect-app/infra/services/Emailer"
 
 const envFile = "./.env.local"
 
@@ -12,11 +12,11 @@ if (error) {
 }
 
 const FROM = {
-  name: ReasonableString("@effect-ts-app/boilerplate"),
+  name: ReasonableString("@effect-app/boilerplate"),
   email: Email("noreply@example.com")
 }
 
-const serviceName = "@effect-ts-app/boilerplate"
+const serviceName = "@effect-app/boilerplate"
 
 const envConfig = Config.string("ENV").withDefault("local-dev")
 

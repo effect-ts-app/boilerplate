@@ -1,4 +1,4 @@
-import type { Operation, OperationId, OperationProgress } from "@effect-ts-app/boilerplate-client/Views"
+import type { Operation, OperationId, OperationProgress } from "@effect-app-boilerplate/client/Views"
 
 export const OperationsId = Symbol("OperationsId")
 export interface Operations extends ServiceTagged<typeof OperationsId> {

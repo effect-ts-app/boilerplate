@@ -3,7 +3,7 @@
 //   return Layer(CurrentUser)(user)
 // }
 
-import type { User } from "@effect-ts-app/boilerplate-types/User"
+import type { User } from "@effect-app-boilerplate/types/User"
 import type { CurrentUserOps } from "../CurrentUser.js"
 import { CurrentUser } from "../CurrentUser.js"
 

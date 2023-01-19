@@ -1,9 +1,9 @@
-import type { SchemaAny } from "@effect-ts-app/boilerplate-prelude/schema"
-import { typedKeysOf } from "@effect-ts-app/boilerplate-prelude/utils"
+import type { SchemaAny } from "@effect-app/prelude/schema"
+import { typedKeysOf } from "@effect-app/prelude/utils"
 import {
   parseRouteParams,
   parseRouteParamsOption,
-} from "@effect-ts-app/boilerplate-vue/routeParams"
+} from "@effect-app/vue/routeParams"
 import * as Opt from "@fp-ts/data/Option"
 
 export const useRouteParams = <NER extends Record<string, SchemaAny>>(
@@ -29,4 +29,4 @@ export const useRouteParamsOption = <NER extends Record<string, SchemaAny>>(
       : never
   }
 }
-export * from "@effect-ts-app/boilerplate-vue/routeParams"
+export * from "@effect-app/vue/routeParams"

@@ -1,21 +1,15 @@
 /* eslint-disable @typescript-eslint/ban-types */
-import { NotLoggedInError, UnauthorizedError } from "@effect-ts-app/boilerplate-infra/errors"
-import type { SupportedErrors } from "@effect-ts-app/boilerplate-infra/lib/api/defaultErrorHandler"
-import { defaultErrorHandler } from "@effect-ts-app/boilerplate-infra/lib/api/defaultErrorHandler"
-import type {
-  Flatten,
-  ReqFromSchema,
-  ReqHandler,
-  ResFromSchema,
-  RouteMatch
-} from "@effect-ts-app/boilerplate-infra/lib/api/routing"
-import { handle, match } from "@effect-ts-app/boilerplate-infra/lib/api/routing"
-import { RequestContext } from "@effect-ts-app/boilerplate-infra/lib/RequestContext"
-import { BasicRequestEnv } from "@effect-ts-app/boilerplate-messages/RequestLayers"
-import type { GetRequest, GetResponse, ReqRes, ReqResSchemed } from "@effect-ts-app/boilerplate-prelude/schema"
-import { Role } from "@effect-ts-app/boilerplate-types/User"
-import type { User } from "@effect-ts-app/boilerplate-types/User"
-import type { _E, _R, Request } from "@effect-ts-app/infra/express/schema/requestHandler"
+import { BasicRequestEnv } from "@effect-app-boilerplate/messages/RequestLayers"
+import { Role } from "@effect-app-boilerplate/types/User"
+import type { User } from "@effect-app-boilerplate/types/User"
+import type { _E, _R, Request } from "@effect-app/infra-adapters/express/schema/requestHandler"
+import { NotLoggedInError, UnauthorizedError } from "@effect-app/infra/errors"
+import type { SupportedErrors } from "@effect-app/infra/lib/api/defaultErrorHandler"
+import { defaultErrorHandler } from "@effect-app/infra/lib/api/defaultErrorHandler"
+import type { Flatten, ReqFromSchema, ReqHandler, ResFromSchema, RouteMatch } from "@effect-app/infra/lib/api/routing"
+import { handle, match } from "@effect-app/infra/lib/api/routing"
+import { RequestContext } from "@effect-app/infra/lib/RequestContext"
+import type { GetRequest, GetResponse, ReqRes, ReqResSchemed } from "@effect-app/prelude/schema"
 import type express from "express"
 import { CurrentUser, UserRepository } from "../services.js"
 import { makeUserProfileFromUserHeader, UserProfile } from "../services/UserProfile.js"
@@ -217,4 +211,4 @@ export function matchResource<TModules extends Record<string, Record<string, any
   }
 }
 
-export * from "@effect-ts-app/boilerplate-infra/lib/api/routing"
+export * from "@effect-app/infra/lib/api/routing"

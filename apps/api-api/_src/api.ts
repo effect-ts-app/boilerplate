@@ -1,5 +1,5 @@
-import { writeOpenapiDocs } from "@effect-ts-app/boilerplate-infra/lib/api/writeDocs"
-import * as Ex from "@effect-ts-app/infra/express/index"
+import * as Ex from "@effect-app/infra-adapters/express/index"
+import { writeOpenapiDocs } from "@effect-app/infra/lib/api/writeDocs"
 import type { ApiMainConfig } from "./config.js"
 import * as MW from "./middleware/index.js"
 import * as R from "./routes.js"

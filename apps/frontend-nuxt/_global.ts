@@ -1,1 +1,1 @@
-import "@effect-ts-app/boilerplate-prelude/_ext/Object"
+import "@effect-app/prelude/_ext/Object"

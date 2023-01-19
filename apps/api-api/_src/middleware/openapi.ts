@@ -1,5 +1,5 @@
-import * as Ex from "@effect-ts-app/infra/express/index"
-import { readTextFile } from "@effect-ts-app/infra/simpledb/fileutil"
+import * as Ex from "@effect-app/infra-adapters/express/index"
+import { readTextFile } from "@effect-app/infra-adapters/simpledb/fileutil"
 import redoc from "redoc-express"
 import { serve as serve_, setup as setup_ } from "swagger-ui-express"
 

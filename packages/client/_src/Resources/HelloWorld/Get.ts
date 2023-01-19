@@ -1,5 +1,5 @@
-import { User } from "@effect-ts-app/boilerplate-types/User"
-import { Get, Model } from "@effect-ts-app/schema"
+import { User } from "@effect-app-boilerplate/types/User"
+import { Get, Model } from "@effect-app/schema"
 
 @allowAnonymous
 @allowRoles("user")

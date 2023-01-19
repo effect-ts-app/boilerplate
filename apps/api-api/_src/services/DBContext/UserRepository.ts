@@ -1,10 +1,10 @@
-import { makeFilters } from "@effect-ts-app/boilerplate-infra/lib/filter"
-import type { Repository } from "@effect-ts-app/boilerplate-infra/services/Repository"
-import type { Filter, Where } from "@effect-ts-app/boilerplate-infra/services/Store"
-import { ContextMap, StoreMaker } from "@effect-ts-app/boilerplate-infra/services/Store"
-import type { UserId } from "@effect-ts-app/boilerplate-types/User"
-import { User } from "@effect-ts-app/boilerplate-types/User"
-import { makeCodec } from "@effect-ts-app/infra/context/schema"
+import type { UserId } from "@effect-app-boilerplate/types/User"
+import { User } from "@effect-app-boilerplate/types/User"
+import { makeCodec } from "@effect-app/infra-adapters/context/schema"
+import { makeFilters } from "@effect-app/infra/lib/filter"
+import type { Repository } from "@effect-app/infra/services/Repository"
+import type { Filter, Where } from "@effect-app/infra/services/Store"
+import { ContextMap, StoreMaker } from "@effect-app/infra/services/Store"
 import { UserProfile } from "../UserProfile.js"
 
 export interface UserPersistenceModel extends User.Encoded {

@@ -8,10 +8,10 @@ import type {
   ResponseError,
   UnauthorizedError,
   ValidationError,
-} from "@effect-ts-app/boilerplate-prelude/client"
-import { flow, pipe, tuple } from "@effect-ts-app/boilerplate-prelude/Function"
-import { useAction, useMutation } from "@effect-ts-app/boilerplate-vue"
-import type { Http } from "@effect-ts-app/core/http/http-client"
+} from "@effect-app/prelude/client"
+import { flow, pipe, tuple } from "@effect-app/prelude/Function"
+import { useAction, useMutation } from "@effect-app/vue"
+import type { Http } from "@effect-app/core/http/http-client"
 import { InterruptedException } from "@effect/io/Cause"
 import type { ComputedRef } from "nuxt/dist/app/compat/capi"
 import { useToast } from "vue-toastification"
@@ -22,7 +22,7 @@ import type {
   Pausable,
   UseIntervalFnOptions,
 } from "@vueuse/core"
-import { Failure, Success } from "@effect-ts-app/boilerplate-client/Views"
+import { Failure, Success } from "@effect-app-boilerplate/client/Views"
 
 export { useToast } from "vue-toastification"
 
@@ -32,7 +32,7 @@ export {
   isInitializing,
   isRefreshing,
   isSuccess,
-} from "@effect-ts-app/boilerplate-prelude/client"
+} from "@effect-app/prelude/client"
 export {
   useAction,
   useMutate,
@@ -41,13 +41,13 @@ export {
   useSafeQuery_,
   useSafeQueryWithArg,
   useSafeQueryWithArg_,
-} from "@effect-ts-app/boilerplate-vue"
+} from "@effect-app/vue"
 export {
   refreshAndWaitAForOperation,
   refreshAndWaitAForOperationP,
   refreshAndWaitForOperation,
   refreshAndWaitForOperationP,
-} from "@effect-ts-app/boilerplate-client/lib"
+} from "@effect-app-boilerplate/client/lib"
 
 export function pauseWhileProcessing(
   iv: Pausable,

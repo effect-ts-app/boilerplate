@@ -1,5 +1,5 @@
 import { Operations } from "@/services.js"
-import { OperationsRsc } from "@effect-ts-app/boilerplate-client"
+import { OperationsRsc } from "@effect-app-boilerplate/client"
 
 export const OperationsControllers = Effect.servicesWith({ Operations }, (
   { Operations }

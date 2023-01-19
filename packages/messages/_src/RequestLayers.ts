@@ -1,5 +1,5 @@
-import { RequestContext } from "@effect-ts-app/boilerplate-infra/lib/RequestContext"
-import { ContextMap } from "@effect-ts-app/boilerplate-infra/services/Store"
+import { RequestContext } from "@effect-app/infra/lib/RequestContext"
+import { ContextMap } from "@effect-app/infra/services/Store"
 
 export const BasicRequestEnv = (pars: RequestContext) =>
   Effect.gen(function*($) {

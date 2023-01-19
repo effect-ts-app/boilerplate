@@ -1,4 +1,4 @@
-import { makePreparedLenses } from "@effect-ts-app/boilerplate-prelude/schema"
+import { makePreparedLenses } from "@effect-app/prelude/schema"
 
 export const FirstName = ReasonableString["|>"](
   arbitrary(FC =>

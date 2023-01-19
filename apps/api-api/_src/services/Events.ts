@@ -1,4 +1,4 @@
-import type { ClientEvents } from "@effect-ts-app/boilerplate-client"
+import type { ClientEvents } from "@effect-app-boilerplate/client"
 import type { Dequeue } from "@effect/io/Queue"
 
 const makeEvents = Do($ => {
