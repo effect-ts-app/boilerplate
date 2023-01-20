@@ -31,5 +31,5 @@ export function setupReq2<R, E, A>(self: Effect<R, E, A>, name: string) {
 export function setupReq3<R, E, A>(self: Effect<R, E, A>, requestContext: RequestContext) {
   return self
     .setupRequestFrom
-    .provideSomeEnvironmentEffect(BasicRequestEnv(requestContext))
+    .provideSomeContextEffect(BasicRequestEnv(requestContext))
 }

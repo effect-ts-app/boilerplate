@@ -9,15 +9,18 @@ patchedDependencies:
   '@effect/language-service@0.0.15':
     hash: a4uvuf3pdfkyyq2ka2mtqp5yfi
     path: patches/@effect__language-service@0.0.15.patch
-  '@effect-ts/monocle@0.43.0':
-    hash: d3hhxwnoq64fw5ljkjpzykj2mi
-    path: patches/@effect-ts__monocle@0.43.0.patch
   '@playwright/test@1.29.2':
     hash: 7ggrwwel7pztbzd4b2acwqdriu
     path: patches/@playwright+test+1.29.2.patch
+  '@effect-ts/core@0.60.5':
+    hash: jx4drcbvzaxoqqasybnfxdx44i
+    path: patches/@effect-ts__core@0.60.5.patch
   '@typescript-eslint/scope-manager@5.48.2':
     hash: tp5r7mwyjl4dxldk2tuwbgrsum
     path: patches/@typescript-eslint__scope-manager@5.48.2.patch
+  '@effect-ts/monocle@0.43.0':
+    hash: d3hhxwnoq64fw5ljkjpzykj2mi
+    path: patches/@effect-ts__monocle@0.43.0.patch
   eslint-plugin-unused-imports@2.0.0:
     hash: tnum7sl7jcutfljbv5jztcescq
     path: patches/eslint-plugin-unused-imports@2.0.0.patch
@@ -27,15 +30,12 @@ patchedDependencies:
   eslint-plugin-codegen@0.17.0:
     hash: 3ogk7peuefdu45q3hbzcgdiuna
     path: patches/eslint-plugin-codegen@0.17.0.patch
-  '@effect-ts/core@0.60.5':
-    hash: jx4drcbvzaxoqqasybnfxdx44i
-    path: patches/@effect-ts__core@0.60.5.patch
   typescript@5.0.0-tsplus.20230113:
     hash: 4lokxnnems7dr5czg2fre2i5fq
     path: patches/typescript@5.0.0-tsplus.20230113.patch
-  '@effect/io@0.0.65':
-    hash: ch2m3gurmkzos5ffwbxtffvjeq
-    path: patches/@effect__io@0.0.65.patch
+  '@effect/io@0.0.66':
+    hash: wvvg23gkayuzduliecfba7o7im
+    path: patches/@effect__io@0.0.66.patch
 
 importers:
 
@@ -43,9 +43,9 @@ importers:
     specifiers:
       '@babel/cli': ^7.20.7
       '@effect-app/compiler': ^0.7.0
-      '@effect-app/core': ^0.7.0
-      '@effect-app/eslint-codegen-model': ^0.7.0
-      '@effect-app/prelude': ^0.7.1
+      '@effect-app/core': ^0.8.0
+      '@effect-app/eslint-codegen-model': ^0.8.0
+      '@effect-app/prelude': ^0.8.0
       '@effect/language-service': ^0.0.15
       '@phaphoso/eslint-plugin-dprint': ^0.5.2
       '@tsconfig/strictest': ^1.0.2
@@ -97,9 +97,9 @@ importers:
     devDependencies:
       '@babel/cli': 7.20.7
       '@effect-app/compiler': 0.7.0_@types+node@18.11.11
-      '@effect-app/core': 0.7.0
-      '@effect-app/eslint-codegen-model': 0.7.0
-      '@effect-app/prelude': 0.7.1
+      '@effect-app/core': 0.8.0
+      '@effect-app/eslint-codegen-model': 0.8.0
+      '@effect-app/prelude': 0.8.0
       '@effect/language-service': 0.0.15_a4uvuf3pdfkyyq2ka2mtqp5yfi
       '@phaphoso/eslint-plugin-dprint': 0.5.2_eslint@8.32.0
       '@tsconfig/strictest': 1.0.2
@@ -146,19 +146,19 @@ importers:
       '@effect-app-boilerplate/client': '*'
       '@effect-app-boilerplate/messages': '*'
       '@effect-app-boilerplate/types': '*'
-      '@effect-app/core': ^0.7.0
-      '@effect-app/infra': ^0.8.2
-      '@effect-app/infra-adapters': ^0.8.1
-      '@effect-app/prelude': ^0.7.1
-      '@effect-app/schema': ^0.7.0
+      '@effect-app/core': ^0.8.0
+      '@effect-app/infra': ^0.9.0
+      '@effect-app/infra-adapters': ^0.9.0
+      '@effect-app/prelude': ^0.8.0
+      '@effect-app/schema': ^0.8.0
       '@effect-ts/core': ^0.60.5
       '@effect-ts/system': ^0.57.5
-      '@effect/io': ^0.0.65
+      '@effect/io': ^0.0.66
       '@effect/stm': ^0.0.15
       '@formatjs/cli': ^5.1.12
       '@formatjs/intl': ^2.6.3
       '@fp-ts/core': ^0.0.11
-      '@fp-ts/data': ^0.0.39
+      '@fp-ts/data': ^0.0.40
       '@sendgrid/mail': ^7.7.0
       '@sentry/node': ^7.31.1
       '@types/body-parser': ^1.19.2
@@ -198,19 +198,19 @@ importers:
       '@effect-app-boilerplate/client': link:../../packages/client
       '@effect-app-boilerplate/messages': link:../../packages/messages
       '@effect-app-boilerplate/types': link:../../packages/types
-      '@effect-app/core': 0.7.0
-      '@effect-app/infra': 0.8.2
-      '@effect-app/infra-adapters': 0.8.1
-      '@effect-app/prelude': 0.7.1
-      '@effect-app/schema': 0.7.0
+      '@effect-app/core': 0.8.0
+      '@effect-app/infra': 0.9.0
+      '@effect-app/infra-adapters': 0.9.0
+      '@effect-app/prelude': 0.8.0
+      '@effect-app/schema': 0.8.0
       '@effect-ts/core': 0.60.5_jx4drcbvzaxoqqasybnfxdx44i
       '@effect-ts/system': 0.57.5_aliyesjnd2rt7ef7234i2dw2t4
-      '@effect/io': 0.0.65_ch2m3gurmkzos5ffwbxtffvjeq
+      '@effect/io': 0.0.66_wvvg23gkayuzduliecfba7o7im
       '@effect/stm': 0.0.15
       '@formatjs/cli': 5.1.12
       '@formatjs/intl': 2.6.3
       '@fp-ts/core': 0.0.11
-      '@fp-ts/data': 0.0.39
+      '@fp-ts/data': 0.0.40
       '@sendgrid/mail': 7.7.0
       '@sentry/node': 7.31.1
       body-parser: 1.20.1
@@ -252,20 +252,20 @@ importers:
       '@effect-app-boilerplate/client': '*'
       '@effect-app-boilerplate/messages': '*'
       '@effect-app-boilerplate/types': '*'
-      '@effect-app/core': ^0.7.0
-      '@effect-app/infra': ^0.8.2
-      '@effect-app/infra-adapters': ^0.8.1
-      '@effect-app/prelude': ^0.7.1
-      '@effect-app/schema': ^0.7.0
+      '@effect-app/core': ^0.8.0
+      '@effect-app/infra': ^0.9.0
+      '@effect-app/infra-adapters': ^0.9.0
+      '@effect-app/prelude': ^0.8.0
+      '@effect-app/schema': ^0.8.0
       '@effect-ts/core': ^0.60.5
       '@effect-ts/monocle': ^0.43.0
       '@effect-ts/system': ^0.57.5
-      '@effect/io': ^0.0.65
+      '@effect/io': ^0.0.66
       '@effect/stm': ^0.0.15
       '@formatjs/cli': ^5.1.12
       '@formatjs/intl': ^2.6.3
       '@fp-ts/core': ^0.0.11
-      '@fp-ts/data': ^0.0.39
+      '@fp-ts/data': ^0.0.40
       '@sendgrid/mail': ^7.7.0
       '@sentry/node': ^7.31.1
       '@types/body-parser': ^1.19.2
@@ -310,20 +310,20 @@ importers:
       '@effect-app-boilerplate/client': link:../../packages/client
       '@effect-app-boilerplate/messages': link:../../packages/messages
       '@effect-app-boilerplate/types': link:../../packages/types
-      '@effect-app/core': 0.7.0
-      '@effect-app/infra': 0.8.2
-      '@effect-app/infra-adapters': 0.8.1
-      '@effect-app/prelude': 0.7.1
-      '@effect-app/schema': 0.7.0
+      '@effect-app/core': 0.8.0
+      '@effect-app/infra': 0.9.0
+      '@effect-app/infra-adapters': 0.9.0
+      '@effect-app/prelude': 0.8.0
+      '@effect-app/schema': 0.8.0
       '@effect-ts/core': 0.60.5_jx4drcbvzaxoqqasybnfxdx44i
       '@effect-ts/monocle': 0.43.0_d3hhxwnoq64fw5ljkjpzykj2mi_@effect-ts+core@0.60.5
       '@effect-ts/system': 0.57.5_aliyesjnd2rt7ef7234i2dw2t4
-      '@effect/io': 0.0.65_ch2m3gurmkzos5ffwbxtffvjeq
+      '@effect/io': 0.0.66_wvvg23gkayuzduliecfba7o7im
       '@effect/stm': 0.0.15
       '@formatjs/cli': 5.1.12
       '@formatjs/intl': 2.6.3
       '@fp-ts/core': 0.0.11
-      '@fp-ts/data': 0.0.39
+      '@fp-ts/data': 0.0.40
       '@sendgrid/mail': 7.7.0
       '@sentry/node': 7.31.1
       body-parser: 1.20.1
@@ -366,20 +366,20 @@ importers:
     specifiers:
       '@effect-app-boilerplate/client': '*'
       '@effect-app-boilerplate/types': '*'
-      '@effect-app/core': ^0.7.0
-      '@effect-app/prelude': ^0.7.1
-      '@effect-app/schema': ^0.7.0
-      '@effect-app/vue': ^0.7.1
+      '@effect-app/core': ^0.8.0
+      '@effect-app/prelude': ^0.8.0
+      '@effect-app/schema': ^0.8.0
+      '@effect-app/vue': ^0.8.0
       '@effect-ts/core': ^0.60.5
       '@effect-ts/system': ^0.57.5
-      '@effect/io': ^0.0.65
+      '@effect/io': ^0.0.66
       '@fp-ts/core': ^0.0.11
-      '@fp-ts/data': ^0.0.39
+      '@fp-ts/data': ^0.0.40
       '@mdi/js': ^7.1.96
       '@types/cookie': ^0.5.1
       '@types/http-proxy': ^1.17.9
-      '@vueuse/core': ^9.11.0
-      '@vueuse/nuxt': ^9.11.0
+      '@vueuse/core': ^9.11.1
+      '@vueuse/nuxt': ^9.11.1
       cookie: ^0.5.0
       date-fns: ^2.29.3
       eslint-plugin-vue: ^9.9.0
@@ -397,17 +397,17 @@ importers:
     dependencies:
       '@effect-app-boilerplate/client': link:../../packages/client
       '@effect-app-boilerplate/types': link:../../packages/types
-      '@effect-app/core': 0.7.0
-      '@effect-app/prelude': 0.7.1
-      '@effect-app/schema': 0.7.0
-      '@effect-app/vue': 0.7.1
+      '@effect-app/core': 0.8.0
+      '@effect-app/prelude': 0.8.0
+      '@effect-app/schema': 0.8.0
+      '@effect-app/vue': 0.8.0
       '@effect-ts/core': 0.60.5_jx4drcbvzaxoqqasybnfxdx44i
       '@effect-ts/system': 0.57.5_aliyesjnd2rt7ef7234i2dw2t4
-      '@effect/io': 0.0.65_ch2m3gurmkzos5ffwbxtffvjeq
+      '@effect/io': 0.0.66_wvvg23gkayuzduliecfba7o7im
       '@fp-ts/core': 0.0.11
-      '@fp-ts/data': 0.0.39
-      '@vueuse/core': 9.11.0
-      '@vueuse/nuxt': 9.11.0_nuxt@3.0.0
+      '@fp-ts/data': 0.0.40
+      '@vueuse/core': 9.11.1
+      '@vueuse/nuxt': 9.11.1_nuxt@3.0.0
       cookie: 0.5.0
       date-fns: 2.29.3
       http-proxy: /http-proxy-node16/1.0.0
@@ -439,15 +439,15 @@ importers:
       '@babel/preset-typescript': ^7.18.6
       '@effect-app-boilerplate/client': '*'
       '@effect-app-boilerplate/types': '*'
-      '@effect-app/core': ^0.7.0
-      '@effect-app/prelude': ^0.7.1
-      '@effect-app/schema': ^0.7.0
-      '@effect-app/vue': ^0.7.1
+      '@effect-app/core': ^0.8.0
+      '@effect-app/prelude': ^0.8.0
+      '@effect-app/schema': ^0.8.0
+      '@effect-app/vue': ^0.8.0
       '@effect-ts/core': ^0.60.5
       '@effect-ts/system': ^0.57.5
-      '@effect/io': ^0.0.65
+      '@effect/io': ^0.0.66
       '@fp-ts/core': ^0.0.11
-      '@fp-ts/data': ^0.0.39
+      '@fp-ts/data': ^0.0.40
       '@playwright/test': ~1.29.2
       '@tsplus/stdlib': ^0.2.8
       '@types/node': ~18.11.11
@@ -475,15 +475,15 @@ importers:
     dependencies:
       '@effect-app-boilerplate/client': link:../packages/client
       '@effect-app-boilerplate/types': link:../packages/types
-      '@effect-app/core': 0.7.0
-      '@effect-app/prelude': 0.7.1
-      '@effect-app/schema': 0.7.0
-      '@effect-app/vue': 0.7.1
+      '@effect-app/core': 0.8.0
+      '@effect-app/prelude': 0.8.0
+      '@effect-app/schema': 0.8.0
+      '@effect-app/vue': 0.8.0
       '@effect-ts/core': 0.60.5_jx4drcbvzaxoqqasybnfxdx44i
       '@effect-ts/system': 0.57.5_aliyesjnd2rt7ef7234i2dw2t4
-      '@effect/io': 0.0.65_ch2m3gurmkzos5ffwbxtffvjeq
+      '@effect/io': 0.0.66_wvvg23gkayuzduliecfba7o7im
       '@fp-ts/core': 0.0.11
-      '@fp-ts/data': 0.0.39
+      '@fp-ts/data': 0.0.40
       '@tsplus/stdlib': 0.2.8
       cross-fetch: 3.1.5
       tsconfig-paths: 4.1.2
@@ -521,13 +521,13 @@ importers:
   packages/client:
     specifiers:
       '@effect-app-boilerplate/types': '*'
-      '@effect-app/core': ^0.7.0
-      '@effect-app/prelude': ^0.7.1
-      '@effect-app/schema': ^0.7.0
+      '@effect-app/core': ^0.8.0
+      '@effect-app/prelude': ^0.8.0
+      '@effect-app/schema': ^0.8.0
       '@effect-ts/core': ^0.60.5
-      '@effect/io': ^0.0.65
+      '@effect/io': ^0.0.66
       '@fp-ts/core': ^0.0.11
-      '@fp-ts/data': ^0.0.39
+      '@fp-ts/data': ^0.0.40
       '@types/papaparse': ^5.3.7
       camel-case: ^4.1.2
       cross-fetch: ^3.1.5
@@ -537,13 +537,13 @@ importers:
       xlsx: ^0.18.5
     dependencies:
       '@effect-app-boilerplate/types': link:../types
-      '@effect-app/core': 0.7.0
-      '@effect-app/prelude': 0.7.1
-      '@effect-app/schema': 0.7.0
+      '@effect-app/core': 0.8.0
+      '@effect-app/prelude': 0.8.0
+      '@effect-app/schema': 0.8.0
       '@effect-ts/core': 0.60.5_jx4drcbvzaxoqqasybnfxdx44i
-      '@effect/io': 0.0.65_ch2m3gurmkzos5ffwbxtffvjeq
+      '@effect/io': 0.0.66_wvvg23gkayuzduliecfba7o7im
       '@fp-ts/core': 0.0.11
-      '@fp-ts/data': 0.0.39
+      '@fp-ts/data': 0.0.40
       camel-case: 4.1.2
       cross-fetch: 3.1.5
       date-fns: 2.29.3
@@ -557,15 +557,15 @@ importers:
     specifiers:
       '@effect-app-boilerplate/client': '*'
       '@effect-app-boilerplate/types': '*'
-      '@effect-app/core': ^0.7.0
-      '@effect-app/infra': ^0.8.2
-      '@effect-app/infra-adapters': ^0.8.1
-      '@effect-app/prelude': ^0.7.1
-      '@effect-app/schema': ^0.7.0
+      '@effect-app/core': ^0.8.0
+      '@effect-app/infra': ^0.9.0
+      '@effect-app/infra-adapters': ^0.9.0
+      '@effect-app/prelude': ^0.8.0
+      '@effect-app/schema': ^0.8.0
       '@effect-ts/core': ^0.60.5
-      '@effect/io': ^0.0.65
+      '@effect/io': ^0.0.66
       '@fp-ts/core': ^0.0.11
-      '@fp-ts/data': ^0.0.39
+      '@fp-ts/data': ^0.0.40
       change-case: ^4.1.2
       cross-fetch: ^3.1.5
       date-fns: ^2.29.3
@@ -574,15 +574,15 @@ importers:
     dependencies:
       '@effect-app-boilerplate/client': link:../client
       '@effect-app-boilerplate/types': link:../types
-      '@effect-app/core': 0.7.0
-      '@effect-app/infra': 0.8.2
-      '@effect-app/infra-adapters': 0.8.1
-      '@effect-app/prelude': 0.7.1
-      '@effect-app/schema': 0.7.0
+      '@effect-app/core': 0.8.0
+      '@effect-app/infra': 0.9.0
+      '@effect-app/infra-adapters': 0.9.0
+      '@effect-app/prelude': 0.8.0
+      '@effect-app/schema': 0.8.0
       '@effect-ts/core': 0.60.5_jx4drcbvzaxoqqasybnfxdx44i
-      '@effect/io': 0.0.65_ch2m3gurmkzos5ffwbxtffvjeq
+      '@effect/io': 0.0.66_wvvg23gkayuzduliecfba7o7im
       '@fp-ts/core': 0.0.11
-      '@fp-ts/data': 0.0.39
+      '@fp-ts/data': 0.0.40
       change-case: 4.1.2
       cross-fetch: 3.1.5
       date-fns: 2.29.3
@@ -591,13 +591,13 @@ importers:
 
   packages/types:
     specifiers:
-      '@effect-app/core': ^0.7.0
-      '@effect-app/prelude': ^0.7.1
-      '@effect-app/schema': ^0.7.0
+      '@effect-app/core': ^0.8.0
+      '@effect-app/prelude': ^0.8.0
+      '@effect-app/schema': ^0.8.0
       '@effect-ts/core': ^0.60.5
-      '@effect/io': ^0.0.65
+      '@effect/io': ^0.0.66
       '@fp-ts/core': ^0.0.11
-      '@fp-ts/data': ^0.0.39
+      '@fp-ts/data': ^0.0.40
       '@types/faker': 5.5.9
       '@types/uuid': ^9.0.0
       '@types/validator': ^13.7.10
@@ -607,13 +607,13 @@ importers:
       uuid: ^9.0.0
       validator: ^13.7.0
     dependencies:
-      '@effect-app/core': 0.7.0
-      '@effect-app/prelude': 0.7.1
-      '@effect-app/schema': 0.7.0
+      '@effect-app/core': 0.8.0
+      '@effect-app/prelude': 0.8.0
+      '@effect-app/schema': 0.8.0
       '@effect-ts/core': 0.60.5_jx4drcbvzaxoqqasybnfxdx44i
-      '@effect/io': 0.0.65_ch2m3gurmkzos5ffwbxtffvjeq
+      '@effect/io': 0.0.66_wvvg23gkayuzduliecfba7o7im
       '@fp-ts/core': 0.0.11
-      '@fp-ts/data': 0.0.39
+      '@fp-ts/data': 0.0.40
       date-fns: 2.29.3
       uuid: 9.0.0
       validator: 13.7.0
@@ -626,18 +626,18 @@ importers:
 
   play:
     specifiers:
-      '@effect-app/core': ^0.7.0
-      '@effect-app/prelude': ^0.7.1
-      '@effect-app/schema': ^0.7.0
+      '@effect-app/core': ^0.8.0
+      '@effect-app/prelude': ^0.8.0
+      '@effect-app/schema': ^0.8.0
       change-case: ^4.1.2
       cross-fetch: ^3.1.5
       path-parser: ^6.1.0
       ts-node: ^10.9.1
       vite-node: ^0.27.2
     dependencies:
-      '@effect-app/core': 0.7.0
-      '@effect-app/prelude': 0.7.1
-      '@effect-app/schema': 0.7.0
+      '@effect-app/core': 0.8.0
+      '@effect-app/prelude': 0.8.0
+      '@effect-app/schema': 0.8.0
       change-case: 4.1.2
       cross-fetch: 3.1.5
       path-parser: 6.1.0
@@ -1258,6 +1258,7 @@ packages:
   /@babel/parser/7.20.7:
     resolution: {integrity: sha512-T3Z9oHybU+0vZlY9CiDSJQTD5ZapcW18ZctFMi0MOAl/4BjFF4ul7NVSARLdbGO5vDqy9eQiGTV0LtKfvCYvcg==}
     engines: {node: '>=6.0.0'}
+    hasBin: true
     dependencies:
       '@babel/types': 7.20.7
 
@@ -2238,15 +2239,15 @@ packages:
       - terser
     dev: true
 
-  /@effect-app/core/0.7.0:
-    resolution: {integrity: sha512-piC/dPYxXdegLAu1BLLbEiClpw27/p4gG44yQhKXWRWY2+BqKVnw+m4QgC/cldah9ttIHg+x2/E7bPrI9rAaxA==}
+  /@effect-app/core/0.8.0:
+    resolution: {integrity: sha512-XHuGix96OxYfkMwaxBwy2AwF5Cl3yG3hoH8hw7s0VicqxC0itlpg3VxFg5GjTYAnfgW61j6p5ExTpGJiuShNbg==}
     dependencies:
       '@effect-ts/core': 0.60.5_jx4drcbvzaxoqqasybnfxdx44i
       '@effect-ts/monocle': 0.43.0_d3hhxwnoq64fw5ljkjpzykj2mi_@effect-ts+core@0.60.5
       '@effect-ts/system': 0.57.5_aliyesjnd2rt7ef7234i2dw2t4
-      '@effect/io': 0.0.65_ch2m3gurmkzos5ffwbxtffvjeq
+      '@effect/io': 0.0.66_wvvg23gkayuzduliecfba7o7im
       '@fp-ts/core': 0.0.11
-      '@fp-ts/data': 0.0.39
+      '@fp-ts/data': 0.0.40
       cross-fetch: 3.1.5
       lodash: 4.17.21
       path-parser: 6.1.0
@@ -2256,8 +2257,8 @@ packages:
     transitivePeerDependencies:
       - encoding
 
-  /@effect-app/eslint-codegen-model/0.7.0:
-    resolution: {integrity: sha512-kACOVd4ETEhkdX5ZjQnzFHAg4PfBAB6WklAuchNCQ29+96/fDMdf4ab5+zZYgg98VuA/EFrqnB0rxiTAYc34/w==}
+  /@effect-app/eslint-codegen-model/0.8.0:
+    resolution: {integrity: sha512-RYwhwry+Y5QuZBMiz3QMbNlp7yZh0s9O9JRwRdEM46VqMVbFtJTAOZzxrAyS+yS00PpmRH9IE0VpAEbjTz9VUw==}
     dependencies:
       '@babel/generator': 7.20.7
       '@babel/parser': 7.20.7
@@ -2272,36 +2273,36 @@ packages:
       - supports-color
     dev: true
 
-  /@effect-app/infra-adapters/0.8.1:
-    resolution: {integrity: sha512-dhgVQjaNXw68h2VZzbtbaBDh2SpNOD8i6GjZwoA/Hp5d4tFVgVrJgxQ1HNb9VMxK/nG4bI1ZPxi7qfp/Nu2hJA==}
+  /@effect-app/infra-adapters/0.9.0:
+    resolution: {integrity: sha512-mmqOfxuEGeUYXB4fjiCm7UAss33OSy2p61iYF7CRxsG4V99FG7AiXz8MWxH0h0MfFl71hYKt4A76uk6JIfUJgQ==}
     dependencies:
-      '@effect-app/core': 0.7.0
-      '@effect-app/schema': 0.7.0
+      '@effect-app/core': 0.8.0
+      '@effect-app/schema': 0.8.0
       '@effect-ts/core': 0.60.5_jx4drcbvzaxoqqasybnfxdx44i
       '@effect-ts/monocle': 0.43.0_d3hhxwnoq64fw5ljkjpzykj2mi_@effect-ts+core@0.60.5
       '@effect-ts/system': 0.57.5_aliyesjnd2rt7ef7234i2dw2t4
-      '@effect/io': 0.0.65_ch2m3gurmkzos5ffwbxtffvjeq
+      '@effect/io': 0.0.66_wvvg23gkayuzduliecfba7o7im
       '@fp-ts/core': 0.0.11
-      '@fp-ts/data': 0.0.39
+      '@fp-ts/data': 0.0.40
       query-string: 8.1.0
     transitivePeerDependencies:
       - encoding
     dev: false
 
-  /@effect-app/infra/0.8.2:
-    resolution: {integrity: sha512-wn4f25k13bMF5GXeSV7+zKCOrM0ctCnxEk2rVaEz5QTLHcml5SAHWAkrM9sCFoqQZSErkkkq9spVxEgJMZZmTw==}
+  /@effect-app/infra/0.9.0:
+    resolution: {integrity: sha512-2uUuW3blpCfjhq0VhSMPiOh0MavpkUQSvZyx4Yfv0qFTR3nqOV5fIIhDerk86P6ZGeKqHJZ9Prfl50KZX9lugg==}
     dependencies:
       '@azure/cosmos': 3.17.2
-      '@effect-app/core': 0.7.0
-      '@effect-app/infra-adapters': 0.8.1
-      '@effect-app/prelude': 0.7.1
-      '@effect-app/schema': 0.7.0
+      '@effect-app/core': 0.8.0
+      '@effect-app/infra-adapters': 0.9.0
+      '@effect-app/prelude': 0.8.0
+      '@effect-app/schema': 0.8.0
       '@effect-ts/core': 0.60.5_jx4drcbvzaxoqqasybnfxdx44i
       '@effect-ts/monocle': 0.43.0_d3hhxwnoq64fw5ljkjpzykj2mi_@effect-ts+core@0.60.5
       '@effect-ts/system': 0.57.5_aliyesjnd2rt7ef7234i2dw2t4
-      '@effect/io': 0.0.65_ch2m3gurmkzos5ffwbxtffvjeq
+      '@effect/io': 0.0.66_wvvg23gkayuzduliecfba7o7im
       '@fp-ts/core': 0.0.11
-      '@fp-ts/data': 0.0.39
+      '@fp-ts/data': 0.0.40
       '@sendgrid/helpers': 7.7.0
       '@sendgrid/mail': 7.7.0
       change-case: 4.1.2
@@ -2319,19 +2320,17 @@ packages:
       - supports-color
     dev: false
 
-  /@effect-app/prelude/0.7.1:
-    resolution: {integrity: sha512-DXE5WANda092gyuyQtedH8IrZqQ0dYthtAbaavv4T5LR8sJB5JHbgeT8DlCf5wONFWg3/f/o4xfWVjm3f72RDA==}
+  /@effect-app/prelude/0.8.0:
+    resolution: {integrity: sha512-6cMn7+CzCqNsnRq5kGgGzTaUxmgSSgft9FrSDQfybaAgWpxXOh0j5LfsF3nKCaynOa7ScIR61dE5Ykon1tOfoA==}
     dependencies:
-      '@effect-app/core': 0.7.0
-      '@effect-app/schema': 0.7.0
+      '@effect-app/core': 0.8.0
+      '@effect-app/schema': 0.8.0
       '@effect-ts/core': 0.60.5_jx4drcbvzaxoqqasybnfxdx44i
       '@effect-ts/monocle': 0.43.0_d3hhxwnoq64fw5ljkjpzykj2mi_@effect-ts+core@0.60.5
       '@effect-ts/system': 0.57.5_aliyesjnd2rt7ef7234i2dw2t4
-      '@effect/io': 0.0.65_ch2m3gurmkzos5ffwbxtffvjeq
-      '@effect/stm': 0.0.15
-      '@effect/stream': 0.0.12
+      '@effect/io': 0.0.66_wvvg23gkayuzduliecfba7o7im
       '@fp-ts/core': 0.0.11
-      '@fp-ts/data': 0.0.39
+      '@fp-ts/data': 0.0.40
       date-fns: 2.29.3
       lodash: 4.17.21
       nanoid: 4.0.0
@@ -2343,16 +2342,16 @@ packages:
     transitivePeerDependencies:
       - encoding
 
-  /@effect-app/schema/0.7.0:
-    resolution: {integrity: sha512-vwHc/sEDxeynXj1DDg87YpBwIbkprSbCJaexnl0EajJkkPDB1NPeTC0gmjth+35XSzOO6R5RCpR9wY++mdRePg==}
+  /@effect-app/schema/0.8.0:
+    resolution: {integrity: sha512-kyQx33LQ75Z8atCpzBfKXVnEhoRqvUgrPTPvRW9SjkxofPmITLGLyOX9DZqSgU3UOrcHAn/Fe5iOw4mxgaJQlA==}
     dependencies:
-      '@effect-app/core': 0.7.0
+      '@effect-app/core': 0.8.0
       '@effect-ts/core': 0.60.5_jx4drcbvzaxoqqasybnfxdx44i
       '@effect-ts/monocle': 0.43.0_d3hhxwnoq64fw5ljkjpzykj2mi_@effect-ts+core@0.60.5
       '@effect-ts/system': 0.57.5_aliyesjnd2rt7ef7234i2dw2t4
-      '@effect/io': 0.0.65_ch2m3gurmkzos5ffwbxtffvjeq
+      '@effect/io': 0.0.66_wvvg23gkayuzduliecfba7o7im
       '@fp-ts/core': 0.0.11
-      '@fp-ts/data': 0.0.39
+      '@fp-ts/data': 0.0.40
       cross-fetch: 3.1.5
       lodash: 4.17.21
       path-parser: 6.1.0
@@ -2361,18 +2360,18 @@ packages:
     transitivePeerDependencies:
       - encoding
 
-  /@effect-app/vue/0.7.1:
-    resolution: {integrity: sha512-DPTb0zb5Q1msXkE+bMifPh+jzBEeXS+2gZkfHg6SbttfTaUD5hD3kvHJO+/Lwotqcn7jt5E9PJvgkGxdp2oxiA==}
+  /@effect-app/vue/0.8.0:
+    resolution: {integrity: sha512-AS/TkswFuBH52Ass0vjckupB++hj4PwDqIpru+SjQX9Uyig+q+4W9O8fx6yMe4/yCkz4SDHr+qS7sYliXn+Ubg==}
     dependencies:
-      '@effect-app/core': 0.7.0
-      '@effect-app/prelude': 0.7.1
-      '@effect-app/schema': 0.7.0
+      '@effect-app/core': 0.8.0
+      '@effect-app/prelude': 0.8.0
+      '@effect-app/schema': 0.8.0
       '@effect-ts/core': 0.60.5_jx4drcbvzaxoqqasybnfxdx44i
       '@effect-ts/monocle': 0.43.0_d3hhxwnoq64fw5ljkjpzykj2mi_@effect-ts+core@0.60.5
       '@effect-ts/system': 0.57.5_aliyesjnd2rt7ef7234i2dw2t4
-      '@effect/io': 0.0.65_ch2m3gurmkzos5ffwbxtffvjeq
+      '@effect/io': 0.0.66_wvvg23gkayuzduliecfba7o7im
       '@fp-ts/core': 0.0.11
-      '@fp-ts/data': 0.0.39
+      '@fp-ts/data': 0.0.40
       query-string: 8.1.0
       swrv: 1.0.3_vue@3.2.45
       vue: 3.2.45
@@ -2398,34 +2397,28 @@ packages:
     resolution: {integrity: sha512-/crHGujo0xnuHIYNc1VgP0HGJGFSoSqq88JFXe6FmFyXPpWt8Xu39LyLg7rchsxfXFeEdA9CrIZvLV5eswXV5g==}
     patched: true
 
-  /@effect/io/0.0.65_ch2m3gurmkzos5ffwbxtffvjeq:
-    resolution: {integrity: sha512-LiCeZap+ERUAALdk1cscgWJj4o0IEvQ2KhAtI4fev8cqIRjYy/UsYaW29zeX6FIVGUN/5UaU0xLgMuJnl6Kjqw==}
+  /@effect/io/0.0.66_wvvg23gkayuzduliecfba7o7im:
+    resolution: {integrity: sha512-aRrVm4+hqT4VFVpBXEh8Ecrzgz0lHOOp4ArwvmF2sqMUhoVlKmMPCfHB6ccDYtQbsjKU9QkQrTA8OCdrMEndpQ==}
     dependencies:
       '@fp-ts/core': 0.0.11
-      '@fp-ts/data': 0.0.39
+      '@fp-ts/data': 0.0.40
     patched: true
 
   /@effect/language-service/0.0.15_a4uvuf3pdfkyyq2ka2mtqp5yfi:
     resolution: {integrity: sha512-ELYL6h56W2TjTd13AiddZgbZjZFaa0J6MpnLpM26XlxYIR66j5tmdNFW67dtJxFbieoFS33+E713E5hrkg8MKg==}
     dependencies:
       '@fp-ts/core': 0.0.11
-      '@fp-ts/data': 0.0.39
+      '@fp-ts/data': 0.0.40
     dev: true
     patched: true
 
   /@effect/stm/0.0.15:
     resolution: {integrity: sha512-8H3AnkGFWf96THWog51XR5fQKu81vzN1vlTbXfXmvj1wDNEmY5/cqS4QWLIG2iGlIYHI0y9nVAWBI/LUD0vSkQ==}
     dependencies:
-      '@effect/io': 0.0.65_ch2m3gurmkzos5ffwbxtffvjeq
+      '@effect/io': 0.0.66_wvvg23gkayuzduliecfba7o7im
       '@fp-ts/core': 0.0.11
-      '@fp-ts/data': 0.0.39
-
-  /@effect/stream/0.0.12:
-    resolution: {integrity: sha512-th6NokgLZQC97jGxo4vM4x29aYtmqkGSwMlNFAQUJCp0e0RGfmr+Wr2KRL24L+oRttd7ITNFJ9U2m+uo1IbBOg==}
-    dependencies:
-      '@effect/io': 0.0.65_ch2m3gurmkzos5ffwbxtffvjeq
-      '@fp-ts/core': 0.0.11
-      '@fp-ts/data': 0.0.39
+      '@fp-ts/data': 0.0.40
+    dev: false
 
   /@esbuild/android-arm/0.15.16:
     resolution: {integrity: sha512-nyB6CH++2mSgx3GbnrJsZSxzne5K0HMyNIWafDHqYy7IwxFc4fd/CgHVZXr8Eh+Q3KbIAcAe3vGyqIPhGblvMQ==}
@@ -2734,8 +2727,8 @@ packages:
   /@fp-ts/core/0.0.11:
     resolution: {integrity: sha512-BCAJBYzghwoJpcUOARJ1tui50HoYJFlV2pJlVMlsEkDFhD8MTtq8xQVpZCRF66RmtkxtGBYINCQ+5H1lRaL35Q==}
 
-  /@fp-ts/data/0.0.39:
-    resolution: {integrity: sha512-dNw1LWjQmChmdenrDuxPct+ycucgKQQboVtWqov8rkAGY3DULznoSDJZam6l2kaLdq1ScPv810N4mzLLT+cBBw==}
+  /@fp-ts/data/0.0.40:
+    resolution: {integrity: sha512-Wo/2KNO3n6TdUuX+vFEkK1hkQ3EDWp/5Uha8ZLtIvurndQxlDcF4kpU20c0CKJL8g5DpnRHiKN/cni5yyb09eQ==}
     dependencies:
       '@fp-ts/core': 0.0.11
 
@@ -4100,12 +4093,12 @@ packages:
   /@vue/shared/3.2.45:
     resolution: {integrity: sha512-Ewzq5Yhimg7pSztDV+RH1UDKBzmtqieXQlpTVm2AwraoRL/Rks96mvd8Vgi7Lj+h+TH8dv7mXD3FRZR3TUvbSg==}
 
-  /@vueuse/core/9.11.0:
-    resolution: {integrity: sha512-7yZJ8LNOssA8ZmeSjd4F+wbFBA4csiP4TiaXgruqg1H4PAtzSkv93PPwFLvQkSnfo3Bar+e+6QoRvWjhz7l2Xg==}
+  /@vueuse/core/9.11.1:
+    resolution: {integrity: sha512-E/cizD1w9ILkq4axYjZrXLkKaBfzloaby2n3NMjUfd6yI/jkfTVgc6iwy/Cw2e++Ld4LphGbO+3MhzizvwUslQ==}
     dependencies:
       '@types/web-bluetooth': 0.0.16
-      '@vueuse/metadata': 9.11.0
-      '@vueuse/shared': 9.11.0
+      '@vueuse/metadata': 9.11.1
+      '@vueuse/shared': 9.11.1
       vue-demi: 0.13.11
     transitivePeerDependencies:
       - '@vue/composition-api'
@@ -4123,18 +4116,18 @@ packages:
       '@unhead/vue': 1.0.4_vue@3.2.45
       vue: 3.2.45
 
-  /@vueuse/metadata/9.11.0:
-    resolution: {integrity: sha512-HhtG2SWkcfZBLbamHdvLn7jKOCFpw/ifXjVTd5ilFkj98WVUk/3UTQ03wF1XIkuhSO4+b45hD2lfG9/GdKCF7w==}
+  /@vueuse/metadata/9.11.1:
+    resolution: {integrity: sha512-ABjkrG+VXggNhjfGyw5e/sekxTZfXTwjrYXkkWQmQ7Biyv+Gq9UD6IDNfeGvQZEINI0Qzw6nfuO2UFCd3hlrxQ==}
     dev: false
 
-  /@vueuse/nuxt/9.11.0_nuxt@3.0.0:
-    resolution: {integrity: sha512-gG6Zv85/2ra64elUa4jQGxOKL/rYfGxpJ90XYwOCGEfFaWGyU2PswO3dj8o0IFZHyv592LalAPBuQ/qIb+mfZw==}
+  /@vueuse/nuxt/9.11.1_nuxt@3.0.0:
+    resolution: {integrity: sha512-hiiRzLgsH5nTAb2TChyFc6nykIyTB3MnCEhILg44Ug9ILC3vG/qnHnv3zRtIu4bXNOhDQN5shfnchgGPJFf8PA==}
     peerDependencies:
       nuxt: ^3.0.0
     dependencies:
       '@nuxt/kit': 3.0.0
-      '@vueuse/core': 9.11.0
-      '@vueuse/metadata': 9.11.0
+      '@vueuse/core': 9.11.1
+      '@vueuse/metadata': 9.11.1
       local-pkg: 0.4.2
       nuxt: 3.0.0_sass@1.57.1
       vue-demi: 0.13.11
@@ -4145,8 +4138,8 @@ packages:
       - vue
     dev: false
 
-  /@vueuse/shared/9.11.0:
-    resolution: {integrity: sha512-8lO7wD5abYxupKy2KynH1pSgP715ky6iCrWYb8aX2AuAVi9uHXj7qE1dw6BnmArSaLHci4x9iuzWPCpAzUkC/A==}
+  /@vueuse/shared/9.11.1:
+    resolution: {integrity: sha512-UTZYGAjT96hWn4buf4wstZbeheBVNcKPQuej6qpoSkjF1atdaeCD6kqm9uGL2waHfisSgH9mq0qCRiBOk5C/2w==}
     dependencies:
       vue-demi: 0.13.11
     transitivePeerDependencies:
@@ -4854,7 +4847,7 @@ packages:
     dependencies:
       '@npmcli/fs': 3.1.0
       fs-minipass: 2.1.0
-      glob: 8.0.3
+      glob: 8.1.0
       lru-cache: 7.14.1
       minipass: 3.3.6
       minipass-collect: 1.0.2
@@ -7437,17 +7430,6 @@ packages:
       once: 1.4.0
       path-is-absolute: 1.0.1
 
-  /glob/8.0.3:
-    resolution: {integrity: sha512-ull455NHSHI/Y1FqGaaYFaLGkNMMJbavMrEGFXG/PGrg6y7sutWHUHrz6gy6WEBH6akM1M414dWKCNs+IhKdiQ==}
-    engines: {node: '>=12'}
-    dependencies:
-      fs.realpath: 1.0.0
-      inflight: 1.0.6
-      inherits: 2.0.4
-      minimatch: 5.1.2
-      once: 1.4.0
-    dev: true
-
   /glob/8.1.0:
     resolution: {integrity: sha512-r8hpEjiQEYlF2QU0df3dS+nxxSIreXQS1qRhMJM0Q5NDdR386C7jb7Hwwod8Fgiuex+k0GFjgft18yvxm5XoCQ==}
     engines: {node: '>=12'}
@@ -8289,6 +8271,7 @@ packages:
 
   /js-yaml/4.1.0:
     resolution: {integrity: sha512-wpxZs9NoxZaJESJGIZTyDEaYpl0FKSA+FB9aJiyemKhMwkxQg63h4T1KJgUGHpTqPDNRcmmYLugrRjJlBtWvRA==}
+    hasBin: true
     dependencies:
       argparse: 2.0.1
 
@@ -8298,11 +8281,13 @@ packages:
 
   /jsesc/0.5.0:
     resolution: {integrity: sha512-uZz5UnB7u4T9LvwmFqXii7pZSouaRPorGs5who1Ip7VO0wxanFvBL7GkM6dTHlgX+jhBApRetaWpnDabOeTcnA==}
+    hasBin: true
     dev: true
 
   /jsesc/2.5.2:
     resolution: {integrity: sha512-OYu7XEzjkCQ3C5Ps3QIZsQfNpqoJyZZA99wd9aWd05NCtC5pWOkShK2mkL6HXQR6/Cy2lbNdPlZBpuQHXE63gA==}
     engines: {node: '>=4'}
+    hasBin: true
 
   /json-buffer/3.0.1:
     resolution: {integrity: sha512-4bV5BfR2mqfQTJm+V5tPPdf+ZpuhiIvTuAB5g8kcrXOZpTT/QwwVRWBywX1ozr6lEuPdbHxwaJlm9G6mI2sfSQ==}
@@ -10792,7 +10777,7 @@ packages:
     resolution: {integrity: sha512-b/9jxWJ8EwogJPpv99ma+QwtqB7FSl3+V6UXS7Aaay8/5VwMY50oIFooY1UKXMWpfNCM6T/PoGqa5GD1g9xf9w==}
     engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
     dependencies:
-      glob: 8.0.3
+      glob: 8.1.0
       json-parse-even-better-errors: 3.0.0
       normalize-package-data: 5.0.0
       npm-normalize-package-bin: 3.0.0

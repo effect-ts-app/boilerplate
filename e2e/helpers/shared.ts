@@ -15,12 +15,12 @@ export interface AppConfig {
 
 const AppConfig = Tag.Tag<AppConfig>()
 
-export const accessAppConfig = Effect.environment<AppConfig>()
+export const accessAppConfig = Effect.context<AppConfig>()
 
 export function makeEnv(config: ApiConfig, appConfig: AppConfig) {
   const layers = LiveApiConfig(
     Config.struct({ apiUrl: Config.succeed(config.apiUrl), headers: Config.succeed(config.headers) })
-  )["|>"](Layer.provideToAndMerge(HF.Client(fetch)))["|>"](Layer.provideToAndMerge(Layer.succeed(AppConfig)(appConfig)))
+  )["|>"](Layer.provideMerge(HF.Client(fetch)))["|>"](Layer.provideMerge(Layer.succeed(AppConfig, appConfig)))
   const runtime = initializeSync(layers)
 
   return runtime

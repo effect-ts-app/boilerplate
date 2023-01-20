@@ -23,7 +23,8 @@ export function forkOperation<R, E, A>(self: Effect<R, E, A>) {
     Operations =>
       Scope.make()
         .flatMap(scope =>
-          scope.extend(Operations.register).tap(() => scope.use(self).forkDaemonReportRequestUnexpected)
+          Operations.register.extend(scope)
+            .tap(() => self.use(scope).forkDaemonReportRequestUnexpected)
         )
   )
 }

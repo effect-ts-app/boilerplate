@@ -10,20 +10,20 @@ import { CurrentUser } from "../CurrentUser.js"
 /**
  * @tsplus static CurrentUser.Ops get
  */
-export const GetCurrentUser = Effect.serviceWithEffect(CurrentUser)(_ => _.get)
+export const GetCurrentUser = Effect.serviceWithEffect(CurrentUser, _ => _.get)
 
 /**
  * @tsplus getter CurrentUser.Ops with
  */
 export function with_(self: CurrentUserOps) {
-  return <B>(f: (x: User) => B) => Effect.serviceWithEffect(self)(_ => _.get.map(f))
+  return <B>(f: (x: User) => B) => Effect.serviceWithEffect(self, _ => _.get.map(f))
 }
 
 /**
  * @tsplus getter CurrentUser.Ops withEffect
  */
 export function withEffect_(self: CurrentUserOps) {
-  return <R, E, B>(f: (x: User) => Effect<R, E, B>) => Effect.serviceWithEffect(self)(_ => _.get.flatMap(f))
+  return <R, E, B>(f: (x: User) => Effect<R, E, B>) => Effect.serviceWithEffect(self, _ => _.get.flatMap(f))
 }
 
 /**

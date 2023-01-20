@@ -54,7 +54,7 @@ function RequestEnv(handler: { Request: any }) {
           ctx,
           Context.add(CurrentUser)(currentUser)
         )
-      }).provideSomeEnvironmentReal(ctx)
+      }).provideSomeContextReal(ctx)
     )
   }
 }

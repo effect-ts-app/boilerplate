@@ -48,7 +48,7 @@ beforeAll(async () => {
       const scope = yield* $(Scope.make())
       const env = yield* $(layer.buildWithScope(scope))
       const runtime = yield* $(
-        Effect.runtime<A>().scoped.provideEnvironment(env)
+        Effect.runtime<A>().scoped.provideContext(env)
       )
 
       return {

@@ -9,7 +9,7 @@ const makeBasicRuntime = <R, E, A>(layer: Layer<R, E, A>) =>
     const scope = yield* $(Scope.make())
     const env = yield* $(layer.buildWithScope(scope))
     const runtime = yield* $(
-      pipe(Effect.runtime<A>(), Effect.scoped, Effect.provideEnvironment(env))
+      pipe(Effect.runtime<A>(), Effect.scoped, Effect.provideContext(env))
     )
 
     return {
