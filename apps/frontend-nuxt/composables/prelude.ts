@@ -5,7 +5,7 @@ import * as Layer from "@effect/io/Layer"
 import * as Either from "@fp-ts/data/Either"
 import * as Option from "@effect-app/core/Option"
 import * as Tag from "@fp-ts/data/Context"
-import * as Ord from "@effect-ts/core/Ord"
+import * as Order from "@effect-app/core/Order"
 import * as Chunk from "@effect-app/core/Chunk"
 import * as ROArray from "@effect-app/core/Array"
 import type {
@@ -23,7 +23,7 @@ export {
   Option,
   Option as Opt,
   MO,
-  Ord,
+  Order,
   ROArray,
   These,
   Tag,
