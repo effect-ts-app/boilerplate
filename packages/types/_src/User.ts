@@ -93,7 +93,7 @@ export const props = lazyGetter(getProps)
 /**
  * @tsplus static User equal
  */
-export const defaultEqual = Equal.string.contramap((u: User) => u.id)
+export const defaultEqual = Equivalence.string.contramap((u: User) => u.id)
 
 // TODO
 // let userPool: readonly User[] | null = null
