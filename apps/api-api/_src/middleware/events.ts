@@ -1,5 +1,5 @@
 import { ClientEvents } from "@effect-app-boilerplate/client"
-import * as Ex from "@effect-app/infra-adapters/express/index"
+import * as Ex from "@effect-app/infra-adapters/express"
 import { Events } from "../services/Events.js"
 
 export const events = Ex.get("/events", (req, res) =>

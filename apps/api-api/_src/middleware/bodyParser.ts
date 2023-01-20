@@ -1,4 +1,4 @@
-import * as Ex from "@effect-app/infra-adapters/express/index"
+import * as Ex from "@effect-app/infra-adapters/express"
 import bodyParser_ from "body-parser"
 
 const bodyParser = {

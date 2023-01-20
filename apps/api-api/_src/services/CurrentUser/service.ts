@@ -1,5 +1,5 @@
 import type { User } from "@effect-app-boilerplate/types/User"
-import type { NotLoggedInError } from "@effect-app/infra-adapters/errors"
+import type { NotLoggedInError } from "@effect-app/infra/errors"
 
 export const CurrentUserId = Symbol()
 

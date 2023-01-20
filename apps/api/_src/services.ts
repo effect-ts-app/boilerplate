@@ -2,7 +2,7 @@
 
 // codegen:end
 
-export * from "@effect-app/infra/services/Cache"
+export * from "@effect-app/infra-adapters/memQueue"
+export * from "@effect-app/infra-adapters/ServiceBus"
 export * from "@effect-app/infra/services/Emailer"
-export * from "@effect-app/infra/services/memQueue"
-export * from "@effect-app/infra/services/ServiceBus"
+export * from "@effect-app/prelude/Cache"

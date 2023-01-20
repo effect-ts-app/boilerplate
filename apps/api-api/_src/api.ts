@@ -1,5 +1,5 @@
-import * as Ex from "@effect-app/infra-adapters/express/index"
-import { writeOpenapiDocs } from "@effect-app/infra/lib/api/writeDocs"
+import * as Ex from "@effect-app/infra-adapters/express"
+import { writeOpenapiDocs } from "@effect-app/infra/api/writeDocs"
 import type { ApiMainConfig } from "./config.js"
 import * as MW from "./middleware/index.js"
 import * as R from "./routes.js"

@@ -1,4 +1,4 @@
-import { RequestContext } from "@effect-app/infra/lib/RequestContext"
+import { RequestContext } from "@effect-app/infra/RequestContext"
 import { ContextMap } from "@effect-app/infra/services/Store"
 
 export const BasicRequestEnv = (pars: RequestContext) =>

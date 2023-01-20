@@ -1,5 +1,5 @@
-import { NotLoggedInError } from "@effect-app/infra-adapters/errors"
-import { jwt } from "@effect-app/infra-adapters/express/schema/jwt"
+import { jwt } from "@effect-app/infra/api/express/schema/jwt"
+import { NotLoggedInError } from "@effect-app/infra/errors"
 import { json, Model, prop, propFrom } from "@effect-app/prelude/schema"
 
 export class UserProfileScheme extends Model<UserProfileScheme>()({

@@ -1,7 +1,7 @@
 import type { OperationProgress } from "@effect-app-boilerplate/client/Views"
 import { Failure, Operation, OperationId, Success } from "@effect-app-boilerplate/client/Views"
-import { RequestException } from "@effect-app/infra/lib/api/reportError"
-import { reportError } from "@effect-app/infra/lib/errorReporter"
+import { RequestException } from "@effect-app/infra/api/reportError"
+import { reportError } from "@effect-app/infra/errorReporter"
 import { Operations } from "./service.js"
 
 const reportAppError = reportError(cause => new RequestException(cause))

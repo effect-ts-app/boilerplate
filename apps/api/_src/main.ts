@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { api } from "@effect-app-boilerplate/api-api/api"
+import { reportError } from "@effect-app/infra/errorReporter"
 import { CauseException } from "@effect-app/infra/errors"
-import { reportError } from "@effect-app/infra/lib/errorReporter"
 import { ApiConfig, BaseConfig } from "./config.js"
 import { Emailer, MemQueue } from "./services.js"
 
