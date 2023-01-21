@@ -8,8 +8,6 @@ import { Events } from "./services/Events.js"
 
 const routes = Effect.struct(R)
 
-export const App = Tag<never>()
-
 export function api(cfg: ApiMainConfig) {
   const logServerStart = Effect(() =>
     `Running on ${cfg.host}:${cfg.port} at version: ${cfg.apiVersion}. ENV: ${cfg.env}`
@@ -41,6 +39,5 @@ export function api(cfg: ApiMainConfig) {
 
   return services
     > program
-      .map(_ => _ as never)
-      .toScopedLayer(App)
+      .toScopedDiscardLayer
 }

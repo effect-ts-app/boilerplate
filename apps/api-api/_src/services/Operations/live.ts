@@ -6,8 +6,6 @@ import { Operations } from "./service.js"
 
 const reportAppError = reportError(cause => new RequestException(cause))
 
-export const CleanupTag = Tag<never>()
-
 /**
  * @tsplus static Operations.Ops Live
  */
@@ -93,5 +91,4 @@ export const Live = Effect(() => {
     .delay(DUR.minutes(1))
     .forever
     .forkScoped
-    .map(_ => _ as never)
-    .toScopedLayer(CleanupTag)
+    .toScopedDiscardLayer
