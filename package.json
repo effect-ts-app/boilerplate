@@ -4,9 +4,6 @@
     "pnpm": {
         "patchedDependencies": {
             "@effect/language-service@0.0.15": "patches/@effect__language-service@0.0.15.patch",
-            "@effect-ts/core@0.60.5": "patches/@effect-ts__core@0.60.5.patch",
-            "@effect-ts/monocle@0.43.0": "patches/@effect-ts__monocle@0.43.0.patch",
-            "@effect-ts/system@0.57.5": "patches/@effect-ts__system@0.57.5.patch",
             "@playwright/test@1.29.2": "patches/@playwright+test+1.29.2.patch",
             "@typescript-eslint/scope-manager@5.48.2": "patches/@typescript-eslint__scope-manager@5.48.2.patch",
             "eslint-plugin-codegen@0.17.0": "patches/eslint-plugin-codegen@0.17.0.patch",
@@ -76,8 +73,8 @@
     "devDependencies": {
         "@babel/cli": "^7.20.7",
         "@effect-app/eslint-codegen-model": "^0.8.0",
-        "@effect-app/prelude": "^0.10.2",
-        "@effect-app/core": "^0.10.2",
+        "@effect-app/prelude": "^0.11.1",
+        "@effect-app/core": "^0.11.1",
         "@effect-app/compiler": "^0.7.0",
         "@effect/language-service": "^0.0.15",
         "@phaphoso/eslint-plugin-dprint": "^0.5.2",

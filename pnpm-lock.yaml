@@ -6,33 +6,24 @@ overrides:
   http-proxy: npm:http-proxy-node16@1.0.0
 
 patchedDependencies:
+  eslint-plugin-codegen@0.17.0:
+    hash: 3ogk7peuefdu45q3hbzcgdiuna
+    path: patches/eslint-plugin-codegen@0.17.0.patch
   '@effect/language-service@0.0.15':
     hash: a4uvuf3pdfkyyq2ka2mtqp5yfi
     path: patches/@effect__language-service@0.0.15.patch
   '@playwright/test@1.29.2':
     hash: 7ggrwwel7pztbzd4b2acwqdriu
     path: patches/@playwright+test+1.29.2.patch
-  '@effect-ts/core@0.60.5':
-    hash: jx4drcbvzaxoqqasybnfxdx44i
-    path: patches/@effect-ts__core@0.60.5.patch
-  '@typescript-eslint/scope-manager@5.48.2':
-    hash: tp5r7mwyjl4dxldk2tuwbgrsum
-    path: patches/@typescript-eslint__scope-manager@5.48.2.patch
-  '@effect-ts/monocle@0.43.0':
-    hash: d3hhxwnoq64fw5ljkjpzykj2mi
-    path: patches/@effect-ts__monocle@0.43.0.patch
   eslint-plugin-unused-imports@2.0.0:
     hash: tnum7sl7jcutfljbv5jztcescq
     path: patches/eslint-plugin-unused-imports@2.0.0.patch
-  '@effect-ts/system@0.57.5':
-    hash: aliyesjnd2rt7ef7234i2dw2t4
-    path: patches/@effect-ts__system@0.57.5.patch
-  eslint-plugin-codegen@0.17.0:
-    hash: 3ogk7peuefdu45q3hbzcgdiuna
-    path: patches/eslint-plugin-codegen@0.17.0.patch
   typescript@5.0.0-tsplus.20230113:
     hash: 4lokxnnems7dr5czg2fre2i5fq
     path: patches/typescript@5.0.0-tsplus.20230113.patch
+  '@typescript-eslint/scope-manager@5.48.2':
+    hash: tp5r7mwyjl4dxldk2tuwbgrsum
+    path: patches/@typescript-eslint__scope-manager@5.48.2.patch
   '@effect/io@0.0.66':
     hash: wvvg23gkayuzduliecfba7o7im
     path: patches/@effect__io@0.0.66.patch
@@ -43,9 +34,9 @@ importers:
     specifiers:
       '@babel/cli': ^7.20.7
       '@effect-app/compiler': ^0.7.0
-      '@effect-app/core': ^0.10.2
+      '@effect-app/core': ^0.11.1
       '@effect-app/eslint-codegen-model': ^0.8.0
-      '@effect-app/prelude': ^0.10.2
+      '@effect-app/prelude': ^0.11.1
       '@effect/language-service': ^0.0.15
       '@phaphoso/eslint-plugin-dprint': ^0.5.2
       '@tsconfig/strictest': ^1.0.2
@@ -97,9 +88,9 @@ importers:
     devDependencies:
       '@babel/cli': 7.20.7
       '@effect-app/compiler': 0.7.0_@types+node@18.11.11
-      '@effect-app/core': 0.10.2
+      '@effect-app/core': 0.11.1
       '@effect-app/eslint-codegen-model': 0.8.0
-      '@effect-app/prelude': 0.10.2
+      '@effect-app/prelude': 0.11.1
       '@effect/language-service': 0.0.15_a4uvuf3pdfkyyq2ka2mtqp5yfi
       '@phaphoso/eslint-plugin-dprint': 0.5.2_eslint@8.32.0
       '@tsconfig/strictest': 1.0.2
@@ -146,13 +137,11 @@ importers:
       '@effect-app-boilerplate/client': '*'
       '@effect-app-boilerplate/messages': '*'
       '@effect-app-boilerplate/types': '*'
-      '@effect-app/core': ^0.10.2
-      '@effect-app/infra': ^0.11.2
-      '@effect-app/infra-adapters': ^0.10.2
-      '@effect-app/prelude': ^0.10.2
-      '@effect-app/schema': ^0.10.2
-      '@effect-ts/core': ^0.60.5
-      '@effect-ts/system': ^0.57.5
+      '@effect-app/core': ^0.11.1
+      '@effect-app/infra': ^0.12.1
+      '@effect-app/infra-adapters': ^0.11.1
+      '@effect-app/prelude': ^0.11.1
+      '@effect-app/schema': ^0.11.1
       '@effect/io': ^0.0.66
       '@effect/stm': ^0.0.15
       '@formatjs/cli': ^5.1.12
@@ -198,13 +187,11 @@ importers:
       '@effect-app-boilerplate/client': link:../../packages/client
       '@effect-app-boilerplate/messages': link:../../packages/messages
       '@effect-app-boilerplate/types': link:../../packages/types
-      '@effect-app/core': 0.10.2
-      '@effect-app/infra': 0.11.2
-      '@effect-app/infra-adapters': 0.10.2
-      '@effect-app/prelude': 0.10.2
-      '@effect-app/schema': 0.10.2
-      '@effect-ts/core': 0.60.5_jx4drcbvzaxoqqasybnfxdx44i
-      '@effect-ts/system': 0.57.5_aliyesjnd2rt7ef7234i2dw2t4
+      '@effect-app/core': 0.11.1
+      '@effect-app/infra': 0.12.1
+      '@effect-app/infra-adapters': 0.11.1
+      '@effect-app/prelude': 0.11.1
+      '@effect-app/schema': 0.11.1
       '@effect/io': 0.0.66_wvvg23gkayuzduliecfba7o7im
       '@effect/stm': 0.0.15
       '@formatjs/cli': 5.1.12
@@ -252,14 +239,11 @@ importers:
       '@effect-app-boilerplate/client': '*'
       '@effect-app-boilerplate/messages': '*'
       '@effect-app-boilerplate/types': '*'
-      '@effect-app/core': ^0.10.2
-      '@effect-app/infra': ^0.11.2
-      '@effect-app/infra-adapters': ^0.10.2
-      '@effect-app/prelude': ^0.10.2
-      '@effect-app/schema': ^0.10.2
-      '@effect-ts/core': ^0.60.5
-      '@effect-ts/monocle': ^0.43.0
-      '@effect-ts/system': ^0.57.5
+      '@effect-app/core': ^0.11.1
+      '@effect-app/infra': ^0.12.1
+      '@effect-app/infra-adapters': ^0.11.1
+      '@effect-app/prelude': ^0.11.1
+      '@effect-app/schema': ^0.11.1
       '@effect/io': ^0.0.66
       '@effect/stm': ^0.0.15
       '@formatjs/cli': ^5.1.12
@@ -310,14 +294,11 @@ importers:
       '@effect-app-boilerplate/client': link:../../packages/client
       '@effect-app-boilerplate/messages': link:../../packages/messages
       '@effect-app-boilerplate/types': link:../../packages/types
-      '@effect-app/core': 0.10.2
-      '@effect-app/infra': 0.11.2
-      '@effect-app/infra-adapters': 0.10.2
-      '@effect-app/prelude': 0.10.2
-      '@effect-app/schema': 0.10.2
-      '@effect-ts/core': 0.60.5_jx4drcbvzaxoqqasybnfxdx44i
-      '@effect-ts/monocle': 0.43.0_d3hhxwnoq64fw5ljkjpzykj2mi_@effect-ts+core@0.60.5
-      '@effect-ts/system': 0.57.5_aliyesjnd2rt7ef7234i2dw2t4
+      '@effect-app/core': 0.11.1
+      '@effect-app/infra': 0.12.1
+      '@effect-app/infra-adapters': 0.11.1
+      '@effect-app/prelude': 0.11.1
+      '@effect-app/schema': 0.11.1
       '@effect/io': 0.0.66_wvvg23gkayuzduliecfba7o7im
       '@effect/stm': 0.0.15
       '@formatjs/cli': 5.1.12
@@ -366,12 +347,10 @@ importers:
     specifiers:
       '@effect-app-boilerplate/client': '*'
       '@effect-app-boilerplate/types': '*'
-      '@effect-app/core': ^0.10.2
-      '@effect-app/prelude': ^0.10.2
-      '@effect-app/schema': ^0.10.2
-      '@effect-app/vue': ^0.9.2
-      '@effect-ts/core': ^0.60.5
-      '@effect-ts/system': ^0.57.5
+      '@effect-app/core': ^0.11.1
+      '@effect-app/prelude': ^0.11.1
+      '@effect-app/schema': ^0.11.1
+      '@effect-app/vue': ^0.10.1
       '@effect/io': ^0.0.66
       '@fp-ts/core': ^0.0.11
       '@fp-ts/data': ^0.0.40
@@ -397,12 +376,10 @@ importers:
     dependencies:
       '@effect-app-boilerplate/client': link:../../packages/client
       '@effect-app-boilerplate/types': link:../../packages/types
-      '@effect-app/core': 0.10.2
-      '@effect-app/prelude': 0.10.2
-      '@effect-app/schema': 0.10.2
-      '@effect-app/vue': 0.9.2
-      '@effect-ts/core': 0.60.5_jx4drcbvzaxoqqasybnfxdx44i
-      '@effect-ts/system': 0.57.5_aliyesjnd2rt7ef7234i2dw2t4
+      '@effect-app/core': 0.11.1
+      '@effect-app/prelude': 0.11.1
+      '@effect-app/schema': 0.11.1
+      '@effect-app/vue': 0.10.1
       '@effect/io': 0.0.66_wvvg23gkayuzduliecfba7o7im
       '@fp-ts/core': 0.0.11
       '@fp-ts/data': 0.0.40
@@ -439,12 +416,10 @@ importers:
       '@babel/preset-typescript': ^7.18.6
       '@effect-app-boilerplate/client': '*'
       '@effect-app-boilerplate/types': '*'
-      '@effect-app/core': ^0.10.2
-      '@effect-app/prelude': ^0.10.2
-      '@effect-app/schema': ^0.10.2
-      '@effect-app/vue': ^0.9.2
-      '@effect-ts/core': ^0.60.5
-      '@effect-ts/system': ^0.57.5
+      '@effect-app/core': ^0.11.1
+      '@effect-app/prelude': ^0.11.1
+      '@effect-app/schema': ^0.11.1
+      '@effect-app/vue': ^0.10.1
       '@effect/io': ^0.0.66
       '@fp-ts/core': ^0.0.11
       '@fp-ts/data': ^0.0.40
@@ -475,12 +450,10 @@ importers:
     dependencies:
       '@effect-app-boilerplate/client': link:../packages/client
       '@effect-app-boilerplate/types': link:../packages/types
-      '@effect-app/core': 0.10.2
-      '@effect-app/prelude': 0.10.2
-      '@effect-app/schema': 0.10.2
-      '@effect-app/vue': 0.9.2
-      '@effect-ts/core': 0.60.5_jx4drcbvzaxoqqasybnfxdx44i
-      '@effect-ts/system': 0.57.5_aliyesjnd2rt7ef7234i2dw2t4
+      '@effect-app/core': 0.11.1
+      '@effect-app/prelude': 0.11.1
+      '@effect-app/schema': 0.11.1
+      '@effect-app/vue': 0.10.1
       '@effect/io': 0.0.66_wvvg23gkayuzduliecfba7o7im
       '@fp-ts/core': 0.0.11
       '@fp-ts/data': 0.0.40
@@ -521,10 +494,9 @@ importers:
   packages/client:
     specifiers:
       '@effect-app-boilerplate/types': '*'
-      '@effect-app/core': ^0.10.2
-      '@effect-app/prelude': ^0.10.2
-      '@effect-app/schema': ^0.10.2
-      '@effect-ts/core': ^0.60.5
+      '@effect-app/core': ^0.11.1
+      '@effect-app/prelude': ^0.11.1
+      '@effect-app/schema': ^0.11.1
       '@effect/io': ^0.0.66
       '@fp-ts/core': ^0.0.11
       '@fp-ts/data': ^0.0.40
@@ -537,10 +509,9 @@ importers:
       xlsx: ^0.18.5
     dependencies:
       '@effect-app-boilerplate/types': link:../types
-      '@effect-app/core': 0.10.2
-      '@effect-app/prelude': 0.10.2
-      '@effect-app/schema': 0.10.2
-      '@effect-ts/core': 0.60.5_jx4drcbvzaxoqqasybnfxdx44i
+      '@effect-app/core': 0.11.1
+      '@effect-app/prelude': 0.11.1
+      '@effect-app/schema': 0.11.1
       '@effect/io': 0.0.66_wvvg23gkayuzduliecfba7o7im
       '@fp-ts/core': 0.0.11
       '@fp-ts/data': 0.0.40
@@ -557,12 +528,11 @@ importers:
     specifiers:
       '@effect-app-boilerplate/client': '*'
       '@effect-app-boilerplate/types': '*'
-      '@effect-app/core': ^0.10.2
-      '@effect-app/infra': ^0.11.2
-      '@effect-app/infra-adapters': ^0.10.2
-      '@effect-app/prelude': ^0.10.2
-      '@effect-app/schema': ^0.10.2
-      '@effect-ts/core': ^0.60.5
+      '@effect-app/core': ^0.11.1
+      '@effect-app/infra': ^0.12.1
+      '@effect-app/infra-adapters': ^0.11.1
+      '@effect-app/prelude': ^0.11.1
+      '@effect-app/schema': ^0.11.1
       '@effect/io': ^0.0.66
       '@fp-ts/core': ^0.0.11
       '@fp-ts/data': ^0.0.40
@@ -574,12 +544,11 @@ importers:
     dependencies:
       '@effect-app-boilerplate/client': link:../client
       '@effect-app-boilerplate/types': link:../types
-      '@effect-app/core': 0.10.2
-      '@effect-app/infra': 0.11.2
-      '@effect-app/infra-adapters': 0.10.2
-      '@effect-app/prelude': 0.10.2
-      '@effect-app/schema': 0.10.2
-      '@effect-ts/core': 0.60.5_jx4drcbvzaxoqqasybnfxdx44i
+      '@effect-app/core': 0.11.1
+      '@effect-app/infra': 0.12.1
+      '@effect-app/infra-adapters': 0.11.1
+      '@effect-app/prelude': 0.11.1
+      '@effect-app/schema': 0.11.1
       '@effect/io': 0.0.66_wvvg23gkayuzduliecfba7o7im
       '@fp-ts/core': 0.0.11
       '@fp-ts/data': 0.0.40
@@ -591,10 +560,9 @@ importers:
 
   packages/types:
     specifiers:
-      '@effect-app/core': ^0.10.2
-      '@effect-app/prelude': ^0.10.2
-      '@effect-app/schema': ^0.10.2
-      '@effect-ts/core': ^0.60.5
+      '@effect-app/core': ^0.11.1
+      '@effect-app/prelude': ^0.11.1
+      '@effect-app/schema': ^0.11.1
       '@effect/io': ^0.0.66
       '@fp-ts/core': ^0.0.11
       '@fp-ts/data': ^0.0.40
@@ -607,10 +575,9 @@ importers:
       uuid: ^9.0.0
       validator: ^13.7.0
     dependencies:
-      '@effect-app/core': 0.10.2
-      '@effect-app/prelude': 0.10.2
-      '@effect-app/schema': 0.10.2
-      '@effect-ts/core': 0.60.5_jx4drcbvzaxoqqasybnfxdx44i
+      '@effect-app/core': 0.11.1
+      '@effect-app/prelude': 0.11.1
+      '@effect-app/schema': 0.11.1
       '@effect/io': 0.0.66_wvvg23gkayuzduliecfba7o7im
       '@fp-ts/core': 0.0.11
       '@fp-ts/data': 0.0.40
@@ -626,18 +593,18 @@ importers:
 
   play:
     specifiers:
-      '@effect-app/core': ^0.10.2
-      '@effect-app/prelude': ^0.10.2
-      '@effect-app/schema': ^0.10.2
+      '@effect-app/core': ^0.11.1
+      '@effect-app/prelude': ^0.11.1
+      '@effect-app/schema': ^0.11.1
       change-case: ^4.1.2
       cross-fetch: ^3.1.5
       path-parser: ^6.1.0
       ts-node: ^10.9.1
       vite-node: ^0.27.2
     dependencies:
-      '@effect-app/core': 0.10.2
-      '@effect-app/prelude': 0.10.2
-      '@effect-app/schema': 0.10.2
+      '@effect-app/core': 0.11.1
+      '@effect-app/prelude': 0.11.1
+      '@effect-app/schema': 0.11.1
       change-case: 4.1.2
       cross-fetch: 3.1.5
       path-parser: 6.1.0
@@ -2239,15 +2206,13 @@ packages:
       - terser
     dev: true
 
-  /@effect-app/core/0.10.2:
-    resolution: {integrity: sha512-Z0mDvZ7GJD0MUBCAJ6wjrmA8MChxxLKm8ZfDPIN7UMdgpBzv2TrKVvjEhF6ZQeJrdV9MvzYcJxyFcmY/9ONavg==}
+  /@effect-app/core/0.11.1:
+    resolution: {integrity: sha512-EtwAAMjxElFojCII6P7JL1pMst244Xz3eNq5XKwSZ+KpK4+SRfjw9lOiNkUYee6ds9IjHWh+n4aeAvKnRSKO+A==}
     dependencies:
-      '@effect-ts/core': 0.60.5_jx4drcbvzaxoqqasybnfxdx44i
-      '@effect-ts/monocle': 0.43.0_d3hhxwnoq64fw5ljkjpzykj2mi_@effect-ts+core@0.60.5
-      '@effect-ts/system': 0.57.5_aliyesjnd2rt7ef7234i2dw2t4
       '@effect/io': 0.0.66_wvvg23gkayuzduliecfba7o7im
       '@fp-ts/core': 0.0.11
       '@fp-ts/data': 0.0.40
+      '@fp-ts/optic': 0.0.7
       cross-fetch: 3.1.5
       lodash: 4.17.21
       path-parser: 6.1.0
@@ -2273,33 +2238,28 @@ packages:
       - supports-color
     dev: true
 
-  /@effect-app/infra-adapters/0.10.2:
-    resolution: {integrity: sha512-Eixonceir9HiVo+TQTmKj+P7Tsub/naIulyJXK+VyheHc4gS4b9GyDz9WBj3+/dihop1j3a6Bo1StmMbHeRBuw==}
+  /@effect-app/infra-adapters/0.11.1:
+    resolution: {integrity: sha512-LOmf3eJkygYzmFbCUx3O67jZzu3MGIPEhCK5TVDku9OvL645eXP6pT9/CbJUzXiKaYKJ2J4JMwSxeVjyUEYdxw==}
     dependencies:
-      '@effect-app/core': 0.10.2
-      '@effect-app/schema': 0.10.2
-      '@effect-ts/core': 0.60.5_jx4drcbvzaxoqqasybnfxdx44i
-      '@effect-ts/monocle': 0.43.0_d3hhxwnoq64fw5ljkjpzykj2mi_@effect-ts+core@0.60.5
-      '@effect-ts/system': 0.57.5_aliyesjnd2rt7ef7234i2dw2t4
+      '@effect-app/core': 0.11.1
+      '@effect-app/schema': 0.11.1
       '@effect/io': 0.0.66_wvvg23gkayuzduliecfba7o7im
       '@fp-ts/core': 0.0.11
       '@fp-ts/data': 0.0.40
+      '@fp-ts/optic': 0.0.7
       query-string: 8.1.0
     transitivePeerDependencies:
       - encoding
     dev: false
 
-  /@effect-app/infra/0.11.2:
-    resolution: {integrity: sha512-/rnuYfF8R6NgGDI+EVAtO+Vv5dT2UO+rLlXzTQCvmPOSk48a17O4n96sIb0d+DZHXe+Kcl4BvBHkgJFR9ntS7A==}
+  /@effect-app/infra/0.12.1:
+    resolution: {integrity: sha512-D+XQmfNmODWD+ZuQHxTOD5mDNOxaWpIAmZ1BQmHyOeM8TmAEuVoYcJqlm6BxOkk2WsBAdKur5xCiyuzVCs03QQ==}
     dependencies:
       '@azure/cosmos': 3.17.2
-      '@effect-app/core': 0.10.2
-      '@effect-app/infra-adapters': 0.10.2
-      '@effect-app/prelude': 0.10.2
-      '@effect-app/schema': 0.10.2
-      '@effect-ts/core': 0.60.5_jx4drcbvzaxoqqasybnfxdx44i
-      '@effect-ts/monocle': 0.43.0_d3hhxwnoq64fw5ljkjpzykj2mi_@effect-ts+core@0.60.5
-      '@effect-ts/system': 0.57.5_aliyesjnd2rt7ef7234i2dw2t4
+      '@effect-app/core': 0.11.1
+      '@effect-app/infra-adapters': 0.11.1
+      '@effect-app/prelude': 0.11.1
+      '@effect-app/schema': 0.11.1
       '@effect/io': 0.0.66_wvvg23gkayuzduliecfba7o7im
       '@fp-ts/core': 0.0.11
       '@fp-ts/data': 0.0.40
@@ -2320,14 +2280,11 @@ packages:
       - supports-color
     dev: false
 
-  /@effect-app/prelude/0.10.2:
-    resolution: {integrity: sha512-0Ejb22wD9PTR0C4zkFwE3ecsIg8U+UDWmb9I/A+mQGMmmhUJkmh4ncWoooj1EhrGEMhz7Obuuv8PE/TptbJxpA==}
+  /@effect-app/prelude/0.11.1:
+    resolution: {integrity: sha512-09ilFAX4+PnzSSplugmVkDaexTLhkOyGh0T4w/3xVFPduAHkol1EeeHUW4pWCmqGAMY8WUYX/UTw9kjtMxbpDA==}
     dependencies:
-      '@effect-app/core': 0.10.2
-      '@effect-app/schema': 0.10.2
-      '@effect-ts/core': 0.60.5_jx4drcbvzaxoqqasybnfxdx44i
-      '@effect-ts/monocle': 0.43.0_d3hhxwnoq64fw5ljkjpzykj2mi_@effect-ts+core@0.60.5
-      '@effect-ts/system': 0.57.5_aliyesjnd2rt7ef7234i2dw2t4
+      '@effect-app/core': 0.11.1
+      '@effect-app/schema': 0.11.1
       '@effect/io': 0.0.66_wvvg23gkayuzduliecfba7o7im
       '@fp-ts/core': 0.0.11
       '@fp-ts/data': 0.0.40
@@ -2342,16 +2299,14 @@ packages:
     transitivePeerDependencies:
       - encoding
 
-  /@effect-app/schema/0.10.2:
-    resolution: {integrity: sha512-qNvoJfrp59eRBYwsRH5GmC3gCArwzlE/jEi8SFW71tySiKqQ/tplyas89nGrbqSwS0tsInDbAy3IsupBHg81nQ==}
+  /@effect-app/schema/0.11.1:
+    resolution: {integrity: sha512-sXrd5d1kA40eY2KbWGqIhTShebH0h+5LaOg3Kjo3OSGlh8kh9d3sYW2JrpCpLFXv2rXqjAl/cf8KcxWcGYCJSQ==}
     dependencies:
-      '@effect-app/core': 0.10.2
-      '@effect-ts/core': 0.60.5_jx4drcbvzaxoqqasybnfxdx44i
-      '@effect-ts/monocle': 0.43.0_d3hhxwnoq64fw5ljkjpzykj2mi_@effect-ts+core@0.60.5
-      '@effect-ts/system': 0.57.5_aliyesjnd2rt7ef7234i2dw2t4
+      '@effect-app/core': 0.11.1
       '@effect/io': 0.0.66_wvvg23gkayuzduliecfba7o7im
       '@fp-ts/core': 0.0.11
       '@fp-ts/data': 0.0.40
+      '@fp-ts/optic': 0.0.7
       cross-fetch: 3.1.5
       lodash: 4.17.21
       path-parser: 6.1.0
@@ -2360,42 +2315,22 @@ packages:
     transitivePeerDependencies:
       - encoding
 
-  /@effect-app/vue/0.9.2:
-    resolution: {integrity: sha512-GJl8PvW5hSunifFOCh9UGPj3Sgw5shfrTtiEcTS1XRQ9MWw7RDcyXi9bX362Bb50ZrTIB5T6faaGDmgljmqqkA==}
+  /@effect-app/vue/0.10.1:
+    resolution: {integrity: sha512-TYE/LM9/rLbQuP73e+g3LIzJXKom0irQ1GdVLoaw1jweL23YSeH4QRWNPp/OH5ZLSxyKXQFOuaV7GiLA9lwPQQ==}
     dependencies:
-      '@effect-app/core': 0.10.2
-      '@effect-app/prelude': 0.10.2
-      '@effect-app/schema': 0.10.2
-      '@effect-ts/core': 0.60.5_jx4drcbvzaxoqqasybnfxdx44i
-      '@effect-ts/monocle': 0.43.0_d3hhxwnoq64fw5ljkjpzykj2mi_@effect-ts+core@0.60.5
-      '@effect-ts/system': 0.57.5_aliyesjnd2rt7ef7234i2dw2t4
+      '@effect-app/core': 0.11.1
+      '@effect-app/prelude': 0.11.1
+      '@effect-app/schema': 0.11.1
       '@effect/io': 0.0.66_wvvg23gkayuzduliecfba7o7im
       '@fp-ts/core': 0.0.11
       '@fp-ts/data': 0.0.40
+      '@fp-ts/optic': 0.0.7
       query-string: 8.1.0
       swrv: 1.0.3_vue@3.2.45
       vue: 3.2.45
     transitivePeerDependencies:
       - encoding
     dev: false
-
-  /@effect-ts/core/0.60.5_jx4drcbvzaxoqqasybnfxdx44i:
-    resolution: {integrity: sha512-qi1WrtJA90XLMnj2hnUszW9Sx4dXP03ZJtCc5DiUBIOhF4Vw7plfb65/bdBySPoC9s7zy995TdUX1XBSxUkl5w==}
-    dependencies:
-      '@effect-ts/system': 0.57.5_aliyesjnd2rt7ef7234i2dw2t4
-    patched: true
-
-  /@effect-ts/monocle/0.43.0_d3hhxwnoq64fw5ljkjpzykj2mi_@effect-ts+core@0.60.5:
-    resolution: {integrity: sha512-EGMRp2MPhAdJMK3KCQPc6votppHa+18xXlXYC3zCHTGXhycsYoAdMH8wp+R5RzHmUKlsz9kK0A3kJVmY6abPTA==}
-    peerDependencies:
-      '@effect-ts/core': ^0.58.0
-    dependencies:
-      '@effect-ts/core': 0.60.5_jx4drcbvzaxoqqasybnfxdx44i
-    patched: true
-
-  /@effect-ts/system/0.57.5_aliyesjnd2rt7ef7234i2dw2t4:
-    resolution: {integrity: sha512-/crHGujo0xnuHIYNc1VgP0HGJGFSoSqq88JFXe6FmFyXPpWt8Xu39LyLg7rchsxfXFeEdA9CrIZvLV5eswXV5g==}
-    patched: true
 
   /@effect/io/0.0.66_wvvg23gkayuzduliecfba7o7im:
     resolution: {integrity: sha512-aRrVm4+hqT4VFVpBXEh8Ecrzgz0lHOOp4ArwvmF2sqMUhoVlKmMPCfHB6ccDYtQbsjKU9QkQrTA8OCdrMEndpQ==}
@@ -2731,6 +2666,12 @@ packages:
     resolution: {integrity: sha512-Wo/2KNO3n6TdUuX+vFEkK1hkQ3EDWp/5Uha8ZLtIvurndQxlDcF4kpU20c0CKJL8g5DpnRHiKN/cni5yyb09eQ==}
     dependencies:
       '@fp-ts/core': 0.0.11
+
+  /@fp-ts/optic/0.0.7:
+    resolution: {integrity: sha512-THNLR/z+vCtz3iSm6Vm1Jpk8n74e9tDzmpVEZf0tQsgv1G9asw+ton7/49t7L1mAoYEiUCv4/GtK8XFapGQBWg==}
+    dependencies:
+      '@fp-ts/core': 0.0.11
+      '@fp-ts/data': 0.0.40
 
   /@gar/promisify/1.1.3:
     resolution: {integrity: sha512-k2Ty1JcVojjJFwrg/ThKi2ujJ7XNLYaFGNB/bWT9wGR+oSMJHMa5w+CUq6p/pVrKeNNgA7pCqEcjSnHVoqJQFw==}
