@@ -4,8 +4,7 @@ import type { Dequeue } from "@effect/io/Queue"
 const makeEvents = Do($ => {
   const q = $(Hub.unbounded<Evt>())
   const svc: Events = {
-    publish: (evt: Evt) => q.offer(evt),
-    publishAll: (events: Iterable<Evt>) => q.offerAll(events),
+    publish: (...events: NonEmptyReadonlyArray<Evt>) => q.offerAll(events),
     subscribe: q.subscribe()
   }
   return svc
@@ -15,8 +14,7 @@ const makeEvents = Do($ => {
  * @tsplus type Events
  */
 export interface Events {
-  publish: (evt: Evt) => Effect<never, never, void>
-  publishAll: (events: NonEmptyReadonlyArray<Evt>) => Effect<never, never, void>
+  publish: (...evt: NonEmptyReadonlyArray<Evt>) => Effect<never, never, void>
   subscribe: Effect<Scope, never, Dequeue<Evt>>
 }
 
