@@ -1,8 +1,12 @@
 import { defaultTeardown } from "@effect-app/infra-adapters/runMain"
+import * as ConfigProvider from "@effect/io/Config/Provider"
+import { currentServices } from "@effect/io/DefaultServices"
 import * as Effect from "@effect/io/Effect"
 import * as Fiber from "@effect/io/Fiber"
 import * as Logger from "@effect/io/Logger"
 import * as Level from "@effect/io/Logger/Level"
+import * as Context from "@fp-ts/data/Context"
+import { camelCase, constantCase } from "change-case"
 
 const makeBasicRuntime = <R, E, A>(layer: Layer<R, E, A>) =>
   Effect.gen(function*($) {
@@ -18,10 +22,19 @@ const makeBasicRuntime = <R, E, A>(layer: Layer<R, E, A>) =>
     }
   })
 
+const provider = ConfigProvider.fromEnv({
+  pathDelim: "_", // i'd prefer "__"
+  seqDelim: ",",
+  conversion: constantCase,
+  reverseConversion: camelCase
+})
+
 export const basicRuntime = Runtime.defaultRuntime.unsafeRunSync(
   makeBasicRuntime(
     Logger.minimumLogLevel(Level.Debug)
       > Logger.logFmt
+      > currentServices.update(Context.add(ConfigProvider.Tag)(provider))
+        .toLayerDiscard
   )
 )
 
