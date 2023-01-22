@@ -10,7 +10,7 @@ const StorageConfig = Config.struct({
   prefix: Config.string("prefix").orElse(() =>
     BaseConfig.map(({ env }) => (env === "prod" ? "" : `${env}_v${STORAGE_VERSION}_`))
   )
-})
+}).nested("storage")
 
 export const ApiConfig = Config.struct({
   host: Config.string("host").withDefault("0.0.0.0"),
@@ -19,7 +19,7 @@ export const ApiConfig = Config.struct({
   fakeData: Config.string("fakeData").withDefault(""),
   fakeUsers: Config.string("fakeUsers").withDefault("sample"),
 
-  storage: StorageConfig.nested("storage")
+  storage: StorageConfig
 })
 
 type ConfigA<Cfg> = Cfg extends Config.Variance<infer A> ? A : never
