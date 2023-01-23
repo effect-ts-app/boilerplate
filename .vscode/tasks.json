@@ -70,9 +70,6 @@
 			"options": {
 				"cwd": "e2e"
 			},
-			"dependsOn": [
-				"Watch API & Packages"
-			],
 			"group": "build",
 			"isBackground": true,
 			"presentation": {
@@ -96,7 +93,7 @@
 				"cwd": "apps/frontend-nuxt"
 			},
 			"dependsOn": [
-				"Watch E2E"
+				"Watch API & Packages"
 			],
 			"group": {
 				"kind": "build",
