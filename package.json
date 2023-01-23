@@ -3,7 +3,7 @@
     "private": true,
     "pnpm": {
         "patchedDependencies": {
-            "@effect/language-service@0.0.15": "patches/@effect__language-service@0.0.15.patch",
+            "@effect/language-service@0.0.17": "patches/@effect__language-service@0.0.17.patch",
             "@playwright/test@1.29.2": "patches/@playwright+test+1.29.2.patch",
             "@typescript-eslint/scope-manager@5.48.2": "patches/@typescript-eslint__scope-manager@5.48.2.patch",
             "eslint-plugin-codegen@0.17.0": "patches/eslint-plugin-codegen@0.17.0.patch",
@@ -68,15 +68,15 @@
         "fast-check": "^3.6.2",
         "patch-package": "^6.5.1",
         "ts-node": "^10.9.1",
-        "vite-node": "^0.27.2"
+        "vite-node": "^0.27.3"
     },
     "devDependencies": {
         "@babel/cli": "^7.20.7",
-        "@effect-app/eslint-codegen-model": "^0.8.0",
-        "@effect-app/prelude": "^0.11.1",
-        "@effect-app/core": "^0.11.1",
-        "@effect-app/compiler": "^0.7.0",
-        "@effect/language-service": "^0.0.15",
+        "@effect-app/eslint-codegen-model": "^0.8.1",
+        "@effect-app/prelude": "^0.11.3",
+        "@effect-app/core": "^0.11.3",
+        "@effect-app/compiler": "^0.7.1",
+        "@effect/language-service": "^0.0.17",
         "@phaphoso/eslint-plugin-dprint": "^0.5.2",
         "@tsconfig/strictest": "^1.0.2",
         "@tsplus/installer": "0.0.164",
@@ -110,6 +110,6 @@
         "typescript": "https://cdn.jsdelivr.net/npm/@tsplus/installer@0.0.164/compiler/typescript.tgz",
         "typescript-transform-paths": "^3.4.6",
         "vite": "^4.0.4",
-        "vitest": "^0.27.2"
+        "vitest": "^0.27.3"
     }
 }
