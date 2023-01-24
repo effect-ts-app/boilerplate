@@ -10,7 +10,7 @@
 
 (VSCode tasks.json in progress)
 
-### API & Libs
+### API, Models, Resources
 
 a) `pnpm build -w`
 b) `cd _boilerplate/api && pnpm dev`

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import { BasicRequestEnv } from "@effect-app-boilerplate/messages/RequestLayers"
-import { Role } from "@effect-app-boilerplate/types/User"
-import type { User } from "@effect-app-boilerplate/types/User"
+import { Role } from "@effect-app-boilerplate/models/User"
+import type { User } from "@effect-app-boilerplate/models/User"
 import type { SupportedErrors } from "@effect-app/infra/api/defaultErrorHandler"
 import { defaultErrorHandler } from "@effect-app/infra/api/defaultErrorHandler"
 import type { _E, _R, Request } from "@effect-app/infra/api/express/schema/requestHandler"

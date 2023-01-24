@@ -1,5 +1,5 @@
+import { User } from "@effect-app-boilerplate/models/User"
 import { HelloWorldRsc } from "@effect-app-boilerplate/resources"
-import { User } from "@effect-app-boilerplate/types/User"
 
 export const HelloWorldControllers = Effect(
   matchResource(HelloWorldRsc)({

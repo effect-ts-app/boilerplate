@@ -1,5 +1,5 @@
-import type { UserId } from "@effect-app-boilerplate/types/User"
-import { User } from "@effect-app-boilerplate/types/User"
+import type { UserId } from "@effect-app-boilerplate/models/User"
+import { User } from "@effect-app-boilerplate/models/User"
 import { makeCodec } from "@effect-app/infra/api/codec"
 import { makeFilters } from "@effect-app/infra/filter"
 import type { Repository } from "@effect-app/infra/services/Repository"

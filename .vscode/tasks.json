@@ -8,7 +8,7 @@
 			"group": "build"
 		},
 		{
-			"label": "Watch API & Packages",
+			"label": "Watch API, Models, Resources",
 			"type": "shell",
 			"command": "pnpm build -w",
 			// "options": {
@@ -93,7 +93,7 @@
 				"cwd": "_boilerplate/frontend-nuxt"
 			},
 			"dependsOn": [
-				"Watch API & Packages"
+				"Watch API, Models, Resources"
 			],
 			"group": {
 				"kind": "build",

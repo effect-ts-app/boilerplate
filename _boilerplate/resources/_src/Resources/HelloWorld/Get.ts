@@ -1,4 +1,4 @@
-import { User } from "@effect-app-boilerplate/types/User"
+import { User } from "@effect-app-boilerplate/models/User"
 import { Get, Model } from "@effect-app/schema"
 
 @allowAnonymous
