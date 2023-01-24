@@ -41,7 +41,7 @@ const [publishing, publish] = useAndHandleMutation(
   </div>
   <div v-if="latestPost">
     <v-btn @click="publish({ id })" :disabled="publishing.loading">
-      Publish to all blog sites {{ publishing.loading && `(${progress})` }}
+      Publish to all blog sites {{ publishing.loading ? `(${progress})` : "" }}
     </v-btn>
     <div>Title: {{ latestPost.title }}</div>
     <div>Body: {{ latestPost.body }}</div>
