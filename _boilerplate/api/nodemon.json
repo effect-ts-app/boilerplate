@@ -1,0 +1,13 @@
+{
+    "ignore": [],
+    "ext": "js,env,local",
+    "watch": [
+        "../api-*/dist/**/*",
+        "../*/dist/**/*",
+        "../../libs/packages/*/dist/**/*",
+        "./dist",
+        ".env",
+        ".env.local"
+    ],
+    "delay": 333
+}

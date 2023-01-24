@@ -1,0 +1,20 @@
+{
+    "ignore": [
+        "*.test.ts",
+        "openapi.json",
+        "**/dist/*",
+        "**/.swc/*",
+        "**/.data/*",
+        "**/.logs/*"
+    ],
+    "ext": "ts,env,local",
+    "watch": [
+        "../api-*/**/*",
+        "../**/*",
+        "../../libs/packages/**/*",
+        ".",
+        ".env",
+        ".env.local"
+    ],
+    "delay": 333
+}

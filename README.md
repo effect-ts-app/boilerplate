@@ -13,14 +13,14 @@
 ### API & Libs
 
 a) `pnpm build -w`
-b) `cd apps/api && pnpm dev`
+b) `cd _boilerplate/api && pnpm dev`
 
 Visit: http://localhost:3610/docs
 The API is also proxied in the frontend on /api
 
 ### Frontend (Nuxt)
 
-- `cd apps/frontend-nuxt && pnpm dev -o`
+- `cd _boilerplate/frontend-nuxt && pnpm dev -o`
 
 Visit: http://localhost:5281
 API Docs: http://localhost:5281/api/docs

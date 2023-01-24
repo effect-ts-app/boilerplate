@@ -1,0 +1,76 @@
+{
+    "extends": "../../tsconfig.base.json",
+    "compilerOptions": {
+        // workaround for tsplus non-global extension functions, like on particular Service implementations;
+        // hardcode the required dependencies so that the api master project can properly consume it in editor.
+        "disableSourceOfProjectReferenceRedirect": true,
+        "lib": [
+            "esnext"
+        ],
+        "tsPlusConfig": "../../tsplus.config.json",
+        "tsBuildInfoFile": "./dist/.tsbuildinfo",
+        "esModuleInterop": true,
+        // temp disbaled to support ts-plus ops
+        "importsNotUsedAsValues": "preserve",
+        "baseUrl": "./",
+        "rootDir": "./_src",
+        // keep in here, cause madge can't detect it from extended tsconfig
+        "moduleResolution": "Node16",
+        "paths": {
+            "@/*": [
+                "./_src/*"
+            ]
+        },
+        "outDir": "./dist",
+        "transformers": [
+            // Transform paths in output .js files
+            {
+                "name": "ts-transform-paths"
+            },
+            // Transform paths in output .d.ts files (Include this line if you output declarations files)
+            {
+                "name": "ts-transform-paths",
+                "position": "afterDeclaration"
+            },
+            {
+                "name": "@effect/language-service/transformer",
+                "trace": {},
+                //"debug": {}
+            },
+        ]
+    },
+    "include": [
+        "./_src/**/*.ts"
+    ],
+    "exclude": [
+        "./dist",
+        "node_modules",
+        "build",
+        "lib",
+        "dist",
+        "**/*.d.ts.map",
+        ".git",
+        ".data",
+        "**/.*",
+        "**/*.tmp"
+    ],
+    "ts-node": {
+        "require": [
+            "tsconfig-paths/register"
+        ],
+        "compilerOptions": {
+            "module": "CommonJS"
+        }
+    },
+    "references": [
+        {
+            "path": "../api-api"
+        },
+        {
+            "path": "../messages"
+        },
+        {
+            "path": "../resources"
+        },
+    ]
+}
