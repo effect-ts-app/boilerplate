@@ -13,7 +13,7 @@ const createPost = flow(createPost_, _ => _.then(_ => reloadPosts()))
   <div>
     <div>
       a new Title and a new body
-      <button
+      <v-btn
         @click="
           createPost({
             title: MO.ReasonableString('empty'),
@@ -22,7 +22,7 @@ const createPost = flow(createPost_, _ => _.then(_ => reloadPosts()))
         "
       >
         Create new post
-      </button>
+      </v-btn>
     </div>
     Here's a Post List
     <ul v-if="latestPosts">
