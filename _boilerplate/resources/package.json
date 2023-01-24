@@ -78,7 +78,6 @@
     "test": "vitest",
     "test:run": "pnpm run test run --passWithNoTests",
     "testsuite": "pnpm lint && pnpm circular && pnpm run test:run",
-    "client": "node --experimental-specifier-resolution=node -r source-map-support/register ./dist/client.bin.js",
     "ncu": "ncu"
   },
   "gitHead": "bd8e27eea3eff97db8739d577d67e7336c078d28",
