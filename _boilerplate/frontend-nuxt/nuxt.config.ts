@@ -3,7 +3,7 @@ import process from "process"
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
   build: {
-    transpile: ["vuetify", "../../boilerplate/packages/schema"]
+    transpile: ["vuetify", "../../boilerplate/_boilerplate/schema"]
       // workaround for commonjs/esm module prod issue
       // https://github.com/nuxt/framework/issues/7698
       .concat(

@@ -1,4 +1,4 @@
-import { ClientEvents } from "@effect-app-boilerplate/client"
+import { ClientEvents } from "@effect-app-boilerplate/resources"
 import * as Ex from "@effect-app/infra-adapters/express"
 import { Events } from "../services/Events.js"
 

@@ -96,7 +96,7 @@
         "prefix": "handle",
         "body": [
             "import { handle } from \"@effect-app/infra-adapters/app\"",
-            "import { $2s } from \"@effect-app-boilerplate/client/$2s\"",
+            "import { $2s } from \"@effect-app-boilerplate/resources/$2s\"",
             "import { Effect, NonEmptyArray, Maybe, Sync } from \"@effect-app-boilerplate/types/Prelude\"",
             "",
             "export const $1$2 = handle($2s.$1)((req) =>",

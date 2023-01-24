@@ -22,7 +22,7 @@ import type {
   Pausable,
   UseIntervalFnOptions,
 } from "@vueuse/core"
-import { Failure, Success } from "@effect-app-boilerplate/client/Views"
+import { Failure, Success } from "@effect-app-boilerplate/resources/Views"
 
 export { useToast } from "vue-toastification"
 
@@ -47,7 +47,7 @@ export {
   refreshAndWaitAForOperationP,
   refreshAndWaitForOperation,
   refreshAndWaitForOperationP,
-} from "@effect-app-boilerplate/client/lib"
+} from "@effect-app-boilerplate/resources/lib"
 
 export function pauseWhileProcessing(
   iv: Pausable,
