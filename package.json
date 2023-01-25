@@ -9,7 +9,8 @@
             "eslint-plugin-codegen@0.17.0": "patches/eslint-plugin-codegen@0.17.0.patch",
             "eslint-plugin-unused-imports@2.0.0": "patches/eslint-plugin-unused-imports@2.0.0.patch",
             "typescript@5.0.0-tsplus.20230113": "patches/typescript@5.0.0-tsplus.20230113.patch",
-            "@effect/io@0.0.66": "patches/@effect__io@0.0.66.patch"
+            "@effect/io@0.0.66": "patches/@effect__io@0.0.66.patch",
+            "@phaphoso/eslint-plugin-dprint@0.5.2": "patches/@phaphoso__eslint-plugin-dprint@0.5.2.patch"
         }
     },
     "scripts": {
@@ -71,6 +72,7 @@
     },
     "devDependencies": {
         "@babel/cli": "^7.20.7",
+        "@dprint/typescript": "^0.80.2",
         "@effect-app/eslint-codegen-model": "^0.8.1",
         "@effect-app/prelude": "^0.11.5",
         "@effect-app/core": "^0.11.3",
