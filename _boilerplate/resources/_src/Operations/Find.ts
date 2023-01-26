@@ -1,5 +1,5 @@
 import { nullable } from "@effect-app/prelude/schema"
-import { Operation, OperationId } from "../../Views.js"
+import { Operation, OperationId } from "../Views.js"
 
 @allowRoles("user")
 export class FindOperationRequest extends Get("/operations/:id")<FindOperationRequest>()({
