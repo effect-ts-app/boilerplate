@@ -3,7 +3,7 @@ import { writeOpenapiDocs } from "@effect-app/infra/api/writeDocs"
 import type { ApiMainConfig } from "./config.js"
 import * as MW from "./middleware/index.js"
 import * as R from "./routes.js"
-import { Operations, StoreMaker, UserRepository } from "./services.js"
+import { Operations, StoreMaker, UserRepo } from "./services.js"
 import { Events } from "./services/Events.js"
 
 const routes = Effect.struct(R)
@@ -31,7 +31,7 @@ export function api(cfg: ApiMainConfig) {
 
   const services = Events.Live
     > StoreMaker.Live(Config(cfg.storage))
-    > UserRepository.Live(
+    > UserRepo.Live(
       cfg.fakeUsers === "sample" ? "sample" : ""
     )
     > Operations.Live

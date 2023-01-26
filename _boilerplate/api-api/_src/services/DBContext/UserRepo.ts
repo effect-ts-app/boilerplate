@@ -80,7 +80,7 @@ export type UserSeed = "sample" | ""
  * NOTE: Printer uniqueness handling is currently not optimal, and only uses a local lock,
  * so when running multiple instances, uniqueness is currently not guaranteed.
  */
-function makeUserRepository(seed: UserSeed) {
+function makeUserRepo(seed: UserSeed) {
   return Do($ => {
     const { make } = $(StoreMaker.access)
 
@@ -159,7 +159,7 @@ function makeUserRepository(seed: UserSeed) {
 
     const saveAll = (a: Iterable<User>) => saveAllE(a.toChunk.map(User.Encoder))
 
-    const save = (items: Iterable<User>, _: Iterable<never> = []) => saveAll(items)
+    const saveAndPublish = (items: Iterable<User>, _: Iterable<never> = []) => saveAll(items)
     // .tap(() =>
     //   Effect(items.toNonEmptyArray).tapOpt(items =>
     //     // TODO: Poor Man's state change report; should perhaps auto track and filter for: ItemChanged, ItemStateChanged, or not changed.
@@ -172,7 +172,7 @@ function makeUserRepository(seed: UserSeed) {
     //     .flatMapOpt(publish)
     // )
 
-    const r: UserRepository = {
+    const r: UserRepo = {
       /**
        * @internal
        */
@@ -180,7 +180,7 @@ function makeUserRepository(seed: UserSeed) {
       itemType: "User",
       find,
       all,
-      save: u => save(u) // TODO
+      saveAndPublish
       /*
 .catchTag(
           "IndexError",
@@ -193,41 +193,41 @@ function makeUserRepository(seed: UserSeed) {
 }
 
 /**
- * @tsplus type UserRepository
+ * @tsplus type UserRepo
  */
-export interface UserRepository extends Repository<User, UserPersistenceModel, never, UserId, "User"> {}
+export interface UserRepo extends Repository<User, UserPersistenceModel, never, UserId, "User"> {}
 
 /**
- * @tsplus type UserRepository.Ops
+ * @tsplus type UserRepo.Ops
  */
-export interface UserRepositoryOps extends Tag<UserRepository> {}
+export interface UserRepoOps extends Tag<UserRepo> {}
 
-export const UserRepository: UserRepositoryOps = Tag<UserRepository>()
+export const UserRepo: UserRepoOps = Tag<UserRepo>()
 
 /**
- * @tsplus static UserRepository.Ops Live
+ * @tsplus static UserRepo.Ops Live
  */
-export function LiveUserRepository(seed: UserSeed) {
-  return makeUserRepository(seed).toLayer(UserRepository)
+export function LiveUserRepo(seed: UserSeed) {
+  return makeUserRepo(seed).toLayer(UserRepo)
 }
 
 /**
- * @tsplus getter UserRepository getCurrentUser
+ * @tsplus getter UserRepo getCurrentUser
  */
-export function getCurrentUser(repo: UserRepository) {
+export function getCurrentUser(repo: UserRepo) {
   return UserProfile.accessWithEffect(_ => _.get.flatMap(_ => repo.get(_.id)))
 }
 
 /**
- * @tsplus fluent UserRepository update
+ * @tsplus fluent UserRepo update
  */
-export function update(repo: UserRepository, mod: (user: User) => User) {
-  return UserProfile.accessWithEffect(_ => _.get.flatMap(_ => repo.get(_.id)).map(mod).flatMap(_ => repo.save([_])))
+export function update(repo: UserRepo, mod: (user: User) => User) {
+  return UserProfile.accessWithEffect(_ => _.get.flatMap(_ => repo.get(_.id)).map(mod).flatMap(repo.save))
 }
 
 /**
- * @tsplus fluent UserRepository updateWithEffect
+ * @tsplus fluent UserRepo updateWithEffect
  */
-export function userUpdateWithEffect<R, E>(repo: UserRepository, mod: (user: User) => Effect<R, E, User>) {
-  return UserProfile.accessWithEffect(_ => _.get.flatMap(_ => repo.get(_.id)).flatMap(mod).flatMap(_ => repo.save([_])))
+export function userUpdateWithEffect<R, E>(repo: UserRepo, mod: (user: User) => Effect<R, E, User>) {
+  return UserProfile.accessWithEffect(_ => _.get.flatMap(_ => repo.get(_.id)).flatMap(mod).flatMap(repo.save))
 }

@@ -11,7 +11,7 @@ import { NotLoggedInError, UnauthorizedError } from "@effect-app/infra/errors"
 import { RequestContext } from "@effect-app/infra/RequestContext"
 import type { GetRequest, GetResponse, ReqRes, ReqResSchemed } from "@effect-app/prelude/schema"
 import type express from "express"
-import { CurrentUser, UserRepository } from "../services.js"
+import { CurrentUser, UserRepo } from "../services.js"
 import { makeUserProfileFromUserHeader, UserProfile } from "../services/UserProfile.js"
 
 function RequestEnv(handler: { Request: any }) {
@@ -36,7 +36,7 @@ function RequestEnv(handler: { Request: any }) {
     }).flatMap(ctx =>
       Effect.gen(function*($) {
         const currentUser = yield* $(
-          UserRepository.accessWithEffect(_ => _.getCurrentUser)
+          UserRepo.accessWithEffect(_ => _.getCurrentUser)
             .map(Opt.some)
             .catchAll(() => allowAnonymous ? Effect(Opt.none) : Effect.fail(new NotLoggedInError()))
             .tap(_ => {
