@@ -2,8 +2,9 @@
 const enforceSingleVersion = [
     "@effect/io",
     "@effect/stm",
-    "@fp-ts/core",
-    "@fp-ts/data",
+    // Language service currently depends on them
+    // "@fp-ts/core",
+    // "@fp-ts/data",
     "@fp-ts/optic",
     "@effect-app/core",
     "@effect-app/infra-adapters",

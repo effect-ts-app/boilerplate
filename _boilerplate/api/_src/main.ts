@@ -9,12 +9,12 @@ import { runtimeDebug } from "@effect/io/Debug"
 
 if (process.argv.includes("--debug")) {
   runtimeDebug.minumumLogLevel = "Debug"
-  runtimeDebug.traceExecutionLogEnabled = true
+  runtimeDebug.tracingEnabled = true
 }
 
 const SUPPORTED_MODES = ["PRINT", "ALL", "API"] as const
 
-const appConfig = BaseConfig.config.unsafeRunSync$
+const appConfig = BaseConfig.config.runSync$
 
 // Sentry.init({
 //   dsn: appConfig.sentry.dsn.value,

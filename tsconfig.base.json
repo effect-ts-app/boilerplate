@@ -45,7 +45,11 @@
         "transformers": [
             {
                 "name": "@effect/language-service/transformer",
-                "trace": {},
+                "trace": {
+                    "exclude": [
+                        "**/*.ts"
+                    ]
+                }
                 //"debug": {}
             },
         ],
