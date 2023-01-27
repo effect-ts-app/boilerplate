@@ -14,8 +14,8 @@ import * as Level from "@effect/io/Logger/Level"
 const POOL_ID = process.env["VITEST_POOL_ID"]
 const PORT = 40000 + parseInt(POOL_ID ?? "1")
 
-const appConfig = BaseConfig.config.unsafeRunSync$
-const apiConfig = ApiConfig.config.unsafeRunSync$
+const appConfig = BaseConfig.config.runSync$
+const apiConfig = ApiConfig.config.runSync$
 const cfg = { ...appConfig, ...apiConfig, port: PORT }
 
 const appLayer = Logger.minimumLogLevel(Level.Debug)
@@ -58,7 +58,7 @@ beforeAll(async () => {
     })
 
   const runtime = appRuntime(appLayer)
-    .unsafeRunPromise$
+    .runPromise$
     .catch(error => {
       console.error(error)
       throw error
@@ -67,7 +67,7 @@ beforeAll(async () => {
   const cleanup = () =>
     Effect.promise(() => runtime)
       .flatMap(_ => _.clean)
-      .unsafeRunPromise$
+      .runPromise$
 
   globalThis.cleanup = cleanup
   globalThis.runtime = (await runtime).runtime

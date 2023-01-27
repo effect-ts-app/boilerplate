@@ -13,7 +13,7 @@ declare module "playwright-core" {
   export interface Page {
     locateTest(this: Page, selector: TestSelector): Locator
 
-    unsafeRunPromise<E, A>(this: Page, self: Effect<SupportedEnv, E, A>): Promise<A>
+    runPromise<E, A>(this: Page, self: Effect<SupportedEnv, E, A>): Promise<A>
   }
 
   export interface Locator {
@@ -31,7 +31,7 @@ Object.defineProperty(Object.prototype, "locateTest", {
 })
 
 // TODO: the downside is that this is not "bound", so you can't pass the function around in pipes etc.
-Object.defineProperty(Object.prototype, "unsafeRunPromise", {
+Object.defineProperty(Object.prototype, "runPromise", {
   async value<E, A>(this: Page, self: Effect<SupportedEnv, E, A>) {
     // TODO; proper
     // TODO: we probably only need to create the ENV once per page object..
@@ -60,7 +60,7 @@ Object.defineProperty(Object.prototype, "unsafeRunPromise", {
       { AUTH_DISABLED: process.env["AUTH_DISABLED"] === "true" }
     )
 
-    return await self["|>"](runtime.unsafeRunPromise)
+    return await self["|>"](runtime.runPromise)
   }
 })
 

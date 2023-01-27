@@ -1,7 +1,7 @@
-import { describe, expect, it } from "vitest"
-
 import { basicRuntime } from "@effect-app-boilerplate/messages"
-import { camelCase, constantCase } from "change-case"
+import * as ConfigProvider from "@effect/io/Config/Provider"
+import { constantCase } from "change-case"
+import { describe, expect, it } from "vitest"
 import { ApiConfig } from "./config.js"
 
 describe("nested", () => {
@@ -9,7 +9,7 @@ describe("nested", () => {
     process.env["STORAGE_URL"] = "test5://"
     process.env["FAKE_DATA"] = "test1"
     process.env["HOST"] = "test2"
-    const cfg = basicRuntime.runtime.unsafeRunSync(ApiConfig.config)
+    const cfg = basicRuntime.runtime.runSync(ApiConfig.config)
 
     expect(cfg.fakeData)
       .toStrictEqual("test1")
@@ -20,16 +20,17 @@ describe("nested", () => {
   })
 
   it("customshould work", () => {
-    const a = ConfigProvider.fromEnv({
-      pathDelim: "__",
-      seqDelim: ",",
-      conversion: constantCase,
-      reverseConversion: camelCase
-    })
+    const a = ConfigProvider.contramapPath(
+      ConfigProvider.fromEnv({
+        pathDelim: "__",
+        seqDelim: ","
+      }),
+      constantCase
+    )
     process.env["STORAGE__URL"] = "test5://"
     process.env["FAKE_DATA"] = "test1"
     process.env["HOST"] = "test2"
-    const cfg = a.load(ApiConfig).unsafeRunSync
+    const cfg = a.load(ApiConfig).runSync
 
     expect(cfg.fakeData)
       .toStrictEqual("test1")
