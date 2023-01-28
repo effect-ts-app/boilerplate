@@ -22,9 +22,9 @@ function RequestEnv(handler: { Request: any }) {
       const ctx = yield* $(BasicRequestEnv(requestContext))
 
       const p = makeUserProfileFromUserHeader(req.headers["x-user"])
-        .map(Opt.some)
+        .map(Option.some)
       const userProfile = allowAnonymous
-        ? p.catchAll(() => Effect(Opt.none))
+        ? p.catchAll(() => Effect(Option.none))
         : p.mapError(() => new NotLoggedInError())
 
       return pipe(
@@ -37,8 +37,8 @@ function RequestEnv(handler: { Request: any }) {
       Effect.gen(function*($) {
         const currentUser = yield* $(
           UserRepo.accessWithEffect(_ => _.getCurrentUser)
-            .map(Opt.some)
-            .catchAll(() => allowAnonymous ? Effect(Opt.none) : Effect.fail(new NotLoggedInError()))
+            .map(Option.some)
+            .catchAll(() => allowAnonymous ? Effect(Option.none) : Effect.fail(new NotLoggedInError()))
             .tap(_ => {
               const userRoles = _.map(_ => _.role === "manager" ? [Role("manager"), Role("user")] : [_.role]).getOrElse(
                 () => [Role("user")]

@@ -19,7 +19,7 @@ export const UserProfile = Tag<UserProfile>()
 export const LiveUserProfile = (profile: UserProfileScheme | null) =>
   UserProfile.makeLayer(
     UserProfile.make({
-      get: Opt.fromNullable(profile).encaseInEffect(() => new NotLoggedInError())
+      get: Option.fromNullable(profile).encaseInEffect(() => new NotLoggedInError())
     })
   )
 

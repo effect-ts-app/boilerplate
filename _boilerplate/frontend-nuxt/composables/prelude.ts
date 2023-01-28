@@ -15,17 +15,5 @@ import type {
 
 export { flow, pipe } from "@effect-app/prelude/Function"
 // Must export explicity for auto import to work
-export {
-  Chunk,
-  Effect,
-  Either,
-  Layer,
-  Option,
-  Option as Opt,
-  MO,
-  Order,
-  ROArray,
-  These,
-  Tag,
-}
+export { Chunk, Effect, Either, Layer, Option, MO, Order, ROArray, These, Tag }
 export type { NonEmptyArray, NonEmptyReadonlyArray }

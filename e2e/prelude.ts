@@ -14,5 +14,5 @@ import type { NonEmptyArray, NonEmptyReadonlyArray } from "@fp-ts/data/ReadonlyA
 
 export { flow, pipe } from "@effect-app/prelude/Function"
 // Must export explicity for auto import to work
-export { Chunk, Config, Effect, Either, HashMap, Layer, MO, Option, Option as Opt, Order, ROArray, Tag, These }
+export { Chunk, Config, Effect, Either, HashMap, Layer, MO, Option, Option, Order, ROArray, Tag, These }
 export type { NonEmptyArray, NonEmptyReadonlyArray }

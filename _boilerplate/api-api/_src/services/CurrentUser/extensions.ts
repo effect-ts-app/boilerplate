@@ -35,5 +35,5 @@ export function get(self: CurrentUserOps) {
 
 /** @tsplus static CurrentUser.Ops find */
 export const FindCurrentUser = CurrentUser.accessWithEffect(
-  _ => _.get.map(Opt.some).catchTag("NotLoggedInError", () => Effect(Opt.none))
+  _ => _.get.map(Option.some).catchTag("NotLoggedInError", () => Effect(Option.none))
 )

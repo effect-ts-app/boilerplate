@@ -4,7 +4,7 @@ import {
   parseRouteParams,
   parseRouteParamsOption,
 } from "@effect-app/vue/routeParams"
-import { Opt } from "./prelude"
+import { Option } from "./prelude"
 
 export const useRouteParams = <NER extends Record<string, SchemaAny>>(
   t: NER // enforce non empty
@@ -21,10 +21,10 @@ export const useRouteParamsOption = <NER extends Record<string, SchemaAny>>(
   const result = parseRouteParamsOption(r.params, t)
   type Result = typeof result
   return typedKeysOf(result).reduce((prev, cur) => {
-    prev[cur] = Opt.getOrUndefined(result[cur])
+    prev[cur] = Option.getOrUndefined(result[cur])
     return prev
   }, {} as Record<keyof Result, any>) as unknown as {
-    [K in keyof Result]: Result[K] extends Opt.Option<infer A>
+    [K in keyof Result]: Result[K] extends Option.Option<infer A>
       ? A | undefined
       : never
   }

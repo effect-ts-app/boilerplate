@@ -7,7 +7,7 @@ import type { ApiConfig } from "@effect-app/prelude/client/config"
 import { Live as LiveApiConfig } from "@effect-app/prelude/client/config"
 import { initializeSync } from "@effect-app/vue/runtime"
 import fetch from "cross-fetch"
-import { Config, Effect, HashMap, Layer, Opt, Tag } from "../prelude.js"
+import { Config, Effect, HashMap, Layer, Option, Tag } from "../prelude.js"
 
 export interface AppConfig {
   AUTH_DISABLED: boolean
@@ -47,7 +47,7 @@ export const { runtime } = makeEnv(
   {
     apiUrl: "/api/proxy",
     headers: (cypressEnv("BASIC_AUTH_USER")
-      ? Opt.some(HashMap.make(
+      ? Option.some(HashMap.make(
         [
           "Authorization",
           toBase64(
@@ -55,7 +55,7 @@ export const { runtime } = makeEnv(
           )
         ]
       ))
-      : Opt.none)
+      : Option.none)
   },
   { AUTH_DISABLED: cypressEnv("AUTH_DISABLED") === "true" }
 )

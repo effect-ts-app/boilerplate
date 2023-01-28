@@ -2,7 +2,7 @@ import "playwright-core"
 
 import type { Page } from "@playwright/test"
 
-import { HashMap, Opt } from "@/prelude.js"
+import { HashMap, Option } from "@/prelude.js"
 import type { TestSelector } from "../helpers/@types/enhanced-selectors.js"
 import type { SupportedEnv } from "../helpers/shared.js"
 import { makeEnv, toBase64 } from "../helpers/shared.js"
@@ -47,14 +47,14 @@ Object.defineProperty(Object.prototype, "runPromise", {
         apiUrl: `${env("BASE_URL") ?? "http://localhost:4000"}/api`,
         headers: {
           ...(user && pass
-            ? Opt.some(HashMap.make(
+            ? Option.some(HashMap.make(
               cookieHeader,
               [
                 "Authorization",
                 toBase64(`${user}:${pass}`)
               ]
             ))
-            : Opt.some(HashMap.make(cookieHeader)))
+            : Option.some(HashMap.make(cookieHeader)))
         }
       },
       { AUTH_DISABLED: process.env["AUTH_DISABLED"] === "true" }
