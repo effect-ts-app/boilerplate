@@ -9,7 +9,8 @@
             "eslint-plugin-codegen@0.17.0": "patches/eslint-plugin-codegen@0.17.0.patch",
             "eslint-plugin-unused-imports@2.0.0": "patches/eslint-plugin-unused-imports@2.0.0.patch",
             "typescript@5.0.0-tsplus.20230113": "patches/typescript@5.0.0-tsplus.20230113.patch",
-            "@phaphoso/eslint-plugin-dprint@0.5.2": "patches/@phaphoso__eslint-plugin-dprint@0.5.2.patch"
+            "@phaphoso/eslint-plugin-dprint@0.5.2": "patches/@phaphoso__eslint-plugin-dprint@0.5.2.patch",
+            "date-fns@2.29.3": "patches/date-fns@2.29.3.patch"
         }
     },
     "scripts": {
@@ -59,6 +60,7 @@
     "resolutions": {
         "@types/node": "~18.11.11",
         "@types/react": "^18.0.26",
+        "date-fns": "^2.29.3",
         "http-proxy": "npm:http-proxy-node16@1.0.0"
     },
     "dependencies": {
@@ -73,8 +75,8 @@
         "@babel/cli": "^7.20.7",
         "@dprint/typescript": "^0.81.1",
         "@effect-app/eslint-codegen-model": "^0.8.2",
-        "@effect-app/prelude": "^0.15.0",
-        "@effect-app/core": "^0.15.0",
+        "@effect-app/prelude": "^0.15.1",
+        "@effect-app/core": "^0.15.1",
         "@effect-app/compiler": "^0.8.0",
         "@effect/language-service": "^0.0.17",
         "@phaphoso/eslint-plugin-dprint": "^0.5.2",

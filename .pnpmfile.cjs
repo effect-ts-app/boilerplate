@@ -14,6 +14,7 @@ const enforceSingleVersion = [
     "@effect-app/react",
     "@effect-app/vue",
     "vue",
+    "date-fns"
 ]
 
 function afterAllResolved(lockfile, context) {
