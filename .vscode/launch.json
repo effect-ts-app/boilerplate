@@ -3,7 +3,7 @@
     {
       "name": "API debug",
       "request": "launch",
-      "cwd": "${workspaceFolder}/_boilerplate/api",
+      "cwd": "${workspaceFolder}/_project/api",
       "runtimeArgs": [
         "debug"
       ],
@@ -16,7 +16,7 @@
     // {
     //   "name": "UI debug",
     //   "request": "launch",
-    //   "cwd": "${workspaceFolder}/_boilerplate/frontend-nuxt",
+    //   "cwd": "${workspaceFolder}/_project/frontend-nuxt",
     //   "runtimeArgs": [
     //     "dev:debug"
     //   ],
@@ -29,7 +29,7 @@
     {
       "name": "API Debug Attach",
       "port": 9229,
-      "cwd": "${workspaceFolder}/_boilerplate/api",
+      "cwd": "${workspaceFolder}/_project/api",
       "request": "attach",
       "skipFiles": [
         "<node_internals>/**"
@@ -40,13 +40,13 @@
     {
       "name": "UI Debug Attach",
       "port": 9230,
-      "cwd": "${workspaceFolder}/_boilerplate/frontend-nuxt",
+      "cwd": "${workspaceFolder}/_project/frontend-nuxt",
       "request": "attach",
       "skipFiles": [
         "<node_internals>/**"
       ],
       "type": "pwa-node",
-      "webRoot": "${workspaceFolder}/_boilerplate/frontend-nuxt",
+      "webRoot": "${workspaceFolder}/_project/frontend-nuxt",
       "sourceMaps": true
     },
   ]

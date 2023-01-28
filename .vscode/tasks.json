@@ -12,7 +12,7 @@
 			"type": "shell",
 			"command": "pnpm build -w",
 			// "options": {
-			// 	"cwd": "_boilerplate/api/_test",
+			// 	"cwd": "_project/api/_test",
 			// },
 			"dependsOn": [
 				//"Scan Resources",
@@ -40,7 +40,7 @@
 			"type": "shell",
 			"command": "pnpm build-libs -w",
 			// "options": {
-			// 	"cwd": "_boilerplate/api/_test",
+			// 	"cwd": "_project/api/_test",
 			// },
 			"dependsOn": [
 				//"Scan Resources",
@@ -90,7 +90,7 @@
 			"type": "shell",
 			"command": "pnpm compile -w",
 			"options": {
-				"cwd": "_boilerplate/frontend-nuxt"
+				"cwd": "_project/frontend-nuxt"
 			},
 			"dependsOn": [
 				"Watch API, Models, Resources"
@@ -108,7 +108,7 @@
 					"base": "$tsc-watch",
 					"fileLocation": [
 						"relative",
-						"${workspaceRoot}/_boilerplate/frontend-nuxt",
+						"${workspaceRoot}/_project/frontend-nuxt",
 					],
 				}
 			]
@@ -118,7 +118,7 @@
 			"type": "shell",
 			"command": "pnpm dev",
 			"options": {
-				"cwd": "_boilerplate/api"
+				"cwd": "_project/api"
 			},
 			"isBackground": true,
 			// FAKE... but works..
@@ -147,7 +147,7 @@
 			"type": "shell",
 			"command": "pnpm dev -o",
 			"options": {
-				"cwd": "_boilerplate/frontend-nuxt"
+				"cwd": "_project/frontend-nuxt"
 			},
 			"dependsOrder": "sequence",
 			"dependsOn": [
@@ -184,7 +184,7 @@
 			"type": "shell",
 			"command": "pnpm run test --watch",
 			"options": {
-				"cwd": "_boilerplate/api/_test"
+				"cwd": "_project/api/_test"
 			},
 			"group": "test",
 			"isBackground": true,
@@ -244,7 +244,7 @@
 			"type": "shell",
 			"command": "pnpm build",
 			"options": {
-				"cwd": "_boilerplate/frontend-nuxt"
+				"cwd": "_project/frontend-nuxt"
 			},
 			"group": "build",
 			"dependsOrder": "sequence",
