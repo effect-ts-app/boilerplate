@@ -7,10 +7,10 @@ import * as These from "@effect-app/schema/custom/These"
 import * as Config from "@effect/io/Config"
 import * as Effect from "@effect/io/Effect"
 import * as Layer from "@effect/io/Layer"
+import * as Either from "@fp-ts/core/Either"
+import type { NonEmptyArray, NonEmptyReadonlyArray } from "@fp-ts/core/ReadonlyArray"
 import * as Tag from "@fp-ts/data/Context"
-import * as Either from "@fp-ts/data/Either"
 import * as HashMap from "@fp-ts/data/HashMap"
-import type { NonEmptyArray, NonEmptyReadonlyArray } from "@fp-ts/data/ReadonlyArray"
 
 export { flow, pipe } from "@effect-app/prelude/Function"
 // Must export explicity for auto import to work
