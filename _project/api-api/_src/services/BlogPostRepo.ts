@@ -2,7 +2,7 @@ import { BlogPost, BlogPostId } from "@effect-app-boilerplate/models/Blog"
 
 export interface BlogPostRepo {
   all: Effect<never, never, readonly BlogPost[]>
-  find: (id: BlogPostId) => Effect<never, never, Opt<BlogPost>>
+  find: (id: BlogPostId) => Effect<never, never, Option<BlogPost>>
   save: (post: BlogPost) => Effect<never, never, void>
 }
 export const BlogPostRepo = Tag<BlogPostRepo>()
