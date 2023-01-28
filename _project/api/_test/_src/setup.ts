@@ -6,7 +6,6 @@ import * as HF from "@effect-app/core/http/http-client-fetch"
 import { Live as LiveApiConfig } from "@effect-app/prelude/client/config"
 import type { Runtime } from "@effect/io/Runtime"
 import { fetch } from "cross-fetch"
-import { afterAll, beforeAll } from "vitest"
 
 import * as Logger from "@effect/io/Logger"
 import * as Level from "@effect/io/Logger/Level"
