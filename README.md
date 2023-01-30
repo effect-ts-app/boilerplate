@@ -8,7 +8,8 @@
 
 ## Run
 
-(VSCode tasks.json in progress)
+Use the VSCode "Run Task", "Run UI".
+Or see below for running manually.
 
 ### API, Models, Resources
 
@@ -44,13 +45,11 @@ Add to keybinds:
 }
 ```
 
-
 ### Data type architecture/hierarchy
 
 Sketch..
 
 ![alt text](doc/img/data-arch.png)
-
 
 ### Concepts
 
@@ -68,8 +67,13 @@ TBD
 ### Messaging
 
 TBD
+
 #### Events
 
 TBD
 
 - Published to UI via Server Sent Events
+
+#### Queue
+
+TBD
