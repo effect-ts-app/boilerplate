@@ -21,12 +21,6 @@
     "test": "vitest",
     "test:run": "pnpm run test run",
     "testsuite": "pnpm lint && pnpm circular && pnpm run test:run",
-    "debug": "node --inspect --experimental-specifier-resolution=node -r source-map-support/register ./dist/main.js",
-    "dev": "pnpm dev:compiled:run",
-    "dev:compiled": "pnpm build && concurrently -k -p \"[{name}]\" -n \"Build,Runtime\" -c \"cyan.bold,green.bold,blue.bold\" \"pnpm watch\" \"pnpm dev:compiled:watch\"",
-    "dev:compiled:run": "NODE_ENV=development nodemon --exec pnpm start:compiled",
-    "start": "pnpm start:compiled",
-    "start:compiled": "node --experimental-specifier-resolution=node -r source-map-support/register ./dist/main.js",
     "ncu": "ncu",
     "extract:i18n": "formatjs extract './**/*.ts' --ignore './**/*.d.ts' --format _src/i18n/extraction-formatter.cjs --id-interpolation-pattern '[sha512:contenthash:base64:6]' --out-file _src/i18n/extracted/en.json"
   },
