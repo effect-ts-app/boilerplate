@@ -45,35 +45,6 @@ Add to keybinds:
 }
 ```
 
-### Data type architecture/hierarchy
+## Framework documentation
 
-Sketch..
-
-![alt text](doc/img/data-arch.png)
-
-### Concepts
-
-- Applications
-  - API - private business logic, endpoints with resources for UI
-  - UI - views and public business logic, uses derived clients to talk to endpoints on the API
-- Messages - talk between API/Worker services
-- Resources - talk between UI and API - think REST resources, actions, view models.
-- Models - domain core types, many others are derived from these
-
-#### Queries (read) & Commands/Mutations (write)
-
-TBD
-
-### Messaging
-
-TBD
-
-#### Events
-
-TBD
-
-- Published to UI via Server Sent Events
-
-#### Queue
-
-TBD
+[WIP](https://github.com/effect-ts-app/docs)
