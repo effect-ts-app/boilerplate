@@ -18,7 +18,7 @@ export default function makeTestConfig(dirName?: string, useDist = process.env.T
   const cfg = {
     ...b,
     // eslint-disable-next-line @typescript-eslint/no-var-requires
-    plugins: useDist ? [autoImport] : [effectPlugin({ tsconfig: "tsconfig.test.json" }), autoImport],
+    plugins: [effectPlugin({ tsconfig: "tsconfig.test.json" }), autoImport],
     test: {...b.test, 
       include: ["./_test/**/*.test.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"],
       exclude: []

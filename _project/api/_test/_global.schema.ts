@@ -1,3 +1,3 @@
 /* eslint-disable unused-imports/no-unused-imports */
 
-import "@/_global.schema.js"
+import "@effect-app-boilerplate/api/_global.schema"
