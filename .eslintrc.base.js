@@ -11,7 +11,7 @@ module.exports = (dirName, forceTS = false) => {
       sourceType: "module", // Allows for the use of imports
       ...(enableTS ? { 
         tsconfigRootDir: dirName,
-        project: ['./tsconfig.json'],
+        project: ['./tsconfig.json', './tsconfig.src.json', './tsconfig.test.json'],
       } : undefined)
     },
     settings: {
