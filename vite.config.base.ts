@@ -1,14 +1,13 @@
 /// <reference types="vitest" />
-import { tsPlugin } from "@effect-app/compiler/vitePlugin"
 import path from "path"
 import fs from "fs"
+import { effectPlugin } from "@effect-app/compiler/vitePlugin2"
+import { UserConfig } from "vite"
 
-const useDist = process.env.TEST_USE_DIST === "true"
+export default function makeConfig(dirName?: string, useDist = process.env.TEST_USE_DIST === "true"): UserConfig {
 
-export default function makeConfig(dirName?: string) {
   return {
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    plugins: useDist ? [] : [tsPlugin({})],
+    plugins: useDist ? [] : [effectPlugin({})],
     test: {
       include: useDist ? ["./dist/**/*.test.js"] : ["./_src/**/*.test.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"],
       exclude: ["./_test/**/*"],

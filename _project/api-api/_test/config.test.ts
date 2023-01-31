@@ -1,7 +1,7 @@
+import { ApiConfig } from "@effect-app-boilerplate/api-api/config"
 import { basicRuntime } from "@effect-app-boilerplate/messages"
 import * as ConfigProvider from "@effect/io/Config/Provider"
 import { constantCase } from "change-case"
-import { ApiConfig } from "./config.js"
 
 describe("nested", () => {
   it("default should work", () => {

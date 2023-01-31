@@ -1,5 +1,8 @@
 /// <reference types="vitest" />
 import { defineConfig } from "vite"
-import makeConfig from "../../vite.config.base"
+import makeConfig from "../../vite.config.test"
 
-export default defineConfig(makeConfig(__dirname))
+const base = makeConfig(__dirname)
+export default defineConfig(
+  { ...base, test: { ...base.test, setupFiles: "./_test/setup.ts" } }
+)
