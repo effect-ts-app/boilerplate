@@ -1,9 +1,4 @@
 import type { ClientEvents } from "@effect-app-boilerplate/resources"
+import * as Hub from "@effect/io/Hub"
 
-import mitt from "mitt"
-
-type Events = {
-  serverEvents: ClientEvents
-}
-
-export const bus = mitt<Events>()
+export const serverEventHub = Effect.runSync(Hub.unbounded<ClientEvents>())

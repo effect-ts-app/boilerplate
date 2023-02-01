@@ -16,9 +16,28 @@ onMountedWithCleanup(() => {
   const callback = (_: ClientEvents) => {
     bogusOutput.value = _
   }
-  bus.on("serverEvents", callback)
+  const f = runtime().runFork(
+    pipe(
+      Effect.never(),
+      Effect.provideSomeLayer(
+        Layer.scopedDiscard(
+          pipe(
+            serverEventHub.subscribe(),
+            Effect.flatMap(subscription =>
+              pipe(
+                subscription.take(),
+                Effect.flatMap(v => Effect.sync(() => callback(v))),
+                Effect.forever
+              )
+            )
+          )
+        )
+      )
+    )
+  )
+
   return () => {
-    bus.off("serverEvents", callback)
+    runtime().runFork(Fiber.interrupt(f))
   }
 })
 

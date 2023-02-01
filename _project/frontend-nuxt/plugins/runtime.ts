@@ -1,5 +1,6 @@
 import { makeApiLayers, initializeSync } from "@effect-app/vue"
 import * as Http from "@effect-app/core/http/http-client"
+import * as Runtime from "@effect/io/Runtime"
 
 export const versionMatch = ref(true)
 export const runtime = ref<ReturnType<typeof makeRuntime>>()
@@ -33,7 +34,13 @@ function makeRuntime(feVersion: string) {
         ),
   ])
 
-  return initializeSync(makeApiLayers()["|>"](Layer.merge(middleware)))
+  const rt = initializeSync(makeApiLayers()["|>"](Layer.merge(middleware)))
+  return {
+    ...rt,
+    runFork: Runtime.runFork(rt.runtime),
+    runSync: Runtime.runSync(rt.runtime),
+    runPromise: Runtime.runPromise(rt.runtime),
+  }
 }
 
 export default defineNuxtPlugin(_ => {

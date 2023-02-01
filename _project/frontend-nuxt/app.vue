@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { unsafe } from "@effect-app/schema"
 import { ClientEvents } from "@effect-app-boilerplate/resources"
-import { bus } from "./composables/bus"
+import { serverEventHub } from "./composables/bus"
 import { onMountedWithCleanup } from "./composables/onMountedWithCleanup"
+import { runtime } from "./plugins/runtime"
 
 const parseEvent = unsafe(ClientEvents.Parser)
 onMountedWithCleanup(() => {
@@ -11,7 +12,7 @@ onMountedWithCleanup(() => {
   const listener = (message: MessageEvent<any>) => {
     console.log("Got", message)
     const evt = parseEvent(JSON.parse(message.data))
-    bus.emit("serverEvents", evt)
+    runtime.value!.runSync(serverEventHub.offer(evt))
   }
   source.addEventListener("message", listener)
 
