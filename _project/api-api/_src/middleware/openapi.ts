@@ -1,10 +1,11 @@
 import * as Ex from "@effect-app/infra-adapters/express"
 import { readTextFile } from "@effect-app/infra-adapters/fileUtil"
+import type { NextHandleFunction } from "connect"
 import redoc from "redoc-express"
 import { serve as serve_, setup as setup_ } from "swagger-ui-express"
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const serve: any = serve_
+const serve: NonEmptyArray<NextHandleFunction> = serve_ as any
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const setup: any = setup_
 
@@ -20,7 +21,7 @@ export const openapiRoutes = Ex.get("/openapi.json", (_req, res) => readOpenApiD
       })
     )
   )
-  > Ex.use(...serve.map(Ex.classic))
+  > Ex.use(...serve.mapNonEmpty(Ex.classic))
   > Ex.get(
     "/swagger",
     (req, res, next) =>

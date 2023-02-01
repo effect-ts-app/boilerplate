@@ -3,9 +3,9 @@ import { ContextMap } from "@effect-app/infra/services/Store"
 
 export const BasicRequestEnv = (pars: RequestContext) =>
   Effect.gen(function*($) {
-    const rc = Context.make(RequestContext.Tag)(pars)
+    const rc = Context.make(RequestContext.Tag, pars)
 
-    return pipe(rc, Context.add(ContextMap)(yield* $(ContextMap.Make)))
+    return pipe(rc, Context.add(ContextMap, yield* $(ContextMap.Make)))
   })
 
 function makeInternalRequestContext(name: string) {

@@ -29,7 +29,8 @@ function RequestEnv(handler: { Request: any }) {
 
       return pipe(
         ctx,
-        Context.add(UserProfile)(
+        Context.add(
+          UserProfile,
           UserProfile.make({ get: userProfile.flatMap(_ => _.encaseInEffect(() => new NotLoggedInError())) })
         )
       )
@@ -52,7 +53,7 @@ function RequestEnv(handler: { Request: any }) {
 
         return pipe(
           ctx,
-          Context.add(CurrentUser)(currentUser)
+          Context.add(CurrentUser, currentUser)
         )
       }).provideSomeContextReal(ctx)
     )
