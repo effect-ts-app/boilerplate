@@ -152,11 +152,13 @@ function handleRequestEnv<
     handler: {
       ...handler,
       h: (pars: any) =>
-        Effect.struct({
-          context: RequestContext.Tag.access,
-          user: CurrentUser.get.catchTag("NotLoggedInError", () => Effect(null))
-        })
-          .flatMap(ctx => (handler.h as (i: any, ctx: any) => Effect<R, ResE, ResA>)(pars, ctx))
+        Debug.untraced(restore =>
+          Effect.struct({
+            context: RequestContext.Tag.access,
+            user: CurrentUser.get.catchTag("NotLoggedInError", () => Effect(null))
+          })
+            .flatMap(ctx => restore(handler.h as (i: any, ctx: any) => Effect<R, ResE, ResA>)(pars, ctx))
+        )
     },
     makeContext: RequestEnv(handler)
   }
