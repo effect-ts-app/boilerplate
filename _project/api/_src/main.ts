@@ -7,14 +7,18 @@ import { Emailer, MemQueue } from "./services.js"
 
 import { runtimeDebug } from "@effect/io/Debug"
 
-if (process.argv.includes("--debug")) {
-  runtimeDebug.minumumLogLevel = "Debug"
-  runtimeDebug.tracingEnabled = true
-}
+runtimeDebug.traceStackLimit = 50
 
-const SUPPORTED_MODES = ["PRINT", "ALL", "API"] as const
+const SUPPORTED_MODES = ["ALL", "API"] as const
 
 const appConfig = BaseConfig.config.runSync$
+
+if (process.argv.includes("--debug") || appConfig.env === "local-dev") {
+  runtimeDebug.minumumLogLevel = "Debug"
+  runtimeDebug.tracingEnabled = true
+  runtimeDebug.traceStackLimit = 100
+  // runtimeDebug.filterStackFrame = _ => true
+}
 
 // Sentry.init({
 //   dsn: appConfig.sentry.dsn.value,
