@@ -5,7 +5,7 @@ import "@effect-app-boilerplate/messages/_global"
 /**
  * @tsplus global
  */
-import { handle, matchResource } from "@/lib/routing.js"
+import { handle, matchFor } from "@/lib/routing.js"
 
 /**
  * @tsplus global

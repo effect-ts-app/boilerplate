@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import { BasicRequestEnv } from "@effect-app-boilerplate/messages/RequestLayers"
-import { Role } from "@effect-app-boilerplate/models/User"
 import type { User } from "@effect-app-boilerplate/models/User"
+import { Role } from "@effect-app-boilerplate/models/User"
+import type { Compute } from "@effect-app/core/utils"
 import type { SupportedErrors } from "@effect-app/infra/api/defaultErrorHandler"
 import { defaultErrorHandler } from "@effect-app/infra/api/defaultErrorHandler"
 import type { _E, _R, Request } from "@effect-app/infra/api/express/schema/requestHandler"
@@ -102,7 +103,7 @@ export interface RequestHandler<
   ResE
 > {
   adaptResponse?: any
-  h: (i: PathA & QueryA & BodyA & {}, ctx: { context: RequestContext; user: User }) => Effect<R, ResE, ResA>
+  h: (i: PathA & QueryA & BodyA & {}, ctx: CTX) => Effect<R, ResE, ResA>
   Request: Request<PathA, CookieA, QueryA, BodyA, HeaderA, ReqA>
   Response: ReqRes<unknown, ResA> | ReqResSchemed<unknown, ResA>
   ResponseOpenApi?: any
@@ -189,7 +190,7 @@ export function matchResource<TModules extends Record<string, Record<string, any
     THandlers extends {
       [K in Keys]: (
         req: ReqFromSchema<GetRequest<TModules[K]>>,
-        ctx: { context: RequestContext; user: User }
+        ctx: CTX
       ) => Effect<any, SupportedErrors, ResFromSchema<GetResponse<TModules[K]>>>
     }
   >(
@@ -208,9 +209,174 @@ export function matchResource<TModules extends Record<string, Record<string, any
         ResFromSchema<GetResponse<TModules[K]>>,
         GetRequest<TModules[K]>,
         GetResponse<TModules[K]>,
-        { context: RequestContext; user: User }
+        CTX
       >
     }
+  }
+}
+
+export const matchAction = <Module extends Record<string, any>, R, R2, E extends SupportedErrors>(
+  _: Module,
+  f: Effect<
+    R,
+    never,
+    (
+      req: ReqFromSchema<GetRequest<Module>>,
+      ctx: CTX
+    ) => Effect<R2, E, ResFromSchema<GetResponse<Module>>>
+  >
+) => f
+
+type Service<T> = T extends Tag<infer S> ? S : never
+
+type Services<T extends Record<string, Tag<any>>> = { [key in keyof T]: Service<T[key]> }
+type Values<T> = T extends { [s: string]: infer S } ? Service<S> : never
+
+export interface CTX {
+  context: RequestContext
+  user: User
+}
+
+export function matchFor<Rsc extends Record<string, any>>(
+  rsc: Rsc
+) {
+  const matchWithServices_ = <
+    Key extends keyof Rsc,
+    SVC extends Record<string, Tag<any>>,
+    R2,
+    E extends SupportedErrors
+  >(
+    action: Key,
+    services: SVC,
+    f: (
+      req: ReqFromSchema<GetRequest<Rsc[Key]>>,
+      ctx: Compute<Services<SVC> & CTX, "flat">
+    ) => Effect<R2, E, ResFromSchema<GetResponse<Rsc[Key]>>>
+  ) =>
+    matchAction(
+      rsc[action],
+      Effect.context<Values<SVC>>().flatMap(context =>
+        Effect.servicesWith(services, svc => (req, ctx) =>
+          f(req, { ...ctx, ...svc as any }).provideSomeContextReal(context))
+      )
+    )
+
+  const matchWithServices: <Key extends keyof Rsc>(
+    action: Key
+  ) => <SVC extends Record<string, Tag<any>>, R2, E extends SupportedErrors>(
+    services: SVC,
+    f: (
+      req: ReqFromSchema<GetRequest<Rsc[Key]>>,
+      ctx: Compute<Services<SVC> & CTX, "flat">
+    ) => Effect<R2, E, ResFromSchema<GetResponse<Rsc[Key]>>>
+  ) => Effect<
+    Values<SVC>,
+    never,
+    (
+      req: ReqFromSchema<GetRequest<Rsc[Key]>>,
+      ctx: CTX
+    ) => Effect<Exclude<R2, Values<SVC>>, E, ResFromSchema<GetResponse<Rsc[Key]>>>
+  > = action => (services, f) => matchWithServices_(action, services, f)
+
+  const matchWithEffect_ = <Key extends keyof Rsc, R, R2, E extends SupportedErrors>(
+    action: Key,
+    f: Effect<
+      R,
+      never,
+      (
+        req: ReqFromSchema<GetRequest<Rsc[Key]>>,
+        ctx: CTX
+      ) => Effect<R2, E, ResFromSchema<GetResponse<Rsc[Key]>>>
+    >
+  ) => matchAction(rsc[action], f)
+
+  const matchWithEffect: <Key extends keyof Rsc>(
+    action: Key
+  ) => <R, R2, E extends SupportedErrors>(
+    f: Effect<
+      R,
+      never,
+      (
+        req: ReqFromSchema<GetRequest<Rsc[Key]>>,
+        ctx: {
+          context: RequestContext
+          user: User
+        }
+      ) => Effect<R2, E, ResFromSchema<GetResponse<Rsc[Key]>>>
+    >
+  ) => Effect<
+    R,
+    never,
+    (
+      req: ReqFromSchema<GetRequest<Rsc[Key]>>,
+      ctx: CTX
+    ) => Effect<R2, E, ResFromSchema<GetResponse<Rsc[Key]>>>
+  > = action => f => matchWithEffect_(action, f)
+
+  const matchWith_ = <Key extends keyof Rsc, R2, E extends SupportedErrors>(
+    action: Key,
+    f: (
+      req: ReqFromSchema<GetRequest<Rsc[Key]>>,
+      ctx: CTX
+    ) => Effect<R2, E, ResFromSchema<GetResponse<Rsc[Key]>>>
+  ) => matchAction(rsc[action], Effect.sync(() => f))
+
+  const matchWith: <Key extends keyof Rsc>(
+    action: Key
+  ) => <R2, E extends SupportedErrors>(
+    f: (
+      req: ReqFromSchema<GetRequest<Rsc[Key]>>,
+      ctx: CTX
+    ) => Effect<R2, E, ResFromSchema<GetResponse<Rsc[Key]>>>
+  ) => Effect<
+    never,
+    never,
+    (
+      req: ReqFromSchema<GetRequest<Rsc[Key]>>,
+      ctx: CTX
+    ) => Effect<R2, E, ResFromSchema<GetResponse<Rsc[Key]>>>
+  > = action => f => matchWith_(action, f)
+  type Keys = keyof Rsc
+
+  const controllers = <
+    R,
+    THandlers extends {
+      [K in Keys]: (
+        req: ReqFromSchema<GetRequest<Rsc[K]>>,
+        ctx: CTX
+      ) => Effect<any, SupportedErrors, ResFromSchema<GetResponse<Rsc[K]>>>
+    }
+  >(
+    controllers: Effect<R, never, THandlers>
+  ) => {
+    const handler = controllers.map(handlers =>
+      rsc.$$.keys.reduce((prev, cur) => {
+        prev[cur] = handle(rsc[cur])(handlers[cur] as any)
+        return prev
+      }, {} as any)
+    )
+    return handler as Effect<
+      R,
+      never,
+      {
+        [K in Keys]: ReqHandler<
+          ReqFromSchema<GetRequest<Rsc[K]>>,
+          _R<ReturnType<THandlers[K]>>,
+          _E<ReturnType<THandlers[K]>>,
+          ResFromSchema<GetResponse<Rsc[K]>>,
+          GetRequest<Rsc[K]>,
+          GetResponse<Rsc[K]>,
+          CTX
+        >
+      }
+    >
+  }
+
+  return {
+    matchWith,
+    matchWithEffect,
+    matchWithServices,
+    controllers
   }
 }
 
