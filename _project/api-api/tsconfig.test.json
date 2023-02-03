@@ -1,7 +1,6 @@
 {
   "extends": "./tsconfig.src.json",
   "compilerOptions": {
-    "noEmit": true,
     "rootDir": ".",
     "outDir": "./_test/dist",
     "tsBuildInfoFile": "./_test/dist/.tsbuildinfo",
@@ -11,16 +10,17 @@
     "./_src/**/*.ts"
   ],
   "exclude": [
-      "./dist",
-      "node_modules",
-      "build",
-      "lib",
-      "dist",
-      "**/*.d.ts.map",
-      ".git",
-      ".data",
-      "**/.*",
-      "**/*.tmp"
+    "./dist",
+    "./_test/dist",
+    "node_modules",
+    "build",
+    "lib",
+    "dist",
+    "**/*.d.ts.map",
+    ".git",
+    ".data",
+    "**/.*",
+    "**/*.tmp"
   ],
   "references": [
     {

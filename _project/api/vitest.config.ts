@@ -1,8 +1,10 @@
 /// <reference types="vitest" />
-import { defineConfig } from "vite"
-import makeConfig from "../../vite.config.test"
+import defineTestConfig from "../../vite.config.test"
 
-const base = makeConfig(__dirname)
-export default defineConfig(
-  { ...base, test: { ...base.test, setupFiles: "./_test/setup.ts" } }
+export default defineTestConfig(
+  __dirname,
+  (base, useDist, useFullDist) => ({
+    ...base,
+    test: { ...base.test, setupFiles: useFullDist ? "./_test/dist/setup.js" : "./_test/setup.ts" }
+  })
 )
