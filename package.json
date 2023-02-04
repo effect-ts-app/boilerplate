@@ -50,7 +50,7 @@
         "test-packages": "pnpm packages test:run",
         "testsuite-packages-manual": "cd _project/models && pnpm testsuite && cd ../resources && pnpm testsuite && cd ../messages && pnpm testsuite",
         "watch-packages": "pnpm packages build && pnpm packages watch",
-        "build": "NODE_OPTIONS=--max-old-space-size=6144 tsc --build ./tsconfig.all.json",
+        "build": "NODE_OPTIONS=--max-old-space-size=6144 effect-app-cli packagejson-target \"./_project/models\" effect-app-cli index-multi tsc --build ./tsconfig.all.json",
         "build-prod": "pnpm packages build && pnpm build-frontend-prod",
         "build-frontend-prod": "cd _project/frontend-nuxt && pnpm build",
         "rebuild": "pnpm all clean && pnpm -r build",
@@ -73,6 +73,7 @@
     "devDependencies": {
         "@babel/cli": "^7.20.7",
         "@dprint/typescript": "^0.81.1",
+        "@effect-app/cli": "^0.1.5",
         "@effect-app/eslint-codegen-model": "^0.9.0",
         "@effect-app/prelude": "^0.17.1",
         "@effect-app/core": "^0.17.1",

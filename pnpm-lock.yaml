@@ -38,6 +38,7 @@ importers:
     specifiers:
       '@babel/cli': ^7.20.7
       '@dprint/typescript': ^0.81.1
+      '@effect-app/cli': ^0.1.5
       '@effect-app/compiler': ^0.10.2
       '@effect-app/core': ^0.17.1
       '@effect-app/eslint-codegen-model': ^0.9.0
@@ -94,6 +95,7 @@ importers:
     devDependencies:
       '@babel/cli': 7.20.7
       '@dprint/typescript': 0.81.1
+      '@effect-app/cli': 0.1.5
       '@effect-app/compiler': 0.10.2_@types+node@18.11.11
       '@effect-app/core': 0.17.1
       '@effect-app/eslint-codegen-model': 0.9.0
@@ -2218,6 +2220,13 @@ packages:
 
   /@dprint/typescript/0.81.1:
     resolution: {integrity: sha512-ee6WJBYjxM/5qjAQKNvQHc9Kh61iYN9uwgx6BU4b/XIphcKwHLL8pU1QRKJ2Q+ocmKUHmi0IeYYIPj2T3AsQDw==}
+    dev: true
+
+  /@effect-app/cli/0.1.5:
+    resolution: {integrity: sha512-ml/vKVRcmwo8VlQRuWu6hsVYgxTq2kAshbymu6Mk9vnonZw8Uz8drRYQlXMqB4uOgHCKSFgj+BHtOzU/ptgXwQ==}
+    hasBin: true
+    dependencies:
+      node-watch: 0.7.3
     dev: true
 
   /@effect-app/compiler/0.10.2_@types+node@18.11.11:
@@ -9476,6 +9485,11 @@ packages:
     engines: {node: '>=12'}
     dependencies:
       '@babel/parser': 7.20.13
+    dev: true
+
+  /node-watch/0.7.3:
+    resolution: {integrity: sha512-3l4E8uMPY1HdMMryPRUAl+oIHtXtyiTlIiESNSVSNxcPfzAFzeTbXFQkZfAwBbo0B1qMSG8nUABx+Gd+YrbKrQ==}
+    engines: {node: '>=6'}
     dev: true
 
   /nodemon/2.0.20:

@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "build": "nuxt build",
-    "compile": "nuxt prepare && vue-tsc --noEmit",
+    "compile": "nuxt prepare && effect-app-cli watch vue-tsc --noEmit",
     "dev": "PORT=4000 nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",

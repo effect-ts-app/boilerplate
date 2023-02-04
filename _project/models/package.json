@@ -25,16 +25,6 @@
     }
   },
   "exports": {
-    "./ext": {
-      "import": {
-        "types": "./dist/ext.d.ts",
-        "default": "./dist/ext.js"
-      },
-      "require": {
-        "types": "./dist/ext.d.ts",
-        "default": "./_cjs/ext.cjs"
-      }
-    },
     "./User": {
       "import": {
         "types": "./dist/User.d.ts",
@@ -45,14 +35,34 @@
         "default": "./_cjs/User.cjs"
       }
     },
-    "./*": {
+    "./_global": {
       "import": {
-        "types": "./dist/*.d.ts",
-        "default": "./dist/*.js"
+        "types": "./dist/_global.d.ts",
+        "default": "./dist/_global.js"
       },
       "require": {
-        "types": "./dist/*.d.ts",
-        "default": "./_cjs/*.cjs"
+        "types": "./dist/_global.d.ts",
+        "default": "./_cjs/_global.cjs"
+      }
+    },
+    "./_global.schema": {
+      "import": {
+        "types": "./dist/_global.schema.d.ts",
+        "default": "./dist/_global.schema.js"
+      },
+      "require": {
+        "types": "./dist/_global.schema.d.ts",
+        "default": "./_cjs/_global.schema.cjs"
+      }
+    },
+    "./roles": {
+      "import": {
+        "types": "./dist/roles.d.ts",
+        "default": "./dist/roles.js"
+      },
+      "require": {
+        "types": "./dist/roles.d.ts",
+        "default": "./_cjs/roles.cjs"
       }
     }
   },
