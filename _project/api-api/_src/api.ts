@@ -9,9 +9,7 @@ import { Events } from "./services/Events.js"
 const routes = Effect.struct(R)
 
 export function api(cfg: ApiMainConfig) {
-  const logServerStart = Effect(() =>
-    `Running on ${cfg.host}:${cfg.port} at version: ${cfg.apiVersion}. ENV: ${cfg.env}`
-  )
+  const logServerStart = Effect(`Running on ${cfg.host}:${cfg.port} at version: ${cfg.apiVersion}. ENV: ${cfg.env}`)
     .flatMap(Effect.logInfo)
 
   const middleware = MW.events

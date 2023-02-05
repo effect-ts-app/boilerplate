@@ -47,11 +47,11 @@ export const events = Ex.get("/events", (req, res) =>
     const f = $(
       subscribe.flatMap(_ =>
         _.take().flatMap(_ =>
-          Effect(() => {
+          Effect(
             writeAndLogError(
               `id: ${_.id}\ndata: ${JSON.stringify(ClientEvents.Encoder(_))}\n\n`
             )
-          })
+          )
         ).forever
       )
         .scoped

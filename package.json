@@ -3,7 +3,7 @@
     "private": true,
     "pnpm": {
         "patchedDependencies": {
-            "@effect/language-service@0.0.17": "patches/@effect__language-service@0.0.17.patch",
+            "@effect/language-service@0.0.19": "patches/@effect__language-service@0.0.19.patch",
             "@playwright/test@1.30.0": "patches/@playwright+test+1.30.0.patch",
             "@typescript-eslint/scope-manager@5.50.0": "patches/@typescript-eslint__scope-manager@5.50.0.patch",
             "eslint-plugin-codegen@0.17.0": "patches/eslint-plugin-codegen@0.17.0.patch",
@@ -68,22 +68,22 @@
         "fast-check": "^3.6.2",
         "patch-package": "^6.5.1",
         "ts-node": "^10.9.1",
-        "vite-node": "^0.28.3"
+        "vite-node": "^0.28.4"
     },
     "devDependencies": {
         "@babel/cli": "^7.20.7",
         "@dprint/typescript": "^0.81.1",
-        "@effect-app/cli": "^0.1.5",
-        "@effect-app/eslint-codegen-model": "^0.9.0",
-        "@effect-app/prelude": "^0.17.1",
-        "@effect-app/core": "^0.17.1",
-        "@effect-app/compiler": "^0.10.2",
-        "@effect/language-service": "^0.0.17",
+        "@effect-app/cli": "^0.2.0",
+        "@effect-app/eslint-codegen-model": "^0.9.1",
+        "@effect-app/prelude": "^0.18.0",
+        "@effect-app/core": "^0.18.0",
+        "@effect-app/compiler": "^0.10.4",
+        "@effect/language-service": "^0.0.19",
         "@phaphoso/eslint-plugin-dprint": "^0.5.2",
         "@tsconfig/strictest": "^1.0.2",
         "@tsplus/installer": "0.0.168",
         "@types/lodash": "^4.14.191",
-        "@types/node": "~18.11.18",
+        "@types/node": "~18.11.19",
         "@typescript-eslint/eslint-plugin": "^5.50.0",
         "@typescript-eslint/parser": "^5.50.0",
         "@typescript-eslint/scope-manager": "^5.50.0",
@@ -112,7 +112,7 @@
         "typescript": "https://cdn.jsdelivr.net/npm/@tsplus/installer@0.0.168/compiler/typescript.tgz",
         "typescript-transform-paths": "^3.4.6",
         "unplugin-auto-import": "^0.13.0",
-        "vite": "^4.0.4",
-        "vitest": "^0.28.3"
+        "vite": "^4.1.1",
+        "vitest": "^0.28.4"
     }
 }
