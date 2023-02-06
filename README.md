@@ -14,7 +14,7 @@ Or see below for running manually.
 ### API, Models, Resources
 
 a) `pnpm build -w`
-b) `cd _project/api && pnpm dev`
+b) `cd _project/main && pnpm dev`
 
 Visit: http://localhost:3610/docs
 The API is also proxied in the frontend on /api

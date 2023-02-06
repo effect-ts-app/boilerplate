@@ -1,7 +1,7 @@
 /* eslint-disable no-var */
-import { api } from "@effect-app-boilerplate/api-api/api"
-import { ApiConfig, BaseConfig } from "@effect-app-boilerplate/api-api/config"
-import { Emailer, MemQueue } from "@effect-app-boilerplate/api-api/services"
+import { api } from "@effect-app-boilerplate/api/api"
+import { ApiConfig, BaseConfig } from "@effect-app-boilerplate/api/config"
+import { Emailer, MemQueue } from "@effect-app-boilerplate/api/services"
 import * as HF from "@effect-app/core/http/http-client-fetch"
 import { Live as LiveApiConfig } from "@effect-app/prelude/client/config"
 import type { Runtime } from "@effect/io/Runtime"

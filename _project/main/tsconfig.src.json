@@ -21,9 +21,6 @@
                 "./_src/*"
             ]
         },
-        "types": [
-            "./types/modules"
-        ],
         "outDir": "./dist",
         "transformers": [
             // Transform paths in output .js files
@@ -71,6 +68,9 @@
         }
     },
     "references": [
+        {
+            "path": "../api"
+        },
         {
             "path": "../messages"
         },

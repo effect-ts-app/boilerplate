@@ -1,4 +1,4 @@
-import { ApiConfig } from "@effect-app-boilerplate/api-api/config"
+import { ApiConfig } from "@effect-app-boilerplate/api/config"
 import { basicRuntime } from "@effect-app-boilerplate/messages"
 import * as ConfigProvider from "@effect/io/Config/Provider"
 import { constantCase } from "change-case"

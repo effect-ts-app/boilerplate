@@ -12,7 +12,7 @@
 			"type": "shell",
 			"command": "pnpm build -w",
 			// "options": {
-			// 	"cwd": "_project/api/_test",
+			// 	"cwd": "_project/main/_test",
 			// },
 			"dependsOn": [
 				//"Scan Resources",
@@ -40,7 +40,7 @@
 			"type": "shell",
 			"command": "pnpm build-libs -w",
 			// "options": {
-			// 	"cwd": "_project/api/_test",
+			// 	"cwd": "_project/main/_test",
 			// },
 			"dependsOn": [
 				//"Scan Resources",
@@ -118,7 +118,7 @@
 			"type": "shell",
 			"command": "pnpm dev",
 			"options": {
-				"cwd": "_project/api"
+				"cwd": "_project/main"
 			},
 			"isBackground": true,
 			// FAKE... but works..
@@ -184,7 +184,7 @@
 			"type": "shell",
 			"command": "pnpm run test --watch",
 			"options": {
-				"cwd": "_project/api/_test"
+				"cwd": "_project/main/_test"
 			},
 			"group": "test",
 			"isBackground": true,
