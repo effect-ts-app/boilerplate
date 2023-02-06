@@ -3,7 +3,7 @@
     {
       "name": "API debug",
       "request": "launch",
-      "cwd": "${workspaceFolder}/_project/main",
+      "cwd": "${workspaceFolder}/_project/api",
       "runtimeArgs": [
         "debug"
       ],
@@ -29,7 +29,7 @@
     {
       "name": "API Debug Attach",
       "port": 9229,
-      "cwd": "${workspaceFolder}/_project/main",
+      "cwd": "${workspaceFolder}/_project/api",
       "request": "attach",
       "skipFiles": [
         "<node_internals>/**"

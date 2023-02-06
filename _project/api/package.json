@@ -1,7 +1,7 @@
 {
   "name": "@effect-app-boilerplate/api",
   "version": "0.0.1",
-  "main": "./dist/index.js",
+  "main": "./dist/main.js",
   "license": "MIT",
   "private": true,
   "type": "module",
@@ -21,6 +21,11 @@
     "test": "vitest",
     "test:run": "pnpm run test run",
     "testsuite": "pnpm lint && pnpm circular && pnpm run test:run",
+    "dev": "pnpm dev:compiled:run",
+    "dev:compiled": "pnpm start:compiled | ../../scripts/humanlog.sh",
+    "dev:compiled:run": "NODE_ENV=development nodemon --exec pnpm dev:compiled",
+    "start": "pnpm start:compiled",
+    "start:compiled": "node --experimental-specifier-resolution=node -r source-map-support/register ./dist/main.js",
     "ncu": "ncu",
     "extract:i18n": "formatjs extract './**/*.ts' --ignore './**/*.d.ts' --format _src/i18n/extraction-formatter.cjs --id-interpolation-pattern '[sha512:contenthash:base64:6]' --out-file _src/i18n/extracted/en.json"
   },

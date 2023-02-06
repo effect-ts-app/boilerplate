@@ -8,11 +8,7 @@ import { Emailer, MemQueue } from "./services.js"
 import { runtimeDebug } from "@effect/io/Debug"
 
 runtimeDebug.traceStackLimit = 50
-
-const SUPPORTED_MODES = ["ALL", "API"] as const
-
 const appConfig = BaseConfig.config.runSync$
-
 if (process.argv.includes("--debug") || appConfig.env === "local-dev") {
   runtimeDebug.minumumLogLevel = "Debug"
   runtimeDebug.tracingEnabled = true
@@ -32,30 +28,11 @@ if (process.argv.includes("--debug") || appConfig.env === "local-dev") {
 // })
 
 const main = Effect.gen(function*($) {
-  const PROVIDED_MODE = process.argv[2] ?? "ALL"
-  if (!PROVIDED_MODE || !SUPPORTED_MODES.includes(PROVIDED_MODE as any)) {
-    throw new Error(`Supported modes: ${SUPPORTED_MODES.join(", ")}`)
-  }
-  const mode: typeof SUPPORTED_MODES[number] = PROVIDED_MODE as any
-  console.debug("Starting in MODE: " + mode)
+  const apiConfig = yield* $(ApiConfig.config)
+  const cfg = { ...appConfig, ...apiConfig }
+  console.debug(`Config: ${JSON.stringify(cfg, undefined, 2)}`)
 
-  switch (mode) {
-    case "ALL": {
-      const apiConfig = yield* $(ApiConfig.config)
-      const cfg = { ...appConfig, ...apiConfig }
-      console.debug(`Config: ${JSON.stringify(cfg, undefined, 2)}`)
-
-      return yield* $(Effect.never().scoped.provideLayer(api(cfg)))
-    }
-
-    case "API": {
-      const apiConfig = yield* $(ApiConfig.config)
-      const cfg = { ...appConfig, ...apiConfig }
-      console.debug(`Config: ${JSON.stringify(cfg, undefined, 2)}`)
-
-      return yield* $(Effect.never().scoped.provideLayer(api(cfg)))
-    }
-  }
+  return yield* $(Effect.never().scoped.provideLayer(api(cfg)))
 })
 
 const program = main
@@ -71,7 +48,7 @@ export class AppException<E> extends CauseException<E> {
     super(cause, "App")
   }
 }
-export const reportAppError = reportError(cause => new AppException(cause))
+const reportAppError = reportError(cause => new AppException(cause))
 
 program
   .tapErrorCause(reportAppError)
