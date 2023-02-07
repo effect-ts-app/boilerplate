@@ -9,7 +9,7 @@
     "circular": "pnpm circular:src && pnpm circular:dist",
     "circular:src": "madge --circular --ts-config ./tsconfig.json --extensions ts ./_src",
     "circular:dist": "madge --circular --extensions js ./dist",
-    "clean": "rm -rf dist",
+    "clean": "rm -rf dist _test/dist",
     "clean-dist": "sh ../../scripts/clean-dist.sh",
     "build": "pnpm clean-dist && NODE_OPTIONS=--max-old-space-size=6144 tsc --build",
     "watch": "pnpm build --watch",

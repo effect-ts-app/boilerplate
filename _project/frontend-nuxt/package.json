@@ -13,7 +13,7 @@
     "lint": "NODE_OPTIONS=--max-old-space-size=6144 eslint --ext .ts,.vue --ignore-path ../../.gitignore .",
     "autofix": "pnpm lint --fix",
     "testsuite": "pnpm lint",
-    "clean": "rm -rf ./.nuxt && rm -rf ./node_modules/.vite"
+    "clean": "rm -rf ./.nuxt ./node_modules/.vite"
   },
   "dependencies": {
     "@effect-app/prelude": "^0.18.2",
