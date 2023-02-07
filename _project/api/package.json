@@ -20,7 +20,7 @@
     "autofix": "pnpm lint --fix",
     "test": "vitest",
     "test:run": "pnpm run test run",
-    "testsuite": "pnpm lint && pnpm circular && pnpm run test:run",
+    "testsuite": "pnpm circular && pnpm run test:run && pnpm lint",
     "dev": "pnpm dev:compiled:run",
     "dev:compiled": "pnpm start:compiled | ../../scripts/humanlog.sh",
     "dev:compiled:run": "NODE_ENV=development nodemon --exec pnpm dev:compiled",

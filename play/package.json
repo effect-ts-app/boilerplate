@@ -44,7 +44,7 @@
     "autofix": "pnpm lint --fix",
     "test": "vitest",
     "test:run": "pnpm run test run --passWithNoTests",
-    "testsuite": "pnpm lint && pnpm circular && pnpm run test:run",
+    "testsuite": "pnpm circular && pnpm run test:run && pnpm lint",
     "ncu": "ncu",
     "pub": "pnpm build && npm publish --access public"
   },
