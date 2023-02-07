@@ -1,5 +1,5 @@
 import { clientFor, type FetchResponse } from "@effect-app/prelude/client"
-import { OperationsRsc } from "../Resources.js"
+import * as OperationsRsc from "../Operations.js"
 import type { Operation, OperationId } from "../Views.js"
 
 const opsClient = clientFor(OperationsRsc)
