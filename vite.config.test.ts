@@ -31,7 +31,7 @@ export default function defineTestConfig(
     plugins: useFullDist ? [autoImport] : [effectPlugin({ tsconfig: "tsconfig.test.json" }), autoImport],
     test: {
       ...b.test, 
-      include: useFullDist ? ["./_test/dist/**/*.test.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"] : ["./_test/**/*.test.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"],
+      include: useFullDist ? ["./_test/dist/**/*.test.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"] : ["./_test/**/*.test.{ts,mts,cts,jsx,tsx}"],
       exclude: []
     },
     //watchExclude: ["**/node_modules/**"],
