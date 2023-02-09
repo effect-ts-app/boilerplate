@@ -9,7 +9,6 @@ function makeRuntime(feVersion: string) {
   const middleware = Http.LiveMiddlewareStack([
     req =>
       <
-        R,
         M extends Http.Method,
         Req extends Http.RequestType,
         Resp extends Http.ResponseType
@@ -20,9 +19,7 @@ function makeRuntime(feVersion: string) {
         responseType: Resp,
         body?: Http.RequestBodyTypes[Req][M]
       ) =>
-        req<R, M, Req, Resp>(method, url, requestType, responseType, body)[
-          "|>"
-        ](
+        req<M, Req, Resp>(method, url, requestType, responseType, body)["|>"](
           Effect.tap(r =>
             Effect.succeed(() => {
               const remoteFeVersion = r.headers["x-fe-version"]
