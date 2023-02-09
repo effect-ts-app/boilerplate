@@ -1,18 +1,7 @@
-import { resolve } from "path"
 import process from "process"
 
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
-  alias: {
-    "@effect-app-boilerplate/resources": resolve(
-      __dirname,
-      "../resources/dist"
-    ),
-    "@effect-app-boilerplate/models": resolve(__dirname, "../models/dist"),
-  },
-  typescript: {
-    strict: true,
-  },
   build: {
     transpile: ["vuetify", "../../boilerplate/_project/schema"]
       // workaround for commonjs/esm module prod issue
