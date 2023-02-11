@@ -24,7 +24,7 @@ ENV PATH $VOLTA_HOME/bin:$PATH
 # download volta
 RUN curl https://get.volta.sh | bash
 # change the working directory to the one where the project lives
-WORKDIR /workspaces/macs-configurator
+WORKDIR /workspaces/boilerplate
 
 # and install node and pnpm
 RUN volta install node@18

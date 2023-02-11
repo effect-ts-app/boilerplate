@@ -272,6 +272,7 @@ importers:
       mitt: ^3.0.0
       nuxt: 3.2.0
       papaparse: ^5.3.2
+      reconnecting-eventsource: ^1.6.2
       sass: ^1.58.0
       vue-timeago3: ^2.3.0
       vue-toastification: ^2.0.0-rc.5
@@ -295,6 +296,7 @@ importers:
       http-proxy: /http-proxy-node16/1.0.0
       mitt: 3.0.0
       papaparse: 5.3.2
+      reconnecting-eventsource: 1.6.2
       vue-timeago3: 2.3.0
       vue-toastification: 2.0.0-rc.5
       vuetify: 3.0.2
@@ -11153,6 +11155,11 @@ packages:
     engines: {node: '>=8.10.0'}
     dependencies:
       picomatch: 2.3.1
+
+  /reconnecting-eventsource/1.6.2:
+    resolution: {integrity: sha512-vHhoxVLbA2YcfljWMKEbgR1KVTgwIrnyh/bzVJc+gfQbGcUIToLL6jNhkUL4E+9FbnAcfUVNLIw2YCiliTg/4g==}
+    engines: {node: '>=12.0.0'}
+    dev: false
 
   /redis-commands/1.7.0:
     resolution: {integrity: sha512-nJWqw3bTFy21hX/CPKHth6sfhZbdiHP6bTawSgQBlKOVRG7EZkfHbbHwQJnrE4vsQf0CMNE+3gJ4Fmm16vdVlQ==}

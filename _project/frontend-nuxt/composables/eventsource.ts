@@ -1,6 +1,8 @@
 import { unsafe } from "@effect-app/schema"
-import { ClientEvents } from "@macs-scanner/resources"
+import { ClientEvents } from "@effect-app-boilerplate/resources"
 import ReconnectingEventSource from "reconnecting-eventsource"
+import { bus } from "./bus"
+import { onMountedWithCleanup } from "./onMountedWithCleanup"
 
 const parseEvent = unsafe(ClientEvents.Parser)
 

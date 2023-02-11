@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { useApiEventSource } from "./composables/eventsource"
-
 useApiEventSource()
 </script>
 <template>
