@@ -128,13 +128,9 @@ export namespace FullName {
   }
   export const Encoded: EncodedOps = { $: {} }
   /**
-   * @tsplus type FullName.Encoded/Aspects
-   */
-  export interface EncodedAspects {}
-  /**
    * @tsplus type FullName.Encoded/Ops
    */
-  export interface EncodedOps { $: EncodedAspects }
+  export interface EncodedOps {}
   export interface ConstructorInput
     extends ConstructorInputFromApi<typeof FullName> {}
   export interface Props extends GetProvidedProps<typeof FullName> {}
@@ -155,13 +151,9 @@ export namespace User {
   }
   export const Encoded: EncodedOps = { $: {} }
   /**
-   * @tsplus type User.Encoded/Aspects
-   */
-  export interface EncodedAspects {}
-  /**
    * @tsplus type User.Encoded/Ops
    */
-  export interface EncodedOps { $: EncodedAspects }
+  export interface EncodedOps {}
   export interface ConstructorInput
     extends ConstructorInputFromApi<typeof User> {}
   export interface Props extends GetProvidedProps<typeof User> {}

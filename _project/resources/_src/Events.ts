@@ -30,13 +30,9 @@ export namespace BogusEvent {
   }
   export const Encoded: EncodedOps = { $: {} }
   /**
-   * @tsplus type BogusEvent.Encoded/Aspects
-   */
-  export interface EncodedAspects {}
-  /**
    * @tsplus type BogusEvent.Encoded/Ops
    */
-  export interface EncodedOps { $: EncodedAspects }
+  export interface EncodedOps {}
   export interface ConstructorInput
     extends ConstructorInputFromApi<typeof BogusEvent> {}
   export interface Props extends GetProvidedProps<typeof BogusEvent> {}
