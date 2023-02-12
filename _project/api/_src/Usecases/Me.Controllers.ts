@@ -5,7 +5,7 @@ const { controllers, matchWithServices } = matchFor(MeRsc)
 
 const Get = matchWithServices("Get")(
   { UserRepo },
-  (_req, { UserRepo }) => UserRepo.getCurrentUser
+  (_req, { userRepo }) => userRepo.getCurrentUser
 )
 
 export const MeControllers = controllers(Effect.struct({ Get }))
