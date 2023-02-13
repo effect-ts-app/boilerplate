@@ -227,33 +227,14 @@ export const matchAction = <Module extends Record<string, any>, R, R2, E extends
   >
 ) => f
 
-type Service<T> = T extends Tag<infer S> ? S : never
-
-// type Services<T extends Record<string, Tag<any>>> = { [key in keyof T]: Service<T[key]> }
-type Values<T> = T extends { [s: string]: infer S } ? Service<S> : never
-
 export interface CTX {
   context: RequestContext
   user: User
 }
 
+type Service<T> = T extends Tag<infer S> ? S : never
+type Values<T> = T extends { [s: string]: infer S } ? Service<S> : never
 type LowerFirst<S extends PropertyKey> = S extends `${infer First}${infer Rest}` ? `${Lowercase<First>}${Rest}` : S
-
-export function accessLowerServices_<T extends Record<string, Tag<any>>, A>(
-  services: T,
-  fn: (services: LowerServices<T>) => A
-) {
-  return Debug.untraced(() =>
-    (Effect.struct(
-      services.$$.keys.reduce((prev, cur) => {
-        prev[((cur as string)[0]!.toLowerCase() + (cur as string).slice(1)) as unknown as LowerFirst<typeof cur>] =
-          Effect.service(services[cur]!)
-        return prev
-      }, {} as any)
-    ) as any as Effect<Values<T>, never, LowerServices<T>>).map(fn)
-  )
-}
-
 type LowerServices<T extends Record<string, Tag<any>>> = { [key in keyof T as LowerFirst<key>]: Service<T[key]> }
 
 export function matchFor<Rsc extends Record<string, any>>(
@@ -275,7 +256,7 @@ export function matchFor<Rsc extends Record<string, any>>(
     matchAction(
       rsc[action],
       Effect.context<Values<SVC>>().flatMap(context =>
-        accessLowerServices_(services, svc => (req, ctx) =>
+        Effect.servicesWith(services, svc => (req, ctx) =>
           f(req, { ...ctx, ...svc as any }).provideSomeContextReal(context))
       )
     )
