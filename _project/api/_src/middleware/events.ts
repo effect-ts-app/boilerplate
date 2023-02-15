@@ -35,6 +35,10 @@ export const events = Ex.get(
       // If client closes connection, stop sending events
       // req.on("error", err => console.log("$$$ req error", err))
 
+      const namespace = req.headers["x-store-id"]
+        ? Array.isArray(req.headers["x-store-id"]) ? req.headers["x-store-id"][0]! : req.headers["x-store-id"]
+        : "primary"
+
       $(Effect.logInfo("$ start listening to events"))
       $(
         Effect.schedule(Schedule.spaced(Duration.seconds(15)))(Effect.sync(() => {
@@ -55,8 +59,9 @@ export const events = Ex.get(
             _.take()
               .flatMap(_ =>
                 Effect(() => {
+                  if (namespace !== _.namespace) return
                   writeAndLogError(
-                    `id: ${_.id}\ndata: ${JSON.stringify(ClientEvents.Encoder(_))}\n\n`
+                    `id: ${_.evt.id}\ndata: ${JSON.stringify(ClientEvents.Encoder(_.evt))}\n\n`
                   )
                 })
               ).forever
