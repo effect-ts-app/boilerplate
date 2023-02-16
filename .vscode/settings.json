@@ -29,20 +29,29 @@
     "editor.defaultFormatter": "dbaeumer.vscode-eslint" // "Vue.volar"
   },
   "[javascript]": {
-    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+    "editor.codeActionsOnSave": [
+      "source.addMissingImports"
+    ]
   },
   "[javascriptreact]": {
-    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+    "editor.codeActionsOnSave": [
+      "source.addMissingImports"
+    ]
   },
   "[typescript]": {
-    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+    "editor.codeActionsOnSave": [
+      "source.addMissingImports"
+    ]
   },
   "[typescriptreact]": {
-    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+    "editor.codeActionsOnSave": [
+      "source.addMissingImports"
+    ]
   },
-  "editor.codeActionsOnSave": [
-    "source.addMissingImports"
-  ],
   "csv-preview.separator": ";",
   "cSpell.words": [
     "codegen",
