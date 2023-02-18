@@ -54,19 +54,17 @@ export const events = Ex.get(
       )
 
       $(
-        Events.accessWithEffect(({ subscribe }) =>
-          subscribe.flatMap(_ =>
-            _.take()
-              .flatMap(_ =>
-                Effect(() => {
-                  if (namespace !== _.namespace) return
-                  writeAndLogError(
-                    `id: ${_.evt.id}\ndata: ${JSON.stringify(ClientEvents.Encoder(_.evt))}\n\n`
-                  )
-                })
-              ).forever
-              .forkScoped
-          )
+        Events.accessWithEffect(({ stream }) =>
+          stream
+            .filter(_ => _.namespace === namespace)
+            .runForEach(_ =>
+              Effect(
+                writeAndLogError(
+                  `id: ${_.evt.id}\ndata: ${JSON.stringify(ClientEvents.Encoder(_.evt))}\n\n`
+                )
+              )
+            )
+            .forkScoped
         )
       )
       $(Effect.async<never, never, void>(cb => {
