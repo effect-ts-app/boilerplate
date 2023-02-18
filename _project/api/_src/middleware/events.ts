@@ -41,7 +41,7 @@ export const events = Ex.get(
 
       $(Effect.logInfo("$ start listening to events"))
       $(
-        Effect.schedule(Schedule.spaced(Duration.seconds(15)))(Effect.sync(() => {
+        Effect.sync(() => {
           try {
             // console.log("keep alive")
             // writeAndLogError("id: keep-alive\ndata: \"keep-alive\"\n\n")
@@ -50,7 +50,9 @@ export const events = Ex.get(
             console.error("keepAlive Error", err)
             throw err
           }
-        })).forkScoped
+        })
+          .schedule(Schedule.fixed(Duration.seconds(15)))
+          .forkScoped
       )
 
       $(
