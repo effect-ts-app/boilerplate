@@ -1,12 +1,8 @@
 {
   "extends": "../tsconfig.base.json",
   "compilerOptions": {
-    "tsPlusEnabled": false,
-    "tsPlusTypes": [],
     "baseUrl": ".",
-    // "target": "es5",
-    "noEmit": true,
-    // "moduleResolution": "node",
+    "outDir": "./test-out",
     "lib": [
       "es5",
       "dom"
@@ -16,6 +12,8 @@
         "./*"
       ]
     },
+    // helps performance
+    "disableSourceOfProjectReferenceRedirect": true,
     "transformers": [
       // Transform paths in output .js files
       {
@@ -32,7 +30,7 @@
           "exclude": [
             "**/*.ts"
           ]
-        }
+        },
         //"debug": {}
       },
     ]
@@ -42,7 +40,7 @@
   ],
   "exclude": [
     "node_modules",
-    "**/.*"
+    "./test-out"
   ],
   "references": [
     {

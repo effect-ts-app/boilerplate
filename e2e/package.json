@@ -1,20 +1,23 @@
 {
-  "name": "@effect-app-boilerplate/e2e",
+  "name": "@macs-configurator/e2e",
   "version": "1.0.0",
   "license": "NONE",
   "private": true,
   "type": "module",
   "scripts": {
-    "e2e": "TSCONFIG=tsconfig.test.json playwright test",
-    "e2e:watch": "playwright-watch test",
+    "pretest": "pnpm build",
+    "test": "playwright test -c test-out",
+    "test:watch": "playwright-watch test",
+    "build": "tsc --build",
     "lint": "NODE_OPTIONS=--max-old-space-size=6144 ESLINT_TS=1 eslint .",
     "lint:watch": "ESLINT_TS=1 esw -w --changed --clear --ext ts,tsx .",
     "autofix": "pnpm lint --fix",
     "up": "pnpm run update && pnpm exec-update",
     "update": "pnpm ncu -u",
     "exec-update": "pnpm i",
+    "clean": "rm -rf test-out",
     "ncu": "ncu",
-    "watch": "tsc --watch"
+    "watch": "pnpm build --watch"
   },
   "devDependencies": {
     "@babel/core": "^7.20.12",
@@ -48,16 +51,16 @@
     "webpack": "^5.75.0"
   },
   "dependencies": {
+    "@effect-app-boilerplate/resources": "*",
+    "@effect-app-boilerplate/models": "*",
     "@effect-app/prelude": "^0.21.12",
-    "@effect-app/vue": "^0.19.3",
     "@effect-app/core": "^0.27.0",
     "@effect-app/schema": "^0.19.3",
+    "@effect-app/vue": "^0.19.3",
     "@effect/io": "^0.1.12",
     "@fp-ts/core": "^0.2.1",
     "@effect/data": "^0.1.2",
     "@tsplus/stdlib": "^0.2.8",
-    "@effect-app-boilerplate/resources": "*",
-    "@effect-app-boilerplate/models": "*",
     "cross-fetch": "^3.1.5",
     "tsconfig-paths": "^4.1.2"
   }

@@ -1,5 +1,3 @@
 /* eslint-disable unused-imports/no-unused-imports */
-/**
- * @tsplus global
- */
-import "@effect-app/prelude/_global"
+
+import "@effect-app-boilerplate/resources/_global"

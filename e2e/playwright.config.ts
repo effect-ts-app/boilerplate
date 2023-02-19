@@ -1,12 +1,10 @@
 // This config file will be imported into each test
-import "./playwright/extend.js"
-
 import type { PlaywrightTestConfig } from "@playwright/test"
 
 const basicAuthCredentials = process.env["BASIC_AUTH_CREDENTIALS"]
 
 const config: PlaywrightTestConfig = {
-  globalSetup: "./global-setup.ts",
+  // globalSetup: "./global-setup",
   forbidOnly: !!process.env["CI"],
   retries: process.env["CI"] ? 2 : 0,
   // workers: process.env["CI"] ? 4 : 2,
