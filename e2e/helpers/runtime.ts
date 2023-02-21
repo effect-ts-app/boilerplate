@@ -6,7 +6,7 @@ import { makeHeadersHashMap, makeRuntime } from "./shared.js"
 
 const baseUrl = process.env["BASE_URL"] ?? "http://localhost:5500"
 
-export async function makeRuntimes(namespace: string) {
+export function makeRuntimes(namespace: string) {
   const { runtime: anonRuntime } = makeRuntime(
     {
       apiUrl: `${baseUrl}/api`,

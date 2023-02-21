@@ -114,19 +114,12 @@ export type UserConstructor = typeof User
 // codegen:start {preset: model}
 //
 /* eslint-disable */
-export interface FullName {
-  readonly firstName: ReasonableString
-  readonly lastName: ReasonableString
-}
 export namespace FullName {
   /**
    * @tsplus type FullName.Encoded
    */
-  export interface Encoded {
-    readonly firstName: string
-    readonly lastName: string
-  }
-  export const Encoded: EncodedOps = { $: {} }
+  export interface Encoded extends EncodedFromApi<typeof FullName> {}
+  export const Encoded: EncodedOps = {}
   /**
    * @tsplus type FullName.Encoded/Ops
    */
@@ -135,21 +128,12 @@ export namespace FullName {
     extends ConstructorInputFromApi<typeof FullName> {}
   export interface Props extends GetProvidedProps<typeof FullName> {}
 }
-export interface User {
-  readonly displayName: ReasonableString
-  readonly id: StringId
-  readonly role: Role
-}
 export namespace User {
   /**
    * @tsplus type User.Encoded
    */
-  export interface Encoded {
-    readonly displayName: string
-    readonly id: string
-    readonly role: Role
-  }
-  export const Encoded: EncodedOps = { $: {} }
+  export interface Encoded extends EncodedFromApi<typeof User> {}
+  export const Encoded: EncodedOps = {}
   /**
    * @tsplus type User.Encoded/Ops
    */

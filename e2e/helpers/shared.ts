@@ -30,7 +30,7 @@ export function makeHeaders(namespace: string, userId?: string) {
 export function makeHeadersHashMap(namespace: string, userId?: string) {
   const headers = makeHeaders(namespace, userId)
   const keys = typedKeysOf(headers)
-  return HashMap.make(...keys.map(_ => [_ as string, headers[_]!] as const))
+  return HashMap.make(...keys.map(_ => [_, headers[_]!] as const))
 }
 
 type Env = ApiConfig | H.HttpOps
