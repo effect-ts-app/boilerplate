@@ -1,5 +1,5 @@
 import type { User } from "@effect-app-boilerplate/models/User"
-import { CurrentUser } from "../CurrentUser.js"
+import { CurrentUser } from "./service.js"
 
 /**
  * @tsplus static CurrentUser.Ops get
