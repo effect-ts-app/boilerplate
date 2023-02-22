@@ -1,18 +1,11 @@
 import type { User } from "@effect-app-boilerplate/models/User"
 import type { NotLoggedInError } from "@effect-app/infra/errors"
 
-export const CurrentUserId = Symbol()
-
+export const CurrentUserId = Symbol("CurrentUser")
 /**
  * @tsplus type CurrentUser
+ * @tsplus companion CurrentUser.Ops
  */
-export interface CurrentUser extends ServiceTagged<typeof CurrentUserId> {
-  get: Effect<never, NotLoggedInError, User>
+export abstract class CurrentUser extends TagBaseTagged<Tag<CurrentUser>>()(CurrentUserId) {
+  abstract get: Effect<never, NotLoggedInError, User>
 }
-
-export const CurrentUser: CurrentUserOps = Tag<CurrentUser>()
-
-/**
- * @tsplus type CurrentUser.Ops
- */
-export interface CurrentUserOps extends Tag<CurrentUser> {}
