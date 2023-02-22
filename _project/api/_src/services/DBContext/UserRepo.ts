@@ -2,10 +2,10 @@ import type { UserId } from "@effect-app-boilerplate/models/User"
 import { User } from "@effect-app-boilerplate/models/User"
 import { makeCodec } from "@effect-app/infra/api/codec"
 import { makeFilters } from "@effect-app/infra/filter"
-import type { Repository } from "@effect-app/infra/services/Repository"
 import type { Filter, Where } from "@effect-app/infra/services/Store"
 import { ContextMap, StoreMaker } from "@effect-app/infra/services/Store"
 import { UserProfile } from "../UserProfile.js"
+import { RepositoryBase } from "./RepositoryBase.js"
 
 export interface UserPersistenceModel extends User.Encoded {
   _etag: string | undefined
@@ -194,15 +194,11 @@ function makeUserRepo(seed: UserSeed) {
 
 /**
  * @tsplus type UserRepo
+ * @tsplus companion UserRepo.Ops
  */
-export interface UserRepo extends Repository<User, UserPersistenceModel, never, UserId, "User"> {}
-
-/**
- * @tsplus type UserRepo.Ops
- */
-export interface UserRepoOps extends Tag<UserRepo> {}
-
-export const UserRepo: UserRepoOps = Tag<UserRepo>()
+export abstract class UserRepo
+  extends RepositoryBase<UserRepo>()<User, UserPersistenceModel, never, UserId, "User">("User")
+{}
 
 /**
  * @tsplus static UserRepo.Ops Live

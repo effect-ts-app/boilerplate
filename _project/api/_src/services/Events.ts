@@ -13,18 +13,13 @@ const makeEvents = Do($ => {
 
 /**
  * @tsplus type Events
+ * @tsplus companion Events.Ops
  */
-export interface Events {
-  publish: (...events: NonEmptyReadonlyArray<ClientEvents>) => Effect<never, never, void>
-  subscribe: Effect<Scope, never, Dequeue<{ evt: ClientEvents; namespace: string }>>
-  stream: Stream<never, never, { evt: ClientEvents; namespace: string }>
+export abstract class Events extends TagClass<Tag<Events>>() {
+  abstract publish: (...events: NonEmptyReadonlyArray<ClientEvents>) => Effect<never, never, void>
+  abstract subscribe: Effect<Scope, never, Dequeue<{ evt: ClientEvents; namespace: string }>>
+  abstract stream: Stream<never, never, { evt: ClientEvents; namespace: string }>
 }
-
-/**
- * @tsplus type Events.Ops
- */
-export interface EventsOps extends Tag<Events> {}
-export const Events: EventsOps = Tag<Events>()
 
 /**
  * @tsplus static Events.Ops Live
