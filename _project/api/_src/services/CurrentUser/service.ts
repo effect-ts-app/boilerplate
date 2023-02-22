@@ -6,6 +6,6 @@ export const CurrentUserId = Symbol("CurrentUser")
  * @tsplus type CurrentUser
  * @tsplus companion CurrentUser.Ops
  */
-export abstract class CurrentUser extends TagBaseTagged<Tag<CurrentUser>>()(CurrentUserId) {
+export abstract class CurrentUser extends ServiceTaggedClass<Tag<CurrentUser>>()(CurrentUserId) {
   abstract get: Effect<never, NotLoggedInError, User>
 }

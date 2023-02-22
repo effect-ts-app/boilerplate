@@ -15,7 +15,7 @@ const makeEvents = Do($ => {
  * @tsplus type Events
  * @tsplus companion Events.Ops
  */
-export abstract class Events extends TagBase<Tag<Events>>() {
+export abstract class Events extends TagClass<Tag<Events>>() {
   abstract publish: (...events: NonEmptyReadonlyArray<ClientEvents>) => Effect<never, never, void>
   abstract subscribe: Effect<Scope, never, Dequeue<{ evt: ClientEvents; namespace: string }>>
   abstract stream: Stream<never, never, { evt: ClientEvents; namespace: string }>

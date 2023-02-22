@@ -1,5 +1,4 @@
 import type { InvalidStateError, OptimisticConcurrencyException } from "@/errors.js"
-import { makeTag } from "@effect-app-boilerplate/messages/TagBase"
 import type { RequestContext } from "@effect-app/infra/RequestContext"
 import type { Repository } from "@effect-app/infra/services/Repository"
 import type { ContextMap, Filter } from "@effect-app/infra/services/Store"
@@ -30,6 +29,6 @@ export const RepositoryBase = <Service>() => {
         filter: (filter: Filter<PM>, cursor?: { limit?: number; skip?: number }) => Effect<never, never, Chunk<PM>>
       }
     }
-    return makeTag<Tag<Service>>()(RepositoryBaseC)
+    return assignTag<Tag<Service>>()(RepositoryBaseC)
   }
 }
