@@ -11,6 +11,7 @@ import { handle, match } from "@effect-app/infra/api/routing"
 import { NotLoggedInError, UnauthorizedError } from "@effect-app/infra/errors"
 import { RequestContext } from "@effect-app/infra/RequestContext"
 import type { GetRequest, GetResponse, ReqRes, ReqResSchemed } from "@effect-app/prelude/schema"
+import type { EffectTypeId } from "@effect/io/Effect"
 import type express from "express"
 import { CurrentUser, UserRepo } from "../services.js"
 import { makeUserProfileFromUserHeader, UserProfile } from "../services/UserProfile.js"
@@ -338,31 +339,34 @@ export function matchFor<Rsc extends Record<string, any>>(
   > = action => f => matchWith_(action, f)
   type Keys = keyof Rsc
 
+  type Handler<K extends keyof Rsc, R> = (
+    req: ReqFromSchema<GetRequest<Rsc[K]>>,
+    ctx: CTX
+  ) => Effect<R, SupportedErrors, ResFromSchema<GetResponse<Rsc[K]>>>
+
+  type GetHandler<T> = T extends Handler<any, any> ? ReturnType<T> : never
+
   const controllers = <
-    R,
     THandlers extends {
-      [K in Keys]: (
-        req: ReqFromSchema<GetRequest<Rsc[K]>>,
-        ctx: CTX
-      ) => Effect<any, SupportedErrors, ResFromSchema<GetResponse<Rsc[K]>>>
+      [K in Keys]: Effect<any, any, Handler<K, any>>
     }
   >(
-    controllers: Effect<R, never, THandlers>
+    controllers: THandlers
   ) => {
-    const handler = controllers.map(handlers =>
+    const handler = Effect.struct(controllers).map(handlers =>
       rsc.$$.keys.reduce((prev, cur) => {
         prev[cur] = handle(rsc[cur])(handlers[cur] as any)
         return prev
       }, {} as any)
     )
     return handler as Effect<
-      R,
-      never,
+      [THandlers[keyof THandlers]] extends [{ [EffectTypeId]: { _R: (_: never) => infer R } }] ? R : never,
+      [THandlers[keyof THandlers]] extends [{ [EffectTypeId]: { _E: (_: never) => infer E } }] ? E : never,
       {
         [K in Keys]: ReqHandler<
           ReqFromSchema<GetRequest<Rsc[K]>>,
-          _R<ReturnType<THandlers[K]>>,
-          _E<ReturnType<THandlers[K]>>,
+          _R<GetHandler<Effect.Success<THandlers[K]>>>,
+          _E<GetHandler<Effect.Success<THandlers[K]>>>,
           ResFromSchema<GetResponse<Rsc[K]>>,
           GetRequest<Rsc[K]>,
           GetResponse<Rsc[K]>,

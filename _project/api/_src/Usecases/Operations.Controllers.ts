@@ -8,4 +8,4 @@ const Find = matchWithServices("Find")(
   ({ id }, { operations }) => operations.find(id).map(_ => _.getOrNull)
 )
 
-export const OperationsControllers = controllers(Effect.struct({ Find }))
+export const OperationsControllers = controllers({ Find })

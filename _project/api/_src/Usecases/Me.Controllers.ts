@@ -8,4 +8,4 @@ const Get = matchWithServices("Get")(
   (_req, { userRepo }) => userRepo.getCurrentUser
 )
 
-export const MeControllers = controllers(Effect.struct({ Get }))
+export const MeControllers = controllers({ Get })
