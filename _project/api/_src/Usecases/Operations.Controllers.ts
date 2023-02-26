@@ -1,5 +1,5 @@
 import { OperationsRsc } from "@effect-app-boilerplate/resources"
-import { Operations } from "api//services.js"
+import { Operations } from "api/services.js"
 
 const { controllers, matchWithServices } = matchFor(OperationsRsc)
 
