@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/ban-types */
 import { BasicRequestEnv } from "@effect-app-boilerplate/messages/RequestLayers"
 import type { User } from "@effect-app-boilerplate/models/User"

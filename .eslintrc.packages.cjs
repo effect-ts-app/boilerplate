@@ -1,6 +1,7 @@
 const makeBase = require("./.eslintrc.base")
 const base = makeBase(__dirname, undefined, "tsconfig.packages.json")
 module.exports = {
+  root: true,
   ...base,
   plugins: base.plugins.concat(["formatjs"]),
   rules: {

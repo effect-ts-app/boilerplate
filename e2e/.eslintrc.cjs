@@ -1,5 +1,6 @@
 const makeBase = require("../.eslintrc.base")
 
 module.exports = {
-  ...makeBase(__dirname),
+  root: true,
+  ...makeBase(__dirname, true),
 }

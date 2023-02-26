@@ -1,3 +1,6 @@
 const makeBase = require("../../.eslintrc.vue")
 
-module.exports = makeBase(__dirname)
+module.exports = {
+  root: true,
+  ...makeBase(__dirname, true)
+}

@@ -1,5 +1,9 @@
 {
   "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "moduleResolution": "Node16"
+  },
   "include": [
     "_project/api/_src/**/*",
     "_project/messages/_src/**/*",
@@ -13,16 +17,19 @@
   ],
   "references": [
     {
-      "path": "_project/resources"
-    },
-    {
-      "path": "_project/models"
+      "path": "./_project/api"
     },
     // {
-    //   "path": "_project/frontend-vue"
+    //   "path": "./_project/core"
     // },
-    //     {
-    //       "path": "_project/frontend-react"
-    //     },
+    {
+      "path": "./_project/messages"
+    },
+    {
+      "path": "./_project/resources"
+    },
+    {
+      "path": "./_project/models"
+    }
   ]
 }
