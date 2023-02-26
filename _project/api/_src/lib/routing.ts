@@ -11,6 +11,7 @@ import { handle, match } from "@effect-app/infra/api/routing"
 import { NotLoggedInError, UnauthorizedError } from "@effect-app/infra/errors"
 import { RequestContext } from "@effect-app/infra/RequestContext"
 import type { GetRequest, GetResponse, ReqRes, ReqResSchemed } from "@effect-app/prelude/schema"
+import { TagTypeId } from "@effect-app/prelude/service"
 import type { EffectTypeId } from "@effect/io/Effect"
 import type express from "express"
 import { CurrentUser, UserRepo } from "../services.js"
@@ -233,17 +234,41 @@ export interface CTX {
   user: User
 }
 
-type Service<T> = T extends Tag<infer S> ? S : never
+type Service<T> = T extends Effect<any, any, infer S> ? S : T extends Tag<infer S> ? S : never
+type ServiceR<T> = T extends Effect<infer R, any, any> ? R : T extends Tag<infer S> ? S : never
 type Values<T> = T extends { [s: string]: infer S } ? Service<S> : never
+type ValuesR<T> = T extends { [s: string]: infer S } ? ServiceR<S> : never
+
 type LowerFirst<S extends PropertyKey> = S extends `${infer First}${infer Rest}` ? `${Lowercase<First>}${Rest}` : S
-type LowerServices<T extends Record<string, Tag<any>>> = { [key in keyof T as LowerFirst<key>]: Service<T[key]> }
+type LowerServices<T extends Record<string, Tag<any> | Effect<any, any, any>>> = {
+  [key in keyof T as LowerFirst<key>]: Service<T[key]>
+}
+
+/**
+ * @tsplus static effect/io/Effect.Ops servicesOrEffectsWith
+ */
+export function accessLowerServicesAndEffects_<T extends Record<string, Tag<any> | Effect<any, any, any>>, A>(
+  services: T,
+  fn: (services: LowerServices<T>) => A
+) {
+  return Debug.untraced(() =>
+    (Effect.struct(
+      services.$$.keys.reduce((prev, cur) => {
+        const svc = services[cur]!
+        prev[((cur as string)[0]!.toLowerCase() + (cur as string).slice(1)) as unknown as LowerFirst<typeof cur>] =
+          "_id" in svc && svc._id === TagTypeId ? Effect.service(svc) : services[cur]
+        return prev
+      }, {} as any)
+    ) as any as Effect<ValuesR<T>, never, LowerServices<T>>).map(fn)
+  )
+}
 
 export function matchFor<Rsc extends Record<string, any>>(
   rsc: Rsc
 ) {
   const matchWithServices_ = <
     Key extends keyof Rsc,
-    SVC extends Record<string, Tag<any>>,
+    SVC extends Record<string, Tag<any> | Effect<any, any, any>>,
     R2,
     E extends SupportedErrors
   >(
@@ -257,21 +282,21 @@ export function matchFor<Rsc extends Record<string, any>>(
     matchAction(
       rsc[action],
       Effect.context<Values<SVC>>().flatMap(context =>
-        Effect.servicesWith(services, svc => (req, ctx) =>
+        accessLowerServicesAndEffects_(services, svc => (req, ctx) =>
           f(req, { ...ctx, ...svc as any }).provideSomeContextReal(context))
       )
     )
 
   const matchWithServices: <Key extends keyof Rsc>(
     action: Key
-  ) => <SVC extends Record<string, Tag<any>>, R2, E extends SupportedErrors>(
+  ) => <SVC extends Record<string, Tag<any> | Effect<any, any, any>>, R2, E extends SupportedErrors>(
     services: SVC,
     f: (
       req: ReqFromSchema<GetRequest<Rsc[Key]>>,
       ctx: Compute<LowerServices<SVC> & CTX, "flat">
     ) => Effect<R2, E, ResFromSchema<GetResponse<Rsc[Key]>>>
   ) => Effect<
-    Values<SVC>,
+    ValuesR<SVC>,
     never,
     (
       req: ReqFromSchema<GetRequest<Rsc[Key]>>,
