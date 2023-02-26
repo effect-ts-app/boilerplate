@@ -1,5 +1,9 @@
 {
   "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "moduleResolution": "Node16"
+  },
   "include": [
     "_project/resources/_src/**/*",
     "_project/models/_src/**/*"
@@ -10,5 +14,13 @@
     "**/lib",
     "**/dist",
     "**/.*"
+  ],
+  "references": [
+    {
+      "path": "./_project/resources"
+    },
+    {
+      "path": "./_project/models"
+    }
   ]
 }
