@@ -15,7 +15,7 @@ export const UserProfileId = Symbol()
  * @tsplus type UserProfile
  * @tsplus companion UserProfile.Ops
  */
-export abstract class UserProfile extends ServiceTaggedClass<Tag<UserProfile>>()(UserProfileId) {
+export abstract class UserProfile extends ServiceTaggedClass<UserProfile>()(UserProfileId) {
   abstract get: Effect<never, NotLoggedInError, UserProfileScheme>
 }
 

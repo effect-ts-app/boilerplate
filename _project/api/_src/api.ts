@@ -6,7 +6,7 @@ import * as R from "./routes.js"
 import { Operations, StoreMaker, UserRepo } from "./services.js"
 import { Events } from "./services/Events.js"
 
-const routes = Effect.struct(R)
+const routes = Effect.all(R)
 
 export function api(cfg: ApiMainConfig) {
   const logServerStart = Effect(`Running on ${cfg.host}:${cfg.port} at version: ${cfg.apiVersion}. ENV: ${cfg.env}`)

@@ -8,7 +8,7 @@ import fetch from "cross-fetch"
 
 export function makeRuntime(config: ApiConfig) {
   const layers = HF.Client(fetch)
-    > LiveApiConfig(Config.struct({ apiUrl: Config.succeed(config.apiUrl), headers: Config.succeed(config.headers) }))
+    > LiveApiConfig(Config.all({ apiUrl: Config.succeed(config.apiUrl), headers: Config.succeed(config.headers) }))
   const runtime = initializeSync(layers)
 
   return runtime

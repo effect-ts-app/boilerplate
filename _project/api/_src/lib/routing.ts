@@ -157,7 +157,7 @@ function handleRequestEnv<
       ...handler,
       h: (pars: any) =>
         Debug.untraced(restore =>
-          Effect.struct({
+          Effect.all({
             context: RequestContext.Tag.access,
             user: CurrentUser.get.catchTag("NotLoggedInError", () => Effect(null))
           })
@@ -253,7 +253,7 @@ export function accessLowerServicesAndEffects_<T extends Record<string, Tag<any>
   fn: (services: LowerServices<T>) => A
 ) {
   return Debug.untraced(() =>
-    (Effect.struct(
+    (Effect.all(
       services.$$.keys.reduce((prev, cur) => {
         const svc = services[cur]!
         prev[((cur as string)[0]!.toLowerCase() + (cur as string).slice(1)) as unknown as LowerFirst<typeof cur>] =
@@ -379,7 +379,7 @@ export function matchFor<Rsc extends Record<string, any>>(
   >(
     controllers: THandlers
   ) => {
-    const handler = Effect.struct(controllers).map(handlers =>
+    const handler = Effect.all(controllers).map(handlers =>
       rsc.$$.keys.reduce((prev, cur) => {
         prev[cur] = handle(rsc[cur])(handlers[cur] as any)
         return prev

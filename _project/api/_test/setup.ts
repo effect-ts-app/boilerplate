@@ -22,7 +22,7 @@ const appLayer = Logger.minimumLogLevel(Level.Debug)
   > Emailer.Fake
   > MemQueue.Live
   > LiveApiConfig(
-    Config.struct({
+    Config.all({
       apiUrl: Config.string("apiUrl").withDefault("http://127.0.0.1:" + PORT),
       headers: Config.string()
         .table("headers").optional

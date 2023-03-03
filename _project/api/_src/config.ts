@@ -2,7 +2,7 @@ import { BaseConfig } from "@effect-app-boilerplate/messages/config"
 
 const STORAGE_VERSION = "1"
 
-const StorageConfig = Config.struct({
+const StorageConfig = Config.all({
   url: Config.secretURL("url")
     .withDefault(ConfigSecretURL.fromString("mem://"))
     .nested("storage"),
@@ -14,7 +14,7 @@ const StorageConfig = Config.struct({
     .orElse(() => BaseConfig.map(({ env }) => (env === "prod" ? "" : `${env}_v${STORAGE_VERSION}_`)))
 })
 
-export const ApiConfig = Config.struct({
+export const ApiConfig = Config.all({
   host: Config.string("host").withDefault("0.0.0.0"),
   port: Config.integer("port").withDefault(3610),
 

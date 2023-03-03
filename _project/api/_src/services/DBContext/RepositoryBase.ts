@@ -10,7 +10,6 @@ import type { Effect } from "@effect-app/core/Effect"
 import type { Opt } from "@effect-app/core/Option"
 import type { Chunk } from "@effect-app/prelude"
 import { assignTag } from "@effect-app/prelude/service"
-import type { Tag } from "node_modules/@effect/data/Context.js"
 
 export const RepositoryBase = <Service>() => {
   return <T extends { id: Id }, PM extends { id: string }, Evt, Id extends string, ItemType extends string>(
@@ -34,6 +33,6 @@ export const RepositoryBase = <Service>() => {
         filter: (filter: Filter<PM>, cursor?: { limit?: number; skip?: number }) => Effect<never, never, Chunk<PM>>
       }
     }
-    return assignTag<Tag<Service>>()(RepositoryBaseC)
+    return assignTag<Service>()(RepositoryBaseC)
   }
 }

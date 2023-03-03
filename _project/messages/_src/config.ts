@@ -20,7 +20,7 @@ const serviceName = "@effect-app/boilerplate"
 
 const envConfig = Config.string("env").withDefault("local-dev")
 
-const SendgridConfig = Config.struct({
+const SendgridConfig = Config.all({
   realMail: Config.bool("realMail").withDefault(false),
   apiKey: Config.secret("sendgridApiKey").withDefault(
     ConfigSecret.fromString("")
@@ -29,7 +29,7 @@ const SendgridConfig = Config.struct({
   subjectPrefix: envConfig.map(env => `[${serviceName}] [${env}] `)
 })
 
-export const BaseConfig = Config.struct({
+export const BaseConfig = Config.all({
   apiVersion: Config.string("apiVersion").withDefault("local-dev"),
   serviceName: Config(serviceName),
   env: envConfig,
