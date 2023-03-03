@@ -82,7 +82,7 @@ export type UserSeed = "sample" | ""
  */
 function makeUserRepo(seed: UserSeed) {
   return Do($ => {
-    const { make } = $(StoreMaker.access)
+    const { make } = $(StoreMaker.access())
 
     const makeItems = Effect.sync(() => {
       const items = seed === "sample" ? fakeUsers : []
