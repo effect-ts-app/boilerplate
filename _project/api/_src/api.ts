@@ -37,5 +37,5 @@ export function api(cfg: ApiMainConfig) {
 
   return services
     > program
-      .toScopedDiscardLayer
+      .toLayerScopedDiscard
 }
