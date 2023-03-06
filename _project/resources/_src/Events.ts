@@ -17,13 +17,9 @@ export type ClientEvents = ParsedShapeOfCustom<typeof ClientEvents>
 export namespace BogusEvent {
   /**
    * @tsplus type BogusEvent.Encoded
+   * @tsplus companion BogusEvent.Encoded/Ops
    */
-  export interface Encoded extends EncodedFromApi<typeof BogusEvent> {}
-  export const Encoded: EncodedOps = {}
-  /**
-   * @tsplus type BogusEvent.Encoded/Ops
-   */
-  export interface EncodedOps {}
+  export class Encoded extends EncodedClass<typeof BogusEvent>() {}
   export interface ConstructorInput
     extends ConstructorInputFromApi<typeof BogusEvent> {}
   export interface Props extends GetProvidedProps<typeof BogusEvent> {}

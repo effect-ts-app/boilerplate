@@ -117,13 +117,9 @@ export type UserConstructor = typeof User
 export namespace FullName {
   /**
    * @tsplus type FullName.Encoded
+   * @tsplus companion FullName.Encoded/Ops
    */
-  export interface Encoded extends EncodedFromApi<typeof FullName> {}
-  export const Encoded: EncodedOps = {}
-  /**
-   * @tsplus type FullName.Encoded/Ops
-   */
-  export interface EncodedOps {}
+  export class Encoded extends EncodedClass<typeof FullName>() {}
   export interface ConstructorInput
     extends ConstructorInputFromApi<typeof FullName> {}
   export interface Props extends GetProvidedProps<typeof FullName> {}
@@ -131,13 +127,9 @@ export namespace FullName {
 export namespace User {
   /**
    * @tsplus type User.Encoded
+   * @tsplus companion User.Encoded/Ops
    */
-  export interface Encoded extends EncodedFromApi<typeof User> {}
-  export const Encoded: EncodedOps = {}
-  /**
-   * @tsplus type User.Encoded/Ops
-   */
-  export interface EncodedOps {}
+  export class Encoded extends EncodedClass<typeof User>() {}
   export interface ConstructorInput
     extends ConstructorInputFromApi<typeof User> {}
   export interface Props extends GetProvidedProps<typeof User> {}
