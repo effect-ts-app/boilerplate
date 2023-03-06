@@ -17,6 +17,10 @@ module.exports = function(dir, forceTS) {
   );
   return {
     ...base,
+    parserOptions: {
+      ...base.parserOptions,
+      extraFileExtensions: [".vue"],
+    },
     parser: "vue-eslint-parser",
     extends: [
       'eslint:recommended',

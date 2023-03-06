@@ -264,7 +264,7 @@ export function renderError(e: ResponseError | FetchError) {
 
 function parseError(e: string) {
   try {
-    const js = JSON.parse(e) as any
+    const js = JSON.parse(e)
     if ("_tag" in js) {
       if ("message" in js) {
         return `${js._tag}: ${js.message}`

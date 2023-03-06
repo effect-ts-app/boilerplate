@@ -19,7 +19,7 @@ const router = useRouter()
 
 onMounted(() => {
   if (getUserId()) {
-    getCurrentUser()
+    void getCurrentUser()
   }
 })
 </script>
