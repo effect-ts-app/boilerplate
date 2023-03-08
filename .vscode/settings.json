@@ -23,6 +23,9 @@
       "pattern": "_project/frontend-*"
     }
   ],
+  "eslint.execArgv": [
+    "--max-old-space-size=6144"
+  ],
   "editor.formatOnSave": true,
   "eslint.format.enable": true,
   "[vue]": {
