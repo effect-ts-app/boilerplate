@@ -1,6 +1,7 @@
 import { makeApiLayers, initializeSync } from "@effect-app/vue"
 import * as Runtime from "@effect/io/Runtime"
 import * as Http from "@effect-app/core/http/http-client"
+import * as Layer from "@effect/io/Layer"
 
 export const versionMatch = ref(true)
 export const runtime = ref<ReturnType<typeof makeRuntime>>()
