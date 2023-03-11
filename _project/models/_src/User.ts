@@ -22,7 +22,7 @@ export type LastName = ParsedShapeOfCustom<typeof LastName>
 /**
  * @tsplus type FullName
  */
-@useClassNameForSchema
+@useClassFeaturesForSchema
 export class FullName extends MNModel<
   FullName,
   FullName.ConstructorInput,
@@ -67,7 +67,7 @@ export type Role = ParsedShapeOfCustom<typeof Role>
  * @tsplus type User
  * @tsplus companion User
  */
-@useClassNameForSchema
+@useClassFeaturesForSchema
 export class User extends MNModel<User, User.ConstructorInput, User.Encoded, User.Props>()({
   id: defaultProp(UserId, UserId.make),
   displayName: prop(DisplayName),
