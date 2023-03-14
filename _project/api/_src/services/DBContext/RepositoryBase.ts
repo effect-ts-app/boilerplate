@@ -1,7 +1,7 @@
 import type { RequestContext } from "@effect-app/infra/RequestContext"
 import type { Repository } from "@effect-app/infra/services/Repository"
 import { ContextMap, StoreMaker } from "@effect-app/infra/services/Store"
-import type { Filter, Store, Where } from "@effect-app/infra/services/Store"
+import type { Filter, Store, StoreConfig, Where } from "@effect-app/infra/services/Store"
 import type { ParserEnv } from "@effect-app/schema/custom/Parser"
 import type { InvalidStateError, OptimisticConcurrencyException } from "api/errors.js"
 import type {} from "@effect/data/Equal"
@@ -32,9 +32,10 @@ export const RepositoryBase = <Service>() => {
           setEtag: (id: string, eTag: string | undefined) => void
         ) => unknown // TODO
         parse: (a: unknown, env?: ParserEnv | undefined) => T
-        all: Effect<never, never, Chunk<PM>>
-        filter: (filter: Filter<PM>, cursor?: { limit?: number; skip?: number }) => Effect<never, never, Chunk<PM>>
+        all: Effect<ContextMap, never, Chunk<PM>>
+        filter: (filter: Filter<PM>, cursor?: { limit?: number; skip?: number }) => Effect<ContextMap, never, Chunk<PM>>
       }
+      abstract remove: (item: T) => Effect<ContextMap, never, void>
       static where = makeWhere<PM>()
     }
     return assignTag<Service>()(RepositoryBaseC)
@@ -79,10 +80,12 @@ export function makeRepo<
     function make(
       makeInitial: Effect<never, never, never[] | readonly [T, ...T[]]>,
       publishEvents: (evt: Iterable<Evt>) => Effect<never, never, void>,
-      partitionValue: (a: PM) => string = _ => "primary" /*(isIntegrationEvent(r) ? r.companyId : r.id*/
+      config?: Omit<StoreConfig<PM>, "partitionValue"> & {
+        partitionValue?: (a: PM) => string
+      }
     ) {
       return Do($ => {
-        const store = $(mkStore(makeInitial, partitionValue))
+        const store = $(mkStore(makeInitial, config))
 
         const allE = store.all.flatMap(items =>
           Do($ => {
@@ -124,15 +127,32 @@ export function makeRepo<
           saveAll(items)
             > publishEvents(_)
 
+        const encode = Encoder.for(schema)
+        function remove(item: T) {
+          return Do($ => {
+            const { get, set } = $(ContextMap.access)
+            const e = encode(item)
+            $(store.remove(mapToPersistenceModel(e, get)))
+            set(item.id, undefined)
+          })
+        }
+
         const r: Repository<T, PM, Evt, ItemType> = {
           /**
            * @internal
            */
-          utils: { mapReverse, parse: Parser.for(schema).unsafe, filter: store.filter, all: store.all },
+          utils: {
+            mapReverse,
+            parse: Parser.for(schema).unsafe,
+            filter: store.filter
+              .flow(_ => _.tap(items => ContextMap.access.map(({ set }) => items.forEach(_ => set(_.id, _._etag))))),
+            all: store.all.tap(items => ContextMap.access.map(({ set }) => items.forEach(_ => set(_.id, _._etag))))
+          },
           itemType: name,
           find,
           all,
-          saveAndPublish
+          saveAndPublish,
+          remove
         }
         return r
       })
@@ -143,6 +163,21 @@ export function makeRepo<
       where
     }
   }
+}
+
+/**
+ * @tsplus fluent Repository removeById
+ */
+export function removeById<
+  T extends { id: string },
+  PM extends { id: string },
+  Evt,
+  ItemType extends string
+>(
+  self: Repository<T, PM, Evt, ItemType>,
+  id: T["id"]
+) {
+  return self.get(id).flatMap(_ => self.remove(_))
 }
 
 export function makeWhere<PM extends { id: string; _etag: string | undefined }>() {
@@ -214,7 +249,9 @@ export function makeStore<
 
     function makeStore(
       makeInitial: Effect<never, never, never[] | readonly [T, ...T[]]>,
-      partitionValue: (a: PM) => string = _ => "primary" /*(isIntegrationEvent(r) ? r.companyId : r.id*/
+      config?: Omit<StoreConfig<PM>, "partitionValue"> & {
+        partitionValue?: (a: PM) => string
+      }
     ) {
       return Do($ => {
         const { make } = $(StoreMaker.access)
@@ -224,7 +261,8 @@ export function makeStore<
             pluralize(name),
             makeInitial.flatMap(encodeToMapPM).setupNamedRequest("initial"),
             {
-              partitionValue
+              ...config,
+              partitionValue: config?.partitionValue ?? (_ => "primary") /*(isIntegrationEvent(r) ? r.companyId : r.id*/
             }
           )
         )
@@ -253,10 +291,11 @@ export const RepositoryBaseImpl = <Service>() => {
     ): Repository<T, PM, Evt, ItemType>
     makeStore: (
       makeInitial: Effect<never, never, never[] | readonly [T, ...T[]]>,
-      partitionValue?: (a: PM) => string
+      config?: Omit<StoreConfig<PM>, "partitionValue"> & { partitionValue?: (a: PM) => string }
     ) => Effect<StoreMaker, never, Store<PM, string>>
     where: ReturnType<typeof makeWhere<PM>>
   } => {
+    const encode = Encoder.for(schema)
     return class extends RepositoryBase<Service>()<T, PM, Evt, ItemType>(itemType) {
       constructor(
         private readonly store: Store<PM, string>,
@@ -318,11 +357,21 @@ export const RepositoryBaseImpl = <Service>() => {
         this.saveAll(items)
           > this.publishEvents(_)
 
+      remove = (item: T) => {
+        return Do($ => {
+          const { get, set } = $(ContextMap.access)
+          const e = encode(item)
+          $(this.store.remove(this.mapToPersistenceModel(e, get)))
+          set(item.id, undefined)
+        })
+      }
+
       override utils = {
         mapReverse: this.mapReverse,
         parse: Parser.for(schema).unsafe,
-        filter: this.store.filter,
-        all: this.store.all
+        filter: this.store.filter
+          .flow(_ => _.tap(items => ContextMap.access.map(({ set }) => items.forEach(_ => set(_.id, _._etag))))),
+        all: this.store.all.tap(items => ContextMap.access.map(({ set }) => items.forEach(_ => set(_.id, _._etag))))
       }
     }
   }
