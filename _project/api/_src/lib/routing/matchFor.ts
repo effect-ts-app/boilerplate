@@ -5,12 +5,11 @@ import type { SupportedErrors } from "@effect-app/infra/api/defaultErrorHandler"
 import type { _E, _R } from "@effect-app/infra/api/express/schema/requestHandler"
 import type { ReqFromSchema, ReqHandler, ResFromSchema } from "@effect-app/infra/api/routing"
 import { handle } from "@effect-app/infra/api/routing"
+import type { LowerServices, Values, ValuesR } from "@effect-app/prelude/_ext/servicesOrEffects"
+import { accessLowerServicesAndEffects_ } from "@effect-app/prelude/_ext/servicesOrEffects"
 import type { GetRequest, GetResponse } from "@effect-app/prelude/schema"
 import type { EffectTypeId } from "@effect/io/Effect"
-
 import type { CTX } from "./ctx.js"
-import type { LowerServices, Values, ValuesR } from "./servicesOrEffectsWith.js"
-import { accessLowerServicesAndEffects_ } from "./servicesOrEffectsWith.js"
 
 export function matchResource<TModules extends Record<string, Record<string, any>>>(mod: TModules) {
   type Keys = keyof TModules

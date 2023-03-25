@@ -8,7 +8,6 @@ export * from "./routing/match.js"
 export * from "./routing/matchAll.js"
 export * from "./routing/matchFor.js"
 export * from "./routing/RequestEnv.js"
-export * from "./routing/servicesOrEffectsWith.js"
 // codegen:end
 
 // export * from "@effect-app/infra/api/routing"
