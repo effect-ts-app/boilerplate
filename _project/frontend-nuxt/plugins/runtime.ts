@@ -1,7 +1,9 @@
 import { makeApiLayers, initializeSync } from "@effect-app/vue"
+import * as Config from "@effect/io/Config"
+import * as Layer from "@effect/io/Layer"
 import * as Runtime from "@effect/io/Runtime"
 import * as Http from "@effect-app/core/http/http-client"
-import * as Layer from "@effect/io/Layer"
+import { Option } from "@/composables/prelude"
 
 export const versionMatch = ref(true)
 export const runtime = ref<ReturnType<typeof makeRuntime>>()
@@ -22,7 +24,7 @@ function makeRuntime(feVersion: string) {
       ) =>
         req<M, Req, Resp>(method, url, requestType, responseType, body)["|>"](
           Effect.tap(r =>
-            Effect.succeed(() => {
+            Effect.sync(() => {
               const remoteFeVersion = r.headers["x-fe-version"]
               if (remoteFeVersion) {
                 versionMatch.value = feVersion === remoteFeVersion
@@ -32,7 +34,14 @@ function makeRuntime(feVersion: string) {
         ),
   ])
 
-  const rt = initializeSync(makeApiLayers()["|>"](Layer.merge(middleware)))
+  const rt = initializeSync(
+    Layer.merge(
+      makeApiLayers(
+        Config.succeed({ apiUrl: "/api/api", headers: Option.none })
+      ),
+      middleware
+    )
+  )
   return {
     ...rt,
     runFork: Runtime.runFork(rt.runtime),
