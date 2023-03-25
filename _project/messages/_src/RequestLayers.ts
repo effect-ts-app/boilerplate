@@ -1,12 +1,12 @@
 import { RequestContext } from "@effect-app/infra/RequestContext"
+import { RequestContextContainer } from "@effect-app/infra/services/RequestContextContainer"
 import { ContextMap } from "@effect-app/infra/services/Store"
 
-export const BasicRequestEnv = (pars: RequestContext) =>
-  Effect.gen(function*($) {
-    const rc = Context.make(RequestContext.Tag, pars)
+export const BasicRequestEnv = Effect.gen(function*($) {
+  const rc = Context.make(ContextMap, yield* $(ContextMap.Make))
 
-    return pipe(rc, Context.add(ContextMap, yield* $(ContextMap.Make)))
-  })
+  return rc
+})
 
 function makeInternalRequestContext(name: string) {
   const id = StringId.make()
@@ -31,5 +31,6 @@ export function setupReq2<R, E, A>(self: Effect<R, E, A>, name: string) {
 export function setupReq3<R, E, A>(self: Effect<R, E, A>, requestContext: RequestContext) {
   return self
     .setupRequestFrom
-    .provideSomeContextEffect(BasicRequestEnv(requestContext))
+    .provideSomeContextEffect(BasicRequestEnv)
+    .provideService(RequestContextContainer, RequestContextContainer.live(requestContext))
 }

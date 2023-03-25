@@ -1,4 +1,3 @@
-import type { RequestContext } from "@effect-app/infra/RequestContext"
 import type { Repository } from "@effect-app/infra/services/Repository"
 import { ContextMap, StoreMaker } from "@effect-app/infra/services/Store"
 import type { Filter, Store, StoreConfig, Where } from "@effect-app/infra/services/Store"
@@ -10,6 +9,7 @@ import { Effect } from "@effect-app/core/Effect"
 import type { Opt } from "@effect-app/core/Option"
 import { makeCodec } from "@effect-app/infra/api/codec"
 import { makeFilters } from "@effect-app/infra/filter"
+import type { RequestContextContainer } from "@effect-app/infra/services/RequestContextContainer"
 import type { Chunk, Schema } from "@effect-app/prelude"
 import { EParserFor } from "@effect-app/prelude/schema"
 import { assignTag } from "@effect-app/prelude/service"
@@ -20,12 +20,12 @@ export const RepositoryBase = <Service>() => {
   ) => {
     abstract class RepositoryBaseC implements Repository<T, PM, Evt, ItemType> {
       itemType: ItemType = itemType
-      abstract find: (id: T["id"]) => Effect<ContextMap | RequestContext, never, Opt<T>>
+      abstract find: (id: T["id"]) => Effect<ContextMap | RequestContextContainer, never, Opt<T>>
       abstract all: Effect<ContextMap, never, Chunk<T>>
       abstract saveAndPublish: (
         items: Iterable<T>,
         events?: Iterable<Evt>
-      ) => Effect<ContextMap | RequestContext, InvalidStateError | OptimisticConcurrencyException, void>
+      ) => Effect<ContextMap | RequestContextContainer, InvalidStateError | OptimisticConcurrencyException, void>
       abstract utils: {
         mapReverse: (
           pm: PM,
@@ -287,7 +287,7 @@ export const RepositoryBaseImpl = <Service>() => {
   ): Tag<Service> & {
     new(
       store: Store<PM, string>,
-      publishEvents: (evt: Iterable<Evt>) => Effect<RequestContext, never, void>
+      publishEvents: (evt: Iterable<Evt>) => Effect<RequestContextContainer, never, void>
     ): Repository<T, PM, Evt, ItemType>
     makeStore: (
       makeInitial: Effect<never, never, never[] | readonly [T, ...T[]]>,
@@ -299,7 +299,7 @@ export const RepositoryBaseImpl = <Service>() => {
     return class extends RepositoryBase<Service>()<T, PM, Evt, ItemType>(itemType) {
       constructor(
         private readonly store: Store<PM, string>,
-        private readonly publishEvents: (evt: Iterable<Evt>) => Effect<RequestContext, never, void>
+        private readonly publishEvents: (evt: Iterable<Evt>) => Effect<RequestContextContainer, never, void>
       ) {
         super()
       }

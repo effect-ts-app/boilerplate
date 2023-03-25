@@ -113,94 +113,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "properties": {
-                    "id": {
-                      "minLength": 6,
-                      "maxLength": 50,
-                      "type": "string"
-                    },
-                    "progress": {
-                      "properties": {
-                        "completed": {
-                          "minimum": 0,
-                          "type": "number"
-                        },
-                        "total": {
-                          "minimum": 0,
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "completed",
-                        "total"
-                      ],
-                      "type": "object"
-                    },
-                    "result": {
-                      "oneOf": [
-                        {
-                          "properties": {
-                            "_tag": {
-                              "enum": [
-                                "Success"
-                              ],
-                              "type": "string"
-                            },
-                            "message": {
-                              "minLength": 1,
-                              "maxLength": 2047,
-                              "type": "string",
-                              "nullable": true
-                            }
-                          },
-                          "required": [
-                            "_tag",
-                            "message"
-                          ],
-                          "type": "object"
-                        },
-                        {
-                          "properties": {
-                            "_tag": {
-                              "enum": [
-                                "Failure"
-                              ],
-                              "type": "string"
-                            },
-                            "message": {
-                              "minLength": 1,
-                              "maxLength": 2047,
-                              "type": "string",
-                              "nullable": true
-                            }
-                          },
-                          "required": [
-                            "_tag",
-                            "message"
-                          ],
-                          "type": "object"
-                        }
-                      ],
-                      "discriminator": {
-                        "propertyName": "_tag"
-                      }
-                    },
-                    "createdAt": {
-                      "format": "date-time",
-                      "type": "string"
-                    },
-                    "updatedAt": {
-                      "format": "date-time",
-                      "type": "string",
-                      "nullable": true
-                    }
-                  },
-                  "required": [
-                    "id",
-                    "createdAt",
-                    "updatedAt"
-                  ],
-                  "type": "object",
+                  "$ref": "#/components/schemas/Operation",
                   "nullable": true
                 }
               }
@@ -247,6 +160,109 @@
           "id",
           "displayName",
           "role"
+        ],
+        "type": "object"
+      },
+      "OperationProgress": {
+        "title": "OperationProgress",
+        "properties": {
+          "completed": {
+            "minimum": 0,
+            "type": "number"
+          },
+          "total": {
+            "minimum": 0,
+            "type": "number"
+          }
+        },
+        "required": [
+          "completed",
+          "total"
+        ],
+        "type": "object"
+      },
+      "Success": {
+        "title": "Success",
+        "properties": {
+          "_tag": {
+            "enum": [
+              "Success"
+            ],
+            "type": "string"
+          },
+          "message": {
+            "minLength": 1,
+            "maxLength": 2047,
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "required": [
+          "_tag",
+          "message"
+        ],
+        "type": "object"
+      },
+      "Failure": {
+        "title": "Failure",
+        "properties": {
+          "_tag": {
+            "enum": [
+              "Failure"
+            ],
+            "type": "string"
+          },
+          "message": {
+            "minLength": 1,
+            "maxLength": 2047,
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "required": [
+          "_tag",
+          "message"
+        ],
+        "type": "object"
+      },
+      "Operation": {
+        "title": "Operation",
+        "properties": {
+          "id": {
+            "minLength": 6,
+            "maxLength": 50,
+            "type": "string"
+          },
+          "progress": {
+            "$ref": "#/components/schemas/OperationProgress"
+          },
+          "result": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/Success"
+              },
+              {
+                "$ref": "#/components/schemas/Failure"
+              }
+            ],
+            "discriminator": {
+              "propertyName": "_tag"
+            }
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "required": [
+          "id",
+          "createdAt",
+          "updatedAt"
         ],
         "type": "object"
       }
