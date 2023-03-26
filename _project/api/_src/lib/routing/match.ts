@@ -5,6 +5,10 @@ import type { RequestHandler as RequestHandlerOrig } from "@effect-app/infra/api
 import { makeRouteDescriptor } from "@effect-app/infra/api/express/schema/routing"
 import type { Middleware } from "@effect-app/infra/api/routing"
 import type { ValidationError } from "@effect-app/infra/errors"
+import { RequestContextContainer } from "@effect-app/infra/services/RequestContextContainer"
+// import { AUTH_DISABLED } from "api/config.js"
+import { makeUserProfileFromUserHeader } from "api/services.js"
+
 import type express from "express"
 import { makeRequestHandler } from "./makeRequestHandler.js"
 
@@ -62,7 +66,15 @@ export function matchAuth<
   const handler = makeRequestHandler<R, E, PathA, CookieA, QueryA, BodyA, HeaderA, ReqA, ResA, R2, PR, RErr>(
     requestHandler,
     errorHandler,
-    makeMiddlewareContext
+    makeMiddlewareContext,
+    req =>
+      RequestContextContainer.accessWithEffect(_ => {
+        const r = makeUserProfileFromUserHeader(req.headers["x-user"]).exit.runSync$
+        // const r = (!AUTH_DISABLED
+        //   ? makeUserProfileFromAuthorizationHeader(req.headers["authorization"])
+        //   : makeUserProfileFromUserHeader(req.headers["x-user"])).exit.runSync$
+        return _.update(_ => ({ ..._, user: r.isSuccess() ? r.value : undefined }))
+      })
   )
   const path = requestHandler.Request.path.split("?")[0]
   return (
@@ -70,7 +82,7 @@ export function matchAuth<
     // (requestHandler.Request as any).allowAnonymous
     // ?
     match(path, handler)
-    //      : match(path, checkJwt(Auth0Config.config.runSync$), handler)
+    // : match(path, checkJwt(Auth0Config.config.runSync$), handler)
   )
     .zipRight(
       Effect(
