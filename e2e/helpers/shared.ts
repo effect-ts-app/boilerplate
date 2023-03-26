@@ -5,6 +5,7 @@ import type { ApiConfig } from "@effect-app/prelude/client/config"
 import { Live as LiveApiConfig } from "@effect-app/prelude/client/config"
 import { initializeSync } from "@effect-app/vue/runtime"
 import fetch from "cross-fetch"
+import { readFileSync } from "fs"
 
 export function makeRuntime(config: ApiConfig) {
   const layers = HF.Client(fetch)
@@ -14,21 +15,28 @@ export function makeRuntime(config: ApiConfig) {
   return runtime
 }
 
-export function makeHeaders(namespace: string, userId?: string) {
+export function makeHeaders(namespace: string, role?: "manager" | "user") {
   const basicAuthCredentials = process.env["BASIC_AUTH_CREDENTIALS"]
+  let cookie: string | undefined = undefined
+  if (role) {
+    const f = readFileSync("./storageState." + role + ".json", "utf-8")
+    const p = JSON.parse(f) as { cookies: { name: string; value: string }[] }
+    const cookies = p.cookies
+    cookie = cookies.map(_ => `${_.name}=${_.value}`).join(";")
+  }
   return <Record<string, string>> {
     ...basicAuthCredentials
       ? { "authorization": `Basic ${Buffer.from(basicAuthCredentials).toString("base64")}` }
       : undefined,
-    ...userId
-      ? { "Cookie": `user-id=${userId};` } :
+    ...cookie
+      ? { "Cookie": cookie } :
       undefined,
     "x-store-id": namespace
   }
 }
 
-export function makeHeadersHashMap(namespace: string, userId?: string) {
-  const headers = makeHeaders(namespace, userId)
+export function makeHeadersHashMap(namespace: string, role?: "manager" | "user") {
+  const headers = makeHeaders(namespace, role)
   const keys = typedKeysOf(headers)
   return HashMap.make(...keys.map(_ => [_, headers[_]!] as const))
 }

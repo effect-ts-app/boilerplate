@@ -12,7 +12,7 @@ function listener(message: MessageEvent<any>) {
 }
 
 function makeSource() {
-  const src = new ReconnectingEventSource("/api/events")
+  const src = new ReconnectingEventSource("/api/api/events")
   src.addEventListener("message", listener)
   return src
 }
