@@ -59,7 +59,7 @@ export function matchFor<Rsc extends Record<string, any>>(
 ) {
   const matchWithServices_ = <
     Key extends keyof Rsc,
-    SVC extends Record<string, Tag<any> | Effect<any, any, any>>,
+    SVC extends Record<string, Tag<any, any> | Effect<any, any, any>>,
     R2,
     E extends SupportedErrors
   >(
@@ -80,7 +80,7 @@ export function matchFor<Rsc extends Record<string, any>>(
 
   const matchWithServices: <Key extends keyof Rsc>(
     action: Key
-  ) => <SVC extends Record<string, Tag<any> | Effect<any, any, any>>, R2, E extends SupportedErrors>(
+  ) => <SVC extends Record<string, Tag<any, any> | Effect<any, any, any>>, R2, E extends SupportedErrors>(
     services: SVC,
     f: (
       req: ReqFromSchema<GetRequest<Rsc[Key]>>,

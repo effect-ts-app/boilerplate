@@ -9,6 +9,7 @@ import { fetch } from "cross-fetch"
 
 import * as Logger from "@effect/io/Logger"
 import * as Level from "@effect/io/Logger/Level"
+import * as Scope from "@effect/io/Scope"
 
 const POOL_ID = process.env["VITEST_POOL_ID"]
 const PORT = 40000 + parseInt(POOL_ID ?? "1")

@@ -37,6 +37,12 @@ export const RepositoryBase = <Service>() => {
       }
       abstract remove: (item: T) => Effect<ContextMap, never, void>
       static where = makeWhere<PM>()
+      static flatMap<R1, E1, B>(f: (a: Service) => Effect<R1, E1, B>): Effect<Service | R1, E1, B> {
+        return Effect.flatMap(this as unknown as Tag<Service, Service>, f)
+      }
+      static map<B>(f: (a: Service) => B): Effect<Service, never, B> {
+        return Effect.map(this as unknown as Tag<Service, Service>, f)
+      }
     }
     return assignTag<Service>()(RepositoryBaseC)
   }
@@ -89,7 +95,7 @@ export function makeRepo<
 
         const allE = store.all.flatMap(items =>
           Do($ => {
-            const { set } = $(ContextMap.access)
+            const { set } = $(ContextMap)
             return items.map(_ => mapReverse(_, set))
           })
         )
@@ -100,7 +106,7 @@ export function makeRepo<
           return store.find(id)
             .flatMap(items =>
               Do($ => {
-                const { set } = $(ContextMap.access)
+                const { set } = $(ContextMap)
                 return items.map(_ => mapReverse(_, set))
               })
             )
@@ -114,7 +120,7 @@ export function makeRepo<
           Effect(a.toNonEmptyArray)
             .flatMapOpt(a =>
               Do($ => {
-                const { get, set } = $(ContextMap.access)
+                const { get, set } = $(ContextMap)
                 const items = a.mapNonEmpty(_ => mapToPersistenceModel(_, get))
                 const ret = $(store.batchSet(items))
                 ret.forEach(_ => set(_.id, _._etag))
@@ -130,7 +136,7 @@ export function makeRepo<
         const encode = Encoder.for(schema)
         function remove(item: T) {
           return Do($ => {
-            const { get, set } = $(ContextMap.access)
+            const { get, set } = $(ContextMap)
             const e = encode(item)
             $(store.remove(mapToPersistenceModel(e, get)))
             set(item.id, undefined)
@@ -145,8 +151,8 @@ export function makeRepo<
             mapReverse,
             parse: Parser.for(schema).unsafe,
             filter: store.filter
-              .flow(_ => _.tap(items => ContextMap.access.map(({ set }) => items.forEach(_ => set(_.id, _._etag))))),
-            all: store.all.tap(items => ContextMap.access.map(({ set }) => items.forEach(_ => set(_.id, _._etag))))
+              .flow(_ => _.tap(items => ContextMap.map(({ set }) => items.forEach(_ => set(_.id, _._etag))))),
+            all: store.all.tap(items => ContextMap.map(({ set }) => items.forEach(_ => set(_.id, _._etag))))
           },
           itemType: name,
           find,
@@ -232,7 +238,7 @@ export function makeStore<
       _ =>
         _.flatMap(map =>
           Effect.gen(function*($) {
-            const { get } = yield* $(ContextMap.access)
+            const { get } = yield* $(ContextMap)
             return new Map(
               [...map.entries()].map(([k, v]) => [k, mapToPersistenceModel(v, get)])
             )
@@ -254,7 +260,7 @@ export function makeStore<
       }
     ) {
       return Do($ => {
-        const { make } = $(StoreMaker.access)
+        const { make } = $(StoreMaker)
 
         const store = $(
           make<PM, string, T["id"]>(
@@ -284,7 +290,7 @@ export const RepositoryBaseImpl = <Service>() => {
     schema: Schema.Schema<unknown, T, ConstructorInput, E, Api>,
     mapFrom: (pm: Omit<PM, "_etag">) => E,
     mapTo: (e: E, etag: string | undefined) => PM
-  ): Tag<Service> & {
+  ): Tag<Service, Service> & {
     new(
       store: Store<PM, string>,
       publishEvents: (evt: Iterable<Evt>) => Effect<RequestContextContainer, never, void>
@@ -294,6 +300,8 @@ export const RepositoryBaseImpl = <Service>() => {
       config?: Omit<StoreConfig<PM>, "partitionValue"> & { partitionValue?: (a: PM) => string }
     ) => Effect<StoreMaker, never, Store<PM, string>>
     where: ReturnType<typeof makeWhere<PM>>
+    flatMap: <R1, E1, B>(f: (a: Service) => Effect<R1, E1, B>) => Effect<Service | R1, E1, B>
+    map: <B>(f: (a: Service) => B) => Effect<Service, never, B>
   } => {
     const encode = Encoder.for(schema)
     return class extends RepositoryBase<Service>()<T, PM, Evt, ItemType>(itemType) {
@@ -325,7 +333,7 @@ export const RepositoryBaseImpl = <Service>() => {
         return this.store.find(id)
           .flatMap(items =>
             Do($ => {
-              const { set } = $(ContextMap.access)
+              const { set } = $(ContextMap)
               return items.map(_ => this.mapReverse(_, set))
             })
           )
@@ -334,7 +342,7 @@ export const RepositoryBaseImpl = <Service>() => {
       override find = (id: T["id"]) => this.findE(id).flatMapOpt(EParserFor(schema).condemnDie)
       private allE = this.store.all.flatMap(items =>
         Do($ => {
-          const { set } = $(ContextMap.access)
+          const { set } = $(ContextMap)
           return items.map(_ => this.mapReverse(_, set))
         })
       )
@@ -344,7 +352,7 @@ export const RepositoryBaseImpl = <Service>() => {
         Effect(a.toNonEmptyArray)
           .flatMapOpt(a =>
             Do($ => {
-              const { get, set } = $(ContextMap.access)
+              const { get, set } = $(ContextMap)
               const items = a.mapNonEmpty(_ => this.mapToPersistenceModel(_, get))
               const ret = $(this.store.batchSet(items))
               ret.forEach(_ => set(_.id, _._etag))
@@ -359,7 +367,7 @@ export const RepositoryBaseImpl = <Service>() => {
 
       remove = (item: T) => {
         return Do($ => {
-          const { get, set } = $(ContextMap.access)
+          const { get, set } = $(ContextMap)
           const e = encode(item)
           $(this.store.remove(this.mapToPersistenceModel(e, get)))
           set(item.id, undefined)
@@ -370,8 +378,8 @@ export const RepositoryBaseImpl = <Service>() => {
         mapReverse: this.mapReverse,
         parse: Parser.for(schema).unsafe,
         filter: this.store.filter
-          .flow(_ => _.tap(items => ContextMap.access.map(({ set }) => items.forEach(_ => set(_.id, _._etag))))),
-        all: this.store.all.tap(items => ContextMap.access.map(({ set }) => items.forEach(_ => set(_.id, _._etag))))
+          .flow(_ => _.tap(items => ContextMap.map(({ set }) => items.forEach(_ => set(_.id, _._etag))))),
+        all: this.store.all.tap(items => ContextMap.map(({ set }) => items.forEach(_ => set(_.id, _._etag))))
       }
     }
   }

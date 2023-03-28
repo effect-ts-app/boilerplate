@@ -49,7 +49,7 @@ export function RequestEnv(handler: { Request: any }) {
  * @tsplus static CurrentUser fromUserProfile
  */
 export function fromUserProfile() {
-  return UserRepo.accessWithEffect(_ => _.getCurrentUser)
+  return UserRepo.flatMap(_ => _.getCurrentUser)
     .map(_ => CurrentUser.make({ get: Effect(_) }))
 }
 
@@ -76,7 +76,7 @@ export function handleRequestEnv<
           Effect.all({
             context: RequestContextContainer.get,
             // TODO: user should only be fetched and type wise available when not allow anonymous
-            user: UserProfile.accessWithEffect(_ => _.get.catchAll(() => Effect(undefined)))
+            user: UserProfile.flatMap(_ => _.get.catchAll(() => Effect(undefined)))
           })
             .flatMap(ctx => restore(handler.h as (i: any, ctx: any) => Effect<R, ResE, ResA>)(pars, ctx))
         )

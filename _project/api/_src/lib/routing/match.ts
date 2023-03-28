@@ -68,7 +68,7 @@ export function matchAuth<
     errorHandler,
     makeMiddlewareContext,
     req =>
-      RequestContextContainer.accessWithEffect(_ => {
+      RequestContextContainer.flatMap(_ => {
         const r = makeUserProfileFromUserHeader(req.headers["x-user"]).exit.runSync$
         // const r = (!AUTH_DISABLED
         //   ? makeUserProfileFromAuthorizationHeader(req.headers["authorization"])

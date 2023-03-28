@@ -5,7 +5,7 @@ import { CauseException } from "@effect-app/infra/errors"
 import { ApiConfig, BaseConfig } from "./config.js"
 import { Emailer, MemQueue } from "./services.js"
 
-import { runtimeDebug } from "@effect/io/Debug"
+import { runtimeDebug } from "@effect/data/Debug"
 
 runtimeDebug.traceStackLimit = 50
 const appConfig = BaseConfig.config.runSync$

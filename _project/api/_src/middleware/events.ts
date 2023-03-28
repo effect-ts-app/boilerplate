@@ -56,7 +56,7 @@ export const events = Ex.get(
       )
 
       $(
-        Events.accessWithEffect(({ stream }) =>
+        Events.flatMap(({ stream }) =>
           stream
             .filter(_ => _.namespace === namespace)
             .runForEach(_ =>
