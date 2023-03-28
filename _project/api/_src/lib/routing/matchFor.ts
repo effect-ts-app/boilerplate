@@ -5,8 +5,8 @@ import type { SupportedErrors } from "@effect-app/infra/api/defaultErrorHandler"
 import type { _E, _R } from "@effect-app/infra/api/express/schema/requestHandler"
 import type { ReqFromSchema, ReqHandler, ResFromSchema } from "@effect-app/infra/api/routing"
 import { handle } from "@effect-app/infra/api/routing"
-import type { LowerServices, Values, ValuesR } from "@effect-app/prelude/_ext/servicesOrEffects"
-import { accessLowerServicesAndEffects_ } from "@effect-app/prelude/_ext/servicesOrEffects"
+import type { LowerServices, Values, ValuesR } from "@effect-app/prelude/_ext/allLowerFirst"
+import { allLowerFirstWith_ } from "@effect-app/prelude/_ext/allLowerFirst"
 import type { GetRequest, GetResponse } from "@effect-app/prelude/schema"
 import type { EffectTypeId } from "@effect/io/Effect"
 import type { CTX } from "./ctx.js"
@@ -73,7 +73,7 @@ export function matchFor<Rsc extends Record<string, any>>(
     matchAction(
       rsc[action],
       Effect.context<Values<SVC>>().flatMap(context =>
-        accessLowerServicesAndEffects_(services, svc => (req, ctx) =>
+        allLowerFirstWith_(services, svc => (req, ctx) =>
           f(req, { ...ctx, ...svc as any }).provideSomeContextReal(context))
       )
     )
