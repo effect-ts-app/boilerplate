@@ -1,7 +1,5 @@
 import dotenv from "dotenv"
 
-import { SendgridConfig } from "@effect-app/infra/services/Emailer"
-
 const envFile = "./.env.local"
 
 const { error } = dotenv.config({ path: envFile })

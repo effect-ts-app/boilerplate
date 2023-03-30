@@ -1,0 +1,15 @@
+diff --git a/out/index.js b/out/index.js
+index ee66eccf31d542a7a1978fe359e0ae728fd1d549..a8254eebb26bf1ccfc2e05d0df5cbc136762e469 100644
+--- a/out/index.js
++++ b/out/index.js
+@@ -42,7 +42,9 @@ function createProgram(options) {
+         const vueCompilerOptions = getVueCompilerOptions();
+         const scripts = new Map();
+         const vueLsHost = new Proxy({
+-            resolveModuleNames: undefined,
++			// avoid failed with tsc built-in fileExists
++			resolveModuleNames: undefined,
++			resolveModuleNameLiterals: undefined,
+             writeFile: (fileName, content) => {
+                 if (fileName.indexOf('__VLS_') === -1) {
+                     ctx.options.host.writeFile(fileName, content, false);

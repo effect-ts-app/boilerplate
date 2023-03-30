@@ -1,8 +1,7 @@
 {
   "importMap": {
     "^(.*)/_project/(.*)/_src/(.*)\\.[cm]?[tj]s$": "@effect-app-boilerplate/$2/$3",
-    "^(.*)/_project/(.*)/_src/(.*)\\.[cm]?[tj]s$": "@effect-app-boilerplate/$2/$3",
     "^(.*)/node_modules/@effect-app-boilerplate/(.*)/_src/(.*)\\.[cm]?[tj]s$": "@effect-app-boilerplate/$2/$3",
-    "^(.*)/node_modules/(.*)\\.[cm]?[tj]s$": "$2"
+    ".pnpm/[^\/]*/node_modules/(.*)": "$1"
   }
 }
