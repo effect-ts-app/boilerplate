@@ -1,18 +1,16 @@
 import type { Repository } from "@effect-app/infra/services/Repository"
+import type { RequestContextContainer } from "@effect-app/infra/services/RequestContextContainer"
 import { ContextMap, StoreMaker } from "@effect-app/infra/services/Store"
-import type { Filter, Store, StoreConfig, Where } from "@effect-app/infra/services/Store"
+import type { Filter, StoreConfig, Where } from "@effect-app/infra/services/Store"
 import type { ParserEnv } from "@effect-app/schema/custom/Parser"
 import type { InvalidStateError, OptimisticConcurrencyException } from "api/errors.js"
 import type {} from "@effect/data/Equal"
 import type {} from "@effect/data/Hash"
-import { Effect } from "@effect-app/core/Effect"
 import type { Opt } from "@effect-app/core/Option"
 import { makeCodec } from "@effect-app/infra/api/codec"
 import { makeFilters } from "@effect-app/infra/filter"
-import type { RequestContextContainer } from "@effect-app/infra/services/RequestContextContainer"
 import type { Chunk, Schema } from "@effect-app/prelude"
 import { EParserFor } from "@effect-app/prelude/schema"
-import { assignTag } from "@effect-app/prelude/service"
 
 export const RepositoryBase = <Service>() => {
   return <T extends { id: string }, PM extends { id: string; _etag: string | undefined }, Evt, ItemType extends string>(
@@ -49,12 +47,12 @@ export const RepositoryBase = <Service>() => {
 }
 
 export function makeRepo<
-  T extends { id: string },
   PM extends { id: string; _etag: string | undefined },
   Evt = never
 >() {
   return <
     ItemType extends string,
+    T extends { id: string },
     ConstructorInput,
     Api,
     E extends { id: string }
@@ -84,8 +82,8 @@ export function makeRepo<
     const mkStore = makeStore<PM>()(name, schema, mapTo)
 
     function make(
-      makeInitial: Effect<never, never, never[] | readonly [T, ...T[]]>,
-      publishEvents: (evt: Iterable<Evt>) => Effect<never, never, void>,
+      publishEvents: (evt: NonEmptyReadonlyArray<Evt>) => Effect<RequestContextContainer, never, void>,
+      makeInitial?: Effect<never, never, readonly T[]>,
       config?: Omit<StoreConfig<PM>, "partitionValue"> & {
         partitionValue?: (a: PM) => string
       }
@@ -129,9 +127,11 @@ export function makeRepo<
 
         const saveAll = (a: Iterable<T>) => saveAllE(a.toChunk.map(Encoder.for(schema)))
 
-        const saveAndPublish = (items: Iterable<T>, _: Iterable<Evt> = []) =>
+        const saveAndPublish = (items: Iterable<T>, events: Iterable<Evt> = []) =>
           saveAll(items)
-            > publishEvents(_)
+            > Effect(events.toNonEmptyArray)
+              // TODO: for full consistency the events should be stored within the same database transaction, and then picked up.
+              .flatMapOpt(publishEvents)
 
         const encode = Encoder.for(schema)
         function remove(item: T) {
@@ -254,7 +254,7 @@ export function makeStore<
     }
 
     function makeStore(
-      makeInitial: Effect<never, never, never[] | readonly [T, ...T[]]>,
+      makeInitial?: Effect<never, never, readonly T[]>,
       config?: Omit<StoreConfig<PM>, "partitionValue"> & {
         partitionValue?: (a: PM) => string
       }
@@ -265,7 +265,10 @@ export function makeStore<
         const store = $(
           make<PM, string, T["id"]>(
             pluralize(name),
-            makeInitial.flatMap(encodeToMapPM).setupNamedRequest("initial"),
+            makeInitial
+              ? makeInitial
+                .flatMap(encodeToMapPM).setupNamedRequest("initial")
+              : undefined,
             {
               ...config,
               partitionValue: config?.partitionValue ?? (_ => "primary") /*(isIntegrationEvent(r) ? r.companyId : r.id*/
@@ -290,96 +293,75 @@ export const RepositoryBaseImpl = <Service>() => {
     schema: Schema.Schema<unknown, T, ConstructorInput, E, Api>,
     mapFrom: (pm: Omit<PM, "_etag">) => E,
     mapTo: (e: E, etag: string | undefined) => PM
-  ): Tag<Service, Service> & {
-    new(
-      store: Store<PM, string>,
-      publishEvents: (evt: Iterable<Evt>) => Effect<RequestContextContainer, never, void>
-    ): Repository<T, PM, Evt, ItemType>
-    makeStore: (
-      makeInitial: Effect<never, never, never[] | readonly [T, ...T[]]>,
-      config?: Omit<StoreConfig<PM>, "partitionValue"> & { partitionValue?: (a: PM) => string }
-    ) => Effect<StoreMaker, never, Store<PM, string>>
+  ): (abstract new() => Repository<T, PM, Evt, ItemType>) & Tag<Service, Service> & {
+    make(
+      publishEvents: (evt: NonEmptyReadonlyArray<Evt>) => Effect<RequestContextContainer, never, void>,
+      makeInitial?: Effect<never, never, readonly T[]>,
+      config?: Omit<StoreConfig<PM>, "partitionValue"> & {
+        partitionValue?: (a: PM) => string
+      }
+    ): Effect<StoreMaker, never, Repository<T, PM, Evt, ItemType>>
     where: ReturnType<typeof makeWhere<PM>>
     flatMap: <R1, E1, B>(f: (a: Service) => Effect<R1, E1, B>) => Effect<Service | R1, E1, B>
     map: <B>(f: (a: Service) => B) => Effect<Service, never, B>
   } => {
-    const encode = Encoder.for(schema)
-    return class extends RepositoryBase<Service>()<T, PM, Evt, ItemType>(itemType) {
+    const mkRepo = makeRepo<PM, Evt>()(itemType, schema, mapFrom, mapTo)
+    abstract class Cls extends RepositoryBase<Service>()<T, PM, Evt, ItemType>(itemType) {
+      static readonly make = mkRepo.make
+    }
+    return Cls
+  }
+}
+
+export const RepositoryDefaultImpl = <Service>() => {
+  return <
+    PM extends { id: string; _etag: string | undefined },
+    Evt = never
+  >() =>
+  <ItemType extends string, T extends { id: string }, ConstructorInput, Api, E extends { id: string }>(
+    itemType: ItemType,
+    schema: Schema.Schema<unknown, T, ConstructorInput, E, Api>,
+    mapFrom: (pm: Omit<PM, "_etag">) => E,
+    mapTo: (e: E, etag: string | undefined) => PM
+  ): Tag<Service, Service> & {
+    new(
+      impl: Repository<T, PM, Evt, ItemType>
+    ): Repository<T, PM, Evt, ItemType>
+    make(
+      publishEvents: (evt: NonEmptyReadonlyArray<Evt>) => Effect<RequestContextContainer, never, void>,
+      makeInitial?: Effect<never, never, readonly T[]>,
+      config?: Omit<StoreConfig<PM>, "partitionValue"> & {
+        partitionValue?: (a: PM) => string
+      }
+    ): Effect<StoreMaker, never, Repository<T, PM, Evt, ItemType>>
+    toLayer(
+      publishEvents: (evt: NonEmptyReadonlyArray<Evt>) => Effect<RequestContextContainer, never, void>,
+      makeInitial?: Effect<never, never, readonly T[]>,
+      config?: Omit<StoreConfig<PM>, "partitionValue"> & {
+        partitionValue?: (a: PM) => string
+      }
+    ): Layer<StoreMaker, never, Service>
+    where: ReturnType<typeof makeWhere<PM>>
+    flatMap: <R1, E1, B>(f: (a: Service) => Effect<R1, E1, B>) => Effect<Service | R1, E1, B>
+    map: <B>(f: (a: Service) => B) => Effect<Service, never, B>
+    repo: Repository<T, PM, Evt, ItemType> // just a helper to type the constructor
+  } => {
+    return class extends RepositoryBaseImpl<Service>()<PM, Evt>()(itemType, schema, mapFrom, mapTo) {
+      static toLayer(
+        publishEvents: (evt: NonEmptyReadonlyArray<Evt>) => Effect<RequestContextContainer, never, void>,
+        makeInitial?: Effect<never, never, readonly T[]>,
+        config?: Omit<StoreConfig<PM>, "partitionValue"> & {
+          partitionValue?: (a: PM) => string
+        }
+      ) {
+        return this.make(publishEvents, makeInitial, config).map(impl => new this(impl) as any as Service).toLayer(this)
+      }
+      static repo: any
       constructor(
-        private readonly store: Store<PM, string>,
-        private readonly publishEvents: (evt: Iterable<Evt>) => Effect<RequestContextContainer, never, void>
+        impl: Repository<T, PM, Evt, ItemType>
       ) {
         super()
-      }
-
-      static makeStore = makeStore<PM>()(itemType, schema, mapTo)
-
-      private mapToPersistenceModel = (
-        e: E,
-        getEtag: (id: string) => string | undefined
-      ): PM => {
-        return mapTo(e, getEtag(e.id))
-      }
-
-      private mapReverse = (
-        { _etag, ...e }: PM,
-        setEtag: (id: string, eTag: string | undefined) => void
-      ): E => {
-        setEtag(e.id, _etag)
-        return mapFrom(e)
-      }
-
-      private findE(id: T["id"]) {
-        return this.store.find(id)
-          .flatMap(items =>
-            Do($ => {
-              const { set } = $(ContextMap)
-              return items.map(_ => this.mapReverse(_, set))
-            })
-          )
-      }
-
-      override find = (id: T["id"]) => this.findE(id).flatMapOpt(EParserFor(schema).condemnDie)
-      private allE = this.store.all.flatMap(items =>
-        Do($ => {
-          const { set } = $(ContextMap)
-          return items.map(_ => this.mapReverse(_, set))
-        })
-      )
-
-      override all = this.allE.flatMap(_ => _.forEachEffect(EParserFor(schema).condemnDie))
-      private saveAllE = (a: Iterable<E>) =>
-        Effect(a.toNonEmptyArray)
-          .flatMapOpt(a =>
-            Do($ => {
-              const { get, set } = $(ContextMap)
-              const items = a.mapNonEmpty(_ => this.mapToPersistenceModel(_, get))
-              const ret = $(this.store.batchSet(items))
-              ret.forEach(_ => set(_.id, _._etag))
-            })
-          )
-
-      private saveAll = (a: Iterable<T>) => this.saveAllE(a.toChunk.map(Encoder.for(schema)))
-
-      override saveAndPublish = (items: Iterable<T>, _: Iterable<Evt> = []) =>
-        this.saveAll(items)
-          > this.publishEvents(_)
-
-      remove = (item: T) => {
-        return Do($ => {
-          const { get, set } = $(ContextMap)
-          const e = encode(item)
-          $(this.store.remove(this.mapToPersistenceModel(e, get)))
-          set(item.id, undefined)
-        })
-      }
-
-      override utils = {
-        mapReverse: this.mapReverse,
-        parse: Parser.for(schema).unsafe,
-        filter: this.store.filter
-          .flow(_ => _.tap(items => ContextMap.map(({ set }) => items.forEach(_ => set(_.id, _._etag))))),
-        all: this.store.all.tap(items => ContextMap.map(({ set }) => items.forEach(_ => set(_.id, _._etag))))
+        Object.assign(this, impl)
       }
     }
   }
