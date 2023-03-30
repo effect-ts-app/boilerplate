@@ -1,6 +1,6 @@
 import { User } from "@effect-app-boilerplate/models/User"
+import { RepositoryDefaultImpl } from "@effect-app/infra/services/RepositoryBase"
 import { UserProfile } from "../UserProfile.js"
-import { RepositoryDefaultImpl } from "./RepositoryBase.js"
 
 export interface UserPersistenceModel extends User.Encoded {
   _etag: string | undefined
