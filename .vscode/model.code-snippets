@@ -15,6 +15,7 @@
     "ModelComplete": {
         "prefix": "moc",
         "body": [
+            "/** @tsplus type $1 */",
             "@useClassFeaturesForSchema",
             "export class $1 extends Model<$1>()({ // TODO MNModel<$1, $1.ConstructorInput, $1.Encoded, $1.Props> ()({",
             "$2",
@@ -27,6 +28,7 @@
     "Model": {
         "prefix": "mo",
         "body": [
+            "/** @tsplus type $1 */",
             "@useClassFeaturesForSchema",
             "export class $1 extends Model<$1>()({$2}) {}",
             ""
@@ -94,17 +96,14 @@
         ],
         "description": "Defines a Response signature"
     },
-    "handle": {
-        "prefix": "handle",
+    "controller": {
+        "prefix": "controller",
         "body": [
-            "import { handle } from \"@effect-app/infra-adapters/app\"",
-            "import { $2s } from \"@getsignalz/resources/$2s\"",
-            "import { Effect, NonEmptyArray, Maybe, Sync } from \"@effect-app/prelude\"",
+            "const { controllers, matchWithServices } = matchFor($1Rsc)",
             "",
-            "export const $1$2 = handle($2s.$1)((req) =>",
-            "Effect.gen(function* ($) {",
-            "   yield* $(Effect(null))",
-            "}))"
+            "const $2 = matchWithServices(\"$2\")($3)",
+            "",
+            "export const $1Controllers = controllers({ $2 })"
         ]
     }
 }
