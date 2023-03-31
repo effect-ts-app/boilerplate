@@ -168,10 +168,12 @@
         "properties": {
           "completed": {
             "minimum": 0,
+            "exclusiveMinimum": false,
             "type": "number"
           },
           "total": {
             "minimum": 0,
+            "exclusiveMinimum": false,
             "type": "number"
           }
         },
