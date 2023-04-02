@@ -5,6 +5,7 @@
   "scripts": {
     "build": "nuxt build",
     "compile": "nuxt prepare && effect-app-cli watch vue-tsc --noEmit",
+    "watch": "([ ! -d './.nuxt' ] && nuxt prepare || echo 'no prepare') && effect-app-cli watch vue-tsc --noEmit -w",
     "dev": "PORT=4000 nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
