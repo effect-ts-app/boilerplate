@@ -29,8 +29,8 @@ export function makeHeaders(namespace: string, role?: "manager" | "user") {
       ? { "authorization": `Basic ${Buffer.from(basicAuthCredentials).toString("base64")}` }
       : undefined,
     ...cookie
-      ? { "Cookie": cookie } :
-      undefined,
+      ? { "Cookie": cookie }
+      : undefined,
     "x-store-id": namespace
   }
 }

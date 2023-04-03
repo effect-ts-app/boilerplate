@@ -1,11 +1,11 @@
 import { OperationsRsc } from "@effect-app-boilerplate/resources"
 import { Operations } from "api/services.js"
 
-const { controllers, matchWithServices } = matchFor(OperationsRsc)
+const operations = matchFor(OperationsRsc)
 
-const Find = matchWithServices("Find")(
+const Find = operations.matchFind(
   { Operations },
   ({ id }, { operations }) => operations.find(id).map(_ => _.getOrNull)
 )
 
-export const OperationsControllers = controllers({ Find })
+export default operations.controllers({ Find })

@@ -1,5 +1,7 @@
-// codegen:start {preset: barrel, include: ./Usecases/*.ts, export}
-export * from "./Usecases/HelloWorld.Controllers.js"
-export * from "./Usecases/Me.Controllers.js"
-export * from "./Usecases/Operations.Controllers.js"
+// codegen:start {preset: barrel, include: ./Usecases/*.ts, import: default}
+import usecasesHelloWorldControllers from "./Usecases/HelloWorld.Controllers.js"
+import usecasesMeControllers from "./Usecases/Me.Controllers.js"
+import usecasesOperationsControllers from "./Usecases/Operations.Controllers.js"
+
+export { usecasesHelloWorldControllers, usecasesMeControllers, usecasesOperationsControllers }
 // codegen:end

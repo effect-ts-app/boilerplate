@@ -2,9 +2,9 @@ import { User } from "@effect-app-boilerplate/models/User"
 import { HelloWorldRsc } from "@effect-app-boilerplate/resources"
 import { UserRepo } from "api/services.js"
 
-const { controllers, matchWithServices } = matchFor(HelloWorldRsc)
+const helloWorld = matchFor(HelloWorldRsc)
 
-const Get = matchWithServices("Get")(
+const Get = helloWorld.matchGet(
   { UserRepo },
   (_req, { context, userRepo }) =>
     userRepo.getCurrentUser
@@ -17,4 +17,4 @@ const Get = matchWithServices("Get")(
       }))
 )
 
-export const HelloWorldControllers = controllers({ Get })
+export default helloWorld.controllers({ Get })

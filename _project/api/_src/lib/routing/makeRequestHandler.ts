@@ -171,8 +171,8 @@ export function makeRequestHandler<
                       reqBody: pretty(pars.body),
                       reqCookies: pretty(pars.cookies),
                       reqHeaders: pars.headers.$$.pretty
-                    } :
-                    undefined
+                    }
+                    : undefined
                 })
               )
             ).zipRight(
@@ -256,8 +256,8 @@ export function makeRequestHandler<
                     ...s.verbose
                       ? {
                         resHeaders: headers.$$.pretty
-                      } :
-                      undefined
+                      }
+                      : undefined
                   }))
                 }).setupRequestFrom
               )

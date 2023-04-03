@@ -78,9 +78,11 @@ export function matchFor<Rsc extends Record<string, any>>(
       )
     )
 
-  const matchWithServices: <Key extends keyof Rsc>(
-    action: Key
-  ) => <SVC extends Record<string, Tag<any, any> | Effect<any, any, any>>, R2, E extends SupportedErrors>(
+  type MatchWithServices<Key extends keyof Rsc> = <
+    SVC extends Record<string, Tag<any, any> | Effect<any, any, any>>,
+    R2,
+    E extends SupportedErrors
+  >(
     services: SVC,
     f: (
       req: ReqFromSchema<GetRequest<Rsc[Key]>>,
@@ -93,23 +95,13 @@ export function matchFor<Rsc extends Record<string, any>>(
       req: ReqFromSchema<GetRequest<Rsc[Key]>>,
       ctx: CTX
     ) => Effect<Exclude<R2, Values<SVC>>, E, ResFromSchema<GetResponse<Rsc[Key]>>>
-  > = action => (services, f) => matchWithServices_(action, services, f)
+  >
 
-  const matchWithEffect_ = <Key extends keyof Rsc, R, R2, E extends SupportedErrors>(
-    action: Key,
-    f: Effect<
-      R,
-      never,
-      (
-        req: ReqFromSchema<GetRequest<Rsc[Key]>>,
-        ctx: CTX
-      ) => Effect<R2, E, ResFromSchema<GetResponse<Rsc[Key]>>>
-    >
-  ) => matchAction(rsc[action], f)
-
-  const matchWithEffect: <Key extends keyof Rsc>(
+  const matchWithServices: <Key extends keyof Rsc>(
     action: Key
-  ) => <R, R2, E extends SupportedErrors>(
+  ) => MatchWithServices<Key> = action => (services, f) => matchWithServices_(action, services, f)
+
+  type MatchWithEffect<Key extends keyof Rsc> = <R, R2, E extends SupportedErrors>(
     f: Effect<
       R,
       never,
@@ -125,7 +117,23 @@ export function matchFor<Rsc extends Record<string, any>>(
       req: ReqFromSchema<GetRequest<Rsc[Key]>>,
       ctx: CTX
     ) => Effect<R2, E, ResFromSchema<GetResponse<Rsc[Key]>>>
-  > = action => f => matchWithEffect_(action, f)
+  >
+
+  const matchWithEffect_ = <Key extends keyof Rsc, R, R2, E extends SupportedErrors>(
+    action: Key,
+    f: Effect<
+      R,
+      never,
+      (
+        req: ReqFromSchema<GetRequest<Rsc[Key]>>,
+        ctx: CTX
+      ) => Effect<R2, E, ResFromSchema<GetResponse<Rsc[Key]>>>
+    >
+  ) => matchAction(rsc[action], f)
+
+  const matchWithEffect: <Key extends keyof Rsc>(
+    action: Key
+  ) => MatchWithEffect<Key> = action => f => matchWithEffect_(action, f)
 
   const matchWith_ = <Key extends keyof Rsc, R2, E extends SupportedErrors>(
     action: Key,
@@ -135,9 +143,7 @@ export function matchFor<Rsc extends Record<string, any>>(
     ) => Effect<R2, E, ResFromSchema<GetResponse<Rsc[Key]>>>
   ) => matchAction(rsc[action], Effect.sync(() => f))
 
-  const matchWith: <Key extends keyof Rsc>(
-    action: Key
-  ) => <R2, E extends SupportedErrors>(
+  type MatchWith<Key extends keyof Rsc> = <R2, E extends SupportedErrors>(
     f: (
       req: ReqFromSchema<GetRequest<Rsc[Key]>>,
       ctx: CTX
@@ -149,7 +155,12 @@ export function matchFor<Rsc extends Record<string, any>>(
       req: ReqFromSchema<GetRequest<Rsc[Key]>>,
       ctx: CTX
     ) => Effect<R2, E, ResFromSchema<GetResponse<Rsc[Key]>>>
-  > = action => f => matchWith_(action, f)
+  >
+
+  const matchWith: <Key extends keyof Rsc>(
+    action: Key
+  ) => MatchWith<Key> = action => f => matchWith_(action, f)
+
   type Keys = keyof Rsc
 
   type Handler<K extends keyof Rsc, R> = (
@@ -158,6 +169,9 @@ export function matchFor<Rsc extends Record<string, any>>(
   ) => Effect<R, SupportedErrors, ResFromSchema<GetResponse<Rsc[K]>>>
 
   type GetHandler<T> = T extends Handler<any, any> ? ReturnType<T> : never
+
+  // TODO
+  console.log({ matchWith, matchWithEffect })
 
   const controllers = <
     THandlers extends {
@@ -189,10 +203,25 @@ export function matchFor<Rsc extends Record<string, any>>(
     >
   }
 
-  return {
-    matchWith,
-    matchWithEffect,
-    matchWithServices,
-    controllers
+  // TODO: overloads for match vs matchWith vs matchWithServices
+  const r = {
+    controllers,
+    ...rsc.$$.keys.reduce(
+      (prev, cur) => {
+        ;(prev as any)[`match${cur as any}`] = Object.assign(matchWithServices(cur), {
+          with: matchWith(cur),
+          withEffect: matchWithEffect(cur)
+        }) as any
+        return prev
+      },
+      {} as {
+        // @ts-expect-error bla
+        [Key in Keys as `match${Key}`]: MatchWithServices<Key> & {
+          with: MatchWith<Key>
+          withEffect: MatchWithEffect<Key>
+        }
+      }
+    )
   }
+  return r
 }

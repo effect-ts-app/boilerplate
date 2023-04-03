@@ -46,7 +46,6 @@ module.exports = (dirName, forceTS = false, project = undefined) => {
             "semiColons": "asi",
             "quoteStyle": "alwaysDouble",
             "trailingCommas": "never",
-            "operatorPosition": "maintain",
             "useParentheses": "preferNone"
           }
         }

@@ -4,8 +4,8 @@ import * as Effect from "@effect/io/Effect"
 import * as Fiber from "@effect/io/Fiber"
 import * as Logger from "@effect/io/Logger"
 import * as Level from "@effect/io/Logger/Level"
-import { constantCase } from "change-case"
 import * as Scope from "@effect/io/Scope"
+import { constantCase } from "change-case"
 
 const makeBasicRuntime = <R, E, A>(layer: Layer<R, E, A>) =>
   Effect.gen(function*($) {
