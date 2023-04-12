@@ -5,7 +5,7 @@ const operations = matchFor(OperationsRsc)
 
 const Find = operations.matchFind(
   { Operations },
-  ({ id }, { operations }) => operations.find(id).map(_ => _.getOrNull)
+  ({ id }, { operations }) => operations.find(id).map((_) => _.getOrNull)
 )
 
 export default operations.controllers({ Find })

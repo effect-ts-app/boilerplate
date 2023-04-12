@@ -67,13 +67,13 @@ export function matchAuth<
     requestHandler,
     errorHandler,
     makeMiddlewareContext,
-    req =>
-      RequestContextContainer.flatMap(_ => {
+    (req) =>
+      RequestContextContainer.flatMap((_) => {
         const r = makeUserProfileFromUserHeader(req.headers["x-user"]).exit.runSync$
         // const r = (!AUTH_DISABLED
         //   ? makeUserProfileFromAuthorizationHeader(req.headers["authorization"])
         //   : makeUserProfileFromUserHeader(req.headers["x-user"])).exit.runSync$
-        return _.update(_ => ({ ..._, user: r.isSuccess() ? r.value : undefined }))
+        return _.update((_) => ({ ..._, user: r.isSuccess() ? r.value : undefined }))
       })
   )
   const path = requestHandler.Request.path.split("?")[0]

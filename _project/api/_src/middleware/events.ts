@@ -6,7 +6,7 @@ import { Events } from "../services/Events.js"
 export const events = Ex.get(
   "/events",
   (req, res) =>
-    Do($ => {
+    Do(($) => {
       req.socket.setTimeout(0)
       req.socket.setNoDelay(true)
       req.socket.setKeepAlive(true)
@@ -41,16 +41,17 @@ export const events = Ex.get(
 
       $(Effect.logInfo("$ start listening to events"))
       $(
-        Effect.sync(() => {
-          try {
-            // console.log("keep alive")
-            // writeAndLogError("id: keep-alive\ndata: \"keep-alive\"\n\n")
-            writeAndLogError(":keep-alive\n\n")
-          } catch (err) {
-            console.error("keepAlive Error", err)
-            throw err
-          }
-        })
+        Effect
+          .sync(() => {
+            try {
+              // console.log("keep alive")
+              // writeAndLogError("id: keep-alive\ndata: \"keep-alive\"\n\n")
+              writeAndLogError(":keep-alive\n\n")
+            } catch (err) {
+              console.error("keepAlive Error", err)
+              throw err
+            }
+          })
           .schedule(Schedule.fixed(Duration.seconds(15)))
           .forkScoped
       )
@@ -58,8 +59,8 @@ export const events = Ex.get(
       $(
         Events.flatMap(({ stream }) =>
           stream
-            .filter(_ => _.namespace === namespace)
-            .runForEach(_ =>
+            .filter((_) => _.namespace === namespace)
+            .runForEach((_) =>
               Effect(
                 writeAndLogError(
                   `id: ${_.evt.id}\ndata: ${JSON.stringify(ClientEvents.Encoder(_.evt))}\n\n`
@@ -69,16 +70,19 @@ export const events = Ex.get(
             .forkScoped
         )
       )
-      $(Effect.async<never, never, void>(cb => {
+      $(Effect.async<never, never, void>((cb) => {
         res.on("close", () => {
           console.log("client dropped me res CLOSE")
           cb(Effect(void 0 as void))
           res.end()
         })
       }))
-    }).scoped
-      .tapBothInclAbort(() => Effect.logDebug("$ stop listening to events"), () =>
-        Effect.logInfo("$ stop listening to events"))
+    })
+      .scoped
+      .tapBothInclAbort(
+        () => Effect.logDebug("$ stop listening to events"),
+        () => Effect.logInfo("$ stop listening to events")
+      )
       .tapErrorCause(reportRequestError)
       .setupNamedRequest("events")
 )

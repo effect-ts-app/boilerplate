@@ -9,7 +9,7 @@
     "test": "playwright test -c test-out",
     "test:watch": "playwright-watch test",
     "build": "tsc --build",
-    "lint": "NODE_OPTIONS=--max-old-space-size=6144 ESLINT_TS=1 eslint .",
+    "lint": "NODE_OPTIONS=--max-old-space-size=8192 ESLINT_TS=1 eslint .",
     "lint:watch": "ESLINT_TS=1 esw -w --changed --clear --ext ts,tsx .",
     "autofix": "pnpm lint --fix",
     "up": "pnpm run update && pnpm exec-update",

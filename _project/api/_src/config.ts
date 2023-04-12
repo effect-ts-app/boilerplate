@@ -3,13 +3,15 @@ import { BaseConfig } from "@effect-app-boilerplate/messages/config"
 const STORAGE_VERSION = "1"
 
 const StorageConfig = Config.all({
-  url: Config.secretURL("url")
+  url: Config
+    .secretURL("url")
     .withDefault(ConfigSecretURL.fromString("mem://"))
     .nested("storage"),
   dbName: BaseConfig.map(({ env, serviceName }) =>
     `${serviceName}${env === "prod" ? "" : env === "demo" ? "-demo" : "-dev"}`
   ),
-  prefix: Config.string("prefix")
+  prefix: Config
+    .string("prefix")
     .nested("storage")
     .orElse(() => BaseConfig.map(({ env }) => (env === "prod" ? "" : `${env}_v${STORAGE_VERSION}_`)))
 })

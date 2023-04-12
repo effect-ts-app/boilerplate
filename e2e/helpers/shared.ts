@@ -22,7 +22,7 @@ export function makeHeaders(namespace: string, role?: "manager" | "user") {
     const f = readFileSync("./storageState." + role + ".json", "utf-8")
     const p = JSON.parse(f) as { cookies: { name: string; value: string }[] }
     const cookies = p.cookies
-    cookie = cookies.map(_ => `${_.name}=${_.value}`).join(";")
+    cookie = cookies.map((_) => `${_.name}=${_.value}`).join(";")
   }
   return <Record<string, string>> {
     ...basicAuthCredentials
@@ -38,7 +38,7 @@ export function makeHeaders(namespace: string, role?: "manager" | "user") {
 export function makeHeadersHashMap(namespace: string, role?: "manager" | "user") {
   const headers = makeHeaders(namespace, role)
   const keys = typedKeysOf(headers)
-  return HashMap.make(...keys.map(_ => [_, headers[_]!] as const))
+  return HashMap.make(...keys.map((_) => [_, headers[_]!] as const))
 }
 
 type Env = ApiConfig | H.HttpOps

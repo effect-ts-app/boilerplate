@@ -38,7 +38,7 @@ export function RequestEnv(handler: { Request: any }) {
       return ctx.add(
         UserProfile,
         UserProfile.make({
-          get: Effect(userProfile).flatMap(_ => _.encaseInEffect(() => new NotLoggedInError()))
+          get: Effect(userProfile).flatMap((_) => _.encaseInEffect(() => new NotLoggedInError()))
         })
       )
     })
@@ -49,8 +49,9 @@ export function RequestEnv(handler: { Request: any }) {
  * @tsplus static CurrentUser fromUserProfile
  */
 export function fromUserProfile() {
-  return UserRepo.flatMap(_ => _.getCurrentUser)
-    .map(_ => CurrentUser.make({ get: Effect(_) }))
+  return UserRepo
+    .flatMap((_) => _.getCurrentUser)
+    .map((_) => CurrentUser.make({ get: Effect(_) }))
 }
 
 export type RequestEnv = ContextA<Effect.Success<ReturnType<ReturnType<typeof RequestEnv>>>>
@@ -72,13 +73,14 @@ export function handleRequestEnv<
     handler: {
       ...handler,
       h: (pars: any) =>
-        Debug.untraced(restore =>
-          Effect.all({
-            context: RequestContextContainer.get,
-            // TODO: user should only be fetched and type wise available when not allow anonymous
-            user: UserProfile.flatMap(_ => _.get.catchAll(() => Effect(undefined)))
-          })
-            .flatMap(ctx => restore(handler.h as (i: any, ctx: any) => Effect<R, ResE, ResA>)(pars, ctx))
+        Debug.untraced((restore) =>
+          Effect
+            .all({
+              context: RequestContextContainer.get,
+              // TODO: user should only be fetched and type wise available when not allow anonymous
+              user: UserProfile.flatMap((_) => _.get.catchAll(() => Effect(undefined)))
+            })
+            .flatMap((ctx) => restore(handler.h as (i: any, ctx: any) => Effect<R, ResE, ResA>)(pars, ctx))
         )
     },
     makeContext: RequestEnv(handler)

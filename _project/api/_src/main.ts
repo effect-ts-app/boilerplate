@@ -48,7 +48,7 @@ export class AppException<E> extends CauseException<E> {
     super(cause, "App")
   }
 }
-const reportAppError = reportError(cause => new AppException(cause))
+const reportAppError = reportError((cause) => new AppException(cause))
 
 program
   .tapErrorCause(reportAppError)

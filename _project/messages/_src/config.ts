@@ -24,7 +24,7 @@ const SendgridConfig = Config.all({
     ConfigSecret.fromString("")
   ),
   defaultFrom: Config(FROM),
-  subjectPrefix: envConfig.map(env => `[${serviceName}] [${env}] `)
+  subjectPrefix: envConfig.map((env) => `[${serviceName}] [${env}] `)
 })
 
 export const BaseConfig = Config.all({

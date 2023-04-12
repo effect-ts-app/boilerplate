@@ -21,7 +21,8 @@ export function refreshAndWaitAForOperation<R2, E2, A2, R, E>(
     act
       .tap(() => refresh),
     cb
-  ).tap(() => refresh)
+  )
+    .tap(() => refresh)
 }
 
 export function refreshAndWaitForOperationP<Req, R, E>(
@@ -41,31 +42,32 @@ export function refreshAndWaitForOperation<Req, R2, E2, A2, R, E>(
       act(req)
         .tap(() => refresh),
       cb
-    ).tap(() => refresh)
+    )
+      .tap(() => refresh)
 }
 
 /**
  * @tsplus fluent effect/io/Effect waitForOperation
  */
 export function waitForOperation<R, E>(self: Effect<R, E, FetchResponse<OperationId>>, cb?: (op: Operation) => void) {
-  return self.flatMap(r => _waitForOperation(r.body, cb))
+  return self.flatMap((r) => _waitForOperation(r.body, cb))
 }
 
 /**
  * @tsplus static effect/io/Effect waitForOperation_
  */
 export function waitForOperation_<Req, R, E>(self: (req: Req) => Effect<R, E, FetchResponse<OperationId>>) {
-  return (req: Req) => self(req).flatMap(r => _waitForOperation(r.body))
+  return (req: Req) => self(req).flatMap((r) => _waitForOperation(r.body))
 }
 
 function _waitForOperation(id: OperationId, cb?: (op: Operation) => void) {
   return Effect.gen(function*($) {
-    let r = yield* $(opsClient.find({ id }).map(_ => _.body))
+    let r = yield* $(opsClient.find({ id }).map((_) => _.body))
     while (r) {
       if (cb) cb(r)
       if (r.result) return r.result
       yield* $(Effect.sleep(Duration.seconds(2)))
-      r = yield* $(opsClient.find({ id }).map(_ => _.body))
+      r = yield* $(opsClient.find({ id }).map((_) => _.body))
     }
   })
 }

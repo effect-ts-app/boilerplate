@@ -25,8 +25,10 @@ const appLayer = Logger.minimumLogLevel(Level.Debug)
   > LiveApiConfig(
     Config.all({
       apiUrl: Config.string("apiUrl").withDefault("http://127.0.0.1:" + PORT),
-      headers: Config.string()
-        .table("headers").optional
+      headers: Config
+        .string()
+        .table("headers")
+        .optional
     })
   )
   > HF.Client(fetch)
@@ -59,14 +61,15 @@ beforeAll(async () => {
 
   const runtime = appRuntime(appLayer)
     .runPromise$
-    .catch(error => {
+    .catch((error) => {
       console.error(error)
       throw error
     })
 
   const cleanup = () =>
-    Effect.promise(() => runtime)
-      .flatMap(_ => _.clean)
+    Effect
+      .promise(() => runtime)
+      .flatMap((_) => _.clean)
       .runPromise$
 
   globalThis.cleanup = cleanup
@@ -76,7 +79,7 @@ beforeAll(async () => {
 afterAll(async () => {
   if (globalThis.cleanup) {
     console.log(`[${POOL_ID}] Destroying runtime`)
-    await globalThis.cleanup().catch(error => {
+    await globalThis.cleanup().catch((error) => {
       console.error(error)
       throw error
     })

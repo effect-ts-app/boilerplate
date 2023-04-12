@@ -46,12 +46,13 @@ module.exports = (dirName, forceTS = false, project = undefined) => {
             "semiColons": "asi",
             "quoteStyle": "alwaysDouble",
             "trailingCommas": "never",
-            "useParentheses": "preferNone"
+            "arrowFunction.useParentheses": "force",
+            "memberExpression.linePerExpression": true,
+            "binaryExpression.linePerExpression": true,
           }
         }
       ],
       "no-unexpected-multiline": "off",
-      "arrow-parens": [2, "as-needed"],
       "no-restricted-imports": ["error", { "paths": [
         { name: ".", "message": "Please import from the specific file instead. Imports from index in the same directory are almost always wrong (circular)."},
         { name: "./", "message": "Please import from the specific file instead. Imports from index in the same directory are almost always wrong (circular)."},

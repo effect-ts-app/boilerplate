@@ -1,22 +1,26 @@
 import { makePreparedLenses } from "@effect-app/prelude/schema"
 
-export const FirstName = ReasonableString["|>"](
-  arbitrary(FC =>
-    // eslint-disable-next-line @typescript-eslint/unbound-method
-    fakerArb(faker => faker.name.firstName)(FC).map(x => x as ReasonableString)
+export const FirstName = ReasonableString
+  ["|>"](
+    arbitrary((FC) =>
+      // eslint-disable-next-line @typescript-eslint/unbound-method
+      fakerArb((faker) => faker.name.firstName)(FC).map((x) => x as ReasonableString)
+    )
   )
-)["|>"](withDefaults)
+  ["|>"](withDefaults)
 export type FirstName = ParsedShapeOfCustom<typeof FirstName>
 
 export const DisplayName = FirstName
 export type DisplayName = ParsedShapeOfCustom<typeof DisplayName>
 
-export const LastName = ReasonableString["|>"](
-  arbitrary(FC =>
-    // eslint-disable-next-line @typescript-eslint/unbound-method
-    fakerArb(faker => faker.name.lastName)(FC).map(x => x as ReasonableString)
+export const LastName = ReasonableString
+  ["|>"](
+    arbitrary((FC) =>
+      // eslint-disable-next-line @typescript-eslint/unbound-method
+      fakerArb((faker) => faker.name.lastName)(FC).map((x) => x as ReasonableString)
+    )
   )
-)["|>"](withDefaults)
+  ["|>"](withDefaults)
 export type LastName = ParsedShapeOfCustom<typeof LastName>
 
 /**

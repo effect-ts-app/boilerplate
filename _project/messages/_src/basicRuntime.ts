@@ -67,11 +67,13 @@ export function runMain<E, A>(eff: Effect.Effect<never, E, A>) {
   }
 
   runCallback(
-    Fiber.fromEffect(eff)
-      .map(context => {
+    Fiber
+      .fromEffect(eff)
+      .map((context) => {
         runCallback(
-          context.await()
-            .flatMap(exit =>
+          context
+            .await()
+            .flatMap((exit) =>
               Effect.gen(function*($) {
                 if (exit.isFailure()) {
                   if (exit.cause.isInterruptedOnly()) {

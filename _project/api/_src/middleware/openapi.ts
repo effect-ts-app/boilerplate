@@ -11,7 +11,7 @@ const setup: any = setup_
 
 const readOpenApiDoc = readTextFile("./openapi.json").orDie
 
-export const openapiRoutes = Ex.get("/openapi.json", (_req, res) => readOpenApiDoc.map(js => res.send(js)))
+export const openapiRoutes = Ex.get("/openapi.json", (_req, res) => readOpenApiDoc.map((js) => res.send(js)))
   > Ex.get(
     "/docs",
     Ex.classic(
@@ -25,7 +25,7 @@ export const openapiRoutes = Ex.get("/openapi.json", (_req, res) => readOpenApiD
   > Ex.get(
     "/swagger",
     (req, res, next) =>
-      readOpenApiDoc.flatMap(docs =>
+      readOpenApiDoc.flatMap((docs) =>
         Effect.sync(() => setup(docs, { swaggerOptions: { url: "./openapi.json" } })(req, res, next))
       )
   )

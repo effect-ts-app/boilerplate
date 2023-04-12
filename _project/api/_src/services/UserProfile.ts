@@ -22,7 +22,8 @@ export abstract class UserProfile extends ServiceTaggedClass<UserProfile>()(User
 export const LiveUserProfile = (profile: UserProfileScheme | null) =>
   Effect(UserProfile.make({
     get: Option.fromNullable(profile).encaseInEffect(() => new NotLoggedInError())
-  })).toLayer(UserProfile)
+  }))
+    .toLayer(UserProfile)
 
 const userProfileFromJson = json[">>>"](UserProfileScheme)
 const userProfileFromJWT = jwt[">>>"](UserProfileScheme)

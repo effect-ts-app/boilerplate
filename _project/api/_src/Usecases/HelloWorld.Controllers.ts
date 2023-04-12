@@ -7,9 +7,10 @@ const helloWorld = matchFor(HelloWorldRsc)
 const Get = helloWorld.matchGet(
   { UserRepo },
   (_req, { context, userRepo }) =>
-    userRepo.getCurrentUser
+    userRepo
+      .getCurrentUser
       .catchTags({ "NotLoggedInError": () => Effect(null), "NotFoundError": () => Effect(null) })
-      .map(user => ({
+      .map((user) => ({
         context,
         now: new Date(),
         currentUser: user,
