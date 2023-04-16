@@ -18,7 +18,7 @@ import { useToast } from "vue-toastification"
 import type { Either } from "./prelude"
 import { Effect } from "./prelude"
 import type {
-  MaybeComputedRef,
+  MaybeRefOrGetter,
   Pausable,
   UseIntervalFnOptions,
 } from "@vueuse/core"
@@ -60,7 +60,7 @@ export function pauseWhileProcessing(
 
 export function useIntervalPauseWhileProcessing(
   pmf: () => Promise<unknown>,
-  interval?: MaybeComputedRef<number> | undefined,
+  interval?: MaybeRefOrGetter<number> | undefined,
   options?: Omit<UseIntervalFnOptions, "immediateCallback"> | undefined
 ) {
   const iv = useIntervalFn(
