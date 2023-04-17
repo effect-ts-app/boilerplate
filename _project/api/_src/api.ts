@@ -14,7 +14,7 @@ import { createServer } from "node:http"
 import { MergedConfig } from "./config.js"
 import * as MW from "./middleware/index.js"
 import { RequestContextMiddleware } from "./middleware/RequestContextMiddleware.js"
-import { BlogPostRepoLive, Operations, UserRepo } from "./services.js"
+import { BlogPostRepo, Operations, UserRepo } from "./services.js"
 import { Events } from "./services/Events.js"
 
 export const devApi = MergedConfig
@@ -87,6 +87,6 @@ export const api = App.provide(
       RequestContextContainer.live,
       HttpClientNode.client.layer,
       UserRepo.Live,
-      BlogPostRepoLive
+      BlogPostRepo.Live
     )
 )

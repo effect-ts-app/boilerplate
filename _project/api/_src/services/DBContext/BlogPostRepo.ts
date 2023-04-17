@@ -1,25 +1,43 @@
 import { BlogPost, BlogPostId } from "@effect-app-boilerplate/models/Blog"
+import { RepositoryDefaultImpl } from "@effect-app/infra/services/RepositoryBase"
+import { RepoLive } from "api/migrate.js"
 
-export interface BlogPostRepo {
-  all: Effect<never, never, readonly BlogPost[]>
-  find: (id: BlogPostId) => Effect<never, never, Option<BlogPost>>
-  save: (post: BlogPost) => Effect<never, never, void>
+export interface BlogPostPersistenceModel extends BlogPost.From {
+  _etag: string | undefined
 }
-export const BlogPostRepo = Tag<BlogPostRepo>()
 
-export const BlogPostRepoLive = Layer
-  .sync(BlogPostRepo, () => {
-    const items: BlogPost[] = [
-      new BlogPost({
-        id: BlogPostId("post-test123"),
-        title: NonEmptyString255("Test post"),
-        body: NonEmptyString2k("imma test body")
-      })
-    ]
+export type BlogPostSeed = "sample" | ""
 
-    return {
-      all: Effect.sync(() => [...items]),
-      find: (id) => Effect.sync(() => items.findFirst((_) => _.id === id)),
-      save: (post) => Effect.sync(() => items.push(post))
-    }
+/**
+ * @tsplus type BlogPostRepo
+ * @tsplus companion BlogPostRepo.Ops
+ */
+export class BlogPostRepo extends RepositoryDefaultImpl<BlogPostRepo>()<BlogPostPersistenceModel>()(
+  "BlogPost",
+  BlogPost
+) {}
+
+/**
+ * @tsplus static BlogPostRepo.Ops Live
+ */
+export const LiveBlogPostRepo = Effect
+  .sync(() => {
+    const seed = "sample"
+    const makeInitial = Effect.sync(() => {
+      const items = seed === "sample"
+        ? [
+          new BlogPost({
+            id: BlogPostId("post-test123"),
+            title: NonEmptyString255("Test post"),
+            body: NonEmptyString2k("imma test body")
+          })
+        ] as const
+        : []
+      return items
+    })
+    return BlogPostRepo
+      .makeWith({ makeInitial }, (_) => new BlogPostRepo(_))
+      .toLayer(BlogPostRepo)
   })
+  .unwrapLayer
+  .provide(RepoLive)
