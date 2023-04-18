@@ -28,4 +28,3 @@ export namespace BogusEvent {
 //
 // codegen:end
 //
-/* eslint-disable */

@@ -142,4 +142,3 @@ export namespace User {
 //
 // codegen:end
 //
-/* eslint-disable */
