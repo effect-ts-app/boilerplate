@@ -2,7 +2,7 @@ lockfileVersion: '6.0'
 
 overrides:
   '@effect/data': ^0.12.2
-  '@effect/io': ^0.22.5
+  '@effect/io': ^0.24.2
   '@types/node': ~18.11.11
   date-fns: ^2.29.3
   http-proxy: npm:http-proxy-node16@1.0.0
@@ -66,20 +66,20 @@ importers:
         specifier: ^0.84.1
         version: 0.84.1
       '@effect-app/cli':
-        specifier: ^0.11.0
-        version: 0.11.0
+        specifier: ^0.12.0
+        version: 0.12.0
       '@effect-app/compiler':
-        specifier: ^0.22.0
-        version: 0.22.0(@types/node@18.11.11)
+        specifier: ^0.23.0
+        version: 0.23.0(@types/node@18.11.11)
       '@effect-app/core':
-        specifier: ^0.44.0
-        version: 0.44.0
+        specifier: ^0.45.0
+        version: 0.45.0
       '@effect-app/eslint-codegen-model':
         specifier: ^0.20.0
         version: 0.20.0(fp-ts@2.13.1)
       '@effect-app/prelude':
-        specifier: ^0.40.1
-        version: 0.40.1
+        specifier: ^0.41.0
+        version: 0.41.0
       '@effect/language-service':
         specifier: ^0.0.19
         version: 0.0.19(patch_hash=izp2ue34jjv4swyrhg2ux4ha3e)
@@ -117,8 +117,8 @@ importers:
         specifier: ^0.36.0
         version: 0.36.0
       enhanced-resolve:
-        specifier: ^5.12.0
-        version: 5.12.0
+        specifier: ^5.13.0
+        version: 5.13.0
       eslint:
         specifier: ^8.38.0
         version: 8.38.0
@@ -127,7 +127,7 @@ importers:
         version: 3.5.5(@typescript-eslint/parser@5.59.0)(eslint-import-resolver-webpack@0.13.2)(eslint-plugin-import@2.27.5)(eslint@8.38.0)
       eslint-import-resolver-webpack:
         specifier: ^0.13.2
-        version: 0.13.2(eslint-plugin-import@2.27.5)(webpack@5.79.0)
+        version: 0.13.2(eslint-plugin-import@2.27.5)(webpack@5.80.0)
       eslint-plugin-codegen:
         specifier: ^0.17.0
         version: 0.17.0(patch_hash=3ogk7peuefdu45q3hbzcgdiuna)
@@ -183,8 +183,8 @@ importers:
         specifier: ^0.15.3
         version: 0.15.3
       vite:
-        specifier: ^4.2.2
-        version: 4.2.2(@types/node@18.11.11)(sass@1.62.0)
+        specifier: ^4.3.0
+        version: 4.3.0(@types/node@18.11.11)
       vitest:
         specifier: ^0.30.1
         version: 0.30.1
@@ -213,26 +213,26 @@ importers:
         specifier: '*'
         version: link:../resources
       '@effect-app/core':
-        specifier: ^0.44.0
-        version: 0.44.0
+        specifier: ^0.45.0
+        version: 0.45.0
       '@effect-app/infra':
-        specifier: ^0.51.3
-        version: 0.51.3
+        specifier: ^0.52.0
+        version: 0.52.0
       '@effect-app/infra-adapters':
-        specifier: ^0.37.2
-        version: 0.37.2
+        specifier: ^0.38.0
+        version: 0.38.0
       '@effect-app/prelude':
-        specifier: ^0.40.1
-        version: 0.40.1
+        specifier: ^0.41.0
+        version: 0.41.0
       '@effect-app/schema':
-        specifier: ^0.36.1
-        version: 0.36.1
+        specifier: ^0.37.0
+        version: 0.37.0
       '@effect/data':
         specifier: ^0.12.2
         version: 0.12.2
       '@effect/io':
-        specifier: ^0.22.5
-        version: 0.22.5
+        specifier: ^0.24.2
+        version: 0.24.2
       '@formatjs/cli':
         specifier: ^6.1.0
         version: 6.1.0
@@ -298,7 +298,7 @@ importers:
         version: 4.2.0
       redoc:
         specifier: ^2.0.0
-        version: 2.0.0(core-js@3.26.1)(mobx@6.9.0)(react-dom@17.0.2)(react@17.0.2)(styled-components@5.3.9)(webpack@5.79.0)
+        version: 2.0.0(core-js@3.26.1)(mobx@6.9.0)(react-dom@17.0.2)(react@17.0.2)(styled-components@5.3.9)(webpack@5.80.0)
       redoc-express:
         specifier: ^1.0.0
         version: 1.0.0
@@ -343,23 +343,23 @@ importers:
         specifier: '*'
         version: link:../resources
       '@effect-app/core':
-        specifier: ^0.44.0
-        version: 0.44.0
+        specifier: ^0.45.0
+        version: 0.45.0
       '@effect-app/prelude':
-        specifier: ^0.40.1
-        version: 0.40.1
+        specifier: ^0.41.0
+        version: 0.41.0
       '@effect-app/schema':
-        specifier: ^0.36.1
-        version: 0.36.1
+        specifier: ^0.37.0
+        version: 0.37.0
       '@effect-app/vue':
-        specifier: ^0.36.2
-        version: 0.36.2
+        specifier: ^0.37.0
+        version: 0.37.0
       '@effect/data':
         specifier: ^0.12.2
         version: 0.12.2
       '@effect/io':
-        specifier: ^0.22.5
-        version: 0.22.5
+        specifier: ^0.24.2
+        version: 0.24.2
       '@vueuse/core':
         specifier: ^10.0.2
         version: 10.0.2(vue@3.2.47)
@@ -388,8 +388,8 @@ importers:
         specifier: ^2.0.0-rc.5
         version: 2.0.0-rc.5(vue@3.2.47)
       vuetify:
-        specifier: ^3.1.14
-        version: 3.1.14(vue@3.2.47)
+        specifier: ^3.1.15
+        version: 3.1.15(vue@3.2.47)
     devDependencies:
       '@mdi/js':
         specifier: ^7.2.96
@@ -428,26 +428,26 @@ importers:
         specifier: '*'
         version: link:../resources
       '@effect-app/core':
-        specifier: ^0.44.0
-        version: 0.44.0
+        specifier: ^0.45.0
+        version: 0.45.0
       '@effect-app/infra':
-        specifier: ^0.51.3
-        version: 0.51.3
+        specifier: ^0.52.0
+        version: 0.52.0
       '@effect-app/infra-adapters':
-        specifier: ^0.37.2
-        version: 0.37.2
+        specifier: ^0.38.0
+        version: 0.38.0
       '@effect-app/prelude':
-        specifier: ^0.40.1
-        version: 0.40.1
+        specifier: ^0.41.0
+        version: 0.41.0
       '@effect-app/schema':
-        specifier: ^0.36.1
-        version: 0.36.1
+        specifier: ^0.37.0
+        version: 0.37.0
       '@effect/data':
         specifier: ^0.12.2
         version: 0.12.2
       '@effect/io':
-        specifier: ^0.22.5
-        version: 0.22.5
+        specifier: ^0.24.2
+        version: 0.24.2
       change-case:
         specifier: ^4.1.2
         version: 4.1.2
@@ -467,20 +467,20 @@ importers:
   _project/models:
     dependencies:
       '@effect-app/core':
-        specifier: ^0.44.0
-        version: 0.44.0
+        specifier: ^0.45.0
+        version: 0.45.0
       '@effect-app/prelude':
-        specifier: ^0.40.1
-        version: 0.40.1
+        specifier: ^0.41.0
+        version: 0.41.0
       '@effect-app/schema':
-        specifier: ^0.36.1
-        version: 0.36.1
+        specifier: ^0.37.0
+        version: 0.37.0
       '@effect/data':
         specifier: ^0.12.2
         version: 0.12.2
       '@effect/io':
-        specifier: ^0.22.5
-        version: 0.22.5
+        specifier: ^0.24.2
+        version: 0.24.2
       date-fns:
         specifier: ^2.29.3
         version: 2.29.3(patch_hash=g5hqt5bhnjezqo5vnkpprfkba4)
@@ -513,20 +513,20 @@ importers:
         specifier: '*'
         version: link:../models
       '@effect-app/core':
-        specifier: ^0.44.0
-        version: 0.44.0
+        specifier: ^0.45.0
+        version: 0.45.0
       '@effect-app/prelude':
-        specifier: ^0.40.1
-        version: 0.40.1
+        specifier: ^0.41.0
+        version: 0.41.0
       '@effect-app/schema':
-        specifier: ^0.36.1
-        version: 0.36.1
+        specifier: ^0.37.0
+        version: 0.37.0
       '@effect/data':
         specifier: ^0.12.2
         version: 0.12.2
       '@effect/io':
-        specifier: ^0.22.5
-        version: 0.22.5
+        specifier: ^0.24.2
+        version: 0.24.2
       camel-case:
         specifier: ^4.1.2
         version: 4.1.2
@@ -549,23 +549,23 @@ importers:
         specifier: '*'
         version: link:../_project/resources
       '@effect-app/core':
-        specifier: ^0.44.0
-        version: 0.44.0
+        specifier: ^0.45.0
+        version: 0.45.0
       '@effect-app/prelude':
-        specifier: ^0.40.1
-        version: 0.40.1
+        specifier: ^0.41.0
+        version: 0.41.0
       '@effect-app/schema':
-        specifier: ^0.36.1
-        version: 0.36.1
+        specifier: ^0.37.0
+        version: 0.37.0
       '@effect-app/vue':
-        specifier: ^0.36.2
-        version: 0.36.2
+        specifier: ^0.37.0
+        version: 0.37.0
       '@effect/data':
         specifier: ^0.12.2
         version: 0.12.2
       '@effect/io':
-        specifier: ^0.22.5
-        version: 0.22.5
+        specifier: ^0.24.2
+        version: 0.24.2
       '@tsplus/stdlib':
         specifier: ^0.2.8
         version: 0.2.8
@@ -608,7 +608,7 @@ importers:
         version: 18.11.11
       babel-loader:
         specifier: ^9.1.2
-        version: 9.1.2(@babel/core@7.21.4)(webpack@5.79.0)
+        version: 9.1.2(@babel/core@7.21.4)(webpack@5.80.0)
       date-fns:
         specifier: ^2.29.3
         version: 2.29.3(patch_hash=g5hqt5bhnjezqo5vnkpprfkba4)
@@ -623,7 +623,7 @@ importers:
         version: 3.5.5(@typescript-eslint/parser@5.59.0)(eslint-import-resolver-webpack@0.13.2)(eslint-plugin-import@2.27.5)(eslint@8.38.0)
       eslint-import-resolver-webpack:
         specifier: ^0.13.2
-        version: 0.13.2(eslint-plugin-import@2.27.5)(webpack@5.79.0)
+        version: 0.13.2(eslint-plugin-import@2.27.5)(webpack@5.80.0)
       eslint-plugin-import:
         specifier: ^2.27.5
         version: 2.27.5(@typescript-eslint/parser@5.59.0)(eslint-import-resolver-typescript@3.5.5)(eslint-import-resolver-webpack@0.13.2)(eslint@8.38.0)
@@ -653,7 +653,7 @@ importers:
         version: 2.8.7
       ts-loader:
         specifier: ^9.4.2
-        version: 9.4.2(typescript@5.0.0-tsplus.20230224)(webpack@5.79.0)
+        version: 9.4.2(typescript@5.0.0-tsplus.20230224)(webpack@5.80.0)
       tsconfig-paths-webpack-plugin:
         specifier: ^4.0.1
         version: 4.0.1
@@ -661,20 +661,20 @@ importers:
         specifier: https://cdn.jsdelivr.net/npm/@tsplus/installer@0.0.171/compiler/typescript.tgz
         version: '@cdn.jsdelivr.net/npm/@tsplus/installer@0.0.171/compiler/typescript.tgz(patch_hash=55e2ilao5rmld5uxhk56qvoiyi)'
       webpack:
-        specifier: ^5.79.0
-        version: 5.79.0
+        specifier: ^5.80.0
+        version: 5.80.0
 
   play:
     dependencies:
       '@effect-app/core':
-        specifier: ^0.44.0
-        version: 0.44.0
+        specifier: ^0.45.0
+        version: 0.45.0
       '@effect-app/prelude':
-        specifier: ^0.40.1
-        version: 0.40.1
+        specifier: ^0.41.0
+        version: 0.41.0
       '@effect-app/schema':
-        specifier: ^0.36.1
-        version: 0.36.1
+        specifier: ^0.37.0
+        version: 0.37.0
       change-case:
         specifier: ^4.1.2
         version: 4.1.2
@@ -2389,18 +2389,18 @@ packages:
     resolution: {integrity: sha512-7hsu2iYa9Ha/jf6cmUPJYngor5MRX5txDjX1o8cL424PDNQ/xe14GM8ZgN0gBuYHUV+6S5ARhPCwMKCxr4qgig==}
     dev: true
 
-  /@effect-app/cli@0.11.0:
-    resolution: {integrity: sha512-Zwu75KcJ8+ZbyP0yNyCdZ+fGKwtt1T2Ckd3P4NgDDfl6YajISLiK7LpGc9+ry+Ov+DbAg5B2O4lbw/kavvbsrw==}
+  /@effect-app/cli@0.12.0:
+    resolution: {integrity: sha512-bMeZkLD2vgUevgYitP/dTJHwe3edQa0UqyE1TD6mgo9Rr3ZeDYNKS64G+rQjgdnmOJQf79jQostuR5FuzLe9vg==}
     hasBin: true
     dependencies:
       node-watch: 0.7.3
     dev: true
 
-  /@effect-app/compiler@0.22.0(@types/node@18.11.11):
-    resolution: {integrity: sha512-UZgG7b4D/Aeg/AL+Nx+2R3SCt1YuppozQfvoxKchY++cYleEc8R8XmoTU562XqF98fBYZuq2mATOS0eZda8QCw==}
+  /@effect-app/compiler@0.23.0(@types/node@18.11.11):
+    resolution: {integrity: sha512-TyrjSw870HMUmg56gcEdZthtOUM6Cx+j/isfvYBBH+aAFkG8gaGRW10vvwATZvbPxzKST91dB2t4gP8Z8mHJZQ==}
     dependencies:
       '@rollup/pluginutils': 5.0.2(rollup@3.20.2)
-      vite: 4.2.2(@types/node@18.11.11)(sass@1.62.0)
+      vite: 4.3.0(@types/node@18.11.11)
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -2411,11 +2411,11 @@ packages:
       - terser
     dev: true
 
-  /@effect-app/core@0.44.0:
-    resolution: {integrity: sha512-adMCSpN2XaLT8a68TEHmAQzmf0HrgW8Asdn+rzzsUbaLwuXgOZJIvCuvLxnRmwvYj48FkRNhUnIWw1Pro9wFSQ==}
+  /@effect-app/core@0.45.0:
+    resolution: {integrity: sha512-JjlYLoeOW2ATfRghzzjgw2ytS5Kzfcp3Ih9O5jm/qE6WZAncHNBtROVq1cvtx2fBmwICGlCSqq/2rZxhXi+m/Q==}
     dependencies:
       '@effect/data': 0.12.2
-      '@effect/io': 0.22.5
+      '@effect/io': 0.24.2
       '@effect/stream': 0.20.0
       '@fp-ts/optic': 0.7.0(patch_hash=w2q3sj6fgtrlizsuwcsff4miva)
       cross-fetch: 3.1.5
@@ -2443,31 +2443,31 @@ packages:
       - supports-color
     dev: true
 
-  /@effect-app/infra-adapters@0.37.2:
-    resolution: {integrity: sha512-OH6agdn+EMD2Tn4DMV4qeGZ3pRcRnjPpUOTEqGPB2fy7PEfGS6IEief41Grx4QXdwEjNlSBpZLsMO+hWRg+xpg==}
+  /@effect-app/infra-adapters@0.38.0:
+    resolution: {integrity: sha512-2/IogQJuofNQmr2PwWcFOJDn3rvfBjvaDVmbVwqXDMz2XI/cZVIHi7TFUJhkgbUVnsH3DdyVQt3/mTu9ht2rMg==}
     dependencies:
-      '@effect-app/core': 0.44.0
-      '@effect-app/prelude': 0.40.1
-      '@effect-app/schema': 0.36.1
+      '@effect-app/core': 0.45.0
+      '@effect-app/prelude': 0.41.0
+      '@effect-app/schema': 0.37.0
       '@effect/data': 0.12.2
-      '@effect/io': 0.22.5
+      '@effect/io': 0.24.2
       '@fp-ts/optic': 0.7.0(patch_hash=w2q3sj6fgtrlizsuwcsff4miva)
       query-string: 8.1.0
     transitivePeerDependencies:
       - encoding
     dev: false
 
-  /@effect-app/infra@0.51.3:
-    resolution: {integrity: sha512-hLNehuwIcgiZ7zEiagG22iLNxjXArrt2Sxg01o7wg/T5TzaKGC088Ae+VVgSzlnG0by02s8C4w/TKYl//xbZlg==}
+  /@effect-app/infra@0.52.0:
+    resolution: {integrity: sha512-ED/PMR8pXgO2lasO3itMpjbhV+oQmZrcGK9Ly7Ex+dBMocO1/+TrBwMZFxKKuHhqDT83uk+u/WrYTAtGQhqLzA==}
     dependencies:
       '@azure/cosmos': 3.17.3
       '@azure/service-bus': 7.9.0
-      '@effect-app/core': 0.44.0
-      '@effect-app/infra-adapters': 0.37.2
-      '@effect-app/prelude': 0.40.1
-      '@effect-app/schema': 0.36.1
+      '@effect-app/core': 0.45.0
+      '@effect-app/infra-adapters': 0.38.0
+      '@effect-app/prelude': 0.41.0
+      '@effect-app/schema': 0.37.0
       '@effect/data': 0.12.2
-      '@effect/io': 0.22.5
+      '@effect/io': 0.24.2
       '@sendgrid/helpers': 7.7.0
       '@sendgrid/mail': 7.7.0
       change-case: 4.1.2
@@ -2485,13 +2485,13 @@ packages:
       - supports-color
     dev: false
 
-  /@effect-app/prelude@0.40.1:
-    resolution: {integrity: sha512-mVf7bMd5WMjgyWkhXmCY51DJavwf2YQ8ONxuApPceqBIRZcFJeva9n/bNqwBZRZqyapgFXCRFkHRjZHujHApBg==}
+  /@effect-app/prelude@0.41.0:
+    resolution: {integrity: sha512-OgJnwohG9OrKX2HVUYNUXzN8TlPTADhds0a5V76E/2P9viwKvHl5Cpdgyt/s7qsBgflmmq84gNWNuubBEZvgnA==}
     dependencies:
-      '@effect-app/core': 0.44.0
-      '@effect-app/schema': 0.36.1
+      '@effect-app/core': 0.45.0
+      '@effect-app/schema': 0.37.0
       '@effect/data': 0.12.2
-      '@effect/io': 0.22.5
+      '@effect/io': 0.24.2
       '@fp-ts/optic': 0.7.0(patch_hash=w2q3sj6fgtrlizsuwcsff4miva)
       date-fns: 2.29.3(patch_hash=g5hqt5bhnjezqo5vnkpprfkba4)
       lodash: 4.17.21
@@ -2504,12 +2504,12 @@ packages:
     transitivePeerDependencies:
       - encoding
 
-  /@effect-app/schema@0.36.1:
-    resolution: {integrity: sha512-7yom5ATbjoMeMFwSuMqge2nh3ru43UnVKqd7cGvVNhatvzY6f7KMYWaRvZJ7/I40SIxlzrdMhxsICB5udJkwuw==}
+  /@effect-app/schema@0.37.0:
+    resolution: {integrity: sha512-vKhhjcMaE9YZK+K2+Vlij0eg1fh5k5J3sqk51n/fCX+PuyQZBurDuQMAQRrLhsNBmlSzG6SRimvNHX03JyUq0Q==}
     dependencies:
-      '@effect-app/core': 0.44.0
+      '@effect-app/core': 0.45.0
       '@effect/data': 0.12.2
-      '@effect/io': 0.22.5
+      '@effect/io': 0.24.2
       '@fp-ts/optic': 0.7.0(patch_hash=w2q3sj6fgtrlizsuwcsff4miva)
       cross-fetch: 3.1.5
       lodash: 4.17.21
@@ -2519,14 +2519,14 @@ packages:
     transitivePeerDependencies:
       - encoding
 
-  /@effect-app/vue@0.36.2:
-    resolution: {integrity: sha512-LFxkcLw4nvoXycZe+wJKJRc8eQL4T15I+qqLxtFc8j9kmI2UjMCBpv4utRsCRHp95NXZ9YUw/s2ujj6yTb5Jug==}
+  /@effect-app/vue@0.37.0:
+    resolution: {integrity: sha512-sr8Bj6EFyuymEcI2B6O5MIGV4lq1jjeRECbNUrFe8apA26xebv/lwt1GWSeOt9xW/JWzkps05N9SbJthbkb8Jw==}
     dependencies:
-      '@effect-app/core': 0.44.0
-      '@effect-app/prelude': 0.40.1
-      '@effect-app/schema': 0.36.1
+      '@effect-app/core': 0.45.0
+      '@effect-app/prelude': 0.41.0
+      '@effect-app/schema': 0.37.0
       '@effect/data': 0.12.2
-      '@effect/io': 0.22.5
+      '@effect/io': 0.24.2
       '@fp-ts/optic': 0.7.0(patch_hash=w2q3sj6fgtrlizsuwcsff4miva)
       query-string: 8.1.0
       swrv: 1.0.3(vue@3.2.47)
@@ -2538,8 +2538,8 @@ packages:
   /@effect/data@0.12.2:
     resolution: {integrity: sha512-bmWRTcsSRG1FlBswT+D8SxW6r3c4B3pKJrjYfitCD03tXHnup5gLHaWqbFgIjiyYITS+UsJRRjVrNxvyGG4ZNQ==}
 
-  /@effect/io@0.22.5:
-    resolution: {integrity: sha512-mJmIpkFyFauzqsyM5DSVZY3LNwRbHwgmJGIuOPzTCEQvJRI89/bTSVf444ZtwR3OLrHSxt3u0U/vofyQYTDzwA==}
+  /@effect/io@0.24.2:
+    resolution: {integrity: sha512-T0itAO6H6rVZAmCF4b3uLa1aSOBRnM7W+3HrN21U+M8ZC9tBRtxJkg85SYkDClw265bBZTxuZQSy2O0CXydx2w==}
     dependencies:
       '@effect/data': 0.12.2
 
@@ -2555,7 +2555,7 @@ packages:
     resolution: {integrity: sha512-FzB4c5ui9mfbyc0/9/RPwAiNOOFA+bhjVYjiM1Ijjq3jJXKVTY1eablYyM95fFYzhoZ7rZrL7pCom8OGjbenFg==}
     dependencies:
       '@effect/data': 0.12.2
-      '@effect/io': 0.22.5
+      '@effect/io': 0.24.2
 
   /@emotion/is-prop-valid@1.2.0:
     resolution: {integrity: sha512-3aDpDprjM0AwaxGE09bOPkNxHpBd+kA6jty3RnaEXdweX1DF1U3VQpPYb0g1IStAuK7SVQ1cy+bNBBKp4W3Fjg==}
@@ -4374,95 +4374,95 @@ packages:
       - vue
     dev: false
 
-  /@webassemblyjs/ast@1.11.1:
-    resolution: {integrity: sha512-ukBh14qFLjxTQNTXocdyksN5QdM28S1CxHt2rdskFyL+xFV7VremuBLVbmCePj+URalXBENx/9Lm7lnhihtCSw==}
+  /@webassemblyjs/ast@1.11.5:
+    resolution: {integrity: sha512-LHY/GSAZZRpsNQH+/oHqhRQ5FT7eoULcBqgfyTB5nQHogFnK3/7QoN7dLnwSE/JkUAF0SrRuclT7ODqMFtWxxQ==}
     dependencies:
-      '@webassemblyjs/helper-numbers': 1.11.1
-      '@webassemblyjs/helper-wasm-bytecode': 1.11.1
+      '@webassemblyjs/helper-numbers': 1.11.5
+      '@webassemblyjs/helper-wasm-bytecode': 1.11.5
 
-  /@webassemblyjs/floating-point-hex-parser@1.11.1:
-    resolution: {integrity: sha512-iGRfyc5Bq+NnNuX8b5hwBrRjzf0ocrJPI6GWFodBFzmFnyvrQ83SHKhmilCU/8Jv67i4GJZBMhEzltxzcNagtQ==}
+  /@webassemblyjs/floating-point-hex-parser@1.11.5:
+    resolution: {integrity: sha512-1j1zTIC5EZOtCplMBG/IEwLtUojtwFVwdyVMbL/hwWqbzlQoJsWCOavrdnLkemwNoC/EOwtUFch3fuo+cbcXYQ==}
 
-  /@webassemblyjs/helper-api-error@1.11.1:
-    resolution: {integrity: sha512-RlhS8CBCXfRUR/cwo2ho9bkheSXG0+NwooXcc3PAILALf2QLdFyj7KGsKRbVc95hZnhnERon4kW/D3SZpp6Tcg==}
+  /@webassemblyjs/helper-api-error@1.11.5:
+    resolution: {integrity: sha512-L65bDPmfpY0+yFrsgz8b6LhXmbbs38OnwDCf6NpnMUYqa+ENfE5Dq9E42ny0qz/PdR0LJyq/T5YijPnU8AXEpA==}
 
-  /@webassemblyjs/helper-buffer@1.11.1:
-    resolution: {integrity: sha512-gwikF65aDNeeXa8JxXa2BAk+REjSyhrNC9ZwdT0f8jc4dQQeDQ7G4m0f2QCLPJiMTTO6wfDmRmj/pW0PsUvIcA==}
+  /@webassemblyjs/helper-buffer@1.11.5:
+    resolution: {integrity: sha512-fDKo1gstwFFSfacIeH5KfwzjykIE6ldh1iH9Y/8YkAZrhmu4TctqYjSh7t0K2VyDSXOZJ1MLhht/k9IvYGcIxg==}
 
-  /@webassemblyjs/helper-numbers@1.11.1:
-    resolution: {integrity: sha512-vDkbxiB8zfnPdNK9Rajcey5C0w+QJugEglN0of+kmO8l7lDb77AnlKYQF7aarZuCrv+l0UvqL+68gSDr3k9LPQ==}
+  /@webassemblyjs/helper-numbers@1.11.5:
+    resolution: {integrity: sha512-DhykHXM0ZABqfIGYNv93A5KKDw/+ywBFnuWybZZWcuzWHfbp21wUfRkbtz7dMGwGgT4iXjWuhRMA2Mzod6W4WA==}
     dependencies:
-      '@webassemblyjs/floating-point-hex-parser': 1.11.1
-      '@webassemblyjs/helper-api-error': 1.11.1
+      '@webassemblyjs/floating-point-hex-parser': 1.11.5
+      '@webassemblyjs/helper-api-error': 1.11.5
       '@xtuc/long': 4.2.2
 
-  /@webassemblyjs/helper-wasm-bytecode@1.11.1:
-    resolution: {integrity: sha512-PvpoOGiJwXeTrSf/qfudJhwlvDQxFgelbMqtq52WWiXC6Xgg1IREdngmPN3bs4RoO83PnL/nFrxucXj1+BX62Q==}
+  /@webassemblyjs/helper-wasm-bytecode@1.11.5:
+    resolution: {integrity: sha512-oC4Qa0bNcqnjAowFn7MPCETQgDYytpsfvz4ujZz63Zu/a/v71HeCAAmZsgZ3YVKec3zSPYytG3/PrRCqbtcAvA==}
 
-  /@webassemblyjs/helper-wasm-section@1.11.1:
-    resolution: {integrity: sha512-10P9No29rYX1j7F3EVPX3JvGPQPae+AomuSTPiF9eBQeChHI6iqjMIwR9JmOJXwpnn/oVGDk7I5IlskuMwU/pg==}
+  /@webassemblyjs/helper-wasm-section@1.11.5:
+    resolution: {integrity: sha512-uEoThA1LN2NA+K3B9wDo3yKlBfVtC6rh0i4/6hvbz071E8gTNZD/pT0MsBf7MeD6KbApMSkaAK0XeKyOZC7CIA==}
     dependencies:
-      '@webassemblyjs/ast': 1.11.1
-      '@webassemblyjs/helper-buffer': 1.11.1
-      '@webassemblyjs/helper-wasm-bytecode': 1.11.1
-      '@webassemblyjs/wasm-gen': 1.11.1
+      '@webassemblyjs/ast': 1.11.5
+      '@webassemblyjs/helper-buffer': 1.11.5
+      '@webassemblyjs/helper-wasm-bytecode': 1.11.5
+      '@webassemblyjs/wasm-gen': 1.11.5
 
-  /@webassemblyjs/ieee754@1.11.1:
-    resolution: {integrity: sha512-hJ87QIPtAMKbFq6CGTkZYJivEwZDbQUgYd3qKSadTNOhVY7p+gfP6Sr0lLRVTaG1JjFj+r3YchoqRYxNH3M0GQ==}
+  /@webassemblyjs/ieee754@1.11.5:
+    resolution: {integrity: sha512-37aGq6qVL8A8oPbPrSGMBcp38YZFXcHfiROflJn9jxSdSMMM5dS5P/9e2/TpaJuhE+wFrbukN2WI6Hw9MH5acg==}
     dependencies:
       '@xtuc/ieee754': 1.2.0
 
-  /@webassemblyjs/leb128@1.11.1:
-    resolution: {integrity: sha512-BJ2P0hNZ0u+Th1YZXJpzW6miwqQUGcIHT1G/sf72gLVD9DZ5AdYTqPNbHZh6K1M5VmKvFXwGSWZADz+qBWxeRw==}
+  /@webassemblyjs/leb128@1.11.5:
+    resolution: {integrity: sha512-ajqrRSXaTJoPW+xmkfYN6l8VIeNnR4vBOTQO9HzR7IygoCcKWkICbKFbVTNMjMgMREqXEr0+2M6zukzM47ZUfQ==}
     dependencies:
       '@xtuc/long': 4.2.2
 
-  /@webassemblyjs/utf8@1.11.1:
-    resolution: {integrity: sha512-9kqcxAEdMhiwQkHpkNiorZzqpGrodQQ2IGrHHxCy+Ozng0ofyMA0lTqiLkVs1uzTRejX+/O0EOT7KxqVPuXosQ==}
+  /@webassemblyjs/utf8@1.11.5:
+    resolution: {integrity: sha512-WiOhulHKTZU5UPlRl53gHR8OxdGsSOxqfpqWeA2FmcwBMaoEdz6b2x2si3IwC9/fSPLfe8pBMRTHVMk5nlwnFQ==}
 
-  /@webassemblyjs/wasm-edit@1.11.1:
-    resolution: {integrity: sha512-g+RsupUC1aTHfR8CDgnsVRVZFJqdkFHpsHMfJuWQzWU3tvnLC07UqHICfP+4XyL2tnr1amvl1Sdp06TnYCmVkA==}
+  /@webassemblyjs/wasm-edit@1.11.5:
+    resolution: {integrity: sha512-C0p9D2fAu3Twwqvygvf42iGCQ4av8MFBLiTb+08SZ4cEdwzWx9QeAHDo1E2k+9s/0w1DM40oflJOpkZ8jW4HCQ==}
     dependencies:
-      '@webassemblyjs/ast': 1.11.1
-      '@webassemblyjs/helper-buffer': 1.11.1
-      '@webassemblyjs/helper-wasm-bytecode': 1.11.1
-      '@webassemblyjs/helper-wasm-section': 1.11.1
-      '@webassemblyjs/wasm-gen': 1.11.1
-      '@webassemblyjs/wasm-opt': 1.11.1
-      '@webassemblyjs/wasm-parser': 1.11.1
-      '@webassemblyjs/wast-printer': 1.11.1
+      '@webassemblyjs/ast': 1.11.5
+      '@webassemblyjs/helper-buffer': 1.11.5
+      '@webassemblyjs/helper-wasm-bytecode': 1.11.5
+      '@webassemblyjs/helper-wasm-section': 1.11.5
+      '@webassemblyjs/wasm-gen': 1.11.5
+      '@webassemblyjs/wasm-opt': 1.11.5
+      '@webassemblyjs/wasm-parser': 1.11.5
+      '@webassemblyjs/wast-printer': 1.11.5
 
-  /@webassemblyjs/wasm-gen@1.11.1:
-    resolution: {integrity: sha512-F7QqKXwwNlMmsulj6+O7r4mmtAlCWfO/0HdgOxSklZfQcDu0TpLiD1mRt/zF25Bk59FIjEuGAIyn5ei4yMfLhA==}
+  /@webassemblyjs/wasm-gen@1.11.5:
+    resolution: {integrity: sha512-14vteRlRjxLK9eSyYFvw1K8Vv+iPdZU0Aebk3j6oB8TQiQYuO6hj9s4d7qf6f2HJr2khzvNldAFG13CgdkAIfA==}
     dependencies:
-      '@webassemblyjs/ast': 1.11.1
-      '@webassemblyjs/helper-wasm-bytecode': 1.11.1
-      '@webassemblyjs/ieee754': 1.11.1
-      '@webassemblyjs/leb128': 1.11.1
-      '@webassemblyjs/utf8': 1.11.1
+      '@webassemblyjs/ast': 1.11.5
+      '@webassemblyjs/helper-wasm-bytecode': 1.11.5
+      '@webassemblyjs/ieee754': 1.11.5
+      '@webassemblyjs/leb128': 1.11.5
+      '@webassemblyjs/utf8': 1.11.5
 
-  /@webassemblyjs/wasm-opt@1.11.1:
-    resolution: {integrity: sha512-VqnkNqnZlU5EB64pp1l7hdm3hmQw7Vgqa0KF/KCNO9sIpI6Fk6brDEiX+iCOYrvMuBWDws0NkTOxYEb85XQHHw==}
+  /@webassemblyjs/wasm-opt@1.11.5:
+    resolution: {integrity: sha512-tcKwlIXstBQgbKy1MlbDMlXaxpucn42eb17H29rawYLxm5+MsEmgPzeCP8B1Cl69hCice8LeKgZpRUAPtqYPgw==}
     dependencies:
-      '@webassemblyjs/ast': 1.11.1
-      '@webassemblyjs/helper-buffer': 1.11.1
-      '@webassemblyjs/wasm-gen': 1.11.1
-      '@webassemblyjs/wasm-parser': 1.11.1
+      '@webassemblyjs/ast': 1.11.5
+      '@webassemblyjs/helper-buffer': 1.11.5
+      '@webassemblyjs/wasm-gen': 1.11.5
+      '@webassemblyjs/wasm-parser': 1.11.5
 
-  /@webassemblyjs/wasm-parser@1.11.1:
-    resolution: {integrity: sha512-rrBujw+dJu32gYB7/Lup6UhdkPx9S9SnobZzRVL7VcBH9Bt9bCBLEuX/YXOOtBsOZ4NQrRykKhffRWHvigQvOA==}
+  /@webassemblyjs/wasm-parser@1.11.5:
+    resolution: {integrity: sha512-SVXUIwsLQlc8srSD7jejsfTU83g7pIGr2YYNb9oHdtldSxaOhvA5xwvIiWIfcX8PlSakgqMXsLpLfbbJ4cBYew==}
     dependencies:
-      '@webassemblyjs/ast': 1.11.1
-      '@webassemblyjs/helper-api-error': 1.11.1
-      '@webassemblyjs/helper-wasm-bytecode': 1.11.1
-      '@webassemblyjs/ieee754': 1.11.1
-      '@webassemblyjs/leb128': 1.11.1
-      '@webassemblyjs/utf8': 1.11.1
+      '@webassemblyjs/ast': 1.11.5
+      '@webassemblyjs/helper-api-error': 1.11.5
+      '@webassemblyjs/helper-wasm-bytecode': 1.11.5
+      '@webassemblyjs/ieee754': 1.11.5
+      '@webassemblyjs/leb128': 1.11.5
+      '@webassemblyjs/utf8': 1.11.5
 
-  /@webassemblyjs/wast-printer@1.11.1:
-    resolution: {integrity: sha512-IQboUWM4eKzWW+N/jij2sRatKMh99QEelo3Eb2q0qXkvPRISAj8Qxtmw5itwqK+TTkBuUIE45AxYPToqPtL5gg==}
+  /@webassemblyjs/wast-printer@1.11.5:
+    resolution: {integrity: sha512-f7Pq3wvg3GSPUPzR0F6bmI89Hdb+u9WXrSKc4v+N0aV0q6r42WoF92Jp2jEorBEBRoRNXgjp53nBniDXcqZYPA==}
     dependencies:
-      '@webassemblyjs/ast': 1.11.1
+      '@webassemblyjs/ast': 1.11.5
       '@xtuc/long': 4.2.2
 
   /@xtuc/ieee754@1.2.0:
@@ -4818,7 +4818,7 @@ packages:
       - debug
     dev: false
 
-  /babel-loader@9.1.2(@babel/core@7.21.4)(webpack@5.79.0):
+  /babel-loader@9.1.2(@babel/core@7.21.4)(webpack@5.80.0):
     resolution: {integrity: sha512-mN14niXW43tddohGl8HPu5yfQq70iUThvFL/4QzESA7GcZoC0eVOhvWdQ8+3UlSjaDE9MVtsW9mxDY07W7VpVA==}
     engines: {node: '>= 14.15.0'}
     peerDependencies:
@@ -4828,7 +4828,7 @@ packages:
       '@babel/core': 7.21.4
       find-cache-dir: 3.3.2
       schema-utils: 4.0.0
-      webpack: 5.79.0
+      webpack: 5.80.0
     dev: true
 
   /babel-plugin-polyfill-corejs2@0.3.3(@babel/core@7.21.4):
@@ -6248,6 +6248,14 @@ packages:
     dependencies:
       graceful-fs: 4.2.10
       tapable: 2.2.1
+    dev: true
+
+  /enhanced-resolve@5.13.0:
+    resolution: {integrity: sha512-eyV8f0y1+bzyfh8xAwW/WTSZpLbjhqc4ne9eGSH4Zo2ejdyiNG9pU6mf9DG8a7+Auk6MFTlNOT4Y2y/9k8GKVg==}
+    engines: {node: '>=10.13.0'}
+    dependencies:
+      graceful-fs: 4.2.10
+      tapable: 2.2.1
 
   /entities@4.5.0:
     resolution: {integrity: sha512-V0hjH4dGPh9Ao5p0MoRY6BVqtwCjhz6vI5LT8AJ55H+4g9/4vbHx1I54fS0XuclLhDHArPQCiMjDxjaL8fPxhw==}
@@ -6444,7 +6452,7 @@ packages:
       - supports-color
     dev: true
 
-  /eslint-import-resolver-webpack@0.13.2(eslint-plugin-import@2.27.5)(webpack@5.79.0):
+  /eslint-import-resolver-webpack@0.13.2(eslint-plugin-import@2.27.5)(webpack@5.80.0):
     resolution: {integrity: sha512-XodIPyg1OgE2h5BDErz3WJoK7lawxKTJNhgPNafRST6csC/MZC+L5P6kKqsZGRInpbgc02s/WZMrb4uGJzcuRg==}
     engines: {node: '>= 6'}
     peerDependencies:
@@ -6463,7 +6471,7 @@ packages:
       lodash: 4.17.21
       resolve: 1.22.1
       semver: 5.7.1
-      webpack: 5.79.0
+      webpack: 5.80.0
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -6494,7 +6502,7 @@ packages:
       eslint: 8.38.0
       eslint-import-resolver-node: 0.3.7
       eslint-import-resolver-typescript: 3.5.5(@typescript-eslint/parser@5.59.0)(eslint-import-resolver-webpack@0.13.2)(eslint-plugin-import@2.27.5)(eslint@8.38.0)
-      eslint-import-resolver-webpack: 0.13.2(eslint-plugin-import@2.27.5)(webpack@5.79.0)
+      eslint-import-resolver-webpack: 0.13.2(eslint-plugin-import@2.27.5)(webpack@5.80.0)
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -6954,7 +6962,7 @@ packages:
   /externality@1.0.0:
     resolution: {integrity: sha512-MAU9ci3XdpqOX1aoIoyL2DMzW97P8LYeJxIUkfXhOfsrkH4KLHFaYDwKN0B2l6tqedVJWiTIJtWmxmZfa05vOQ==}
     dependencies:
-      enhanced-resolve: 5.12.0
+      enhanced-resolve: 5.13.0
       mlly: 1.2.0
       pathe: 1.1.0
       ufo: 1.1.1
@@ -7048,7 +7056,7 @@ packages:
       app-module-path: 2.2.0
       commander: 2.20.3
       debug: 4.3.4(supports-color@5.5.0)
-      enhanced-resolve: 5.12.0
+      enhanced-resolve: 5.13.0
       is-relative-path: 1.0.2
       module-definition: 3.4.0
       module-lookup-amd: 7.0.1
@@ -11093,7 +11101,7 @@ packages:
     resolution: {integrity: sha512-N/0/WrA6U2rJc9hzLy2Jh2CHrQttIcW02jE4xGCiKkU40uTlpFTcEfu9bpsJlTcpffPXVNhhaIbTwz8kxz+M5A==}
     dev: false
 
-  /redoc@2.0.0(core-js@3.26.1)(mobx@6.9.0)(react-dom@17.0.2)(react@17.0.2)(styled-components@5.3.9)(webpack@5.79.0):
+  /redoc@2.0.0(core-js@3.26.1)(mobx@6.9.0)(react-dom@17.0.2)(react@17.0.2)(styled-components@5.3.9)(webpack@5.80.0):
     resolution: {integrity: sha512-rU8iLdAkT89ywOkYk66Mr+IofqaMASlRvTew0dJvopCORMIPUcPMxjlJbJNC6wsn2vvMnpUFLQ/0ISDWn9BWag==}
     engines: {node: '>=6.9', npm: '>=3.0.0'}
     peerDependencies:
@@ -11126,7 +11134,7 @@ packages:
       react-tabs: 3.2.3(react@17.0.2)
       slugify: 1.4.7
       stickyfill: 1.1.1
-      style-loader: 3.3.1(webpack@5.79.0)
+      style-loader: 3.3.1(webpack@5.80.0)
       styled-components: 5.3.9(react-dom@17.0.2)(react-is@17.0.2)(react@17.0.2)
       swagger2openapi: 7.0.8
       url-template: 2.0.8
@@ -11423,8 +11431,8 @@ packages:
       object-assign: 4.1.1
     dev: false
 
-  /schema-utils@3.1.1:
-    resolution: {integrity: sha512-Y5PQxS4ITlC+EahLuXaY86TXfR7Dc5lw294alXOq86JAHCihAIZfqv8nNCWvaEJvaC51uN9hbLGeV0cFBdH+Fw==}
+  /schema-utils@3.1.2:
+    resolution: {integrity: sha512-pvjEHOgWc9OWA/f/DE3ohBWTD6EleVLf7iFUkoSwAxttdBhB9QUebQgxER2kWueOvRJXPHNnyrvvh9eZINB8Eg==}
     engines: {node: '>= 10.13.0'}
     dependencies:
       '@types/json-schema': 7.0.11
@@ -11968,13 +11976,13 @@ packages:
     resolution: {integrity: sha512-J8bbNyKKXl5qYcR36TIO8W3mVGVHrmmxsd5PAItGkmyzwJvybiw2IVq5nqd0i4LSNSkB/sx9VHllbfFdr9k1JA==}
     dev: false
 
-  /style-loader@3.3.1(webpack@5.79.0):
+  /style-loader@3.3.1(webpack@5.80.0):
     resolution: {integrity: sha512-GPcQ+LDJbrcxHORTRes6Jy2sfvK2kS6hpSfI/fXhPt+spVzxF6LJ1dHLN9zIGmVaaP044YKaIatFaufENRiDoQ==}
     engines: {node: '>= 12.13.0'}
     peerDependencies:
       webpack: ^5.0.0
     dependencies:
-      webpack: 5.79.0
+      webpack: 5.80.0
     dev: false
 
   /styled-components@5.3.9(react-dom@17.0.2)(react-is@17.0.2)(react@17.0.2):
@@ -12150,7 +12158,7 @@ packages:
       mkdirp: 1.0.4
       yallist: 4.0.0
 
-  /terser-webpack-plugin@5.3.7(webpack@5.79.0):
+  /terser-webpack-plugin@5.3.7(webpack@5.80.0):
     resolution: {integrity: sha512-AfKwIktyP7Cu50xNjXF/6Qb5lBNzYaWpU6YfoX3uZicTx0zTy0stDDCsvjDapKsSDvOeWo5MEq4TmdBy2cNoHw==}
     engines: {node: '>= 10.13.0'}
     peerDependencies:
@@ -12168,10 +12176,10 @@ packages:
     dependencies:
       '@jridgewell/trace-mapping': 0.3.17
       jest-worker: 27.5.1
-      schema-utils: 3.1.1
+      schema-utils: 3.1.2
       serialize-javascript: 6.0.1
       terser: 5.16.9
-      webpack: 5.79.0
+      webpack: 5.80.0
 
   /terser@5.16.9:
     resolution: {integrity: sha512-HPa/FdTB9XGI2H1/keLFZHxl6WNvAI4YalHGtDQTlMnJcoqSab1UwL4l1hGEhs6/GmLHBZIg/YgB++jcbzoOEg==}
@@ -12258,7 +12266,7 @@ packages:
     engines: {node: '>=14.16'}
     dev: true
 
-  /ts-loader@9.4.2(typescript@5.0.0-tsplus.20230224)(webpack@5.79.0):
+  /ts-loader@9.4.2(typescript@5.0.0-tsplus.20230224)(webpack@5.80.0):
     resolution: {integrity: sha512-OmlC4WVmFv5I0PpaxYb+qGeGOdm5giHU7HwDDUjw59emP2UYMHy9fFSDcYgSNoH8sXcj4hGCSEhlDZ9ULeDraA==}
     engines: {node: '>=12.0.0'}
     peerDependencies:
@@ -12270,7 +12278,7 @@ packages:
       micromatch: 4.0.5
       semver: 7.3.8
       typescript: '@cdn.jsdelivr.net/npm/@tsplus/installer@0.0.171/compiler/typescript.tgz(patch_hash=55e2ilao5rmld5uxhk56qvoiyi)'
-      webpack: 5.79.0
+      webpack: 5.80.0
     dev: true
 
   /ts-node@10.9.1(@types/node@18.11.11)(typescript@4.9.5):
@@ -13027,6 +13035,39 @@ packages:
     optionalDependencies:
       fsevents: 2.3.2
 
+  /vite@4.3.0(@types/node@18.11.11):
+    resolution: {integrity: sha512-JTGFgDh3dVxeGBpuQX04Up+JZmuG6wu9414Ei36vQzaEruY/M4K0AgwtuB2b4HaBgB7R8l+LHxjB0jcgz4d2qQ==}
+    engines: {node: ^14.18.0 || >=16.0.0}
+    hasBin: true
+    peerDependencies:
+      '@types/node': '>= 14'
+      less: '*'
+      sass: '*'
+      stylus: '*'
+      sugarss: '*'
+      terser: ^5.4.0
+    peerDependenciesMeta:
+      '@types/node':
+        optional: true
+      less:
+        optional: true
+      sass:
+        optional: true
+      stylus:
+        optional: true
+      sugarss:
+        optional: true
+      terser:
+        optional: true
+    dependencies:
+      '@types/node': 18.11.11
+      esbuild: 0.17.16
+      postcss: 8.4.21
+      rollup: 3.20.2
+    optionalDependencies:
+      fsevents: 2.3.2
+    dev: true
+
   /vitest@0.30.1:
     resolution: {integrity: sha512-y35WTrSTlTxfMLttgQk4rHcaDkbHQwDP++SNwPb+7H8yb13Q3cu2EixrtHzF27iZ8v0XCciSsLg00RkPAzB/aA==}
     engines: {node: '>=v14.18.0'}
@@ -13081,7 +13122,7 @@ packages:
       strip-literal: 1.0.1
       tinybench: 2.4.0
       tinypool: 0.4.0
-      vite: 4.2.2(@types/node@18.11.11)(sass@1.62.0)
+      vite: 4.3.0(@types/node@18.11.11)
       vite-node: 0.30.1(@types/node@18.11.11)(sass@1.62.0)
       why-is-node-running: 2.2.2
     transitivePeerDependencies:
@@ -13218,8 +13259,8 @@ packages:
       '@vue/server-renderer': 3.2.47(vue@3.2.47)
       '@vue/shared': 3.2.47
 
-  /vuetify@3.1.14(vue@3.2.47):
-    resolution: {integrity: sha512-KpJH7CDyDwLjfLUkKgmijZ7WMBscuGTGKeO5pomerEWQiZ9X9bjHJTXdycqFX60QSl3AkrJeSIWW/l8nkxoslw==}
+  /vuetify@3.1.15(vue@3.2.47):
+    resolution: {integrity: sha512-uxB4UCrP+hFyJaoSsVObAGBRD73qq5ga7HULepzGoMeUWap2H99mcqmMdN/a/Yp4ODK3gT8EcUeph3EgEcsArQ==}
     engines: {node: ^12.20 || >=14.13}
     peerDependencies:
       vite-plugin-vuetify: ^1.0.0-alpha.12
@@ -13268,8 +13309,8 @@ packages:
   /webpack-virtual-modules@0.5.0:
     resolution: {integrity: sha512-kyDivFZ7ZM0BVOUteVbDFhlRt7Ah/CSPwJdi8hBpkK7QLumUqdLtVfm/PX/hkcnrvr0i77fO5+TjZ94Pe+C9iw==}
 
-  /webpack@5.79.0:
-    resolution: {integrity: sha512-3mN4rR2Xq+INd6NnYuL9RC9GAmc1ROPKJoHhrZ4pAjdMFEkJJWrsPw8o2JjCIyQyTu7rTXYn4VG6OpyB3CobZg==}
+  /webpack@5.80.0:
+    resolution: {integrity: sha512-OIMiq37XK1rWO8mH9ssfFKZsXg4n6klTEDL7S8/HqbAOBBaiy8ABvXvz0dDCXeEF9gqwxSvVk611zFPjS8hJxA==}
     engines: {node: '>=10.13.0'}
     hasBin: true
     peerDependencies:
@@ -13280,14 +13321,14 @@ packages:
     dependencies:
       '@types/eslint-scope': 3.7.4
       '@types/estree': 1.0.0
-      '@webassemblyjs/ast': 1.11.1
-      '@webassemblyjs/wasm-edit': 1.11.1
-      '@webassemblyjs/wasm-parser': 1.11.1
+      '@webassemblyjs/ast': 1.11.5
+      '@webassemblyjs/wasm-edit': 1.11.5
+      '@webassemblyjs/wasm-parser': 1.11.5
       acorn: 8.8.2
       acorn-import-assertions: 1.8.0(acorn@8.8.2)
       browserslist: 4.21.5
       chrome-trace-event: 1.0.3
-      enhanced-resolve: 5.12.0
+      enhanced-resolve: 5.13.0
       es-module-lexer: 1.2.1
       eslint-scope: 5.1.1
       events: 3.3.0
@@ -13297,9 +13338,9 @@ packages:
       loader-runner: 4.3.0
       mime-types: 2.1.35
       neo-async: 2.6.2
-      schema-utils: 3.1.1
+      schema-utils: 3.1.2
       tapable: 2.2.1
-      terser-webpack-plugin: 5.3.7(webpack@5.79.0)
+      terser-webpack-plugin: 5.3.7(webpack@5.80.0)
       watchpack: 2.4.0
       webpack-sources: 3.2.3
     transitivePeerDependencies:
