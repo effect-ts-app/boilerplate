@@ -33,14 +33,14 @@ export class FullName extends MNModel<
   FullName.Encoded,
   FullName.Props
 >()({
-  firstName: prop(FirstName),
-  lastName: prop(LastName)
+  firstName: FirstName,
+  lastName: LastName
 }) {
   static render(this: void, fn: FullName) {
     return LongString(`${fn.firstName} ${fn.lastName}`)
   }
 
-  static create(this: void, firstName: FirstName, lastName: LastName) {
+  static make(this: void, firstName: FirstName, lastName: LastName) {
     return new FullName({ firstName, lastName })
   }
 }
@@ -73,9 +73,9 @@ export type Role = ParsedShapeOfCustom<typeof Role>
  */
 @useClassFeaturesForSchema
 export class User extends MNModel<User, User.ConstructorInput, User.Encoded, User.Props>()({
-  id: defaultProp(UserId, UserId.make),
-  displayName: prop(DisplayName),
-  role: prop(Role)
+  id: UserId.withDefault,
+  displayName: DisplayName,
+  role: Role
 }) {}
 
 /**

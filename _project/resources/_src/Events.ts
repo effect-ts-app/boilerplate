@@ -1,8 +1,10 @@
+import type {} from "@effect-app/prelude/_global"
+
 export class BogusEvent
   extends MNModel<BogusEvent, BogusEvent.ConstructorInput, BogusEvent.Encoded, BogusEvent.Props>()({
-    _tag: prop(literal("BogusEvent")),
-    id: defaultProp(StringId, StringId.make),
-    at: defaultProp(date)
+    _tag: literal("BogusEvent"),
+    id: StringId.withDefault,
+    at: date.withDefault
   })
 {}
 /** @ignore @internal @deprecated */

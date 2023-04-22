@@ -6,8 +6,8 @@ import { Get, Model } from "@effect-app/schema"
 export class GetHelloWorldRequest extends Get("/hello-world")<GetHelloWorldRequest>()({}) {}
 
 export class GetHelloWorldResponse extends Model<GetHelloWorldResponse>()({
-  now: prop(date),
-  context: prop(unknown),
-  currentUser: prop(nullable(User)),
-  randomUser: prop(User)
+  now: date,
+  context: unknown,
+  currentUser: User.nullable,
+  randomUser: User
 }) {}
