@@ -19,9 +19,7 @@
             "@useClassFeaturesForSchema",
             "export class $1 extends Model<$1>()({ // TODO MNModel<$1, $1.ConstructorInput, $1.Encoded, $1.Props> ()({",
             "$2",
-            "}) {}",
-            "/** @ignore @internal @deprecated */",
-            "export type $1Constructor = typeof $1"
+            "}) {}"
         ],
         "description": "Defines a Model signature"
     },

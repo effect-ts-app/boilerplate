@@ -1,5 +1,6 @@
 import type {} from "@effect-app/prelude/_global"
 
+@useClassFeaturesForSchema
 export class BogusEvent
   extends MNModel<BogusEvent, BogusEvent.ConstructorInput, BogusEvent.Encoded, BogusEvent.Props>()({
     _tag: literal("BogusEvent"),
@@ -7,8 +8,6 @@ export class BogusEvent
     at: date.withDefault
   })
 {}
-/** @ignore @internal @deprecated */
-export type BogusEventConstructor = typeof BogusEvent
 
 export const ClientEvents = smartClassUnion({ BogusEvent })
 export type ClientEvents = ParsedShapeOfCustom<typeof ClientEvents>

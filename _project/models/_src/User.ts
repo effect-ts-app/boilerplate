@@ -44,8 +44,6 @@ export class FullName extends MNModel<
     return new FullName({ firstName, lastName })
   }
 }
-/** @ignore @internal @deprecated */
-export type FullNameConstructor = typeof FullName
 
 /**
  * @tsplus getter FullName show
@@ -111,9 +109,6 @@ export const defaultEqual = Equivalence.string.contramap((u: User) => u.id)
 //   OpaqueSchema<User, User.Encoded>()(User___)
 //     ["|>"](arbitrary(_ => (userPool ? _.constantFrom(...userPool) : userArb(_))))
 //     ["|>"](withDefaults)
-
-/** @ignore @internal @deprecated */
-export type UserConstructor = typeof User
 
 // codegen:start {preset: model}
 //

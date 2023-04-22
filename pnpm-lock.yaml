@@ -75,8 +75,8 @@ importers:
         specifier: ^0.47.1
         version: 0.47.1
       '@effect-app/eslint-codegen-model':
-        specifier: ^0.20.0
-        version: 0.20.0(fp-ts@2.13.1)
+        specifier: ^0.21.0
+        version: 0.21.0(fp-ts@2.13.1)
       '@effect-app/prelude':
         specifier: ^0.44.12
         version: 0.44.12
@@ -997,15 +997,6 @@ packages:
       jsesc: 2.5.2
       source-map: 0.5.7
     dev: true
-
-  /@babel/generator@7.21.3:
-    resolution: {integrity: sha512-QS3iR1GYC/YGUnW7IdggFeN5c1poPUurnGttOV/bZgPGV+izC/D8HnD6DLwod0fsatNyVn1G3EVWMYIF0nHbeA==}
-    engines: {node: '>=6.9.0'}
-    dependencies:
-      '@babel/types': 7.21.4
-      '@jridgewell/gen-mapping': 0.3.2
-      '@jridgewell/trace-mapping': 0.3.17
-      jsesc: 2.5.2
 
   /@babel/generator@7.21.4:
     resolution: {integrity: sha512-NieM3pVIYW2SwGzKoqfPrQsf4xGs9M9AIG3ThppsSRmO+m7eQhmI6amajKMUeIO37wFfsvnvcxQFx6x6iqxDnA==}
@@ -2298,7 +2289,7 @@ packages:
     engines: {node: '>=6.9.0'}
     dependencies:
       '@babel/code-frame': 7.18.6
-      '@babel/generator': 7.21.3
+      '@babel/generator': 7.21.4
       '@babel/helper-environment-visitor': 7.18.9
       '@babel/helper-function-name': 7.21.0
       '@babel/helper-hoist-variables': 7.18.6
@@ -2315,7 +2306,7 @@ packages:
     engines: {node: '>=6.9.0'}
     dependencies:
       '@babel/code-frame': 7.18.6
-      '@babel/generator': 7.21.3
+      '@babel/generator': 7.21.4
       '@babel/helper-environment-visitor': 7.18.9
       '@babel/helper-function-name': 7.21.0
       '@babel/helper-hoist-variables': 7.18.6
@@ -2412,8 +2403,8 @@ packages:
     transitivePeerDependencies:
       - encoding
 
-  /@effect-app/eslint-codegen-model@0.20.0(fp-ts@2.13.1):
-    resolution: {integrity: sha512-61HO1CuCMJ0TXUP66qJSPgy82ekmKN70bVrHV3dD6WEhHwpaFpqxIaoF0WHxgJpcrrnV/IupXr471Lj247JESw==}
+  /@effect-app/eslint-codegen-model@0.21.0(fp-ts@2.13.1):
+    resolution: {integrity: sha512-690zBm16UtOy/f5xq1UFoLcW9j6c6pwg2dge6QsmOWKt2b9g2Y115M29uXFUkgBQ8uX9eSBcJP9p9pa9WcUHZA==}
     dependencies:
       '@babel/generator': 7.21.4
       '@babel/parser': 7.21.4
