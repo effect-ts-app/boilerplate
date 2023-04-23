@@ -1,5 +1,3 @@
-import type {} from "@effect-app/prelude/_global"
-
 @useClassFeaturesForSchema
 export class BogusEvent
   extends MNModel<BogusEvent, BogusEvent.ConstructorInput, BogusEvent.Encoded, BogusEvent.Props>()({
