@@ -209,7 +209,7 @@ export function matchFor<Rsc extends Record<string, any>>(
   ) => {
     const handler = Effect.all(controllers).map((handlers) =>
       rsc.$$.keys.reduce((prev, cur) => {
-        prev[cur] = handle(rsc[cur])(handlers[cur] as any)
+        prev[cur] = handle(rsc[cur])(handlers[cur as keyof typeof handlers] as any)
         return prev
       }, {} as any)
     )
