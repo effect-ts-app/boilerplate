@@ -1,11 +1,14 @@
 import { jwt } from "@effect-app/infra/api/express/schema/jwt"
 import { NotLoggedInError } from "@effect-app/infra/errors"
 
+/**
+ * @tsplus type abc
+ */
 export class UserProfileScheme extends Model<UserProfileScheme>()({
   /**
    * Mapped from "sub"
    */
-  id: StringId.fromProp("sub")
+  id: prop(StringId).from("sub")
 }) {}
 
 export const UserProfileId = Symbol()
