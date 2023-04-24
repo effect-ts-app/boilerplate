@@ -5,10 +5,16 @@ import type { SupportedErrors } from "@effect-app/infra/api/defaultErrorHandler"
 import type { _E, _R } from "@effect-app/infra/api/express/schema/requestHandler"
 import type { ReqFromSchema, ReqHandler, ResFromSchema } from "@effect-app/infra/api/routing"
 import { handle } from "@effect-app/infra/api/routing"
-import type { LowerServices, Values, ValuesR } from "@effect-app/prelude/_ext/allLowerFirst"
+import {
+  allLowerFirst_,
+  type LowerServices,
+  type Values,
+  type ValuesE,
+  type ValuesR
+} from "@effect-app/prelude/_ext/allLowerFirst"
 import { allLowerFirstWith_ } from "@effect-app/prelude/_ext/allLowerFirst"
 import type { GetRequest, GetResponse } from "@effect-app/prelude/schema"
-import type { EffectTypeId } from "@effect/io/Effect"
+import { type EffectTypeId } from "@effect/io/Effect"
 import type { CTX } from "./ctx.js"
 
 export function matchResource<TModules extends Record<string, Record<string, any>>>(mod: TModules) {
@@ -24,7 +30,7 @@ export function matchResource<TModules extends Record<string, Record<string, any
     handlers: THandlers
   ) => {
     const handler = mod.$$.keys.reduce((prev, cur) => {
-      prev[cur] = handle(mod[cur])(handlers[cur] as any)
+      prev[cur] = handle(mod[cur])(handlers[cur as keyof typeof handlers] as any)
       return prev
     }, {} as any)
     type HNDLRS = typeof handlers
@@ -42,44 +48,17 @@ export function matchResource<TModules extends Record<string, Record<string, any
   }
 }
 
-export const matchAction = <Module extends Record<string, any>, R, R2, E extends SupportedErrors>(
+export const matchAction = <Module extends Record<string, any>, R, R2, E, E2 extends SupportedErrors>(
   _: Module,
   f: Effect<
     R,
-    never,
+    E,
     (
       req: ReqFromSchema<GetRequest<Module>>,
       ctx: CTX
-    ) => Effect<R2, E, ResFromSchema<GetResponse<Module>>>
+    ) => Effect<R2, E2, ResFromSchema<GetResponse<Module>>>
   >
 ) => f
-
-export function match<
-  Action extends Record<string, any>,
-  SVC extends Record<string, Tag<any, any> | Effect<any, any, any>>,
-  R2,
-  E extends SupportedErrors
->(
-  action: Action,
-  services: SVC,
-  f: (
-    req: ReqFromSchema<GetRequest<Action>>,
-    ctx: Compute<LowerServices<SVC> & CTX, "flat">
-  ) => Effect<R2, E, ResFromSchema<GetResponse<Action>>>
-) {
-  return Object.assign(
-    matchAction(
-      action,
-      Effect.context<Values<SVC>>().flatMap((context) =>
-        allLowerFirstWith_(
-          services,
-          (svc) => (req, ctx) => f(req, { ...ctx, ...svc as any }).provideSomeContextReal(context)
-        )
-      )
-    ),
-    action
-  )
-}
 
 export function matchFor<Rsc extends Record<string, any>>(
   rsc: Rsc
@@ -105,6 +84,41 @@ export function matchFor<Rsc extends Record<string, any>>(
       )
     )
 
+  const matchWithServices2_ = <
+    Key extends keyof Rsc,
+    SVC extends Record<string, Tag<any, any> | Effect<any, any, any>>,
+    SVC2 extends Record<string, Tag<any, any> | Effect<any, any, any>>,
+    R2,
+    E extends SupportedErrors
+  >(
+    action: Key,
+    services: SVC,
+    fctx: (
+      req: ReqFromSchema<GetRequest<Rsc[Key]>>,
+      ctx: Compute<LowerServices<SVC> & CTX, "flat">
+    ) => SVC2,
+    f: (
+      req: ReqFromSchema<GetRequest<Rsc[Key]>>,
+      ctx: Compute<LowerServices<SVC> & LowerServices<SVC2> & CTX, "flat">
+    ) => Effect<R2, E, ResFromSchema<GetResponse<Rsc[Key]>>>
+  ) =>
+    matchAction(
+      rsc[action],
+      Effect.context<Values<SVC>>().flatMap((context) =>
+        allLowerFirstWith_(services, (svc) => (req: any, ctx: any) =>
+          Effect
+            .context<Values<SVC2>>()
+            .flatMap((context2) =>
+              allLowerFirst_(fctx(req, { ...ctx, ...svc as any }))
+                .flatMap((svc2) =>
+                  f(req, { ...ctx, ...svc as any, ...svc2 as any })
+                    .provideSomeContextReal(context2)
+                )
+            ))
+          .provideSomeContextReal(context)
+      )
+    )
+
   type MatchWithServices<Key extends keyof Rsc> = <
     SVC extends Record<string, Tag<any, any> | Effect<any, any, any>>,
     R2,
@@ -117,7 +131,7 @@ export function matchFor<Rsc extends Record<string, any>>(
     ) => Effect<R2, E, ResFromSchema<GetResponse<Rsc[Key]>>>
   ) => Effect<
     ValuesR<SVC>,
-    never,
+    ValuesE<SVC>,
     (
       req: ReqFromSchema<GetRequest<Rsc[Key]>>,
       ctx: CTX
@@ -128,33 +142,65 @@ export function matchFor<Rsc extends Record<string, any>>(
     action: Key
   ) => MatchWithServices<Key> = (action) => (services, f) => matchWithServices_(action, services, f)
 
-  type MatchWithEffect<Key extends keyof Rsc> = <R, R2, E extends SupportedErrors>(
-    f: Effect<
-      R,
-      never,
-      (
-        req: ReqFromSchema<GetRequest<Rsc[Key]>>,
-        ctx: CTX
-      ) => Effect<R2, E, ResFromSchema<GetResponse<Rsc[Key]>>>
-    >
+  type MatchWithServices2<Key extends keyof Rsc> = <
+    SVC extends Record<string, Tag<any, any> | Effect<any, any, any>>,
+    SVC2 extends Record<string, Tag<any, any> | Effect<any, any, any>>,
+    R2,
+    E extends SupportedErrors
+  >(
+    services: SVC,
+    fctx: (
+      req: ReqFromSchema<GetRequest<Rsc[Key]>>,
+      ctx: Compute<LowerServices<SVC> & CTX, "flat">
+    ) => SVC2,
+    f: (
+      req: ReqFromSchema<GetRequest<Rsc[Key]>>,
+      ctx: Compute<LowerServices<SVC> & LowerServices<SVC2> & CTX, "flat">
+    ) => Effect<R2, E, ResFromSchema<GetResponse<Rsc[Key]>>>
   ) => Effect<
-    R,
-    never,
+    ValuesR<SVC>,
+    ValuesE<SVC>,
     (
       req: ReqFromSchema<GetRequest<Rsc[Key]>>,
       ctx: CTX
-    ) => Effect<R2, E, ResFromSchema<GetResponse<Rsc[Key]>>>
+    ) => Effect<
+      ValuesR<SVC2> | Exclude<R2, Values<SVC>>,
+      E | ValuesE<SVC2>,
+      ResFromSchema<GetResponse<Rsc[Key]>>
+    >
   >
 
-  const matchWithEffect_ = <Key extends keyof Rsc, R, R2, E extends SupportedErrors>(
-    action: Key,
+  const matchWithServices2: <Key extends keyof Rsc>(
+    action: Key
+  ) => MatchWithServices2<Key> = (action) => (services, f2, f) => matchWithServices2_(action, services, f2, f)
+
+  type MatchWithEffect<Key extends keyof Rsc> = <R, R2, E, E2 extends SupportedErrors>(
     f: Effect<
       R,
-      never,
+      E,
       (
         req: ReqFromSchema<GetRequest<Rsc[Key]>>,
         ctx: CTX
-      ) => Effect<R2, E, ResFromSchema<GetResponse<Rsc[Key]>>>
+      ) => Effect<R2, E2, ResFromSchema<GetResponse<Rsc[Key]>>>
+    >
+  ) => Effect<
+    R,
+    E,
+    (
+      req: ReqFromSchema<GetRequest<Rsc[Key]>>,
+      ctx: CTX
+    ) => Effect<R2, E2, ResFromSchema<GetResponse<Rsc[Key]>>>
+  >
+
+  const matchWithEffect_ = <Key extends keyof Rsc, R, R2, E, E2 extends SupportedErrors>(
+    action: Key,
+    f: Effect<
+      R,
+      E,
+      (
+        req: ReqFromSchema<GetRequest<Rsc[Key]>>,
+        ctx: CTX
+      ) => Effect<R2, E2, ResFromSchema<GetResponse<Rsc[Key]>>>
     >
   ) => matchAction(rsc[action], f)
 
@@ -197,9 +243,6 @@ export function matchFor<Rsc extends Record<string, any>>(
 
   type GetHandler<T> = T extends Handler<any, any> ? ReturnType<T> : never
 
-  // TODO
-  console.log({ matchWith, matchWithEffect })
-
   const controllers = <
     THandlers extends {
       [K in Keys]: Effect<any, any, Handler<K, any>>
@@ -237,7 +280,8 @@ export function matchFor<Rsc extends Record<string, any>>(
       (prev, cur) => {
         ;(prev as any)[`match${cur as any}`] = Object.assign(matchWithServices(cur), {
           with: matchWith(cur),
-          withEffect: matchWithEffect(cur)
+          withEffect: matchWithEffect(cur),
+          test: matchWithServices2(cur)
         }) as any
         return prev
       },
@@ -246,6 +290,7 @@ export function matchFor<Rsc extends Record<string, any>>(
         [Key in Keys as `match${Key}`]: MatchWithServices<Key> & {
           with: MatchWith<Key>
           withEffect: MatchWithEffect<Key>
+          test: MatchWithServices2<Key>
         }
       }
     )
