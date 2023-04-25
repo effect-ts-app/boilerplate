@@ -6,7 +6,7 @@ import { NotLoggedInError } from "@effect-app/infra/errors"
 import { RequestContextContainer } from "@effect-app/infra/services/RequestContextContainer"
 import type { ReqRes, ReqResSchemed } from "@effect-app/prelude/schema"
 import type express from "express"
-import { CurrentUser, UserRepo } from "../../services.js"
+import type { UserProfileScheme } from "../../services/UserProfile.js"
 import { UserProfile } from "../../services/UserProfile.js"
 import type { CTX } from "./ctx.js"
 
@@ -45,15 +45,6 @@ export function RequestEnv(handler: { Request: any }) {
   }
 }
 
-/**
- * @tsplus static CurrentUser fromUserProfile
- */
-export function fromUserProfile() {
-  return UserRepo
-    .flatMap((_) => _.getCurrentUser)
-    .map((_) => CurrentUser.make({ get: Effect(_) }))
-}
-
 export type RequestEnv = ContextA<Effect.Success<ReturnType<ReturnType<typeof RequestEnv>>>>
 
 export function handleRequestEnv<
@@ -78,9 +69,11 @@ export function handleRequestEnv<
             .all({
               context: RequestContextContainer.get,
               // TODO: user should only be fetched and type wise available when not allow anonymous
-              user: UserProfile.flatMap((_) => _.get.catchAll(() => Effect(undefined)))
+              userProfile: UserProfile.flatMap((_) =>
+                _.get.catchAll(() => Effect(undefined as unknown as UserProfileScheme))
+              )
             })
-            .flatMap((ctx) => restore(handler.h as (i: any, ctx: any) => Effect<R, ResE, ResA>)(pars, ctx))
+            .flatMap((ctx) => restore(handler.h as (i: any, ctx: CTX) => Effect<R, ResE, ResA>)(pars, ctx))
         )
     },
     makeContext: RequestEnv(handler)

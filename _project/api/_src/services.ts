@@ -1,5 +1,4 @@
 // codegen:start {preset: barrel, include: services/*.ts }
-export * from "./services/CurrentUser.js"
 export * from "./services/DBContext.js"
 export * from "./services/Events.js"
 export * from "./services/UserProfile.js"

@@ -4,5 +4,5 @@ import type { UserProfileScheme } from "api/services.js"
 export interface CTX {
   context: RequestContext
   // TODO: user only defined in Context when allowAnonymous = false
-  user: UserProfileScheme
+  userProfile: UserProfileScheme
 }
