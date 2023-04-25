@@ -1,3 +1,4 @@
+import { UserProfileId } from "@effect-app/prelude/ids"
 import { makePreparedLenses } from "@effect-app/prelude/schema"
 
 export const FirstName = ReasonableString
@@ -59,8 +60,8 @@ export function createFullName(firstName: string, lastName: string) {
   return { firstName, lastName }
 }
 
-export const UserId = StringId
-export type UserId = StringId
+export const UserId = UserProfileId
+export type UserId = UserProfileId
 
 export const Role = literal("manager", "user")
 export type Role = ParsedShapeOfCustom<typeof Role>

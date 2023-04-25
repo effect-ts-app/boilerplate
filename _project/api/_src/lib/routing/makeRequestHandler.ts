@@ -5,7 +5,7 @@ import type { RequestHandlerOptRes } from "@effect-app/infra/api/express/schema/
 import { parseRequestParams } from "@effect-app/infra/api/express/schema/requestHandler"
 import { makeRequestParsers, respondSuccess } from "@effect-app/infra/api/routing"
 import type { ValidationError } from "@effect-app/infra/errors"
-import { RequestContext, RequestId } from "@effect-app/infra/RequestContext"
+import { RequestContext } from "@effect-app/infra/RequestContext"
 import { extractSchema, SchemaNamed } from "@effect-app/prelude/schema"
 import type express from "express"
 
@@ -16,6 +16,7 @@ import {
   RequestContextContainerImpl
 } from "@effect-app/infra/services/RequestContextContainer"
 import { restoreFromRequestContext } from "@effect-app/infra/services/Store/Memory"
+import { RequestId } from "@effect-app/prelude/ids"
 import type { RequestHandler } from "../routing.js"
 
 export const RequestSettings = FiberRef.unsafeMake({

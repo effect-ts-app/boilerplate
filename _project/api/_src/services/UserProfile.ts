@@ -1,20 +1,18 @@
 import { jwt } from "@effect-app/infra/api/express/schema/jwt"
 import { NotLoggedInError } from "@effect-app/infra/errors"
+import { UserProfileId } from "@effect-app/prelude/ids"
 
 export class UserProfileScheme extends Model<UserProfileScheme>()({
-  /**
-   * Mapped from "sub"
-   */
-  id: StringId.fromProp("sub")
+  sub: UserProfileId
 }) {}
 
-export const UserProfileId = Symbol()
+export const UserProfileTagId = Symbol()
 
 /**
  * @tsplus type UserProfile
  * @tsplus companion UserProfile.Ops
  */
-export abstract class UserProfile extends ServiceTaggedClass<UserProfile>()(UserProfileId) {
+export abstract class UserProfile extends ServiceTaggedClass<UserProfile>()(UserProfileTagId) {
   abstract get: Effect<never, NotLoggedInError, UserProfileScheme>
 }
 

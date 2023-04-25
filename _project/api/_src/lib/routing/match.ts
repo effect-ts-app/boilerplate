@@ -9,6 +9,7 @@ import { RequestContextContainer } from "@effect-app/infra/services/RequestConte
 // import { AUTH_DISABLED } from "api/config.js"
 import { makeUserProfileFromUserHeader } from "api/services.js"
 
+import type { RequestContext } from "@effect-app/infra/RequestContext"
 import type express from "express"
 import { makeRequestHandler } from "./makeRequestHandler.js"
 
@@ -73,7 +74,7 @@ export function matchAuth<
         // const r = (!AUTH_DISABLED
         //   ? makeUserProfileFromAuthorizationHeader(req.headers["authorization"])
         //   : makeUserProfileFromUserHeader(req.headers["x-user"])).exit.runSync$
-        return _.update((_) => ({ ..._, user: r.isSuccess() ? r.value : undefined }))
+        return _.update((_): RequestContext => ({ ..._, userProfile: r.isSuccess() ? r.value : undefined }))
       })
   )
   const path = requestHandler.Request.path.split("?")[0]

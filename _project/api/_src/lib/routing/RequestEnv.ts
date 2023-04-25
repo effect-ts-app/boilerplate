@@ -19,8 +19,8 @@ export function RequestEnv(handler: { Request: any }) {
     return Effect.gen(function*($) {
       const requestContext = yield* $(RequestContextContainer.get)
 
-      const userProfile = requestContext.user
-        ? Option.some(requestContext.user)
+      const userProfile = requestContext.userProfile
+        ? Option.some(requestContext.userProfile)
         : Option.none
 
       if (!allowAnonymous && !userProfile.value) {
