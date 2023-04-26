@@ -37,9 +37,7 @@ export function RequestEnv(handler: { Request: any }) {
       const ctx = yield* $(BasicRequestEnv)
       return ctx.add(
         UserProfile,
-        UserProfile.make({
-          get: Effect(userProfile).flatMap((_) => _.encaseInEffect(() => new NotLoggedInError()))
-        })
+        UserProfile.live(userProfile)
       )
     })
   }

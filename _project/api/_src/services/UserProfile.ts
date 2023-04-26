@@ -6,21 +6,20 @@ export class UserProfileScheme extends Model<UserProfileScheme>()({
   sub: UserProfileId
 }) {}
 
-export const UserProfileTagId = Symbol()
+export interface UserProfileServiceId {
+  readonly _: unique symbol
+}
 
 /**
  * @tsplus type UserProfile
  * @tsplus companion UserProfile.Ops
  */
-export abstract class UserProfile extends ServiceTaggedClass<UserProfile>()(UserProfileTagId) {
+export abstract class UserProfile extends TagClass<UserProfileServiceId, UserProfile>() {
   abstract get: Effect<never, NotLoggedInError, UserProfileScheme>
+  static live(profile: Option<UserProfileScheme>): UserProfile {
+    return { get: profile.encaseInEffect(() => new NotLoggedInError()) }
+  }
 }
-
-export const LiveUserProfile = (profile: UserProfileScheme | null) =>
-  Effect(UserProfile.make({
-    get: Option.fromNullable(profile).encaseInEffect(() => new NotLoggedInError())
-  }))
-    .toLayer(UserProfile)
 
 const userProfileFromJson = json[">>>"](UserProfileScheme)
 const userProfileFromJWT = jwt[">>>"](UserProfileScheme)

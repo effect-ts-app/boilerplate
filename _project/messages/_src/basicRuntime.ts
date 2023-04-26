@@ -1,4 +1,6 @@
 import { defaultTeardown } from "@effect-app/infra-adapters/runMain"
+import { logJson } from "@effect-app/infra/logger/jsonLogger"
+import { logFmt } from "@effect-app/infra/logger/logFmtLogger"
 import * as ConfigProvider from "@effect/io/Config/Provider"
 import * as Effect from "@effect/io/Effect"
 import * as Fiber from "@effect/io/Fiber"
@@ -32,7 +34,7 @@ const provider = ConfigProvider.contramapPath(
 export const basicRuntime = Runtime.defaultRuntime.runSync(
   makeBasicRuntime(
     Logger.minimumLogLevel(Level.Debug)
-      > Logger.logFmt
+      > (process.env["ENV"] && process.env["ENV"] !== "local-dev" ? logJson : logFmt)
       > Effect.setConfigProvider(provider)
   )
 )
