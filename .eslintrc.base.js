@@ -34,7 +34,7 @@ module.exports = (dirName, forceTS = false, project = undefined) => {
      // "plugin:prettier/recommended", // Enables eslint-plugin-prettier and displays prettier errors as ESLint errors. Make sure this is always the last configuration in the extends array.
      "plugin:@phaphoso/dprint/recommended"
     ].filter(x => x !== null),
-    plugins: ["import", "codegen", "sort-destructure-keys", "simple-import-sort",  "unused-imports"],
+    plugins: ["import", "codegen", "sort-destructure-keys", "unused-imports"],
     rules: {
       "@phaphoso/dprint/dprint": [
         "error",
@@ -91,6 +91,9 @@ module.exports = (dirName, forceTS = false, project = undefined) => {
       // e.g. "@typescript-eslint/explicit-function-return-type": "off",
       "sort-destructure-keys/sort-destructure-keys": "error", // Mainly to sort render props
 
+      // we want to be able to use e.g Effect.gen without having to worry about lint.
+      "require-yield": "off",
+
       "sort-imports": "off",
       "import/first": "error",
       //"import/no-cycle": "error",
@@ -99,8 +102,6 @@ module.exports = (dirName, forceTS = false, project = undefined) => {
       // eslint don't understand some imports very well
       "import/no-unresolved": "off",
       "import/order": "off",
-      //"simple-import-sort/imports": "error",
-      "simple-import-sort/imports": "off", // problem with dprint?
 
       "object-shorthand": "error",
 
