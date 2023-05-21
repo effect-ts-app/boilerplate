@@ -1,4 +1,5 @@
 import { defaultTeardown } from "@effect-app/infra-adapters/runMain"
+import { reportMainError } from "@effect-app/infra/api/reportError"
 import { logJson } from "@effect-app/infra/logger/jsonLogger"
 import { logFmt } from "@effect-app/infra/logger/logFmtLogger"
 import * as ConfigProvider from "@effect/io/Config/Provider"
@@ -61,7 +62,6 @@ export const runCallback = basicRuntime.runtime.runCallback
 
 /**
  * A dumbed down version of effect-ts/node's runtime, in preparation of new effect-ts
- * @tsplus fluent effect/io/Effect runMain$
  */
 export function runMain<E, A>(eff: Effect.Effect<never, E, A>) {
   const onExit = (s: number) => {
@@ -83,7 +83,7 @@ export function runMain<E, A>(eff: Effect.Effect<never, E, A>) {
                     defaultTeardown(0, context.id(), onExit)
                     return
                   } else {
-                    yield* $(Effect.logErrorCauseMessage("Main process Error", exit.cause))
+                    yield* $(reportMainError(exit.cause))
                     defaultTeardown(1, context.id(), onExit)
                     return
                   }
