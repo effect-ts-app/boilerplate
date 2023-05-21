@@ -35,7 +35,9 @@ const main = Effect.gen(function*($) {
   return yield* $(Effect.never().scoped.provideLayer(api(cfg)))
 })
 
-const program = main
+// NOTE: all dependencies should have been provided, for us to be able to run the program.
+// if you get a type error here on the R argument, you haven't provided that dependency yet, or not at the appropriate time / location
+const program: Effect<never, ConfigError, void> = main
   .provideSomeLayer(
     (appConfig.sendgrid.apiKey
       ? Emailer.LiveSendgrid(Config(appConfig.sendgrid))
