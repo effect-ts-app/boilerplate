@@ -23,8 +23,8 @@ The API is also proxied in the frontend on /api
 
 - `cd _project/frontend-nuxt && pnpm dev -o`
 
-Visit: http://localhost:5281
-API Docs: http://localhost:5281/api/docs
+Visit: http://localhost:4000
+API Docs: http://localhost:4000/api/docs
 
 Notes
 
