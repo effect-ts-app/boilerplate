@@ -19,6 +19,11 @@ const messages = {
     "validation.string.maxLength": `Das Feld darf nicht mehr als {maxLength} Zeichen haben`,
     "validation.string.minLength": `Das Feld muss mindestens {minLength} Zeichen enthalten`,
     "validation.not_a_valid": `Der eingegebene Wert ist kein gültiger {type}: {message}`,
+    "fe.version.button": "Neue Version verfügbar",
+    "fe.version.alert.title": "Neue Version verfügbar!",
+    "fe.version.alert.body": "Neue Version verfügbar, Seite neu laden?",
+    "fe.version.alert.yes": "Ja",
+    "fe.version.alert.no": "Nein",
   },
   en: {
     "handle.success": "{action} Success",
@@ -41,6 +46,11 @@ const messages = {
       "The field requires at least {minLength} characters",
     "validation.not_a_valid":
       "The entered value is not a valid {type}: {message}",
+    "fe.version.button": "New version available",
+    "fe.version.alert.title": "New version available!",
+    "fe.version.alert.body": "New version available, reload page?",
+    "fe.version.alert.yes": "Yes",
+    "fe.version.alert.no": "No",
   },
 }
 

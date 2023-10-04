@@ -39,6 +39,7 @@ onMounted(() => {
       <div v-else>
         <span v-if="currentUser">{{ currentUser.displayName }}</span>
       </div>
+      <Version />
     </v-app-bar>
     <v-main>
       <slot />
