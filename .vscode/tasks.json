@@ -10,7 +10,7 @@
 		{
 			"label": "Watch API, Models, Resources",
 			"type": "shell",
-			"command": "pnpm watch",
+			"command": "pnpm watch-src",
 			// "options": {
 			// 	"cwd": "${workspaceRoot}/_project/api/_test",
 			// },
@@ -90,7 +90,7 @@
 			"type": "shell",
 			"command": "pnpm watch",
 			"options": {
-				"cwd": "${workspaceRoot}/_project/frontend-nuxt"
+				"cwd": "${workspaceRoot}/_project/frontend"
 			},
 			"dependsOn": [
 				"Watch API, Models, Resources"
@@ -108,7 +108,7 @@
 					"base": "$tsc-watch",
 					"fileLocation": [
 						"relative",
-						"${workspaceRoot}/_project/frontend-nuxt",
+						"${workspaceRoot}/_project/frontend",
 					],
 				}
 			]
@@ -147,7 +147,7 @@
 			"type": "shell",
 			"command": "pnpm dev",
 			"options": {
-				"cwd": "${workspaceRoot}/_project/frontend-nuxt"
+				"cwd": "${workspaceRoot}/_project/frontend"
 			},
 			"dependsOrder": "sequence",
 			"dependsOn": [
@@ -171,8 +171,8 @@
 				],
 				"background": {
 					"activeOnStart": true,
-					"beginsPattern": "building",
-					"endsPattern": "Vite client warmed up"
+					"beginsPattern": "Nuxi",
+					"endsPattern": "Vite client warmed up in",
 				}
 			},
 			"presentation": {
@@ -244,7 +244,7 @@
 			"type": "shell",
 			"command": "pnpm build",
 			"options": {
-				"cwd": "${workspaceRoot}/_project/frontend-nuxt"
+				"cwd": "${workspaceRoot}/_project/frontend"
 			},
 			"group": "build",
 			"dependsOrder": "sequence",

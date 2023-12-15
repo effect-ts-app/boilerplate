@@ -1,10 +1,6 @@
 // TODO: Write a marker to package.json instead?
 const enforceSingleVersion = [
-    "@effect/io",
-    "@effect/stm",
-    // Language service currently depends on them
-    // "@fp-ts/core",
-    "@effect/data",
+    "effect",
     "@fp-ts/optic",
     "@effect-app/core",
     "@effect-app/infra-adapters",
@@ -47,6 +43,6 @@ function afterAllResolved(lockfile, context) {
 
 module.exports = {
     hooks: {
-        afterAllResolved,
+        afterAllResolved
     }
 }

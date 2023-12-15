@@ -1,43 +1,44 @@
 /* eslint-disable no-var */
-import { api } from "@effect-app-boilerplate/api/api"
-import { ApiConfig, BaseConfig } from "@effect-app-boilerplate/api/config"
-import { Emailer, MemQueue } from "@effect-app-boilerplate/api/services"
-import * as HF from "@effect-app/core/http/http-client-fetch"
-import { Live as LiveApiConfig } from "@effect-app/prelude/client/config"
-import type { Runtime } from "@effect/io/Runtime"
-import { fetch } from "cross-fetch"
-
-import * as Logger from "@effect/io/Logger"
-import * as Level from "@effect/io/Logger/Level"
-import * as Scope from "@effect/io/Scope"
+import { api, ApiPortTag } from "@effect-app-boilerplate/api/api"
+import { basicLayer } from "@effect-app-boilerplate/messages/basicRuntime"
+import { layer as LiveApiConfig } from "@effect-app/prelude/client/config"
+import * as HttpClientNode from "@effect/platform-node/HttpClient"
+import type { Runtime } from "effect/Runtime"
+import * as Scope from "effect/Scope"
 
 const POOL_ID = process.env["VITEST_POOL_ID"]
 const PORT = 40000 + parseInt(POOL_ID ?? "1")
 
-const appConfig = BaseConfig.config.runSync$
-const apiConfig = ApiConfig.config.runSync$
-const cfg = { ...appConfig, ...apiConfig, port: PORT }
+const ApiLive = api
+  .provide(Layer.succeed(ApiPortTag, { port: PORT }))
 
-const appLayer = Logger.minimumLogLevel(Level.Debug)
-  > Logger.logFmt
-  > Emailer.Fake
-  > MemQueue.Live
-  > LiveApiConfig(
-    Config.all({
-      apiUrl: Config.string("apiUrl").withDefault("http://127.0.0.1:" + PORT),
-      headers: Config
-        .string()
-        .table("headers")
-        .optional
-    })
+const ApiConfigLive = Config
+  .all({
+    apiUrl: Config.string("apiUrl").withDefault("http://127.0.0.1:" + PORT),
+    headers: Config
+      .string()
+      .hashMap("headers")
+      .option
+  })
+  .andThen(LiveApiConfig)
+  .unwrapLayer
+
+const appLayer = ApiLive
+  .provideMerge(
+    Layer
+      .mergeAll(
+        basicLayer,
+        ApiConfigLive,
+        // Emailer.Fake, // TODO
+        HttpClientNode.client.layer
+      )
   )
-  > HF.Client(fetch)
-  > api(cfg)
 
-type LayerA<T> = T extends Layer<any, any, infer A> ? A : never
+type LayerA<T> = T extends Layer<unknown, unknown, infer A> ? A : never
+type AppLayer = LayerA<typeof appLayer>
 
 declare global {
-  var runtime: Runtime<LayerA<typeof appLayer>>
+  var runtime: Runtime<AppLayer>
   var cleanup: () => Promise<void>
 }
 
@@ -50,7 +51,7 @@ beforeAll(async () => {
       const scope = yield* $(Scope.make())
       const env = yield* $(layer.buildWithScope(scope))
       const runtime = yield* $(
-        Effect.runtime<A>().scoped.provideContext(env)
+        Effect.runtime<A>().scoped.provide(env)
       )
 
       return {
@@ -61,7 +62,7 @@ beforeAll(async () => {
 
   const runtime = appRuntime(appLayer)
     .runPromise$
-    .catch((error) => {
+    .catch((error: unknown) => {
       console.error(error)
       throw error
     })

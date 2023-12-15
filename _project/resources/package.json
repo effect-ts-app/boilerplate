@@ -5,18 +5,21 @@
   "type": "module",
   "peerDependencies": {},
   "dependencies": {
-    "@effect-app/core": "^0.55.0",
-    "@effect-app/schema": "^0.49.0",
-    "@effect-app/prelude": "^0.57.0",
-    "@effect/io": "^0.26.0",
-    "@effect/data": "^0.12.5",
+    "@effect-app/core": "^0.91.0",
+    "@effect-app/schema": "^0.87.7",
+    "@effect-app/prelude": "^0.100.0",
     "@effect-app-boilerplate/models": "*",
+    "xlsx": "^0.18.5",
     "camel-case": "^4.1.2",
-    "cross-fetch": "^3.1.6",
+    "effect": "^2.0.0-next.60",
+    "cross-fetch": "^4.0.0",
     "date-fns": "^2.30.0",
+    "papaparse": "^5.4.1",
     "path-parser": "^6.1.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@types/papaparse": "^5.3.14"
+  },
   "typesVersions": {
     "*": {
       "*": [

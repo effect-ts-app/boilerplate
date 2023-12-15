@@ -1,0 +1,15 @@
+{
+  // https://v3.nuxtjs.org/concepts/typescript
+  "extends": "./.nuxt/tsconfig.json",
+  "compilerOptions": {
+    "tsPlusConfig": "../../tsplus.config.json",
+    "tsPlusTypes": [],
+    "tsPlusEnabled": false,
+    "lib": [
+      "DOM",
+      "dom.iterable",
+      "ES2022"
+    ],
+    "strict": true
+  },
+}

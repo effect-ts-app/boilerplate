@@ -2,6 +2,7 @@
   "extends": "../tsconfig.base.json",
   "compilerOptions": {
     "baseUrl": ".",
+    "tsPlusConfig": "../tsplus.config.json",
     "outDir": "./test-out",
     "lib": [
       "es5",

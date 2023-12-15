@@ -1,22 +1,20 @@
-import type * as H from "@effect-app/core/http/http-client"
-import * as HF from "@effect-app/core/http/http-client-fetch"
 import { typedKeysOf } from "@effect-app/core/utils"
 import type { ApiConfig } from "@effect-app/prelude/client/config"
-import { Live as LiveApiConfig } from "@effect-app/prelude/client/config"
+import { layer as ApiConfigLayer } from "@effect-app/prelude/client/config"
 import { initializeSync } from "@effect-app/vue/runtime"
-import fetch from "cross-fetch"
+import * as HttpClientNode from "@effect/platform-node/HttpClient"
 import { readFileSync } from "fs"
 
 export function makeRuntime(config: ApiConfig) {
-  const layers = HF.Client(fetch)
-    > LiveApiConfig(Config.all({ apiUrl: Config.succeed(config.apiUrl), headers: Config.succeed(config.headers) }))
+  const layers = HttpClientNode.client.layer
+    > ApiConfigLayer({ apiUrl: config.apiUrl, headers: config.headers })
   const runtime = initializeSync(layers)
 
   return runtime
 }
 
-export function makeHeaders(namespace: string, role?: "manager" | "user") {
-  const basicAuthCredentials = process.env["BASIC_AUTH_CREDENTIALS"]
+export function makeHeaders(namespace: string, role?: "user" | "manager") {
+  const basicAuthCredentials = process.env["run_CREDENTIALS"]
   let cookie: string | undefined = undefined
   if (role) {
     const f = readFileSync("./storageState." + role + ".json", "utf-8")
@@ -35,13 +33,13 @@ export function makeHeaders(namespace: string, role?: "manager" | "user") {
   }
 }
 
-export function makeHeadersHashMap(namespace: string, role?: "manager" | "user") {
+export function makeHeadersHashMap(namespace: string, role?: "user" | "manager") {
   const headers = makeHeaders(namespace, role)
   const keys = typedKeysOf(headers)
   return HashMap.make(...keys.map((_) => [_, headers[_]!] as const))
 }
 
-type Env = ApiConfig | H.HttpOps
+type Env = ApiConfig | HttpClient.Default
 export type SupportedEnv = Env // Effect.DefaultEnv |
 
 export function toBase64(b: string) {

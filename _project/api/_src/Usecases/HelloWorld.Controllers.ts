@@ -4,9 +4,9 @@ import { UserRepo } from "api/services.js"
 
 const helloWorld = matchFor(HelloWorldRsc)
 
-const Get = helloWorld.matchGet(
+const Get = helloWorld.Get(
   { UserRepo },
-  (_req, { context, userRepo }) =>
+  (_, { context, userRepo }) =>
     userRepo
       .getCurrentUser
       .catchTags({ "NotLoggedInError": () => Effect(null), "NotFoundError": () => Effect(null) })

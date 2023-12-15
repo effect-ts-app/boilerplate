@@ -16,7 +16,7 @@
     // {
     //   "name": "UI debug",
     //   "request": "launch",
-    //   "cwd": "${workspaceFolder}/_project/frontend-nuxt",
+    //   "cwd": "${workspaceFolder}/_project/frontend",
     //   "runtimeArgs": [
     //     "dev:debug"
     //   ],
@@ -40,13 +40,13 @@
     {
       "name": "UI Debug Attach",
       "port": 9230,
-      "cwd": "${workspaceFolder}/_project/frontend-nuxt",
+      "cwd": "${workspaceFolder}/_project/frontend",
       "request": "attach",
       "skipFiles": [
         "<node_internals>/**"
       ],
       "type": "pwa-node",
-      "webRoot": "${workspaceFolder}/_project/frontend-nuxt",
+      "webRoot": "${workspaceFolder}/_project/frontend",
       "sourceMaps": true
     },
   ]

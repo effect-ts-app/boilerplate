@@ -1,28 +1,25 @@
 import { jwt } from "@effect-app/infra/api/express/schema/jwt"
-import { NotLoggedInError } from "@effect-app/infra/errors"
 import { UserProfileId } from "@effect-app/prelude/ids"
-
-export class UserProfileScheme extends Model<UserProfileScheme>()({
-  sub: UserProfileId
-}) {}
-
-export interface UserProfileServiceId {
-  readonly _: unique symbol
-}
+import { Class, json } from "@effect-app/prelude/schema"
 
 /**
  * @tsplus type UserProfile
  * @tsplus companion UserProfile.Ops
  */
-export abstract class UserProfile extends TagClass<UserProfileServiceId, UserProfile>() {
-  abstract get: Effect<never, NotLoggedInError, UserProfileScheme>
-  static live(profile: Option<UserProfileScheme>): UserProfile {
-    return { get: profile.encaseInEffect(() => new NotLoggedInError()) }
-  }
+export class UserProfile extends assignTag<UserProfile>()(
+  Class<UserProfile>()({
+    sub: UserProfileId,
+    roles: array(NonEmptyString255).fromProp("https://nomizz.com/roles")
+  })
+) {
 }
 
-const userProfileFromJson = json[">>>"](UserProfileScheme)
-const userProfileFromJWT = jwt[">>>"](UserProfileScheme)
+export interface UserProfileServiceId {
+  readonly _: unique symbol
+}
+
+const userProfileFromJson = json[">>>"](UserProfile)
+const userProfileFromJWT = jwt[">>>"](UserProfile)
 export const makeUserProfileFromAuthorizationHeader = (
   authorization: string | undefined
 ) => userProfileFromJWT.parseCondemnCustom(authorization)

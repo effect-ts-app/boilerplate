@@ -1,12 +1,12 @@
 import type { ClientEvents } from "@effect-app-boilerplate/resources"
 import { storeId } from "@effect-app/infra/services/Store/Memory"
 
-const makeEvents = Do(($) => {
-  const q = $(Hub.unbounded<{ evt: ClientEvents; namespace: string }>())
+const makeEvents = Effect.gen(function*($) {
+  const q = yield* $(PubSub.unbounded<{ evt: ClientEvents; namespace: string }>())
   const svc: Events = {
     publish: (...evts) => storeId.get.flatMap((namespace) => q.offerAll(evts.map((evt) => ({ evt, namespace })))),
-    subscribe: q.subscribe(),
-    stream: Stream.fromHub(q)
+    subscribe: q.subscribe,
+    stream: Stream.fromPubSub(q)
   }
   return svc
 })

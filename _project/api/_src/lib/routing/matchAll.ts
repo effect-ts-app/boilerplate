@@ -1,9 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/ban-types */
-import type { SupportedErrors } from "@effect-app/infra/api/defaultErrorHandler"
-import { defaultErrorHandler } from "@effect-app/infra/api/defaultErrorHandler"
-import type { Flatten, RouteMatch } from "@effect-app/infra/api/routing"
-import { matchAuth } from "./match.js"
+
+import type { SupportedErrors } from "@effect-app/prelude/client"
+import type { Flatten, RouteMatch } from "./base.js"
+import type { GetContext } from "./ctx.js"
+import { defaultErrorHandler } from "./defaultErrorHandler.js"
+import { match } from "./match.js"
 import type { RequestEnv, RequestHandler } from "./RequestEnv.js"
 import { handleRequestEnv } from "./RequestEnv.js"
 
@@ -13,7 +15,7 @@ import { handleRequestEnv } from "./RequestEnv.js"
  */
 export function matchAll<T extends RequestHandlers>(handlers: T) {
   const mapped = handlers.$$.keys.reduce((prev, cur) => {
-    prev[cur] = matchAuth(handlers[cur] as any, defaultErrorHandler, handleRequestEnv)
+    prev[cur] = match(handlers[cur]!, defaultErrorHandler, handleRequestEnv)
     return prev
   }, {} as any) as RouteAllLoggedIn<typeof handlers>
 
@@ -35,35 +37,17 @@ export function matchAllAlt<T extends RequestHandlersTest>(handlers: T) {
   return mapped
 }
 
-export type SupportedRequestHandler = RequestHandler<any, any, any, any, any, any, any, any, SupportedErrors>
+export type SupportedRequestHandler = RequestHandler<any, any, any, any, any, any, any, any, any, SupportedErrors, any>
 
 export type RequestHandlers = { [key: string]: SupportedRequestHandler }
 export type RequestHandlersTest = {
   [key: string]: Record<string, SupportedRequestHandler>
 }
 
-type RouteAll<T extends RequestHandlers> = {
-  [K in keyof T]: T[K] extends RequestHandler<
-    infer R,
-    any, // infer PathA,
-    any, // infer CookieA,
-    any, // infer QueryA,
-    any, // infer BodyA,
-    any, // infer HeaderA,
-    any, // infer ReqA,
-    any, // infer ResA,
-    SupportedErrors // infer ResE
-  > ? RouteMatch<R, never>
-    : never
-}
-
-export type RouteAllTest<T extends RequestHandlersTest> = {
-  [K in keyof T]: RouteAll<T[K]>
-}
-
 type RouteAllLoggedIn<T extends RequestHandlers> = {
   [K in keyof T]: T[K] extends RequestHandler<
     infer R,
+    infer M,
     any, // infer PathA,
     any, // infer CookieA,
     any, // infer QueryA,
@@ -71,8 +55,9 @@ type RouteAllLoggedIn<T extends RequestHandlers> = {
     any, // infer HeaderA,
     any, // infer ReqA,
     any, // infer ResA,
-    SupportedErrors // infer ResE
-  > ? RouteMatch<R, RequestEnv>
+    SupportedErrors, // infer ResE,
+    any
+  > ? RouteMatch<R, M, RequestEnv | GetContext<T[K]["Request"]>>
     : never
 }
 

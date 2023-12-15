@@ -1,0 +1,31 @@
+{
+  "extends": "./tsconfig.base.json",
+  "include": [],
+  "exclude": [
+    "**/node_modules",
+    "**/build",
+    "**/lib",
+    "**/dist",
+    "**/.*"
+  ],
+  "references": [
+    {
+      "path": "_project/api/tsconfig.src.json"
+    },
+    {
+      "path": "_project/messages"
+    },
+    {
+      "path": "_project/resources"
+    },
+    {
+      "path": "_project/models"
+    },
+    // {
+    //   "path": "_project/frontend-vue"
+    // },
+    //     {
+    //       "path": "_project/frontend-react"
+    //     },
+  ]
+}

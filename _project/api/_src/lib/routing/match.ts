@@ -1,21 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/ban-types */
-import * as Ex from "@effect-app/infra-adapters/express"
-import type { RequestHandler as RequestHandlerOrig } from "@effect-app/infra/api/express/schema/requestHandler"
-import { makeRouteDescriptor } from "@effect-app/infra/api/express/schema/routing"
-import type { Middleware } from "@effect-app/infra/api/routing"
+import { makeRouteDescriptor, type RouteDescriptorAny } from "@effect-app/infra/api/express/schema/routing"
+
 import type { ValidationError } from "@effect-app/infra/errors"
-import { RequestContextContainer } from "@effect-app/infra/services/RequestContextContainer"
-// import { AUTH_DISABLED } from "api/config.js"
-import { makeUserProfileFromUserHeader } from "api/services.js"
-
-import type { RequestContext } from "@effect-app/infra/RequestContext"
-import type express from "express"
+import { HttpRouter, type HttpServerRequest, type HttpServerResponse } from "../http.js"
 import { makeRequestHandler } from "./makeRequestHandler.js"
+import type { MakeMiddlewareContext, Middleware } from "./makeRequestHandler.js"
+import type { RequestHandler } from "./RequestEnv.js"
 
-export function matchAuth<
+export const RouteDescriptors = Tag<Ref<RouteDescriptorAny[]>>()
+
+export function match<
   R,
-  E,
+  M,
   PathA,
   CookieA,
   QueryA,
@@ -23,12 +20,16 @@ export function matchAuth<
   HeaderA,
   ReqA extends PathA & QueryA & BodyA,
   ResA,
+  ResE,
+  MiddlewareE,
+  PPath extends `/${string}`,
   R2 = never,
   PR = never,
   RErr = never
 >(
-  requestHandler: RequestHandlerOrig<
+  requestHandler: RequestHandler<
     R,
+    M,
     PathA,
     CookieA,
     QueryA,
@@ -36,15 +37,17 @@ export function matchAuth<
     HeaderA,
     ReqA,
     ResA,
-    E
+    ResE,
+    PPath
   >,
   errorHandler: <R>(
-    req: express.Request,
-    res: express.Response,
-    r2: Effect<R, E | ValidationError, void>
-  ) => Effect<RErr, never, void>,
+    req: HttpServerRequest,
+    res: HttpServerResponse,
+    r2: Effect<R, ValidationError | MiddlewareE | ResE, HttpServerResponse>
+  ) => Effect<RErr | R, never, HttpServerResponse>,
   middleware?: Middleware<
     R,
+    M,
     PathA,
     CookieA,
     QueryA,
@@ -52,46 +55,55 @@ export function matchAuth<
     HeaderA,
     ReqA,
     ResA,
-    E,
+    ResE,
+    MiddlewareE,
+    PPath,
     R2,
     PR
   >
 ) {
-  let makeMiddlewareContext = undefined
+  let makeMiddlewareContext: MakeMiddlewareContext<MiddlewareE, R2, PR> | undefined = undefined
   if (middleware) {
     const { handler, makeContext } = middleware(requestHandler)
-    requestHandler = handler
+    requestHandler = handler as any // todo
     makeMiddlewareContext = makeContext
   }
-  const match = Ex.match(requestHandler.Request.method.toLowerCase() as any)
-  const handler = makeRequestHandler<R, E, PathA, CookieA, QueryA, BodyA, HeaderA, ReqA, ResA, R2, PR, RErr>(
-    requestHandler,
-    errorHandler,
-    makeMiddlewareContext,
-    (req) =>
-      RequestContextContainer.flatMap((_) => {
-        const r = makeUserProfileFromUserHeader(req.headers["x-user"]).exit.runSync$
-        // const r = (!AUTH_DISABLED
-        //   ? makeUserProfileFromAuthorizationHeader(req.headers["authorization"])
-        //   : makeUserProfileFromUserHeader(req.headers["x-user"])).exit.runSync$
-        return _.update((_): RequestContext => ({ ..._, userProfile: r.isSuccess() ? r.value : undefined }))
-      })
-  )
-  const path = requestHandler.Request.path.split("?")[0]
-  return (
-    // // TODO: when anonymous, and there is a jwt, still check if it's valid
-    // (requestHandler.Request as any).allowAnonymous
-    // ?
-    match(path, handler)
-    // : match(path, checkJwt(Auth0Config.config.runSync$), handler)
-  )
-    .zipRight(
-      Effect(
-        makeRouteDescriptor(
-          requestHandler.Request.path,
-          requestHandler.Request.method,
-          requestHandler
-        )
-      )
+  return Effect.gen(function*($) {
+    const rdesc = yield* $(RouteDescriptors.flatMap((_) => _.get))
+
+    const handler = makeRequestHandler<
+      R,
+      M,
+      PathA,
+      CookieA,
+      QueryA,
+      BodyA,
+      HeaderA,
+      ReqA,
+      ResA,
+      ResE,
+      MiddlewareE,
+      R2,
+      PR,
+      RErr,
+      PPath
+    >(
+      requestHandler as any, // one argument if no middleware, 2 if has middleware. TODO: clean this shit up
+      errorHandler,
+      makeMiddlewareContext
     )
+
+    const route = HttpRouter.makeRoute(
+      requestHandler.Request.method,
+      requestHandler.Request.path,
+      handler
+    )
+
+    rdesc.push(makeRouteDescriptor(
+      requestHandler.Request.path,
+      requestHandler.Request.method,
+      requestHandler
+    ))
+    return route
+  })
 }

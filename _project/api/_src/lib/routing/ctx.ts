@@ -1,8 +1,19 @@
+import type { AllowAnonymous } from "@effect-app-boilerplate/resources/lib"
 import type { RequestContext } from "@effect-app/infra/RequestContext"
-import type { UserProfileScheme } from "api/services.js"
+import type { UserProfile } from "api/services.js"
 
 export interface CTX {
   context: RequestContext
-  // TODO: user only defined in Context when allowAnonymous = false
-  userProfile: UserProfileScheme
 }
+
+export type GetCTX<Req> =
+  & CTX
+  & (AllowAnonymous<Req> extends true ? {
+      userProfile?: UserProfile
+    }
+    // eslint-disable-next-line @typescript-eslint/ban-types
+    : { userProfile: UserProfile })
+
+export type GetContext<Req> = AllowAnonymous<Req> extends true ? never
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  : UserProfile

@@ -2,10 +2,10 @@ import { BaseConfig } from "@effect-app-boilerplate/messages/config"
 
 const STORAGE_VERSION = "1"
 
-const StorageConfig = Config.all({
+export const StorageConfig = Config.all({
   url: Config
     .secretURL("url")
-    .withDefault(ConfigSecretURL.fromString("mem://"))
+    .withDefault(SecretURL.fromString("disk://.data"))
     .nested("storage"),
   dbName: BaseConfig.map(({ env, serviceName }) =>
     `${serviceName}${env === "prod" ? "" : env === "demo" ? "-demo" : "-dev"}`
@@ -16,9 +16,13 @@ const StorageConfig = Config.all({
     .orElse(() => BaseConfig.map(({ env }) => (env === "prod" ? "" : `${env}_v${STORAGE_VERSION}_`)))
 })
 
+export const AUTH_DISABLED = process.env["AUTH_DISABLED"] === "true"
+
 export const ApiConfig = Config.all({
   host: Config.string("host").withDefault("0.0.0.0"),
   port: Config.integer("port").withDefault(3610),
+  devPort: Config.integer("devPort").withDefault(3611),
+  baseUrl: Config.string("baseUrl").withDefault("http://localhost:4000"),
 
   fakeData: Config.string("fakeData").withDefault(""),
   fakeUsers: Config.string("fakeUsers").withDefault("sample"),
@@ -33,3 +37,8 @@ export interface ApiConfig extends ConfigA<typeof ApiConfig> {}
 export interface ApiMainConfig extends ApiConfig, BaseConfig {}
 
 export * from "@effect-app-boilerplate/messages/config"
+
+export const MergedConfig = ApiConfig
+  .andThen((apiConfig) => BaseConfig.andThen((baseConfig) => ({ ...baseConfig, ...apiConfig })))
+  .cached
+  .runSync$

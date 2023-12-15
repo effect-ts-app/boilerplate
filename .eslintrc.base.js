@@ -81,12 +81,13 @@ module.exports = (dirName, forceTS = false, project = undefined) => {
       "@typescript-eslint/no-use-before-define": ["warn", { functions: false, classes: true, variables: true}],
       "@typescript-eslint/explicit-function-return-type": "off",
       "@typescript-eslint/interface-name-prefix": "off",
-      "@typescript-eslint/no-empty-interface": [
-        "error",
-        {
-          allowSingleExtends: true,
-        },
-      ],
+      "@typescript-eslint/no-empty-interface": "off",
+      // "@typescript-eslint/no-empty-interface": [
+      //   "error",
+      //   {
+      //     allowSingleExtends: true,
+      //   },
+      // ],
       // Place to specify ESLint rules. Can be used to overwrite rules specified from the extended configs
       // e.g. "@typescript-eslint/explicit-function-return-type": "off",
       "sort-destructure-keys/sort-destructure-keys": "error", // Mainly to sort render props

@@ -2,7 +2,9 @@
 /* eslint-disable @typescript-eslint/ban-types */
 
 // codegen:start {preset: barrel, include: routing/*.ts }
+export * from "./routing/base.js"
 export * from "./routing/ctx.js"
+export * from "./routing/defaultErrorHandler.js"
 export * from "./routing/makeRequestHandler.js"
 export * from "./routing/match.js"
 export * from "./routing/matchAll.js"

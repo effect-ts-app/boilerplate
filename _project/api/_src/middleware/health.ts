@@ -1,8 +1,8 @@
-import * as Ex from "@effect-app/infra-adapters/express"
+import { HttpMiddleware, HttpRouter, HttpServerResponse } from "api/lib/http.js"
 
 export function serverHealth(version: string) {
-  return Ex.get(
+  return HttpRouter.get(
     "/.well-known/local/server-health",
-    (_, res) => Effect(res.json({ version }))
+    HttpServerResponse.unsafeJson({ version }).pipe(HttpMiddleware.withLoggerDisabled)
   )
 }

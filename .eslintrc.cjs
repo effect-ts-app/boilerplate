@@ -1,5 +1,5 @@
 const makeBase = require("./.eslintrc.base")
-const base = makeBase(__dirname, true, "tsconfig.all2.json")
+const base = makeBase(__dirname, undefined, "tsconfig.all2.json")
 module.exports = {
   root: true,
   ...base,
@@ -7,6 +7,5 @@ module.exports = {
   rules: {
     ...base.rules,
     'codegen/codegen': ['error', { presets: require('@effect-app/eslint-codegen-model') }],
-    "@typescript-eslint/no-empty-interface": "off"
   },
 }

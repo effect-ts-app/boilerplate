@@ -1,8 +1,8 @@
 import { Option } from "@effect-app/prelude"
-// import { UsersRsc } from "@macs-configurator/resources"
+// import { UsersRsc } from "@effect-app-boilerplate/resources"
 import { makeHeadersHashMap, makeRuntime } from "./shared.js"
 
-const baseUrl = process.env["BASE_URL"] ?? "http://localhost:5500"
+const baseUrl = process.env["BASE_URL"] ?? "http://localhost:4000"
 
 export function makeRuntimes(namespace: string) {
   const apiUrl = `${baseUrl}/api/api`

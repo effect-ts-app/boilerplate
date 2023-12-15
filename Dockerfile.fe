@@ -1,0 +1,48 @@
+FROM node:20-alpine
+
+RUN npm i -g pnpm
+
+ENV NODE_ENV production
+
+# RUN addgroup -g 1001 -S nodejs
+# RUN adduser -S nextjs -u 1001
+
+WORKDIR /app
+
+# pnpm fetch does require only lockfile
+COPY patches ./patches
+COPY pnpm-lock.yaml .npmrc ./
+RUN pnpm fetch --prod
+
+COPY package.json pnpm-workspace.yaml ./
+
+#COPY /_project/frontend/node_modules /app/_project/frontend/node_modules
+# COPY /package.json /pnpm-lock.yaml /app/
+COPY /_project/frontend/package.json /app/_project/frontend/
+# COPY /_project/models/package.json /app/_project/models/
+# COPY /_project/resources/package.json /app/_project/resources/
+# COPY /patches /app/_project/frontend/patches
+
+#COPY /_project/frontend /app/_project/frontend
+# As we're going to deploy, we want only the minimal production dependencies.
+# TODO
+RUN pnpm install --frozen-lockfile --prod
+#RUN --mount=type=cache,target=/root/.pnpm pnpm_CACHE_FOLDER=/root/.pnpm pnpm install --frozen-lockfile --prod
+
+COPY /_project/frontend/.output /app/_project/frontend/.output
+
+# COPY /_project/models /app/_project/models
+# COPY /_project/resources /app/_project/resources
+
+WORKDIR /app/_project/frontend
+
+# USER nextjs
+EXPOSE 4000
+ENV PORT=4000
+ENV TZ=Europe/Berlin
+ARG FE_VERSION
+ENV FE_VERSION=${FE_VERSION:-docker_default}
+ENV NUXT_PUBLIC_FE_VERSION=${FE_VERSION:-docker_default}
+ENV SENTRY_RELEASE=${FE_VERSION:-docker_default}
+
+CMD ["pnpm", "start"]

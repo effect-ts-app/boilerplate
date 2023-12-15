@@ -1,47 +1,61 @@
+import { lazyGetter } from "@effect-app/core/utils"
 import { UserProfileId } from "@effect-app/prelude/ids"
-import { makePreparedLenses } from "@effect-app/prelude/schema"
+import type { ConstructorInputApi, FieldsClass, To } from "@effect-app/prelude/schema"
+import {
+  arbitrary,
+  ExtendedClass,
+  fakerArb,
+  FromClass,
+  literal,
+  makePreparedLenses,
+  NonEmptyString255,
+  NonEmptyString2k,
+  useClassFeaturesForSchema,
+  withDefaults
+} from "@effect-app/prelude/schema"
+import { Equivalence } from "effect"
 
-export const FirstName = ReasonableString
-  ["|>"](
+export const FirstName = NonEmptyString255
+  .pipe(
     arbitrary((FC) =>
       // eslint-disable-next-line @typescript-eslint/unbound-method
-      fakerArb((faker) => faker.name.firstName)(FC).map((x) => x as ReasonableString)
-    )
+      fakerArb((faker) => faker.person.firstName)(FC).map((x) => x as NonEmptyString255)
+    ),
+    withDefaults
   )
-  ["|>"](withDefaults)
-export type FirstName = ParsedShapeOfCustom<typeof FirstName>
+export type FirstName = To<typeof FirstName>
 
 export const DisplayName = FirstName
-export type DisplayName = ParsedShapeOfCustom<typeof DisplayName>
+export type DisplayName = To<typeof DisplayName>
 
-export const LastName = ReasonableString
-  ["|>"](
+export const LastName = NonEmptyString255
+  .pipe(
     arbitrary((FC) =>
       // eslint-disable-next-line @typescript-eslint/unbound-method
-      fakerArb((faker) => faker.name.lastName)(FC).map((x) => x as ReasonableString)
-    )
+      fakerArb((faker) => faker.person.lastName)(FC).map((x) => x as NonEmptyString255)
+    ),
+    withDefaults
   )
-  ["|>"](withDefaults)
-export type LastName = ParsedShapeOfCustom<typeof LastName>
+export type LastName = To<typeof LastName>
 
 /**
  * @tsplus type FullName
  */
 @useClassFeaturesForSchema
-export class FullName extends MNModel<
+export class FullName extends ExtendedClass<
   FullName,
   FullName.ConstructorInput,
-  FullName.Encoded,
-  FullName.Props
+  FullName.From,
+  FullName.Fields
 >()({
   firstName: FirstName,
   lastName: LastName
 }) {
   static render(this: void, fn: FullName) {
-    return LongString(`${fn.firstName} ${fn.lastName}`)
+    return NonEmptyString2k(`${fn.firstName} ${fn.lastName}`)
   }
 
-  static make(this: void, firstName: FirstName, lastName: LastName) {
+  static create(this: void, firstName: FirstName, lastName: LastName) {
     return new FullName({ firstName, lastName })
   }
 }
@@ -54,7 +68,7 @@ export function showFullName(fn: FullName) {
 }
 
 /**
- * @tsplus static FullName.Encoded.Ops create
+ * @tsplus static FullName.From.Ops create
  */
 export function createFullName(firstName: string, lastName: string) {
   return { firstName, lastName }
@@ -64,14 +78,14 @@ export const UserId = UserProfileId
 export type UserId = UserProfileId
 
 export const Role = literal("manager", "user")
-export type Role = ParsedShapeOfCustom<typeof Role>
+export type Role = To<typeof Role>
 
 /**
  * @tsplus type User
  * @tsplus companion User
  */
 @useClassFeaturesForSchema
-export class User extends MNModel<User, User.ConstructorInput, User.Encoded, User.Props>()({
+export class User extends ExtendedClass<User, User.ConstructorInput, User.From, User.Fields>()({
   id: UserId.withDefault,
   displayName: DisplayName,
   role: Role
@@ -85,7 +99,7 @@ export function showUser(user: User) {
 }
 
 function getProps(u: User) {
-  return makePreparedLenses(User.Api.props, u)
+  return makePreparedLenses(User.Api.fields, u)
 }
 
 /**
@@ -96,7 +110,7 @@ export const props = lazyGetter(getProps)
 /**
  * @tsplus static User equal
  */
-export const defaultEqual = Equivalence.string.contramap((u: User) => u.id)
+export const defaultEqual = Equivalence.string.mapInput((u: User) => u.id)
 
 // TODO
 // let userPool: readonly User[] | null = null
@@ -107,7 +121,7 @@ export const defaultEqual = Equivalence.string.contramap((u: User) => u.id)
 // const User___ = union({ RegisteredUser, Guest, Ghost, Archived })
 // const userArb = Arbitrary.for(User___)
 // const User_ = enhanceClassUnion(
-//   OpaqueSchema<User, User.Encoded>()(User___)
+//   OpaqueSchema<User, User.From>()(User___)
 //     ["|>"](arbitrary(_ => (userPool ? _.constantFrom(...userPool) : userArb(_))))
 //     ["|>"](withDefaults)
 
@@ -116,23 +130,23 @@ export const defaultEqual = Equivalence.string.contramap((u: User) => u.id)
 /* eslint-disable */
 export namespace FullName {
   /**
-   * @tsplus type FullName.Encoded
-   * @tsplus companion FullName.Encoded/Ops
+   * @tsplus type FullName.From
+   * @tsplus companion FullName.From/Ops
    */
-  export class Encoded extends EncodedClass<typeof FullName>() {}
+  export class From extends FromClass<typeof FullName>() {}
   export interface ConstructorInput
-    extends ConstructorInputFromApi<typeof FullName> {}
-  export interface Props extends GetProvidedProps<typeof FullName> {}
+    extends ConstructorInputApi<typeof FullName> {}
+  export interface Fields extends FieldsClass<typeof FullName> {}
 }
 export namespace User {
   /**
-   * @tsplus type User.Encoded
-   * @tsplus companion User.Encoded/Ops
+   * @tsplus type User.From
+   * @tsplus companion User.From/Ops
    */
-  export class Encoded extends EncodedClass<typeof User>() {}
+  export class From extends FromClass<typeof User>() {}
   export interface ConstructorInput
-    extends ConstructorInputFromApi<typeof User> {}
-  export interface Props extends GetProvidedProps<typeof User> {}
+    extends ConstructorInputApi<typeof User> {}
+  export interface Fields extends FieldsClass<typeof User> {}
 }
 /* eslint-enable */
 //

@@ -3,7 +3,7 @@ import { Operations } from "api/services.js"
 
 const operations = matchFor(OperationsRsc)
 
-const Find = operations.matchFind(
+const Find = operations.Find(
   { Operations },
   ({ id }, { operations }) => operations.find(id).map((_) => _.getOrNull)
 )

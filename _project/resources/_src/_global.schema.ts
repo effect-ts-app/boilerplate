@@ -1,9 +1,14 @@
 /* eslint-disable import/no-duplicates */
 /* eslint-disable unused-imports/no-unused-imports */
 
-import "@effect-app-boilerplate/models/_global.schema"
+import "@effect-app/prelude/_global.schema"
 
 /**
  * @tsplus global
  */
-import { allowAnonymous, Delete, Get, Patch, Post, Put } from "@effect-app/prelude/schema"
+import { Delete, Get, Patch, Post, Put } from "@effect-app/prelude/schema"
+
+/**
+ * @tsplus global
+ */
+import { allowRoles } from "@effect-app-boilerplate/models/roles"

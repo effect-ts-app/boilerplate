@@ -1,88 +1,40 @@
 import { ClientEvents } from "@effect-app-boilerplate/resources"
-import * as Ex from "@effect-app/infra-adapters/express"
-import { reportRequestError } from "@effect-app/infra/api/reportError"
+import { reportError } from "@effect-app/infra/errorReporter"
+import { HttpServerResponse } from "api/lib/http.js"
 import { Events } from "../services/Events.js"
 
-export const events = Ex.get(
-  "/events",
-  (req, res) =>
-    Do(($) => {
-      req.socket.setTimeout(0)
-      req.socket.setNoDelay(true)
-      req.socket.setKeepAlive(true)
-      res.statusCode = 200
-      res.setHeader("Content-Type", "text/event-stream")
-      res.setHeader("Cache-Control", "no-cache")
-      res.setHeader("X-Accel-Buffering", "no")
-      if (req.httpVersion !== "2.0") {
-        res.setHeader("Connection", "keep-alive")
-      }
+export const events = Effect
+  .gen(function*($) {
+    yield* $(Effect.logInfo("$ start listening to events"))
 
-      function writeAndLogError(data: string) {
-        try {
-          if (!res.write(data)) {
-            console.error("write error")
-          }
-        } catch (err) {
-          console.error("write error", err)
-          throw err
+    const enc = new TextEncoder()
+
+    // Tell the client to retry every 10 seconds if connectivity is lost
+    const setRetry = Stream.succeed("retry: 10000")
+    const keepAlive = Stream.schedule(Effect.succeed(":keep-alive"), Schedule.fixed(Duration.seconds(15)))
+    const events = yield* $(Events.map(({ stream }) => stream))
+
+    const stream = setRetry
+      .merge(keepAlive)
+      .merge(events.map((_) => `id: ${_.evt.id}\ndata: ${JSON.stringify(ClientEvents.encodeSync(_.evt))}`))
+      .map((_) => enc.encode(_ + "\n\n"))
+
+    const ctx = yield* $(Effect.context<never>())
+    const res = HttpServerResponse.stream(
+      stream
+        .tapErrorCause(reportError("Request"))
+        .provideContext(ctx),
+      {
+        contentType: "text/event-stream",
+        headers: {
+          "content-type": "text/event-stream",
+          "cache-control": "no-cache",
+          "x-accel-buffering": "no",
+          "connection": "keep-alive" // if (req.httpVersion !== "2.0")
         }
       }
-
-      // Tell the client to retry every 10 seconds if connectivity is lost
-      writeAndLogError("retry: 10000\n\n")
-
-      // If client closes connection, stop sending events
-      // req.on("error", err => console.log("$$$ req error", err))
-
-      const namespace = req.headers["x-store-id"]
-        ? Array.isArray(req.headers["x-store-id"]) ? req.headers["x-store-id"][0]! : req.headers["x-store-id"]
-        : "primary"
-
-      $(Effect.logInfo("$ start listening to events"))
-      $(
-        Effect
-          .sync(() => {
-            try {
-              // console.log("keep alive")
-              // writeAndLogError("id: keep-alive\ndata: \"keep-alive\"\n\n")
-              writeAndLogError(":keep-alive\n\n")
-            } catch (err) {
-              console.error("keepAlive Error", err)
-              throw err
-            }
-          })
-          .schedule(Schedule.fixed(Duration.seconds(15)))
-          .forkScoped
-      )
-
-      $(
-        Events.flatMap(({ stream }) =>
-          stream
-            .filter((_) => _.namespace === namespace)
-            .runForEach((_) =>
-              Effect(
-                writeAndLogError(
-                  `id: ${_.evt.id}\ndata: ${JSON.stringify(ClientEvents.Encoder(_.evt))}\n\n`
-                )
-              )
-            )
-            .forkScoped
-        )
-      )
-      $(Effect.async<never, never, void>((cb) => {
-        res.on("close", () => {
-          console.log("client dropped me res CLOSE")
-          cb(Effect(void 0 as void))
-          res.end()
-        })
-      }))
-    })
-      .scoped
-      .tapBothInclAbort(
-        () => Effect.logDebug("$ stop listening to events"),
-        () => Effect.logInfo("$ stop listening to events")
-      )
-      .tapErrorCause(reportRequestError)
-      .setupNamedRequest("events")
-)
+    )
+    return res
+  })
+  .tapErrorCause(reportError("Request"))
+  .setupRequestContextFromName("events")

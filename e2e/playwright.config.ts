@@ -19,6 +19,7 @@ const config: PlaywrightTestConfig = {
     storageState: "storageState.user.json",
     viewport: { width: 1280, height: 720 },
     ignoreHTTPSErrors: true,
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-explicit-any
     video: process.env["VIDEO"] ? process.env["VIDEO"] as any : "on-first-retry",
     screenshot: "only-on-failure"
     // video: process.env["CI"] ? "on-first-retry" : "retain-on-failure",

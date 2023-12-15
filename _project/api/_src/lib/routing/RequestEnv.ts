@@ -1,52 +1,83 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/ban-types */
-import { BasicRequestEnv } from "@effect-app-boilerplate/messages/RequestLayers"
-import type { Request } from "@effect-app/infra/api/express/schema/requestHandler"
-import { NotLoggedInError } from "@effect-app/infra/errors"
+import { Role } from "@effect-app-boilerplate/models/User"
+import type { RequestConfig } from "@effect-app-boilerplate/resources/lib"
+import type { Request } from "@effect-app/infra/api/express/schema/routing"
+import type { RequestContext } from "@effect-app/infra/RequestContext"
 import { RequestContextContainer } from "@effect-app/infra/services/RequestContextContainer"
 import type { ReqRes, ReqResSchemed } from "@effect-app/prelude/schema"
-import type express from "express"
-import type { UserProfileScheme } from "../../services/UserProfile.js"
-import { UserProfile } from "../../services/UserProfile.js"
-import type { CTX } from "./ctx.js"
+import { NotLoggedInError, UnauthorizedError } from "api/errors.js"
+import { Auth0Config, checkJWTI } from "api/middleware/auth.js"
+import type {
+  InsufficientScopeError,
+  InvalidRequestError,
+  InvalidTokenError,
+  UnauthorizedError as JWTUnauthorizedError
+} from "express-oauth2-jwt-bearer"
+import { makeUserProfileFromUserHeader, UserProfile } from "../../services/UserProfile.js"
+import { HttpServerRequest } from "../http.js"
+import type { GetCTX } from "./ctx.js"
 
-// const manager = ReasonableString("manager")
+const authConfig = Auth0Config.runSync$
 
-export function RequestEnv(handler: { Request: any }) {
-  return (_req: express.Request, _res: express.Response) => {
-    const allowAnonymous = !!handler.Request.allowAnonymous
-    // const allowedRoles: readonly Role[] = handler.Request.allowedRoles ?? ["manager"]
-    return Effect.gen(function*($) {
-      const requestContext = yield* $(RequestContextContainer.get)
+export class JWTError extends Data.TaggedClass("JWTError")<{
+  error:
+    | InsufficientScopeError
+    | InvalidRequestError
+    | InvalidTokenError
+    | JWTUnauthorizedError
+}> {}
 
-      const userProfile = requestContext.userProfile
-        ? Option.some(requestContext.userProfile)
-        : Option.none
+const manager = NonEmptyString255("manager")
 
-      if (!allowAnonymous && !userProfile.value) {
-        return yield* $(Effect.fail(new NotLoggedInError()))
-      }
-      // const userRoles = userProfile.map(_ =>
-      //   _.roles.includes(manager) ? [Role("manager"), Role("user")] : [Role("user")]
-      // )
-      //   .getOrElse(() => [Role("user")])
+export const MakeContext = (userProfile: Option<UserProfile>) =>
+  Effect.gen(function*() {
+    let context = Context.empty()
 
-      // if (!allowedRoles.some(_ => userRoles.includes(_))) {
-      //   return yield* $(Effect.fail(new UnauthorizedError()))
-      // }
-      const ctx = yield* $(BasicRequestEnv)
-      return ctx.add(
-        UserProfile,
-        UserProfile.live(userProfile)
-      )
-    })
-  }
+    if (userProfile.isSome()) {
+      context = context.add(UserProfile, userProfile.value)
+    }
+
+    return context
+  })
+
+export function RequestEnv<Req extends RequestConfig>(handler: { Request: Req }) {
+  const allowAnonymous = !!handler.Request.allowAnonymous
+  const allowedRoles: readonly Role[] = handler.Request.allowedRoles ?? ["manager"]
+  return Effect.gen(function*($) {
+    if (!allowAnonymous) {
+      yield* $(checkJWTI(authConfig).catchAll((err) => Effect.fail(new JWTError({ error: err }))))
+    }
+    const rcc = yield* $(RequestContextContainer)
+    const req = yield* $(HttpServerRequest)
+
+    const r = makeUserProfileFromUserHeader(req.headers["x-user"]).exit.runSync$
+    // const r = makeUserProfileFromAuthorizationHeader(req.headers["authorization"]).exit.runSync$
+    const userProfile = Option.fromNullable(r.isSuccess() ? r.value : undefined)
+
+    yield* $(rcc.update((_): RequestContext => ({ ..._, userProfile: userProfile.value })))
+
+    if (!allowAnonymous && !userProfile.value) {
+      return yield* $(new NotLoggedInError())
+    }
+    const userRoles = userProfile
+      .map((_) => _.roles.includes(manager) ? [Role("manager"), Role("user")] : [Role("user")])
+      .getOrElse(() => [Role("user")])
+
+    if (!allowedRoles.some((_) => userRoles.includes(_))) {
+      return yield* $(new UnauthorizedError())
+    }
+    const myCtx = yield* $(MakeContext(userProfile))
+
+    return myCtx
+  })
 }
 
-export type RequestEnv = ContextA<Effect.Success<ReturnType<ReturnType<typeof RequestEnv>>>>
+export type RequestEnv = ContextA<Effect.Success<ReturnType<typeof RequestEnv>>>
 
 export function handleRequestEnv<
   R,
+  M,
   PathA,
   CookieA,
   QueryA,
@@ -54,33 +85,32 @@ export function handleRequestEnv<
   HeaderA,
   ReqA extends PathA & QueryA & BodyA,
   ResA,
-  ResE
+  ResE,
+  PPath extends `/${string}`
 >(
-  handler: RequestHandler<R, PathA, CookieA, QueryA, BodyA, HeaderA, ReqA, ResA, ResE>
+  handler: RequestHandler<R, M, PathA, CookieA, QueryA, BodyA, HeaderA, ReqA, ResA, ResE, PPath>
 ) {
   return {
     handler: {
       ...handler,
       h: (pars: any) =>
-        Debug.untraced((restore) =>
-          Effect
-            .all({
-              context: RequestContextContainer.get,
-              // TODO: user should only be fetched and type wise available when not allow anonymous
-              userProfile: UserProfile.flatMap((_) =>
-                _.get.catchAll(() => Effect(undefined as unknown as UserProfileScheme))
-              )
-            })
-            .flatMap((ctx) => restore(handler.h as (i: any, ctx: CTX) => Effect<R, ResE, ResA>)(pars, ctx))
-        )
+        Effect
+          .all({
+            context: RequestContextContainer.get,
+            userProfile: Effect.serviceOption(UserProfile).map((_) => _.getOrUndefined)
+          })
+          .flatMap((ctx) =>
+            (handler.h as (i: any, ctx: GetCTX<typeof handler>) => Effect<R, ResE, ResA>)(pars, ctx as any /* TODO */)
+          )
     },
     makeContext: RequestEnv(handler)
   }
 }
 type ContextA<X> = X extends Context<infer A> ? A : never
 
-export interface RequestHandler<
+export interface RequestHandlerBase<
   R,
+  M,
   PathA,
   CookieA,
   QueryA,
@@ -88,11 +118,52 @@ export interface RequestHandler<
   HeaderA,
   ReqA extends PathA & QueryA & BodyA,
   ResA,
-  ResE
+  ResE,
+  PPath extends `/${string}`
+> extends RequestConfig {
+  adaptResponse?: any
+  h: (i: PathA & QueryA & BodyA & {}) => Effect<R, ResE, ResA>
+  Request: Request<M, PathA, CookieA, QueryA, BodyA, HeaderA, ReqA, PPath>
+  Response: ReqRes<unknown, ResA> | ReqResSchemed<unknown, ResA>
+  ResponseOpenApi?: any
+}
+
+export interface RequestHandler<
+  R,
+  M,
+  PathA,
+  CookieA,
+  QueryA,
+  BodyA,
+  HeaderA,
+  ReqA extends PathA & QueryA & BodyA,
+  ResA,
+  ResE,
+  PPath extends `/${string}`
 > {
   adaptResponse?: any
-  h: (i: PathA & QueryA & BodyA & {}, ctx: CTX) => Effect<R, ResE, ResA>
-  Request: Request<PathA, CookieA, QueryA, BodyA, HeaderA, ReqA>
+  h: (i: PathA & QueryA & BodyA & {}, ctx: any /* TODO */) => Effect<R, ResE, ResA>
+  Request: Request<M, PathA, CookieA, QueryA, BodyA, HeaderA, ReqA, PPath> & RequestConfig
+  Response: ReqRes<unknown, ResA> | ReqResSchemed<unknown, ResA>
+  ResponseOpenApi?: any
+}
+
+export interface RequestHandlerOrig<
+  R,
+  M,
+  PathA,
+  CookieA,
+  QueryA,
+  BodyA,
+  HeaderA,
+  ReqA extends PathA & QueryA & BodyA,
+  ResA,
+  ResE,
+  PPath extends `/${string}`
+> {
+  adaptResponse?: any
+  h: (i: PathA & QueryA & BodyA & {}) => Effect<R, ResE, ResA>
+  Request: Request<M, PathA, CookieA, QueryA, BodyA, HeaderA, ReqA, PPath> & RequestConfig
   Response: ReqRes<unknown, ResA> | ReqResSchemed<unknown, ResA>
   ResponseOpenApi?: any
 }

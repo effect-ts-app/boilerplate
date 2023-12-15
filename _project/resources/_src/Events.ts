@@ -1,6 +1,6 @@
 @useClassFeaturesForSchema
 export class BogusEvent
-  extends MNModel<BogusEvent, BogusEvent.ConstructorInput, BogusEvent.Encoded, BogusEvent.Props>()({
+  extends ExtendedClass<BogusEvent, BogusEvent.ConstructorInput, BogusEvent.From, BogusEvent.Fields>()({
     _tag: literal("BogusEvent"),
     id: StringId.withDefault,
     at: date.withDefault
@@ -8,20 +8,20 @@ export class BogusEvent
 {}
 
 export const ClientEvents = smartClassUnion({ BogusEvent })
-export type ClientEvents = ParsedShapeOfCustom<typeof ClientEvents>
+export type ClientEvents = To<typeof ClientEvents>
 
 // codegen:start {preset: model}
 //
 /* eslint-disable */
 export namespace BogusEvent {
   /**
-   * @tsplus type BogusEvent.Encoded
-   * @tsplus companion BogusEvent.Encoded/Ops
+   * @tsplus type BogusEvent.From
+   * @tsplus companion BogusEvent.From/Ops
    */
-  export class Encoded extends EncodedClass<typeof BogusEvent>() {}
+  export class From extends FromClass<typeof BogusEvent>() {}
   export interface ConstructorInput
-    extends ConstructorInputFromApi<typeof BogusEvent> {}
-  export interface Props extends GetProvidedProps<typeof BogusEvent> {}
+    extends ConstructorInputApi<typeof BogusEvent> {}
+  export interface Fields extends FieldsClass<typeof BogusEvent> {}
 }
 /* eslint-enable */
 //

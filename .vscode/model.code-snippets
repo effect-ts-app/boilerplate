@@ -17,7 +17,7 @@
         "body": [
             "/** @tsplus type $1 */",
             "@useClassFeaturesForSchema",
-            "export class $1 extends Model<$1>()({ // TODO MNModel<$1, $1.ConstructorInput, $1.Encoded, $1.Props> ()({",
+            "export class $1 extends ExtendedClass<$1, $1.ConstructorInput, $1.From, $1.Fields> ()({",
             "$2",
             "}) {}"
         ],
@@ -28,7 +28,7 @@
         "body": [
             "/** @tsplus type $1 */",
             "@useClassFeaturesForSchema",
-            "export class $1 extends Model<$1>()({$2}) {}",
+            "export class $1 extends Class<$1>()({$2}) {}",
             ""
         ],
         "description": "Defines a Model signature"
@@ -37,12 +37,12 @@
         "prefix": "un",
         "body": [
             "const $1__ = union({ $2 })",
-            "const $1_ = enhanceClassUnion(OpaqueSchema<$1, $1.Encoded>()($1__))",
-            "export type $1 = ParsedShapeOfCustom<typeof $1__> & UnionBrand",
+            "const $1_ = enhanceClassUnion(OpaqueSchema<$1, $1.From>()($1__))",
+            "export type $1 = To<typeof $1__> & UnionBrand",
             "export interface $1Schema extends Identity<typeof $1_> {}",
             "export const $1: $1Schema = $1_",
             "export namespace $1 {",
-            "  export type Encoded = EncodedOf<typeof $1__> & UnionBrand",
+            "  export type From = From<typeof $1__> & UnionBrand",
             "}"
         ]
     },
@@ -89,7 +89,7 @@
     "Response": {
         "prefix": "res",
         "body": [
-            "export class Response extends Model<Response()({$1}) {}",
+            "export class Response extends Class<Response()({$1}) {}",
             ""
         ],
         "description": "Defines a Response signature"
@@ -97,11 +97,11 @@
     "controller": {
         "prefix": "controller",
         "body": [
-            "const { controllers, matchWithServices } = matchFor($1Rsc)",
+            "const ${1/(.*)/${1:/camelcase}/} = matchFor($1Rsc)",
             "",
-            "const $2 = matchWithServices(\"$2\")($3)",
+            "const $2 = ${1/(.*)/${1:/camelcase}/}.$2($3)",
             "",
-            "export const $1Controllers = controllers({ $2 })"
+            "export default ${1/(.*)/${1:/camelcase}/}.controllers({ $2 })"
         ]
     }
 }

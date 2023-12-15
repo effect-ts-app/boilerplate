@@ -1,3 +1,4 @@
+import { Email } from "@effect-app/prelude/schema"
 import dotenv from "dotenv"
 
 const envFile = "./.env.local"
@@ -10,28 +11,38 @@ if (error) {
 }
 
 const FROM = {
-  name: ReasonableString("@effect-app/boilerplate"),
+  name: NonEmptyString255("@effect-app/boilerplate"),
   email: Email("noreply@example.com")
 }
 
-const serviceName = "@effect-app/boilerplate"
+const serviceName = "effect-app-boilerplate"
 
-const envConfig = Config.string("env").withDefault("local-dev")
+export const envConfig = Config.string("env").withDefault("local-dev")
 
-const SendgridConfig = Config.all({
-  realMail: Config.bool("realMail").withDefault(false),
+export const SendgridConfig = Config.all({
+  realMail: Config.boolean("realMail").withDefault(false),
   apiKey: Config.secret("sendgridApiKey").withDefault(
-    ConfigSecret.fromString("")
+    Secret.fromString("")
   ),
   defaultFrom: Config(FROM),
-  subjectPrefix: envConfig.map((env) => `[${serviceName}] [${env}] `)
+  subjectPrefix: envConfig.map((env) => env === "prod" ? "" : `[${serviceName}] [${env}] `)
 })
 
 export const BaseConfig = Config.all({
   apiVersion: Config.string("apiVersion").withDefault("local-dev"),
   serviceName: Config(serviceName),
   env: envConfig,
-  sendgrid: SendgridConfig
+  sendgrid: SendgridConfig,
+  sentry: Config.all({
+    dsn: Config
+      .secret("dsn")
+      .nested("sentry")
+      .withDefault(
+        Secret.fromString(
+          "???"
+        )
+      )
+  })
   //  log: Config.string("LOG").
 })
 type ConfigA<Cfg> = Cfg extends Config.Variance<infer A> ? A : never

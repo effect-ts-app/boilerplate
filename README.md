@@ -1,4 +1,4 @@
-# @effect-app/boilerplate
+# @effect-app-boilerplate
 
 ## Setup
 
@@ -21,7 +21,7 @@ The API is also proxied in the frontend on /api
 
 ### Frontend (Nuxt)
 
-- `cd _project/frontend-nuxt && pnpm dev -o`
+- `cd _project/frontend && pnpm dev -o`
 
 Visit: http://localhost:4000
 API Docs: http://localhost:4000/api/docs

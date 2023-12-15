@@ -1,82 +1,70 @@
 {
-    "extends": "../../tsconfig.base.json",
-    "compilerOptions": {
-        "lib": [
-            "esnext"
-        ],
-        "tsPlusConfig": "../../tsplus.config.json",
-        //        "tsPlusGlobalFiles": [
-        //            "./_src/_global.ts"
-        //        ],
-        "tsBuildInfoFile": "./dist/.tsbuildinfo",
-        "esModuleInterop": true,
-        "baseUrl": "./",
-        "rootDir": "./_src",
-        // keep in here, cause madge can't detect it from extended tsconfig
-        "moduleResolution": "Node16",
-        "paths": {
-            "api/*": [
-                "./_src/*"
-            ]
-        },
-        "types": [
-            "./types/modules"
-        ],
-        "outDir": "./dist",
-        "transformers": [
-            // Transform paths in output .js files
-            {
-                "name": "ts-transform-paths"
-            },
-            // Transform paths in output .d.ts files (Include this line if you output declarations files)
-            {
-                "name": "ts-transform-paths",
-                "position": "afterDeclaration"
-            },
-            {
-                "name": "@effect/language-service/transformer",
-                "trace": {
-                    "exclude": [
-                        "**/*.ts"
-                    ]
-                },
-                //"debug": {}
-            },
-        ]
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "lib": ["esnext"],
+    "tsPlusConfig": "../../tsplus.config.json",
+    //        "tsPlusGlobalFiles": [
+    //            "./_src/_global.ts"
+    //        ],
+    "tsBuildInfoFile": "./dist/.tsbuildinfo",
+    "esModuleInterop": true,
+    "baseUrl": "./",
+    "rootDir": "./_src",
+    // keep in here, cause madge can't detect it from extended tsconfig
+    "moduleResolution": "Node16",
+    "paths": {
+      "api/*": ["./_src/*"]
     },
-    "include": [
-        "./_src/**/*.ts"
-    ],
-    "exclude": [
-        "./dist",
-        "*.test.ts",
-        "node_modules",
-        "build",
-        "lib",
-        "dist",
-        "**/*.d.ts.map",
-        ".git",
-        ".data",
-        "**/.*",
-        "**/*.tmp"
-    ],
-    "ts-node": {
-        "require": [
-            "tsconfig-paths/register"
-        ],
-        "compilerOptions": {
-            "module": "CommonJS"
+    "types": ["./types/modules"],
+    "outDir": "./dist",
+    "transformers": [
+      // Transform paths in output .js files
+      {
+        "name": "ts-transform-paths"
+      },
+      // Transform paths in output .d.ts files (Include this line if you output declarations files)
+      {
+        "name": "ts-transform-paths",
+        "position": "afterDeclaration"
+      },
+      {
+        "name": "@effect/language-service/transformer",
+        "trace": {
+          "exclude": ["**/*.ts"]
         }
-    },
-    "references": [
-        {
-            "path": "../messages"
-        },
-        {
-            "path": "../resources"
-        },
-        {
-            "path": "../models"
-        }
+        //"debug": {}
+      }
     ]
+  },
+  "include": ["./_src/**/*.ts"],
+  "exclude": [
+    "./dist",
+    "*.test.ts",
+    "node_modules",
+    "build",
+    "lib",
+    "dist",
+    "**/*.d.ts.map",
+    ".git",
+    ".data",
+    "**/.*",
+    "**/*.tmp"
+  ],
+  "ts-node": {
+    "require": ["tsconfig-paths/register"],
+    "compilerOptions": {
+      "module": "CommonJS"
+    }
+  },
+  "references": [
+    {
+      "path": "../messages"
+    },
+    {
+      "path": "../resources"
+    },
+    {
+      "path": "../models"
+    }
+  ]
 }
