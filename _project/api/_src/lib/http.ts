@@ -5,6 +5,7 @@ import type { Route as HttpRoute, Router as HttpRouter } from "@effect/platform/
 export * as NodeContext from "@effect/platform-node/NodeContext"
 export type { HttpApp } from "@effect/platform/Http/App"
 export type { Body as HttpBody } from "@effect/platform/Http/Body"
+export * as HttpHeaders from "@effect/platform/Http/Headers"
 export type { Middleware as HttpMiddleware } from "@effect/platform/Http/Middleware"
 export { RouteContext as HttpRouteContext } from "@effect/platform/Http/Router"
 export { RequestError as HttpRequestError } from "@effect/platform/Http/ServerError"

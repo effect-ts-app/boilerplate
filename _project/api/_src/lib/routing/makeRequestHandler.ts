@@ -198,7 +198,7 @@ export function makeRequestHandler<
                 reqQuery: pars.query.$$.pretty,
                 reqBody: pretty(pars.body),
                 reqCookies: pretty(pars.cookies),
-                reqHeaders: pars.headers.$$.pretty
+                reqHeaders: pretty(pars.headers)
               }
               : undefined
           })
@@ -274,7 +274,7 @@ export function makeRequestHandler<
                       reqQuery: pars.query.$$.pretty,
                       reqBody: pretty(pars.body),
                       reqCookies: pretty(pars.cookies),
-                      reqHeaders: pars.headers.$$.pretty,
+                      reqHeaders: pretty(pars.headers),
 
                       resHeaders: Object
                         .entries(headers)
@@ -302,7 +302,7 @@ export function makeRequestHandler<
               statusCode: res.status.toString(),
               ...s.verbose
                 ? {
-                  resHeaders: headers.$$.pretty
+                  resHeaders: pretty(headers)
                 }
                 : undefined
             })

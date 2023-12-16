@@ -1,6 +1,6 @@
 import { ClientEvents } from "@effect-app-boilerplate/resources"
 import { reportError } from "@effect-app/infra/errorReporter"
-import { HttpServerResponse } from "api/lib/http.js"
+import { HttpHeaders, HttpServerResponse } from "api/lib/http.js"
 import { Events } from "../services/Events.js"
 
 export const events = Effect
@@ -26,12 +26,12 @@ export const events = Effect
         .provideContext(ctx),
       {
         contentType: "text/event-stream",
-        headers: {
+        headers: HttpHeaders.fromInput({
           "content-type": "text/event-stream",
           "cache-control": "no-cache",
           "x-accel-buffering": "no",
           "connection": "keep-alive" // if (req.httpVersion !== "2.0")
-        }
+        })
       }
     )
     return res

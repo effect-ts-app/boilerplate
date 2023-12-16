@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable unused-imports/no-unused-vars */
-import { HttpMiddleware, HttpServerRequest, HttpServerResponse } from "api/lib/http.js"
+import { HttpHeaders, HttpMiddleware, HttpServerRequest, HttpServerResponse } from "api/lib/http.js"
 import {
   auth,
   InsufficientScopeError,
@@ -61,7 +61,10 @@ export const checkJwt = (config: Effect.Success<typeof Auth0Config>) => {
     Effect.gen(function*($) {
       const response = yield* $(check.catchAll((e) =>
         Effect.succeed(
-          HttpServerResponse.unsafeJson({ message: e.message }, { status: e.status, headers: e.headers })
+          HttpServerResponse.unsafeJson({ message: e.message }, {
+            status: e.status,
+            headers: HttpHeaders.fromInput(e.headers)
+          })
         )
       ))
       if (response) {

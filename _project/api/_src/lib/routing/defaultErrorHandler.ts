@@ -1,6 +1,6 @@
 import { logError } from "@effect-app/infra/errorReporter"
 import type { SupportedErrors, ValidationError } from "@effect-app/prelude/client/errors"
-import { HttpBody, type HttpServerRequest, type HttpServerResponse } from "../http.js"
+import { HttpBody, HttpHeaders, type HttpServerRequest, type HttpServerResponse } from "../http.js"
 import type { JWTError } from "./RequestEnv.js"
 
 const logRequestError = logError("Request")
@@ -46,7 +46,7 @@ export function defaultErrorHandler<R>(
             status: err
               .error
               .status,
-            headers: err.error.headers
+            headers: HttpHeaders.fromInput(err.error.headers)
           })
         ),
       "ValidationError": (err) => sendError(400)(err.errors),

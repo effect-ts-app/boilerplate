@@ -12,7 +12,7 @@ import * as ServerRequest from "@effect/platform/Http/ServerRequest"
 import * as ServerResponse from "@effect/platform/Http/ServerResponse"
 import type * as Middlewares from "../Middlewares.js"
 
-import { HttpBody, HttpServerResponse } from "api/lib/http.js"
+import { HttpBody, HttpHeaders, HttpServerResponse } from "api/lib/http.js"
 import * as Effect from "effect/Effect"
 import * as Either from "effect/Either"
 import * as FiberRef from "effect/FiberRef"
@@ -272,7 +272,7 @@ export const cors = (_options?: Partial<Middlewares.CorsOptions>) => {
           ...maxAge
         }
 
-        return ServerResponse.empty({ status: 204, headers: dropUndefined(corsHeaders) })
+        return ServerResponse.empty({ status: 204, headers: HttpHeaders.fromInput(dropUndefined(corsHeaders)) })
       }
 
       const response = yield* _(app)
