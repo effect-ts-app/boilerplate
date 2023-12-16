@@ -21,12 +21,6 @@ export const RequestSettings = FiberRef.unsafeMake({
   verbose: false
 })
 
-export type MakeMiddlewareContext<ResE, R2 = never, PR = never> = Effect<
-  R2 | RequestContextContainer | ContextMapContainer,
-  ResE,
-  Context<PR>
->
-
 export type Middleware<
   R,
   M,
@@ -58,7 +52,7 @@ export type Middleware<
     ResE,
     PPath
   >
-  makeContext: MakeMiddlewareContext<MiddlewareE, R2, PR>
+  makeRequestLayer: Layer<R2, MiddlewareE, PR>
 }
 
 export function makeRequestHandler<
@@ -96,7 +90,7 @@ export function makeRequestHandler<
     res: HttpServerResponse,
     r2: Effect<R, ValidationError | ResE | MiddlewareE, HttpServerResponse>
   ) => Effect<RErr | R | RequestContextContainer | ContextMapContainer, never, HttpServerResponse>,
-  makeMiddlewareContext?: MakeMiddlewareContext<MiddlewareE, R2, PR>
+  middlewareLayer?: Layer<R2, MiddlewareE, PR>
 ): Effect<
   | HttpRouteContext
   | HttpServerRequest
@@ -237,8 +231,8 @@ export function makeRequestHandler<
 
           // Commands should not be interruptable.
           const r = req.method !== "GET" ? handleRequest.uninterruptible : handleRequest // .instrument("Performance.RequestResponse")
-          const r2 = makeMiddlewareContext
-            ? makeMiddlewareContext.andThen((ctx) => r.provide(ctx))
+          const r2 = middlewareLayer
+            ? r.provide(middlewareLayer)
             // PR is not relevant here
             : (r as Effect<
               Exclude<Exclude<R, EnforceNonEmptyRecord<M>>, PR>,

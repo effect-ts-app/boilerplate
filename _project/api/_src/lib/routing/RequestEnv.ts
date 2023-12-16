@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/ban-types */
+import type { Request } from "@effect-app/infra/api/express/schema/routing"
+
 import { Role } from "@effect-app-boilerplate/models/User"
 import type { RequestConfig } from "@effect-app-boilerplate/resources/lib"
-import type { Request } from "@effect-app/infra/api/express/schema/routing"
 import type { RequestContext } from "@effect-app/infra/RequestContext"
 import { RequestContextContainer } from "@effect-app/infra/services/RequestContextContainer"
 import type { ReqRes, ReqResSchemed } from "@effect-app/prelude/schema"
@@ -30,50 +31,46 @@ export class JWTError extends Data.TaggedClass("JWTError")<{
 
 const manager = NonEmptyString255("manager")
 
-export const MakeContext = (userProfile: Option<UserProfile>) =>
-  Effect.gen(function*() {
-    let context = Context.empty()
+const EmptyLayer = Effect.unit.toLayerDiscard
 
-    if (userProfile.isSome()) {
-      context = context.add(UserProfile, userProfile.value)
-    }
+const UserAuthorizationLive = <Req extends RequestConfig>(request: Req) =>
+  Effect
+    .gen(function*($) {
+      if (!request.allowAnonymous) {
+        yield* $(checkJWTI(authConfig).catchAll((err) => Effect.fail(new JWTError({ error: err }))))
+      }
+      const req = yield* $(HttpServerRequest)
+      const r = makeUserProfileFromUserHeader(req.headers["authorization"]).exit.runSync$
+      const userProfile = Option.fromNullable(r.isSuccess() ? r.value : undefined)
 
-    return context
-  })
+      const rcc = yield* $(RequestContextContainer)
+      yield* $(rcc.update((_): RequestContext => ({ ..._, userProfile: userProfile.value })))
 
-export function RequestEnv<Req extends RequestConfig>(handler: { Request: Req }) {
-  const allowAnonymous = !!handler.Request.allowAnonymous
-  const allowedRoles: readonly Role[] = handler.Request.allowedRoles ?? ["manager"]
-  return Effect.gen(function*($) {
-    if (!allowAnonymous) {
-      yield* $(checkJWTI(authConfig).catchAll((err) => Effect.fail(new JWTError({ error: err }))))
-    }
-    const rcc = yield* $(RequestContextContainer)
-    const req = yield* $(HttpServerRequest)
+      const up = userProfile.value
+      if (!allowAnonymous && !up) {
+        return yield* $(new NotLoggedInError())
+      }
 
-    const r = makeUserProfileFromUserHeader(req.headers["x-user"]).exit.runSync$
-    // const r = makeUserProfileFromAuthorizationHeader(req.headers["authorization"]).exit.runSync$
-    const userProfile = Option.fromNullable(r.isSuccess() ? r.value : undefined)
+      const userRoles = userProfile
+        .map((_) => _.roles.includes(manager) ? [Role("manager"), Role("user")] : [Role("user")])
+        .getOrElse(() => [Role("user")])
 
-    yield* $(rcc.update((_): RequestContext => ({ ..._, userProfile: userProfile.value })))
+      const allowedRoles: readonly Role[] = request.allowedRoles ?? ["manager"]
+      if (!allowedRoles.some((_) => userRoles.includes(_))) {
+        return yield* $(new UnauthorizedError())
+      }
+      if (up) {
+        return Layer.succeed(UserProfile, up)
+      }
+      return EmptyLayer
+    })
+    .withSpan("middleware")
+    .unwrapLayer
 
-    if (!allowAnonymous && !userProfile.value) {
-      return yield* $(new NotLoggedInError())
-    }
-    const userRoles = userProfile
-      .map((_) => _.roles.includes(manager) ? [Role("manager"), Role("user")] : [Role("user")])
-      .getOrElse(() => [Role("user")])
+export const RequestEnv = <Req extends RequestConfig>(handler: { Request: Req }) =>
+  Layer.mergeAll(UserAuthorizationLive(handler.Request))
 
-    if (!allowedRoles.some((_) => userRoles.includes(_))) {
-      return yield* $(new UnauthorizedError())
-    }
-    const myCtx = yield* $(MakeContext(userProfile))
-
-    return myCtx
-  })
-}
-
-export type RequestEnv = ContextA<Effect.Success<ReturnType<typeof RequestEnv>>>
+export type RequestEnv = Layer.Success<ReturnType<typeof RequestEnv>>
 
 export function handleRequestEnv<
   R,
@@ -103,10 +100,9 @@ export function handleRequestEnv<
             (handler.h as (i: any, ctx: GetCTX<typeof handler>) => Effect<R, ResE, ResA>)(pars, ctx as any /* TODO */)
           )
     },
-    makeContext: RequestEnv(handler)
+    makeRequestLayer: RequestEnv(handler)
   }
 }
-type ContextA<X> = X extends Context<infer A> ? A : never
 
 export interface RequestHandlerBase<
   R,
