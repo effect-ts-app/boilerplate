@@ -1,4 +1,5 @@
 export {
+  buildFormFromSchema,
   buildFieldInfoFromFields,
   convertIn,
   convertOut,

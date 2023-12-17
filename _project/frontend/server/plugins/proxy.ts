@@ -29,7 +29,10 @@ export default defineNitroPlugin(nitroApp => {
     const cookies = cookie.parse(cookieHeader)
     const userId = cookies["user-id"]
     if (userId) {
-      proxyReq.setHeader("x-user", JSON.stringify({ sub: userId }))
+      proxyReq.setHeader(
+        "x-user",
+        JSON.stringify({ sub: userId, "https://nomizz.com/roles": ["user"] }),
+      )
     }
   })
 

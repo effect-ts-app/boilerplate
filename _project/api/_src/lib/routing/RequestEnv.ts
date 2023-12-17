@@ -15,7 +15,11 @@ import type {
   InvalidTokenError,
   UnauthorizedError as JWTUnauthorizedError
 } from "express-oauth2-jwt-bearer"
-import { makeUserProfileFromUserHeader, UserProfile } from "../../services/UserProfile.js"
+import {
+  makeUserProfileFromAuthorizationHeader,
+  makeUserProfileFromUserHeader,
+  UserProfile
+} from "../../services/UserProfile.js"
 import { HttpServerRequest } from "../http.js"
 import type { GetCTX } from "./ctx.js"
 
@@ -33,14 +37,22 @@ const manager = NonEmptyString255("manager")
 
 const EmptyLayer = Effect.unit.toLayerDiscard
 
+const fakeLogin = true
+
 const UserAuthorizationLive = <Req extends RequestConfig>(request: Req) =>
   Effect
     .gen(function*($) {
-      if (!request.allowAnonymous) {
+      if (!fakeLogin && !request.allowAnonymous) {
         yield* $(checkJWTI(authConfig).catchAll((err) => Effect.fail(new JWTError({ error: err }))))
       }
       const req = yield* $(HttpServerRequest)
-      const r = makeUserProfileFromUserHeader(req.headers["authorization"]).exit.runSync$
+      const r = (fakeLogin
+        ? makeUserProfileFromUserHeader(req.headers["x-user"])
+        : makeUserProfileFromAuthorizationHeader(
+          req.headers["authorization"]
+        ))
+        .exit
+        .runSync$
       const userProfile = Option.fromNullable(r.isSuccess() ? r.value : undefined)
 
       const rcc = yield* $(RequestContextContainer)
@@ -55,7 +67,7 @@ const UserAuthorizationLive = <Req extends RequestConfig>(request: Req) =>
         .map((_) => _.roles.includes(manager) ? [Role("manager"), Role("user")] : [Role("user")])
         .getOrElse(() => [Role("user")])
 
-      const allowedRoles: readonly Role[] = request.allowedRoles ?? ["manager"]
+      const allowedRoles: readonly Role[] = request.allowedRoles ?? ["user"]
       if (!allowedRoles.some((_) => userRoles.includes(_))) {
         return yield* $(new UnauthorizedError())
       }
