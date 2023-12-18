@@ -12,9 +12,10 @@
   >
     <!-- pass down slots -->
     <!-- @vue-skip -->
-    <template v-for="(_, name) in $slots" v-slot:[name]="slotData"
-      ><slot :name="name" v-bind="slotData" /></template
-  ></v-text-field>
+    <template v-for="(_, name) in $slots" v-slot:[name]="slotData">
+      <slot :name="name" v-bind="slotData" />
+    </template>
+  </v-text-field>
 </template>
 <script lang="ts" setup>
 import type { FieldInfo } from "@/composables/form"
