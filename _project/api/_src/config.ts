@@ -18,14 +18,18 @@ export const StorageConfig = Config.all({
 
 export const AUTH_DISABLED = process.env["AUTH_DISABLED"] === "true"
 
+export const RepoConfig = Config.all({
+  fakeData: Config.string("fakeData").withDefault(""),
+  fakeUsers: Config.string("fakeUsers").withDefault("sample")
+})
+
 export const ApiConfig = Config.all({
   host: Config.string("host").withDefault("0.0.0.0"),
   port: Config.integer("port").withDefault(3610),
   devPort: Config.integer("devPort").withDefault(3611),
   baseUrl: Config.string("baseUrl").withDefault("http://localhost:4000"),
 
-  fakeData: Config.string("fakeData").withDefault(""),
-  fakeUsers: Config.string("fakeUsers").withDefault("sample"),
+  repo: RepoConfig,
 
   storage: StorageConfig
 })
