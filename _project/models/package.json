@@ -4,11 +4,11 @@
   "license": "MIT",
   "type": "module",
   "dependencies": {
-    "@effect-app/core": "^0.94.2",
-    "@effect-app/schema": "^0.88.3",
-    "@effect-app/prelude": "^0.103.2",
-    "effect": "^2.0.0-next.60",
-    "date-fns": "^2.30.0",
+    "@effect-app/core": "^0.96.0",
+    "@effect-app/schema": "^0.90.0",
+    "@effect-app/prelude": "^0.105.0",
+    "effect": "^2.0.0-next.62",
+    "date-fns": "^3.0.5",
     "uuid": "^9.0.1",
     "validator": "^13.11.0"
   },
@@ -67,7 +67,7 @@
   "devDependencies": {
     "@types/validator": "^13.11.7",
     "@types/uuid": "^9.0.7",
-    "fast-check": "^3.14.0"
+    "fast-check": "^3.15.0"
   },
   "scripts": {
     "build": "pnpm clean-dist && NODE_OPTIONS=--max-old-space-size=8192 tsc --build",
