@@ -48,9 +48,8 @@ export const matchAction = <Module extends Record<string, any>, R2, E2 extends S
   ) => Effect<R2, E2, ResFromSchema<REST.GetResponse<Module>>>
 ) => {
   const Request = REST.extractRequest(mod)
-  const requestName = NonEmptyString255(
-    AST.getTitleAnnotation(Request.ast).value ?? "TODO"
-  )
+  const requestName = AST.getTitleAnnotation(Request.ast).value ?? "TODO"
+
   return Object.assign(f, { requestName })
 }
 

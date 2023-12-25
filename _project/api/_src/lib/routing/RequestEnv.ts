@@ -31,7 +31,7 @@ export class JWTError extends Data.TaggedClass("JWTError")<{
     | JWTUnauthorizedError
 }> {}
 
-const manager = NonEmptyString255("manager")
+const manager = "manager" as const
 
 const EmptyLayer = Effect.unit.toLayerDiscard
 
@@ -62,7 +62,7 @@ const UserAuthorizationLive = <Req extends RequestConfig>(request: Req) =>
       }
 
       const userRoles = userProfile
-        .map((_) => _.roles.includes(manager) ? [Role("manager"), Role("user")] : [Role("user")])
+        .map((_) => _.roles.includes(manager as any) ? [Role("manager"), Role("user")] : [Role("user")])
         .getOrElse(() => [Role("user")])
 
       const allowedRoles: readonly Role[] = request.allowedRoles ?? ["user"]
