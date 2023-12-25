@@ -1,4 +1,4 @@
-import { S } from "@effect-app/prelude/schema"
+import { S } from "@effect-app/schema"
 
 @useClassFeaturesForSchema
 export class BogusEvent extends ExtendedClass<BogusEvent.From, BogusEvent>()({

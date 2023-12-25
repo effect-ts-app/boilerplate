@@ -1,4 +1,4 @@
-import { nullable } from "@effect-app/prelude/schema"
+import { nullable } from "@effect-app/schema"
 import { Operation, OperationId } from "../Views.js"
 
 @allowRoles("user")

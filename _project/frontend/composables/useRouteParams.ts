@@ -1,10 +1,11 @@
-import type { Schema } from "@effect-app/prelude/schema"
+import type { Schema } from "@effect-app/schema"
 import { typedKeysOf } from "@effect-app/prelude/utils"
 import {
   parseRouteParams,
   parseRouteParamsOption,
 } from "@effect-app/vue/routeParams"
 import { Option } from "~~/utils/prelude"
+import { useRoute } from "nuxt/app"
 
 export const useRouteParams = <NER extends Record<string, Schema<any, any>>>(
   t: NER, // enforce non empty

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { flow, tuple } from "@effect-app/prelude/Function"
+import { flow, pipe, tuple } from "@effect-app/prelude/Function"
 import type {
   ApiConfig,
   FetchError,
@@ -20,7 +20,8 @@ import type { Either, HttpClient } from "@/utils/prelude"
 import { Effect } from "@/utils/prelude"
 import { useToast } from "vue-toastification"
 import { intl } from "./intl"
-import { S } from "@effect-app/prelude/schema"
+import { S } from "@effect-app/schema"
+import { Cause } from "effect"
 
 export { useToast } from "vue-toastification"
 

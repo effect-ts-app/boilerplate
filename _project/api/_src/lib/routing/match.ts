@@ -4,7 +4,7 @@ import { type RouteDescriptorAny } from "@effect-app/infra/api/express/schema/ro
 import type { ValidationError } from "@effect-app/infra/errors"
 import type { RequestContextContainer } from "@effect-app/infra/services/RequestContextContainer"
 import type { ContextMapContainer } from "@effect-app/infra/services/Store/ContextMapContainer"
-import type { StructFields } from "@effect-app/prelude/schema"
+import type { StructFields } from "@effect-app/schema"
 import { HttpRouter, type HttpServerRequest, type HttpServerResponse } from "../http.js"
 import { makeRequestHandler } from "./makeRequestHandler.js"
 import type { Middleware } from "./makeRequestHandler.js"

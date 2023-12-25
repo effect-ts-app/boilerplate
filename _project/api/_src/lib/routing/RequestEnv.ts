@@ -4,7 +4,7 @@ import { Role } from "@effect-app-boilerplate/models/User"
 import type { RequestConfig } from "@effect-app-boilerplate/resources/lib"
 import type { RequestContext } from "@effect-app/infra/RequestContext"
 import { RequestContextContainer } from "@effect-app/infra/services/RequestContextContainer"
-import type { REST, StructFields } from "@effect-app/prelude/schema"
+import type { REST, StructFields } from "@effect-app/schema"
 import { NotLoggedInError, UnauthorizedError } from "api/errors.js"
 import { Auth0Config, checkJWTI } from "api/middleware/auth.js"
 import type {

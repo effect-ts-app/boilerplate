@@ -10,7 +10,7 @@ import {
   NonEmptyString2k,
   S,
   useClassFeaturesForSchema
-} from "@effect-app/prelude/schema"
+} from "@effect-app/schema"
 import { Equivalence } from "effect"
 
 export const FirstName = NonEmptyString255

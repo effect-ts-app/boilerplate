@@ -4,8 +4,8 @@ import type { EnforceNonEmptyRecord } from "@effect-app/core/utils"
 import { pretty } from "@effect-app/core/utils"
 
 import { RequestContext } from "@effect-app/infra/RequestContext"
-import type { REST, StructFields } from "@effect-app/prelude/schema"
-import { AST } from "@effect-app/prelude/schema"
+import type { REST, StructFields } from "@effect-app/schema"
+import { AST } from "@effect-app/schema"
 
 import { snipString } from "@effect-app/infra/api/util"
 import { reportError } from "@effect-app/infra/errorReporter"

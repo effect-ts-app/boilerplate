@@ -1,4 +1,4 @@
-import { Email } from "@effect-app/prelude/schema"
+import { Email } from "@effect-app/schema"
 import dotenv from "dotenv"
 
 const envFile = "./.env.local"

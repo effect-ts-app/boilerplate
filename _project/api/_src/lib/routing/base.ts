@@ -5,7 +5,7 @@ import * as S from "@effect-app/schema"
 
 import type { EnforceNonEmptyRecord } from "@effect-app/core/utils"
 import { ValidationError } from "@effect-app/infra/errors"
-import type { StructFields } from "@effect-app/prelude/schema"
+import type { StructFields } from "@effect-app/schema"
 import type { Simplify } from "effect/Types"
 import type express from "express"
 import type { HttpRequestError, HttpRoute } from "../http.js"

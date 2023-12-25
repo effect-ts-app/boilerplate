@@ -1,6 +1,6 @@
 import { jwt } from "@effect-app/infra/api/express/schema/jwt"
 import { UserProfileId } from "@effect-app/prelude/ids"
-import { Class, S } from "@effect-app/prelude/schema"
+import { Class, S } from "@effect-app/schema"
 
 /**
  * @tsplus type UserProfile

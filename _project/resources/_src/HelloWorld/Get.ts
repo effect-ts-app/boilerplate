@@ -1,5 +1,5 @@
 import { User } from "@effect-app-boilerplate/models/User"
-import { S } from "@effect-app/prelude/schema"
+import { S } from "@effect-app/schema"
 
 @allowRoles("user")
 export class GetHelloWorldRequest

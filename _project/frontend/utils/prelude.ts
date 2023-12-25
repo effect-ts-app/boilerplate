@@ -1,5 +1,5 @@
 import * as Cause from "effect/Cause"
-import * as MO from "@effect-app/prelude/schema"
+import * as MO from "@effect-app/schema"
 import * as HttpClient from "@effect/platform/Http/Client"
 import * as ClientRequest from "@effect/platform/Http/ClientRequest"
 import * as Duration from "effect/Duration"
