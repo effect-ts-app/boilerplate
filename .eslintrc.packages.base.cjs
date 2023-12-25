@@ -1,4 +1,4 @@
-const makeBase = require("./.eslintrc.base")
+const makeBase = require("./.eslintrc.base.cjs")
 module.exports = (...args) => {
   const base = makeBase(...args)
   return {...base, 

@@ -1,6 +1,7 @@
 {
   "name": "@effect-app-boilerplate/root",
   "private": true,
+  "type": "module",
   "pnpm": {
     "patchedDependencies": {
       "@effect/language-service@0.0.19": "patches/@effect__language-service@0.0.19.patch",
@@ -36,6 +37,8 @@
     "update": "ncu -u && pnpm -r ncu -u",
     "ncu": "ncu",
     "build-libs": "cd libs && pnpm build && cd ../.. && pnpm build",
+    "l": "./scripts/link.sh",
+    "ul": "./scripts/unlink.sh",
     "lint:watch": "ESLINT_TS=1 esw -w --changed --clear --ext ts,tsx",
     "apps": "pnpm all --workspace-concurrency 1 --filter !./_project/messages --filter !./_project/resources --filter !./_project/models --filter !./_project/ui",
     "api": "pnpm all --workspace-concurrency 1 --filter \"./_project/api\"",
