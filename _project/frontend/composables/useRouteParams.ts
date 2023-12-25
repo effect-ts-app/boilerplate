@@ -1,4 +1,4 @@
-import type { SchemaAny } from "@effect-app/prelude/schema"
+import type { Schema } from "@effect-app/prelude/schema"
 import { typedKeysOf } from "@effect-app/prelude/utils"
 import {
   parseRouteParams,
@@ -6,7 +6,7 @@ import {
 } from "@effect-app/vue/routeParams"
 import { Option } from "~~/utils/prelude"
 
-export const useRouteParams = <NER extends Record<string, SchemaAny>>(
+export const useRouteParams = <NER extends Record<string, Schema<any, any>>>(
   t: NER, // enforce non empty
 ) => {
   const r = useRoute()
@@ -14,7 +14,9 @@ export const useRouteParams = <NER extends Record<string, SchemaAny>>(
   return result
 }
 
-export const useRouteParamsOption = <NER extends Record<string, SchemaAny>>(
+export const useRouteParamsOption = <
+  NER extends Record<string, Schema<any, any>>,
+>(
   t: NER, // enforce non empty
 ) => {
   const r = useRoute()

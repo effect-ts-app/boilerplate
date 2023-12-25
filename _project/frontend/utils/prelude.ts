@@ -2,7 +2,6 @@ import * as Cause from "effect/Cause"
 import * as MO from "@effect-app/prelude/schema"
 import * as HttpClient from "@effect/platform/Http/Client"
 import * as ClientRequest from "@effect/platform/Http/ClientRequest"
-import * as These from "@effect-app/schema/custom/These"
 import * as Duration from "effect/Duration"
 import * as Effect from "effect/Effect"
 import * as Layer from "effect/Layer"
@@ -38,7 +37,6 @@ export {
   Stream,
   ReadonlyArray as array,
   ReadonlyArray,
-  These,
   Tag,
 }
 export type { NonEmptyArray, NonEmptyReadonlyArray }
