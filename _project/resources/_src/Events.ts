@@ -1,8 +1,7 @@
 import { S } from "@effect-app/schema"
 
 @useClassFeaturesForSchema
-export class BogusEvent extends ExtendedClass<BogusEvent.From, BogusEvent>()({
-  _tag: literal("BogusEvent"),
+export class BogusEvent extends ExtendedTaggedClass<BogusEvent.From, BogusEvent>()("BogusEvent", {
   id: StringId.withDefault(),
   at: S.Date.withDefault()
 }) {}
