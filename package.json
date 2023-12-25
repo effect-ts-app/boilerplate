@@ -68,7 +68,12 @@
     "@effect/schema": "^0.56.1",
     "date-fns": "^2.29.3",
     "http-proxy": "npm:http-proxy-node16@1.0.0",
-    "vue": "^3.3.9"
+    "vue": "^3.3.9",
+    "@effect-app/core": "file:../effect-app/libs/packages/core",
+    "@effect-app/prelude": "file:../effect-app/libs/packages/prelude",
+    "@effect-app/infra": "file:../effect-app/libs/packages/infra",
+    "@effect-app/infra-adapters": "file:../effect-app/libs/packages/infra-adapters",
+    "@effect-app/schema": "file:../effect-app/libs/packages/schema"
   },
   "dependencies": {
     "@opentelemetry/api": "^1.7",
