@@ -1,26 +1,26 @@
 /* eslint-disable @typescript-eslint/unbound-method */
 import { fakerArb } from "@effect-app/prelude/faker"
 import { UserProfileId } from "@effect-app/prelude/ids"
-import { A, S } from "@effect-app/schema"
+import { A } from "@effect-app/schema"
 import { Equivalence } from "effect"
 
 export const FirstName = NonEmptyString255
-  .pipe(
-    S.annotations({
-      [A.ArbitraryHookId]: (): A.Arbitrary<string> => fakerArb((faker) => faker.person.firstName)
-    })
-  )
+  .annotations({
+    [A.ArbitraryHookId]: (): A.Arbitrary<string> => fakerArb((faker) => faker.person.firstName)
+  })
+  .withDefaults
+
 export type FirstName = Schema.To<typeof FirstName>
 
 export const DisplayName = FirstName
 export type DisplayName = Schema.To<typeof DisplayName>
 
 export const LastName = NonEmptyString255
-  .pipe(
-    S.annotations({
-      [A.ArbitraryHookId]: (): A.Arbitrary<string> => fakerArb((faker) => faker.person.lastName)
-    })
-  )
+  .annotations({
+    [A.ArbitraryHookId]: (): A.Arbitrary<string> => fakerArb((faker) => faker.person.lastName)
+  })
+  .withDefaults
+
 export type LastName = Schema.To<typeof LastName>
 
 /**
