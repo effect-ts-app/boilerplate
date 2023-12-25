@@ -352,7 +352,7 @@ export function makeRequestParsers<
   const ph = Effect(
     Option
       .fromNullable(Request.Headers)
-      .map((s) => S.struct(s))
+      .map((s) => s as unknown as Schema<any, any>)
       .map(S.parse)
   )
   const parseHeaders = (u: unknown) => ph.flatMapOpt((d) => d(u))
@@ -360,7 +360,7 @@ export function makeRequestParsers<
   const pq = Effect(
     Option
       .fromNullable(Request.Query)
-      .map((s) => S.struct(s))
+      .map((s) => s as unknown as Schema<any, any>)
       .map(S.parse)
   )
   const parseQuery = (u: unknown) => pq.flatMapOpt((d) => d(u))
@@ -368,7 +368,7 @@ export function makeRequestParsers<
   const pb = Effect(
     Option
       .fromNullable(Request.Body)
-      .map((s) => S.struct(s))
+      .map((s) => s as unknown as Schema<any, any>)
       .map(S.parse)
   )
   const parseBody = (u: unknown) => pb.flatMapOpt((d) => d(u))
@@ -376,7 +376,7 @@ export function makeRequestParsers<
   const pp = Effect(
     Option
       .fromNullable(Request.Path)
-      .map((s) => S.struct(s))
+      .map((s) => s as unknown as Schema<any, any>)
       .map(S.parse)
   )
   const parsePath = (u: unknown) => pp.flatMapOpt((d) => d(u))
@@ -384,7 +384,7 @@ export function makeRequestParsers<
   const pc = Effect(
     Option
       .fromNullable(Request.Cookie)
-      .map((s) => S.struct(s))
+      .map((s) => s as unknown as Schema<any, any>)
       .map(S.parse)
   )
   const parseCookie = (u: unknown) => pc.flatMapOpt((d) => d(u))

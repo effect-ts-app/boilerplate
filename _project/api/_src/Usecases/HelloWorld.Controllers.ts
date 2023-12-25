@@ -7,13 +7,14 @@ const helloWorld = matchFor(HelloWorldRsc)
 
 const Get = helloWorld.Get(
   { UserRepo },
-  (_, { context, userRepo }) =>
+  ({ echo }, { context, userRepo }) =>
     userRepo
       .getCurrentUser
       .catchTags({ "NotLoggedInError": () => Effect(null), "NotFoundError": () => Effect(null) })
       .map((user) =>
         new GetHelloWorldResponse({
           context,
+          echo,
           now: new Date(),
           currentUser: user,
           randomUser: User.Arbitrary.generate

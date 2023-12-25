@@ -6,7 +6,9 @@ const helloWorldClient = clientFor(HelloWorldRsc)
 // TODO
 const [result, latestSuccess, execute] = useSafeQueryWithArg(
   helloWorldClient.get,
-  {},
+  () => ({
+    echo: "Echo me at: " + new Date().getTime(),
+  }),
 )
 
 onMounted(() => {
