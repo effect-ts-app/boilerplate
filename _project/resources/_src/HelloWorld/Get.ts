@@ -2,6 +2,7 @@ import { User } from "@effect-app-boilerplate/models/User"
 import { S } from "@effect-app/schema"
 
 @allowRoles("user")
+@useClassFeaturesForSchema
 export class GetHelloWorldRequest
   extends Get("/hello-world", cfg({ allowAnonymous: true }))<GetHelloWorldRequest>()({})
 {}
