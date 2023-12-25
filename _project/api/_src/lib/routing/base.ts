@@ -5,6 +5,8 @@ import * as S from "@effect-app/schema"
 
 import type { EnforceNonEmptyRecord } from "@effect-app/core/utils"
 import { ValidationError } from "@effect-app/infra/errors"
+import type { StructFields } from "@effect-app/prelude/schema"
+import type { Simplify } from "effect/Types"
 import type express from "express"
 import type { HttpRequestError, HttpRoute } from "../http.js"
 import type { RequestHandler } from "./RequestEnv.js"
@@ -131,8 +133,8 @@ export type _E<T extends Effect<any, any, any>> = [T] extends [
 export type Request2<
   Path extends string,
   Method extends S.REST.Methods.Rest,
-  ReqA
-> = S.REST.ReqRes<unknown, ReqA> & {
+  ReqA extends StructFields
+> = S.REST.ReqRes<{}, S.ToStruct<ReqA>> & {
   method: Method
   path: Path
 }
@@ -160,7 +162,13 @@ export function decodeErrors(x: unknown) {
 // )
 
 // const structValidation = DSL.structF(ValidationApplicative)
-export function parseRequestParams<PathA, CookieA, QueryA, BodyA, HeaderA>(
+export function parseRequestParams<
+  PathA extends StructFields,
+  CookieA extends StructFields,
+  QueryA extends StructFields,
+  BodyA extends StructFields,
+  HeaderA extends StructFields
+>(
   parsers: RequestParsers<PathA, CookieA, QueryA, BodyA, HeaderA>
 ) {
   return (
@@ -305,25 +313,25 @@ export interface RequestHandler2<
   R,
   Path extends string,
   Method extends S.REST.Methods.Rest,
-  ReqA,
-  ResA,
+  ReqA extends StructFields,
+  ResA extends StructFields,
   ResE
 > {
   h: (i: ReqA) => Effect<R, ResE, ResA>
   Request: Request2<Path, Method, ReqA>
-  Response: S.REST.ReqRes<unknown, ResA>
+  Response: S.REST.ReqRes<any, any>
 }
 
 export function makeRequestParsers<
   R,
   M,
-  PathA,
-  CookieA,
-  QueryA,
-  BodyA,
-  HeaderA,
+  PathA extends StructFields,
+  CookieA extends StructFields,
+  QueryA extends StructFields,
+  BodyA extends StructFields,
+  HeaderA extends StructFields,
   ReqA extends PathA & QueryA & BodyA,
-  ResA,
+  ResA extends StructFields,
   Errors,
   PPath extends `/${string}`
 >(
@@ -344,7 +352,7 @@ export function makeRequestParsers<
   const ph = Effect(
     Option
       .fromNullable(Request.Headers)
-      .map((s) => s)
+      .map((s) => S.struct(s))
       .map(S.parse)
   )
   const parseHeaders = (u: unknown) => ph.flatMapOpt((d) => d(u))
@@ -352,7 +360,7 @@ export function makeRequestParsers<
   const pq = Effect(
     Option
       .fromNullable(Request.Query)
-      .map((s) => s)
+      .map((s) => S.struct(s))
       .map(S.parse)
   )
   const parseQuery = (u: unknown) => pq.flatMapOpt((d) => d(u))
@@ -360,7 +368,7 @@ export function makeRequestParsers<
   const pb = Effect(
     Option
       .fromNullable(Request.Body)
-      .map((s) => s)
+      .map((s) => S.struct(s))
       .map(S.parse)
   )
   const parseBody = (u: unknown) => pb.flatMapOpt((d) => d(u))
@@ -368,7 +376,7 @@ export function makeRequestParsers<
   const pp = Effect(
     Option
       .fromNullable(Request.Path)
-      .map((s) => s)
+      .map((s) => S.struct(s))
       .map(S.parse)
   )
   const parsePath = (u: unknown) => pp.flatMapOpt((d) => d(u))
@@ -376,7 +384,7 @@ export function makeRequestParsers<
   const pc = Effect(
     Option
       .fromNullable(Request.Cookie)
-      .map((s) => s)
+      .map((s) => S.struct(s))
       .map(S.parse)
   )
   const parseCookie = (u: unknown) => pc.flatMapOpt((d) => d(u))
@@ -392,10 +400,16 @@ export function makeRequestParsers<
 
 type Decode<A> = (u: unknown) => Effect<never, unknown, A>
 
-export interface RequestParsers<PathA, CookieA, QueryA, BodyA, HeaderA> {
-  parseHeaders: Decode<Option<HeaderA>>
-  parseQuery: Decode<Option<QueryA>>
-  parseBody: Decode<Option<BodyA>>
-  parsePath: Decode<Option<PathA>>
-  parseCookie: Decode<Option<CookieA>>
+export interface RequestParsers<
+  PathA extends StructFields,
+  CookieA extends StructFields,
+  QueryA extends StructFields,
+  BodyA extends StructFields,
+  HeaderA extends StructFields
+> {
+  parseHeaders: Decode<Option<Simplify<S.ToStruct<HeaderA>>>>
+  parseQuery: Decode<Option<Simplify<S.ToStruct<QueryA>>>>
+  parseBody: Decode<Option<Simplify<S.ToStruct<BodyA>>>>
+  parsePath: Decode<Option<Simplify<S.ToStruct<PathA>>>>
+  parseCookie: Decode<Option<Simplify<S.ToStruct<CookieA>>>>
 }

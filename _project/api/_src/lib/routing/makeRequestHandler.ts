@@ -4,7 +4,7 @@ import type { EnforceNonEmptyRecord } from "@effect-app/core/utils"
 import { pretty } from "@effect-app/core/utils"
 
 import { RequestContext } from "@effect-app/infra/RequestContext"
-import type { REST } from "@effect-app/prelude/schema"
+import type { REST, StructFields } from "@effect-app/prelude/schema"
 import { AST } from "@effect-app/prelude/schema"
 
 import { snipString } from "@effect-app/infra/api/util"
@@ -25,13 +25,13 @@ export const RequestSettings = FiberRef.unsafeMake({
 export type Middleware<
   R,
   M,
-  PathA,
-  CookieA,
-  QueryA,
-  BodyA,
-  HeaderA,
+  PathA extends StructFields,
+  CookieA extends StructFields,
+  QueryA extends StructFields,
+  BodyA extends StructFields,
+  HeaderA extends StructFields,
   ReqA extends PathA & QueryA & BodyA,
-  ResA,
+  ResA extends StructFields,
   ResE,
   MiddlewareE,
   PPath extends `/${string}`,
@@ -59,13 +59,13 @@ export type Middleware<
 export function makeRequestHandler<
   R,
   M,
-  PathA,
-  CookieA,
-  QueryA,
-  BodyA,
-  HeaderA,
+  PathA extends StructFields,
+  CookieA extends StructFields,
+  QueryA extends StructFields,
+  BodyA extends StructFields,
+  HeaderA extends StructFields,
   ReqA extends PathA & QueryA & BodyA,
-  ResA,
+  ResA extends StructFields,
   ResE,
   MiddlewareE,
   R2,
@@ -209,9 +209,9 @@ export function makeRequestHandler<
           const handleRequest = parseRequest(pars)
             .map(({ body, path, query }) => {
               const hn = {
-                ...body.value,
-                ...query.value,
-                ...path.value
+                ...body.value as any,
+                ...query.value as any,
+                ...path.value as any
               } as unknown as ReqA
               return hn
             })

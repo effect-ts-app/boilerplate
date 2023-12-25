@@ -2,10 +2,9 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import { Role } from "@effect-app-boilerplate/models/User"
 import type { RequestConfig } from "@effect-app-boilerplate/resources/lib"
-import type { Request } from "@effect-app/infra/api/express/schema/routing"
 import type { RequestContext } from "@effect-app/infra/RequestContext"
 import { RequestContextContainer } from "@effect-app/infra/services/RequestContextContainer"
-import type { REST } from "@effect-app/prelude/schema"
+import type { REST, StructFields } from "@effect-app/prelude/schema"
 import { NotLoggedInError, UnauthorizedError } from "api/errors.js"
 import { Auth0Config, checkJWTI } from "api/middleware/auth.js"
 import type {
@@ -86,13 +85,13 @@ export type RequestEnv = Layer.Success<ReturnType<typeof RequestEnv>>
 export function handleRequestEnv<
   R,
   M,
-  PathA,
-  CookieA,
-  QueryA,
-  BodyA,
-  HeaderA,
+  PathA extends StructFields,
+  CookieA extends StructFields,
+  QueryA extends StructFields,
+  BodyA extends StructFields,
+  HeaderA extends StructFields,
   ReqA extends PathA & QueryA & BodyA,
-  ResA,
+  ResA extends StructFields,
   ResE,
   PPath extends `/${string}`
 >(
@@ -115,62 +114,83 @@ export function handleRequestEnv<
   }
 }
 
+export type Request<
+  M,
+  PathA extends StructFields,
+  CookieA extends StructFields,
+  QueryA extends StructFields,
+  BodyA extends StructFields,
+  HeaderA extends StructFields,
+  ReqA extends PathA & QueryA & BodyA,
+  PPath extends `/${string}`
+> = REST.ReqRes<any, any> & {
+  method: REST.Methods.Rest
+  path: PPath
+  Cookie?: CookieA
+  Path?: PathA
+  Body?: BodyA
+  Query?: QueryA
+  Headers?: HeaderA
+  Tag: Tag<M, M>
+  ReqA?: ReqA
+}
+
 export interface RequestHandlerBase<
   R,
   M,
-  PathA,
-  CookieA,
-  QueryA,
-  BodyA,
-  HeaderA,
+  PathA extends StructFields,
+  CookieA extends StructFields,
+  QueryA extends StructFields,
+  BodyA extends StructFields,
+  HeaderA extends StructFields,
   ReqA extends PathA & QueryA & BodyA,
-  ResA,
+  ResA extends StructFields,
   ResE,
   PPath extends `/${string}`
 > extends RequestConfig {
   adaptResponse?: any
   h: (i: PathA & QueryA & BodyA & {}) => Effect<R, ResE, ResA>
   Request: Request<M, PathA, CookieA, QueryA, BodyA, HeaderA, ReqA, PPath>
-  Response: REST.ReqRes<unknown, ResA>
+  Response: REST.ReqRes<any, any>
   ResponseOpenApi?: any
 }
 
 export interface RequestHandler<
   R,
   M,
-  PathA,
-  CookieA,
-  QueryA,
-  BodyA,
-  HeaderA,
+  PathA extends StructFields,
+  CookieA extends StructFields,
+  QueryA extends StructFields,
+  BodyA extends StructFields,
+  HeaderA extends StructFields,
   ReqA extends PathA & QueryA & BodyA,
-  ResA,
+  ResA extends StructFields,
   ResE,
   PPath extends `/${string}`
 > {
   adaptResponse?: any
   h: (i: PathA & QueryA & BodyA & {}, ctx: any /* TODO */) => Effect<R, ResE, ResA>
   Request: Request<M, PathA, CookieA, QueryA, BodyA, HeaderA, ReqA, PPath> & RequestConfig
-  Response: REST.ReqRes<unknown, ResA>
+  Response: REST.ReqRes<any, any>
   ResponseOpenApi?: any
 }
 
 export interface RequestHandlerOrig<
   R,
   M,
-  PathA,
-  CookieA,
-  QueryA,
-  BodyA,
-  HeaderA,
+  PathA extends StructFields,
+  CookieA extends StructFields,
+  QueryA extends StructFields,
+  BodyA extends StructFields,
+  HeaderA extends StructFields,
   ReqA extends PathA & QueryA & BodyA,
-  ResA,
+  ResA extends StructFields,
   ResE,
   PPath extends `/${string}`
 > {
   adaptResponse?: any
   h: (i: PathA & QueryA & BodyA & {}) => Effect<R, ResE, ResA>
   Request: Request<M, PathA, CookieA, QueryA, BodyA, HeaderA, ReqA, PPath> & RequestConfig
-  Response: REST.ReqRes<unknown, ResA>
+  Response: REST.ReqRes<any, any>
   ResponseOpenApi?: any
 }
