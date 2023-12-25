@@ -1,6 +1,5 @@
 import { User } from "@effect-app-boilerplate/models/User"
 
-@useClassFeaturesForSchema
 export class GetMeRequest extends Get("/me")<GetMeRequest>()({}) {}
 
 // TODO
