@@ -7,7 +7,4 @@ import "@effect-app-boilerplate/messages/_global"
  */
 import { matchFor } from "api/lib/routing.js"
 
-import "@effect-app/schema/arbitrary"
-import "@effect-app/schema/ext"
-
 import "./_global.ext.js"
