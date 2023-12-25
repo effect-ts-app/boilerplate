@@ -69,7 +69,7 @@ export function createFullName(firstName: string, lastName: string) {
 export const UserId = UserProfileId
 export type UserId = UserProfileId
 
-export const Role = literal("manager", "user")
+export const Role = literal("manager", "user").withDefaults
 export type Role = Schema.To<typeof Role>
 
 /**
