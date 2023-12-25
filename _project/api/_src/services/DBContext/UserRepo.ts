@@ -12,7 +12,7 @@ export interface UserPersistenceModel extends User.From {
 const fakeUsers = ReadonlyArray
   .range(1, 8)
   .map((_, i): User => ({
-    ...User.Arbitrary.generate.value,
+    ...User.Arbitrary.generate,
     role: i === 0 || i === 1 ? "manager" : "user"
   }))
   .toNonEmpty

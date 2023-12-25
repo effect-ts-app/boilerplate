@@ -1,14 +1,14 @@
-@useClassFeaturesForSchema
-export class BogusEvent
-  extends ExtendedClass<BogusEvent, BogusEvent.ConstructorInput, BogusEvent.From, BogusEvent.Fields>()({
-    _tag: literal("BogusEvent"),
-    id: StringId.withDefault,
-    at: date.withDefault
-  })
-{}
+import { S } from "@effect-app/prelude/schema"
 
-export const ClientEvents = smartClassUnion({ BogusEvent })
-export type ClientEvents = To<typeof ClientEvents>
+@useClassFeaturesForSchema
+export class BogusEvent extends ExtendedClass<BogusEvent.From, BogusEvent>()({
+  _tag: literal("BogusEvent"),
+  id: StringId.withDefault(),
+  at: S.Date.withDefault()
+}) {}
+
+export const ClientEvents = union(BogusEvent)
+export type ClientEvents = Schema.To<typeof ClientEvents>
 
 // codegen:start {preset: model}
 //
@@ -19,9 +19,6 @@ export namespace BogusEvent {
    * @tsplus companion BogusEvent.From/Ops
    */
   export class From extends FromClass<typeof BogusEvent>() {}
-  export interface ConstructorInput
-    extends ConstructorInputApi<typeof BogusEvent> {}
-  export interface Fields extends FieldsClass<typeof BogusEvent> {}
 }
 /* eslint-enable */
 //

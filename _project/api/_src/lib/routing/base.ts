@@ -2,8 +2,6 @@
 
 /* eslint-disable @typescript-eslint/ban-types */
 import * as S from "@effect-app/schema"
-import { Parser } from "@effect-app/schema"
-import type { Methods } from "@effect-app/schema"
 
 import type { EnforceNonEmptyRecord } from "@effect-app/core/utils"
 import { ValidationError } from "@effect-app/infra/errors"
@@ -61,23 +59,23 @@ export type RouteMatch<
 export function handle<
   TModule extends Record<
     string,
-    any // { Model: S.SchemaAny; new (...args: any[]): any } | S.SchemaAny
+    any // { Model: S.Schema<any, any>; new (...args: any[]): any } | S.Schema<any, any>
   >
 >(
   _: TModule & { ResponseOpenApi?: any },
   adaptResponse?: any
 ) {
   // TODO: Prevent over providing // no strict/shrink yet.
-  const Request = S.extractRequest(_)
-  const Response = S.extractResponse(_)
+  const Request = S.REST.extractRequest(_)
+  const Response = S.REST.extractResponse(_)
 
-  type ReqSchema = S.GetRequest<TModule>
-  type ResSchema = S.GetResponse<TModule>
+  type ReqSchema = S.REST.GetRequest<TModule>
+  type ResSchema = S.REST.GetResponse<TModule>
   type Req = InstanceType<
     ReqSchema extends { new(...args: any[]): any } ? ReqSchema
       : never
   >
-  type Res = S.To<Extr<ResSchema>>
+  type Res = S.Schema.To<Extr<ResSchema>>
 
   return <R, E>(
     h: (r: Req) => Effect<R, E, Res>
@@ -102,8 +100,8 @@ export interface ReqHandler<
   R,
   E,
   Res,
-  ReqSchema extends S.SchemaAny,
-  ResSchema extends S.SchemaAny,
+  ReqSchema extends S.Schema<any, any>,
+  ResSchema extends S.Schema<any, any>,
   CTX = any
 > {
   h: (r: Req, ctx: CTX) => Effect<R, E, Res>
@@ -112,16 +110,13 @@ export interface ReqHandler<
   ResponseOpenApi: any
 }
 
-export type ReqFromSchema<ReqSchema> = InstanceType<
-  ReqSchema extends { new(...args: any[]): any } ? ReqSchema
-    : never
->
+export type ReqFromSchema<ReqSchema extends S.Schema<any, any>> = S.Schema.To<ReqSchema>
 
-export type Extr<T> = T extends { Model: S.SchemaAny } ? T["Model"]
-  : T extends S.SchemaAny ? T
+export type Extr<T> = T extends { Model: S.Schema<any, any> } ? T["Model"]
+  : T extends S.Schema<any, any> ? T
   : never
 
-export type ResFromSchema<ResSchema> = To<Extr<ResSchema>>
+export type ResFromSchema<ResSchema> = S.Schema.To<Extr<ResSchema>>
 
 export type _R<T extends Effect<any, any, any>> = [T] extends [
   Effect<infer R, any, any>
@@ -135,9 +130,9 @@ export type _E<T extends Effect<any, any, any>> = [T] extends [
 
 export type Request2<
   Path extends string,
-  Method extends Methods.Rest,
+  Method extends S.REST.Methods.Rest,
   ReqA
-> = S.ReqResSchemed<unknown, ReqA> & {
+> = S.REST.ReqRes<unknown, ReqA> & {
   method: Method
   path: Path
 }
@@ -309,14 +304,14 @@ export function respondSuccess<ReqA, A, E>(
 export interface RequestHandler2<
   R,
   Path extends string,
-  Method extends Methods.Rest,
+  Method extends S.REST.Methods.Rest,
   ReqA,
   ResA,
   ResE
 > {
   h: (i: ReqA) => Effect<R, ResE, ResA>
   Request: Request2<Path, Method, ReqA>
-  Response: S.ReqRes<unknown, ResA> | S.ReqResSchemed<unknown, ResA>
+  Response: S.REST.ReqRes<unknown, ResA>
 }
 
 export function makeRequestParsers<
@@ -350,8 +345,7 @@ export function makeRequestParsers<
     Option
       .fromNullable(Request.Headers)
       .map((s) => s)
-      .map(Parser.for)
-      .map(S.condemn)
+      .map(S.parse)
   )
   const parseHeaders = (u: unknown) => ph.flatMapOpt((d) => d(u))
 
@@ -359,8 +353,7 @@ export function makeRequestParsers<
     Option
       .fromNullable(Request.Query)
       .map((s) => s)
-      .map(Parser.for)
-      .map(S.condemn)
+      .map(S.parse)
   )
   const parseQuery = (u: unknown) => pq.flatMapOpt((d) => d(u))
 
@@ -368,8 +361,7 @@ export function makeRequestParsers<
     Option
       .fromNullable(Request.Body)
       .map((s) => s)
-      .map(Parser.for)
-      .map(S.condemn)
+      .map(S.parse)
   )
   const parseBody = (u: unknown) => pb.flatMapOpt((d) => d(u))
 
@@ -377,8 +369,7 @@ export function makeRequestParsers<
     Option
       .fromNullable(Request.Path)
       .map((s) => s)
-      .map(Parser.for)
-      .map(S.condemn)
+      .map(S.parse)
   )
   const parsePath = (u: unknown) => pp.flatMapOpt((d) => d(u))
 
@@ -386,8 +377,7 @@ export function makeRequestParsers<
     Option
       .fromNullable(Request.Cookie)
       .map((s) => s)
-      .map(Parser.for)
-      .map(S.condemn)
+      .map(S.parse)
   )
   const parseCookie = (u: unknown) => pc.flatMapOpt((d) => d(u))
 

@@ -4,7 +4,8 @@ import type { EnforceNonEmptyRecord } from "@effect-app/core/utils"
 import { pretty } from "@effect-app/core/utils"
 
 import { RequestContext } from "@effect-app/infra/RequestContext"
-import { extractSchema, SchemaNamed } from "@effect-app/prelude/schema"
+import type { REST } from "@effect-app/prelude/schema"
+import { AST } from "@effect-app/prelude/schema"
 
 import { snipString } from "@effect-app/infra/api/util"
 import { reportError } from "@effect-app/infra/errorReporter"
@@ -104,8 +105,8 @@ export function makeRequestHandler<
 > {
   const { Request, Response, h: handle } = handler
 
-  const response = Response ? extractSchema(Response) : Void
-  const encoder = Encoder.for(response as any)
+  const response: REST.ReqRes<any, any> = Response ? Response : Void
+  const encoder = response.encodeSync
   // const encodeResponse = adaptResponse
   //   ? (req: ReqA) => Encoder.for(adaptResponse(req))
   //   : () => encoder
@@ -160,7 +161,7 @@ export function makeRequestHandler<
       id: currentSpan?.spanId ? RequestId(currentSpan.spanId) : RequestId.make(),
       rootId,
       name: NonEmptyString255(
-        Request.Model instanceof SchemaNamed ? Request.Model.name : Request.name
+        AST.getTitleAnnotation(Request.ast).value ?? "TODO"
       ),
       locale,
       createdAt: start,

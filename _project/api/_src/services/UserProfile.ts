@@ -1,6 +1,6 @@
 import { jwt } from "@effect-app/infra/api/express/schema/jwt"
 import { UserProfileId } from "@effect-app/prelude/ids"
-import { Class, json } from "@effect-app/prelude/schema"
+import { Class, S } from "@effect-app/prelude/schema"
 
 /**
  * @tsplus type UserProfile
@@ -9,19 +9,22 @@ import { Class, json } from "@effect-app/prelude/schema"
 export class UserProfile extends assignTag<UserProfile>()(
   Class<UserProfile>()({
     sub: UserProfileId,
-    roles: array(NonEmptyString255).fromProp("https://nomizz.com/roles")
+    ["https://nomizz.com/roles"]: array(NonEmptyString255) // TODO: "roles"
   })
 ) {
+  // TODO
+  get roles() {
+    return this["https://nomizz.com/roles"]
+  }
 }
 
 export interface UserProfileServiceId {
   readonly _: unique symbol
 }
 
-const userProfileFromJson = json[">>>"](UserProfile)
-const userProfileFromJWT = jwt[">>>"](UserProfile)
+const userProfileFromJson = S.parseJson(UserProfile)
+const userProfileFromJWT = S.compose(jwt, UserProfile)
 export const makeUserProfileFromAuthorizationHeader = (
   authorization: string | undefined
-) => userProfileFromJWT.parseCondemnCustom(authorization)
-export const makeUserProfileFromUserHeader = (user: string | string[] | undefined) =>
-  userProfileFromJson.parseCondemnCustom(user)
+) => userProfileFromJWT.parse(authorization)
+export const makeUserProfileFromUserHeader = (user: string | string[] | undefined) => userProfileFromJson.parse(user)

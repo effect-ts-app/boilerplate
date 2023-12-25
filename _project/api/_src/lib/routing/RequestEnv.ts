@@ -1,12 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/ban-types */
-import type { Request } from "@effect-app/infra/api/express/schema/routing"
-
 import { Role } from "@effect-app-boilerplate/models/User"
 import type { RequestConfig } from "@effect-app-boilerplate/resources/lib"
+import type { Request } from "@effect-app/infra/api/express/schema/routing"
 import type { RequestContext } from "@effect-app/infra/RequestContext"
 import { RequestContextContainer } from "@effect-app/infra/services/RequestContextContainer"
-import type { ReqRes, ReqResSchemed } from "@effect-app/prelude/schema"
+import type { REST } from "@effect-app/prelude/schema"
 import { NotLoggedInError, UnauthorizedError } from "api/errors.js"
 import { Auth0Config, checkJWTI } from "api/middleware/auth.js"
 import type {
@@ -59,7 +58,7 @@ const UserAuthorizationLive = <Req extends RequestConfig>(request: Req) =>
       yield* $(rcc.update((_): RequestContext => ({ ..._, userProfile: userProfile.value })))
 
       const up = userProfile.value
-      if (!allowAnonymous && !up) {
+      if (!request.allowAnonymous && !up) {
         return yield* $(new NotLoggedInError())
       }
 
@@ -132,7 +131,7 @@ export interface RequestHandlerBase<
   adaptResponse?: any
   h: (i: PathA & QueryA & BodyA & {}) => Effect<R, ResE, ResA>
   Request: Request<M, PathA, CookieA, QueryA, BodyA, HeaderA, ReqA, PPath>
-  Response: ReqRes<unknown, ResA> | ReqResSchemed<unknown, ResA>
+  Response: REST.ReqRes<unknown, ResA>
   ResponseOpenApi?: any
 }
 
@@ -152,7 +151,7 @@ export interface RequestHandler<
   adaptResponse?: any
   h: (i: PathA & QueryA & BodyA & {}, ctx: any /* TODO */) => Effect<R, ResE, ResA>
   Request: Request<M, PathA, CookieA, QueryA, BodyA, HeaderA, ReqA, PPath> & RequestConfig
-  Response: ReqRes<unknown, ResA> | ReqResSchemed<unknown, ResA>
+  Response: REST.ReqRes<unknown, ResA>
   ResponseOpenApi?: any
 }
 
@@ -172,6 +171,6 @@ export interface RequestHandlerOrig<
   adaptResponse?: any
   h: (i: PathA & QueryA & BodyA & {}) => Effect<R, ResE, ResA>
   Request: Request<M, PathA, CookieA, QueryA, BodyA, HeaderA, ReqA, PPath> & RequestConfig
-  Response: ReqRes<unknown, ResA> | ReqResSchemed<unknown, ResA>
+  Response: REST.ReqRes<unknown, ResA>
   ResponseOpenApi?: any
 }
