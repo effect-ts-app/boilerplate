@@ -1,4 +1,3 @@
-import { Email, NonEmptyString255 } from "@effect-app/schema"
 import dotenv from "dotenv"
 
 const envFile = "./.env.local"
