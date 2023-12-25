@@ -15,10 +15,11 @@ const makeEvents = Effect.gen(function*($) {
  * @tsplus type Events
  * @tsplus companion Events.Ops
  */
-export abstract class Events extends TagClass<Events>() {
-  abstract publish: (...events: NonEmptyReadonlyArray<ClientEvents>) => Effect<never, never, void>
-  abstract subscribe: Effect<Scope, never, Dequeue<{ evt: ClientEvents; namespace: string }>>
-  abstract stream: Stream<never, never, { evt: ClientEvents; namespace: string }>
+export class Events extends TagClass<Events, {
+  publish: (...events: NonEmptyReadonlyArray<ClientEvents>) => Effect<never, never, void>
+  subscribe: Effect<Scope, never, Dequeue<{ evt: ClientEvents; namespace: string }>>
+  stream: Stream<never, never, { evt: ClientEvents; namespace: string }>
+}>() {
 }
 
 /**

@@ -132,7 +132,7 @@ export function makeRequestHandler<
     const req = yield* $(HttpServerRequest)
     let res = HttpServerResponse.empty()
 
-    const currentSpan = yield* $(Effect.currentSpan.map((_) => _.value))
+    const currentSpan = yield* $(Effect.currentSpan.orDie)
     const parent = currentSpan?.parent ? currentSpan.parent.value : undefined
     const start = new Date()
     const supported = ["en", "de"] as const
