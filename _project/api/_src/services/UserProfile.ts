@@ -9,17 +9,15 @@ import { Class, S } from "@effect-app/schema"
 export class UserProfile extends assignTag<UserProfile>()(
   Class<UserProfile>()({
     sub: UserProfileId,
-    ["https://nomizz.com/roles"]: array(NonEmptyString255) // TODO: "roles"
+    roles: array(NonEmptyString255).mapFrom("https://nomizz.com/roles").withDefault()
   })
 ) {
-  // TODO
-  get roles() {
-    return this["https://nomizz.com/roles"]
-  }
 }
 
-export interface UserProfileServiceId {
-  readonly _: unique symbol
+export namespace UserProfileService {
+  export interface Id {
+    readonly _: unique symbol
+  }
 }
 
 const userProfileFromJson = S.parseJson(UserProfile)
