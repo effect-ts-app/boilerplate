@@ -1,5 +1,4 @@
 import * as Cause from "effect/Cause"
-import * as MO from "@effect-app/schema"
 import * as HttpClient from "@effect/platform/Http/Client"
 import * as ClientRequest from "@effect/platform/Http/ClientRequest"
 import * as Duration from "effect/Duration"
@@ -15,6 +14,7 @@ import * as Chunk from "@effect-app/core/Chunk"
 import * as ReadonlyArray from "@effect-app/core/Array"
 import * as Optic from "@effect-app/core/Optic"
 import * as Stream from "effect/Stream"
+import * as S from "@effect-app/schema"
 import type { NonEmptyArray, NonEmptyReadonlyArray } from "effect/ReadonlyArray"
 
 export { flow, pipe } from "@effect-app/prelude/Function"
@@ -31,12 +31,12 @@ export {
   ClientRequest,
   Option,
   Optic,
-  MO,
   Order,
   PubSub,
   Stream,
   ReadonlyArray as array,
   ReadonlyArray,
+  S,
   Tag,
 }
 export type { NonEmptyArray, NonEmptyReadonlyArray }

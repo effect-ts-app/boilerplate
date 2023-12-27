@@ -26,7 +26,7 @@ export interface Fields
     InstanceType<typeof VTextField>["$props"],
     "modelValue" | "update:modelValue"
   > {
-  field: FieldInfo<any, any>
+  field: FieldInfo<any>
   extraRules?: InstanceType<typeof VTextField>["$props"]["rules"]
   modelValue: string | null
 }
