@@ -4,11 +4,10 @@ import { buildFormFromSchema } from "@effect-app/vue/form"
 import { S } from "~/utils/prelude"
 
 const helloWorldClient = clientFor(HelloWorldRsc)
-
 const schema = S.struct({
   title: S.NonEmptyString255,
   name: S.NonEmptyString2k,
-  age: S.PositiveInt,
+  age: S.NonNegativeInt,
   email: S.Email,
 })
 
