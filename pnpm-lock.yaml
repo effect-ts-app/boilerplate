@@ -5,7 +5,7 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
-  '@effect/schema': npm:@effect-app/schema-fork@0.0.0-20231227102807
+  '@effect/schema': npm:@effect-app/schema-fork@0.0.0-20231227111019
   date-fns: ^2.29.3
   http-proxy: npm:http-proxy-node16@1.0.0
   vue: ^3.3.9
@@ -91,13 +91,13 @@ importers:
         version: 0.48.0-next.0(@types/node@20.10.5)
       '@effect-app/core':
         specifier: ^0.97.0-next.4
-        version: 0.97.0-next.4(@effect-app/schema-fork@0.0.0-20231227102807)(@effect/typeclass@0.21.0)
+        version: 0.97.0-next.4(@effect-app/schema-fork@0.0.0-20231227111019)(@effect/typeclass@0.21.0)
       '@effect-app/eslint-codegen-model':
         specifier: ^0.36.0-next.1
         version: 0.36.0-next.1(@effect-app/typescript@5.4.0-tsplus.202311222)(eslint@8.56.0)(fp-ts@2.16.1)
       '@effect-app/prelude':
-        specifier: ^0.107.0-next.12
-        version: 0.107.0-next.12(@effect/typeclass@0.21.0)(fast-check@3.15.0)
+        specifier: ^0.107.0-next.13
+        version: 0.107.0-next.13(@effect/typeclass@0.21.0)(fast-check@3.15.0)
       '@effect/language-service':
         specifier: ^0.0.19
         version: 0.0.19(patch_hash=izp2ue34jjv4swyrhg2ux4ha3e)
@@ -229,19 +229,19 @@ importers:
         version: link:../resources
       '@effect-app/core':
         specifier: ^0.97.0-next.4
-        version: 0.97.0-next.4(@effect-app/schema-fork@0.0.0-20231227102807)(@effect/typeclass@0.21.0)
+        version: 0.97.0-next.4(@effect-app/schema-fork@0.0.0-20231227111019)(@effect/typeclass@0.21.0)
       '@effect-app/infra':
-        specifier: 0.133.0-next.14
-        version: 0.133.0-next.14(@effect/typeclass@0.21.0)(express@4.18.2)
+        specifier: 0.133.0-next.15
+        version: 0.133.0-next.15(@effect/typeclass@0.21.0)(express@4.18.2)
       '@effect-app/infra-adapters':
-        specifier: ^0.85.0-next.12
-        version: 0.85.0-next.12(@effect/typeclass@0.21.0)(express@4.18.2)(fast-check@3.15.0)
+        specifier: ^0.85.0-next.13
+        version: 0.85.0-next.13(@effect/typeclass@0.21.0)(express@4.18.2)(fast-check@3.15.0)
       '@effect-app/prelude':
-        specifier: ^0.107.0-next.12
-        version: 0.107.0-next.12(@effect/typeclass@0.21.0)(fast-check@3.15.0)
+        specifier: ^0.107.0-next.13
+        version: 0.107.0-next.13(@effect/typeclass@0.21.0)(fast-check@3.15.0)
       '@effect-app/schema':
-        specifier: ^0.150.0-next.9
-        version: 0.150.0-next.9(@effect/typeclass@0.21.0)(fast-check@3.15.0)
+        specifier: ^0.150.0-next.10
+        version: 0.150.0-next.10(@effect/typeclass@0.21.0)(fast-check@3.15.0)
       '@effect/opentelemetry':
         specifier: ^0.29.0
         version: 0.29.0(@opentelemetry/api@1.7.0)(@opentelemetry/resources@1.19.0)(@opentelemetry/sdk-metrics@1.19.0)(@opentelemetry/sdk-trace-base@1.19.0)(@opentelemetry/sdk-trace-node@1.19.0)(@opentelemetry/sdk-trace-web@1.19.0)(@opentelemetry/semantic-conventions@1.19.0)(effect@2.0.0-next.62)
@@ -383,19 +383,19 @@ importers:
         version: link:../resources
       '@effect-app/core':
         specifier: ^0.97.0-next.4
-        version: 0.97.0-next.4(@effect-app/schema-fork@0.0.0-20231227102807)(@effect/typeclass@0.21.0)
+        version: 0.97.0-next.4(@effect-app/schema-fork@0.0.0-20231227111019)(@effect/typeclass@0.21.0)
       '@effect-app/fluent-extensions':
-        specifier: ^0.97.0-next.9
-        version: 0.97.0-next.9(@effect-app/schema-fork@0.0.0-20231227102807)(@effect/typeclass@0.21.0)(fast-check@3.15.0)
+        specifier: ^0.97.0-next.10
+        version: 0.97.0-next.10(@effect-app/schema-fork@0.0.0-20231227111019)(@effect/typeclass@0.21.0)(fast-check@3.15.0)
       '@effect-app/prelude':
-        specifier: ^0.107.0-next.12
-        version: 0.107.0-next.12(@effect/typeclass@0.21.0)(fast-check@3.15.0)
+        specifier: ^0.107.0-next.13
+        version: 0.107.0-next.13(@effect/typeclass@0.21.0)(fast-check@3.15.0)
       '@effect-app/schema':
-        specifier: ^0.150.0-next.9
-        version: 0.150.0-next.9(@effect/typeclass@0.21.0)(fast-check@3.15.0)
+        specifier: ^0.150.0-next.10
+        version: 0.150.0-next.10(@effect/typeclass@0.21.0)(fast-check@3.15.0)
       '@effect-app/vue':
-        specifier: ^0.87.0-next.13
-        version: 0.87.0-next.13(@effect-app/typescript@5.4.0-tsplus.202311222)(@effect/platform@0.39.0)(@effect/typeclass@0.21.0)(fast-check@3.15.0)
+        specifier: ^0.87.0-next.14
+        version: 0.87.0-next.14(@effect-app/typescript@5.4.0-tsplus.202311222)(@effect/platform@0.39.0)(@effect/typeclass@0.21.0)(fast-check@3.15.0)
       '@effect/opentelemetry':
         specifier: ^0.29.0
         version: 0.29.0(@opentelemetry/api@1.7.0)(@opentelemetry/resources@1.19.0)(@opentelemetry/sdk-metrics@1.19.0)(@opentelemetry/sdk-trace-base@1.19.0)(@opentelemetry/sdk-trace-node@1.19.0)(@opentelemetry/sdk-trace-web@1.19.0)(@opentelemetry/semantic-conventions@1.19.0)(effect@2.0.0-next.62)
@@ -519,19 +519,19 @@ importers:
         version: link:../resources
       '@effect-app/core':
         specifier: ^0.97.0-next.4
-        version: 0.97.0-next.4(@effect-app/schema-fork@0.0.0-20231227102807)(@effect/typeclass@0.21.0)
+        version: 0.97.0-next.4(@effect-app/schema-fork@0.0.0-20231227111019)(@effect/typeclass@0.21.0)
       '@effect-app/infra':
-        specifier: 0.133.0-next.14
-        version: 0.133.0-next.14(@effect/typeclass@0.21.0)(express@4.18.2)
+        specifier: 0.133.0-next.15
+        version: 0.133.0-next.15(@effect/typeclass@0.21.0)(express@4.18.2)
       '@effect-app/infra-adapters':
-        specifier: ^0.85.0-next.12
-        version: 0.85.0-next.12(@effect/typeclass@0.21.0)(express@4.18.2)(fast-check@3.15.0)
+        specifier: ^0.85.0-next.13
+        version: 0.85.0-next.13(@effect/typeclass@0.21.0)(express@4.18.2)(fast-check@3.15.0)
       '@effect-app/prelude':
-        specifier: ^0.107.0-next.12
-        version: 0.107.0-next.12(@effect/typeclass@0.21.0)(fast-check@3.15.0)
+        specifier: ^0.107.0-next.13
+        version: 0.107.0-next.13(@effect/typeclass@0.21.0)(fast-check@3.15.0)
       '@effect-app/schema':
-        specifier: ^0.150.0-next.9
-        version: 0.150.0-next.9(@effect/typeclass@0.21.0)(fast-check@3.15.0)
+        specifier: ^0.150.0-next.10
+        version: 0.150.0-next.10(@effect/typeclass@0.21.0)(fast-check@3.15.0)
       change-case:
         specifier: ^5.3.0
         version: 5.3.0
@@ -555,16 +555,16 @@ importers:
     dependencies:
       '@effect-app/core':
         specifier: ^0.97.0-next.4
-        version: 0.97.0-next.4(@effect-app/schema-fork@0.0.0-20231227102807)(@effect/typeclass@0.21.0)
+        version: 0.97.0-next.4(@effect-app/schema-fork@0.0.0-20231227111019)(@effect/typeclass@0.21.0)
       '@effect-app/prelude':
-        specifier: ^0.107.0-next.12
-        version: 0.107.0-next.12(@effect/typeclass@0.21.0)(fast-check@3.15.0)
+        specifier: ^0.107.0-next.13
+        version: 0.107.0-next.13(@effect/typeclass@0.21.0)(fast-check@3.15.0)
       '@effect-app/schema':
-        specifier: ^0.150.0-next.9
-        version: 0.150.0-next.9(@effect/typeclass@0.21.0)(fast-check@3.15.0)
+        specifier: ^0.150.0-next.10
+        version: 0.150.0-next.10(@effect/typeclass@0.21.0)(fast-check@3.15.0)
       '@effect/schema':
-        specifier: npm:@effect-app/schema-fork@0.0.0-20231227102807
-        version: /@effect-app/schema-fork@0.0.0-20231227102807(effect@2.0.0-next.62)(fast-check@3.15.0)
+        specifier: npm:@effect-app/schema-fork@0.0.0-20231227111019
+        version: /@effect-app/schema-fork@0.0.0-20231227111019(effect@2.0.0-next.62)(fast-check@3.15.0)
       date-fns:
         specifier: ^2.29.3
         version: 2.30.0(patch_hash=g5hqt5bhnjezqo5vnkpprfkba4)
@@ -595,13 +595,13 @@ importers:
         version: link:../models
       '@effect-app/core':
         specifier: ^0.97.0-next.4
-        version: 0.97.0-next.4(@effect-app/schema-fork@0.0.0-20231227102807)(@effect/typeclass@0.21.0)
+        version: 0.97.0-next.4(@effect-app/schema-fork@0.0.0-20231227111019)(@effect/typeclass@0.21.0)
       '@effect-app/prelude':
-        specifier: ^0.107.0-next.12
-        version: 0.107.0-next.12(@effect/typeclass@0.21.0)(fast-check@3.15.0)
+        specifier: ^0.107.0-next.13
+        version: 0.107.0-next.13(@effect/typeclass@0.21.0)(fast-check@3.15.0)
       '@effect-app/schema':
-        specifier: ^0.150.0-next.9
-        version: 0.150.0-next.9(@effect/typeclass@0.21.0)(fast-check@3.15.0)
+        specifier: ^0.150.0-next.10
+        version: 0.150.0-next.10(@effect/typeclass@0.21.0)(fast-check@3.15.0)
       camel-case:
         specifier: ^4.1.2
         version: 4.1.2
@@ -638,13 +638,13 @@ importers:
         version: link:../_project/resources
       '@effect-app/core':
         specifier: ^0.97.0-next.4
-        version: 0.97.0-next.4(@effect-app/schema-fork@0.0.0-20231227102807)(@effect/typeclass@0.21.0)
+        version: 0.97.0-next.4(@effect-app/schema-fork@0.0.0-20231227111019)(@effect/typeclass@0.21.0)
       '@effect-app/prelude':
-        specifier: ^0.107.0-next.12
-        version: 0.107.0-next.12(@effect/typeclass@0.21.0)(fast-check@3.15.0)
+        specifier: ^0.107.0-next.13
+        version: 0.107.0-next.13(@effect/typeclass@0.21.0)(fast-check@3.15.0)
       '@effect-app/schema':
-        specifier: ^0.150.0-next.9
-        version: 0.150.0-next.9(@effect/typeclass@0.21.0)(fast-check@3.15.0)
+        specifier: ^0.150.0-next.10
+        version: 0.150.0-next.10(@effect/typeclass@0.21.0)(fast-check@3.15.0)
       '@effect/platform-node':
         specifier: 0.39.0
         version: 0.39.0(@effect/platform@0.39.0)(effect@2.0.0-next.62)
@@ -753,13 +753,13 @@ importers:
     dependencies:
       '@effect-app/core':
         specifier: ^0.97.0-next.4
-        version: 0.97.0-next.4(@effect-app/schema-fork@0.0.0-20231227102807)(@effect/typeclass@0.21.0)
+        version: 0.97.0-next.4(@effect-app/schema-fork@0.0.0-20231227111019)(@effect/typeclass@0.21.0)
       '@effect-app/prelude':
-        specifier: ^0.107.0-next.12
-        version: 0.107.0-next.12(@effect/typeclass@0.21.0)(fast-check@3.15.0)
+        specifier: ^0.107.0-next.13
+        version: 0.107.0-next.13(@effect/typeclass@0.21.0)(fast-check@3.15.0)
       '@effect-app/schema':
-        specifier: ^0.150.0-next.9
-        version: 0.150.0-next.9(@effect/typeclass@0.21.0)(fast-check@3.15.0)
+        specifier: ^0.150.0-next.10
+        version: 0.150.0-next.10(@effect/typeclass@0.21.0)(fast-check@3.15.0)
       change-case:
         specifier: ^5.3.0
         version: 5.3.0
@@ -2501,10 +2501,10 @@ packages:
       - terser
     dev: true
 
-  /@effect-app/core@0.97.0-next.4(@effect-app/schema-fork@0.0.0-20231227102807)(@effect/typeclass@0.21.0):
+  /@effect-app/core@0.97.0-next.4(@effect-app/schema-fork@0.0.0-20231227111019)(@effect/typeclass@0.21.0):
     resolution: {integrity: sha512-+66jaPygFU8F/hkjMBea0WtlzMN/zhxt4S7TQuUQIaTNw44+tq2PrqMAyABySohaIaSkX7F9yfMwNSG4rG8RKg==}
     dependencies:
-      '@effect/platform': 0.39.0(@effect-app/schema-fork@0.0.0-20231227102807)(effect@2.0.0-next.62)
+      '@effect/platform': 0.39.0(@effect-app/schema-fork@0.0.0-20231227111019)(effect@2.0.0-next.62)
       '@fp-ts/optic': 0.21.0(patch_hash=2yuoegl5dhwsslauskmjxbvoeu)(@effect/typeclass@0.21.0)(effect@2.0.0-next.62)
       cross-fetch: 4.0.0
       effect: 2.0.0-next.62
@@ -2537,12 +2537,12 @@ packages:
       - typescript
     dev: true
 
-  /@effect-app/fluent-extensions@0.97.0-next.9(@effect-app/schema-fork@0.0.0-20231227102807)(@effect/typeclass@0.21.0)(fast-check@3.15.0):
-    resolution: {integrity: sha512-HdJwu0pxsOIvXqTQAR/5pMG4LY8pMFMJY8cxCT+nb7iJdzruOEwQhCk8DZLJYOru+XZSRQ3swmN+9pKZ3n1e7Q==}
+  /@effect-app/fluent-extensions@0.97.0-next.10(@effect-app/schema-fork@0.0.0-20231227111019)(@effect/typeclass@0.21.0)(fast-check@3.15.0):
+    resolution: {integrity: sha512-y/KeOlTZLDCr9+UaFjYOuBYycu2wnquYE5AGabl7iwOu30msTjXTnyjjiOOuWxas3pblwXgwqGaFPOwJX0OH5w==}
     dependencies:
-      '@effect-app/core': 0.97.0-next.4(@effect-app/schema-fork@0.0.0-20231227102807)(@effect/typeclass@0.21.0)
-      '@effect-app/schema': 0.150.0-next.9(@effect/typeclass@0.21.0)(fast-check@3.15.0)
-      '@effect/platform': 0.39.0(@effect-app/schema-fork@0.0.0-20231227102807)(effect@2.0.0-next.62)
+      '@effect-app/core': 0.97.0-next.4(@effect-app/schema-fork@0.0.0-20231227111019)(@effect/typeclass@0.21.0)
+      '@effect-app/schema': 0.150.0-next.10(@effect/typeclass@0.21.0)(fast-check@3.15.0)
+      '@effect/platform': 0.39.0(@effect-app/schema-fork@0.0.0-20231227111019)(effect@2.0.0-next.62)
       '@fp-ts/optic': 0.21.0(patch_hash=2yuoegl5dhwsslauskmjxbvoeu)(@effect/typeclass@0.21.0)(effect@2.0.0-next.62)
       date-fns: 2.30.0(patch_hash=g5hqt5bhnjezqo5vnkpprfkba4)
       effect: 2.0.0-next.62
@@ -2560,16 +2560,16 @@ packages:
       - fast-check
     dev: false
 
-  /@effect-app/infra-adapters@0.85.0-next.12(@effect/typeclass@0.21.0)(express@4.18.2)(fast-check@3.15.0):
-    resolution: {integrity: sha512-RIM0YvQFYyQzTRF0b+Z+0AkwO+c7olaSjHyNzQ2vQ58aqIeHape9HqHlQm0AuO8LXMjpMl+xeZK5SY5ZRkWP1Q==}
+  /@effect-app/infra-adapters@0.85.0-next.13(@effect/typeclass@0.21.0)(express@4.18.2)(fast-check@3.15.0):
+    resolution: {integrity: sha512-4GhL7VxHfLUKalVxaqF/tSg0ccDIFNmlvrygq6FVhaP8H0uSzB7VHflwlesow4uYp7DKb+0HdU+kmGbJ9n8/uw==}
     peerDependencies:
       express: ^4.18.2
     dependencies:
-      '@effect-app/core': 0.97.0-next.4(@effect-app/schema-fork@0.0.0-20231227102807)(@effect/typeclass@0.21.0)
-      '@effect-app/prelude': 0.107.0-next.12(@effect/typeclass@0.21.0)(fast-check@3.15.0)
-      '@effect-app/schema': 0.150.0-next.9(@effect/typeclass@0.21.0)(fast-check@3.15.0)
-      '@effect/platform': 0.39.0(@effect-app/schema-fork@0.0.0-20231227102807)(effect@2.0.0-next.62)
-      '@effect/schema': /@effect-app/schema-fork@0.0.0-20231227102807(effect@2.0.0-next.62)(fast-check@3.15.0)
+      '@effect-app/core': 0.97.0-next.4(@effect-app/schema-fork@0.0.0-20231227111019)(@effect/typeclass@0.21.0)
+      '@effect-app/prelude': 0.107.0-next.13(@effect/typeclass@0.21.0)(fast-check@3.15.0)
+      '@effect-app/schema': 0.150.0-next.10(@effect/typeclass@0.21.0)(fast-check@3.15.0)
+      '@effect/platform': 0.39.0(@effect-app/schema-fork@0.0.0-20231227111019)(effect@2.0.0-next.62)
+      '@effect/schema': /@effect-app/schema-fork@0.0.0-20231227111019(effect@2.0.0-next.62)(fast-check@3.15.0)
       '@fp-ts/optic': 0.21.0(patch_hash=2yuoegl5dhwsslauskmjxbvoeu)(@effect/typeclass@0.21.0)(effect@2.0.0-next.62)
       effect: 2.0.0-next.62
       express: 4.18.2
@@ -2580,18 +2580,18 @@ packages:
       - fast-check
     dev: false
 
-  /@effect-app/infra@0.133.0-next.14(@effect/typeclass@0.21.0)(express@4.18.2):
-    resolution: {integrity: sha512-0MIsJ8HvSu2mEbAkQxpp77dyOZ4mCVFKylgQiIdpkW2r4bjDumKNP1hv6GQhYD7li4cmRJWs8kv1RJv+rfZajw==}
+  /@effect-app/infra@0.133.0-next.15(@effect/typeclass@0.21.0)(express@4.18.2):
+    resolution: {integrity: sha512-G9kq1Uwsmvuq92BYtL4N5QbDYO5wz7cyUY9+VoKqz7gSRr0p9DtNfu9+cJCRZpcpWeziUJ4bgMF/1hza7kVl2g==}
     peerDependencies:
       express: ^4.18.2
     dependencies:
       '@azure/cosmos': 4.0.0
       '@azure/service-bus': 7.9.3
-      '@effect-app/core': 0.97.0-next.4(@effect-app/schema-fork@0.0.0-20231227102807)(@effect/typeclass@0.21.0)
-      '@effect-app/infra-adapters': 0.85.0-next.12(@effect/typeclass@0.21.0)(express@4.18.2)(fast-check@3.15.0)
-      '@effect-app/prelude': 0.107.0-next.12(@effect/typeclass@0.21.0)(fast-check@3.15.0)
-      '@effect-app/schema': 0.150.0-next.9(@effect/typeclass@0.21.0)(fast-check@3.15.0)
-      '@effect/schema': /@effect-app/schema-fork@0.0.0-20231227102807(effect@2.0.0-next.62)(fast-check@3.15.0)
+      '@effect-app/core': 0.97.0-next.4(@effect-app/schema-fork@0.0.0-20231227111019)(@effect/typeclass@0.21.0)
+      '@effect-app/infra-adapters': 0.85.0-next.13(@effect/typeclass@0.21.0)(express@4.18.2)(fast-check@3.15.0)
+      '@effect-app/prelude': 0.107.0-next.13(@effect/typeclass@0.21.0)(fast-check@3.15.0)
+      '@effect-app/schema': 0.150.0-next.10(@effect/typeclass@0.21.0)(fast-check@3.15.0)
+      '@effect/schema': /@effect-app/schema-fork@0.0.0-20231227111019(effect@2.0.0-next.62)(fast-check@3.15.0)
       '@faker-js/faker': 8.3.1
       '@sendgrid/helpers': 8.0.0
       '@sendgrid/mail': 8.1.0
@@ -2612,13 +2612,13 @@ packages:
       - supports-color
     dev: false
 
-  /@effect-app/prelude@0.107.0-next.12(@effect/typeclass@0.21.0)(fast-check@3.15.0):
-    resolution: {integrity: sha512-rc8xqD8qqhaXm8v9RDXsrNZIuQNFBDc1axvbP5K69NR4QXE3aqq/ZMO9nYmbL//+5940cY3KjZeEc1q06P0UoQ==}
+  /@effect-app/prelude@0.107.0-next.13(@effect/typeclass@0.21.0)(fast-check@3.15.0):
+    resolution: {integrity: sha512-4xwz4Yu2Uvtj7a5HbLnXiF9wO8U00MyD5w5fNikKMa13N4L97N1E3Tga7tnRowiz8eBpHKGJfBmseDV9Ud4h7g==}
     dependencies:
-      '@effect-app/core': 0.97.0-next.4(@effect-app/schema-fork@0.0.0-20231227102807)(@effect/typeclass@0.21.0)
-      '@effect-app/schema': 0.150.0-next.9(@effect/typeclass@0.21.0)(fast-check@3.15.0)
-      '@effect/platform': 0.39.0(@effect-app/schema-fork@0.0.0-20231227102807)(effect@2.0.0-next.62)
-      '@effect/schema': /@effect-app/schema-fork@0.0.0-20231227102807(effect@2.0.0-next.62)(fast-check@3.15.0)
+      '@effect-app/core': 0.97.0-next.4(@effect-app/schema-fork@0.0.0-20231227111019)(@effect/typeclass@0.21.0)
+      '@effect-app/schema': 0.150.0-next.10(@effect/typeclass@0.21.0)(fast-check@3.15.0)
+      '@effect/platform': 0.39.0(@effect-app/schema-fork@0.0.0-20231227111019)(effect@2.0.0-next.62)
+      '@effect/schema': /@effect-app/schema-fork@0.0.0-20231227111019(effect@2.0.0-next.62)(fast-check@3.15.0)
       '@fp-ts/optic': 0.21.0(patch_hash=2yuoegl5dhwsslauskmjxbvoeu)(@effect/typeclass@0.21.0)(effect@2.0.0-next.62)
       date-fns: 2.30.0(patch_hash=g5hqt5bhnjezqo5vnkpprfkba4)
       effect: 2.0.0-next.62
@@ -2634,8 +2634,8 @@ packages:
       - encoding
       - fast-check
 
-  /@effect-app/schema-fork@0.0.0-20231227102807(effect@2.0.0-next.62)(fast-check@3.15.0):
-    resolution: {integrity: sha512-CJckCHswCDgATHS4/xIVuqG5VJ5W26JdvW99q2XgOnBJBykJCAJFyuuBlYS3eTR8Rcy20wujeVMUhNO4mH9zUA==}
+  /@effect-app/schema-fork@0.0.0-20231227111019(effect@2.0.0-next.62)(fast-check@3.15.0):
+    resolution: {integrity: sha512-83H50FEPV0WKaFaPxYmY5DQi7egM9YWa5aGXNVZxYWvzk0AjNWQ/a5UKVTm0Av3BmK3Tr6t4vdeSgTYlngtUUQ==}
     peerDependencies:
       effect: 2.0.0-next.62
       fast-check: ^3.13.2
@@ -2643,11 +2643,11 @@ packages:
       effect: 2.0.0-next.62
       fast-check: 3.15.0(patch_hash=gmhutzas2jzobvkhr72gjyjori)
 
-  /@effect-app/schema@0.150.0-next.9(@effect/typeclass@0.21.0)(fast-check@3.15.0):
-    resolution: {integrity: sha512-WBw2SYkSh8AQgtsaUiYyn08/Gmrcl3LCxGdPhBI3SoCVhWLOgrjK1LgL/W/BrIgAw6oyK6gWSgOEONm80S0Aow==}
+  /@effect-app/schema@0.150.0-next.10(@effect/typeclass@0.21.0)(fast-check@3.15.0):
+    resolution: {integrity: sha512-fmdVlb7eeRFAfKh1eUeFaZ4CmpPLY5kJxNombUxpdUW3c/wZGQSoin4NCnH8Nh3bXuoef4PChTM0yLKHJWwusQ==}
     dependencies:
-      '@effect-app/core': 0.97.0-next.4(@effect-app/schema-fork@0.0.0-20231227102807)(@effect/typeclass@0.21.0)
-      '@effect/schema': /@effect-app/schema-fork@0.0.0-20231227102807(effect@2.0.0-next.62)(fast-check@3.15.0)
+      '@effect-app/core': 0.97.0-next.4(@effect-app/schema-fork@0.0.0-20231227111019)(@effect/typeclass@0.21.0)
+      '@effect/schema': /@effect-app/schema-fork@0.0.0-20231227111019(effect@2.0.0-next.62)(fast-check@3.15.0)
       '@fp-ts/optic': 0.21.0(patch_hash=2yuoegl5dhwsslauskmjxbvoeu)(@effect/typeclass@0.21.0)(effect@2.0.0-next.62)
       cross-fetch: 4.0.0
       effect: 2.0.0-next.62
@@ -2666,14 +2666,14 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
-  /@effect-app/vue@0.87.0-next.13(@effect-app/typescript@5.4.0-tsplus.202311222)(@effect/platform@0.39.0)(@effect/typeclass@0.21.0)(fast-check@3.15.0):
-    resolution: {integrity: sha512-rB+V2KhKdQ7b4BgzpC+OEbLmrMsE23IjOeLipMRz9U759cRZwcTFiRpq3wywVkUlAyeieMD1Ql9MeF2c32Mm/w==}
+  /@effect-app/vue@0.87.0-next.14(@effect-app/typescript@5.4.0-tsplus.202311222)(@effect/platform@0.39.0)(@effect/typeclass@0.21.0)(fast-check@3.15.0):
+    resolution: {integrity: sha512-MDWyLIzwXTIsiAncfnlgoC5syfNfdK7aL9viJ/tvQp3hTy2XPYb8IMv5r8qkW3lTKMWjMnMW5SM4Tg6dB1wzyw==}
     dependencies:
-      '@effect-app/core': 0.97.0-next.4(@effect-app/schema-fork@0.0.0-20231227102807)(@effect/typeclass@0.21.0)
-      '@effect-app/prelude': 0.107.0-next.12(@effect/typeclass@0.21.0)(fast-check@3.15.0)
-      '@effect-app/schema': 0.150.0-next.9(@effect/typeclass@0.21.0)(fast-check@3.15.0)
+      '@effect-app/core': 0.97.0-next.4(@effect-app/schema-fork@0.0.0-20231227111019)(@effect/typeclass@0.21.0)
+      '@effect-app/prelude': 0.107.0-next.13(@effect/typeclass@0.21.0)(fast-check@3.15.0)
+      '@effect-app/schema': 0.150.0-next.10(@effect/typeclass@0.21.0)(fast-check@3.15.0)
       '@effect/platform-browser': 0.25.0(@effect/platform@0.39.0)(effect@2.0.0-next.62)
-      '@effect/schema': /@effect-app/schema-fork@0.0.0-20231227102807(effect@2.0.0-next.62)(fast-check@3.15.0)
+      '@effect/schema': /@effect-app/schema-fork@0.0.0-20231227111019(effect@2.0.0-next.62)(fast-check@3.15.0)
       '@formatjs/intl': 2.9.9(@effect-app/typescript@5.4.0-tsplus.202311222)
       '@fp-ts/optic': 0.21.0(patch_hash=2yuoegl5dhwsslauskmjxbvoeu)(@effect/typeclass@0.21.0)(effect@2.0.0-next.62)
       effect: 2.0.0-next.62
@@ -2733,7 +2733,7 @@ packages:
       '@effect/platform': ^0.39.0
       effect: 2.0.0-next.62
     dependencies:
-      '@effect/platform': 0.39.0(@effect-app/schema-fork@0.0.0-20231227102807)(effect@2.0.0-next.62)
+      '@effect/platform': 0.39.0(@effect-app/schema-fork@0.0.0-20231227111019)(effect@2.0.0-next.62)
       effect: 2.0.0-next.62
     dev: false
 
@@ -2743,19 +2743,19 @@ packages:
       '@effect/platform': ^0.39.0
       effect: 2.0.0-next.62
     dependencies:
-      '@effect/platform': 0.39.0(@effect-app/schema-fork@0.0.0-20231227102807)(effect@2.0.0-next.62)
+      '@effect/platform': 0.39.0(@effect-app/schema-fork@0.0.0-20231227111019)(effect@2.0.0-next.62)
       effect: 2.0.0-next.62
       mime: 3.0.0
       multipasta: 0.1.21
     dev: false
 
-  /@effect/platform@0.39.0(@effect-app/schema-fork@0.0.0-20231227102807)(effect@2.0.0-next.62):
+  /@effect/platform@0.39.0(@effect-app/schema-fork@0.0.0-20231227111019)(effect@2.0.0-next.62):
     resolution: {integrity: sha512-bwvIVdyWAMv42Wi6/EIP8GJagPGEFU8tlkPycH5KcyZWmyi48ai3X1PbVqGdh2A18MsAyTOsVdfBI+bhnCS0Jw==}
     peerDependencies:
-      '@effect/schema': npm:@effect-app/schema-fork@0.0.0-20231227102807
+      '@effect/schema': npm:@effect-app/schema-fork@0.0.0-20231227111019
       effect: 2.0.0-next.62
     dependencies:
-      '@effect/schema': /@effect-app/schema-fork@0.0.0-20231227102807(effect@2.0.0-next.62)(fast-check@3.15.0)
+      '@effect/schema': /@effect-app/schema-fork@0.0.0-20231227111019(effect@2.0.0-next.62)(fast-check@3.15.0)
       effect: 2.0.0-next.62
       find-my-way-ts: 0.1.1
       multipasta: 0.1.21
