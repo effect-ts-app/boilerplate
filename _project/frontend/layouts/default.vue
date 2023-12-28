@@ -5,11 +5,7 @@ import { onMounted } from "vue"
 import { useRouter } from "vue-router"
 
 const meClient = clientFor(MeRsc)
-// TODO
-const [userResult, currentUser, getCurrentUser] = useSafeQueryWithArg(
-  meClient.get,
-  {},
-)
+const [userResult, currentUser, getCurrentUser] = useSafeQuery(meClient.get)
 
 const appConfig = {
   title: "@effect-app/boilerplate",
