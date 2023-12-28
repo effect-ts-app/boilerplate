@@ -1,7 +1,7 @@
 export {
-  buildFormFromSchema,
-  buildFieldInfoFromFields,
   convertIn,
   convertOut,
   type FieldInfo,
+  buildFormFromSchema,
+  buildFieldInfoFromFields,
 } from "@effect-app/vue/form"

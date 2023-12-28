@@ -4,7 +4,8 @@ import type { EnforceNonEmptyRecord } from "@effect-app/core/utils"
 import { pretty } from "@effect-app/core/utils"
 
 import { RequestContext } from "@effect-app/infra/RequestContext"
-import { extractSchema, SchemaNamed } from "@effect-app/prelude/schema"
+import type { REST, StructFields } from "@effect-app/schema"
+import { AST } from "@effect-app/schema"
 
 import { snipString } from "@effect-app/infra/api/util"
 import { reportError } from "@effect-app/infra/errorReporter"
@@ -24,13 +25,13 @@ export const RequestSettings = FiberRef.unsafeMake({
 export type Middleware<
   R,
   M,
-  PathA,
-  CookieA,
-  QueryA,
-  BodyA,
-  HeaderA,
+  PathA extends StructFields,
+  CookieA extends StructFields,
+  QueryA extends StructFields,
+  BodyA extends StructFields,
+  HeaderA extends StructFields,
   ReqA extends PathA & QueryA & BodyA,
-  ResA,
+  ResA extends StructFields,
   ResE,
   MiddlewareE,
   PPath extends `/${string}`,
@@ -58,13 +59,13 @@ export type Middleware<
 export function makeRequestHandler<
   R,
   M,
-  PathA,
-  CookieA,
-  QueryA,
-  BodyA,
-  HeaderA,
+  PathA extends StructFields,
+  CookieA extends StructFields,
+  QueryA extends StructFields,
+  BodyA extends StructFields,
+  HeaderA extends StructFields,
   ReqA extends PathA & QueryA & BodyA,
-  ResA,
+  ResA extends StructFields,
   ResE,
   MiddlewareE,
   R2,
@@ -104,8 +105,16 @@ export function makeRequestHandler<
 > {
   const { Request, Response, h: handle } = handler
 
-  const response = Response ? extractSchema(Response) : Void
-  const encoder = Encoder.for(response as any)
+  const response: REST.ReqRes<any, any> = Response ? Response : Void
+  const resp = response as typeof response & { struct?: Schema<any, any> }
+  // TODO: consider if the alternative of using the struct schema is perhaps just better.
+  const encoder = "struct" in resp && resp.struct
+    ? resp.struct.encodeSync
+    // ? (i: any) => {
+    //   if (i instanceof (response as any)) return response.encodeSync(i)
+    //   else return response.encodeSync(new (response as any)(i))
+    // }
+    : resp.encodeSync
   // const encodeResponse = adaptResponse
   //   ? (req: ReqA) => Encoder.for(adaptResponse(req))
   //   : () => encoder
@@ -160,7 +169,7 @@ export function makeRequestHandler<
       id: currentSpan?.spanId ? RequestId(currentSpan.spanId) : RequestId.make(),
       rootId,
       name: NonEmptyString255(
-        Request.Model instanceof SchemaNamed ? Request.Model.name : Request.name
+        AST.getTitleAnnotation(Request.ast).value ?? "TODO"
       ),
       locale,
       createdAt: start,
@@ -208,9 +217,9 @@ export function makeRequestHandler<
           const handleRequest = parseRequest(pars)
             .map(({ body, path, query }) => {
               const hn = {
-                ...body.value,
-                ...query.value,
-                ...path.value
+                ...body.value as any,
+                ...query.value as any,
+                ...path.value as any
               } as unknown as ReqA
               return hn
             })

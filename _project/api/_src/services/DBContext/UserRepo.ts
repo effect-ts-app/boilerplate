@@ -9,19 +9,7 @@ export interface UserPersistenceModel extends User.From {
   _etag: string | undefined
 }
 
-const fakeUsers = ReadonlyArray
-  .range(1, 8)
-  .map((_, i): User => ({
-    ...User.Arbitrary.generate.value,
-    role: i === 0 || i === 1 ? "manager" : "user"
-  }))
-  .toNonEmpty
-  .match({
-    onNone: () => {
-      throw new Error("must have fake users")
-    },
-    onSome: (_) => _
-  })
+
 
 export type UserSeed = "sample" | ""
 
@@ -36,6 +24,19 @@ export class UserRepo extends RepositoryDefaultImpl<UserRepo>()<UserPersistenceM
   static Live = RepoConfig
     .andThen((cfg) => {
       const seed = cfg.fakeUsers === "seed" ? "seed" : cfg.fakeUsers === "sample" ? "sample" : ""
+      const fakeUsers = ReadonlyArray
+        .range(1, 8)
+        .map((_, i): User => ({
+          ...User.Arbitrary.generate,
+          role: i === 0 || i === 1 ? "manager" : "user"
+        }))
+        .toNonEmpty
+        .match({
+          onNone: () => {
+            throw new Error("must have fake users")
+          },
+          onSome: (_) => _
+        })
       const makeInitial = Effect.sync(() => {
         const items = seed === "sample" ? fakeUsers : []
         return items

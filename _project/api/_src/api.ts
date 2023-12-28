@@ -1,6 +1,6 @@
 import * as Ex from "@effect-app/infra-adapters/express"
 import { type RouteDescriptorAny } from "@effect-app/infra/api/express/schema/routing"
-import { writeOpenapiDocsI } from "@effect-app/infra/api/writeDocs"
+// import { writeOpenapiDocsI } from "@effect-app/infra/api/writeDocs"
 import { RequestContextContainer } from "@effect-app/infra/services/RequestContextContainer"
 import { ContextMapContainer } from "@effect-app/infra/services/Store/ContextMapContainer"
 import * as HttpNode from "@effect/platform-node/Http/Server"
@@ -51,7 +51,7 @@ const App = Effect
           .fromIterable(Object.values(_))
           .pipe(HttpRouter.get("/events", MW.events))
       )
-      .zipLeft(RouteDescriptors.flatMap((_) => _.get).flatMap(writeOpenapiDocsI))
+      // .zipLeft(RouteDescriptors.flatMap((_) => _.get).flatMap(writeOpenapiDocsI))
       .provideService(RouteDescriptors, Ref.unsafeMake<RouteDescriptorAny[]>([]))
 
     const serve = app

@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/ban-types */
-import { makeRouteDescriptor, type RouteDescriptorAny } from "@effect-app/infra/api/express/schema/routing"
+import { type RouteDescriptorAny } from "@effect-app/infra/api/express/schema/routing"
 import type { ValidationError } from "@effect-app/infra/errors"
 import type { RequestContextContainer } from "@effect-app/infra/services/RequestContextContainer"
 import type { ContextMapContainer } from "@effect-app/infra/services/Store/ContextMapContainer"
+import type { StructFields } from "@effect-app/schema"
 import { HttpRouter, type HttpServerRequest, type HttpServerResponse } from "../http.js"
 import { makeRequestHandler } from "./makeRequestHandler.js"
 import type { Middleware } from "./makeRequestHandler.js"
@@ -14,13 +15,13 @@ export const RouteDescriptors = Tag<Ref<RouteDescriptorAny[]>>()
 export function match<
   R,
   M,
-  PathA,
-  CookieA,
-  QueryA,
-  BodyA,
-  HeaderA,
+  PathA extends StructFields,
+  CookieA extends StructFields,
+  QueryA extends StructFields,
+  BodyA extends StructFields,
+  HeaderA extends StructFields,
   ReqA extends PathA & QueryA & BodyA,
-  ResA,
+  ResA extends StructFields,
   ResE,
   MiddlewareE,
   PPath extends `/${string}`,
@@ -69,8 +70,8 @@ export function match<
     requestHandler = handler as any // todo
     middlewareLayer = makeRequestLayer
   }
-  return Effect.gen(function*($) {
-    const rdesc = yield* $(RouteDescriptors.flatMap((_) => _.get))
+  return Effect.gen(function*() {
+    // const rdesc = yield* $(RouteDescriptors.flatMap((_) => _.get))
 
     const handler = makeRequestHandler<
       R,
@@ -99,12 +100,12 @@ export function match<
       requestHandler.Request.path,
       handler
     )
-
-    rdesc.push(makeRouteDescriptor(
-      requestHandler.Request.path,
-      requestHandler.Request.method,
-      requestHandler
-    ))
+    // TODO
+    // rdesc.push(makeRouteDescriptor(
+    //   requestHandler.Request.path,
+    //   requestHandler.Request.method,
+    //   requestHandler
+    // ))
     return route
   })
 }

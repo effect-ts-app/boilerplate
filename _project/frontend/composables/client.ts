@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { flow, tuple } from "@effect-app/prelude/Function"
+import { flow, pipe, tuple } from "@effect-app/prelude/Function"
 import type {
   ApiConfig,
   FetchError,
@@ -20,6 +20,8 @@ import type { Either, HttpClient } from "@/utils/prelude"
 import { Effect } from "@/utils/prelude"
 import { useToast } from "vue-toastification"
 import { intl } from "./intl"
+import { S } from "@effect-app/schema"
+import { Cause } from "effect"
 
 export { useToast } from "vue-toastification"
 
@@ -251,7 +253,7 @@ export function handleRequestWithToast<
       p.then(
         r =>
           r._tag === "Right"
-            ? Failure.is(r.right)
+            ? S.is(Failure)(r.right)
               ? Promise.resolve(
                   toast.warning(
                     warnMessage + r.right.message ? "\n" + r.right.message : "",
@@ -263,7 +265,7 @@ export function handleRequestWithToast<
               : Promise.resolve(
                   toast.success(
                     successMessage +
-                      (Success.is(r.right) && r.right.message
+                      (S.is(Success)(r.right) && r.right.message
                         ? "\n" + r.right.message
                         : ""),
                   ),

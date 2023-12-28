@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { MeRsc } from "@effect-app-boilerplate/resources"
-import { useSafeQuery, isInitializing } from "@effect-app/vue"
+import { isInitializing } from "@effect-app/vue"
 import { onMounted } from "vue"
 import { useRouter } from "vue-router"
 
@@ -28,9 +28,7 @@ onMounted(() => {
   <v-app>
     <v-app-bar app>
       <v-app-bar-title>
-        <NuxtLink :to="{ name: 'index' }">
-          <img :alt="appConfig.title" src="/img/logo.png" width="110" />
-        </NuxtLink>
+        <NuxtLink :to="{ name: 'index' }">Home</NuxtLink>
       </v-app-bar-title>
 
       <div>{{ router.currentRoute.value.name }}</div>

@@ -1,52 +1,35 @@
-import { lazyGetter } from "@effect-app/core/utils"
+/* eslint-disable @typescript-eslint/unbound-method */
+import { fakerArb } from "@effect-app/prelude/faker"
 import { UserProfileId } from "@effect-app/prelude/ids"
-import type { ConstructorInputApi, FieldsClass, To } from "@effect-app/prelude/schema"
-import {
-  arbitrary,
-  ExtendedClass,
-  fakerArb,
-  FromClass,
-  literal,
-  makePreparedLenses,
-  NonEmptyString255,
-  NonEmptyString2k,
-  useClassFeaturesForSchema,
-  withDefaults
-} from "@effect-app/prelude/schema"
+import { A } from "@effect-app/schema"
 import { Equivalence } from "effect"
 
 export const FirstName = NonEmptyString255
-  .pipe(
-    arbitrary((FC) =>
-      // eslint-disable-next-line @typescript-eslint/unbound-method
-      fakerArb((faker) => faker.person.firstName)(FC).map((x) => x as NonEmptyString255)
-    ),
-    withDefaults
-  )
-export type FirstName = To<typeof FirstName>
+  .annotations({
+    [A.ArbitraryHookId]: (): A.Arbitrary<string> => fakerArb((faker) => faker.person.firstName)
+  })
+  .withDefaults
+
+export type FirstName = Schema.To<typeof FirstName>
 
 export const DisplayName = FirstName
-export type DisplayName = To<typeof DisplayName>
+export type DisplayName = Schema.To<typeof DisplayName>
 
 export const LastName = NonEmptyString255
-  .pipe(
-    arbitrary((FC) =>
-      // eslint-disable-next-line @typescript-eslint/unbound-method
-      fakerArb((faker) => faker.person.lastName)(FC).map((x) => x as NonEmptyString255)
-    ),
-    withDefaults
-  )
-export type LastName = To<typeof LastName>
+  .annotations({
+    [A.ArbitraryHookId]: (): A.Arbitrary<string> => fakerArb((faker) => faker.person.lastName)
+  })
+  .withDefaults
+
+export type LastName = Schema.To<typeof LastName>
 
 /**
  * @tsplus type FullName
  */
 @useClassFeaturesForSchema
 export class FullName extends ExtendedClass<
-  FullName,
-  FullName.ConstructorInput,
   FullName.From,
-  FullName.Fields
+  FullName
 >()({
   firstName: FirstName,
   lastName: LastName
@@ -77,16 +60,16 @@ export function createFullName(firstName: string, lastName: string) {
 export const UserId = UserProfileId
 export type UserId = UserProfileId
 
-export const Role = literal("manager", "user")
-export type Role = To<typeof Role>
+export const Role = literal("manager", "user").withDefaults
+export type Role = Schema.To<typeof Role>
 
 /**
  * @tsplus type User
  * @tsplus companion User
  */
 @useClassFeaturesForSchema
-export class User extends ExtendedClass<User, User.ConstructorInput, User.From, User.Fields>()({
-  id: UserId.withDefault,
+export class User extends ExtendedClass<User.From, User>()({
+  id: UserId.withDefault(),
   displayName: DisplayName,
   role: Role
 }) {}
@@ -97,15 +80,6 @@ export class User extends ExtendedClass<User, User.ConstructorInput, User.From, 
 export function showUser(user: User) {
   return user.displayName
 }
-
-function getProps(u: User) {
-  return makePreparedLenses(User.Api.fields, u)
-}
-
-/**
- * @tsplus getter User props
- */
-export const props = lazyGetter(getProps)
 
 /**
  * @tsplus static User equal
@@ -134,9 +108,6 @@ export namespace FullName {
    * @tsplus companion FullName.From/Ops
    */
   export class From extends FromClass<typeof FullName>() {}
-  export interface ConstructorInput
-    extends ConstructorInputApi<typeof FullName> {}
-  export interface Fields extends FieldsClass<typeof FullName> {}
 }
 export namespace User {
   /**
@@ -144,9 +115,6 @@ export namespace User {
    * @tsplus companion User.From/Ops
    */
   export class From extends FromClass<typeof User>() {}
-  export interface ConstructorInput
-    extends ConstructorInputApi<typeof User> {}
-  export interface Fields extends FieldsClass<typeof User> {}
 }
 /* eslint-enable */
 //

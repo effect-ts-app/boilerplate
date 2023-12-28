@@ -1,8 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { api, devApi } from "@effect-app-boilerplate/api/api"
 import { runMain } from "@effect-app-boilerplate/messages/basicRuntime"
+import { setFaker } from "@effect-app/prelude/faker"
+import { faker } from "@faker-js/faker"
 import { MergedConfig } from "./config.js"
 import { TracingLive } from "./observability.js"
+
+setFaker(faker)
 
 const logConfig = MergedConfig.andThen((cfg) => console.debug(`Config: ${JSON.stringify(cfg, undefined, 2)}`))
 
