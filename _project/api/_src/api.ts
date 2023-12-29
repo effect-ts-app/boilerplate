@@ -12,6 +12,7 @@ import { all } from "api/routes.js"
 import { createServer } from "node:http"
 import { MergedConfig } from "./config.js"
 import * as MW from "./middleware/index.js"
+import { RequestContextMiddleware } from "./middleware/RequestContextMiddleware.js"
 import { Operations, UserRepo } from "./services.js"
 import { Events } from "./services/Events.js"
 
@@ -50,6 +51,7 @@ const App = Effect
         HttpRouter
           .fromIterable(Object.values(_))
           .pipe(HttpRouter.get("/events", MW.events))
+          .pipe(HttpRouter.use(RequestContextMiddleware))
       )
       // .zipLeft(RouteDescriptors.flatMap((_) => _.get).flatMap(writeOpenapiDocsI))
       .provideService(RouteDescriptors, Ref.unsafeMake<RouteDescriptorAny[]>([]))
