@@ -37,4 +37,4 @@ export const events = Effect
     return res
   })
   .tapErrorCause(reportError("Request"))
-  .setupRequestContextFromName("events")
+  .setupRequestContext("events")

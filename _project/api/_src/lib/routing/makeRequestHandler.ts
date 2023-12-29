@@ -5,7 +5,7 @@ import { pretty } from "@effect-app/core/utils"
 import { snipString } from "@effect-app/infra/api/util"
 import { reportError } from "@effect-app/infra/errorReporter"
 import type { ValidationError } from "@effect-app/infra/errors"
-import { RequestContextContainer } from "@effect-app/infra/services/RequestContextContainer"
+import type { RequestContextContainer } from "@effect-app/infra/services/RequestContextContainer"
 import type { ContextMapContainer } from "@effect-app/infra/services/Store/ContextMapContainer"
 import type { REST, StructFields } from "@effect-app/schema"
 import { AST } from "@effect-app/schema"
@@ -133,139 +133,138 @@ export function makeRequestHandler<
       cookies: {} // req.cookies
     }))
 
-  return Effect.gen(function*($) {
-    const rcc = yield* $(RequestContextContainer)
-    yield* $(rcc.update((_) =>
+  return Effect
+    .gen(function*($) {
+      const req = yield* $(HttpServerRequest)
+      const res = HttpServerResponse
+        .empty()
+        .pipe((_) => req.method === "GET" ? _.setHeader("Cache-Control", "no-store") : _)
+
+      const pars = yield* $(getParams)
+
+      const settings = yield* $(RequestSettings.get)
+
+      const eff =
+        // TODO: we don;t have access to user id here cause context is not yet created
+        Effect
+          .logInfo("Incoming request")
+          .annotateLogs({
+            method: req.method,
+            path: req.originalUrl,
+            ...settings.verbose
+              ? {
+                reqPath: pars.params.$$.pretty,
+                reqQuery: pars.query.$$.pretty,
+                reqBody: pretty(pars.body),
+                reqCookies: pretty(pars.cookies),
+                reqHeaders: pretty(pars.headers)
+              }
+              : undefined
+          })
+          .andThen(
+            Effect.suspend(() => {
+              const handleRequest = parseRequest(pars)
+                .map(({ body, path, query }) => {
+                  const hn = {
+                    ...body.value as any,
+                    ...query.value as any,
+                    ...path.value as any
+                  } as unknown as ReqA
+                  return hn
+                })
+                .flatMap((parsedReq) =>
+                  handle(parsedReq as any)
+                    .provideService(handler.Request.Tag, parsedReq as any)
+                    .map(encoder)
+                    .map((r) =>
+                      res
+                        .setBody(HttpBody.unsafeJson(r))
+                        .setStatus(r === undefined ? 204 : 200)
+                    )
+                ) as Effect<
+                  Exclude<R, EnforceNonEmptyRecord<M>>,
+                  ValidationError | ResE,
+                  HttpServerResponse
+                >
+
+              // Commands should not be interruptable.
+              const r = req.method !== "GET" ? handleRequest.uninterruptible : handleRequest // .instrument("Performance.RequestResponse")
+              const r2 = middlewareLayer
+                ? r.provide(middlewareLayer)
+                // PR is not relevant here
+                : (r as Effect<
+                  Exclude<Exclude<R, EnforceNonEmptyRecord<M>>, PR>,
+                  ResE | MiddlewareE | ValidationError,
+                  HttpServerResponse
+                >)
+              return errorHandler(
+                req,
+                res,
+                r2
+              )
+            })
+          )
+          .catchAllCause((cause) =>
+            Effect
+              .sync(() => res.setStatus(500))
+              .tap((res) =>
+                Effect
+                  .all([
+                    reportError("request")(cause, {
+                      path: req.originalUrl,
+                      method: req.method
+                    }),
+                    Effect.suspend(() => {
+                      const headers = res.headers
+                      return Effect
+                        .logError("Finished request", cause)
+                        .annotateLogs({
+                          method: req.method,
+                          path: req.originalUrl,
+                          statusCode: res.status.toString(),
+
+                          reqPath: pars.params.$$.pretty,
+                          reqQuery: pars.query.$$.pretty,
+                          reqBody: pretty(pars.body),
+                          reqCookies: pretty(pars.cookies),
+                          reqHeaders: pretty(pars.headers),
+
+                          resHeaders: Object
+                            .entries(headers)
+                            .reduce((prev, [key, value]) => {
+                              prev[key] = value && typeof value === "string" ? snipString(value) : value
+                              return prev
+                            }, {} as Record<string, any>)
+                            .$$
+                            .pretty
+                        })
+                    })
+                  ], { concurrency: "inherit" })
+              )
+              .tapErrorCause((cause) => Effect(console.error("Error occurred while reporting error", cause)))
+          )
+          .tap(
+            Effect
+              .logInfo("Finished request")
+              .annotateLogs({
+                method: req.method,
+                path: req.originalUrl,
+                statusCode: res.status.toString(),
+                ...settings.verbose
+                  ? {
+                    resHeaders: pretty(res.headers)
+                  }
+                  : undefined
+              })
+          )
+
+      return yield* $(eff)
+    })
+    .updateRequestContext((_) =>
       _.$$.copy({
         name: NonEmptyString255(
           AST.getTitleAnnotation(Request.ast).value ?? "TODO"
         )
       })
-    ))
-
-    const req = yield* $(HttpServerRequest)
-    const res = HttpServerResponse
-      .empty()
-      .pipe((_) => req.method === "GET" ? _.setHeader("Cache-Control", "no-store") : _)
-
-    const pars = yield* $(getParams)
-
-    const settings = yield* $(RequestSettings.get)
-
-    const eff =
-      // TODO: we don;t have access to user id here cause context is not yet created
-      Effect
-        .logInfo("Incoming request")
-        .annotateLogs({
-          method: req.method,
-          path: req.originalUrl,
-          ...settings.verbose
-            ? {
-              reqPath: pars.params.$$.pretty,
-              reqQuery: pars.query.$$.pretty,
-              reqBody: pretty(pars.body),
-              reqCookies: pretty(pars.cookies),
-              reqHeaders: pretty(pars.headers)
-            }
-            : undefined
-        })
-        .andThen(
-          Effect.suspend(() => {
-            const handleRequest = parseRequest(pars)
-              .map(({ body, path, query }) => {
-                const hn = {
-                  ...body.value as any,
-                  ...query.value as any,
-                  ...path.value as any
-                } as unknown as ReqA
-                return hn
-              })
-              .flatMap((parsedReq) =>
-                handle(parsedReq as any)
-                  .provideService(handler.Request.Tag, parsedReq as any)
-                  .map(encoder)
-                  .map((r) =>
-                    res
-                      .setBody(HttpBody.unsafeJson(r))
-                      .setStatus(r === undefined ? 204 : 200)
-                  )
-              ) as Effect<
-                Exclude<R, EnforceNonEmptyRecord<M>>,
-                ValidationError | ResE,
-                HttpServerResponse
-              >
-
-            // Commands should not be interruptable.
-            const r = req.method !== "GET" ? handleRequest.uninterruptible : handleRequest // .instrument("Performance.RequestResponse")
-            const r2 = middlewareLayer
-              ? r.provide(middlewareLayer)
-              // PR is not relevant here
-              : (r as Effect<
-                Exclude<Exclude<R, EnforceNonEmptyRecord<M>>, PR>,
-                ResE | MiddlewareE | ValidationError,
-                HttpServerResponse
-              >)
-            return errorHandler(
-              req,
-              res,
-              r2
-            )
-          })
-        )
-        .catchAllCause((cause) =>
-          Effect
-            .sync(() => res.setStatus(500))
-            .tap((res) =>
-              Effect
-                .all([
-                  reportError("request")(cause, {
-                    path: req.originalUrl,
-                    method: req.method
-                  }),
-                  Effect.suspend(() => {
-                    const headers = res.headers
-                    return Effect
-                      .logError("Finished request", cause)
-                      .annotateLogs({
-                        method: req.method,
-                        path: req.originalUrl,
-                        statusCode: res.status.toString(),
-
-                        reqPath: pars.params.$$.pretty,
-                        reqQuery: pars.query.$$.pretty,
-                        reqBody: pretty(pars.body),
-                        reqCookies: pretty(pars.cookies),
-                        reqHeaders: pretty(pars.headers),
-
-                        resHeaders: Object
-                          .entries(headers)
-                          .reduce((prev, [key, value]) => {
-                            prev[key] = value && typeof value === "string" ? snipString(value) : value
-                            return prev
-                          }, {} as Record<string, any>)
-                          .$$
-                          .pretty
-                      })
-                  })
-                ], { concurrency: "inherit" })
-            )
-            .tapErrorCause((cause) => Effect(console.error("Error occurred while reporting error", cause)))
-        )
-        .tap(
-          Effect
-            .logInfo("Finished request")
-            .annotateLogs({
-              method: req.method,
-              path: req.originalUrl,
-              statusCode: res.status.toString(),
-              ...settings.verbose
-                ? {
-                  resHeaders: pretty(res.headers)
-                }
-                : undefined
-            })
-        )
-
-    return yield* $(eff)
-  })
+    )
 }
