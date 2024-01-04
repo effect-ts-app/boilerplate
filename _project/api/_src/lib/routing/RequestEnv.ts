@@ -31,11 +31,20 @@ export class JWTError extends Data.TaggedClass("JWTError")<{
     | JWTUnauthorizedError
 }> {}
 
-const manager = "manager" as const
-
 const EmptyLayer = Effect.unit.toLayerDiscard
 
 const fakeLogin = true
+
+const checkRoles = (request: any, userProfile: Option<UserProfile>) =>
+  Effect.gen(function*($) {
+    const userRoles = userProfile
+      .map((_) => _.roles.includes("manager" as any) ? [Role("manager"), Role("user")] : [Role("user")])
+      .getOrElse(() => [Role("user")])
+    const allowedRoles: readonly Role[] = request.allowedRoles ?? ["user"]
+    if (!allowedRoles.some((_) => userRoles.includes(_))) {
+      return yield* $(new UnauthorizedError())
+    }
+  })
 
 const UserAuthorizationLive = <Req extends RequestConfig>(request: Req) =>
   Effect
@@ -61,14 +70,8 @@ const UserAuthorizationLive = <Req extends RequestConfig>(request: Req) =>
         return yield* $(new NotLoggedInError())
       }
 
-      const userRoles = userProfile
-        .map((_) => _.roles.includes(manager as any) ? [Role("manager"), Role("user")] : [Role("user")])
-        .getOrElse(() => [Role("user")])
+      yield* $(checkRoles(request, userProfile))
 
-      const allowedRoles: readonly Role[] = request.allowedRoles ?? ["user"]
-      if (!allowedRoles.some((_) => userRoles.includes(_))) {
-        return yield* $(new UnauthorizedError())
-      }
       if (up) {
         return Layer.succeed(UserProfile, up)
       }

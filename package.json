@@ -5,12 +5,12 @@
   "pnpm": {
     "patchedDependencies": {
       "@effect/language-service@0.0.19": "patches/@effect__language-service@0.0.19.patch",
-      "@typescript-eslint/scope-manager@6.16.0": "patches/@typescript-eslint__scope-manager@6.16.0.patch",
+      "@typescript-eslint/scope-manager@6.17.0": "patches/@typescript-eslint__scope-manager@6.17.0.patch",
       "eslint-plugin-codegen@0.17.0": "patches/eslint-plugin-codegen@0.17.0.patch",
       "@phaphoso/eslint-plugin-dprint@0.5.2": "patches/@phaphoso__eslint-plugin-dprint@0.5.2.patch",
       "date-fns@2.30.0": "patches/date-fns@2.30.0.patch",
       "fast-check@3.15.0": "patches/fast-check@3.15.0.patch",
-      "@fp-ts/optic@0.21.0": "patches/@fp-ts__optic@0.21.0.patch"
+      "@fp-ts/optic@0.22.0": "patches/@fp-ts__optic@0.22.0.patch"
     }
   },
   "scripts": {
@@ -82,24 +82,24 @@
     "fast-check": "^3.15.0",
     "patch-package": "^8.0.0",
     "ts-node": "^10.9.2",
-    "vite-node": "^1.1.0"
+    "vite-node": "^1.1.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.23.4",
     "@dprint/typescript": "^0.88.7",
     "@effect-app/cli": "^0.33.1",
-    "@effect-app/eslint-codegen-model": "^0.36.0-next.1",
-    "@effect-app/prelude": "^0.107.0-next.31",
-    "@effect-app/core": "^0.97.0-next.4",
+    "@effect-app/eslint-codegen-model": "^0.36.0-next.2",
+    "@effect-app/prelude": "^0.107.0-next.40",
+    "@effect-app/core": "^0.97.0-next.6",
     "@effect-app/compiler": "^0.48.0-next.0",
     "@effect/language-service": "^0.0.19",
     "@phaphoso/eslint-plugin-dprint": "^0.5.2",
     "@tsconfig/strictest": "^2.0.2",
     "@types/lodash": "^4.14.202",
-    "@types/node": "~20.10.5",
-    "@typescript-eslint/eslint-plugin": "^6.16.0",
-    "@typescript-eslint/parser": "^6.16.0",
-    "@typescript-eslint/scope-manager": "^6.16.0",
+    "@types/node": "~20.10.6",
+    "@typescript-eslint/eslint-plugin": "^6.17.0",
+    "@typescript-eslint/parser": "^6.17.0",
+    "@typescript-eslint/scope-manager": "^6.17.0",
     "babel-plugin-replace-import-extension": "^1.1.3",
     "concurrently": "^8.2.2",
     "dprint": "^0.45.0",
@@ -126,6 +126,6 @@
     "typescript-transform-paths": "^3.4.6",
     "unplugin-auto-import": "^0.17.3",
     "vite": "^5.0.10",
-    "vitest": "^1.1.0"
+    "vitest": "^1.1.1"
   }
 }
