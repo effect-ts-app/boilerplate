@@ -1,13 +1,14 @@
 import * as Ex from "@effect-app/infra-adapters/express"
 import { type RouteDescriptorAny } from "@effect-app/infra/api/express/schema/routing"
 // import { writeOpenapiDocsI } from "@effect-app/infra/api/writeDocs"
+import { HttpMiddleware, HttpRouter } from "@effect-app/infra/api/http"
+import { RouteDescriptors } from "@effect-app/infra/api/routing"
 import { RequestContextContainer } from "@effect-app/infra/services/RequestContextContainer"
 import { ContextMapContainer } from "@effect-app/infra/services/Store/ContextMapContainer"
 import * as HttpNode from "@effect/platform-node/Http/Server"
 import * as HttpClientNode from "@effect/platform-node/HttpClient"
-import * as HttpServerr from "@effect/platform/Http/Server"
-import { HttpMiddleware, HttpRouter, NodeContext } from "api/lib/http.js"
-import { RouteDescriptors } from "api/lib/routing/match.js"
+import * as NodeContext from "@effect/platform-node/NodeContext"
+import * as HttpServer from "@effect/platform/Http/Server"
 import { all } from "api/routes.js"
 import { createServer } from "node:http"
 import { MergedConfig } from "./config.js"
@@ -64,7 +65,7 @@ const App = Effect
       .zipLeft(
         Effect.logInfo(`Running on http://${cfg.host}:${cfg.port} at version: ${cfg.apiVersion}. ENV: ${cfg.env}`)
       )
-      .map(HttpServerr.serve(HttpMiddleware.logger))
+      .map(HttpServer.serve(HttpMiddleware.logger))
       .unwrapLayer
 
     // TODO: Why doesnt this work? .serve(HttpMiddleware.logger)

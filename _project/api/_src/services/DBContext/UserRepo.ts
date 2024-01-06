@@ -9,8 +9,6 @@ export interface UserPersistenceModel extends User.From {
   _etag: string | undefined
 }
 
-
-
 export type UserSeed = "sample" | ""
 
 /**
@@ -27,7 +25,7 @@ export class UserRepo extends RepositoryDefaultImpl<UserRepo>()<UserPersistenceM
       const fakeUsers = ReadonlyArray
         .range(1, 8)
         .map((_, i): User => ({
-          ...User.Arbitrary.generate,
+          ...User.Arbitrary.generate.value,
           role: i === 0 || i === 1 ? "manager" : "user"
         }))
         .toNonEmpty

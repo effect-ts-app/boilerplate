@@ -17,7 +17,7 @@ const Get = helloWorld.Get(
           echo,
           now: new Date(),
           currentUser: user,
-          randomUser: User.Arbitrary.generate
+          randomUser: User.Arbitrary.generate.value
         })
       )
 )

@@ -5,6 +5,6 @@ import "@effect-app-boilerplate/messages/_global"
 /**
  * @tsplus global
  */
-import { matchFor } from "api/lib/routing.js"
+import { matchFor } from "api/lib/matchFor.js"
 
 import "./_global.ext.js"

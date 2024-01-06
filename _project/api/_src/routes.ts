@@ -1,4 +1,4 @@
-import { matchAllAlt } from "./lib/routing.js"
+import { matchAll } from "./lib/matchFor.js"
 import * as Controllers from "./Usecases.js"
 
-export const all = Effect.all(matchAllAlt(Controllers))
+export const all = Effect.all(matchAll(Controllers))

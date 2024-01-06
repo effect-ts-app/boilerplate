@@ -23,10 +23,11 @@ export const RepoConfig = Config.all({
   fakeUsers: Config.string("fakeUsers").withDefault("sample")
 })
 
+const port = Config.integer("port").withDefault(3610)
 export const ApiConfig = Config.all({
   host: Config.string("host").withDefault("0.0.0.0"),
-  port: Config.integer("port").withDefault(3610),
-  devPort: Config.integer("devPort").withDefault(3611),
+  port,
+  devPort: Config.integer("devPort").orElse(port.map((_) => _ + 1)),
   baseUrl: Config.string("baseUrl").withDefault("http://localhost:4000"),
 
   repo: RepoConfig,

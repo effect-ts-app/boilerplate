@@ -1,6 +1,6 @@
+import { HttpMiddleware, HttpServerRequest } from "@effect-app/infra/api/http"
 import { RequestContext } from "@effect-app/infra/RequestContext"
 import { RequestId } from "@effect-app/prelude/ids"
-import { HttpMiddleware, HttpServerRequest } from "api/lib/http.js"
 
 export const RequestContextMiddleware = HttpMiddleware.make((app) =>
   Effect.gen(function*($) {

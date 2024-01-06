@@ -1,6 +1,6 @@
 import { ClientEvents } from "@effect-app-boilerplate/resources"
+import { HttpHeaders, HttpServerResponse } from "@effect-app/infra/api/http"
 import { reportError } from "@effect-app/infra/errorReporter"
-import { HttpHeaders, HttpServerResponse } from "api/lib/http.js"
 import { Events } from "../services/Events.js"
 
 export const events = Effect
