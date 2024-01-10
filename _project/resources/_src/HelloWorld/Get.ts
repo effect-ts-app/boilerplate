@@ -6,7 +6,7 @@ export class GetHelloWorldRequest extends Post("/hello-world", cfg({ allowAnonym
   echo: S.string
 }) {}
 
-export class GetHelloWorldResponse extends Class<GetHelloWorldResponse>()({
+export class Response extends Class<Response>()({
   now: S.Date,
   echo: S.string,
   context: unknown,

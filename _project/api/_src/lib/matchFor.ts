@@ -66,7 +66,7 @@ function handle<
 export function matchFor<Rsc extends Record<string, any>>(
   rsc: Rsc
 ) {
-  const matchWithServices = <Key extends keyof Rsc>(_action: Key) => {
+  const matchWithServices = <Key extends keyof Rsc>(action: Key) => {
     type Req = ReqFromSchema<REST.GetRequest<Rsc[Key]>>
     return <
       SVC extends Record<
@@ -74,7 +74,8 @@ export function matchFor<Rsc extends Record<string, any>>(
         Effect<any, any, any>
       >,
       R2,
-      E extends SupportedErrors
+      E,
+      A
     >(
       services: SVC,
       f: (
@@ -83,11 +84,11 @@ export function matchFor<Rsc extends Record<string, any>>(
           LowerServices<EffectDeps<SVC>> & GetCTX<Req>,
           "flat"
         >
-      ) => Effect<R2, E, ResFromSchema<REST.GetResponse<Rsc[Key]>>>
+      ) => Effect<R2, E, A>
     ) =>
     (req: any, ctx: any) =>
       allLower_(services)
-        .flatMap((svc2) => f(req, { ...ctx, ...svc2 as any }))
+        .flatMap((svc2) => f(req, { ...ctx, ...svc2 as any, Response: rsc[action].Response }))
   }
 
   type MatchWithServicesNew<Key extends keyof Rsc> = <
@@ -96,23 +97,24 @@ export function matchFor<Rsc extends Record<string, any>>(
       EffectUnunified<any, any, any>
     >,
     R2,
-    E extends SupportedErrors
+    E,
+    A
   >(
     services: SVC,
     f: (
       req: ReqFromSchema<REST.GetRequest<Rsc[Key]>>,
       ctx: Compute<
-        LowerServices<EffectDeps<SVC>> & GetCTX<REST.GetRequest<Rsc[Key]>>,
+        LowerServices<EffectDeps<SVC>> & GetCTX<REST.GetRequest<Rsc[Key]>> & Pick<Rsc[Key], "Response">,
         "flat"
       >
-    ) => Effect<R2, E, ResFromSchema<REST.GetResponse<Rsc[Key]>>>
+    ) => Effect<R2, E, A>
   ) => (
     req: ReqFromSchema<REST.GetRequest<Rsc[Key]>>,
     ctx: GetCTX<REST.GetRequest<Rsc[Key]>>
   ) => Effect<
     ValuesR<EffectDeps<SVC>> | R2,
     E | ValuesE<EffectDeps<SVC>>,
-    ResFromSchema<REST.GetResponse<Rsc[Key]>>
+    A
   >
 
   type Keys = keyof Rsc
@@ -219,7 +221,8 @@ type RouteAll<T extends RequestHandlers> = {
     any,
     any,
     infer Context
-  > ? RouteMatch<R, M, RequestEnv | Context>
+  > // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
+    ? RouteMatch<R, M, RequestEnv | Context>
     : never
 }
 
