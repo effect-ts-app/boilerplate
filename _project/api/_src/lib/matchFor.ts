@@ -28,6 +28,7 @@ function handle<
   >
 >(
   _: TModule & { ResponseOpenApi?: any },
+  name: string,
   adaptResponse?: any
 ) {
   const Request = S.REST.extractRequest(_)
@@ -46,6 +47,7 @@ function handle<
   ) => ({
     adaptResponse,
     h,
+    name,
     Request,
     Response,
     ResponseOpenApi: _.ResponseOpenApi ?? Response,
@@ -117,7 +119,7 @@ export function matchFor<Rsc extends Record<string, any>>(
     A
   >
 
-  type Keys = keyof Rsc
+  type Keys = keyof Omit<Rsc, "meta">
 
   type Handler<K extends keyof Rsc, R, Context extends CTX> = (
     req: ReqFromSchema<REST.GetRequest<Rsc[K]>>,
@@ -132,7 +134,14 @@ export function matchFor<Rsc extends Record<string, any>>(
     controllers: THandlers
   ) => {
     const handler = rsc.$$.keys.reduce((prev, cur) => {
-      prev[cur] = handle(rsc[cur])(controllers[cur as keyof typeof controllers] as any)
+      if (cur === "meta") return prev
+      const m = (rsc as any).meta as string
+      const mm = m
+        ? m.substring(m.indexOf("_src/") > -1 ? m.indexOf("_src/") + 5 : m.indexOf("dist/") + 5, m.length - 3)
+        : "Unknown"
+      prev[cur] = handle(rsc[cur], mm + "." + (cur as string))(
+        controllers[cur as keyof typeof controllers] as any
+      )
       return prev
     }, {} as any)
 
