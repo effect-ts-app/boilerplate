@@ -4,7 +4,7 @@ import { bus } from "./bus"
 import { onMountedWithCleanup } from "./onMountedWithCleanup"
 import { S } from "@effect-app/schema"
 
-const parseEvent = S.parseSync(ClientEvents)
+const parseEvent = S.decodeUnknownSync(ClientEvents)
 
 function listener(message: MessageEvent<string>) {
   const evt = parseEvent(JSON.parse(message.data))

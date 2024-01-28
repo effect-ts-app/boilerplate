@@ -23,13 +23,13 @@ export const SendgridConfig = Config.all({
   apiKey: Config.secret("sendgridApiKey").withDefault(
     Secret.fromString("")
   ),
-  defaultFrom: Config(FROM),
+  defaultFrom: Config.succeed(FROM),
   subjectPrefix: envConfig.map((env) => env === "prod" ? "" : `[${serviceName}] [${env}] `)
 })
 
 export const BaseConfig = Config.all({
   apiVersion: Config.string("apiVersion").withDefault("local-dev"),
-  serviceName: Config(serviceName),
+  serviceName: Config.succeed(serviceName),
   env: envConfig,
   sendgrid: SendgridConfig,
   sentry: Config.all({
@@ -44,7 +44,7 @@ export const BaseConfig = Config.all({
   })
   //  log: Config.string("LOG").
 })
-type ConfigA<Cfg> = Cfg extends Config.Variance<infer A> ? A : never
+type ConfigA<Cfg> = Cfg extends Config<infer A> ? A : never
 export interface BaseConfig extends ConfigA<typeof BaseConfig> {}
 
 export const SB_PREFIX = "Endpoint=sb://"

@@ -75,8 +75,9 @@ const App = Effect
       .provide(ServerLive)
       .provide(NodeContext.layer)
 
-    const services = Operations.Live
-      + Events.Live
+    const services = Operations
+      .Live
+      .merge(Events.Live)
 
     return HttpLive.provide(services)
   })

@@ -20,7 +20,7 @@ export const RequestContextMiddleware = HttpMiddleware.make((app) =>
     const rootId = parent?.spanId
       ? RequestId(parent.spanId)
       : requestId
-      ? RequestId.parseSync(requestId)
+      ? RequestId.decodeUnknownSync(requestId)
       : RequestId.make()
 
     const storeId = req.headers["x-store-id"]

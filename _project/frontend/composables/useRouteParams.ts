@@ -1,27 +1,29 @@
-import type { Schema } from "@effect-app/schema"
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { typedKeysOf } from "@effect-app/prelude/utils"
 import {
   parseRouteParams,
   parseRouteParamsOption,
 } from "@effect-app/vue/routeParams"
+import type { S } from "~~/utils/prelude"
 import { Option } from "~~/utils/prelude"
-import { useRoute } from "nuxt/app"
 
-export const useRouteParams = <NER extends Record<string, Schema<any, any>>>(
-  t: NER, // enforce non empty
-) => {
-  const r = useRoute()
-  const result = parseRouteParams(r.params, t)
-  return result
-}
-
-export const useRouteParamsOption = <
-  NER extends Record<string, Schema<any, any>>,
+export const useRouteParams = <
+  NER extends Record<string, S.Schema<never, any, any>>,
 >(
   t: NER, // enforce non empty
 ) => {
   const r = useRoute()
-  const result = parseRouteParamsOption(r.params, t)
+  const result = parseRouteParams({ ...r.query, ...r.params }, t)
+  return result
+}
+
+export const useRouteParamsOption = <
+  NER extends Record<string, S.Schema<never, any, any>>,
+>(
+  t: NER, // enforce non empty
+) => {
+  const r = useRoute()
+  const result = parseRouteParamsOption({ ...r.query, ...r.params }, t)
   type Result = typeof result
   return typedKeysOf(result).reduce(
     (prev, cur) => {

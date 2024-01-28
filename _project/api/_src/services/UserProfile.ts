@@ -1,5 +1,5 @@
 import { Role } from "@effect-app-boilerplate/models/User"
-import { jwt } from "@effect-app/infra/api/express/schema/jwt"
+import { parseJwt } from "@effect-app/infra/api/express/schema/jwt"
 import { UserProfileId } from "@effect-app/prelude/ids"
 import { Class, S } from "@effect-app/schema"
 
@@ -22,8 +22,9 @@ export namespace UserProfileService {
 }
 
 const userProfileFromJson = S.parseJson(UserProfile)
-const userProfileFromJWT = S.compose(jwt, UserProfile)
+const userProfileFromJWT = parseJwt(UserProfile)
 export const makeUserProfileFromAuthorizationHeader = (
   authorization: string | undefined
-) => userProfileFromJWT.parse(authorization)
-export const makeUserProfileFromUserHeader = (user: string | string[] | undefined) => userProfileFromJson.parse(user)
+) => userProfileFromJWT.decodeUnknown(authorization)
+export const makeUserProfileFromUserHeader = (user: string | string[] | undefined) =>
+  userProfileFromJson.decodeUnknown(user)

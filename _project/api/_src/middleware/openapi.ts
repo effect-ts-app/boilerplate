@@ -16,8 +16,9 @@ export const openapiRoutes = (url: string) => {
     .map((_) => ({ ..._ as any, servers: [{ url }] }))
     .orDie
 
-  return Ex.get("/openapi.json", (_req, res) => readOpenApiDoc.map((js) => res.send(js)))
-    > Ex.get(
+  return Effect.all([
+    Ex.get("/openapi.json", (_req, res) => readOpenApiDoc.map((js) => res.send(js))),
+    Ex.get(
       "/docs",
       Ex.classic(
         redoc.default({
@@ -26,13 +27,14 @@ export const openapiRoutes = (url: string) => {
           redocOptions: {}
         })
       )
-    )
-    > Ex.use(...serve.map(Ex.classic))
-    > Ex.get(
+    ),
+    Ex.use(...serve.map(Ex.classic)),
+    Ex.get(
       "/swagger",
       (req, res, next) =>
         readOpenApiDoc.flatMap((docs) =>
-          Effect(() => setup(docs, { swaggerOptions: { url: "./openapi.json" } })(req, res, next))
+          Effect.sync(() => setup(docs, { swaggerOptions: { url: "./openapi.json" } })(req, res, next))
         )
     )
+  ])
 }

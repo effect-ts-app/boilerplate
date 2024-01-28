@@ -9,7 +9,7 @@ const Get = helloWorld.Get(
   ({ echo }, { Response, context, userRepo }) =>
     userRepo
       .getCurrentUser
-      .catchTags({ "NotLoggedInError": () => Effect(null), "NotFoundError": () => Effect(null) })
+      .catchTags({ "NotLoggedInError": () => Effect.succeed(null), "NotFoundError": () => Effect.succeed(null) })
       .map((user) =>
         new Response({
           context,
