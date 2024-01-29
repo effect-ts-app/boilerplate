@@ -2,7 +2,7 @@ import { User } from "@effect-app-boilerplate/models/User"
 import { S } from "@effect-app/schema"
 
 @allowRoles("user")
-export class GetHelloWorldRequest extends Post("/hello-world", cfg({ allowAnonymous: true }))<GetHelloWorldRequest>()({
+export class GetHelloWorldRequest extends Post(cfg({ allowAnonymous: true }))<GetHelloWorldRequest>()({
   echo: S.string
 }) {}
 

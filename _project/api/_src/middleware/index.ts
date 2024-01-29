@@ -4,4 +4,5 @@ export * from "./events.js"
 export * from "./health.js"
 export * from "./Middlewares.js"
 export * from "./openapi.js"
+export * from "./RequestContextMiddleware.js"
 // codegen:end

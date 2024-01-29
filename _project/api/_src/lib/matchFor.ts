@@ -17,7 +17,7 @@ import { defaultErrorHandler, match } from "@effect-app/infra/api/routing"
 import type { EffectUnunified, LowerServices, ValuesE, ValuesR } from "@effect-app/prelude/_ext/allLower"
 import { allLower_ } from "@effect-app/prelude/_ext/allLower"
 import type { SupportedErrors } from "@effect-app/prelude/client/errors"
-import type { REST } from "@effect-app/schema"
+import type { REST } from "@effect-app/prelude/schema"
 import { handleRequestEnv } from "./RequestEnv.js"
 import type { CTX, GetContext, GetCTX, RequestEnv } from "./RequestEnv.js"
 
@@ -135,11 +135,10 @@ export function matchFor<Rsc extends Record<string, any>>(
   ) => {
     const handler = rsc.$$.keys.reduce((prev, cur) => {
       if (cur === "meta") return prev
-      const m = (rsc as any).meta as string
-      const mm = m
-        ? m.substring(m.indexOf("_src/") > -1 ? m.indexOf("_src/") + 5 : m.indexOf("dist/") + 5, m.length - 3)
-        : "Unknown"
-      prev[cur] = handle(rsc[cur], mm + "." + (cur as string))(
+      const m = (rsc as any).meta as { moduleName: string }
+      if (!m) throw new Error("Resource has no meta specified")
+
+      prev[cur] = handle(rsc[cur], m.moduleName + "." + (cur as string))(
         controllers[cur as keyof typeof controllers] as any
       )
       return prev
@@ -176,6 +175,10 @@ export function matchFor<Rsc extends Record<string, any>>(
 
 function _matchAll<T extends RequestHandlers>(handlers: T) {
   const mapped = handlers.$$.keys.reduce((prev, cur) => {
+    class Request extends handlers[cur]!.Request {
+      static path = "/" + handlers[cur]!.name + (handlers[cur]!.Request.path === "/" ? "" : handlers[cur]!.Request.path)
+    }
+    Object.assign(handlers[cur]!, { Request })
     prev[cur] = match(handlers[cur]!, defaultErrorHandler, handleRequestEnv)
     return prev
   }, {} as any) as RouteAll<typeof handlers>

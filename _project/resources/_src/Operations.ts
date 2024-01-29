@@ -2,4 +2,6 @@
 export * as Find from "./Operations/Find.js"
 // codegen:end
 
-export const meta = import.meta.url
+// codegen:start {preset: meta}
+export const meta = { moduleName: "Operations" }
+// codegen:end

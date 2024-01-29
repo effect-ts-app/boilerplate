@@ -2,4 +2,6 @@
 export * as Get from "./Me/Get.js"
 // codegen:end
 
-export const meta = import.meta.url
+// codegen:start {preset: meta}
+export const meta = { moduleName: "Me" }
+// codegen:end

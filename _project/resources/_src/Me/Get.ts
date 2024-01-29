@@ -1,6 +1,6 @@
 import { User } from "@effect-app-boilerplate/models/User"
 
-export class GetMeRequest extends Get("/me")<GetMeRequest>()({}) {}
+export class GetMeRequest extends Get()<GetMeRequest>()({}) {}
 
 // TODO
 // export class GetMeResponse extends User.extend<GetMeResponse>()({}) {}
