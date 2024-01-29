@@ -64,7 +64,7 @@
     "nnm": "find . -name 'node_modules' -type d -prune -exec rm -rf '{}' + && pnpm i"
   },
   "resolutions": {
-    "@effect/schema": "npm:@effect-app/schema-fork@0.0.0-20240127162054",
+    "@effect/schema": "npm:@effect-app/schema-fork@0.0.0-20240129113320",
     "date-fns": "^2.29.3",
     "http-proxy": "npm:http-proxy-node16@1.0.0",
     "vue": "^3.3.9"
@@ -89,7 +89,7 @@
     "@dprint/typescript": "^0.88.10",
     "@effect-app/cli": "^0.40.0",
     "@effect-app/eslint-codegen-model": "^0.40.1",
-    "@effect-app/prelude": "^0.129.0",
+    "@effect-app/prelude": "^0.130.5",
     "@effect-app/core": "^0.115.0",
     "@effect-app/compiler": "^0.55.0",
     "@effect/language-service": "^0.0.19",

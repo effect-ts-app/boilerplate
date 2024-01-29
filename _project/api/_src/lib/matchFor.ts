@@ -17,7 +17,7 @@ import { defaultErrorHandler, match } from "@effect-app/infra/api/routing"
 import type { EffectUnunified, LowerServices, ValuesE, ValuesR } from "@effect-app/prelude/_ext/allLower"
 import { allLower_ } from "@effect-app/prelude/_ext/allLower"
 import type { SupportedErrors } from "@effect-app/prelude/client/errors"
-import type { REST } from "@effect-app/prelude/schema"
+import { REST } from "@effect-app/prelude/schema"
 import { handleRequestEnv } from "./RequestEnv.js"
 import type { CTX, GetContext, GetCTX, RequestEnv } from "./RequestEnv.js"
 
@@ -175,8 +175,14 @@ export function matchFor<Rsc extends Record<string, any>>(
 
 function _matchAll<T extends RequestHandlers>(handlers: T) {
   const mapped = handlers.$$.keys.reduce((prev, cur) => {
-    class Request extends handlers[cur]!.Request {
-      static path = "/" + handlers[cur]!.name + (handlers[cur]!.Request.path === "/" ? "" : handlers[cur]!.Request.path)
+    const req = handlers[cur]!.Request
+
+    class Request extends req {
+      static path = "/" + handlers[cur]!.name + (req.path === "/" ? "" : req.path)
+      static method = req.method === "AUTO" ? REST.determineMethod(handlers[cur]!.name.split(".")[1]!, req) : req.method
+    }
+    if (req.method === "AUTO") {
+      Object.assign(Request, { [Request.method === "GET" || Request.method === "DELETE" ? "Query" : "Body"]: req.Auto })
     }
     Object.assign(handlers[cur]!, { Request })
     prev[cur] = match(handlers[cur]!, defaultErrorHandler, handleRequestEnv)
