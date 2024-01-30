@@ -6,7 +6,7 @@ export class GetHelloWorldRequest extends Req(cfg({ allowAnonymous: true }))<Get
 }) {}
 
 export class Response extends Class<Response>()({
-  now: S.Date,
+  now: S.Date.withDefault(),
   echo: string,
   context: unknown,
   currentUser: User.nullable,

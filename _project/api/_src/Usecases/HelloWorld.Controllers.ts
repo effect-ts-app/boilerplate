@@ -14,7 +14,6 @@ const Get = helloWorld.Get(
         new Response({
           context,
           echo,
-          now: new Date(),
           currentUser: user,
           randomUser: User.Arbitrary.generate.value
         })
