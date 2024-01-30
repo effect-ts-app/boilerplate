@@ -23,7 +23,7 @@ const form = buildFormFromSchema(schema, state, v =>
 )
 
 // TODO
-const [result, latestSuccess, execute] = useSafeQueryWithArg(
+const [result, latestSuccess, execute] = useSafeQuery(
   helloWorldClient.get,
   () => ({
     echo: "Echo me at: " + new Date().getTime(),

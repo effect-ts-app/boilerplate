@@ -62,12 +62,12 @@ export function waitForOperation_<Req, R, E>(self: (req: Req) => Effect<R, E, Fe
 
 function _waitForOperation(id: OperationId, cb?: (op: Operation) => void) {
   return Effect.gen(function*($) {
-    let r = yield* $(opsClient.find({ id }).map((_) => _.body))
+    let r = yield* $(opsClient.find.handler({ id }).map((_) => _.body))
     while (r) {
       if (cb) cb(r)
       if (r.result) return r.result
       yield* $(Effect.sleep(Duration.seconds(2)))
-      r = yield* $(opsClient.find({ id }).map((_) => _.body))
+      r = yield* $(opsClient.find.handler({ id }).map((_) => _.body))
     }
   })
 }

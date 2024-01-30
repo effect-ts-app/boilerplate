@@ -36,7 +36,6 @@ export {
   useMutate,
   useMutation,
   useSafeQuery,
-  useSafeQueryWithArg,
   useSafeQueryWithArg_,
   useSafeQuery_,
 } from "@effect-app/vue"
