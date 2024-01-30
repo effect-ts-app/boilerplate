@@ -1,14 +1,13 @@
 import { User } from "@effect-app-boilerplate/models/User"
-import { S } from "@effect-app/schema"
 
 @allowRoles("user")
 export class GetHelloWorldRequest extends Req(cfg({ allowAnonymous: true }))<GetHelloWorldRequest>()({
-  echo: S.string
+  echo: string
 }) {}
 
 export class Response extends Class<Response>()({
   now: S.Date,
-  echo: S.string,
+  echo: string,
   context: unknown,
   currentUser: User.nullable,
   randomUser: User
