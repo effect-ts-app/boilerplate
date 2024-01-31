@@ -10,6 +10,7 @@ import * as HashMap from "effect/HashMap"
 import * as Tag from "effect/Context"
 import * as PubSub from "effect/PubSub"
 import * as Order from "effect/Order"
+import * as Matcher from "effect/Match"
 import * as Chunk from "@effect-app/core/Chunk"
 import * as ReadonlyArray from "@effect-app/core/Array"
 import * as Optic from "@effect-app/core/Optic"
@@ -29,6 +30,7 @@ export {
   HttpClient,
   HashMap,
   ClientRequest,
+  Matcher,
   Option,
   Optic,
   Order,

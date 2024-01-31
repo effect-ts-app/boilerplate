@@ -4,6 +4,7 @@ import type {
   ApiConfig,
   FetchError,
   ResponseError,
+  SupportedErrors,
 } from "@effect-app/prelude/client"
 import type { MutationResult } from "@effect-app/vue"
 import { useMutation } from "@effect-app/vue"
@@ -17,11 +18,10 @@ import {
 } from "@vueuse/core"
 import type { ComputedRef } from "vue"
 import type { Either, HttpClient } from "@/utils/prelude"
-import { Effect } from "@/utils/prelude"
+import { Effect, Matcher } from "@/utils/prelude"
+import { Cause } from "effect"
 import { useToast } from "vue-toastification"
 import { intl } from "./intl"
-import { S } from "@effect-app/schema"
-import { Cause } from "effect"
 
 export { useToast } from "vue-toastification"
 
@@ -36,7 +36,6 @@ export {
   useMutate,
   useMutation,
   useSafeQuery,
-  useSafeQueryWithArg_,
   useSafeQuery_,
 } from "@effect-app/vue"
 export {
@@ -45,6 +44,8 @@ export {
   refreshAndWaitForOperation,
   refreshAndWaitForOperationP,
 } from "@effect-app-boilerplate/resources/lib"
+
+type ResponseErrors = SupportedErrors | FetchError | ResponseError
 
 export function pauseWhileProcessing(
   iv: Pausable,
@@ -82,54 +83,72 @@ export const confirm = (typeof window !== "undefined"
  * Returns a tuple with state ref and execution function which reports errors as Toast.
  */
 export const useAndHandleMutation: {
-  <I, E extends ResponseError | FetchError, A>(
-    self: (i: I) => Effect.Effect<ApiConfig | HttpClient.Client.Default, E, A>,
+  <I, E extends ResponseErrors, A>(
+    self: {
+      handler: (
+        i: I,
+      ) => Effect.Effect<ApiConfig | HttpClient.Client.Default, E, A>
+    },
     action: string,
     options?: { suppressErrorToast?: boolean },
   ): Resp<I, E, A>
-  <E extends ResponseError | FetchError, A>(
-    self: Effect.Effect<ApiConfig | HttpClient.Client.Default, E, A>,
+  <E extends ResponseErrors, A>(
+    self: {
+      handler: Effect.Effect<ApiConfig | HttpClient.Client.Default, E, A>
+    },
     action: string,
     options?: { suppressErrorToast?: boolean },
   ): ActResp<E, A>
 } = (self: any, action: any, options: any) => {
-  const [a, b] = useMutation(
-    (typeof self === "function"
-      ? (...args: any[]) =>
-          pipe(
-            self(...args),
-            Effect.withSpan("mutation", { attributes: { action } }),
-          )
-      : pipe(
-          self,
+  const [a, b] = useMutation({
+    handler: Effect.isEffect(self.handler)
+      ? (pipe(
+          self.handler,
           Effect.withSpan("mutation", { attributes: { action } }),
-        )) as any,
-  )
+        ) as any)
+      : (...args: any[]) =>
+          pipe(
+            self.handler(...args),
+            Effect.withSpan("mutation", { attributes: { action } }),
+          ),
+  })
 
   return tuple(
     computed(() => mutationResultToVue(a.value)),
     handleRequestWithToast(b as any, action, options),
   )
 }
+export const useMutationWithState = <I, E, A>(self: {
+  handler: (i: I) => Effect.Effect<ApiConfig | HttpClient.Client.Default, E, A>
+}) => {
+  const [a, b] = useMutation(self)
+
+  return tuple(
+    computed(() => mutationResultToVue(a.value)),
+    b,
+  )
+}
 
 export function makeUseAndHandleMutation(onSuccess: () => Promise<void>) {
   return ((self: any, action: any, options: any) => {
     return useAndHandleMutation(
-      (typeof self === "function"
-        ? (i: any) => Effect.tap(self(i), () => Effect.promise(onSuccess))
-        : Effect.tap(self, () => Effect.promise(onSuccess))) as any,
+      {
+        handler: (typeof self === "function"
+          ? (i: any) => Effect.tap(self(i), () => Effect.promise(onSuccess))
+          : Effect.tap(self, () => Effect.promise(onSuccess))) as any,
+      },
       action,
       options,
     )
   }) as {
-    <I, E extends ResponseError | FetchError, A>(
+    <I, E extends ResponseErrors, A>(
       self: (
         i: I,
       ) => Effect.Effect<ApiConfig | HttpClient.Client.Default, E, A>,
       action: string,
       options?: { suppressErrorToast?: boolean },
     ): Resp<I, E, A>
-    <E extends ResponseError | FetchError, A>(
+    <E extends ResponseErrors, A>(
       self: Effect.Effect<ApiConfig | HttpClient.Client.Default, E, A>,
       action: string,
       options?: { suppressErrorToast?: boolean },
@@ -138,32 +157,52 @@ export function makeUseAndHandleMutation(onSuccess: () => Promise<void>) {
 }
 
 export const withSuccess: {
-  <I, E extends ResponseError | FetchError, A, X>(
-    self: (i: I) => Effect.Effect<ApiConfig | HttpClient.Client.Default, E, A>,
+  <I, E extends ResponseErrors, A, X>(
+    self: {
+      handler: (
+        i: I,
+      ) => Effect.Effect<ApiConfig | HttpClient.Client.Default, E, A>
+    },
     onSuccess: (_: A) => Promise<X>,
-  ): (i: I) => Effect.Effect<ApiConfig | HttpClient.Client.Default, E, X>
-  <E extends ResponseError | FetchError, A, X>(
-    self: Effect.Effect<ApiConfig | HttpClient.Client.Default, E, A>,
+  ): {
+    handler: (
+      i: I,
+    ) => Effect.Effect<ApiConfig | HttpClient.Client.Default, E, X>
+  }
+  <E extends ResponseErrors, A, X>(
+    self: {
+      handler: Effect.Effect<ApiConfig | HttpClient.Client.Default, E, A>
+    },
     onSuccess: (_: A) => Promise<X>,
-  ): Effect.Effect<ApiConfig | HttpClient.Client.Default, E, X>
-} = (self: any, onSuccess: any): any =>
-  typeof self === "function"
-    ? flow(
-        self as (
-          i: any,
-        ) => Effect.Effect<ApiConfig | HttpClient.Client.Default, any, any>,
-        Effect.flatMap(_ => Effect.promise(() => onSuccess(_))),
-      )
-    : Effect.flatMap(self, _ => Effect.promise(() => onSuccess(_)))
+  ): { handler: Effect.Effect<ApiConfig | HttpClient.Client.Default, E, X> }
+} = (self: any, onSuccess: any): any => ({
+  ...self,
+  handler:
+    typeof self.handler === "function"
+      ? flow(
+          self.handler as (
+            i: any,
+          ) => Effect.Effect<ApiConfig | HttpClient.Client.Default, any, any>,
+          Effect.flatMap(_ => Effect.promise(() => onSuccess(_))),
+        )
+      : Effect.flatMap(self.handler, _ => Effect.promise(() => onSuccess(_))),
+})
 
-export function withSuccessE<I, E extends ResponseError | FetchError, A, E2, X>(
-  self: (i: I) => Effect.Effect<ApiConfig | HttpClient.Client.Default, E, A>,
+export function withSuccessE<I, E extends ResponseErrors, A, E2, X>(
+  self: {
+    handler: (
+      i: I,
+    ) => Effect.Effect<ApiConfig | HttpClient.Client.Default, E, A>
+  },
   onSuccessE: (_: A) => Effect.Effect<never, E2, X>,
 ) {
-  return flow(
-    self,
-    Effect.flatMap(_ => onSuccessE(_)),
-  )
+  return {
+    ...self,
+    handler: flow(
+      self.handler,
+      Effect.flatMap(_ => onSuccessE(_)),
+    ),
+  }
 }
 
 interface Res<E, A> {
@@ -225,7 +264,7 @@ const messages: Record<string, string | undefined> = {
  * Returns an execution function which reports errors as Toast.
  */
 export function handleRequestWithToast<
-  E extends ResponseError | FetchError,
+  E extends ResponseErrors,
   A,
   Args extends unknown[],
 >(
@@ -274,7 +313,9 @@ export function handleRequestWithToast<
                 )
             : Promise.resolve(
                 !options.suppressErrorToast &&
-                  toast.error(`${errorMessage}:\n` + renderError(r.left)),
+                  toast.error(
+                    `${errorMessage}:\n` + renderError(r.left, message),
+                  ),
               )
                 // eslint-disable-next-line @typescript-eslint/no-empty-function
                 .then(_ => {}),
@@ -309,44 +350,55 @@ export function handleRequestWithToast<
   )
 }
 
-// TODO: Treat HttpErrorRequest and ResponseError as Exception
-// and treat HttpErrorResponse with a SupportedErrrors body, as a user useful error.
-export function renderError(e: ResponseError | FetchError): string {
-  if (e._tag === "HttpErrorRequest") {
-    return intl.value.formatMessage(
-      { id: "handle.request_error" },
-      { error: `${e.error}` },
-    )
-  } else if (e._tag === "HttpErrorResponse") {
-    return e.response.status >= 500 ||
-      e.response.body._tag !== "Some" ||
-      !e.response.body.value
-      ? intl.value.formatMessage(
-          { id: "handle.error_response" },
-          {
-            error: `${
-              e.response.body._tag === "Some" && e.response.body.value
-                ? parseError(e.response.body.value)
-                : ""
-            } (${e.response.status})`,
-          },
-        )
-      : parseError(e.response.body.value)
-  } else if (e._tag === "ResponseError") {
-    return intl.value.formatMessage(
-      { id: "handle.response_error" },
-      { error: `${e.error}` },
-    )
-  } else {
-    return intl.value.formatMessage(
-      { id: "handle.unexpected_error" },
-      {
-        // TODO: we need a string representing the action for better DX debugging
-        action: "unknown action",
-        error: JSON.stringify(e, undefined, 2),
-      },
-    )
-  }
+export function renderError(e: ResponseErrors, action: string): string {
+  return Matcher.value(e).pipe(
+    Matcher.tags({
+      HttpErrorRequest: e =>
+        intl.value.formatMessage(
+          { id: "handle.request_error" },
+          { error: `${e.error}` },
+        ),
+      HttpErrorResponse: e =>
+        e.response.status >= 500 ||
+        e.response.body._tag !== "Some" ||
+        !e.response.body.value
+          ? intl.value.formatMessage(
+              { id: "handle.error_response" },
+              {
+                error: `${
+                  e.response.body._tag === "Some" && e.response.body.value
+                    ? parseError(e.response.body.value)
+                    : "Unknown"
+                } (${e.response.status})`,
+              },
+            )
+          : intl.value.formatMessage(
+              { id: "handle.unexpected_error" },
+              {
+                action,
+                error:
+                  JSON.stringify(e.response.body, undefined, 2) +
+                  "( " +
+                  e.response.status +
+                  ")",
+              },
+            ),
+      ResponseError: e =>
+        intl.value.formatMessage(
+          { id: "handle.response_error" },
+          { error: `${e.error}` },
+        ),
+    }),
+    Matcher.orElse(e =>
+      intl.value.formatMessage(
+        { id: "handle.unexpected_error" },
+        {
+          action,
+          error: `${e.message ?? e._tag}`,
+        },
+      ),
+    ),
+  )
 }
 
 function parseError(e: string) {
@@ -357,10 +409,6 @@ function parseError(e: string) {
         return `${js.message || js._tag}`
       }
       return js._tag
-      // const err = js as SupportedErrors
-      // switch (err._tag) {
-      //   case "InvalidStateError":
-      // }
     }
     if ("message" in js) {
       return js.message

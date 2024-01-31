@@ -86,19 +86,6 @@ export function showUser(user: User) {
  */
 export const defaultEqual = Equivalence.string.mapInput((u: User) => u.id)
 
-// TODO
-// let userPool: readonly User[] | null = null
-// export function setUserPool(pool: readonly User[] | null) {
-//   userPool = pool
-// }
-
-// const User___ = union({ RegisteredUser, Guest, Ghost, Archived })
-// const userArb = Arbitrary.for(User___)
-// const User_ = enhanceClassUnion(
-//   OpaqueSchema<User, User.From>()(User___)
-//     ["|>"](arbitrary(_ => (userPool ? _.constantFrom(...userPool) : userArb(_))))
-//     ["|>"](withDefaults)
-
 // codegen:start {preset: model}
 //
 /* eslint-disable */

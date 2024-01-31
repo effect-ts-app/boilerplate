@@ -22,7 +22,6 @@ const form = buildFormFromSchema(schema, state, v =>
   Promise.resolve(confirm("submitting: " + JSON.stringify(v))),
 )
 
-// TODO
 const [result, latestSuccess, execute] = useSafeQuery(
   helloWorldClient.get,
   () => ({

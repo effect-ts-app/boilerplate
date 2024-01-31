@@ -33,19 +33,9 @@ export const RequestContextMiddleware = HttpMiddleware.make((app) =>
       locale,
       createdAt: start,
       namespace
-      // ...(context.operation.parentId
-      //   ? {
-      //     parent: new RequestContextParent({
-      //       id: RequestId(context.operation.parentId),
-      //       locale,
-      //       name: NonEmptyString255("API Request")
-      //     })
-      //   }
-      //   : {})
     })
     const res = yield* $(app.setupRequestContext(requestContext))
 
-    // TODO: how to set also on errors?
     return res.setHeaders({ "request-id": requestContext.rootId, "Content-Language": requestContext.locale })
   })
 )

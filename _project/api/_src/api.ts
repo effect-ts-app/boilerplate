@@ -68,9 +68,6 @@ const App = Effect
       .map(HttpServer.serve(HttpMiddleware.logger))
       .unwrapLayer
 
-    // TODO: Why doesnt this work? .serve(HttpMiddleware.logger)
-    // HttpApp.serve(HttpMiddleware.logger)
-
     const HttpLive = serve
       .provide(ServerLive)
       .provide(NodeContext.layer)

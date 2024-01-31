@@ -33,7 +33,6 @@ const NodeSdkLive = Effect
   .gen(function*($) {
     const isRemote = appConfig.env !== "local-dev"
 
-    // TODO: use this on frontend trace proxy too
     const isTelemetryExporterRunning = !isRemote
       && (yield* $(Effect.promise<boolean>(() => tcpPortUsed.check(4318, "localhost"))))
 

@@ -29,7 +29,6 @@ const appLayer = ApiLive
       .mergeAll(
         basicLayer,
         ApiConfigLive,
-        // Emailer.Fake, // TODO
         HttpClientNode.client.layer
       )
   )
