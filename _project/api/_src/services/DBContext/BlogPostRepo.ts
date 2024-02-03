@@ -1,6 +1,7 @@
 import { BlogPost, BlogPostId } from "@effect-app-boilerplate/models/Blog"
 import { RepositoryDefaultImpl } from "@effect-app/infra/services/RepositoryBase"
 import { RepoLive } from "api/migrate.js"
+import { UserRepo } from "./UserRepo.js"
 
 export interface BlogPostPersistenceModel extends BlogPost.From {
   _etag: string | undefined
@@ -23,21 +24,21 @@ export class BlogPostRepo extends RepositoryDefaultImpl<BlogPostRepo>()<BlogPost
 export const LiveBlogPostRepo = Effect
   .sync(() => {
     const seed = "sample"
-    const makeInitial = Effect.sync(() => {
-      const items = seed === "sample"
-        ? [
+    const makeInitial = seed === "sample"
+      ? UserRepo
+        .andThen((userRepo) => userRepo.all.map((_) => _[0]!))
+        .andThen((user) => [
           new BlogPost({
             id: BlogPostId("post-test123"),
             title: NonEmptyString255("Test post"),
-            body: NonEmptyString2k("imma test body")
-          })
-        ] as const
-        : []
-      return items
-    })
+            body: NonEmptyString2k("imma test body"),
+            user
+          }, true)
+        ])
+      : Effect.succeed([])
     return BlogPostRepo
       .makeWith({ makeInitial }, (_) => new BlogPostRepo(_))
       .toLayer(BlogPostRepo)
   })
   .unwrapLayer
-  .provide(RepoLive)
+  .provide(Layer.mergeAll(RepoLive, UserRepo.Live, UserRepo.UserFromIdLayer))

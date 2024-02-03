@@ -5,4 +5,4 @@ export class CreatePostRequest extends Req(cfg({ allowAnonymous: true }))<Create
   BlogPost.fields.$$.pick("title", "body")
 ) {}
 
-export const CreatePostResponse = BlogPostId
+export const CreatePostResponse = struct({ id: BlogPostId })
