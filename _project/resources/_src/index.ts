@@ -7,4 +7,5 @@ export * as BlogRsc from "./Blog.js"
 export * as HelloWorldRsc from "./HelloWorld.js"
 export * as MeRsc from "./Me.js"
 export * as OperationsRsc from "./Operations.js"
+export * as UsersRsc from "./Users.js"
 // codegen:end
