@@ -23,7 +23,7 @@ const CreatePost = blog.CreatePost(
   (req, { blogPostRepo, userRepo }) =>
     userRepo
       .getCurrentUser
-      .map((user) => (new BlogPost({ ...req, user }, true)))
+      .map((author) => (new BlogPost({ ...req, author }, true)))
       .tap(blogPostRepo.save)
 )
 

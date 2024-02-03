@@ -3,8 +3,8 @@ import { UserViewFromId } from "../resolvers/UserResolver.js"
 
 @useClassFeaturesForSchema
 export class BlogPostView extends ExtendedClass<BlogPostView.From, BlogPostView>()({
-  ...BlogPost.fields.$$.omit("user"),
-  user: UserViewFromId.mapFrom("userId")
+  ...BlogPost.fields.$$.omit("author"),
+  author: UserViewFromId.mapFrom("authorId")
 }) {}
 
 // codegen:start {preset: model}

@@ -50,6 +50,7 @@ const [publishing, publish] = useAndHandleMutation(
       </v-btn>
       <div>Title: {{ latest.title }}</div>
       <div>Body: {{ latest.body }}</div>
+      by {{ latest.author.displayName }}
     </div>
   </QueryResult>
 </template>

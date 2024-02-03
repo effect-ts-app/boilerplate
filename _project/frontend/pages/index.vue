@@ -58,21 +58,11 @@ onMounted(() => {
       </template>
     </v-form>
 
-    <div>
-      <div v-if="result._tag === 'Initial' || result._tag === 'Loading'">
-        Loading...
+    <QueryResult :result="result" v-slot="{ latest, refreshing }">
+      <Delayed v-if="refreshing"><v-progress-circular /></Delayed>
+      <div>
+        <pre v-html="JSON.stringify(latest, undefined, 2)" />
       </div>
-      <div v-else>
-        <pre
-          v-if="latestSuccess"
-          v-html="JSON.stringify(latestSuccess, undefined, 2)"
-        />
-        <pre
-          v-if="result.current._tag === 'Left'"
-          v-html="JSON.stringify(result.current.left, undefined, 2)"
-        />
-        <div v-if="result._tag === 'Refreshing'">Refreshing...</div>
-      </div>
-    </div>
+    </QueryResult>
   </div>
 </template>

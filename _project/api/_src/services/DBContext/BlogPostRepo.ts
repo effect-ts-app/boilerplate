@@ -34,7 +34,7 @@ export const LiveBlogPostRepo = Effect
               new BlogPost({
                 title: NonEmptyString255("Test post " + i),
                 body: NonEmptyString2k("imma test body"),
-                user
+                author: user
               }, true)
             )
         )

@@ -13,8 +13,8 @@ export class BlogPost extends ExtendedClass<BlogPost.From, BlogPost>()({
   title: NonEmptyString255,
   body: NonEmptyString2k,
   createdAt: S.Date.withDefault(),
-  user: UserFromId
-    .mapFrom("userId")
+  author: UserFromId
+    .mapFrom("authorId")
 }) {}
 
 // codegen:start {preset: model}
