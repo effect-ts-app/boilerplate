@@ -71,7 +71,8 @@ export type Role = Schema.To<typeof Role>
 export class User extends ExtendedClass<User.From, User>()({
   id: UserId.withDefault(),
   displayName: DisplayName,
-  role: Role
+  role: Role,
+  passwordHash: NonEmptyString255
 }) {
   static readonly resolver = Context.Tag<UserFromId, (userId: UserId) => Effect<never, never, User>>()
 }
