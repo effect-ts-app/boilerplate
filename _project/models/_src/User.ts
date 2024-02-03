@@ -72,7 +72,20 @@ export class User extends ExtendedClass<User.From, User>()({
   id: UserId.withDefault(),
   displayName: DisplayName,
   role: Role
-}) {}
+}) {
+  static readonly resolver = Context.Tag<UserFromId, (userId: UserId) => Effect<never, never, User>>()
+}
+
+export interface UserFromId {
+  readonly _: unique symbol
+}
+
+export const UserFromId: Schema<UserFromId, string, User> = S.transformOrFail(
+  UserId,
+  S.to(User),
+  (id) => User.resolver.andThen((_) => _(id)),
+  (u) => Effect.succeed(u.id)
+)
 
 /**
  * @tsplus getter User show
