@@ -9,7 +9,7 @@
       "eslint-plugin-codegen@0.17.0": "patches/eslint-plugin-codegen@0.17.0.patch",
       "@phaphoso/eslint-plugin-dprint@0.5.2": "patches/@phaphoso__eslint-plugin-dprint@0.5.2.patch",
       "date-fns@2.30.0": "patches/date-fns@2.30.0.patch",
-      "fast-check@3.15.0": "patches/fast-check@3.15.0.patch",
+      "fast-check@3.15.1": "patches/fast-check@3.15.1.patch",
       "@fp-ts/optic@0.22.0": "patches/@fp-ts__optic@0.22.0.patch"
     }
   },
@@ -64,7 +64,7 @@
     "nnm": "find . -name 'node_modules' -type d -prune -exec rm -rf '{}' + && pnpm i"
   },
   "resolutions": {
-    "@effect/schema": "npm:@effect-app/schema-fork@0.0.0-20240129113320",
+    "@effect/schema": "npm:@effect-app/schema-fork@0.0.0-20240202090758",
     "date-fns": "^2.29.3",
     "http-proxy": "npm:http-proxy-node16@1.0.0",
     "vue": "^3.3.9"
@@ -79,7 +79,7 @@
     "@opentelemetry/sdk-trace-web": "^1.21",
     "@opentelemetry/semantic-conventions": "^1.21",
     "cross-env": "^7.0.3",
-    "fast-check": "^3.15.0",
+    "fast-check": "^3.15.1",
     "patch-package": "^8.0.0",
     "ts-node": "^10.9.2",
     "vite-node": "^1.2.2"
@@ -87,16 +87,16 @@
   "devDependencies": {
     "@babel/cli": "^7.23.9",
     "@dprint/typescript": "^0.88.10",
-    "@effect-app/cli": "^0.40.0",
+    "@effect-app/cli": "^0.42.1",
     "@effect-app/eslint-codegen-model": "^0.41.0",
-    "@effect-app/prelude": "^0.132.1",
-    "@effect-app/core": "^0.116.0",
-    "@effect-app/compiler": "^0.55.0",
+    "@effect-app/prelude": "^0.137.0",
+    "@effect-app/core": "^0.118.0",
+    "@effect-app/compiler": "^0.57.1",
     "@effect/language-service": "^0.0.19",
     "@phaphoso/eslint-plugin-dprint": "^0.5.2",
     "@tsconfig/strictest": "^2.0.2",
     "@types/lodash": "^4.14.202",
-    "@types/node": "~20.11.10",
+    "@types/node": "~20.11.16",
     "@typescript-eslint/eslint-plugin": "^6.20.0",
     "@typescript-eslint/parser": "^6.20.0",
     "@typescript-eslint/scope-manager": "^6.20.0",
