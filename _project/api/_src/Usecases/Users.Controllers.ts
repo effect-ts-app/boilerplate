@@ -1,5 +1,5 @@
 import { UsersRsc } from "@effect-app-boilerplate/resources"
-import { UserView } from "@effect-app-boilerplate/resources/Views"
+import type { UserView } from "@effect-app-boilerplate/resources/Views"
 import { UserRepo } from "api/services.js"
 
 const users = matchFor(UsersRsc)
@@ -8,12 +8,9 @@ const Index = users.Index(
   { UserRepo },
   (req, { Response, userRepo }) =>
     userRepo
-      .project({
-        filter: UserRepo.query((where) => where("id", "in", req.filterByIds)),
-        select: ["id", "displayName", "role"]
+      .query({
+        filter: UserRepo.query((where) => where("id", "in", req.filterByIds))
       })
-      // TODO: decode as part of projection
-      .andThen((_) => _.forEachEffect((_) => UserView.decode(_)).orDie)
       .map((users) =>
         new Response({
           users: users

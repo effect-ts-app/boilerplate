@@ -2,7 +2,8 @@ import { User } from "@effect-app-boilerplate/models/User"
 
 @useClassFeaturesForSchema
 export class UserView extends ExtendedClass<UserView.From, UserView>()({
-  ...User.fields.$$.pick("id", "displayName", "role")
+  ...User.fields.$$.pick("id", "role"),
+  displayName: NonEmptyString2k
 }) {}
 
 // codegen:start {preset: model}
