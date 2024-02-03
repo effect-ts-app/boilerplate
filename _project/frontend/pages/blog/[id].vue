@@ -6,7 +6,7 @@ import { BlogPostId } from "@effect-app-boilerplate/models/Blog"
 const { id } = useRouteParams({ id: BlogPostId })
 
 const blogClient = clientFor(BlogRsc)
-const [, latestPost, reloadPost] = useSafeQuery(blogClient.findPost, {
+const [r, , reloadPost] = useSafeQuery(blogClient.findPost, {
   id,
 })
 
@@ -41,11 +41,15 @@ const [publishing, publish] = useAndHandleMutation(
   <div v-if="bogusOutput">
     The latest bogus event is: {{ bogusOutput.id }} at {{ bogusOutput.at }}
   </div>
-  <div v-if="latestPost">
-    <v-btn @click="publish({ id })" :disabled="publishing.loading">
-      Publish to all blog sites {{ publishing.loading ? `(${progress})` : "" }}
-    </v-btn>
-    <div>Title: {{ latestPost.title }}</div>
-    <div>Body: {{ latestPost.body }}</div>
-  </div>
+  <QueryResult :result="r" v-slot="{ latest, refreshing }">
+    <Delayed v-if="refreshing"><v-progress-circular /></Delayed>
+    <div>
+      <v-btn @click="publish({ id })" :disabled="publishing.loading">
+        Publish to all blog sites
+        {{ publishing.loading ? `(${progress})` : "" }}
+      </v-btn>
+      <div>Title: {{ latest.title }}</div>
+      <div>Body: {{ latest.body }}</div>
+    </div>
+  </QueryResult>
 </template>

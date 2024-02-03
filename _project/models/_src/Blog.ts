@@ -1,4 +1,5 @@
 import { prefixedStringId } from "@effect-app/prelude/schema"
+import { User } from "./User.js"
 
 export const BlogPostId = prefixedStringId<BlogPostId>()("post", "BlogPostId")
 export interface BlogPostIdBrand {
@@ -11,7 +12,8 @@ export class BlogPost extends ExtendedClass<BlogPost.From, BlogPost>()({
   id: BlogPostId.withDefault(),
   title: NonEmptyString255,
   body: NonEmptyString2k,
-  createdAt: S.Date.withDefault()
+  createdAt: S.Date.withDefault(),
+  user: User
 }) {}
 
 // codegen:start {preset: model}

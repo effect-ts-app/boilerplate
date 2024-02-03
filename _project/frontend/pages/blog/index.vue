@@ -4,7 +4,7 @@ import { BlogRsc } from "@effect-app-boilerplate/resources"
 const blogClient = clientFor(BlogRsc)
 
 const [, createPost_] = useMutation(blogClient.createPost)
-const [, latestPosts, reloadPosts] = useSafeQuery(blogClient.getPosts)
+const [r, , reloadPosts] = useSafeQuery(blogClient.getPosts)
 
 const createPost = flow(createPost_, _ => _.then(_ => reloadPosts()))
 </script>
@@ -25,12 +25,15 @@ const createPost = flow(createPost_, _ => _.then(_ => reloadPosts()))
       </v-btn>
     </div>
     Here's a Post List
-    <ul v-if="latestPosts">
-      <li v-for="post in latestPosts.items" :key="post.id">
-        <nuxt-link :to="{ name: 'blog-id', params: { id: post.id } }">
-          {{ post.title }}
-        </nuxt-link>
-      </li>
-    </ul>
+    <QueryResult :result="r" v-slot="{ latest, refreshing }">
+      <Delayed v-if="refreshing"><v-progress-circular /></Delayed>
+      <ul>
+        <li v-for="post in latest.items" :key="post.id">
+          <nuxt-link :to="{ name: 'blog-id', params: { id: post.id } }">
+            {{ post.title }}
+          </nuxt-link>
+        </li>
+      </ul>
+    </QueryResult>
   </div>
 </template>

@@ -1,7 +1,7 @@
 import { BlogPost } from "@effect-app-boilerplate/models/Blog"
 import { BlogRsc } from "@effect-app-boilerplate/resources"
 import { BogusEvent } from "@effect-app-boilerplate/resources/Events"
-import { BlogPostRepo, Events, Operations } from "api/services.js"
+import { BlogPostRepo, Events, Operations, UserRepo } from "api/services.js"
 
 const blog = matchFor(BlogRsc)
 
@@ -19,12 +19,12 @@ const GetPosts = blog.GetPosts(
 )
 
 const CreatePost = blog.CreatePost(
-  { BlogPostRepo },
-  (req, { blogPostRepo }) =>
-    Effect
-      .sync(() => (new BlogPost({ ...req })))
+  { BlogPostRepo, UserRepo },
+  (req, { blogPostRepo, userRepo }) =>
+    userRepo
+      .getCurrentUser
+      .map((user) => (new BlogPost({ ...req, user }, true)))
       .tap(blogPostRepo.save)
-      .map((_) => _.id)
 )
 
 const PublishPost = blog.PublishPost(
