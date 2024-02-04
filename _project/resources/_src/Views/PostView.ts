@@ -1,4 +1,5 @@
 import { BlogPost } from "@effect-app-boilerplate/models/Blog"
+import { ExtendedClass, FromClass, useClassFeaturesForSchema } from "@effect-app/prelude/schema"
 import { UserViewFromId } from "../resolvers/UserResolver.js"
 
 @useClassFeaturesForSchema

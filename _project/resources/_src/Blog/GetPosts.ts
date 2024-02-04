@@ -1,7 +1,8 @@
+import { array, Class } from "@effect-app/prelude/schema"
+import { Req } from "../lib.js"
 import { BlogPostView } from "../Views.js"
 
-@allowRoles("user")
-export class GetPostsRequest extends Req(cfg({ allowAnonymous: true }))<GetPostsRequest>()(
+export class GetPostsRequest extends Req({ allowAnonymous: true, allowRoles: ["user"] })<GetPostsRequest>()(
   {}
 ) {}
 
