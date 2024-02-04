@@ -88,7 +88,7 @@ export type Role = Schema.To<typeof Role>
  */
 @useClassFeaturesForSchema
 export class User extends ExtendedClass<User.From, User>()({
-  id: UserId.withDefault(),
+  id: UserId.withDefault,
   name: FullName,
   email: Email,
   role: Role,

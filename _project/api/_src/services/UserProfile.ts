@@ -1,7 +1,7 @@
 import { Role } from "@effect-app-boilerplate/models/User"
 import { parseJwt } from "@effect-app/infra/api/express/schema/jwt"
 import { UserProfileId } from "@effect-app/prelude/ids"
-import { Class, S } from "@effect-app/schema"
+import { Class } from "@effect-app/schema"
 
 /**
  * @tsplus type UserProfile
@@ -10,7 +10,7 @@ import { Class, S } from "@effect-app/schema"
 export class UserProfile extends assignTag<UserProfile>()(
   Class<UserProfile>()({
     sub: UserProfileId,
-    roles: array(Role).mapFrom("https://nomizz.com/roles").withDefault()
+    roles: array(Role).mapFrom("https://nomizz.com/roles").withDefault
   })
 ) {
 }

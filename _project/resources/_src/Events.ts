@@ -4,8 +4,8 @@ import { ExtendedTaggedClass, FromClass, StringId, union, useClassFeaturesForSch
 
 @useClassFeaturesForSchema
 export class BogusEvent extends ExtendedTaggedClass<BogusEvent.From, BogusEvent>()("BogusEvent", {
-  id: StringId.withDefault(),
-  at: S.defaultDate(S.Date)
+  id: StringId.withDefault,
+  at: S.Date.withDefault
 }) {}
 
 export const ClientEvents = union(BogusEvent)

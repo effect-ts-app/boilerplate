@@ -18,10 +18,10 @@ export type BlogPostId = StringId & BlogPostIdBrand & `post-${string}`
 
 @useClassFeaturesForSchema
 export class BlogPost extends ExtendedClass<BlogPost.From, BlogPost>()({
-  id: BlogPostId.withDefault(),
+  id: BlogPostId.withDefault,
   title: NonEmptyString255,
   body: NonEmptyString2k,
-  createdAt: S.defaultDate(S.Date),
+  createdAt: S.Date.withDefault,
   author: S.mapFrom(UserFromId, "authorId")
 }) {}
 
