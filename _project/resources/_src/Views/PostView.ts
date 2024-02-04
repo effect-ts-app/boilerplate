@@ -1,11 +1,12 @@
 import { BlogPost } from "@effect-app-boilerplate/models/Blog"
+import { S, Utils } from "@effect-app/prelude"
 import { ExtendedClass, FromClass, useClassFeaturesForSchema } from "@effect-app/prelude/schema"
 import { UserViewFromId } from "../resolvers/UserResolver.js"
 
 @useClassFeaturesForSchema
 export class BlogPostView extends ExtendedClass<BlogPostView.From, BlogPostView>()({
-  ...BlogPost.fields.$$.omit("author"),
-  author: UserViewFromId.mapFrom("authorId")
+  ...Utils.omit(BlogPost.fields, "author"),
+  author: S.mapFrom(UserViewFromId, "authorId")
 }) {}
 
 // codegen:start {preset: model}

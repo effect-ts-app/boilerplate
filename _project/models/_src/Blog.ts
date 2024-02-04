@@ -1,3 +1,4 @@
+import { S } from "@effect-app/prelude"
 import type { StringId } from "@effect-app/prelude/schema"
 import {
   ExtendedClass,
@@ -5,7 +6,6 @@ import {
   NonEmptyString255,
   NonEmptyString2k,
   prefixedStringId,
-  S,
   useClassFeaturesForSchema
 } from "@effect-app/prelude/schema"
 import { UserFromId } from "./User.js"
@@ -21,9 +21,8 @@ export class BlogPost extends ExtendedClass<BlogPost.From, BlogPost>()({
   id: BlogPostId.withDefault(),
   title: NonEmptyString255,
   body: NonEmptyString2k,
-  createdAt: S.Date.withDefault(),
-  author: UserFromId
-    .mapFrom("authorId")
+  createdAt: S.defaultDate(S.Date),
+  author: S.mapFrom(UserFromId, "authorId")
 }) {}
 
 // codegen:start {preset: model}
