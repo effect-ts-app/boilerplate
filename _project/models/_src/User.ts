@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/unbound-method */
 import { LazyGetter } from "@effect-app/core/utils"
+import { S } from "@effect-app/prelude"
 import { fakerArb } from "@effect-app/prelude/faker"
 import { UserProfileId } from "@effect-app/prelude/ids"
 import {
@@ -13,7 +14,8 @@ import {
 } from "@effect-app/prelude/schema"
 import { A } from "@effect-app/schema"
 import { literal, type Schema } from "@effect/schema/Schema"
-import { Equivalence } from "effect"
+import { Context, Equivalence } from "effect"
+import { Effect } from "effect/Effect"
 
 export const FirstName = NonEmptyString255
   .annotations({

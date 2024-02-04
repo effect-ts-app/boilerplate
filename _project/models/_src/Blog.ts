@@ -5,6 +5,7 @@ import {
   NonEmptyString255,
   NonEmptyString2k,
   prefixedStringId,
+  S,
   useClassFeaturesForSchema
 } from "@effect-app/prelude/schema"
 import { UserFromId } from "./User.js"
