@@ -5,7 +5,7 @@ import * as Runtime from "effect/Runtime"
 import { Effect, HttpClient, Option } from "@/utils/prelude"
 import { WebSdkLive } from "~/utils/observability"
 import type { ApiConfig } from "@effect-app/prelude/client"
-import { installFluentExtensions } from "@effect-app/fluent-extensions"
+import { installFluentRuntimeExtensions } from "@effect-app/fluent-extensions/runtime"
 import * as EffectRequest from "effect/Request"
 
 export const versionMatch = ref(true)
@@ -76,5 +76,5 @@ export default defineNuxtPlugin(_ => {
     config.public.feVersion,
     config.public.env !== "local-dev",
   )
-  installFluentExtensions(runtime.value!.runtime)
+  installFluentRuntimeExtensions(runtime.value!.runtime)
 })
