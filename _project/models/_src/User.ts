@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/unbound-method */
+import { pipe } from "@effect-app/core/Function"
 import { LazyGetter } from "@effect-app/core/utils"
 import { S } from "@effect-app/prelude"
 import { fakerArb } from "@effect-app/prelude/faker"
@@ -15,13 +16,16 @@ import {
 import { A } from "@effect-app/schema"
 import { literal, type Schema } from "@effect/schema/Schema"
 import { Context, Equivalence } from "effect"
-import { Effect } from "effect/Effect"
+import type { Effect } from "effect/Effect"
+import * as Eff from "effect/Effect"
 
 export const FirstName = NonEmptyString255
-  .annotations({
-    [A.ArbitraryHookId]: (): A.Arbitrary<string> => fakerArb((faker) => faker.person.firstName)
-  })
-  .withDefaults
+  .pipe(
+    S.annotations({
+      [A.ArbitraryHookId]: (): A.Arbitrary<string> => fakerArb((faker) => faker.person.firstName)
+    }),
+    S.withDefaults
+  )
 
 export type FirstName = Schema.To<typeof FirstName>
 
@@ -29,10 +33,12 @@ export const DisplayName = FirstName
 export type DisplayName = Schema.To<typeof DisplayName>
 
 export const LastName = NonEmptyString255
-  .annotations({
-    [A.ArbitraryHookId]: (): A.Arbitrary<string> => fakerArb((faker) => faker.person.lastName)
-  })
-  .withDefaults
+  .pipe(
+    S.annotations({
+      [A.ArbitraryHookId]: (): A.Arbitrary<string> => fakerArb((faker) => faker.person.lastName)
+    }),
+    S.withDefaults
+  )
 
 export type LastName = Schema.To<typeof LastName>
 
@@ -103,13 +109,13 @@ export const UserFromId: Schema<UserFromId, string, User> = S.transformOrFail(
   UserId,
   S.to(User),
   (id) => User.resolver.andThen((_) => _(id)),
-  (u) => Effect.succeed(u.id)
+  (u) => Eff.succeed(u.id)
 )
 
 /**
  * @tsplus static User equal
  */
-export const defaultEqual = Equivalence.string.mapInput((u: User) => u.id)
+export const defaultEqual = pipe(Equivalence.string, Equivalence.mapInput((u: User) => u.id))
 
 // codegen:start {preset: model}
 //
