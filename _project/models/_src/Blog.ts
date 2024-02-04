@@ -1,4 +1,12 @@
-import { prefixedStringId } from "@effect-app/prelude/schema"
+import type { StringId } from "@effect-app/prelude/schema"
+import {
+  ExtendedClass,
+  FromClass,
+  NonEmptyString255,
+  NonEmptyString2k,
+  prefixedStringId,
+  useClassFeaturesForSchema
+} from "@effect-app/prelude/schema"
 import { UserFromId } from "./User.js"
 
 export const BlogPostId = prefixedStringId<BlogPostId>()("post", "BlogPostId")
