@@ -2,7 +2,17 @@
 import { LazyGetter } from "@effect-app/core/utils"
 import { fakerArb } from "@effect-app/prelude/faker"
 import { UserProfileId } from "@effect-app/prelude/ids"
+import {
+  Email,
+  ExtendedClass,
+  FromClass,
+  NonEmptyString255,
+  NonEmptyString2k,
+  useClassFeaturesForSchema,
+  withDefaults
+} from "@effect-app/prelude/schema"
 import { A } from "@effect-app/schema"
+import { literal, type Schema } from "@effect/schema/Schema"
 import { Equivalence } from "effect"
 
 export const FirstName = NonEmptyString255
@@ -61,7 +71,7 @@ export function createFullName(firstName: string, lastName: string) {
 export const UserId = UserProfileId
 export type UserId = UserProfileId
 
-export const Role = literal("manager", "user").withDefaults
+export const Role = withDefaults(literal("manager", "user"))
 export type Role = Schema.To<typeof Role>
 
 /**
