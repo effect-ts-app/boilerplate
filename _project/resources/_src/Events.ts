@@ -1,3 +1,5 @@
+import type { Schema } from "@effect-app/prelude/schema"
+import { ExtendedTaggedClass, FromClass, StringId, union, useClassFeaturesForSchema } from "@effect-app/prelude/schema"
 import { S } from "@effect-app/schema"
 
 @useClassFeaturesForSchema

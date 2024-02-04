@@ -1,7 +1,9 @@
 import { User } from "@effect-app-boilerplate/models/User"
+import { S } from "@effect-app/prelude"
+import { Class, string, unknown } from "@effect-app/prelude/schema"
+import { Req } from "../lib.js"
 
-@allowRoles("user")
-export class GetHelloWorldRequest extends Req(cfg({ allowAnonymous: true }))<GetHelloWorldRequest>()({
+export class GetHelloWorldRequest extends Req({ allowAnonymous: true, allowRoles: ["user"] })<GetHelloWorldRequest>()({
   echo: string
 }) {}
 

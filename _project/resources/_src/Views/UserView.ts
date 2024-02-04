@@ -1,4 +1,5 @@
 import { User } from "@effect-app-boilerplate/models/User"
+import { ExtendedClass, FromClass, NonEmptyString2k, useClassFeaturesForSchema } from "@effect-app/prelude/schema"
 
 @useClassFeaturesForSchema
 export class UserView extends ExtendedClass<UserView.From, UserView>()({
