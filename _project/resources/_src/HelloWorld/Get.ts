@@ -8,7 +8,7 @@ export class GetHelloWorldRequest extends Req({ allowAnonymous: true, allowRoles
 }) {}
 
 export class Response extends Class<Response>()({
-  now: S.defaultDate(S.Date),
+  now: S.Date.withDefault,
   echo: string,
   context: unknown,
   currentUser: nullable(User),
