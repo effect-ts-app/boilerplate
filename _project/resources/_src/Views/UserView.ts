@@ -1,11 +1,9 @@
 import { User } from "@effect-app-boilerplate/models/User"
-import { Utils } from "@effect-app/prelude"
-import { ExtendedClass, FromClass, NonEmptyString2k, useClassFeaturesForSchema } from "@effect-app/prelude/schema"
+import { S, Utils } from "@effect-app/prelude"
 
-@useClassFeaturesForSchema
-export class UserView extends ExtendedClass<UserView.From, UserView>()({
+export class UserView extends S.ExtendedClass<UserView.From, UserView>()({
   ...Utils.pick(User.fields, "id", "role"),
-  displayName: NonEmptyString2k
+  displayName: S.NonEmptyString2k
 }) {}
 
 // codegen:start {preset: model}
@@ -16,7 +14,7 @@ export namespace UserView {
    * @tsplus type UserView.From
    * @tsplus companion UserView.From/Ops
    */
-  export class From extends FromClass<typeof UserView>() {}
+  export class From extends S.FromClass<typeof UserView>() {}
 }
 /* eslint-enable */
 //

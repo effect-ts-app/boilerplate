@@ -1,12 +1,12 @@
 import { UserId } from "@effect-app-boilerplate/models/User"
-import { array, Class, nonEmptyArray } from "@effect-app/prelude/schema"
+import { S } from "@effect-app/prelude"
 import { Req } from "../lib.js"
 import { UserView } from "../Views/UserView.js"
 
 export class IndexUsersRequest extends Req({ allowAnonymous: true, allowRoles: ["user"] })<IndexUsersRequest>()({
-  filterByIds: nonEmptyArray(UserId)
+  filterByIds: S.nonEmptyArray(UserId)
 }) {}
 
-export class Response extends Class<Response>()({
-  users: array(UserView)
+export class Response extends S.Class<Response>()({
+  users: S.array(UserView)
 }) {}

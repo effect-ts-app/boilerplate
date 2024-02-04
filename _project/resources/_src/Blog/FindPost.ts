@@ -1,5 +1,5 @@
 import { BlogPostId } from "@effect-app-boilerplate/models/Blog"
-import { nullable } from "@effect-app/prelude/schema"
+import { S } from "@effect-app/prelude"
 import { Req } from "../lib.js"
 import { BlogPostView } from "../Views.js"
 
@@ -7,4 +7,4 @@ export class FindPostRequest extends Req({ allowAnonymous: true, allowRoles: ["u
   id: BlogPostId
 }) {}
 
-export const FindPostResponse = nullable(BlogPostView)
+export const FindPostResponse = S.nullable(BlogPostView)

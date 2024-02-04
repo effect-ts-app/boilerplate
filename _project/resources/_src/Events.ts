@@ -1,14 +1,12 @@
 import { S } from "@effect-app/prelude"
 import type { Schema } from "@effect-app/prelude/schema"
-import { ExtendedTaggedClass, FromClass, StringId, union, useClassFeaturesForSchema } from "@effect-app/prelude/schema"
 
-@useClassFeaturesForSchema
-export class BogusEvent extends ExtendedTaggedClass<BogusEvent.From, BogusEvent>()("BogusEvent", {
-  id: StringId.withDefault,
+export class BogusEvent extends S.ExtendedTaggedClass<BogusEvent.From, BogusEvent>()("BogusEvent", {
+  id: S.StringId.withDefault,
   at: S.Date.withDefault
 }) {}
 
-export const ClientEvents = union(BogusEvent)
+export const ClientEvents = S.union(BogusEvent)
 export type ClientEvents = Schema.To<typeof ClientEvents>
 
 // codegen:start {preset: model}
@@ -19,7 +17,7 @@ export namespace BogusEvent {
    * @tsplus type BogusEvent.From
    * @tsplus companion BogusEvent.From/Ops
    */
-  export class From extends FromClass<typeof BogusEvent>() {}
+  export class From extends S.FromClass<typeof BogusEvent>() {}
 }
 /* eslint-enable */
 //

@@ -1,12 +1,10 @@
 import { BlogPost } from "@effect-app-boilerplate/models/Blog"
 import { S, Utils } from "@effect-app/prelude"
-import { ExtendedClass, FromClass, useClassFeaturesForSchema } from "@effect-app/prelude/schema"
 import { UserViewFromId } from "../resolvers/UserResolver.js"
 
-@useClassFeaturesForSchema
-export class BlogPostView extends ExtendedClass<BlogPostView.From, BlogPostView>()({
+export class BlogPostView extends S.ExtendedClass<BlogPostView.From, BlogPostView>()({
   ...Utils.omit(BlogPost.fields, "author"),
-  author: S.mapFrom(UserViewFromId, "authorId")
+  author: UserViewFromId.pipe(S.mapFrom("authorId"))
 }) {}
 
 // codegen:start {preset: model}
@@ -17,7 +15,7 @@ export namespace BlogPostView {
    * @tsplus type BlogPostView.From
    * @tsplus companion BlogPostView.From/Ops
    */
-  export class From extends FromClass<typeof BlogPostView>() {}
+  export class From extends S.FromClass<typeof BlogPostView>() {}
 }
 /* eslint-enable */
 //

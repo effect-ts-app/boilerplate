@@ -10,7 +10,7 @@ import { Class } from "@effect-app/schema"
 export class UserProfile extends assignTag<UserProfile>()(
   Class<UserProfile>()({
     sub: UserProfileId,
-    roles: array(Role).mapFrom("https://nomizz.com/roles").withDefault
+    roles: S.array(Role).mapFrom("https://nomizz.com/roles").withDefault
   })
 ) {
 }
