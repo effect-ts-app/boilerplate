@@ -1,20 +1,18 @@
 import { UserId } from "@effect-app-boilerplate/models/User"
 import { S } from "@effect-app/prelude"
 import { ApiConfig, clientFor, NotFoundError } from "@effect-app/prelude/client"
+import type { EffectRequest } from "@effect-app/prelude/Request"
 import { HttpClient } from "@effect-app/prelude/Request"
-import type { Schema } from "@effect-app/prelude/schema"
-import { Effect, Exit, RequestResolver } from "effect"
+import { type Schema } from "@effect-app/prelude/schema"
+import { Effect, Exit, Request, RequestResolver } from "effect"
 import * as UsersRsc from "../Users.js"
 import { UserView } from "../Views/UserView.js"
-
-import * as Req from "effect/Request"
-import type { Request as EffectRequest } from "effect/Request"
 
 interface GetUserViewById extends EffectRequest<NotFoundError<"User">, UserView> {
   readonly _tag: "GetUserViewById"
   readonly id: UserId
 }
-const GetUserViewById = Req.tagged<GetUserViewById>("GetUserViewById")
+const GetUserViewById = Request.tagged<GetUserViewById>("GetUserViewById")
 
 const userClient = clientFor(UsersRsc)
 
@@ -27,10 +25,10 @@ const getUserViewByIdResolver = RequestResolver
       )
       .getOrElse(() => Effect.succeed([]))
       .andThen((users) =>
-        requests.forEachEffect( // TODO: ext
+        requests.forEachEffect(
           (r) => {
             const u = users.find((_) => _.id === r.id)
-            return Req.complete(
+            return Request.complete(
               r,
               u ? Exit.succeed(u) : Exit.fail(new NotFoundError({ type: "User", id: r.id }))
             )

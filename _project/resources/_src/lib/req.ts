@@ -1,5 +1,10 @@
+import type { Role } from "@effect-app-boilerplate/models/User"
+
 import { Req as Req_ } from "@effect-app/schema/REST"
-import type { RequestConfig } from "./configure.js"
+
+export type RequestConfig = { allowAnonymous?: true; allowedRoles?: readonly Role[] }
+
+export type AllowAnonymous<A> = A extends { allowAnonymous: true } ? true : false
 
 export function Req<C extends RequestConfig>(config?: C) {
   return Req_(config)
