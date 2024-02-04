@@ -1,9 +1,9 @@
 import { BlogPost } from "@effect-app-boilerplate/models/Blog"
-import { S, Utils } from "@effect-app/prelude"
+import { S } from "@effect-app/prelude"
 import { UserViewFromId } from "../resolvers/UserResolver.js"
 
 export class BlogPostView extends S.ExtendedClass<BlogPostView.From, BlogPostView>()({
-  ...Utils.omit(BlogPost.fields, "author"),
+  ...BlogPost.omit("author"),
   author: UserViewFromId.pipe(S.mapFrom("authorId"))
 }) {}
 
