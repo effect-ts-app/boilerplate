@@ -31,6 +31,14 @@ export type GetContext<Req> = AllowAnonymous<Req> extends true ? never
   // eslint-disable-next-line @typescript-eslint/ban-types
   : UserProfile
 
+export const RequestCacheLayers = Layer.mergeAll(
+  Layer.setRequestCache(
+    EffectRequest.makeCache({ capacity: 500, timeToLive: Duration.hours(8) })
+  ),
+  Layer.setRequestCaching(true),
+  Layer.setRequestBatching(true)
+)
+
 const authConfig = Auth0Config.runSync$
 const EmptyLayer = Effect.unit.toLayerDiscard
 const fakeLogin = true
@@ -129,7 +137,10 @@ export function handleRequestEnv<
             context: RequestContextContainer.get,
             userProfile: Effect.serviceOption(UserProfile).map((_) => _.getOrUndefined)
           })
-          .flatMap((ctx) => (handler.h as (i: any, ctx: CTX) => Effect<R, ResE, ResA>)(pars, ctx as any /* TODO */))
+          .flatMap((ctx) =>
+            (handler.h as (i: any, ctx: CTX) => Effect<R, ResE, ResA>)(pars, ctx as any /* TODO */)
+              .provide(RequestCacheLayers)
+          )
     },
     makeRequestLayer: RequestEnv(handler)
   }

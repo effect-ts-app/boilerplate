@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/unbound-method */
+import { LazyGetter } from "@effect-app/core/utils"
 import { fakerArb } from "@effect-app/prelude/faker"
 import { UserProfileId } from "@effect-app/prelude/ids"
 import { A } from "@effect-app/schema"
@@ -70,16 +71,28 @@ export type Role = Schema.To<typeof Role>
 @useClassFeaturesForSchema
 export class User extends ExtendedClass<User.From, User>()({
   id: UserId.withDefault(),
-  displayName: DisplayName,
-  role: Role
-}) {}
-
-/**
- * @tsplus getter User show
- */
-export function showUser(user: User) {
-  return user.displayName
+  name: FullName,
+  email: Email,
+  role: Role,
+  passwordHash: NonEmptyString255
+}) {
+  @LazyGetter()
+  get displayName() {
+    return NonEmptyString2k(this.name.firstName + " " + this.name.lastName)
+  }
+  static readonly resolver = Context.Tag<UserFromId, (userId: UserId) => Effect<never, never, User>>()
 }
+
+export interface UserFromId {
+  readonly _: unique symbol
+}
+
+export const UserFromId: Schema<UserFromId, string, User> = S.transformOrFail(
+  UserId,
+  S.to(User),
+  (id) => User.resolver.andThen((_) => _(id)),
+  (u) => Effect.succeed(u.id)
+)
 
 /**
  * @tsplus static User equal

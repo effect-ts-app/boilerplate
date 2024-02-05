@@ -1,8 +1,11 @@
 import { User } from "@effect-app-boilerplate/models/User"
 import { NotLoggedInError } from "@effect-app/infra/errors"
 import { RepositoryDefaultImpl } from "@effect-app/infra/services/RepositoryBase"
+import { generate } from "@effect-app/infra/test.arbs"
+import { fakerArb } from "@effect-app/prelude/faker"
 import { RepoConfig } from "api/config.js"
 import { RepoLive } from "api/migrate.js"
+import fc from "fast-check"
 import { UserProfile } from "../UserProfile.js"
 
 export interface UserPersistenceModel extends User.From {
@@ -24,10 +27,19 @@ export class UserRepo extends RepositoryDefaultImpl<UserRepo>()<UserPersistenceM
       const seed = cfg.fakeUsers === "seed" ? "seed" : cfg.fakeUsers === "sample" ? "sample" : ""
       const fakeUsers = ReadonlyArray
         .range(1, 8)
-        .map((_, i): User => ({
-          ...User.Arbitrary.generate.value,
-          role: i === 0 || i === 1 ? "manager" : "user"
-        }))
+        .map((_, i): User => {
+          const g = User.Arbitrary.generate.value
+          const emailArb = fakerArb((_) => () =>
+            _
+              .internet
+              .exampleEmail({ firstName: g.name.firstName, lastName: g.name.lastName })
+          )
+          return new User({
+            ...g,
+            email: Email(generate(emailArb(fc)).value),
+            role: i === 0 || i === 1 ? "manager" : "user"
+          })
+        })
         .toNonEmpty
         .match({
           onNone: () => {

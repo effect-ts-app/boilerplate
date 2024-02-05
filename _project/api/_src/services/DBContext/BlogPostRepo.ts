@@ -28,13 +28,15 @@ export const LiveBlogPostRepo = Effect
       ? UserRepo
         .andThen((userRepo) => userRepo.all)
         .andThen((users) =>
-          users.map((user, i) =>
-            new BlogPost({
-              title: NonEmptyString255("Test post " + i),
-              body: NonEmptyString2k("imma test body"),
-              user
-            }, true)
-          )
+          users
+            .flatMap((_) => [_, _])
+            .map((user, i) =>
+              new BlogPost({
+                title: NonEmptyString255("Test post " + i),
+                body: NonEmptyString2k("imma test body"),
+                author: user
+              }, true)
+            )
         )
       : Effect.succeed([])
     return BlogPostRepo

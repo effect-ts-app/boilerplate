@@ -32,6 +32,7 @@ const createPost = flow(createPost_, _ => _.then(_ => reloadPosts()))
           <nuxt-link :to="{ name: 'blog-id', params: { id: post.id } }">
             {{ post.title }}
           </nuxt-link>
+          by {{ post.author.displayName }}
         </li>
       </ul>
     </QueryResult>

@@ -1,4 +1,4 @@
-import { BlogPost } from "@effect-app-boilerplate/models/Blog"
+import { BlogPostView } from "../Views.js"
 
 @allowRoles("user")
 export class GetPostsRequest extends Req(cfg({ allowAnonymous: true }))<GetPostsRequest>()(
@@ -6,5 +6,5 @@ export class GetPostsRequest extends Req(cfg({ allowAnonymous: true }))<GetPosts
 ) {}
 
 export class GetPostsResponse extends Class<GetPostsResponse>()({
-  items: array(BlogPost)
+  items: array(BlogPostView)
 }) {}
