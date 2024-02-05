@@ -42,6 +42,7 @@ export default defineNuxtConfig({
         "@effect-app/prelude/utils",
         "@effect-app/vue/routeParams",
       ],
+      exclude: ["@effect-app/fluent-extensions"],
     },
     plugins: process.env.CI
       ? [
