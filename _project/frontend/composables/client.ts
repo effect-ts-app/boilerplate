@@ -403,7 +403,7 @@ export function renderError(e: ResponseErrors, action: string): string {
 
 function parseError(e: string) {
   try {
-    const js = JSON.parse(e)
+    const js = JSON.parse(e) as any
     if ("_tag" in js) {
       if ("message" in js) {
         return `${js.message || js._tag}`

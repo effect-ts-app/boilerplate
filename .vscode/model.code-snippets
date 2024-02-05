@@ -16,7 +16,6 @@
         "prefix": "moc",
         "body": [
             "/** @tsplus type $1 */",
-            "@useClassFeaturesForSchema",
             "export class $1 extends ExtendedClass<$1, $1.ConstructorInput, $1.From, $1.Fields> ()({",
             "$2",
             "}) {}"
@@ -27,7 +26,6 @@
         "prefix": "mo",
         "body": [
             "/** @tsplus type $1 */",
-            "@useClassFeaturesForSchema",
             "export class $1 extends Class<$1>()({$2}) {}",
             ""
         ],

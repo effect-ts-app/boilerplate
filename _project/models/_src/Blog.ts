@@ -1,20 +1,18 @@
-import { prefixedStringId } from "@effect-app/prelude/schema"
+import { S } from "@effect-app/prelude"
 import { UserFromId } from "./User.js"
 
-export const BlogPostId = prefixedStringId<BlogPostId>()("post", "BlogPostId")
+export const BlogPostId = S.prefixedStringId<BlogPostId>()("post", "BlogPostId")
 export interface BlogPostIdBrand {
   readonly BlogPostId: unique symbol
 }
-export type BlogPostId = StringId & BlogPostIdBrand & `post-${string}`
+export type BlogPostId = S.StringId & BlogPostIdBrand & `post-${string}`
 
-@useClassFeaturesForSchema
-export class BlogPost extends ExtendedClass<BlogPost.From, BlogPost>()({
-  id: BlogPostId.withDefault(),
-  title: NonEmptyString255,
-  body: NonEmptyString2k,
-  createdAt: S.Date.withDefault(),
-  author: UserFromId
-    .mapFrom("authorId")
+export class BlogPost extends S.ExtendedClass<BlogPost.From, BlogPost>()({
+  id: BlogPostId.withDefault,
+  title: S.NonEmptyString255,
+  body: S.NonEmptyString2k,
+  createdAt: S.Date.withDefault,
+  author: UserFromId.pipe(S.mapFrom("authorId"))
 }) {}
 
 // codegen:start {preset: model}
@@ -25,7 +23,7 @@ export namespace BlogPost {
    * @tsplus type BlogPost.From
    * @tsplus companion BlogPost.From/Ops
    */
-  export class From extends FromClass<typeof BlogPost>() {}
+  export class From extends S.FromClass<typeof BlogPost>() {}
 }
 /* eslint-enable */
 //

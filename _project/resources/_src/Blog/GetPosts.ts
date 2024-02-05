@@ -1,10 +1,8 @@
+import { S } from "@effect-app-boilerplate/resources/lib"
 import { BlogPostView } from "../Views.js"
 
-@allowRoles("user")
-export class GetPostsRequest extends Req(cfg({ allowAnonymous: true }))<GetPostsRequest>()(
-  {}
-) {}
+export class GetPostsRequest extends S.Req({ allowAnonymous: true, allowRoles: ["user"] })<GetPostsRequest>()({}) {}
 
-export class GetPostsResponse extends Class<GetPostsResponse>()({
-  items: array(BlogPostView)
+export class GetPostsResponse extends S.Class<GetPostsResponse>()({
+  items: S.array(BlogPostView)
 }) {}

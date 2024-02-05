@@ -1,10 +1,10 @@
-import { Req } from "@effect-app/prelude/schema"
-import { nullable } from "@effect-app/schema"
+import { S } from "@effect-app-boilerplate/resources/lib"
 import { Operation, OperationId } from "../Views.js"
 
-@allowRoles("user")
-export class FindOperationRequest extends Req(cfg({ allowAnonymous: true }))<FindOperationRequest>()({
-  id: OperationId
-}) {}
+export class FindOperationRequest
+  extends S.Req({ allowAnonymous: true, allowRoles: ["user"] })<FindOperationRequest>()({
+    id: OperationId
+  })
+{}
 
-export const FindOperationResponse = nullable(Operation)
+export const FindOperationResponse = S.nullable(Operation)

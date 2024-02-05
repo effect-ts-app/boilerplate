@@ -1,4 +1,7 @@
 import { clientFor, type FetchResponse } from "@effect-app/prelude/client"
+import { Duration } from "effect"
+import type { Effect } from "effect/Effect"
+import * as Eff from "effect/Effect"
 import * as OperationsRsc from "../Operations.js"
 import type { Operation, OperationId } from "../Views.js"
 
@@ -9,7 +12,7 @@ export function refreshAndWaitAForOperationP<R, E>(
   refresh: () => Promise<void>,
   cb?: (op: Operation) => void
 ) {
-  return refreshAndWaitAForOperation(act, Effect.promise(refresh), cb)
+  return refreshAndWaitAForOperation(act, Eff.promise(refresh), cb)
 }
 
 export function refreshAndWaitAForOperation<R2, E2, A2, R, E>(
@@ -29,7 +32,7 @@ export function refreshAndWaitForOperationP<Req, R, E>(
   act: (req: Req) => Effect<R, E, FetchResponse<OperationId>>,
   refresh: () => Promise<void>
 ) {
-  return refreshAndWaitForOperation(act, Effect.promise(refresh))
+  return refreshAndWaitForOperation(act, Eff.promise(refresh))
 }
 
 export function refreshAndWaitForOperation<Req, R2, E2, A2, R, E>(
@@ -50,24 +53,24 @@ export function refreshAndWaitForOperation<Req, R2, E2, A2, R, E>(
  * @tsplus fluent effect/io/Effect waitForOperation
  */
 export function waitForOperation<R, E>(self: Effect<R, E, FetchResponse<OperationId>>, cb?: (op: Operation) => void) {
-  return self.flatMap((r) => _waitForOperation(r.body, cb))
+  return self.andThen((r) => _waitForOperation(r.body, cb))
 }
 
 /**
  * @tsplus static effect/io/Effect waitForOperation_
  */
 export function waitForOperation_<Req, R, E>(self: (req: Req) => Effect<R, E, FetchResponse<OperationId>>) {
-  return (req: Req) => self(req).flatMap((r) => _waitForOperation(r.body))
+  return (req: Req) => self(req).andThen((r) => _waitForOperation(r.body))
 }
 
 function _waitForOperation(id: OperationId, cb?: (op: Operation) => void) {
-  return Effect.gen(function*($) {
-    let r = yield* $(opsClient.find.handler({ id }).map((_) => _.body))
+  return Eff.gen(function*($) {
+    let r = yield* $(opsClient.find.handler({ id }).andThen((_) => _.body))
     while (r) {
       if (cb) cb(r)
       if (r.result) return r.result
-      yield* $(Effect.sleep(Duration.seconds(2)))
-      r = yield* $(opsClient.find.handler({ id }).map((_) => _.body))
+      yield* $(Eff.sleep(Duration.seconds(2)))
+      r = yield* $(opsClient.find.handler({ id }).andThen((_) => _.body))
     }
   })
 }

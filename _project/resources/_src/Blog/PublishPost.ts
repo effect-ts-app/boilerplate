@@ -1,9 +1,8 @@
 import { BlogPostId } from "@effect-app-boilerplate/models/Blog"
-import { allowRoles } from "@effect-app-boilerplate/models/roles"
+import { S } from "@effect-app-boilerplate/resources/lib"
 import { OperationId } from "../Views.js"
 
-@allowRoles("user")
-export class PublishPostRequest extends Req(cfg({ allowAnonymous: true }))<PublishPostRequest>()({
+export class PublishPostRequest extends S.Req({ allowAnonymous: true, allowRoles: ["user"] })<PublishPostRequest>()({
   id: BlogPostId
 }) {}
 

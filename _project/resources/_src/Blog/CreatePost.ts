@@ -1,8 +1,8 @@
 import { BlogPost, BlogPostId } from "@effect-app-boilerplate/models/Blog"
+import { S } from "@effect-app-boilerplate/resources/lib"
 
-@allowRoles("user")
-export class CreatePostRequest extends Req(cfg({ allowAnonymous: true }))<CreatePostRequest>()(
-  BlogPost.fields.$$.pick("title", "body")
+export class CreatePostRequest extends S.Req({ allowAnonymous: true, allowRoles: ["user"] })<CreatePostRequest>()(
+  BlogPost.pick("title", "body")
 ) {}
 
-export const CreatePostResponse = struct({ id: BlogPostId })
+export const CreatePostResponse = S.struct({ id: BlogPostId })
