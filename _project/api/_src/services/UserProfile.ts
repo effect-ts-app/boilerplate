@@ -1,14 +1,13 @@
 import { Role } from "@effect-app-boilerplate/models/User"
 import { parseJwt } from "@effect-app/infra/api/express/schema/jwt"
 import { UserProfileId } from "@effect-app/prelude/ids"
-import { Class } from "@effect-app/schema"
 
 /**
  * @tsplus type UserProfile
  * @tsplus companion UserProfile.Ops
  */
 export class UserProfile extends assignTag<UserProfile>()(
-  Class<UserProfile>()({
+  S.Class<UserProfile>()({
     sub: UserProfileId,
     roles: S.array(Role).mapFrom("https://nomizz.com/roles").withDefault
   })
