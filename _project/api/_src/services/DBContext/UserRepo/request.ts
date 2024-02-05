@@ -17,13 +17,14 @@ const getUserByIdResolver = RequestResolver
         .query({ filter: UserRepo.where((_) => _("id", Filters.in(...requests.map((_) => _.id)))) })
         .flatMap((users) =>
           requests.forEachEffect(
-            (r) => {
-              const u = users.find((_) => _.id === r.id)
-              return EffectRequest.complete(
+            (r) =>
+              EffectRequest.complete(
                 r,
-                u ? Exit.succeed(u) : Exit.fail(new NotFoundError({ type: "User", id: r.id }))
-              )
-            }
+                users
+                  .findFirstMap((_) => _.id === r.id ? Option.some(Exit.succeed(_)) : Option.none)
+                  .getOrElse(() => Exit.fail(new NotFoundError({ type: "User", id: r.id })))
+              ),
+            { discard: true }
           )
         )
     )

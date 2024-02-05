@@ -4,6 +4,7 @@ const enforceSingleVersion = [
     "@fp-ts/optic",
     "@effect-app/core",
     "@effect-app/infra-adapters",
+    "@effect-app/fluent-extensions",
     "@effect-app/schema",
     "@effect-app/infra",
     "@effect-app/prelude",

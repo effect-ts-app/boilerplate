@@ -1,5 +1,5 @@
 import { UserId } from "@effect-app-boilerplate/models/User"
-import { S } from "@effect-app/prelude"
+import { Option, S } from "@effect-app/prelude"
 import { ApiConfig, clientFor, NotFoundError } from "@effect-app/prelude/client"
 import type { EffectRequest } from "@effect-app/prelude/Request"
 import { HttpClient } from "@effect-app/prelude/Request"
@@ -18,24 +18,22 @@ const userClient = clientFor(UsersRsc)
 
 const getUserViewByIdResolver = RequestResolver
   .makeBatched((requests: GetUserViewById[]) =>
-    requests
-      .toNonEmpty
-      .map((_) =>
-        userClient.index.handler({ filterByIds: _.map((_) => _.id) }).andThen((_) => _.body.users).pipe(Effect.orDie)
-      )
-      .getOrElse(() => Effect.succeed([]))
-      .andThen((users) =>
+    userClient
+      .index
+      .handler({ filterByIds: requests.map((_) => _.id).toNonEmpty.value! })
+      .andThen(({ body: { users } }) =>
         requests.forEachEffect(
-          (r) => {
-            const u = users.find((_) => _.id === r.id)
-            return Request.complete(
+          (r) =>
+            Request.complete(
               r,
-              u ? Exit.succeed(u) : Exit.fail(new NotFoundError({ type: "User", id: r.id }))
-            )
-          },
+              users
+                .findFirstMap((_) => _.id === r.id ? Option.some(Exit.succeed(_)) : Option.none())
+                .getOrElse(() => Exit.fail(new NotFoundError({ type: "User", id: r.id })))
+            ),
           { discard: true }
         )
       )
+      .pipe(Effect.orDie)
   )
   .pipe(RequestResolver.batchN(25), RequestResolver.contextFromServices(HttpClient, ApiConfig.Tag))
 
