@@ -1,9 +1,8 @@
 import { BlogPostId } from "@effect-app-boilerplate/models/Blog"
-import { S } from "@effect-app/prelude"
-import { Req } from "../lib.js"
+import { S } from "@effect-app-boilerplate/resources/lib"
 import { BlogPostView } from "../Views.js"
 
-export class FindPostRequest extends Req({ allowAnonymous: true, allowRoles: ["user"] })<FindPostRequest>()({
+export class FindPostRequest extends S.Req({ allowAnonymous: true, allowRoles: ["user"] })<FindPostRequest>()({
   id: BlogPostId
 }) {}
 

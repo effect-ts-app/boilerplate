@@ -1,8 +1,8 @@
 import { BlogPostId } from "@effect-app-boilerplate/models/Blog"
-import { Req } from "../lib.js"
+import { S } from "@effect-app/prelude"
 import { OperationId } from "../Views.js"
 
-export class PublishPostRequest extends Req({ allowAnonymous: true, allowRoles: ["user"] })<PublishPostRequest>()({
+export class PublishPostRequest extends S.Req({ allowAnonymous: true, allowRoles: ["user"] })<PublishPostRequest>()({
   id: BlogPostId
 }) {}
 
