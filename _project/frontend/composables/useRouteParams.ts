@@ -37,4 +37,3 @@ export const useRouteParamsOption = <
       : never
   }
 }
-export * from "@effect-app/vue/routeParams"

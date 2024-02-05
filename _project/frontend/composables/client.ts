@@ -8,7 +8,7 @@ import type {
 } from "@effect-app/prelude/client"
 import type { MutationResult } from "@effect-app/vue"
 import { useMutation } from "@effect-app/vue"
-import { Failure, Success } from "@effect-app-boilerplate/resources/Views"
+import { Failure, Success } from "@effect-app/prelude/Operations"
 import * as Sentry from "@sentry/browser"
 import {
   useIntervalFn,
