@@ -1,14 +1,16 @@
-import { User } from "@effect-app-boilerplate/models/User"
+import { S } from "@effect-app-boilerplate/resources/lib"
+import { UserView } from "../Views.js"
 
-@allowRoles("user")
-export class GetHelloWorldRequest extends Req(cfg({ allowAnonymous: true }))<GetHelloWorldRequest>()({
-  echo: string
-}) {}
+export class GetHelloWorldRequest
+  extends S.Req({ allowAnonymous: true, allowRoles: ["user"] })<GetHelloWorldRequest>()({
+    echo: S.string
+  })
+{}
 
-export class Response extends Class<Response>()({
-  now: S.Date.withDefault(),
-  echo: string,
-  context: unknown,
-  currentUser: User.nullable,
-  randomUser: User
+export class Response extends S.Class<Response>()({
+  now: S.Date.withDefault,
+  echo: S.string,
+  context: S.unknown,
+  currentUser: S.nullable(UserView),
+  randomUser: UserView
 }) {}
