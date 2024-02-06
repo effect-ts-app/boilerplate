@@ -1,10 +1,12 @@
-import httpProxy from "http-proxy" // make sure to use package redirect to "http-proxy-node16" for fixing closing event: https://github.com/http-party/node-http-proxy/pull/1559
 import * as cookie from "cookie"
+import httpProxy from "http-proxy-node16" // make sure to use package redirect to "http-proxy-node16" for fixing closing event: https://github.com/http-party/node-http-proxy/pull/1559
+import type httpProxyTypes from "http-proxy"
 
+const proxy = httpProxy as unknown as typeof httpProxyTypes
 export default defineNitroPlugin(nitroApp => {
   const config = useRuntimeConfig()
 
-  const otlpProxy = httpProxy.createProxyServer({
+  const otlpProxy = proxy.createProxyServer({
     changeOrigin: true, // don't forget this, or you're going to chase your tail for hours
     target: "http://localhost:4318",
     timeout: 1_000,
@@ -14,7 +16,7 @@ export default defineNitroPlugin(nitroApp => {
     proxyReq.path = "/v1/traces"
   })
 
-  const apiProxy = httpProxy.createProxyServer({
+  const apiProxy = proxy.createProxyServer({
     changeOrigin: true, // don't forget this, or you're going to chase your tail for hours
     target: config.apiRoot,
   })

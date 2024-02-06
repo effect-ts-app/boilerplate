@@ -18,10 +18,10 @@
   },
   "dependencies": {
     "@effect-app/core": "^0.121.0",
-    "@effect-app/fluent-extensions": "^0.116.5",
-    "@effect-app/prelude": "^0.143.5",
-    "@effect-app/schema": "^0.177.5",
-    "@effect-app/vue": "^0.116.9",
+    "@effect-app/fluent-extensions": "^0.118.1",
+    "@effect-app/prelude": "^0.144.0",
+    "@effect-app/schema": "^0.178.0",
+    "@effect-app/vue": "^0.117.0",
     "@effect/opentelemetry": "^0.30.12",
     "@formatjs/intl": "2.7.2",
     "@effect-app-boilerplate/models": "*",
@@ -33,7 +33,7 @@
     "@opentelemetry/web": "^0.24.0",
     "@sentry/opentelemetry": "^7.99.0",
     "@sentry/tracing": "^7.99.0",
-    "@sentry/vite-plugin": "^2.13.0",
+    "@sentry/vite-plugin": "^2.14.0",
     "@sentry/vue": "^7.99.0",
     "@vueuse/core": "^10.7.2",
     "@vueuse/nuxt": "^10.7.2",
@@ -41,7 +41,7 @@
     "date-fns": "^3.3.1",
     "effect": "^2.2.3",
     "highcharts": "^11.3.0",
-    "http-proxy": "npm:http-proxy-node16@^1.0.3",
+    "http-proxy-node16": "^1.0.3",
     "mitt": "^3.0.1",
     "next-auth": "4.21.1",
     "papaparse": "^5.4.1",
@@ -59,12 +59,9 @@
     "@types/markdown-it": "^13.0.7",
     "eslint-plugin-vue": "^9.21.1",
     "h3": "^1.10.1",
-    "nuxt": "~3.10.0",
+    "nuxt": "~3.10.1",
     "sass": "^1.70.0",
     "typescript": "npm:@effect-app/typescript@5.4.0-tsplus.202311222",
     "vue-tsc": "~1.8.27"
-  },
-  "resolutions": {
-    "http-proxy": "npm:http-proxy-node16@1.0.0"
   }
 }
