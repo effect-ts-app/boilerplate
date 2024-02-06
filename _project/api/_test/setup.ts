@@ -60,7 +60,7 @@ beforeAll(async () => {
     })
 
   const runtime = appRuntime(appLayer)
-    .runPromise$
+    .runPromise
     .catch((error: unknown) => {
       console.error(error)
       throw error
@@ -70,7 +70,7 @@ beforeAll(async () => {
     Effect
       .promise(() => runtime)
       .flatMap((_) => _.clean)
-      .runPromise$
+      .runPromise
 
   globalThis.cleanup = cleanup
   globalThis.runtime = (await runtime).runtime

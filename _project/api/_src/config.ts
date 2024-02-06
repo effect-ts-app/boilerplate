@@ -46,4 +46,4 @@ export * from "@effect-app-boilerplate/messages/config"
 export const MergedConfig = ApiConfig
   .andThen((apiConfig) => BaseConfig.andThen((baseConfig) => ({ ...baseConfig, ...apiConfig })))
   .cached
-  .runSync$
+  .runSync

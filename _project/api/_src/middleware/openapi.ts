@@ -17,7 +17,7 @@ export const openapiRoutes = (url: string) => {
     .orDie
 
   return Effect.all([
-    Ex.get("/openapi.json", (_req, res) => readOpenApiDoc.map((js) => res.send(js))),
+    Ex.get("/openapi.json", (_req, res) => readOpenApiDoc.map((js) => res.send(js)).asUnit),
     Ex.get(
       "/docs",
       Ex.classic(

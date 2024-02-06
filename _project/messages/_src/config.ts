@@ -1,4 +1,6 @@
+import { S } from "@effect-app/prelude"
 import dotenv from "dotenv"
+import { Config as C, Secret } from "effect"
 
 const envFile = "./.env.local"
 
@@ -10,41 +12,43 @@ if (error) {
 }
 
 const FROM = {
-  name: NonEmptyString255("@effect-app/boilerplate"),
-  email: Email("noreply@example.com")
+  name: S.NonEmptyString255("@effect-app/boilerplate"),
+  email: S.Email("noreply@example.com")
 }
 
 const serviceName = "effect-app-boilerplate"
 
-export const envConfig = Config.string("env").withDefault("local-dev")
+export const envConfig = C.string("env").pipe(C.withDefault("local-dev"))
 
-export const SendgridConfig = Config.all({
-  realMail: Config.boolean("realMail").withDefault(false),
-  apiKey: Config.secret("sendgridApiKey").withDefault(
+export const SendgridConfig = C.all({
+  realMail: C.boolean("realMail").pipe(C.withDefault(false)),
+  apiKey: C.secret("sendgridApiKey").pipe(C.withDefault(
     Secret.fromString("")
-  ),
-  defaultFrom: Config.succeed(FROM),
-  subjectPrefix: envConfig.map((env) => env === "prod" ? "" : `[${serviceName}] [${env}] `)
+  )),
+  defaultFrom: C.succeed(FROM),
+  subjectPrefix: envConfig.pipe(C.map((env) => env === "prod" ? "" : `[${serviceName}] [${env}] `))
 })
 
-export const BaseConfig = Config.all({
-  apiVersion: Config.string("apiVersion").withDefault("local-dev"),
-  serviceName: Config.succeed(serviceName),
+export const BaseConfig = C.all({
+  apiVersion: C.string("apiVersion").pipe(C.withDefault("local-dev")),
+  serviceName: C.succeed(serviceName),
   env: envConfig,
   sendgrid: SendgridConfig,
-  sentry: Config.all({
-    dsn: Config
+  sentry: C.all({
+    dsn: C
       .secret("dsn")
-      .nested("sentry")
-      .withDefault(
-        Secret.fromString(
-          "???"
+      .pipe(
+        C.nested("sentry"),
+        C.withDefault(
+          Secret.fromString(
+            "???"
+          )
         )
       )
   })
-  //  log: Config.string("LOG").
+  //  log: C.string("LOG").
 })
-type ConfigA<Cfg> = Cfg extends Config<infer A> ? A : never
+type ConfigA<Cfg> = Cfg extends C.Config<infer A> ? A : never
 export interface BaseConfig extends ConfigA<typeof BaseConfig> {}
 
 export const SB_PREFIX = "Endpoint=sb://"
