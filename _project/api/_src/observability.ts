@@ -21,7 +21,7 @@ import {
 import tcpPortUsed from "tcp-port-used"
 import { BaseConfig } from "./config.js"
 
-const appConfig = BaseConfig.runSync$
+const appConfig = BaseConfig.runSync
 
 class SentryFilteredSpanProcessor extends SentrySpanProcessor {
   override _shouldSendSpanToSentry(span: Span): boolean {

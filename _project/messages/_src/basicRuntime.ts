@@ -3,23 +3,27 @@ import { logJson } from "@effect-app/infra/logger/jsonLogger"
 import { logFmt } from "@effect-app/infra/logger/logFmtLogger"
 import { runMain as runMainPlatform } from "@effect/platform-node/Runtime"
 import { constantCase } from "change-case"
+import { Cause, Exit, Layer } from "effect"
 import * as ConfigProvider from "effect/ConfigProvider"
 import * as Effect from "effect/Effect"
 import * as Logger from "effect/Logger"
 import * as Level from "effect/LogLevel"
 import * as Scope from "effect/Scope"
+import { installFluentRuntimeExtensions } from "@effect-app/fluent-extensions/runtime"
+import type * as Runtime from "effect/Runtime"
+import type * as Fiber from "effect/Fiber"
 
-const makeBasicRuntime = <R, E, A>(layer: Layer<R, E, A>) =>
+const makeBasicRuntime = <R, E, A>(layer: Layer.Layer<R, E, A>) =>
   Effect.gen(function*($) {
     const scope = yield* $(Scope.make())
-    const env = yield* $(layer.buildWithScope(scope))
+    const env = yield* $(Layer.buildWithScope(layer, scope))
     const runtime = yield* $(
-      pipe(Effect.runtime<A>(), Effect.scoped, Effect.provide(env))
+      Effect.runtime<A>().pipe(Effect.scoped, Effect.provide(env))
     )
 
     return {
       runtime,
-      clean: scope.close(Exit.unit)
+      clean: Scope.close(scope, Exit.unit)
     }
   })
 
@@ -55,38 +59,34 @@ export const basicLayer = Layer.mergeAll(
   Layer.setConfigProvider(envProviderConstantCase)
 )
 
-export const basicRuntime = Runtime.defaultRuntime.runSync(
-  makeBasicRuntime(basicLayer)
-)
+export const basicRuntime = Effect.runSync(makeBasicRuntime(basicLayer))
 
-/**
- * @tsplus getter effect/io/Effect runSync$
- */
-export const runSync = basicRuntime.runtime.runSync
+installFluentRuntimeExtensions(basicRuntime.runtime)
 
-/**
- * @tsplus getter effect/io/Effect runPromise$
- */
-export const runPromise = basicRuntime.runtime.runPromise
-
-/**
- * @tsplus getter effect/io/Effect runPromiseExit$
- */
-export const runPromiseExit = basicRuntime.runtime.runPromiseExit
-
-/**
- * @tsplus fluent effect/io/Effect runCallback$
- */
-export const runCallback = basicRuntime.runtime.runCallback
-
-const reportMainError = <E>(cause: Cause<E>) =>
+const reportMainError = <E>(cause: Cause.Cause<E>) =>
   Cause.isInterruptedOnly(cause) ? Effect.unit : reportError("Main")(cause)
 
-/** @tsplus getter effect/io/Effect runMain$ */
 export function runMain<E, A>(eff: Effect.Effect<never, E, A>) {
   return runMainPlatform(
     eff
-      .tapErrorCause(reportMainError)
-      .provide(basicLayer)
+      .pipe(
+        Effect.tapErrorCause(reportMainError),
+        Effect.provide(basicLayer)
+      )
   )
+}
+
+export type RT = typeof basicRuntime.runtime extends Runtime.Runtime<infer R> ? R : never
+
+declare module "effect/Effect" {
+  export interface Effect<R, E, A> {
+    // @ts-expect-error meh
+    get runPromise(this: Effect<RT, E, A>): Promise<A>
+    // @ts-expect-error meh
+    get runSync(this: Effect<RT, E, A>): A
+    runFork<E, A>(
+      this: Effect<RT, E, A>,
+      options?: Runtime.RunForkOptions,
+    ): Fiber.RuntimeFiber<E, A>
+  }
 }

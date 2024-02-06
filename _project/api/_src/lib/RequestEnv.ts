@@ -31,7 +31,7 @@ export type GetContext<Req> = AllowAnonymous<Req> extends true ? never
   // eslint-disable-next-line @typescript-eslint/ban-types
   : UserProfile
 
-const authConfig = Auth0Config.runSync$
+const authConfig = Auth0Config.runSync
 const EmptyLayer = Effect.unit.toLayerDiscard
 const fakeLogin = true
 
@@ -59,7 +59,7 @@ const UserAuthorizationLive = <Req extends RequestConfig>(request: Req) =>
           req.headers["authorization"]
         ))
         .exit
-        .runSync$
+        .runSync
       if (!r.isSuccess()) {
         yield* $(Effect.logWarning("Parsing userInfo failed").annotateLogs("r", r))
       }
