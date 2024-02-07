@@ -1,5 +1,4 @@
 /// <reference types="vitest" />
-import { defineConfig } from "vite"
-import makeConfig from "../../vite.config.base"
+import defineTestConfig from "../../vite.config.test"
 
-export default defineConfig(makeConfig(__dirname))
+export default defineTestConfig(__dirname, undefined, { useTransform: false })
