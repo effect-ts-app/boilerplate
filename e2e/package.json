@@ -5,8 +5,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "pretest": "pnpm build",
-    "test": "playwright test -c test-out",
+    "test": "playwright test",
     "test:watch": "playwright-watch test",
     "build": "tsc --build",
     "lint": "NODE_OPTIONS=--max-old-space-size=8192 ESLINT_TS=1 eslint .",
