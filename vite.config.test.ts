@@ -1,10 +1,15 @@
 /// <reference types="vitest" />
 import { effectPlugin } from "@effect-app/compiler/vitePlugin2"
 import fs from "fs"
+import path from "path"
 import AutoImport from "unplugin-auto-import/vite"
 import { defineConfig } from "vite"
 import type { UserConfig } from "vite"
 import makeConfig from "./vite.config.base"
+
+const pj = require("./package.json")
+
+const basePj = pj.name.replace("/root", "")
 
 export default function defineTestConfig(
   dirName?: string,
@@ -25,6 +30,11 @@ export default function defineTestConfig(
   if (useFullDist) {
     useDist = true
   }
+
+  const alias = (name: string) => ({
+    [basePj + "/" + name]: path.join(__dirname, `/_project/${name}/` + (useDist || useTransform ? "dist" : "_src"))
+  })
+
   const b = makeConfig(dirName, useDist, useTransform)
   // autoimport seems to work best, even if in some cases setting vitest/globals as types works.
   const autoImport = AutoImport({
@@ -55,9 +65,10 @@ export default function defineTestConfig(
       ],
     test: {
       ...b.test,
+      alias: ["api", "core", "messages", "resources", "models"].reduce((acc, cur) => ({ ...acc, ...alias(cur) }), {}),
       include: useFullDist
-        ? ["./dist/**/*.test.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"]
-        : ["./**/*.test.{ts,mts,cts,jsx,tsx}"],
+        ? ["./_test/**/*.test.{js,mjs,cjs,jsx}"]
+        : ["./_test/**/*.test.{ts,mts,cts,tsx}"],
       exclude: ["**/node_modules/**"]
     },
     watchExclude: ["**/node_modules/**"]
