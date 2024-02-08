@@ -20,8 +20,7 @@ export default function makeConfig(
       include: useDist ? ["./dist/**/*.test.js"] : ["./_src/**/*.test.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"],
       exclude: ["./_test/**/*"],
       reporters: "verbose",
-      globals: true,
-      deps: useDist ? { inline: [new RegExp(dirName + "/dist")] } : undefined
+      globals: true
     },
     resolve: dirName
       ? {

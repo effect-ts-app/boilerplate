@@ -10,9 +10,9 @@
       "@phaphoso/eslint-plugin-dprint@0.5.2": "patches/@phaphoso__eslint-plugin-dprint@0.5.2.patch",
       "date-fns@2.30.0": "patches/date-fns@2.30.0.patch",
       "fast-check@3.15.1": "patches/fast-check@3.15.1.patch",
-      "effect@2.2.3": "patches/effect@2.2.3.patch",
-      "@effect/schema@0.61.5": "patches/@effect__schema@0.61.5.patch",
-      "@fp-ts/optic@0.22.0": "patches/@fp-ts__optic@0.22.0.patch"
+      "@fp-ts/optic@0.22.0": "patches/@fp-ts__optic@0.22.0.patch",
+      "effect@2.2.5": "patches/effect@2.2.5.patch",
+      "@effect/schema@0.61.7": "patches/@effect__schema@0.61.7.patch"
     }
   },
   "scripts": {
@@ -80,18 +80,18 @@
     "@opentelemetry/semantic-conventions": "^1.21",
     "cross-env": "^7.0.3",
     "fast-check": "^3.15.1",
+    "package-up": "^5.0.0",
     "patch-package": "^8.0.0",
     "ts-node": "^10.9.2",
     "vite-node": "^1.2.2"
   },
   "devDependencies": {
-    "@babel/cli": "^7.23.9",
     "@dprint/typescript": "^0.88.10",
     "@effect-app/cli": "^0.43.0",
-    "@effect-app/eslint-codegen-model": "^0.44.0",
-    "@effect-app/prelude": "^0.145.2",
-    "@effect-app/core": "^0.122.0",
     "@effect-app/compiler": "^0.58.0",
+    "@effect-app/core": "^0.123.0",
+    "@effect-app/eslint-codegen-model": "^0.44.0",
+    "@effect-app/prelude": "^0.146.0",
     "@effect/language-service": "^0.0.19",
     "@phaphoso/eslint-plugin-dprint": "^0.5.2",
     "@tsconfig/strictest": "^2.0.2",
@@ -100,7 +100,6 @@
     "@typescript-eslint/eslint-plugin": "^6.21.0",
     "@typescript-eslint/parser": "^6.21.0",
     "@typescript-eslint/scope-manager": "^6.21.0",
-    "babel-plugin-replace-import-extension": "^1.1.4",
     "concurrently": "^8.2.2",
     "dprint": "^0.45.0",
     "enhanced-resolve": "^5.15.0",
@@ -125,7 +124,7 @@
     "typescript": "npm:@effect-app/typescript@5.4.0-tsplus.20240124",
     "typescript-transform-paths": "^3.4.6",
     "unplugin-auto-import": "^0.17.5",
-    "vite": "^5.0.12",
+    "vite": "^5.1.0",
     "vitest": "^1.2.2"
   }
 }
