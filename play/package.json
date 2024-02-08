@@ -4,9 +4,9 @@
   "license": "MIT",
   "type": "module",
   "dependencies": {
-    "@effect-app/core": "^0.122.0",
-    "@effect-app/schema": "^0.179.0",
-    "@effect-app/prelude": "^0.145.3",
+    "@effect-app/core": "^0.123.0",
+    "@effect-app/schema": "^0.180.0",
+    "@effect-app/prelude": "^0.146.0",
     "change-case": "^5.4.2",
     "cross-fetch": "^4.0.0",
     "path-parser": "^6.1.0"
@@ -29,7 +29,6 @@
   },
   "scripts": {
     "build": "pnpm clean-dist && NODE_OPTIONS=--max-old-space-size=8192 tsc --build",
-    "build2:cjs": "rm -rf _cjs && babel dist --config-file ../.babel.cjs.json --out-dir _cjs --out-file-extension .cjs --source-maps",
     "watch": "pnpm build --watch",
     "watch2": "pnpm clean-dist && NODE_OPTIONS=--max-old-space-size=8192 tsc -w",
     "clean": "rm -rf dist _test/dist _cjs",
