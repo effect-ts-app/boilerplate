@@ -56,23 +56,23 @@ const App = Effect
             _["usecasesMeControllers.Get"]
             // _["usecasesOperationsControllers.Find"]// TODO: how to mount unify these?
           ])
-          .pipe(HttpRouter.get("/events", MW.events))
-          .pipe(HttpRouter.use(RequestContextMiddleware))
+          .pipe(HttpRouter.get("/events", MW.events), HttpRouter.use(RequestContextMiddleware))
       ))
       // .zipLeft(RouteDescriptors.andThen((_) => _.get).andThen(writeOpenapiDocsI))
       .pipe(Effect.provideService(RouteDescriptors, Ref.unsafeMake<RouteDescriptorAny[]>([])))
 
     const serve = app
-      .andThen(MW.serverHealth(cfg.apiVersion))
-      .andThen(MW.cors())
-      // we trust proxy and handle the x-forwarded etc headers
-      .andThen(HttpMiddleware.xForwardedHeaders)
       .pipe(
+        Effect.map(MW.serverHealth(cfg.apiVersion)),
+        Effect.map(MW.cors()),
+        // we trust proxy and handle the x-forwarded etc headers
+        Effect.map(HttpMiddleware.xForwardedHeaders),
         Effect.zipLeft(
           Effect.logInfo(`Running on http://${cfg.host}:${cfg.port} at version: ${cfg.apiVersion}. ENV: ${cfg.env}`)
-        )
+        ),
+        Effect.map(HttpServer.serve(HttpMiddleware.logger)),
+        Layer.unwrapEffect
       )
-      .pipe(HttpServer.serve(HttpMiddleware.logger))
 
     const HttpLive = serve
       .pipe(
