@@ -11,7 +11,7 @@ const POOL_ID = process.env["VITEST_POOL_ID"]
 const PORT = 40000 + parseInt(POOL_ID ?? "1")
 
 const ApiLive = api
-  .provide(Layer.succeed(ApiPortTag, { port: PORT }))
+  .pipe(Layer.provide(Layer.succeed(ApiPortTag, { port: PORT })))
 
 const ApiConfigLive = Config
   .all({
@@ -28,14 +28,14 @@ const ApiConfigLive = Config
   .pipe(Layer.unwrapEffect)
 
 const appLayer = ApiLive
-  .provideMerge(
+  .pipe(Layer.provideMerge(
     Layer
       .mergeAll(
         basicLayer,
         ApiConfigLive,
         HttpClientNode.layer
       )
-  )
+  ))
 
 type LayerA<T> = T extends Layer.Layer<unknown, unknown, infer A> ? A : never
 type AppLayer = LayerA<typeof appLayer>
@@ -49,17 +49,17 @@ beforeAll(async () => {
   if (globalThis.runtime) return
   console.log(`[${POOL_ID}] Creating runtime`)
 
-  const appRuntime = <R, E, A>(layer: Layer<R, E, A>) =>
+  const appRuntime = <R, E, A>(layer: Layer.Layer<R, E, A>) =>
     Effect.gen(function*($) {
       const scope = yield* $(Scope.make())
-      const env = yield* $(layer.buildWithScope(scope))
+      const env = yield* $(Layer.buildWithScope(layer, scope))
       const runtime = yield* $(
-        Effect.runtime<A>().scoped.provide(env)
+        Effect.runtime<A>().pipe(Effect.scoped, Effect.provide(env))
       )
 
       return {
         runtime,
-        clean: scope.pipe(Scope.close)(Exit.unit)
+        clean: Scope.close(scope, Exit.unit)
       }
     })
 

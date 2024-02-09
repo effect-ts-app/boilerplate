@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/ban-types */
 import { Role } from "@effect-app-boilerplate/models/User"
-import type { AllowAnonymous, RequestConfig } from "@effect-app-boilerplate/resources/lib"
+
 import { HttpServerRequest } from "@effect-app/infra/api/http"
 import { JWTError, type RequestHandler } from "@effect-app/infra/api/routing"
 import type { RequestContext } from "@effect-app/infra/RequestContext"
@@ -15,6 +15,18 @@ import {
   makeUserProfileFromUserHeader,
   UserProfile
 } from "../services/UserProfile.js"
+
+// Workaround for the error when using
+// import type { AllowAnonymous, RequestConfig } from "@effect-app-boilerplate/resources/lib"
+import { Req as Req_ } from "@effect-app/schema/REST"
+
+export type RequestConfig = { allowAnonymous?: true; allowedRoles?: readonly Role[] }
+
+export type AllowAnonymous<A> = A extends { allowAnonymous: true } ? true : false
+
+export function Req<C extends RequestConfig>(config?: C) {
+  return Req_(config)
+}
 
 export interface CTX {
   context: RequestContext

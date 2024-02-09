@@ -13,10 +13,12 @@ const setup: any = setup_
 
 export const openapiRoutes = (url: string) => {
   const readOpenApiDoc = readTextFile("./openapi.json")
-    .andThen((_) => JSON.parse(_))
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    .andThen((_) => ({ ..._ as any, servers: [{ url }] }))
-    .pipe(Effect.orDie)
+    .pipe(
+      Effect.map((_) => JSON.parse(_)),
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      Effect.map((_) => ({ ..._ as any, servers: [{ url }] })),
+      Effect.orDie
+    )
 
   return Effect.all([
     Ex.get("/openapi.json", (_req, res) => readOpenApiDoc.andThen((js) => res.send(js)).pipe(Effect.asUnit)),
