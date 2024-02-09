@@ -4,7 +4,7 @@ import { Filters } from "@effect-app/infra/filter"
 import { NotFoundError } from "api/errors.js"
 import { UserRepo } from "../UserRepo.js"
 
-interface GetUserById extends EffectRequest<NotFoundError<"User">, User> {
+interface GetUserById extends EffectRequest<User, NotFoundError<"User">> {
   readonly _tag: "GetUserById"
   readonly id: UserId
 }

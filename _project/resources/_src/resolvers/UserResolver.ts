@@ -8,7 +8,7 @@ import { Effect, Exit, Request, RequestResolver } from "effect"
 import * as UsersRsc from "../Users.js"
 import { UserView } from "../Views/UserView.js"
 
-interface GetUserViewById extends EffectRequest<NotFoundError<"User">, UserView> {
+interface GetUserViewById extends EffectRequest<UserView, NotFoundError<"User">> {
   readonly _tag: "GetUserViewById"
   readonly id: UserId
 }
