@@ -26,7 +26,7 @@
     "dev:vite": "pnpm start:vite | ../../scripts/humanlog.sh",
     "start": "pnpm start:vite",
     "start:compiled": "node -r source-map-support/register ./dist/main.js",
-    "start:vite": "vite-node -r source-map-support/register ./_src/main.ts",
+    "start:vite": "vite-node ./_src/main.ts",
     "ncu": "ncu",
     "extract:i18n": "formatjs extract './**/*.ts' --ignore './**/*.d.ts' --format _src/i18n/extraction-formatter.cjs --id-interpolation-pattern '[sha512:contenthash:base64:6]' --out-file _src/i18n/extracted/en.json"
   },
