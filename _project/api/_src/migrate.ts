@@ -1,10 +1,10 @@
 import { FakeSendgrid } from "@effect-app/infra/services/Emailer/fake"
 import { Sendgrid } from "@effect-app/infra/services/Emailer/Sendgrid"
 import { ContextMapContainer } from "@effect-app/infra/services/Store/ContextMapContainer"
+import { StoreMakerLayer } from "@effect-app/infra/services/Store/index"
 import * as HttpClientNode from "@effect/platform-node/NodeHttpClient"
 import { Layer } from "effect"
 import { SendgridConfig, StorageConfig } from "./config.js"
-import { StoreMakerLayer } from "./services.js"
 
 export const RepoLive = StorageConfig
   .andThen(StoreMakerLayer)
