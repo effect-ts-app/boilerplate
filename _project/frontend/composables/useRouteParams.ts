@@ -23,7 +23,7 @@ export const useRouteParamsOption = <NER extends Record<string, S.Schema<any>>>(
   type Result = typeof result
   return typedKeysOf(result).reduce(
     (prev, cur) => {
-      prev[cur] = Option.getOrUndefined(result[cur])
+      prev[cur] = result[cur].value
       return prev
     },
     {} as Record<keyof Result, unknown>,

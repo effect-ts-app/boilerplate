@@ -5,6 +5,7 @@ import { runMain } from "@effect-app-boilerplate/messages/basicRuntime"
 import { api, devApi } from "@effect-app-boilerplate/api/api"
 import { setFaker } from "@effect-app/prelude/faker"
 import { faker } from "@faker-js/faker"
+import { Layer } from "effect"
 import { MergedConfig } from "./config.js"
 import { TracingLive } from "./observability.js"
 
@@ -14,7 +15,7 @@ const logConfig = MergedConfig.andThen((cfg) => console.debug(`Config: ${JSON.st
 
 const program = devApi
   .provide(api)
-  .provide(logConfig.toLayerDiscard)
+  .provide(logConfig.pipe(Layer.scopedDiscard))
   .provide(TracingLive)
 
 // NOTE: all dependencies should have been provided, for us to be able to run the program.

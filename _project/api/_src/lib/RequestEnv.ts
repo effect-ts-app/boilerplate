@@ -9,6 +9,7 @@ import { RequestContextContainer } from "@effect-app/infra/services/RequestConte
 import type { StructFields } from "@effect-app/schema"
 import { NotLoggedInError, UnauthorizedError } from "api/errors.js"
 import { Auth0Config, checkJWTI } from "api/middleware/auth.js"
+import { Effect, Layer, Option } from "effect"
 import {
   makeUserProfileFromAuthorizationHeader,
   makeUserProfileFromUserHeader,
@@ -32,10 +33,10 @@ export type GetContext<Req> = AllowAnonymous<Req> extends true ? never
   : UserProfile
 
 const authConfig = Auth0Config.runSync
-const EmptyLayer = Effect.unit.toLayerDiscard
+const EmptyLayer = Effect.unit.pipe(Layer.scopedDiscard)
 const fakeLogin = true
 
-const checkRoles = (request: any, userProfile: Option<UserProfile>) =>
+const checkRoles = (request: any, userProfile: Option.Option<UserProfile>) =>
   Effect.gen(function*($) {
     const userRoles = userProfile
       .map((_) => _.roles.includes("manager") ? [Role("manager"), Role("user")] : [Role("user")])
@@ -80,13 +81,12 @@ const UserAuthorizationLive = <Req extends RequestConfig>(request: Req) =>
       }
       return EmptyLayer
     })
-    .withSpan("middleware")
-    .unwrapLayer
+    .pipe(Effect.withSpan("middleware"), Layer.unwrapEffect)
 
 export const RequestEnv = <Req extends RequestConfig>(handler: { Request: Req }) =>
   Layer.mergeAll(UserAuthorizationLive(handler.Request))
 
-export type RequestEnv = Layer.Success<ReturnType<typeof RequestEnv>>
+export type RequestEnv = Layer.Layer.Success<ReturnType<typeof RequestEnv>>
 
 export function handleRequestEnv<
   R,
@@ -127,9 +127,11 @@ export function handleRequestEnv<
         Effect
           .all({
             context: RequestContextContainer.get,
-            userProfile: Effect.serviceOption(UserProfile).map((_) => _.getOrUndefined)
+            userProfile: Effect.serviceOption(UserProfile).andThen((_) => _.value)
           })
-          .flatMap((ctx) => (handler.h as (i: any, ctx: CTX) => Effect<ResA, ResE, R>)(pars, ctx as any /* TODO */))
+          .andThen((ctx) =>
+            (handler.h as (i: any, ctx: CTX) => Effect.Effect<ResA, ResE, R>)(pars, ctx as any /* TODO */)
+          )
     },
     makeRequestLayer: RequestEnv(handler)
   }

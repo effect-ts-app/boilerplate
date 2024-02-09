@@ -3,6 +3,7 @@ import { api, ApiPortTag } from "@effect-app-boilerplate/api/api"
 import { basicLayer } from "@effect-app-boilerplate/messages/basicRuntime"
 import { layer as LiveApiConfig } from "@effect-app/prelude/client/config"
 import * as HttpClientNode from "@effect/platform-node/NodeHttpClient"
+import { Config, Effect, Exit, Layer } from "effect"
 import type { Runtime } from "effect/Runtime"
 import * as Scope from "effect/Scope"
 
@@ -14,14 +15,17 @@ const ApiLive = api
 
 const ApiConfigLive = Config
   .all({
-    apiUrl: Config.string("apiUrl").withDefault("http://127.0.0.1:" + PORT),
+    apiUrl: Config.string("apiUrl").pipe(Config.withDefault("http://127.0.0.1:" + PORT)),
     headers: Config
-      .string()
-      .hashMap("headers")
-      .option
+      .hashMap(
+        Config
+          .string(),
+        "headers"
+      )
+      .pipe(Config.option)
   })
   .andThen(LiveApiConfig)
-  .unwrapLayer
+  .pipe(Layer.unwrapEffect)
 
 const appLayer = ApiLive
   .provideMerge(
@@ -33,7 +37,7 @@ const appLayer = ApiLive
       )
   )
 
-type LayerA<T> = T extends Layer<unknown, unknown, infer A> ? A : never
+type LayerA<T> = T extends Layer.Layer<unknown, unknown, infer A> ? A : never
 type AppLayer = LayerA<typeof appLayer>
 
 declare global {
@@ -55,7 +59,7 @@ beforeAll(async () => {
 
       return {
         runtime,
-        clean: scope.close(Exit.unit)
+        clean: scope.pipe(Scope.close)(Exit.unit)
       }
     })
 
@@ -69,7 +73,7 @@ beforeAll(async () => {
   const cleanup = () =>
     Effect
       .promise(() => runtime)
-      .flatMap((_) => _.clean)
+      .andThen((_) => _.clean)
       .runPromise
 
   globalThis.cleanup = cleanup

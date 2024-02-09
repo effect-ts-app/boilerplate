@@ -1,17 +1,16 @@
 import * as Ex from "@effect-app/infra-adapters/express"
 import { type RouteDescriptorAny } from "@effect-app/infra/api/express/schema/routing"
 // import { writeOpenapiDocsI } from "@effect-app/infra/api/writeDocs"
-import { HttpMiddleware, HttpRouter } from "@effect-app/infra/api/http"
 import { RouteDescriptors } from "@effect-app/infra/api/routing"
 import { RequestContextContainer } from "@effect-app/infra/services/RequestContextContainer"
 import { ContextMapContainer } from "@effect-app/infra/services/Store/ContextMapContainer"
-import * as HttpNode from "@effect/platform-node/Http/Server"
-import * as NodeContext from "@effect/platform-node/NodeContext"
-import * as HttpClientNode from "@effect/platform-node/NodeHttpClient"
-import * as HttpServer from "@effect/platform/Http/Server"
+import { NodeContext } from "@effect/platform-node"
 import { all } from "api/routes.js"
+import { Effect, Layer, Ref } from "effect"
+import { GenericTag } from "effect/Context"
 import { createServer } from "node:http"
 import { MergedConfig } from "./config.js"
+import { HttpClientNode, HttpMiddleware, HttpNode, HttpRouter, HttpServer } from "./lib/http.js"
 import * as MW from "./middleware/index.js"
 import { RequestContextMiddleware } from "./middleware/RequestContextMiddleware.js"
 import { Operations, UserRepo } from "./services.js"
@@ -23,16 +22,16 @@ export const devApi = MergedConfig
     const program = app
       .andThen(Effect.logInfo(`Running /docs and /swagger on http://${cfg.host}:${cfg.devPort}`))
     const services = Ex.LiveExpress(cfg.host, cfg.devPort)
-    return program.toLayerScopedDiscard.provide(services)
+    return program.pipe(Layer.scopedDiscard, Layer.provide(services))
   })
-  .unwrapLayer
+  .pipe(Layer.unwrapEffect)
 
 export const ApiPortTag = GenericTag<{ port: number }>("@services/ApiPortTag")
 
 const App = Effect
   .all([MergedConfig, Effect.serviceOption(ApiPortTag)])
   .andThen(([cfg, portOverride]) => {
-    if (portOverride.isSome()) cfg = { ...cfg, port: portOverride.value.port }
+    if (portOverride.value) cfg = { ...cfg, port: portOverride.value.port }
 
     const ServerLive = HttpNode.layer(() => {
       const s = createServer()
@@ -48,13 +47,13 @@ const App = Effect
     }, { port: cfg.port, host: cfg.host })
 
     const app = all
-      .map((_) =>
+      .andThen((_) =>
         HttpRouter
           .fromIterable(Object.values(_))
           .pipe(HttpRouter.get("/events", MW.events))
           .pipe(HttpRouter.use(RequestContextMiddleware))
       )
-      // .zipLeft(RouteDescriptors.flatMap((_) => _.get).flatMap(writeOpenapiDocsI))
+      // .zipLeft(RouteDescriptors.andThen((_) => _.get).andThen(writeOpenapiDocsI))
       .provideService(RouteDescriptors, Ref.unsafeMake<RouteDescriptorAny[]>([]))
 
     const serve = app
@@ -66,7 +65,7 @@ const App = Effect
         Effect.logInfo(`Running on http://${cfg.host}:${cfg.port} at version: ${cfg.apiVersion}. ENV: ${cfg.env}`)
       )
       .map(HttpServer.serve(HttpMiddleware.logger))
-      .unwrapLayer
+      .pipe(Layer.unwrapEffect)
 
     const HttpLive = serve
       .provide(ServerLive)
@@ -78,7 +77,7 @@ const App = Effect
 
     return HttpLive.provide(services)
   })
-  .unwrapLayer
+  .pipe(Layer.unwrapEffect)
 
 export const api = App.provide(
   Layer

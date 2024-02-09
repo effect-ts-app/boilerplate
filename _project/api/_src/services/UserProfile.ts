@@ -1,6 +1,8 @@
 import { Role } from "@effect-app-boilerplate/models/User"
 import { parseJwt } from "@effect-app/infra/api/express/schema/jwt"
+import { S } from "@effect-app/prelude"
 import { UserProfileId } from "@effect-app/prelude/ids"
+import { assignTag } from "@effect-app/prelude/service"
 
 /**
  * @tsplus type UserProfile
@@ -9,7 +11,7 @@ import { UserProfileId } from "@effect-app/prelude/ids"
 export class UserProfile extends assignTag<UserProfile>()(
   S.Class<UserProfile>()({
     sub: UserProfileId,
-    roles: S.array(Role).mapFrom("https://nomizz.com/roles").withDefault
+    roles: S.array(Role).pipe(S.mapFrom("https://nomizz.com/roles")).withDefault
   })
 ) {
 }
@@ -24,6 +26,6 @@ const userProfileFromJson = S.parseJson(UserProfile)
 const userProfileFromJWT = parseJwt(UserProfile)
 export const makeUserProfileFromAuthorizationHeader = (
   authorization: string | undefined
-) => userProfileFromJWT.decodeUnknown(authorization)
+) => S.decodeUnknown(userProfileFromJWT)(authorization)
 export const makeUserProfileFromUserHeader = (user: string | string[] | undefined) =>
-  userProfileFromJson.decodeUnknown(user)
+  S.decodeUnknown(userProfileFromJson)(user)

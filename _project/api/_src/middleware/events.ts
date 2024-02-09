@@ -1,6 +1,8 @@
 import { ClientEvents } from "@effect-app-boilerplate/resources"
-import { HttpHeaders, HttpServerResponse } from "@effect-app/infra/api/http"
+import { setupRequestContext } from "@effect-app/infra/api/setupRequest"
 import { reportError } from "@effect-app/infra/errorReporter"
+import { HttpHeaders, HttpServerResponse } from "api/lib/http.js"
+import { Duration, Effect, Schedule, Stream } from "effect"
 import { Events } from "../services/Events.js"
 
 export const events = Effect
@@ -12,18 +14,24 @@ export const events = Effect
     // Tell the client to retry every 10 seconds if connectivity is lost
     const setRetry = Stream.succeed("retry: 10000")
     const keepAlive = Stream.schedule(Effect.succeed(":keep-alive"), Schedule.fixed(Duration.seconds(15)))
-    const events = yield* $(Events.map(({ stream }) => stream))
+    const events = yield* $(Events.andThen(({ stream }) => stream))
 
     const stream = setRetry
-      .merge(keepAlive)
-      .merge(events.map((_) => `id: ${_.evt.id}\ndata: ${JSON.stringify(ClientEvents.encodeSync(_.evt))}`))
-      .map((_) => enc.encode(_ + "\n\n"))
+      .pipe(
+        Stream.merge(keepAlive),
+        Stream.merge(
+          events.pipe(Stream.map((_) => `id: ${_.evt.id}\ndata: ${JSON.stringify(ClientEvents.encodeSync(_.evt))}`))
+        ),
+        Stream.map((_) => enc.encode(_ + "\n\n"))
+      )
 
     const ctx = yield* $(Effect.context<never>())
     const res = HttpServerResponse.stream(
       stream
-        .tapErrorCause(reportError("Request"))
-        .provideContext(ctx),
+        .pipe(
+          Stream.tapErrorCause(reportError("Request")),
+          Stream.provideContext(ctx)
+        ),
       {
         contentType: "text/event-stream",
         headers: HttpHeaders.fromInput({
@@ -36,5 +44,4 @@ export const events = Effect
     )
     return res
   })
-  .tapErrorCause(reportError("Request"))
-  .setupRequestContext("events")
+  .pipe(Effect.tapErrorCause(reportError("Request")), (_) => setupRequestContext(_, "events"))

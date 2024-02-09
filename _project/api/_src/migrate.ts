@@ -2,11 +2,12 @@ import { Emailer } from "@effect-app/infra/services/Emailer/service"
 import { StoreMaker } from "@effect-app/infra/services/Store"
 import { ContextMapContainer } from "@effect-app/infra/services/Store/ContextMapContainer"
 import * as HttpClientNode from "@effect/platform-node/NodeHttpClient"
+import { Layer } from "effect"
 import { SendgridConfig, StorageConfig } from "./config.js"
 
 export const RepoLive = StorageConfig
   .andThen(StoreMaker.Layer)
-  .unwrapLayer
+  .pipe(Layer.unwrapEffect)
   .merge(ContextMapContainer.live)
 
 export const EmailerLive = SendgridConfig
@@ -15,6 +16,6 @@ export const EmailerLive = SendgridConfig
       ? Emailer.SendgridLayer(cfg)
       : Emailer.Fake
   )
-  .unwrapLayer
+  .pipe(Layer.unwrapEffect)
 
 export const Platform = HttpClientNode.layer

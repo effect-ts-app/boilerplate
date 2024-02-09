@@ -18,6 +18,7 @@ import {
   setupGlobalHub,
   wrapContextManagerClass
 } from "@sentry/opentelemetry"
+import { Effect, Layer } from "effect"
 import tcpPortUsed from "tcp-port-used"
 import { BaseConfig } from "./config.js"
 
@@ -99,7 +100,7 @@ const NodeSdkLive = Effect
 
     sdk.start()
   })
-  .toLayerScopedDiscard
+  .pipe(Layer.scopedDiscard)
 
 export const TracingLive = Tracer.layerGlobal.pipe(
   Layer.provide(NodeSdkLive),
