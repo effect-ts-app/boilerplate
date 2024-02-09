@@ -7,7 +7,7 @@ export interface BlogPostIdBrand {
 }
 export type BlogPostId = S.StringId & BlogPostIdBrand & `post-${string}`
 
-export class BlogPost extends S.ExtendedClass<BlogPost.From, BlogPost>()({
+export class BlogPost extends S.ExtendedClass<BlogPost, BlogPost.From>()({
   id: BlogPostId.withDefault,
   title: S.NonEmptyString255,
   body: S.NonEmptyString2k,

@@ -51,8 +51,8 @@ export const checkJWTI = (config: Effect.Success<typeof Auth0Config>) => {
           }
         }
       )
-    );
-  });
+    )
+  })
 }
 
 export const checkJwt = (config: Effect.Success<typeof Auth0Config>) => {

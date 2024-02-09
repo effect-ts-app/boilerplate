@@ -86,14 +86,14 @@ export class User extends S.ExtendedClass<User, User.From>()({
   get displayName() {
     return S.NonEmptyString2k(this.name.firstName + " " + this.name.lastName)
   }
-  static readonly resolver = Context.Tag<UserFromId, (userId: UserId) => Effect<never, never, User>>()
+  static readonly resolver = Context.GenericTag<UserFromId, (userId: UserId) => Effect<User>>("UserFromId")
 }
 
 export interface UserFromId {
   readonly _: unique symbol
 }
 
-export const UserFromId: Schema<UserFromId, string, User> = S.transformOrFail(
+export const UserFromId: Schema<User, string, UserFromId> = S.transformOrFail(
   UserId,
   S.to(User),
   (id) => User.resolver.andThen((_) => _(id)),

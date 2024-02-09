@@ -62,7 +62,7 @@ function handle<
     ResSchema,
     GetCTX<Req>,
     GetContext<Req>
-  >);
+  >)
 }
 
 export function matchFor<Rsc extends Record<string, any>>(
@@ -90,7 +90,7 @@ export function matchFor<Rsc extends Record<string, any>>(
     ) =>
     (req: any, ctx: any) =>
       allLower_(services)
-        .flatMap((svc2) => f(req, { ...ctx, ...svc2 as any, Response: rsc[action].Response }));
+        .flatMap((svc2) => f(req, { ...ctx, ...svc2 as any, Response: rsc[action].Response }))
   }
 
   type MatchWithServicesNew<Key extends keyof Rsc> = <
