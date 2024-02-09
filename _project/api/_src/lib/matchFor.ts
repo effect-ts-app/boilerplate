@@ -43,7 +43,7 @@ function handle<
   type Res = S.Schema.To<Extr<ResSchema>>
 
   return <R, E>(
-    h: (r: Req) => Effect<R, E, Res>
+    h: (r: Req) => Effect<Res, E, R>
   ) => ({
     adaptResponse,
     h,
@@ -62,7 +62,7 @@ function handle<
     ResSchema,
     GetCTX<Req>,
     GetContext<Req>
-  >)
+  >);
 }
 
 export function matchFor<Rsc extends Record<string, any>>(
@@ -86,11 +86,11 @@ export function matchFor<Rsc extends Record<string, any>>(
           LowerServices<EffectDeps<SVC>> & GetCTX<Req>,
           "flat"
         >
-      ) => Effect<R2, E, A>
+      ) => Effect<A, E, R2>
     ) =>
     (req: any, ctx: any) =>
       allLower_(services)
-        .flatMap((svc2) => f(req, { ...ctx, ...svc2 as any, Response: rsc[action].Response }))
+        .flatMap((svc2) => f(req, { ...ctx, ...svc2 as any, Response: rsc[action].Response }));
   }
 
   type MatchWithServicesNew<Key extends keyof Rsc> = <
@@ -109,22 +109,18 @@ export function matchFor<Rsc extends Record<string, any>>(
         LowerServices<EffectDeps<SVC>> & GetCTX<REST.GetRequest<Rsc[Key]>> & Pick<Rsc[Key], "Response">,
         "flat"
       >
-    ) => Effect<R2, E, A>
+    ) => Effect<A, E, R2>
   ) => (
     req: ReqFromSchema<REST.GetRequest<Rsc[Key]>>,
     ctx: GetCTX<REST.GetRequest<Rsc[Key]>>
-  ) => Effect<
-    ValuesR<EffectDeps<SVC>> | R2,
-    E | ValuesE<EffectDeps<SVC>>,
-    A
-  >
+  ) => Effect<A, E | ValuesE<EffectDeps<SVC>>, ValuesR<EffectDeps<SVC>> | R2>
 
   type Keys = keyof Omit<Rsc, "meta">
 
   type Handler<K extends keyof Rsc, R, Context extends CTX> = (
     req: ReqFromSchema<REST.GetRequest<Rsc[K]>>,
     ctx: Context
-  ) => Effect<R, SupportedErrors, ResFromSchema<REST.GetResponse<Rsc[K]>>>
+  ) => Effect<ResFromSchema<REST.GetResponse<Rsc[K]>>, SupportedErrors, R>
 
   const controllers = <
     THandlers extends {

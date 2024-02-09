@@ -1,7 +1,7 @@
 import { Emailer } from "@effect-app/infra/services/Emailer/service"
 import { StoreMaker } from "@effect-app/infra/services/Store"
 import { ContextMapContainer } from "@effect-app/infra/services/Store/ContextMapContainer"
-import * as HttpClientNode from "@effect/platform-node/HttpClient"
+import * as HttpClientNode from "@effect/platform-node/NodeHttpClient"
 import { SendgridConfig, StorageConfig } from "./config.js"
 
 export const RepoLive = StorageConfig
@@ -17,4 +17,4 @@ export const EmailerLive = SendgridConfig
   )
   .unwrapLayer
 
-export const Platform = HttpClientNode.client.layer
+export const Platform = HttpClientNode.layer

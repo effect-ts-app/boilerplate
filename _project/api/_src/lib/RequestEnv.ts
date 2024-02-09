@@ -137,10 +137,8 @@ export function handleRequestEnv<
             context: RequestContextContainer.get,
             userProfile: Effect.serviceOption(UserProfile).map((_) => _.getOrUndefined)
           })
-          .flatMap((ctx) =>
-            (handler.h as (i: any, ctx: CTX) => Effect<R, ResE, ResA>)(pars, ctx as any /* TODO */)
-              .provide(RequestCacheLayers)
-          )
+          .flatMap((ctx) => (handler.h as (i: any, ctx: CTX) => Effect<ResA, ResE, R>)(pars, ctx as any /* TODO */))
+          .provide(RequestCacheLayers)
     },
     makeRequestLayer: RequestEnv(handler)
   }

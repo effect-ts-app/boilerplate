@@ -87,14 +87,14 @@ export const useAndHandleMutation: {
     self: {
       handler: (
         i: I,
-      ) => Effect.Effect<ApiConfig | HttpClient.Client.Default, E, A>
+      ) => Effect.Effect<A, E, ApiConfig | HttpClient.Client.Default>
     },
     action: string,
     options?: { suppressErrorToast?: boolean },
   ): Resp<I, E, A>
   <E extends ResponseErrors, A>(
     self: {
-      handler: Effect.Effect<ApiConfig | HttpClient.Client.Default, E, A>
+      handler: Effect.Effect<A, E, ApiConfig | HttpClient.Client.Default>
     },
     action: string,
     options?: { suppressErrorToast?: boolean },
@@ -119,7 +119,7 @@ export const useAndHandleMutation: {
   )
 }
 export const useMutationWithState = <I, E, A>(self: {
-  handler: (i: I) => Effect.Effect<ApiConfig | HttpClient.Client.Default, E, A>
+  handler: (i: I) => Effect.Effect<A, E, ApiConfig | HttpClient.Client.Default>
 }) => {
   const [a, b] = useMutation(self)
 
@@ -144,12 +144,12 @@ export function makeUseAndHandleMutation(onSuccess: () => Promise<void>) {
     <I, E extends ResponseErrors, A>(
       self: (
         i: I,
-      ) => Effect.Effect<ApiConfig | HttpClient.Client.Default, E, A>,
+      ) => Effect.Effect<A, E, ApiConfig | HttpClient.Client.Default>,
       action: string,
       options?: { suppressErrorToast?: boolean },
     ): Resp<I, E, A>
     <E extends ResponseErrors, A>(
-      self: Effect.Effect<ApiConfig | HttpClient.Client.Default, E, A>,
+      self: Effect.Effect<A, E, ApiConfig | HttpClient.Client.Default>,
       action: string,
       options?: { suppressErrorToast?: boolean },
     ): ActResp<E, A>
@@ -161,7 +161,7 @@ export const withSuccess: {
     self: {
       handler: (
         i: I,
-      ) => Effect.Effect<ApiConfig | HttpClient.Client.Default, E, A>
+      ) => Effect.Effect<A, E, ApiConfig | HttpClient.Client.Default>
     },
     onSuccess: (_: A) => Promise<X>,
   ): {
@@ -171,7 +171,7 @@ export const withSuccess: {
   }
   <E extends ResponseErrors, A, X>(
     self: {
-      handler: Effect.Effect<ApiConfig | HttpClient.Client.Default, E, A>
+      handler: Effect.Effect<A, E, ApiConfig | HttpClient.Client.Default>
     },
     onSuccess: (_: A) => Promise<X>,
   ): { handler: Effect.Effect<ApiConfig | HttpClient.Client.Default, E, X> }
@@ -192,7 +192,7 @@ export function withSuccessE<I, E extends ResponseErrors, A, E2, X>(
   self: {
     handler: (
       i: I,
-    ) => Effect.Effect<ApiConfig | HttpClient.Client.Default, E, A>
+    ) => Effect.Effect<A, E, ApiConfig | HttpClient.Client.Default>
   },
   onSuccessE: (_: A) => Effect.Effect<never, E2, X>,
 ) {

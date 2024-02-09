@@ -6,8 +6,8 @@ import { RouteDescriptors } from "@effect-app/infra/api/routing"
 import { RequestContextContainer } from "@effect-app/infra/services/RequestContextContainer"
 import { ContextMapContainer } from "@effect-app/infra/services/Store/ContextMapContainer"
 import * as HttpNode from "@effect/platform-node/Http/Server"
-import * as HttpClientNode from "@effect/platform-node/HttpClient"
 import * as NodeContext from "@effect/platform-node/NodeContext"
+import * as HttpClientNode from "@effect/platform-node/NodeHttpClient"
 import * as HttpServer from "@effect/platform/Http/Server"
 import { all } from "api/routes.js"
 import { createServer } from "node:http"
@@ -27,7 +27,7 @@ export const devApi = MergedConfig
   })
   .unwrapLayer
 
-export const ApiPortTag = Tag<{ port: number }>()
+export const ApiPortTag = GenericTag<{ port: number }>("@services/ApiPortTag")
 
 const App = Effect
   .all([MergedConfig, Effect.serviceOption(ApiPortTag)])
@@ -85,7 +85,7 @@ export const api = App.provide(
     .mergeAll(
       ContextMapContainer.live,
       RequestContextContainer.live,
-      HttpClientNode.client.layer,
+      HttpClientNode.layer,
       UserRepo.Live,
       BlogPostRepo.Live
     )

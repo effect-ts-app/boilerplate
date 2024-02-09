@@ -14,7 +14,7 @@ export function itemUpdateWithEffect<
 >(
   repo: Repository<T, PM, Evt, ItemType>,
   id: T["id"],
-  mod: (item: T) => Effect<R, E, T>
+  mod: (item: T) => Effect<T, E, R>
 ) {
   return repo.get(id).flatMap(mod).flatMap(repo.save)
 }
