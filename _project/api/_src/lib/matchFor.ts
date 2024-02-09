@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/ban-types */
-import type { Compute } from "@effect-app/core/utils"
+import { type Compute, typedKeysOf } from "@effect-app/core/utils"
 import type {
   _E,
   _R,
@@ -14,10 +14,12 @@ import type {
   RouteMatch
 } from "@effect-app/infra/api/routing"
 import { defaultErrorHandler, match } from "@effect-app/infra/api/routing"
+import { S } from "@effect-app/prelude"
 import type { EffectUnunified, LowerServices, ValuesE, ValuesR } from "@effect-app/prelude/_ext/allLower"
 import { allLower_ } from "@effect-app/prelude/_ext/allLower"
 import type { SupportedErrors } from "@effect-app/prelude/client/errors"
 import { REST } from "@effect-app/prelude/schema"
+import type { Effect } from "effect"
 import { handleRequestEnv } from "./RequestEnv.js"
 import type { CTX, GetContext, GetCTX, RequestEnv } from "./RequestEnv.js"
 
@@ -43,7 +45,7 @@ function handle<
   type Res = S.Schema.To<Extr<ResSchema>>
 
   return <R, E>(
-    h: (r: Req) => Effect<Res, E, R>
+    h: (r: Req) => Effect.Effect<Res, E, R>
   ) => ({
     adaptResponse,
     h,
@@ -73,7 +75,7 @@ export function matchFor<Rsc extends Record<string, any>>(
     return <
       SVC extends Record<
         string,
-        Effect<any, any, any>
+        Effect.Effect<any, any, any>
       >,
       R2,
       E,
@@ -86,11 +88,11 @@ export function matchFor<Rsc extends Record<string, any>>(
           LowerServices<EffectDeps<SVC>> & GetCTX<Req>,
           "flat"
         >
-      ) => Effect<A, E, R2>
+      ) => Effect.Effect<A, E, R2>
     ) =>
     (req: any, ctx: any) =>
       allLower_(services)
-        .flatMap((svc2) => f(req, { ...ctx, ...svc2 as any, Response: rsc[action].Response }))
+        .andThen((svc2) => f(req, { ...ctx, ...svc2 as any, Response: rsc[action].Response }))
   }
 
   type MatchWithServicesNew<Key extends keyof Rsc> = <
@@ -109,18 +111,18 @@ export function matchFor<Rsc extends Record<string, any>>(
         LowerServices<EffectDeps<SVC>> & GetCTX<REST.GetRequest<Rsc[Key]>> & Pick<Rsc[Key], "Response">,
         "flat"
       >
-    ) => Effect<A, E, R2>
+    ) => Effect.Effect<A, E, R2>
   ) => (
     req: ReqFromSchema<REST.GetRequest<Rsc[Key]>>,
     ctx: GetCTX<REST.GetRequest<Rsc[Key]>>
-  ) => Effect<A, E | ValuesE<EffectDeps<SVC>>, ValuesR<EffectDeps<SVC>> | R2>
+  ) => Effect.Effect<A, E | ValuesE<EffectDeps<SVC>>, ValuesR<EffectDeps<SVC>> | R2>
 
   type Keys = keyof Omit<Rsc, "meta">
 
   type Handler<K extends keyof Rsc, R, Context extends CTX> = (
     req: ReqFromSchema<REST.GetRequest<Rsc[K]>>,
     ctx: Context
-  ) => Effect<ResFromSchema<REST.GetResponse<Rsc[K]>>, SupportedErrors, R>
+  ) => Effect.Effect<ResFromSchema<REST.GetResponse<Rsc[K]>>, SupportedErrors, R>
 
   const controllers = <
     THandlers extends {
@@ -129,7 +131,7 @@ export function matchFor<Rsc extends Record<string, any>>(
   >(
     controllers: THandlers
   ) => {
-    const handler = rsc.$$.keys.reduce((prev, cur) => {
+    const handler = typedKeysOf(rsc).reduce((prev, cur) => {
       if (cur === "meta") return prev
       const m = (rsc as any).meta as { moduleName: string }
       if (!m) throw new Error("Resource has no meta specified")
@@ -156,7 +158,7 @@ export function matchFor<Rsc extends Record<string, any>>(
 
   const r = {
     controllers,
-    ...rsc.$$.keys.reduce(
+    ...typedKeysOf(rsc).reduce(
       (prev, cur) => {
         ;(prev as any)[cur] = matchWithServices(cur)
         return prev
@@ -170,7 +172,7 @@ export function matchFor<Rsc extends Record<string, any>>(
 }
 
 function _matchAll<T extends RequestHandlers>(handlers: T) {
-  const mapped = handlers.$$.keys.reduce((prev, cur) => {
+  const mapped = typedKeysOf(handlers).reduce((prev, cur) => {
     const req = handlers[cur]!.Request
 
     class Request extends req {
@@ -194,9 +196,9 @@ function _matchAll<T extends RequestHandlers>(handlers: T) {
  */
 
 export function matchAll<T extends RequestHandlersTest>(handlers: T) {
-  const mapped = handlers.$$.keys.reduce((prev, cur) => {
+  const mapped = typedKeysOf(handlers).reduce((prev, cur) => {
     const matches = _matchAll(handlers[cur])
-    matches.$$.keys.forEach((key) => prev[`${cur as string}.${key as string}`] = matches[key])
+    typedKeysOf(matches).forEach((key) => prev[`${cur as string}.${key as string}`] = matches[key])
     return prev
   }, {} as any) as Flatten<RouteAllNested<typeof handlers>>
 

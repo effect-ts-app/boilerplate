@@ -1,10 +1,10 @@
 {
   "ignore": [],
-  "ext": "js,env,local",
+  "ext": "ts,js,env,local",
   "watch": [
-    "../*/dist/**/*",
+    "../*/_src/**/*",
     "../../libs/packages/*/dist/**/*",
-    "./dist",
+    "./_src/**/*",
     ".env",
     ".env.local"
   ],

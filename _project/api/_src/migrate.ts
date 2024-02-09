@@ -1,20 +1,21 @@
-import { Emailer } from "@effect-app/infra/services/Emailer/service"
-import { StoreMaker } from "@effect-app/infra/services/Store"
+import { FakeSendgrid } from "@effect-app/infra/services/Emailer/fake"
+import { Sendgrid } from "@effect-app/infra/services/Emailer/Sendgrid"
 import { ContextMapContainer } from "@effect-app/infra/services/Store/ContextMapContainer"
+import { StoreMakerLayer } from "@effect-app/infra/services/Store/index"
 import * as HttpClientNode from "@effect/platform-node/NodeHttpClient"
+import { Layer } from "effect"
 import { SendgridConfig, StorageConfig } from "./config.js"
 
 export const RepoLive = StorageConfig
-  .andThen(StoreMaker.Layer)
-  .unwrapLayer
-  .merge(ContextMapContainer.live)
+  .andThen(StoreMakerLayer)
+  .pipe(Layer.unwrapEffect, Layer.merge(ContextMapContainer.live))
 
 export const EmailerLive = SendgridConfig
   .andThen((cfg) =>
     cfg.apiKey
-      ? Emailer.SendgridLayer(cfg)
-      : Emailer.Fake
+      ? Sendgrid(cfg)
+      : FakeSendgrid
   )
-  .unwrapLayer
+  .pipe(Layer.unwrapEffect)
 
 export const Platform = HttpClientNode.layer

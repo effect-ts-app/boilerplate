@@ -1,6 +1,8 @@
 import { BlogPost } from "@effect-app-boilerplate/models/Blog"
 import { RepositoryDefaultImpl } from "@effect-app/infra/services/RepositoryBase"
+import { NonEmptyString255, NonEmptyString2k } from "@effect-app/prelude/schema"
 import { RepoLive } from "api/migrate.js"
+import { Effect, Layer } from "effect"
 import { UserRepo } from "./UserRepo.js"
 
 export interface BlogPostPersistenceModel extends BlogPost.From {
@@ -16,32 +18,28 @@ export type BlogPostSeed = "sample" | ""
 export class BlogPostRepo extends RepositoryDefaultImpl<BlogPostRepo>()<BlogPostPersistenceModel>()(
   "BlogPost",
   BlogPost
-) {}
-
-/**
- * @tsplus static BlogPostRepo.Ops Live
- */
-export const LiveBlogPostRepo = Effect
-  .sync(() => {
-    const seed = "sample"
-    const makeInitial = seed === "sample"
-      ? UserRepo
-        .andThen((userRepo) => userRepo.all)
-        .andThen((users) =>
-          users
-            .flatMap((_) => [_, _])
-            .map((user, i) =>
-              new BlogPost({
-                title: NonEmptyString255("Test post " + i),
-                body: NonEmptyString2k("imma test body"),
-                author: user
-              }, true)
-            )
-        )
-      : Effect.succeed([])
-    return BlogPostRepo
-      .makeWith({ makeInitial }, (_) => new BlogPostRepo(_))
-      .toLayer(BlogPostRepo)
-  })
-  .unwrapLayer
-  .provide(Layer.mergeAll(RepoLive, UserRepo.Live, UserRepo.UserFromIdLayer))
+) {
+  static readonly Live = Effect
+    .sync(() => {
+      const seed = "sample"
+      const makeInitial = seed === "sample"
+        ? UserRepo
+          .andThen((userRepo) => userRepo.all)
+          .andThen((users) =>
+            users
+              .flatMap((_) => [_, _])
+              .map((user, i) =>
+                new BlogPost({
+                  title: NonEmptyString255("Test post " + i),
+                  body: NonEmptyString2k("imma test body"),
+                  author: user
+                }, true)
+              )
+          )
+        : Effect.succeed([])
+      return BlogPostRepo
+        .makeWith({ makeInitial }, (_) => new BlogPostRepo(_))
+        .pipe(Layer.effect(BlogPostRepo))
+    })
+    .pipe(Layer.unwrapEffect, Layer.provide(Layer.mergeAll(RepoLive, UserRepo.Live, UserRepo.UserFromIdLayer)))
+}

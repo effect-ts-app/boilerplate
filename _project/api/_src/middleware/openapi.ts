@@ -1,6 +1,8 @@
 import * as Ex from "@effect-app/infra-adapters/express"
 import { readTextFile } from "@effect-app/infra-adapters/fileUtil"
 import type { NextHandleFunction } from "connect"
+import { Effect } from "effect"
+import type { NonEmptyArray } from "effect/ReadonlyArray"
 import redoc from "redoc-express"
 import { serve as serve_, setup as setup_ } from "swagger-ui-express"
 
@@ -11,13 +13,15 @@ const setup: any = setup_
 
 export const openapiRoutes = (url: string) => {
   const readOpenApiDoc = readTextFile("./openapi.json")
-    .map((_) => JSON.parse(_))
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    .map((_) => ({ ..._ as any, servers: [{ url }] }))
-    .orDie
+    .pipe(
+      Effect.map((_) => JSON.parse(_)),
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      Effect.map((_) => ({ ..._ as any, servers: [{ url }] })),
+      Effect.orDie
+    )
 
   return Effect.all([
-    Ex.get("/openapi.json", (_req, res) => readOpenApiDoc.map((js) => res.send(js)).asUnit),
+    Ex.get("/openapi.json", (_req, res) => readOpenApiDoc.andThen((js) => res.send(js)).pipe(Effect.asUnit)),
     Ex.get(
       "/docs",
       Ex.classic(
@@ -32,7 +36,7 @@ export const openapiRoutes = (url: string) => {
     Ex.get(
       "/swagger",
       (req, res, next) =>
-        readOpenApiDoc.flatMap((docs) =>
+        readOpenApiDoc.andThen((docs) =>
           Effect.sync(() => setup(docs, { swaggerOptions: { url: "./openapi.json" } })(req, res, next))
         )
     )

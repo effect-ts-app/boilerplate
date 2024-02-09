@@ -4,8 +4,6 @@
   "type": "module",
   "pnpm": {
     "patchedDependencies": {
-      "@effect/language-service@0.0.19": "patches/@effect__language-service@0.0.19.patch",
-      "@typescript-eslint/scope-manager@6.21.0": "patches/@typescript-eslint__scope-manager@6.21.0.patch",
       "eslint-plugin-codegen@0.17.0": "patches/eslint-plugin-codegen@0.17.0.patch",
       "@phaphoso/eslint-plugin-dprint@0.5.2": "patches/@phaphoso__eslint-plugin-dprint@0.5.2.patch",
       "date-fns@2.30.0": "patches/date-fns@2.30.0.patch",
@@ -82,8 +80,8 @@
     "fast-check": "^3.15.1",
     "package-up": "^5.0.0",
     "patch-package": "^8.0.0",
-    "ts-node": "^10.9.2",
-    "vite-node": "^1.2.2"
+    "vite-node": "^1.2.2",
+    "vite-tsconfig-paths": "^4.3.1"
   },
   "devDependencies": {
     "@dprint/typescript": "^0.89.0",
@@ -91,8 +89,7 @@
     "@effect-app/compiler": "^0.61.0",
     "@effect-app/core": "^0.126.0",
     "@effect-app/eslint-codegen-model": "^0.45.0",
-    "@effect-app/prelude": "^0.149.4",
-    "@effect/language-service": "^0.0.19",
+    "@effect-app/prelude": "^0.149.5",
     "@phaphoso/eslint-plugin-dprint": "^0.5.2",
     "@tsconfig/strictest": "^2.0.3",
     "@types/lodash": "^4.14.202",
@@ -121,7 +118,7 @@
     "ts-transform-paths": "^3.0.0",
     "tsc-watch": "^6.0.4",
     "tsconfig-paths": "^4.2.0",
-    "typescript": "npm:@effect-app/typescript@5.4.0-tsplus.20240124",
+    "typescript": "^5.3.3",
     "typescript-transform-paths": "^3.4.6",
     "unplugin-auto-import": "^0.17.5",
     "vite": "^5.1.1",

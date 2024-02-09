@@ -1,7 +1,11 @@
 import { BlogPost } from "@effect-app-boilerplate/models/Blog"
 import { BlogRsc } from "@effect-app-boilerplate/resources"
 import { BogusEvent } from "@effect-app-boilerplate/resources/Events"
-import { BlogPostRepo, Events, Operations, UserRepo } from "api/services.js"
+import { get, save } from "@effect-app/infra/services/Repository"
+import { NonNegativeInt } from "@effect-app/prelude/schema"
+import { matchFor } from "api/lib/matchFor.js"
+import { BlogPostRepo, Events, forkOperationWithEffect, Operations, UserRepo } from "api/services.js"
+import { Duration, Effect, Schedule } from "effect"
 
 const blog = matchFor(BlogRsc)
 
@@ -10,12 +14,12 @@ const FindPost = blog.FindPost(
   (req, { blogPostRepo }) =>
     blogPostRepo
       .find(req.id)
-      .map((_) => _.getOrNull)
+      .andThen((_) => _.value ?? null)
 )
 
 const GetPosts = blog.GetPosts(
   { BlogPostRepo },
-  (_, { blogPostRepo }) => blogPostRepo.all.map((items) => ({ items }))
+  (_, { blogPostRepo }) => blogPostRepo.all.andThen((items) => ({ items }))
 )
 
 const CreatePost = blog.CreatePost(
@@ -23,15 +27,15 @@ const CreatePost = blog.CreatePost(
   (req, { blogPostRepo, userRepo }) =>
     userRepo
       .getCurrentUser
-      .map((author) => (new BlogPost({ ...req, author }, true)))
-      .tap(blogPostRepo.save)
+      .andThen((author) => (new BlogPost({ ...req, author }, true)))
+      .tap(save(blogPostRepo))
 )
 
 const PublishPost = blog.PublishPost(
   { BlogPostRepo, Events, Operations },
   (req, { blogPostRepo, events, operations }) =>
-    Do(($) => {
-      const post = $(blogPostRepo.get(req.id))
+    Effect.gen(function*($) {
+      const post = yield* $(get(blogPostRepo, req.id))
 
       console.log("publishing post", post)
 
@@ -43,8 +47,8 @@ const PublishPost = blog.PublishPost(
 
       const done: string[] = []
 
-      const operationId = $(
-        Effect.forkOperationWithEffect(
+      const operationId = yield* $(
+        forkOperationWithEffect(
           (opId) =>
             operations
               .update(opId, {
@@ -61,14 +65,14 @@ const PublishPost = blog.PublishPost(
                         completed: NonNegativeInt(done.length)
                       })
                     )
-                    .delay(Duration.seconds(4))
+                    .pipe(Effect.delay(Duration.seconds(4)))
                 ))
-              .map(() => "the answer to the universe is 41"),
+              .andThen(() => "the answer to the universe is 41"),
           // while operation is running...
           (_opId) =>
             Effect
               .suspend(() => events.publish(new BogusEvent()))
-              .schedule(Schedule.spaced(Duration.seconds(1)))
+              .pipe(Effect.schedule(Schedule.spaced(Duration.seconds(1))))
         )
       )
 
