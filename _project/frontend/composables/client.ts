@@ -50,7 +50,11 @@ export {
   refreshAndWaitForOperationP,
 } from "@effect-app-boilerplate/resources/lib/operations"
 
-type ResponseErrors = SupportedErrors | FetchError | ResponseError
+type ResponseErrors =
+  | S.ParseResult.ParseError
+  | SupportedErrors
+  | FetchError
+  | ResponseError
 
 export function pauseWhileProcessing(
   iv: Pausable,
@@ -168,7 +172,7 @@ export const withSuccess: {
         i: I,
       ) => Effect.Effect<A, E, ApiConfig | HttpClient.Client.Default>
     },
-    onSuccess: (_: A) => Promise<X>,
+    onSuccess: (a: A, i: I) => Promise<X>,
   ): {
     handler: (
       i: I,
@@ -184,12 +188,19 @@ export const withSuccess: {
   ...self,
   handler:
     typeof self.handler === "function"
-      ? flow(
-          self.handler as (
-            i: any,
-          ) => Effect.Effect<ApiConfig | HttpClient.Client.Default, any, any>,
-          Effect.flatMap(_ => Effect.promise(() => onSuccess(_))),
-        )
+      ? (i: any) =>
+          pipe(
+            (
+              self.handler as (
+                i: any,
+              ) => Effect.Effect<
+                ApiConfig | HttpClient.Client.Default,
+                any,
+                any
+              >
+            )(i),
+            Effect.flatMap(_ => Effect.promise(() => onSuccess(_, i))),
+          )
       : Effect.flatMap(self.handler, _ => Effect.promise(() => onSuccess(_))),
 })
 
@@ -199,14 +210,15 @@ export function withSuccessE<I, E extends ResponseErrors, A, E2, X>(
       i: I,
     ) => Effect.Effect<A, E, ApiConfig | HttpClient.Client.Default>
   },
-  onSuccessE: (_: A) => Effect.Effect<X, E2>,
+  onSuccessE: (_: A, i: I) => Effect.Effect<X, E2>,
 ) {
   return {
     ...self,
-    handler: flow(
-      self.handler,
-      Effect.flatMap(_ => onSuccessE(_)),
-    ),
+    handler: (i: any) =>
+      pipe(
+        self.handler(i),
+        Effect.flatMap(_ => onSuccessE(_, i)),
+      ),
   }
 }
 
@@ -318,9 +330,7 @@ export function handleRequestWithToast<
                 )
             : Promise.resolve(
                 !options.suppressErrorToast &&
-                  toast.error(
-                    `${errorMessage}:\n` + renderError(r.left, message),
-                  ),
+                  toast.error(`${errorMessage}:\n` + renderError(r.left)),
               )
                 // eslint-disable-next-line @typescript-eslint/no-empty-function
                 .then(_ => {}),
@@ -355,7 +365,7 @@ export function handleRequestWithToast<
   )
 }
 
-export function renderError(e: ResponseErrors, action: string): string {
+export function renderError(e: ResponseErrors): string {
   return Matcher.value(e).pipe(
     Matcher.tags({
       HttpErrorRequest: e =>
@@ -380,7 +390,6 @@ export function renderError(e: ResponseErrors, action: string): string {
           : intl.value.formatMessage(
               { id: "handle.unexpected_error" },
               {
-                action,
                 error:
                   JSON.stringify(e.response.body, undefined, 2) +
                   "( " +
@@ -393,13 +402,15 @@ export function renderError(e: ResponseErrors, action: string): string {
           { id: "handle.response_error" },
           { error: `${e.error}` },
         ),
+      ParseError: () => {
+        return intl.value.formatMessage({ id: "validation.failed" })
+      },
     }),
     Matcher.orElse(e =>
       intl.value.formatMessage(
         { id: "handle.unexpected_error" },
         {
-          action,
-          error: `${e.message ?? e._tag}`,
+          error: `${e.message ?? e._tag ?? e}`,
         },
       ),
     ),
