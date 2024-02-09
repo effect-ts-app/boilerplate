@@ -57,7 +57,7 @@ const App = Effect
         const hm = unifyRoute(routes as any as typeof routes[number])
         return HttpRouter
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          .fromIterable(_ as any as typeof hm[])
+          .fromIterable(routes as any as typeof hm[])
           .pipe(HttpRouter.get("/events", MW.events), HttpRouter.use(RequestContextMiddleware))
       }))
       // .zipLeft(RouteDescriptors.andThen((_) => _.get).andThen(writeOpenapiDocsI))
