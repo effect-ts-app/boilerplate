@@ -54,17 +54,17 @@ const App = Effect
           .pipe(HttpRouter.use(RequestContextMiddleware))
       )
       // .zipLeft(RouteDescriptors.andThen((_) => _.get).andThen(writeOpenapiDocsI))
-      .provideService(RouteDescriptors, Ref.unsafeMake<RouteDescriptorAny[]>([]))
+      .pipe(Effect.provideService(RouteDescriptors, Ref.unsafeMake<RouteDescriptorAny[]>([])))
 
     const serve = app
-      .map(MW.serverHealth(cfg.apiVersion))
-      .map(MW.cors())
+      .andThen(MW.serverHealth(cfg.apiVersion))
+      .andThen(MW.cors())
       // we trust proxy and handle the x-forwarded etc headers
-      .map((_) => _.xForwardedHeaders)
-      .zipLeft(
+      .andThen(HttpMiddleware.xForwardedHeaders)
+      .pipe(Effect.zipLeft(
         Effect.logInfo(`Running on http://${cfg.host}:${cfg.port} at version: ${cfg.apiVersion}. ENV: ${cfg.env}`)
-      )
-      .map(HttpServer.serve(HttpMiddleware.logger))
+      ))
+      .andThen(HttpServer.serve(HttpMiddleware.logger))
       .pipe(Layer.unwrapEffect)
 
     const HttpLive = serve
