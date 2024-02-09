@@ -7,9 +7,7 @@ import {
 import type { S } from "~~/utils/prelude"
 import { Option } from "~~/utils/prelude"
 
-export const useRouteParams = <
-  NER extends Record<string, S.Schema<never, any, any>>,
->(
+export const useRouteParams = <NER extends Record<string, S.Schema<any>>>(
   t: NER, // enforce non empty
 ) => {
   const r = useRoute()
@@ -17,9 +15,7 @@ export const useRouteParams = <
   return result
 }
 
-export const useRouteParamsOption = <
-  NER extends Record<string, S.Schema<never, any, any>>,
->(
+export const useRouteParamsOption = <NER extends Record<string, S.Schema<any>>>(
   t: NER, // enforce non empty
 ) => {
   const r = useRoute()

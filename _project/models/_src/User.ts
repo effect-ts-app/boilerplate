@@ -35,10 +35,7 @@ export type LastName = Schema.To<typeof LastName>
 /**
  * @tsplus type FullName
  */
-export class FullName extends S.ExtendedClass<
-  FullName.From,
-  FullName
->()({
+export class FullName extends S.ExtendedClass<FullName, FullName.From>()({
   firstName: FirstName,
   lastName: LastName
 }) {
@@ -75,7 +72,7 @@ export type Role = Schema.To<typeof Role>
  * @tsplus type User
  * @tsplus companion User
  */
-export class User extends S.ExtendedClass<User.From, User>()({
+export class User extends S.ExtendedClass<User, User.From>()({
   id: UserId.withDefault,
   name: FullName,
   email: S.Email,

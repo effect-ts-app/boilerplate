@@ -29,7 +29,7 @@ export const checkJWTI = (config: Effect.Success<typeof Auth0Config>) => {
     const req = yield* $(HttpServerRequest)
 
     return yield* $(
-      Effect.async<never, InsufficientScopeError | InvalidRequestError | InvalidTokenError | UnauthorizedError, void>(
+      Effect.async<void, InsufficientScopeError | InvalidRequestError | InvalidTokenError | UnauthorizedError>(
         (cb) => {
           const next = (err?: unknown) => {
             if (!err) return cb(Effect.unit)
@@ -51,8 +51,8 @@ export const checkJWTI = (config: Effect.Success<typeof Auth0Config>) => {
           }
         }
       )
-    )
-  })
+    );
+  });
 }
 
 export const checkJwt = (config: Effect.Success<typeof Auth0Config>) => {
