@@ -1,10 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { flow, pipe, tuple } from "@effect-app/prelude/Function"
-import type {
-  ApiConfig,
-  FetchError,
-  ResponseError,
-  SupportedErrors,
+import {
+  Done,
+  Refreshing,
+  type ApiConfig,
+  type FetchError,
+  type ResponseError,
+  type SupportedErrors,
+  type QueryResult,
 } from "@effect-app/prelude/client"
 import type { MutationResult } from "@effect-app/vue"
 import { useMutation } from "@effect-app/vue"
@@ -18,10 +21,12 @@ import {
 } from "@vueuse/core"
 import type { ComputedRef } from "vue"
 import type { Either, HttpClient } from "@/utils/prelude"
-import { Effect, Matcher } from "@/utils/prelude"
+import { Effect, Matcher, Option } from "@/utils/prelude"
 import { Cause } from "effect"
 import { useToast } from "vue-toastification"
 import { intl } from "./intl"
+import { isFailed } from "@effect-app/prelude/client"
+import { S } from "@effect-app/prelude"
 
 export { useToast } from "vue-toastification"
 
@@ -43,7 +48,7 @@ export {
   refreshAndWaitAForOperationP,
   refreshAndWaitForOperation,
   refreshAndWaitForOperationP,
-} from "@effect-app-boilerplate/resources/lib"
+} from "@effect-app-boilerplate/resources/lib/operations"
 
 type ResponseErrors = SupportedErrors | FetchError | ResponseError
 
@@ -167,14 +172,14 @@ export const withSuccess: {
   ): {
     handler: (
       i: I,
-    ) => Effect.Effect<ApiConfig | HttpClient.Client.Default, E, X>
+    ) => Effect.Effect<X, E, ApiConfig | HttpClient.Client.Default>
   }
   <E extends ResponseErrors, A, X>(
     self: {
       handler: Effect.Effect<A, E, ApiConfig | HttpClient.Client.Default>
     },
     onSuccess: (_: A) => Promise<X>,
-  ): { handler: Effect.Effect<ApiConfig | HttpClient.Client.Default, E, X> }
+  ): { handler: Effect.Effect<X, E, ApiConfig | HttpClient.Client.Default> }
 } = (self: any, onSuccess: any): any => ({
   ...self,
   handler:
@@ -194,7 +199,7 @@ export function withSuccessE<I, E extends ResponseErrors, A, E2, X>(
       i: I,
     ) => Effect.Effect<A, E, ApiConfig | HttpClient.Client.Default>
   },
-  onSuccessE: (_: A) => Effect.Effect<never, E2, X>,
+  onSuccessE: (_: A) => Effect.Effect<X, E2>,
 ) {
   return {
     ...self,
@@ -417,4 +422,56 @@ function parseError(e: string) {
   } catch {
     return "There was an error trying to parse the error response"
   }
+}
+
+function orPrevious<E, A>(result: QueryResult<E, A>) {
+  return isFailed(result) && result.previous.value !== undefined
+    ? result._tag === "Done"
+      ? Done.succeed(result.previous.value)
+      : Refreshing.succeed(result.previous.value)
+    : result
+}
+
+export function composeQueries<R extends Record<string, QueryResult<any, any>>>(
+  results: R,
+  renderPreviousOnFailure?: boolean,
+): QueryResult<
+  {
+    [Property in keyof R]: R[Property] extends QueryResult<infer E, any>
+      ? E
+      : never
+  }[keyof R],
+  {
+    [Property in keyof R]: R[Property] extends QueryResult<any, infer A>
+      ? A
+      : never
+  }
+> {
+  const values = renderPreviousOnFailure
+    ? Object.values(results).map(orPrevious)
+    : Object.values(results)
+  const error = values.find(isFailed)
+  if (error) {
+    return error as any // TODO
+  }
+  const initial = values.findFirstMap(x =>
+    x._tag === "Initial" ? Option.some(x) : Option.none,
+  )
+  if (initial.value !== undefined) {
+    return initial.value
+  }
+  const loading = values.findFirstMap(x =>
+    x._tag === "Loading" ? Option.some(x) : Option.none,
+  )
+  if (loading.value !== undefined) {
+    return loading.value
+  }
+
+  const isRefreshing = values.some(x => x._tag === "Refreshing")
+
+  const r = Object.entries(results).reduce((prev, [key, value]) => {
+    prev[key] = (value as any).current.right
+    return prev
+  }, {} as any)
+  return isRefreshing ? Refreshing.succeed(r) : Done.succeed(r)
 }
