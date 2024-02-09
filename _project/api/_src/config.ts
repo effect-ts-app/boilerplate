@@ -8,8 +8,7 @@ const STORAGE_VERSION = "1"
 export const StorageConfig = Config.all({
   url: secretURL("url")
     .pipe(
-      Config
-        .pipe(Config.withDefault(SecretURL.fromString("disk://.data"))),
+      Config.withDefault(SecretURL.fromString("disk://.data")),
       Config.nested("storage")
     ),
   dbName: BaseConfig.pipe(

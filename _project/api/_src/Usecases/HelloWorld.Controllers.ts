@@ -1,5 +1,7 @@
 import { User } from "@effect-app-boilerplate/models/User"
 import { HelloWorldRsc } from "@effect-app-boilerplate/resources"
+import { generateFromArbitrary } from "@effect-app/infra/test.arbs"
+import { S } from "@effect-app/prelude"
 import { matchFor } from "api/lib/matchFor.js"
 import { UserRepo } from "api/services.js"
 import { Effect } from "effect"
@@ -22,7 +24,7 @@ const Get = helloWorld.Get(
           context,
           echo,
           currentUser: user,
-          randomUser: User.Arbitrary.generate.value
+          randomUser: generateFromArbitrary(S.A.make(User)).value
         })
       )
 )

@@ -79,7 +79,8 @@ const App = Effect
   })
   .pipe(Layer.unwrapEffect)
 
-export const api = App.provide(
+export const api = Layer.provide(
+  App,
   Layer
     .mergeAll(
       ContextMapContainer.live,

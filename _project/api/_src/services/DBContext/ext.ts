@@ -2,6 +2,8 @@ import type { Repository } from "@effect-app/infra/services/Repository"
 import type { PersistenceModelType } from "@effect-app/infra/services/Store"
 import { Effect } from "effect"
 
+import * as Repo from "@effect-app/infra/services/Repository"
+
 /**
  * @tsplus fluent Repository updateWithEffect
  */
@@ -17,7 +19,7 @@ export function itemUpdateWithEffect<
   id: T["id"],
   mod: (item: T) => Effect.Effect<T, E, R>
 ) {
-  return repo.get(id).andThen(mod).andThen(repo.save)
+  return Repo.get(repo, id).andThen(mod).andThen(Repo.save(repo))
 }
 
 /**

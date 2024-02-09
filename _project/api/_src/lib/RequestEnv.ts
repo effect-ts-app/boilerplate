@@ -9,7 +9,7 @@ import { RequestContextContainer } from "@effect-app/infra/services/RequestConte
 import type { StructFields } from "@effect-app/schema"
 import { NotLoggedInError, UnauthorizedError } from "api/errors.js"
 import { Auth0Config, checkJWTI } from "api/middleware/auth.js"
-import { Effect, Layer, Option } from "effect"
+import { Effect, Exit, Layer, Option } from "effect"
 import {
   makeUserProfileFromAuthorizationHeader,
   makeUserProfileFromUserHeader,
@@ -51,7 +51,7 @@ const UserAuthorizationLive = <Req extends RequestConfig>(request: Req) =>
   Effect
     .gen(function*($) {
       if (!fakeLogin && !request.allowAnonymous) {
-        yield* $(checkJWTI(authConfig).catchAll((err) => Effect.fail(new JWTError({ error: err }))))
+        yield* $(Effect.catchAll(checkJWTI(authConfig), (err) => Effect.fail(new JWTError({ error: err }))))
       }
       const req = yield* $(HttpServerRequest)
       const r = (fakeLogin
@@ -59,12 +59,12 @@ const UserAuthorizationLive = <Req extends RequestConfig>(request: Req) =>
         : makeUserProfileFromAuthorizationHeader(
           req.headers["authorization"]
         ))
-        .exit
+        .pipe(Effect.exit)
         .runSync
-      if (!r.isSuccess()) {
-        yield* $(Effect.logWarning("Parsing userInfo failed").annotateLogs("r", r))
+      if (!Exit.isSuccess(r)) {
+        yield* $(Effect.logWarning("Parsing userInfo failed").pipe(Effect.annotateLogs("r", r)))
       }
-      const userProfile = Option.fromNullable(r.isSuccess() ? r.value : undefined)
+      const userProfile = Option.fromNullable(Exit.isSuccess(r) ? r.value : undefined)
 
       const rcc = yield* $(RequestContextContainer)
       yield* $(rcc.update((_): RequestContext => ({ ..._, userProfile: userProfile.value })))
