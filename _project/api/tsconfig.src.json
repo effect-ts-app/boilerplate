@@ -18,18 +18,7 @@
     "types": [
       "./types/modules"
     ],
-    "outDir": "./dist",
-    // "transformers": [
-    //   // Transform paths in output .js files
-    //   {
-    //     "name": "ts-transform-paths"
-    //   },
-    //   // Transform paths in output .d.ts files (Include this line if you output declarations files)
-    //   {
-    //     "name": "ts-transform-paths",
-    //     "position": "afterDeclaration"
-    //   }
-    // ]
+    "outDir": "./dist"
   },
   "include": [
     "./_src/**/*.ts"
