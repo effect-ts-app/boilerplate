@@ -87,6 +87,12 @@ export const confirm = (typeof window !== "undefined"
   ? window.confirm
   : undefined) as any as (message?: string | undefined) => boolean
 
+interface Opts<A> {
+  suppressErrorToast?: boolean
+  suppressSuccessToast?: boolean
+  successToast?: (a: A) => any
+}
+
 /**
  * Pass a function that returns an Effect, e.g from a client action, give it a name, and optionally pass an onSuccess callback.
  * Returns a tuple with state ref and execution function which reports errors as Toast.
@@ -99,14 +105,14 @@ export const useAndHandleMutation: {
       ) => Effect.Effect<A, E, ApiConfig | HttpClient.Client.Default>
     },
     action: string,
-    options?: { suppressErrorToast?: boolean },
+    options?: Opts<A>,
   ): Resp<I, E, A>
   <E extends ResponseErrors, A>(
     self: {
       handler: Effect.Effect<A, E, ApiConfig | HttpClient.Client.Default>
     },
     action: string,
-    options?: { suppressErrorToast?: boolean },
+    options?: Opts<A>,
   ): ActResp<E, A>
 } = (self: any, action: any, options: any) => {
   const [a, b] = useMutation({
@@ -155,12 +161,12 @@ export function makeUseAndHandleMutation(onSuccess: () => Promise<void>) {
         i: I,
       ) => Effect.Effect<A, E, ApiConfig | HttpClient.Client.Default>,
       action: string,
-      options?: { suppressErrorToast?: boolean },
+      options?: Opts<A>,
     ): Resp<I, E, A>
     <E extends ResponseErrors, A>(
       self: Effect.Effect<A, E, ApiConfig | HttpClient.Client.Default>,
       action: string,
-      options?: { suppressErrorToast?: boolean },
+      options?: Opts<A>,
     ): ActResp<E, A>
   }
 }
@@ -271,10 +277,7 @@ function mutationResultToVue<E, A>(
   }
 }
 
-const messages: Record<string, string | undefined> = {
-  Drucken: "An Drucker geschickt",
-  "Problem melden": "Problem gemeldet",
-}
+const messages: Record<string, string | undefined> = {}
 
 /**
  * Pass a function that returns a Promise.
@@ -287,7 +290,7 @@ export function handleRequestWithToast<
 >(
   f: (...args: Args) => Promise<Either.Either<E, A>>,
   action: string,
-  options: { suppressErrorToast?: boolean } = { suppressErrorToast: false },
+  options: Opts<A> = { suppressErrorToast: false },
 ) {
   const toast = useToast()
   const message = messages[action] ?? action
