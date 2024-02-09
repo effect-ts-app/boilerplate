@@ -18,6 +18,7 @@ import {
   setupGlobalHub,
   wrapContextManagerClass
 } from "@sentry/opentelemetry"
+import { Effect, Layer, Secret } from "effect"
 import tcpPortUsed from "tcp-port-used"
 import { BaseConfig } from "./config.js"
 
@@ -51,7 +52,7 @@ const NodeSdkLive = Effect
     }
 
     Sentry.init({
-      dsn: appConfig.sentry.dsn.value,
+      dsn: Secret.value(appConfig.sentry.dsn),
       environment: appConfig.env,
       enabled: isRemote,
       release: appConfig.apiVersion,
@@ -99,7 +100,7 @@ const NodeSdkLive = Effect
 
     sdk.start()
   })
-  .toLayerScopedDiscard
+  .pipe(Layer.scopedDiscard)
 
 export const TracingLive = Tracer.layerGlobal.pipe(
   Layer.provide(NodeSdkLive),

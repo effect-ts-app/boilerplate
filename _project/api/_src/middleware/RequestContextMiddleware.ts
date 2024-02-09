@@ -1,12 +1,16 @@
-import { HttpMiddleware, HttpServerRequest } from "@effect-app/infra/api/http"
+import { setupRequestContext } from "@effect-app/infra/api/setupRequest"
 import { RequestContext } from "@effect-app/infra/RequestContext"
+import { S } from "@effect-app/prelude"
 import { RequestId } from "@effect-app/prelude/ids"
+import { NonEmptyString255 } from "@effect-app/prelude/schema"
+import { HttpMiddleware, HttpServerRequest, HttpServerResponse } from "api/lib/http.js"
+import { Effect } from "effect"
 
 export const RequestContextMiddleware = HttpMiddleware.make((app) =>
   Effect.gen(function*($) {
-    const req = yield* $(HttpServerRequest)
+    const req = yield* $(HttpServerRequest.ServerRequest)
 
-    const currentSpan = yield* $(Effect.currentSpan.orDie)
+    const currentSpan = yield* $(Effect.currentSpan.pipe(Effect.orDie))
     const parent = currentSpan?.parent ? currentSpan.parent.value : undefined
     const start = new Date()
     const supported = ["en", "de"] as const
@@ -20,11 +24,11 @@ export const RequestContextMiddleware = HttpMiddleware.make((app) =>
     const rootId = parent?.spanId
       ? RequestId(parent.spanId)
       : requestId
-      ? RequestId.decodeUnknownSync(requestId)
+      ? S.decodeUnknownSync(RequestId)(requestId)
       : RequestId.make()
 
     const storeId = req.headers["x-store-id"]
-    const namespace = NonEmptyString255((storeId && (Array.isArray(storeId) ? storeId[0] : storeId)) || "primary")
+    const namespace = S.NonEmptyString255((storeId && (Array.isArray(storeId) ? storeId[0] : storeId)) || "primary")
 
     const requestContext = new RequestContext({
       id: currentSpan?.spanId ? RequestId(currentSpan.spanId) : RequestId.make(),
@@ -34,8 +38,10 @@ export const RequestContextMiddleware = HttpMiddleware.make((app) =>
       createdAt: start,
       namespace
     })
-    const res = yield* $(app.setupRequestContext(requestContext))
+    const res = yield* $(setupRequestContext(app, requestContext))
 
-    return res.setHeaders({ "request-id": requestContext.rootId, "Content-Language": requestContext.locale })
+    return res.pipe(
+      HttpServerResponse.setHeaders({ "request-id": requestContext.rootId, "Content-Language": requestContext.locale })
+    )
   })
 )

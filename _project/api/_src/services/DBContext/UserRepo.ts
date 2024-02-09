@@ -1,12 +1,17 @@
 import { User } from "@effect-app-boilerplate/models/User"
 import { NotLoggedInError } from "@effect-app/infra/errors"
 import { RepositoryDefaultImpl } from "@effect-app/infra/services/RepositoryBase"
-import { generate } from "@effect-app/infra/test.arbs"
+import { generate, generateFromArbitrary } from "@effect-app/infra/test.arbs"
+import { S } from "@effect-app/prelude"
 import { fakerArb } from "@effect-app/prelude/faker"
+import { Email } from "@effect-app/prelude/schema"
 import { RepoConfig } from "api/config.js"
 import { RepoLive } from "api/migrate.js"
+import { Effect, Layer, Option, ReadonlyArray } from "effect"
 import fc from "fast-check"
 import { UserProfile } from "../UserProfile.js"
+
+import * as Repo from "@effect-app/infra/services/Repository"
 
 export interface UserPersistenceModel extends User.From {
   _etag: string | undefined
@@ -28,7 +33,7 @@ export class UserRepo extends RepositoryDefaultImpl<UserRepo>()<UserPersistenceM
       const fakeUsers = ReadonlyArray
         .range(1, 8)
         .map((_, i): User => {
-          const g = User.Arbitrary.generate.value
+          const g = generateFromArbitrary(S.A.make(User)).value
           const emailArb = fakerArb((_) => () =>
             _
               .internet
@@ -41,29 +46,27 @@ export class UserRepo extends RepositoryDefaultImpl<UserRepo>()<UserPersistenceM
           })
         })
         .toNonEmpty
-        .match({
-          onNone: () => {
-            throw new Error("must have fake users")
-          },
-          onSome: (_) => _
-        })
+        .pipe(Option
+          .match({
+            onNone: () => {
+              throw new Error("must have fake users")
+            },
+            onSome: (_) => _
+          }))
       const makeInitial = Effect.sync(() => {
         const items = seed === "sample" ? fakeUsers : []
         return items
       })
       return UserRepo
         .makeWith({ makeInitial }, (_) => new UserRepo(_))
-        .toLayer(UserRepo)
+        .pipe(Layer.effect(UserRepo))
     })
-    .unwrapLayer
-    .provide(RepoLive)
-}
+    .pipe(Layer.unwrapEffect, Layer.provide(RepoLive))
 
-/**
- * @tsplus getter UserRepo getCurrentUser
- */
-export function getCurrentUser(repo: UserRepo) {
-  return Effect.serviceOption(UserProfile).andThen((_) => _.encaseInEffect(() => new NotLoggedInError())).flatMap((_) =>
-    repo.get(_.sub)
-  )
+  get getCurrentUser() {
+    return Effect
+      .serviceOption(UserProfile)
+      .andThen((_) => _.pipe(Effect.mapError(() => new NotLoggedInError())))
+      .andThen((_) => Repo.get(this, _.sub))
+  }
 }

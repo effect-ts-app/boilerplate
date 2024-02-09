@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable unused-imports/no-unused-vars */
-import { HttpHeaders, HttpMiddleware, HttpServerRequest, HttpServerResponse } from "@effect-app/infra/api/http"
+import { HttpHeaders, HttpMiddleware, HttpServerRequest, HttpServerResponse } from "api/lib/http.js"
+import { Config, Effect } from "effect"
 import {
   auth,
   InsufficientScopeError,
@@ -13,20 +14,23 @@ import {
 // // exist and be verified against the Auth0 JSON Web Key Set.
 
 export const Auth0Config = Config.all({
-  audience: Config.string("audience").nested("auth0").withDefault("http://localhost:3610"),
-  issuer: Config.string("issuer").nested("auth0").withDefault("https://effect-app-boilerplate-dev.eu.auth0.com")
+  audience: Config.string("audience").pipe(Config.nested("auth0"), Config.withDefault("http://localhost:3610")),
+  issuer: Config.string("issuer").pipe(
+    Config.nested("auth0"),
+    Config.withDefault("https://effect-app-boilerplate-dev.eu.auth0.com")
+  )
 })
 
 // type Errors = InsufficientScopeError | InvalidRequestError | InvalidTokenError | UnauthorizedError
 
-export const checkJWTI = (config: Effect.Success<typeof Auth0Config>) => {
+export const checkJWTI = (config: Effect.Effect.Success<typeof Auth0Config>) => {
   const mw = auth({
     audience: config.audience,
     issuer: config.issuer + "/",
     jwksUri: `${config.issuer}/.well-known/jwks.json`
   })
   return Effect.gen(function*($) {
-    const req = yield* $(HttpServerRequest)
+    const req = yield* $(HttpServerRequest.ServerRequest)
 
     return yield* $(
       Effect.async<void, InsufficientScopeError | InvalidRequestError | InvalidTokenError | UnauthorizedError>(
@@ -55,18 +59,17 @@ export const checkJWTI = (config: Effect.Success<typeof Auth0Config>) => {
   })
 }
 
-export const checkJwt = (config: Effect.Success<typeof Auth0Config>) => {
+export const checkJwt = (config: Effect.Effect.Success<typeof Auth0Config>) => {
   const check = checkJWTI(config)
   return HttpMiddleware.make((app) =>
     Effect.gen(function*($) {
-      const response = yield* $(check.catchAll((e) =>
+      const response = yield* $(Effect.catchAll(check, (e) =>
         Effect.succeed(
           HttpServerResponse.unsafeJson({ message: e.message }, {
             status: e.status,
             headers: HttpHeaders.fromInput(e.headers)
           })
-        )
-      ))
+        )))
       if (response) {
         return response
       }

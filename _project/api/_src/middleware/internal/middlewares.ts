@@ -10,15 +10,14 @@ import { NotLoggedInError } from "@effect-app/infra/errors"
 import * as Middleware from "@effect/platform/Http/Middleware"
 import * as ServerRequest from "@effect/platform/Http/ServerRequest"
 import * as ServerResponse from "@effect/platform/Http/ServerResponse"
-import type * as Middlewares from "../Middlewares.js"
-
-import { HttpBody, HttpHeaders, HttpServerResponse } from "@effect-app/infra/api/http"
+import { HttpBody, HttpHeaders, HttpServerResponse } from "api/lib/http.js"
 import * as Effect from "effect/Effect"
 import * as Either from "effect/Either"
 import * as FiberRef from "effect/FiberRef"
 import { pipe } from "effect/Function"
 import * as HashMap from "effect/HashMap"
 import * as Metric from "effect/Metric"
+import type * as Middlewares from "../Middlewares.js"
 
 export const accessLog = (level: "Info" | "Warning" | "Debug" = "Info") =>
   Middleware.make((app) =>
@@ -88,7 +87,10 @@ export const errorLog = Middleware.make((app) =>
  * @tsplus fluent NotLoggedInError toServerResponse
  */
 export const toServerResponse = (err: NotLoggedInError) =>
-  HttpServerResponse.empty().setStatus(401).setBody(HttpBody.unsafeJson({ message: err.message }))
+  HttpServerResponse.empty().pipe(
+    HttpServerResponse.setStatus(401),
+    HttpServerResponse.setBody(HttpBody.unsafeJson({ message: err.message }))
+  )
 
 export const basicAuth = <R, _>(
   checkCredentials: (
@@ -112,26 +114,29 @@ export const basicAuth = <R, _>(
       const authHeader = request.headers[headerName.toLowerCase()]
 
       if (authHeader === undefined) {
-        return new NotLoggedInError(
-          `Expected header ${headerName}`
+        return toServerResponse(
+          new NotLoggedInError(
+            `Expected header ${headerName}`
+          )
         )
-          .toServerResponse()
       }
 
       const authorizationParts = authHeader.split(" ")
 
       if (authorizationParts.length !== 2) {
-        return new NotLoggedInError(
-          "Incorrect auhorization scheme. Expected \"Basic <credentials>\""
+        return toServerResponse(
+          new NotLoggedInError(
+            "Incorrect auhorization scheme. Expected \"Basic <credentials>\""
+          )
         )
-          .toServerResponse()
       }
 
       if (authorizationParts[0] !== "Basic") {
-        return new NotLoggedInError(
-          `Incorrect auhorization type. Expected "Basic", got "${authorizationParts[0]}"`
+        return toServerResponse(
+          new NotLoggedInError(
+            `Incorrect auhorization type. Expected "Basic", got "${authorizationParts[0]}"`
+          )
         )
-          .toServerResponse()
       }
 
       const credentialsBuffer = Buffer.from(authorizationParts[1]!, "base64")
@@ -139,10 +144,11 @@ export const basicAuth = <R, _>(
       const credentialsParts = credentialsText.split(":")
 
       if (credentialsParts.length !== 2) {
-        return new NotLoggedInError(
-          "Incorrect basic auth credentials format. Expected base64 encoded \"<user>:<pass>\"."
+        return toServerResponse(
+          new NotLoggedInError(
+            "Incorrect basic auth credentials format. Expected base64 encoded \"<user>:<pass>\"."
+          )
         )
-          .toServerResponse()
       }
 
       const check = yield* _(
@@ -154,7 +160,7 @@ export const basicAuth = <R, _>(
       )
 
       if (Either.isLeft(check)) {
-        return check.left.toServerResponse()
+        return toServerResponse(check.left)
       }
 
       return yield* _(app)

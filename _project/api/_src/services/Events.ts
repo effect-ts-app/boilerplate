@@ -1,12 +1,14 @@
 import type { ClientEvents } from "@effect-app-boilerplate/resources"
 import { storeId } from "@effect-app/infra/services/Store/Memory"
-import { PubSub } from "effect"
+import { TagClassMake } from "@effect-app/prelude/service"
+import { Effect, FiberRef, PubSub, Stream } from "effect"
+import type { NonEmptyReadonlyArray } from "effect/ReadonlyArray"
 
 const makeEvents = Effect.gen(function*($) {
   const q = yield* $(PubSub.unbounded<{ evt: ClientEvents; namespace: string }>())
   const svc = {
     publish: (...evts: NonEmptyReadonlyArray<ClientEvents>) =>
-      storeId.get.flatMap((namespace) => q.offerAll(evts.map((evt) => ({ evt, namespace })))),
+      storeId.pipe(FiberRef.get).andThen((namespace) => q.offerAll(evts.map((evt) => ({ evt, namespace })))),
     subscribe: q.subscribe,
     stream: Stream.fromPubSub(q)
   }

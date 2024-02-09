@@ -1,4 +1,4 @@
-import { HttpMiddleware, HttpRouter, HttpServerResponse } from "@effect-app/infra/api/http"
+import { HttpMiddleware, HttpRouter, HttpServerResponse } from "api/lib/http.js"
 
 export function serverHealth(version: string) {
   return HttpRouter.get(
