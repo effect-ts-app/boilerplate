@@ -5,27 +5,14 @@
             "esnext",
             "DOM"
         ],
-        //        "tsPlusGlobalFiles": [
-        //            "./_src/_global.ts"
-        //        ],
-        "tsPlusConfig": "../../tsplus.config.json",
         "moduleResolution": "Node16",
         "outDir": "./dist",
         "rootDir": "./_src",
-        "tsBuildInfoFile": "./dist/.tsbuildinfo",
-        "tsPlusEnabled": false
+        "tsBuildInfoFile": "./dist/.tsbuildinfo"
     },
     "include": [
         "./_src/**/*.ts"
     ],
-    "ts-node": {
-        "require": [
-            "tsconfig-paths/register"
-        ],
-        "compilerOptions": {
-            "module": "CommonJS"
-        }
-    },
     "references": [
         {
             "path": "../models"
