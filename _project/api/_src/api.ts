@@ -1,6 +1,7 @@
 import * as Ex from "@effect-app/infra-adapters/express"
 // import { writeOpenapiDocsI } from "@effect-app/infra/api/writeDocs"
 import type { RouteDescriptorAny } from "@effect-app/infra/api/express/schema/routing"
+import { unifyRoute } from "@effect-app/infra/api/http"
 import { RouteDescriptors } from "@effect-app/infra/api/routing"
 import { Live as OperationsLive } from "@effect-app/infra/services/Operations/live"
 import { RequestContextContainer } from "@effect-app/infra/services/RequestContextContainer"
@@ -49,15 +50,16 @@ const App = Effect
     }, { port: cfg.port, host: cfg.host })
 
     const app = all
-      .pipe(Effect.map((_) =>
-        HttpRouter
-          .fromIterable([
-            _["usecasesHelloWorldControllers.Get"],
-            _["usecasesMeControllers.Get"]
-            // _["usecasesOperationsControllers.Find"]// TODO: how to mount unify these?
-          ])
+      .pipe(Effect.map((_) => {
+        const routes = Object.values(_)
+        // TODO: unify properly
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const hm = unifyRoute(routes as any as typeof routes[number])
+        return HttpRouter
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          .fromIterable(_ as any as typeof hm[])
           .pipe(HttpRouter.get("/events", MW.events), HttpRouter.use(RequestContextMiddleware))
-      ))
+      }))
       // .zipLeft(RouteDescriptors.andThen((_) => _.get).andThen(writeOpenapiDocsI))
       .pipe(Effect.provideService(RouteDescriptors, Ref.unsafeMake<RouteDescriptorAny[]>([])))
 
