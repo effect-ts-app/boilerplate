@@ -1,7 +1,6 @@
 import * as Ex from "@effect-app/infra-adapters/express"
 // import { writeOpenapiDocsI } from "@effect-app/infra/api/writeDocs"
 import type { RouteDescriptorAny } from "@effect-app/infra/api/express/schema/routing"
-import { unifyRoute } from "@effect-app/infra/api/http"
 import { RouteDescriptors } from "@effect-app/infra/api/routing"
 import { Live as OperationsLive } from "@effect-app/infra/services/Operations/live"
 import { RequestContextContainer } from "@effect-app/infra/services/RequestContextContainer"
@@ -12,7 +11,7 @@ import { Effect, Layer, Ref } from "effect"
 import { GenericTag } from "effect/Context"
 import { createServer } from "node:http"
 import { MergedConfig } from "./config.js"
-import { HttpClientNode, HttpMiddleware, HttpNode, HttpRouter, HttpServer } from "./lib/http.js"
+import { fromArray, HttpClientNode, HttpMiddleware, HttpNode, HttpRouter, HttpServer } from "./lib/http.js"
 import * as MW from "./middleware/index.js"
 import { RequestContextMiddleware } from "./middleware/index.js"
 import { BlogPostRepo, UserRepo } from "./services.js"
@@ -52,12 +51,7 @@ const App = Effect
     const app = all
       .pipe(Effect.map((_) => {
         const routes = Object.values(_)
-        // TODO: unify properly
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const hm = unifyRoute(routes as any as typeof routes[number])
-        return HttpRouter
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          .fromIterable(routes as any as typeof hm[])
+        return fromArray(routes)
           .pipe(HttpRouter.get("/events", MW.events), HttpRouter.use(RequestContextMiddleware))
       }))
       // .zipLeft(RouteDescriptors.andThen((_) => _.get).andThen(writeOpenapiDocsI))
