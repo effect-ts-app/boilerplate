@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/ban-types */
+import type { EffectUnunified, LowerServices, ValuesE, ValuesR } from "@effect-app/core/Effect"
+import { allLower_ } from "@effect-app/core/Effect"
 import { type Compute, typedKeysOf } from "@effect-app/core/utils"
 import type {
   _E,
@@ -15,8 +17,6 @@ import type {
 } from "@effect-app/infra/api/routing"
 import { defaultErrorHandler, match } from "@effect-app/infra/api/routing"
 import { S } from "@effect-app/prelude"
-import type { EffectUnunified, LowerServices, ValuesE, ValuesR } from "@effect-app/prelude/_ext/allLower"
-import { allLower_ } from "@effect-app/prelude/_ext/allLower"
 import type { SupportedErrors } from "@effect-app/prelude/client/errors"
 import { REST } from "@effect-app/prelude/schema"
 import type { Effect } from "effect"

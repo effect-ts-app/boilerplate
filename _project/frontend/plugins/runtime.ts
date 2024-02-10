@@ -27,7 +27,7 @@ function makeRuntime(feVersion: string, isRemote: boolean) {
         ),
       ),
     ),
-    makeApiLayers({ apiUrl: "/api/api", headers: Option.none }),
+    makeApiLayers({ apiUrl: "/api/api", headers: Option.none() }),
   )
 
   const rt: {

@@ -469,13 +469,13 @@ export function composeQueries<R extends Record<string, QueryResult<any, any>>>(
     return error as any // TODO
   }
   const initial = values.findFirstMap(x =>
-    x._tag === "Initial" ? Option.some(x) : Option.none,
+    x._tag === "Initial" ? Option.some(x) : Option.none(),
   )
   if (initial.value !== undefined) {
     return initial.value
   }
   const loading = values.findFirstMap(x =>
-    x._tag === "Loading" ? Option.some(x) : Option.none,
+    x._tag === "Loading" ? Option.some(x) : Option.none(),
   )
   if (loading.value !== undefined) {
     return loading.value
