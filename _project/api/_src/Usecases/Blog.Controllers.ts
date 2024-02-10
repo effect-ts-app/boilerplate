@@ -1,7 +1,6 @@
 import { BlogPost } from "@effect-app-boilerplate/models/Blog"
 import { BlogRsc } from "@effect-app-boilerplate/resources"
 import { BogusEvent } from "@effect-app-boilerplate/resources/Events"
-import { get, save } from "@effect-app/infra/services/Repository"
 import { NonNegativeInt } from "@effect-app/prelude/schema"
 import { matchFor } from "api/lib/matchFor.js"
 import { BlogPostRepo, Events, forkOperationWithEffect, Operations, UserRepo } from "api/services.js"
@@ -28,14 +27,14 @@ const CreatePost = blog.CreatePost(
     userRepo
       .getCurrentUser
       .andThen((author) => (new BlogPost({ ...req, author }, true)))
-      .tap(save(blogPostRepo))
+      .tap(blogPostRepo.save)
 )
 
 const PublishPost = blog.PublishPost(
   { BlogPostRepo, Events, Operations },
   (req, { blogPostRepo, events, operations }) =>
     Effect.gen(function*($) {
-      const post = yield* $(get(blogPostRepo, req.id))
+      const post = yield* $(blogPostRepo.get(req.id))
 
       console.log("publishing post", post)
 

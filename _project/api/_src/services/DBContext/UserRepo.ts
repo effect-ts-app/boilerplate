@@ -2,7 +2,6 @@ import type { UserId } from "@effect-app-boilerplate/models/User"
 import { User } from "@effect-app-boilerplate/models/User"
 import { NotFoundError, NotLoggedInError } from "@effect-app/infra/errors"
 import { Filters } from "@effect-app/infra/filter"
-import * as Repo from "@effect-app/infra/services/Repository"
 import { RepositoryDefaultImpl } from "@effect-app/infra/services/RepositoryBase"
 import { generate, generateFromArbitrary } from "@effect-app/infra/test.arbs"
 import { S } from "@effect-app/prelude"
@@ -85,7 +84,7 @@ export class UserRepo extends RepositoryDefaultImpl<UserRepo>()<UserPersistenceM
     return Effect
       .serviceOption(UserProfile)
       .andThen((_) => _.pipe(Effect.mapError(() => new NotLoggedInError())))
-      .andThen((_) => Repo.get(this, _.sub))
+      .andThen((_) => this.get(_.sub))
   }
 }
 
@@ -99,8 +98,8 @@ const getUserByIdResolver = RequestResolver
   .makeBatched((requests: GetUserById[]) =>
     UserRepo.pipe(
       Effect.andThen((_) =>
-        Repo
-          .query(_, { filter: UserRepo.where((_) => _("id", Filters.in(...requests.map((_) => _.id)))) })
+        _
+          .query({ filter: UserRepo.where((_) => _("id", Filters.in(...requests.map((_) => _.id)))) })
           .andThen((users) =>
             requests.forEachEffect(
               (r) =>
