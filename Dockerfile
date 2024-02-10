@@ -7,6 +7,8 @@ RUN apk update --no-cache && apk add --no-cache cups cups-filters avahi inotify-
 
 WORKDIR /app
 
+ENV NODE_ENV production
+
 # pnpm fetch does require only lockfile
 COPY patches ./patches
 COPY pnpm-lock.yaml .npmrc ./
@@ -34,7 +36,6 @@ COPY _project/api/dist ./_project/api/dist
 #COPY data ./data
 
 WORKDIR /app/_project/api
-ENV NODE_ENV production
 EXPOSE 3610
 ENV PORT=3610
 ENV TZ=Europe/Berlin

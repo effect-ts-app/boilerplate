@@ -24,7 +24,7 @@
     "dev": "NODE_ENV=development nodemon --signal SIGTERM --exec pnpm dev:vite",
     "dev:compiled": "pnpm start:compiled | ../../scripts/humanlog.sh",
     "dev:vite": "pnpm start:vite | ../../scripts/humanlog.sh",
-    "start": "pnpm start:vite",
+    "start": "pnpm start:compiled",
     "start:compiled": "node -r source-map-support/register ./dist/main.js",
     "start:vite": "vite-node ./_src/main.ts",
     "ncu": "ncu",
