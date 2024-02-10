@@ -10,7 +10,7 @@ import type { StructFields } from "@effect-app/schema"
 import { Req as Req_ } from "@effect-app/schema/REST"
 import { NotLoggedInError, UnauthorizedError } from "api/errors.js"
 import { Auth0Config, checkJWTI } from "api/middleware/auth.js"
-import { Duration, Effect, Exit, Layer, Option, Request } from "effect"
+import { Duration, Effect, Exit, Layer, Option, Request } from "effect-app"
 import {
   makeUserProfileFromAuthorizationHeader,
   makeUserProfileFromUserHeader,
@@ -56,7 +56,7 @@ const authConfig = Auth0Config.runSync
 const EmptyLayer = Effect.unit.pipe(Layer.scopedDiscard)
 const fakeLogin = true
 
-const checkRoles = (request: any, userProfile: Option.Option<UserProfile>) =>
+const checkRoles = (request: any, userProfile: Option<UserProfile>) =>
   Effect.gen(function*($) {
     const userRoles = userProfile
       .map((_) => _.roles.includes("manager") ? [Role("manager"), Role("user")] : [Role("user")])
@@ -149,9 +149,7 @@ export function handleRequestEnv<
             context: RequestContextContainer.get,
             userProfile: Effect.serviceOption(UserProfile).andThen((_) => _.value)
           })
-          .andThen((ctx) =>
-            (handler.h as (i: any, ctx: CTX) => Effect.Effect<ResA, ResE, R>)(pars, ctx as any /* TODO */)
-          )
+          .andThen((ctx) => (handler.h as (i: any, ctx: CTX) => Effect<ResA, ResE, R>)(pars, ctx as any /* TODO */))
           .pipe(Effect.provide(RequestCacheLayers))
     },
     makeRequestLayer: RequestEnv(handler)

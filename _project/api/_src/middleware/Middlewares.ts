@@ -5,7 +5,7 @@
  */
 import type { NotLoggedInError } from "@effect-app/infra/errors"
 import type * as App from "@effect/platform/Http/App"
-import type * as Effect from "effect/Effect"
+import type { Effect } from "effect-app"
 import * as internal from "./internal/middlewares.js"
 
 /**
@@ -71,7 +71,7 @@ export interface BasicAuthCredentials {
 export const basicAuth: <R2, _>(
   checkCredentials: (
     credentials: BasicAuthCredentials
-  ) => Effect.Effect<_, NotLoggedInError, R2>,
+  ) => Effect<_, NotLoggedInError, R2>,
   options?: Partial<{
     headerName: string
     skipPaths: readonly string[]

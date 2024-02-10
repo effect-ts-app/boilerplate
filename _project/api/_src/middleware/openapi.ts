@@ -1,7 +1,7 @@
 import * as Ex from "@effect-app/infra-adapters/express"
 import { readTextFile } from "@effect-app/infra-adapters/fileUtil"
 import type { NextHandleFunction } from "connect"
-import { Effect } from "effect"
+import { Effect } from "effect-app"
 import type { NonEmptyArray } from "effect/ReadonlyArray"
 import redoc from "redoc-express"
 import { serve as serve_, setup as setup_ } from "swagger-ui-express"

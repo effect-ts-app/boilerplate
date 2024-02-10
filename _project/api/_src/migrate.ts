@@ -3,7 +3,7 @@ import { Sendgrid } from "@effect-app/infra/services/Emailer/Sendgrid"
 import { ContextMapContainer } from "@effect-app/infra/services/Store/ContextMapContainer"
 import { StoreMakerLayer } from "@effect-app/infra/services/Store/index"
 import * as HttpClientNode from "@effect/platform-node/NodeHttpClient"
-import { Layer } from "effect"
+import { Layer } from "effect-app"
 import { SendgridConfig, StorageConfig } from "./config.js"
 
 export const RepoLive = StorageConfig

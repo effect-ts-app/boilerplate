@@ -15,14 +15,14 @@
     >
       <div>
         {{
-            Matcher.value(result.current.left as SupportedErrors | FetchError | ResponseError).pipe(
-            Matcher.tags({
+            Match.value(result.current.left as SupportedErrors | FetchError | ResponseError).pipe(
+            Match.tags({
               NotFoundError: () => "Nicht gefunden",
               NotLoggedInError: () => "Sie mussen eingelogt sein",
               UnauthorizedError: () =>
                 "Sie sind nicht berechtigt, diese Aktion auszuführen",
             }),
-            Matcher.orElse(
+            Match.orElse(
               () =>
                 "Es ist ein Fehler aufgetreten. Wir wurden benachrichtigt und werden das Problem in Kürze beheben. Versuchen Sie es erneut.",
             )
@@ -46,7 +46,7 @@ import type {
   Refreshing,
   SupportedErrors,
 } from "effect-app/client"
-import { Option, Matcher } from "@/utils/prelude"
+import { Option, Match } from "@/utils/prelude"
 import Delayed from "./Delayed.vue"
 
 defineProps<{ result: QueryResult<E, A> }>()
