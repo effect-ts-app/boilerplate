@@ -3,9 +3,8 @@ import { logJson } from "@effect-app/infra/logger/jsonLogger"
 import { logFmt } from "@effect-app/infra/logger/logFmtLogger"
 import { runMain as runMainPlatform } from "@effect/platform-node/NodeRuntime"
 import { constantCase } from "change-case"
-import { Cause, Exit, Layer } from "effect"
+import { Cause, Exit, Layer , Effect } from "effect-app"
 import * as ConfigProvider from "effect/ConfigProvider"
-import * as Effect from "effect/Effect"
 import * as Logger from "effect/Logger"
 import * as Level from "effect/LogLevel"
 import * as Scope from "effect/Scope"
@@ -13,7 +12,7 @@ import { installFluentRuntimeExtensions } from "@effect-app/fluent-extensions/ru
 import type * as Runtime from "effect/Runtime"
 import type * as Fiber from "effect/Fiber"
 
-const makeBasicRuntime = <R, E, A>(layer: Layer.Layer<R, E, A>) =>
+const makeBasicRuntime = <R, A, E>(layer: Layer<R, A, E>) =>
   Effect.gen(function*($) {
     const scope = yield* $(Scope.make())
     const env = yield* $(Layer.buildWithScope(layer, scope))
@@ -66,7 +65,7 @@ installFluentRuntimeExtensions(basicRuntime.runtime)
 const reportMainError = <E>(cause: Cause.Cause<E>) =>
   Cause.isInterruptedOnly(cause) ? Effect.unit : reportError("Main")(cause)
 
-export function runMain<E, A>(eff: Effect.Effect<A, E, never>) {
+export function runMain<A, E>(eff: Effect<A, E, never>) {
   return runMainPlatform(
     eff
       .pipe(
@@ -81,25 +80,25 @@ export type RT = typeof basicRuntime.runtime extends Runtime.Runtime<infer R> ? 
 declare module "effect/Effect" {
   export interface Effect<A, E, R> {
     // @ts-expect-error meh
-    get runPromise(this: Effect<RT, E, A>): Promise<A>
+    get runPromise(this: Effect<A, E, RT>): Promise<A>
     // @ts-expect-error meh
-    get runSync(this: Effect<RT, E, A>): A
-    runFork<E, A>(
-      this: Effect<RT, E, A>,
+    get runSync(this: Effect<A, E, RT>): A
+    runFork<A, E>(
+      this: Effect<A, E, RT>,
       options?: Runtime.RunForkOptions,
-    ): Fiber.RuntimeFiber<E, A>
+    ): Fiber.RuntimeFiber<A, E>
   }
 }
 
 declare module "effect/Cause" {
   export interface YieldableError {
     // @ts-expect-error meh
-    get runPromise(this: Effect.Effect<RT, typeof this, never>): Promise<never>
+    get runPromise(this: Effect<never, typeof this, RT>): Promise<never>
     // @ts-expect-error meh
-    get runSync(this: Effect.Effect<RT, typeof this, never>): never
-    runFork<E, A>(
-      this: Effect.Effect<RT, E, A>,
+    get runSync(this: Effect<never, typeof this, RT>): never
+    runFork<A, E>(
+      this: Effect<A, E, RT>,
       options?: Runtime.RunForkOptions,
-    ): Fiber.RuntimeFiber<E, A>
+    ): Fiber.RuntimeFiber<A, E>
   }
 }
