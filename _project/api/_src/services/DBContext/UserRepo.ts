@@ -11,8 +11,6 @@ import { Effect, Layer, Option, ReadonlyArray } from "effect"
 import fc from "fast-check"
 import { UserProfile } from "../UserProfile.js"
 
-import * as Repo from "@effect-app/infra/services/Repository"
-
 export interface UserPersistenceModel extends User.From {
   _etag: string | undefined
 }
@@ -67,6 +65,6 @@ export class UserRepo extends RepositoryDefaultImpl<UserRepo>()<UserPersistenceM
     return Effect
       .serviceOption(UserProfile)
       .andThen((_) => _.pipe(Effect.mapError(() => new NotLoggedInError())))
-      .andThen((_) => Repo.get(this, _.sub))
+      .andThen((_) => this.get(_.sub))
   }
 }
