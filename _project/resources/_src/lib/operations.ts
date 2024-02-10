@@ -1,5 +1,5 @@
-import { clientFor, type FetchResponse } from "@effect-app/prelude/client"
-import type { Operation, OperationId } from "@effect-app/prelude/Operations"
+import { clientFor, type FetchResponse } from "effect-app/client"
+import type { Operation, OperationId } from "effect-app/Operations"
 import { Duration, Effect } from "effect"
 import * as OperationsRsc from "../Operations.js"
 

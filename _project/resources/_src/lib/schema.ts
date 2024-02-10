@@ -1,3 +1,3 @@
 export { Req } from "./req.js"
 
-export * from "@effect-app/prelude/schema"
+export * from "effect-app/schema"

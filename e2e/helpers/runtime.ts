@@ -1,4 +1,4 @@
-import { Option } from "@effect-app/prelude"
+import { Option } from "effect-app"
 // import { UsersRsc } from "@effect-app-boilerplate/resources"
 import { makeHeadersHashMap, makeRuntime } from "./shared.js"
 

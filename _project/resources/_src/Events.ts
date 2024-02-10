@@ -1,5 +1,5 @@
 import { S } from "@effect-app-boilerplate/resources/lib"
-import type { Schema } from "@effect-app/prelude/schema"
+import type { Schema } from "effect-app/schema"
 
 export class BogusEvent extends S.ExtendedTaggedClass<BogusEvent, BogusEvent.From>()("BogusEvent", {
   id: S.StringId.withDefault,

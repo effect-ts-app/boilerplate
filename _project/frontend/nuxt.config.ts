@@ -39,7 +39,7 @@ export default defineNuxtConfig({
         "@mdi/js",
         "@unhead/vue",
 
-        "@effect-app/prelude/utils",
+        "effect-app/utils",
         "@effect-app/vue/routeParams",
       ],
     },

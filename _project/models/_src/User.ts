@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/unbound-method */
 import { pipe } from "@effect-app/core/Function"
 import { LazyGetter } from "@effect-app/core/utils"
-import { S } from "@effect-app/prelude"
-import { fakerArb } from "@effect-app/prelude/faker"
-import { UserProfileId } from "@effect-app/prelude/ids"
 import { A } from "@effect-app/schema"
 import { type Schema } from "@effect/schema/Schema"
 import { Context, Equivalence } from "effect"
+import { S } from "effect-app"
+import { fakerArb } from "effect-app/faker"
+import { UserProfileId } from "effect-app/ids"
 import type { Effect } from "effect/Effect"
 import * as Eff from "effect/Effect"
 

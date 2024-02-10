@@ -37,7 +37,7 @@
   <Delayed v-else><v-progress-circular /></Delayed>
 </template>
 <script setup lang="ts" generic="E extends SupportedErrors | FetchError | ResponseError,A">
-import { isRefreshing } from "@effect-app/prelude/client"
+import { isRefreshing } from "effect-app/client"
 import type {
   FetchError,
   ResponseError,
@@ -45,7 +45,7 @@ import type {
   QueryResult,
   Refreshing,
   SupportedErrors,
-} from "@effect-app/prelude/client"
+} from "effect-app/client"
 import { Option, Matcher } from "@/utils/prelude"
 import Delayed from "./Delayed.vue"
 

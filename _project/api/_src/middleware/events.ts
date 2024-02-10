@@ -1,7 +1,7 @@
 import { ClientEvents } from "@effect-app-boilerplate/resources"
 import { setupRequestContext } from "@effect-app/infra/api/setupRequest"
 import { reportError } from "@effect-app/infra/errorReporter"
-import { S } from "@effect-app/prelude"
+import { S } from "effect-app"
 import { HttpHeaders, HttpServerResponse } from "api/lib/http.js"
 import { Duration, Effect, Schedule, Stream } from "effect"
 import { Events } from "../services/Events.js"

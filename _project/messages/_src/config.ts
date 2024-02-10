@@ -1,4 +1,4 @@
-import { S } from "@effect-app/prelude"
+import { S } from "effect-app"
 import dotenv from "dotenv"
 import { Config as C, Secret } from "effect"
 

@@ -1,8 +1,8 @@
 import { Role } from "@effect-app-boilerplate/models/User"
 import { parseJwt } from "@effect-app/infra/api/express/schema/jwt"
-import { S } from "@effect-app/prelude"
-import { UserProfileId } from "@effect-app/prelude/ids"
-import { assignTag } from "@effect-app/prelude/service"
+import { S } from "effect-app"
+import { UserProfileId } from "effect-app/ids"
+import { assignTag } from "effect-app/service"
 
 /**
  * @tsplus type UserProfile

@@ -1,6 +1,6 @@
 import { typedKeysOf } from "@effect-app/core/utils"
-import type { ApiConfig } from "@effect-app/prelude/client/config"
-import { layer as ApiConfigLayer } from "@effect-app/prelude/client/config"
+import type { ApiConfig } from "effect-app/client/config"
+import { layer as ApiConfigLayer } from "effect-app/client/config"
 import { initializeSync } from "@effect-app/vue/runtime"
 import * as HttpClientNode from "@effect/platform-node/HttpClient"
 import type * as HttpClient from "@effect/platform/Http/Client"

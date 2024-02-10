@@ -1,6 +1,6 @@
 import type { ClientEvents } from "@effect-app-boilerplate/resources"
 import { storeId } from "@effect-app/infra/services/Store/Memory"
-import { TagClassMake } from "@effect-app/prelude/service"
+import { TagClassMake } from "effect-app/service"
 import { Effect, FiberRef, PubSub, Stream } from "effect"
 import type { NonEmptyReadonlyArray } from "effect/ReadonlyArray"
 

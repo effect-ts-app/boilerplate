@@ -1,6 +1,6 @@
 import { BaseConfig } from "@effect-app-boilerplate/messages/config"
-import { secretURL } from "@effect-app/prelude/Config/SecretURL"
-import * as SecretURL from "@effect-app/prelude/Config/SecretURL"
+import { secretURL } from "effect-app/Config/SecretURL"
+import * as SecretURL from "effect-app/Config/SecretURL"
 import { Config, Effect } from "effect"
 
 const STORAGE_VERSION = "1"

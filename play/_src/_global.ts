@@ -1,1 +1,1 @@
-import "@effect-app/prelude/_global"
+import "effect-app/_global"

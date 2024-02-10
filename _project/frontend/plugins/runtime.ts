@@ -4,7 +4,7 @@ import * as Layer from "effect/Layer"
 import * as Runtime from "effect/Runtime"
 import { Effect, HttpClient, Option } from "@/utils/prelude"
 import { WebSdkLive } from "~/utils/observability"
-import type { ApiConfig } from "@effect-app/prelude/client"
+import type { ApiConfig } from "effect-app/client"
 import { installFluentRuntimeExtensions } from "@effect-app/fluent-extensions/runtime"
 import * as EffectRequest from "effect/Request"
 
@@ -37,7 +37,7 @@ function makeRuntime(feVersion: string, isRemote: boolean) {
           ),
         ),
       ),
-      makeApiLayers({ apiUrl: "/api/api", headers: Option.none }),
+      makeApiLayers({ apiUrl: "/api/api", headers: Option.none() }),
     ),
     RequestCacheLayers,
   )

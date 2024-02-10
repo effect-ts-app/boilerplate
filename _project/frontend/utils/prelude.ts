@@ -18,7 +18,7 @@ import * as Stream from "effect/Stream"
 import * as S from "@effect-app/schema"
 import type { NonEmptyArray, NonEmptyReadonlyArray } from "effect/ReadonlyArray"
 
-export { flow, pipe } from "@effect-app/prelude/Function"
+export { flow, pipe } from "@effect-app/core/Function"
 // Must export explicity for auto import to work
 export {
   Cause,
