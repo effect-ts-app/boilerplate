@@ -1,1 +1,1 @@
-import "@effect-app/prelude/_ext/Object"
+import "effect-app/_ext/Object"

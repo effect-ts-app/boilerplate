@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { flow, pipe, tuple } from "@effect-app/prelude/Function"
+import { flow, pipe, tuple } from "@effect-app/core/Function"
 import {
   Done,
   Refreshing,
@@ -8,10 +8,10 @@ import {
   type ResponseError,
   type SupportedErrors,
   type QueryResult,
-} from "@effect-app/prelude/client"
+} from "effect-app/client"
 import type { MutationResult } from "@effect-app/vue"
 import { useMutation } from "@effect-app/vue"
-import { Failure, Success } from "@effect-app/prelude/Operations"
+import { Failure, Success } from "effect-app/Operations"
 import * as Sentry from "@sentry/browser"
 import {
   useIntervalFn,
@@ -25,8 +25,8 @@ import { Effect, Matcher, Option } from "@/utils/prelude"
 import { Cause } from "effect"
 import { useToast } from "vue-toastification"
 import { intl } from "./intl"
-import { isFailed } from "@effect-app/prelude/client"
-import { S } from "@effect-app/prelude"
+import { isFailed } from "effect-app/client"
+import { S } from "effect-app"
 
 export { useToast } from "vue-toastification"
 
@@ -36,7 +36,7 @@ export {
   isInitializing,
   isRefreshing,
   isSuccess,
-} from "@effect-app/prelude/client"
+} from "effect-app/client"
 export {
   useMutate,
   useMutation,

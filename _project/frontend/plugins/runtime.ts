@@ -4,7 +4,7 @@ import * as Layer from "effect/Layer"
 import * as Runtime from "effect/Runtime"
 import { Effect, HttpClient, Option } from "@/utils/prelude"
 import { WebSdkLive } from "~/utils/observability"
-import type { ApiConfig } from "@effect-app/prelude/client"
+import type { ApiConfig } from "effect-app/client"
 import { installFluentRuntimeExtensions } from "@effect-app/fluent-extensions/runtime"
 
 export const versionMatch = ref(true)

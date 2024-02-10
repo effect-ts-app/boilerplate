@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/ban-types */
 import type { EffectUnunified, LowerServices, ValuesE, ValuesR } from "@effect-app/core/Effect"
-import { allLower_ } from "@effect-app/core/Effect"
+import { allLower } from "@effect-app/core/Effect"
 import { type Compute, typedKeysOf } from "@effect-app/core/utils"
 import type {
   _E,
@@ -16,10 +16,10 @@ import type {
   RouteMatch
 } from "@effect-app/infra/api/routing"
 import { defaultErrorHandler, match } from "@effect-app/infra/api/routing"
-import { S } from "@effect-app/prelude"
-import type { SupportedErrors } from "@effect-app/prelude/client/errors"
-import { REST } from "@effect-app/prelude/schema"
 import type { Effect } from "effect"
+import { S } from "effect-app"
+import type { SupportedErrors } from "effect-app/client/errors"
+import { REST } from "effect-app/schema"
 import { handleRequestEnv } from "./RequestEnv.js"
 import type { CTX, GetContext, GetCTX, RequestEnv } from "./RequestEnv.js"
 
@@ -91,7 +91,7 @@ export function matchFor<Rsc extends Record<string, any>>(
       ) => Effect.Effect<A, E, R2>
     ) =>
     (req: any, ctx: any) =>
-      allLower_(services)
+      allLower(services)
         .andThen((svc2) => f(req, { ...ctx, ...svc2 as any, Response: rsc[action].Response }))
   }
 

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { typedKeysOf } from "@effect-app/prelude/utils"
+import { typedKeysOf } from "effect-app/utils"
 import {
   parseRouteParams,
   parseRouteParamsOption,

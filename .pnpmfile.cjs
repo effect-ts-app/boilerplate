@@ -8,7 +8,7 @@ const enforceSingleVersion = [
     "@effect-app/fluent-extensions",
     "@effect-app/schema",
     "@effect-app/infra",
-    "@effect-app/prelude",
+    "effect-app",
     "@effect-app/react",
     "@effect-app/vue",
     "vue",
