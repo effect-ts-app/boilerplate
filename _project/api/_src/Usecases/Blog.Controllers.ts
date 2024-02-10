@@ -1,10 +1,10 @@
 import { BlogPost } from "@effect-app-boilerplate/models/Blog"
 import { BlogRsc } from "@effect-app-boilerplate/resources"
 import { BogusEvent } from "@effect-app-boilerplate/resources/Events"
-import { NonNegativeInt } from "@effect-app/prelude/schema"
 import { matchFor } from "api/lib/matchFor.js"
 import { BlogPostRepo, Events, forkOperationWithEffect, Operations, UserRepo } from "api/services.js"
 import { Duration, Effect, Schedule } from "effect"
+import { NonNegativeInt } from "effect-app/schema"
 
 const blog = matchFor(BlogRsc)
 
