@@ -15,7 +15,7 @@ export default function defineTestConfig(
   dirName?: string,
   transform?: (cfg: UserConfig, useDist: boolean, useFullDist: boolean) => UserConfig,
   options: { useTransform?: boolean; useFullDist?: boolean; useDist?: boolean } = {
-    useTransform: true,
+    useTransform: false,
     useDist: process.env.TEST_USE_DIST === "true",
     useFullDist: process.env.TEST_USE_FULL_DIST === "true"
   }
@@ -25,7 +25,7 @@ export default function defineTestConfig(
     // eslint-disable-next-line prefer-const
     useFullDist = process.env.TEST_USE_FULL_DIST === "true",
     // eslint-disable-next-line prefer-const
-    useTransform = true
+    useTransform = false
   } = options
   if (useFullDist) {
     useDist = true
