@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/unbound-method */
 import { pipe } from "@effect-app/core/Function"
-import { S } from "effect-app"
-import { fakerArb } from "effect-app/faker"
-import { UserProfileId } from "effect-app/ids"
 import { A } from "@effect-app/schema"
 import { type Schema } from "@effect/schema/Schema"
 import { Equivalence } from "effect"
+import { S } from "effect-app"
+import { fakerArb } from "effect-app/faker"
+import { UserProfileId } from "effect-app/ids"
 
 export const FirstName = S
   .NonEmptyString255

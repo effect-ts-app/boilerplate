@@ -1,9 +1,9 @@
 /* eslint-disable no-var */
 import { api, ApiPortTag } from "@effect-app-boilerplate/api/api"
 import { basicLayer } from "@effect-app-boilerplate/messages/basicRuntime"
-import { layer as LiveApiConfig } from "effect-app/client/config"
 import * as HttpClientNode from "@effect/platform-node/NodeHttpClient"
 import { Config, Effect, Exit, Layer } from "effect"
+import { layer as LiveApiConfig } from "effect-app/client/config"
 import type { Runtime } from "effect/Runtime"
 import * as Scope from "effect/Scope"
 

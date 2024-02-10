@@ -1,7 +1,7 @@
 import type { ClientEvents } from "@effect-app-boilerplate/resources"
 import { storeId } from "@effect-app/infra/services/Store/Memory"
-import { TagClassMake } from "effect-app/service"
 import { Effect, FiberRef, PubSub, Stream } from "effect"
+import { TagClassMake } from "effect-app/service"
 import type { NonEmptyReadonlyArray } from "effect/ReadonlyArray"
 
 const makeEvents = Effect.gen(function*($) {
