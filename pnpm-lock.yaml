@@ -242,7 +242,7 @@ importers:
         version: 6.2.7
       '@formatjs/intl':
         specifier: 2.7.2
-        version: 2.7.2(@effect-app/typescript@5.4.0-tsplus.202311222)
+        version: 2.7.2(typescript@5.3.3)
       '@mollie/api-client':
         specifier: ^3.7.0
         version: 3.7.0
@@ -362,8 +362,8 @@ importers:
         specifier: ^4.12.2
         version: 4.12.2(eslint@8.56.0)
       typescript:
-        specifier: npm:@effect-app/typescript@5.4.0-tsplus.202311222
-        version: /@effect-app/typescript@5.4.0-tsplus.202311222
+        specifier: ^5.3.3
+        version: 5.3.3
 
   _project/frontend:
     dependencies:
@@ -384,13 +384,13 @@ importers:
         version: 0.184.0(@effect/typeclass@0.22.12)(fast-check@3.15.1)
       '@effect-app/vue':
         specifier: ^0.125.0
-        version: 0.125.0(@effect-app/typescript@5.4.0-tsplus.202311222)(@effect/typeclass@0.22.12)(fast-check@3.15.1)
+        version: 0.125.0(@effect/typeclass@0.22.12)(fast-check@3.15.1)(typescript@5.3.3)
       '@effect/opentelemetry':
         specifier: ^0.31.1
         version: 0.31.1(@opentelemetry/api@1.7.0)(@opentelemetry/resources@1.21.0)(@opentelemetry/sdk-metrics@1.21.0)(@opentelemetry/sdk-trace-base@1.21.0)(@opentelemetry/sdk-trace-node@1.21.0)(@opentelemetry/sdk-trace-web@1.21.0)(@opentelemetry/semantic-conventions@1.21.0)(effect@2.3.1)
       '@formatjs/intl':
         specifier: 2.7.2
-        version: 2.7.2(@effect-app/typescript@5.4.0-tsplus.202311222)
+        version: 2.7.2(typescript@5.3.3)
       '@opentelemetry/context-zone':
         specifier: ^1.21.0
         version: 1.21.0(@opentelemetry/api@1.7.0)
@@ -465,7 +465,7 @@ importers:
         version: 2.0.0-rc.5(vue@3.4.15)
       vuetify:
         specifier: ^3.5.3
-        version: 3.5.3(@effect-app/typescript@5.4.0-tsplus.202311222)(vue@3.4.15)
+        version: 3.5.3(typescript@5.3.3)(vue@3.4.15)
       xlsx:
         specifier: ^0.18.5
         version: 0.18.5
@@ -490,16 +490,16 @@ importers:
         version: 1.10.1
       nuxt:
         specifier: ~3.10.1
-        version: 3.10.1(@effect-app/typescript@5.4.0-tsplus.202311222)(@types/node@20.11.17)(eslint@8.56.0)(sass@1.70.0)(vite@5.1.1)(vue-tsc@1.8.27)
+        version: 3.10.1(@types/node@20.11.17)(eslint@8.56.0)(sass@1.70.0)(typescript@5.3.3)(vite@5.1.1)(vue-tsc@1.8.27)
       sass:
         specifier: ^1.70.0
         version: 1.70.0
       typescript:
-        specifier: npm:@effect-app/typescript@5.4.0-tsplus.202311222
-        version: /@effect-app/typescript@5.4.0-tsplus.202311222
+        specifier: ^5.3.3
+        version: 5.3.3
       vue-tsc:
         specifier: ~1.8.27
-        version: 1.8.27(@effect-app/typescript@5.4.0-tsplus.202311222)
+        version: 1.8.27(typescript@5.3.3)
 
   _project/messages:
     dependencies:
@@ -736,13 +736,13 @@ importers:
         version: 3.2.5
       ts-loader:
         specifier: ^9.5.1
-        version: 9.5.1(@effect-app/typescript@5.4.0-tsplus.202311222)(webpack@5.90.1)
+        version: 9.5.1(typescript@5.3.3)(webpack@5.90.1)
       tsconfig-paths-webpack-plugin:
         specifier: ^4.1.0
         version: 4.1.0
       typescript:
-        specifier: npm:@effect-app/typescript@5.4.0-tsplus.202311222
-        version: /@effect-app/typescript@5.4.0-tsplus.202311222
+        specifier: ^5.3.3
+        version: 5.3.3
       webpack:
         specifier: ^5.90.1
         version: 5.90.1
@@ -2554,12 +2554,7 @@ packages:
       - encoding
       - fast-check
 
-  /@effect-app/typescript@5.4.0-tsplus.202311222:
-    resolution: {integrity: sha512-QZQC5/bU2uG4TUmgCVkEYZM8buFDisGgvuO6NUOXVWZXjQRPkOv4YHlMPBVNi+DmW3k1O7oNWmkHRm7MO+ddNg==}
-    engines: {node: '>=14.17'}
-    hasBin: true
-
-  /@effect-app/vue@0.125.0(@effect-app/typescript@5.4.0-tsplus.202311222)(@effect/typeclass@0.22.12)(fast-check@3.15.1):
+  /@effect-app/vue@0.125.0(@effect/typeclass@0.22.12)(fast-check@3.15.1)(typescript@5.3.3):
     resolution: {integrity: sha512-HsE8Ar65Exk/3S7VMQzhkKQ5D9thGlA+8JNmBfpb35OHsijRfaQYy99Z2zgbp9Kc8Fpzxf5XGVAWLcaWNyTQaA==}
     dependencies:
       '@effect-app/core': 0.131.0(@effect/schema@0.62.1)(@effect/typeclass@0.22.12)
@@ -2568,12 +2563,12 @@ packages:
       '@effect/platform': 0.44.2(@effect/schema@0.62.1)(effect@2.3.1)
       '@effect/platform-browser': 0.29.2(@effect/platform@0.44.2)(effect@2.3.1)
       '@effect/schema': 0.62.1(patch_hash=45ji2jjls6kivzh7uibc5rojeq)(effect@2.3.1)(fast-check@3.15.1)
-      '@formatjs/intl': 2.10.0(@effect-app/typescript@5.4.0-tsplus.202311222)
+      '@formatjs/intl': 2.10.0(typescript@5.3.3)
       effect: 2.3.1(patch_hash=d4fjarortgoof2cift4jw5aidi)
       effect-app: 0.153.0(@effect/typeclass@0.22.12)(fast-check@3.15.1)
       query-string: 8.2.0
       swrv: 1.0.4(vue@3.4.15)
-      vue: 3.4.15(@effect-app/typescript@5.4.0-tsplus.202311222)
+      vue: 3.4.15(typescript@5.3.3)
     transitivePeerDependencies:
       - '@effect/typeclass'
       - encoding
@@ -3209,7 +3204,7 @@ packages:
     dependencies:
       tslib: 2.6.2
 
-  /@formatjs/intl@2.10.0(@effect-app/typescript@5.4.0-tsplus.202311222):
+  /@formatjs/intl@2.10.0(typescript@5.3.3):
     resolution: {integrity: sha512-X3xT9guVkKDS86EKV80lS0KxoazUglkJTGZO66sKY7otgl0VeStPA8B3u8UkKT47PexVV98fUzjpkchYmbe9nw==}
     peerDependencies:
       typescript: ^4.7 || 5
@@ -3224,10 +3219,10 @@ packages:
       '@formatjs/intl-listformat': 7.5.5
       intl-messageformat: 10.5.11
       tslib: 2.6.2
-      typescript: /@effect-app/typescript@5.4.0-tsplus.202311222
+      typescript: 5.3.3
     dev: false
 
-  /@formatjs/intl@2.7.2(@effect-app/typescript@5.4.0-tsplus.202311222):
+  /@formatjs/intl@2.7.2(typescript@5.3.3):
     resolution: {integrity: sha512-ziiQfnXwY0/rXhtohSAmYMqDjRsihoMKdl8H2aA+FvxG9638E0XrvfBFCb+1HhimNiuqRz5fTY7F/bZtsJxsjA==}
     peerDependencies:
       typescript: ^4.7 || 5
@@ -3242,7 +3237,7 @@ packages:
       '@formatjs/intl-listformat': 7.2.2
       intl-messageformat: 10.3.5
       tslib: 2.6.2
-      typescript: /@effect-app/typescript@5.4.0-tsplus.202311222
+      typescript: 5.3.3
     dev: false
 
   /@formatjs/ts-transformer@3.13.12:
@@ -3743,7 +3738,7 @@ packages:
       '@nuxt/kit': 3.10.1
       '@nuxt/schema': 3.10.1
       execa: 7.2.0
-      nuxt: 3.10.1(@effect-app/typescript@5.4.0-tsplus.202311222)(@types/node@20.11.17)(eslint@8.56.0)(sass@1.70.0)(vite@5.1.1)(vue-tsc@1.8.27)
+      nuxt: 3.10.1(@types/node@20.11.17)(eslint@8.56.0)(sass@1.70.0)(typescript@5.3.3)(vite@5.1.1)(vue-tsc@1.8.27)
       vite: 5.1.1(@types/node@20.11.17)(sass@1.70.0)
     transitivePeerDependencies:
       - rollup
@@ -3789,7 +3784,7 @@ packages:
       launch-editor: 2.6.1
       local-pkg: 0.5.0
       magicast: 0.3.3
-      nuxt: 3.10.1(@effect-app/typescript@5.4.0-tsplus.202311222)(@types/node@20.11.17)(eslint@8.56.0)(sass@1.70.0)(vite@5.1.1)(vue-tsc@1.8.27)
+      nuxt: 3.10.1(@types/node@20.11.17)(eslint@8.56.0)(sass@1.70.0)(typescript@5.3.3)(vite@5.1.1)(vue-tsc@1.8.27)
       nypm: 0.3.6
       ohash: 1.1.3
       pacote: 17.0.6
@@ -3887,7 +3882,7 @@ packages:
   /@nuxt/ui-templates@1.3.1:
     resolution: {integrity: sha512-5gc02Pu1HycOVUWJ8aYsWeeXcSTPe8iX8+KIrhyEtEoOSkY0eMBuo0ssljB8wALuEmepv31DlYe5gpiRwkjESA==}
 
-  /@nuxt/vite-builder@3.10.1(@effect-app/typescript@5.4.0-tsplus.202311222)(@types/node@20.11.17)(eslint@8.56.0)(sass@1.70.0)(vue-tsc@1.8.27)(vue@3.4.15):
+  /@nuxt/vite-builder@3.10.1(@types/node@20.11.17)(eslint@8.56.0)(sass@1.70.0)(typescript@5.3.3)(vue-tsc@1.8.27)(vue@3.4.15):
     resolution: {integrity: sha512-Rl3sNWd43LNuKc4Y7vwWPLKH+4brbFCfcCQP1W86eSzfijen9AGuqyYIrRaaMieNE7aHMpYSIGCo4kYohhMsuA==}
     engines: {node: ^14.18.0 || >=16.10.0}
     peerDependencies:
@@ -3925,8 +3920,8 @@ packages:
       unplugin: 1.7.1
       vite: 5.0.12(@types/node@20.11.17)(sass@1.70.0)
       vite-node: 1.2.2(@types/node@20.11.17)(sass@1.70.0)
-      vite-plugin-checker: 0.6.4(@effect-app/typescript@5.4.0-tsplus.202311222)(eslint@8.56.0)(vite@5.0.12)(vue-tsc@1.8.27)
-      vue: 3.4.15(@effect-app/typescript@5.4.0-tsplus.202311222)
+      vite-plugin-checker: 0.6.4(eslint@8.56.0)(typescript@5.3.3)(vite@5.0.12)(vue-tsc@1.8.27)
+      vue: 3.4.15(typescript@5.3.3)
       vue-bundle-renderer: 2.0.0
     transitivePeerDependencies:
       - '@types/node'
@@ -5790,7 +5785,7 @@ packages:
       '@sentry/core': 7.100.1
       '@sentry/types': 7.100.1
       '@sentry/utils': 7.100.1
-      vue: 3.4.15(@effect-app/typescript@5.4.0-tsplus.202311222)
+      vue: 3.4.15(typescript@5.3.3)
     dev: false
 
   /@sideway/address@4.1.5:
@@ -6569,7 +6564,7 @@ packages:
       '@unhead/shared': 1.8.10
       hookable: 5.5.3
       unhead: 1.8.10
-      vue: 3.4.15(@effect-app/typescript@5.4.0-tsplus.202311222)
+      vue: 3.4.15(typescript@5.3.3)
 
   /@vercel/nft@0.24.4:
     resolution: {integrity: sha512-KjYAZty7boH5fi5udp6p+lNu6nawgs++pHW+3koErMgbRkkHuToGX/FwjN5clV1FcaM3udfd4zW/sUapkMgpZw==}
@@ -6602,7 +6597,7 @@ packages:
       '@babel/plugin-transform-typescript': 7.23.6(@babel/core@7.23.9)
       '@vue/babel-plugin-jsx': 1.2.1(@babel/core@7.23.9)
       vite: 5.0.12(@types/node@20.11.17)(sass@1.70.0)
-      vue: 3.4.15(@effect-app/typescript@5.4.0-tsplus.202311222)
+      vue: 3.4.15(typescript@5.3.3)
     transitivePeerDependencies:
       - supports-color
 
@@ -6614,7 +6609,7 @@ packages:
       vue: ^3.3.9
     dependencies:
       vite: 5.0.12(@types/node@20.11.17)(sass@1.70.0)
-      vue: 3.4.15(@effect-app/typescript@5.4.0-tsplus.202311222)
+      vue: 3.4.15(typescript@5.3.3)
 
   /@vitest/expect@1.2.2:
     resolution: {integrity: sha512-3jpcdPAD7LwHUUiT2pZTj2U82I2Tcgg2oVPvKxhn6mDI2On6tfvPQTjAI4628GUGDZrCm4Zna9iQHm5cEexOAg==}
@@ -6686,7 +6681,7 @@ packages:
       ast-kit: 0.11.3
       local-pkg: 0.5.0
       magic-string-ast: 0.3.0
-      vue: 3.4.15(@effect-app/typescript@5.4.0-tsplus.202311222)
+      vue: 3.4.15(typescript@5.3.3)
     transitivePeerDependencies:
       - rollup
 
@@ -6765,7 +6760,7 @@ packages:
   /@vue/devtools-api@6.5.1:
     resolution: {integrity: sha512-+KpckaAQyfbvshdDW5xQylLni1asvNSGme1JFs8I1+/H5pHEhqUKMEQD/qn3Nx5+/nycBq11qAEi8lk+LXI2dA==}
 
-  /@vue/language-core@1.8.27(@effect-app/typescript@5.4.0-tsplus.202311222):
+  /@vue/language-core@1.8.27(typescript@5.3.3):
     resolution: {integrity: sha512-L8Kc27VdQserNaCUNiSFdDl9LWT24ly8Hpwf1ECy3aFb9m6bDhBGQYOujDm21N7EW3moKIOKEanQwe1q5BK+mA==}
     peerDependencies:
       typescript: '*'
@@ -6781,7 +6776,7 @@ packages:
       minimatch: 9.0.3
       muggle-string: 0.3.1
       path-browserify: 1.0.1
-      typescript: /@effect-app/typescript@5.4.0-tsplus.202311222
+      typescript: 5.3.3
       vue-template-compiler: 2.7.16
 
   /@vue/reactivity@3.4.15:
@@ -6809,7 +6804,7 @@ packages:
     dependencies:
       '@vue/compiler-ssr': 3.4.15
       '@vue/shared': 3.4.15
-      vue: 3.4.15(@effect-app/typescript@5.4.0-tsplus.202311222)
+      vue: 3.4.15(typescript@5.3.3)
 
   /@vue/shared@3.4.15:
     resolution: {integrity: sha512-KzfPTxVaWfB+eGcGdbSf4CWdaXcGDqckoeXUh7SB3fZdEtzPCK2Vq9B/lRRL3yutax/LWITz+SwvgyOxz5V75g==}
@@ -6839,7 +6834,7 @@ packages:
       '@vueuse/core': 10.7.2(vue@3.4.15)
       '@vueuse/metadata': 10.7.2
       local-pkg: 0.5.0
-      nuxt: 3.10.1(@effect-app/typescript@5.4.0-tsplus.202311222)(@types/node@20.11.17)(eslint@8.56.0)(sass@1.70.0)(vite@5.1.1)(vue-tsc@1.8.27)
+      nuxt: 3.10.1(@types/node@20.11.17)(eslint@8.56.0)(sass@1.70.0)(typescript@5.3.3)(vite@5.1.1)(vue-tsc@1.8.27)
       vue-demi: 0.14.7(vue@3.4.15)
     transitivePeerDependencies:
       - '@vue/composition-api'
@@ -12555,7 +12550,7 @@ packages:
     optionalDependencies:
       fsevents: 2.3.3
 
-  /nuxt@3.10.1(@effect-app/typescript@5.4.0-tsplus.202311222)(@types/node@20.11.17)(eslint@8.56.0)(sass@1.70.0)(vite@5.1.1)(vue-tsc@1.8.27):
+  /nuxt@3.10.1(@types/node@20.11.17)(eslint@8.56.0)(sass@1.70.0)(typescript@5.3.3)(vite@5.1.1)(vue-tsc@1.8.27):
     resolution: {integrity: sha512-1X1DFTGPbVQFF1tjOWYl3qYc3zQww8htknu3qiP8xNzY1MFnDT3Xisxcf6KDe375tHHui0UpXflseL6evlEoMQ==}
     engines: {node: ^14.18.0 || >=16.10.0}
     hasBin: true
@@ -12574,7 +12569,7 @@ packages:
       '@nuxt/schema': 3.10.1
       '@nuxt/telemetry': 2.5.3
       '@nuxt/ui-templates': 1.3.1
-      '@nuxt/vite-builder': 3.10.1(@effect-app/typescript@5.4.0-tsplus.202311222)(@types/node@20.11.17)(eslint@8.56.0)(sass@1.70.0)(vue-tsc@1.8.27)(vue@3.4.15)
+      '@nuxt/vite-builder': 3.10.1(@types/node@20.11.17)(eslint@8.56.0)(sass@1.70.0)(typescript@5.3.3)(vue-tsc@1.8.27)(vue@3.4.15)
       '@types/node': 20.11.17
       '@unhead/dom': 1.8.10
       '@unhead/ssr': 1.8.10
@@ -12620,7 +12615,7 @@ packages:
       unplugin: 1.7.1
       unplugin-vue-router: 0.7.0(vue-router@4.2.5)(vue@3.4.15)
       untyped: 1.4.2
-      vue: 3.4.15(@effect-app/typescript@5.4.0-tsplus.202311222)
+      vue: 3.4.15(typescript@5.3.3)
       vue-bundle-renderer: 2.0.0
       vue-devtools-stub: 0.1.0
       vue-router: 4.2.5(vue@3.4.15)
@@ -15281,7 +15276,7 @@ packages:
     peerDependencies:
       vue: ^3.3.9
     dependencies:
-      vue: 3.4.15(@effect-app/typescript@5.4.0-tsplus.202311222)
+      vue: 3.4.15(typescript@5.3.3)
     dev: false
 
   /synckit@0.8.8:
@@ -15464,7 +15459,7 @@ packages:
     engines: {node: '>=14.16'}
     dev: true
 
-  /ts-loader@9.5.1(@effect-app/typescript@5.4.0-tsplus.202311222)(webpack@5.90.1):
+  /ts-loader@9.5.1(typescript@5.3.3)(webpack@5.90.1):
     resolution: {integrity: sha512-rNH3sK9kGZcH9dYzC7CewQm4NtxJTjSEVRJ2DyBZR7f8/wcta+iV44UPCXc5+nzDzivKtlzV6c9P4e+oFhDLYg==}
     engines: {node: '>=12.0.0'}
     peerDependencies:
@@ -15476,7 +15471,7 @@ packages:
       micromatch: 4.0.5
       semver: 7.6.0
       source-map: 0.7.4
-      typescript: /@effect-app/typescript@5.4.0-tsplus.202311222
+      typescript: 5.3.3
       webpack: 5.90.1
     dev: true
 
@@ -16158,7 +16153,7 @@ packages:
       - supports-color
       - terser
 
-  /vite-plugin-checker@0.6.4(@effect-app/typescript@5.4.0-tsplus.202311222)(eslint@8.56.0)(vite@5.0.12)(vue-tsc@1.8.27):
+  /vite-plugin-checker@0.6.4(eslint@8.56.0)(typescript@5.3.3)(vite@5.0.12)(vue-tsc@1.8.27):
     resolution: {integrity: sha512-2zKHH5oxr+ye43nReRbC2fny1nyARwhxdm0uNYp/ERy4YvU9iZpNOsueoi/luXw5gnpqRSvjcEPxXbS153O2wA==}
     engines: {node: '>=14.16'}
     peerDependencies:
@@ -16201,13 +16196,13 @@ packages:
       semver: 7.6.0
       strip-ansi: 6.0.1
       tiny-invariant: 1.3.1
-      typescript: /@effect-app/typescript@5.4.0-tsplus.202311222
+      typescript: 5.3.3
       vite: 5.0.12(@types/node@20.11.17)(sass@1.70.0)
       vscode-languageclient: 7.0.0
       vscode-languageserver: 7.0.0
       vscode-languageserver-textdocument: 1.0.11
       vscode-uri: 3.0.8
-      vue-tsc: 1.8.27(@effect-app/typescript@5.4.0-tsplus.202311222)
+      vue-tsc: 1.8.27(typescript@5.3.3)
 
   /vite-plugin-inspect@0.8.3(@nuxt/kit@3.10.1)(vite@5.1.1):
     resolution: {integrity: sha512-SBVzOIdP/kwe6hjkt7LSW4D0+REqqe58AumcnCfRNw4Kt3mbS9pEBkch+nupu2PBxv2tQi69EQHQ1ZA1vgB/Og==}
@@ -16448,7 +16443,7 @@ packages:
       '@vue/composition-api':
         optional: true
     dependencies:
-      vue: 3.4.15(@effect-app/typescript@5.4.0-tsplus.202311222)
+      vue: 3.4.15(typescript@5.3.3)
     dev: false
 
   /vue-devtools-stub@0.1.0:
@@ -16478,7 +16473,7 @@ packages:
       vue: ^3.3.9
     dependencies:
       markdown-it: 12.3.2
-      vue: 3.4.15(@effect-app/typescript@5.4.0-tsplus.202311222)
+      vue: 3.4.15(typescript@5.3.3)
     dev: false
 
   /vue-router@4.2.5(vue@3.4.15):
@@ -16487,7 +16482,7 @@ packages:
       vue: ^3.3.9
     dependencies:
       '@vue/devtools-api': 6.5.1
-      vue: 3.4.15(@effect-app/typescript@5.4.0-tsplus.202311222)
+      vue: 3.4.15(typescript@5.3.3)
 
   /vue-template-compiler@2.7.16:
     resolution: {integrity: sha512-AYbUWAJHLGGQM7+cNTELw+KsOG9nl2CnSv467WobS5Cv9uk3wFcnr1Etsz2sEIHEZvw1U+o9mRlEO6QbZvUPGQ==}
@@ -16501,7 +16496,7 @@ packages:
       vue: ^3.3.9
     dependencies:
       date-fns: 2.30.0(patch_hash=g5hqt5bhnjezqo5vnkpprfkba4)
-      vue: 3.4.15(@effect-app/typescript@5.4.0-tsplus.202311222)
+      vue: 3.4.15(typescript@5.3.3)
     dev: false
 
   /vue-toastification@2.0.0-rc.5(vue@3.4.15):
@@ -16509,21 +16504,21 @@ packages:
     peerDependencies:
       vue: ^3.3.9
     dependencies:
-      vue: 3.4.15(@effect-app/typescript@5.4.0-tsplus.202311222)
+      vue: 3.4.15(typescript@5.3.3)
     dev: false
 
-  /vue-tsc@1.8.27(@effect-app/typescript@5.4.0-tsplus.202311222):
+  /vue-tsc@1.8.27(typescript@5.3.3):
     resolution: {integrity: sha512-WesKCAZCRAbmmhuGl3+VrdWItEvfoFIPXOvUJkjULi+x+6G/Dy69yO3TBRJDr9eUlmsNAwVmxsNZxvHKzbkKdg==}
     hasBin: true
     peerDependencies:
       typescript: '*'
     dependencies:
       '@volar/typescript': 1.11.1
-      '@vue/language-core': 1.8.27(@effect-app/typescript@5.4.0-tsplus.202311222)
+      '@vue/language-core': 1.8.27(typescript@5.3.3)
       semver: 7.6.0
-      typescript: /@effect-app/typescript@5.4.0-tsplus.202311222
+      typescript: 5.3.3
 
-  /vue@3.4.15(@effect-app/typescript@5.4.0-tsplus.202311222):
+  /vue@3.4.15(typescript@5.3.3):
     resolution: {integrity: sha512-jC0GH4KkWLWJOEQjOpkqU1bQsBwf4R1rsFtw5GQJbjHVKWDzO6P0nWWBTmjp1xSemAioDFj1jdaK1qa3DnMQoQ==}
     peerDependencies:
       typescript: '*'
@@ -16536,9 +16531,9 @@ packages:
       '@vue/runtime-dom': 3.4.15
       '@vue/server-renderer': 3.4.15(vue@3.4.15)
       '@vue/shared': 3.4.15
-      typescript: /@effect-app/typescript@5.4.0-tsplus.202311222
+      typescript: 5.3.3
 
-  /vuetify@3.5.3(@effect-app/typescript@5.4.0-tsplus.202311222)(vue@3.4.15):
+  /vuetify@3.5.3(typescript@5.3.3)(vue@3.4.15):
     resolution: {integrity: sha512-z2H1HYEfFeqHTp47VbFOLAv6Nard/eP4+qIXY9c6Z/uUflLhq5K8cyXL6MKhfIzyUsto+KszjVTyX+bu7zT2QA==}
     engines: {node: ^12.20 || >=14.13}
     peerDependencies:
@@ -16557,8 +16552,8 @@ packages:
       webpack-plugin-vuetify:
         optional: true
     dependencies:
-      typescript: /@effect-app/typescript@5.4.0-tsplus.202311222
-      vue: 3.4.15(@effect-app/typescript@5.4.0-tsplus.202311222)
+      typescript: 5.3.3
+      vue: 3.4.15(typescript@5.3.3)
     dev: false
 
   /walkdir@0.4.1:
