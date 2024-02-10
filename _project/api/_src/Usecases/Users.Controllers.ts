@@ -1,9 +1,9 @@
 import { UsersRsc } from "@effect-app-boilerplate/resources"
 import type { UserView } from "@effect-app-boilerplate/resources/Views"
-import { Order } from "effect-app"
 import { matchFor } from "api/lib/matchFor.js"
 import { UserRepo } from "api/services.js"
 import { ReadonlyArray } from "effect"
+import { Order } from "effect-app"
 
 const users = matchFor(UsersRsc)
 

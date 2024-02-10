@@ -1,6 +1,6 @@
-import { S } from "effect-app"
 import dotenv from "dotenv"
 import { Config as C, Secret } from "effect"
+import { S } from "effect-app"
 
 const envFile = "./.env.local"
 

@@ -1,10 +1,10 @@
 import { UserId } from "@effect-app-boilerplate/models/User"
+import { Effect, Exit, Request, RequestResolver } from "effect"
 import { Option, S } from "effect-app"
 import { ApiConfig, clientFor, NotFoundError } from "effect-app/client"
 import type { EffectRequest } from "effect-app/Request"
 import { HttpClient } from "effect-app/Request"
 import { type Schema } from "effect-app/schema"
-import { Effect, Exit, Request, RequestResolver } from "effect"
 import * as UsersRsc from "../Users.js"
 import { UserView } from "../Views/UserView.js"
 

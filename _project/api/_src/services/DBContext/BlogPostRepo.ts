@@ -1,8 +1,8 @@
 import { BlogPost } from "@effect-app-boilerplate/models/Blog"
 import { RepositoryDefaultImpl } from "@effect-app/infra/services/RepositoryBase"
-import { NonEmptyString255, NonEmptyString2k } from "effect-app/schema"
 import { RepoLive } from "api/migrate.js"
 import { Effect, Layer } from "effect"
+import { NonEmptyString255, NonEmptyString2k } from "effect-app/schema"
 import { UserRepo } from "./UserRepo.js"
 
 export interface BlogPostPersistenceModel extends BlogPost.From {

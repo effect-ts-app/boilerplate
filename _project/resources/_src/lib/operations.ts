@@ -1,6 +1,6 @@
+import { Duration, Effect } from "effect"
 import { clientFor, type FetchResponse } from "effect-app/client"
 import type { Operation, OperationId } from "effect-app/Operations"
-import { Duration, Effect } from "effect"
 import * as OperationsRsc from "../Operations.js"
 
 const opsClient = clientFor(OperationsRsc)
