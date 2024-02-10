@@ -21,12 +21,11 @@ import {
 } from "@vueuse/core"
 import type { ComputedRef } from "vue"
 import type { Either, HttpClient } from "@/utils/prelude"
-import { Effect, Matcher, Option } from "@/utils/prelude"
-import { Cause } from "effect"
+import { Effect, Match, Option } from "@/utils/prelude"
+import { Cause, S } from "effect-app"
 import { useToast } from "vue-toastification"
 import { intl } from "./intl"
 import { isFailed } from "effect-app/client"
-import { S } from "effect-app"
 
 export { useToast } from "vue-toastification"
 
@@ -100,16 +99,14 @@ interface Opts<A> {
 export const useAndHandleMutation: {
   <I, E extends ResponseErrors, A>(
     self: {
-      handler: (
-        i: I,
-      ) => Effect.Effect<A, E, ApiConfig | HttpClient.Client.Default>
+      handler: (i: I) => Effect<A, E, ApiConfig | HttpClient.Client.Default>
     },
     action: string,
     options?: Opts<A>,
   ): Resp<I, E, A>
   <E extends ResponseErrors, A>(
     self: {
-      handler: Effect.Effect<A, E, ApiConfig | HttpClient.Client.Default>
+      handler: Effect<A, E, ApiConfig | HttpClient.Client.Default>
     },
     action: string,
     options?: Opts<A>,
@@ -134,7 +131,7 @@ export const useAndHandleMutation: {
   )
 }
 export const useMutationWithState = <I, E, A>(self: {
-  handler: (i: I) => Effect.Effect<A, E, ApiConfig | HttpClient.Client.Default>
+  handler: (i: I) => Effect<A, E, ApiConfig | HttpClient.Client.Default>
 }) => {
   const [a, b] = useMutation(self)
 
@@ -157,14 +154,12 @@ export function makeUseAndHandleMutation(onSuccess: () => Promise<void>) {
     )
   }) as {
     <I, E extends ResponseErrors, A>(
-      self: (
-        i: I,
-      ) => Effect.Effect<A, E, ApiConfig | HttpClient.Client.Default>,
+      self: (i: I) => Effect<A, E, ApiConfig | HttpClient.Client.Default>,
       action: string,
       options?: Opts<A>,
     ): Resp<I, E, A>
     <E extends ResponseErrors, A>(
-      self: Effect.Effect<A, E, ApiConfig | HttpClient.Client.Default>,
+      self: Effect<A, E, ApiConfig | HttpClient.Client.Default>,
       action: string,
       options?: Opts<A>,
     ): ActResp<E, A>
@@ -174,22 +169,18 @@ export function makeUseAndHandleMutation(onSuccess: () => Promise<void>) {
 export const withSuccess: {
   <I, E extends ResponseErrors, A, X>(
     self: {
-      handler: (
-        i: I,
-      ) => Effect.Effect<A, E, ApiConfig | HttpClient.Client.Default>
+      handler: (i: I) => Effect<A, E, ApiConfig | HttpClient.Client.Default>
     },
     onSuccess: (a: A, i: I) => Promise<X>,
   ): {
-    handler: (
-      i: I,
-    ) => Effect.Effect<X, E, ApiConfig | HttpClient.Client.Default>
+    handler: (i: I) => Effect<X, E, ApiConfig | HttpClient.Client.Default>
   }
   <E extends ResponseErrors, A, X>(
     self: {
-      handler: Effect.Effect<A, E, ApiConfig | HttpClient.Client.Default>
+      handler: Effect<A, E, ApiConfig | HttpClient.Client.Default>
     },
     onSuccess: (_: A) => Promise<X>,
-  ): { handler: Effect.Effect<X, E, ApiConfig | HttpClient.Client.Default> }
+  ): { handler: Effect<X, E, ApiConfig | HttpClient.Client.Default> }
 } = (self: any, onSuccess: any): any => ({
   ...self,
   handler:
@@ -199,11 +190,7 @@ export const withSuccess: {
             (
               self.handler as (
                 i: any,
-              ) => Effect.Effect<
-                ApiConfig | HttpClient.Client.Default,
-                any,
-                any
-              >
+              ) => Effect<ApiConfig | HttpClient.Client.Default, any, any>
             )(i),
             Effect.flatMap(_ => Effect.promise(() => onSuccess(_, i))),
           )
@@ -212,11 +199,9 @@ export const withSuccess: {
 
 export function withSuccessE<I, E extends ResponseErrors, A, E2, X>(
   self: {
-    handler: (
-      i: I,
-    ) => Effect.Effect<A, E, ApiConfig | HttpClient.Client.Default>
+    handler: (i: I) => Effect<A, E, ApiConfig | HttpClient.Client.Default>
   },
-  onSuccessE: (_: A, i: I) => Effect.Effect<X, E2>,
+  onSuccessE: (_: A, i: I) => Effect<X, E2>,
 ) {
   return {
     ...self,
@@ -288,7 +273,7 @@ export function handleRequestWithToast<
   A,
   Args extends unknown[],
 >(
-  f: (...args: Args) => Promise<Either.Either<E, A>>,
+  f: (...args: Args) => Promise<Either<E, A>>,
   action: string,
   options: Opts<A> = { suppressErrorToast: false },
 ) {
@@ -369,8 +354,8 @@ export function handleRequestWithToast<
 }
 
 export function renderError(e: ResponseErrors): string {
-  return Matcher.value(e).pipe(
-    Matcher.tags({
+  return Match.value(e).pipe(
+    Match.tags({
       HttpErrorRequest: e =>
         intl.value.formatMessage(
           { id: "handle.request_error" },
@@ -409,7 +394,7 @@ export function renderError(e: ResponseErrors): string {
         return intl.value.formatMessage({ id: "validation.failed" })
       },
     }),
-    Matcher.orElse(e =>
+    Match.orElse(e =>
       intl.value.formatMessage(
         { id: "handle.unexpected_error" },
         {

@@ -16,7 +16,7 @@ import type {
   RouteMatch
 } from "@effect-app/infra/api/routing"
 import { defaultErrorHandler, match } from "@effect-app/infra/api/routing"
-import type { Effect } from "effect"
+import type { Effect } from "effect-app"
 import { S } from "effect-app"
 import type { SupportedErrors } from "effect-app/client/errors"
 import { REST } from "effect-app/schema"
@@ -45,7 +45,7 @@ function handle<
   type Res = S.Schema.To<Extr<ResSchema>>
 
   return <R, E>(
-    h: (r: Req) => Effect.Effect<Res, E, R>
+    h: (r: Req) => Effect<Res, E, R>
   ) => ({
     adaptResponse,
     h,
@@ -75,7 +75,7 @@ export function matchFor<Rsc extends Record<string, any>>(
     return <
       SVC extends Record<
         string,
-        Effect.Effect<any, any, any>
+        Effect<any, any, any>
       >,
       R2,
       E,
@@ -88,7 +88,7 @@ export function matchFor<Rsc extends Record<string, any>>(
           LowerServices<EffectDeps<SVC>> & GetCTX<Req>,
           "flat"
         >
-      ) => Effect.Effect<A, E, R2>
+      ) => Effect<A, E, R2>
     ) =>
     (req: any, ctx: any) =>
       allLower(services)
@@ -111,18 +111,18 @@ export function matchFor<Rsc extends Record<string, any>>(
         LowerServices<EffectDeps<SVC>> & GetCTX<REST.GetRequest<Rsc[Key]>> & Pick<Rsc[Key], "Response">,
         "flat"
       >
-    ) => Effect.Effect<A, E, R2>
+    ) => Effect<A, E, R2>
   ) => (
     req: ReqFromSchema<REST.GetRequest<Rsc[Key]>>,
     ctx: GetCTX<REST.GetRequest<Rsc[Key]>>
-  ) => Effect.Effect<A, E | ValuesE<EffectDeps<SVC>>, ValuesR<EffectDeps<SVC>> | R2>
+  ) => Effect<A, E | ValuesE<EffectDeps<SVC>>, ValuesR<EffectDeps<SVC>> | R2>
 
   type Keys = keyof Omit<Rsc, "meta">
 
   type Handler<K extends keyof Rsc, R, Context extends CTX> = (
     req: ReqFromSchema<REST.GetRequest<Rsc[K]>>,
     ctx: Context
-  ) => Effect.Effect<ResFromSchema<REST.GetResponse<Rsc[K]>>, SupportedErrors, R>
+  ) => Effect<ResFromSchema<REST.GetResponse<Rsc[K]>>, SupportedErrors, R>
 
   const controllers = <
     THandlers extends {

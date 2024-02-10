@@ -11,7 +11,7 @@ import * as Middleware from "@effect/platform/Http/Middleware"
 import * as ServerRequest from "@effect/platform/Http/ServerRequest"
 import * as ServerResponse from "@effect/platform/Http/ServerResponse"
 import { HttpBody, HttpHeaders, HttpServerResponse } from "api/lib/http.js"
-import * as Effect from "effect/Effect"
+import { Effect } from "effect-app"
 import * as Either from "effect/Either"
 import * as FiberRef from "effect/FiberRef"
 import { pipe } from "effect/Function"
@@ -95,7 +95,7 @@ export const toServerResponse = (err: NotLoggedInError) =>
 export const basicAuth = <R, _>(
   checkCredentials: (
     credentials: Middlewares.BasicAuthCredentials
-  ) => Effect.Effect<_, NotLoggedInError, R>,
+  ) => Effect<_, NotLoggedInError, R>,
   options?: Partial<{
     headerName: string
     skipPaths: readonly string[]

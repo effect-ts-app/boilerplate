@@ -1,5 +1,5 @@
 import { BaseConfig } from "@effect-app-boilerplate/messages/config"
-import { Config, Effect } from "effect"
+import { Config, Effect } from "effect-app"
 import { secretURL } from "effect-app/Config/SecretURL"
 import * as SecretURL from "effect-app/Config/SecretURL"
 

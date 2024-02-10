@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable unused-imports/no-unused-vars */
 import { HttpHeaders, HttpMiddleware, HttpServerRequest, HttpServerResponse } from "api/lib/http.js"
-import { Config, Effect } from "effect"
+import { Config, Effect } from "effect-app"
 import {
   auth,
   InsufficientScopeError,
@@ -23,7 +23,7 @@ export const Auth0Config = Config.all({
 
 // type Errors = InsufficientScopeError | InvalidRequestError | InvalidTokenError | UnauthorizedError
 
-export const checkJWTI = (config: Effect.Effect.Success<typeof Auth0Config>) => {
+export const checkJWTI = (config: Effect.Success<typeof Auth0Config>) => {
   const mw = auth({
     audience: config.audience,
     issuer: config.issuer + "/",
@@ -59,7 +59,7 @@ export const checkJWTI = (config: Effect.Effect.Success<typeof Auth0Config>) => 
   })
 }
 
-export const checkJwt = (config: Effect.Effect.Success<typeof Auth0Config>) => {
+export const checkJwt = (config: Effect.Success<typeof Auth0Config>) => {
   const check = checkJWTI(config)
   return HttpMiddleware.make((app) =>
     Effect.gen(function*($) {

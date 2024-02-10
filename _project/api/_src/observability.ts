@@ -18,7 +18,7 @@ import {
   setupGlobalHub,
   wrapContextManagerClass
 } from "@sentry/opentelemetry"
-import { Effect, Layer, Secret } from "effect"
+import { Effect, Layer, Secret } from "effect-app"
 import tcpPortUsed from "tcp-port-used"
 import { BaseConfig } from "./config.js"
 

@@ -7,7 +7,7 @@ import { RequestContextContainer } from "@effect-app/infra/services/RequestConte
 import { ContextMapContainer } from "@effect-app/infra/services/Store/ContextMapContainer"
 import { NodeContext } from "@effect/platform-node"
 import { all } from "api/routes.js"
-import { Effect, Layer, Ref } from "effect"
+import { Effect, Layer, Ref } from "effect-app"
 import { GenericTag } from "effect/Context"
 import { createServer } from "node:http"
 import { MergedConfig } from "./config.js"

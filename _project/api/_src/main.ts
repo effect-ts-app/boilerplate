@@ -4,7 +4,7 @@ import { runMain } from "@effect-app-boilerplate/messages/basicRuntime"
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { api, devApi } from "@effect-app-boilerplate/api/api"
 import { faker } from "@faker-js/faker"
-import { Layer } from "effect"
+import { Layer } from "effect-app"
 import { setFaker } from "effect-app/faker"
 import { MergedConfig } from "./config.js"
 import { TracingLive } from "./observability.js"
