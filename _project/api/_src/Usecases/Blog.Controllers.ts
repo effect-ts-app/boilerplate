@@ -9,32 +9,30 @@ import { NonNegativeInt } from "effect-app/schema"
 const blog = matchFor(BlogRsc)
 
 const FindPost = blog.FindPost(
-  { BlogPostRepo },
-  (req, { blogPostRepo }) =>
-    blogPostRepo
+  (req) =>
+    BlogPostRepo
       .find(req.id)
       .andThen((_) => _.value ?? null)
 )
 
 const GetPosts = blog.GetPosts(
-  { BlogPostRepo },
-  (_, { blogPostRepo }) => blogPostRepo.all.andThen((items) => ({ items }))
+  BlogPostRepo
+    .all
+    .andThen((items) => ({ items }))
 )
 
 const CreatePost = blog.CreatePost(
-  { BlogPostRepo, UserRepo },
-  (req, { blogPostRepo, userRepo }) =>
-    userRepo
+  (req) =>
+    UserRepo
       .getCurrentUser
       .andThen((author) => (new BlogPost({ ...req, author }, true)))
-      .tap(blogPostRepo.save)
+      .tap(BlogPostRepo.save)
 )
 
 const PublishPost = blog.PublishPost(
-  { BlogPostRepo, Events, Operations },
-  (req, { blogPostRepo, events, operations }) =>
+  (req) =>
     Effect.gen(function*($) {
-      const post = yield* $(blogPostRepo.get(req.id))
+      const post = yield* $(BlogPostRepo.get(req.id))
 
       console.log("publishing post", post)
 
@@ -49,7 +47,7 @@ const PublishPost = blog.PublishPost(
       const operationId = yield* $(
         forkOperationWithEffect(
           (opId) =>
-            operations
+            Operations
               .update(opId, {
                 total: NonNegativeInt(targets.length),
                 completed: NonNegativeInt(done.length)
@@ -59,7 +57,7 @@ const PublishPost = blog.PublishPost(
                   Effect
                     .sync(() => done.push(_))
                     .tap(() =>
-                      operations.update(opId, {
+                      Operations.update(opId, {
                         total: NonNegativeInt(targets.length),
                         completed: NonNegativeInt(done.length)
                       })
@@ -70,7 +68,7 @@ const PublishPost = blog.PublishPost(
           // while operation is running...
           (_opId) =>
             Effect
-              .suspend(() => events.publish(new BogusEvent()))
+              .suspend(() => Events.publish(new BogusEvent()))
               .pipe(Effect.schedule(Schedule.spaced(Duration.seconds(1))))
         )
       )

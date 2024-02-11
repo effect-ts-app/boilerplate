@@ -16,8 +16,7 @@ import type {
   RouteMatch
 } from "@effect-app/infra/api/routing"
 import { defaultErrorHandler, match } from "@effect-app/infra/api/routing"
-import { S } from "effect-app"
-import type { Effect } from "effect-app"
+import { Effect, S } from "effect-app"
 import type { SupportedErrors } from "effect-app/client/errors"
 import { REST } from "effect-app/schema"
 import { handleRequestEnv } from "./RequestEnv.js"
@@ -96,27 +95,44 @@ export function matchFor<Rsc extends Record<string, any>>(
         .andThen((svc2) => f(req, { ...ctx, ...svc2 as any, Response: rsc[action].Response }))
   }
 
-  type MatchWithServicesNew<Key extends keyof Rsc> = <
-    SVC extends Record<
-      string,
-      EffectUnunified<any, any, any>
-    >,
-    R2,
-    E,
-    A
-  >(
-    services: SVC,
-    f: (
+  type MatchWithServicesNew<Key extends keyof Rsc> = {
+    <R2, E, A>(
+      f: Effect<A, E, R2>
+    ): (
       req: ReqFromSchema<REST.GetRequest<Rsc[Key]>>,
-      ctx: Compute<
-        LowerServices<EffectDeps<SVC>> & GetCTX<REST.GetRequest<Rsc[Key]>> & Pick<Rsc[Key], "Response">,
-        "flat"
-      >
+      ctx: GetCTX<REST.GetRequest<Rsc[Key]>>
     ) => Effect<A, E, R2>
-  ) => (
-    req: ReqFromSchema<REST.GetRequest<Rsc[Key]>>,
-    ctx: GetCTX<REST.GetRequest<Rsc[Key]>>
-  ) => Effect<A, E | ValuesE<EffectDeps<SVC>>, ValuesR<EffectDeps<SVC>> | R2>
+    <R2, E, A>(
+      f: (
+        req: ReqFromSchema<REST.GetRequest<Rsc[Key]>>,
+        ctx: GetCTX<REST.GetRequest<Rsc[Key]>> & Pick<Rsc[Key], "Response">
+      ) => Effect<A, E, R2>
+    ): (
+      req: ReqFromSchema<REST.GetRequest<Rsc[Key]>>,
+      ctx: GetCTX<REST.GetRequest<Rsc[Key]>>
+    ) => Effect<A, E, R2>
+    <
+      SVC extends Record<
+        string,
+        EffectUnunified<any, any, any>
+      >,
+      R2,
+      E,
+      A
+    >(
+      services: SVC,
+      f: (
+        req: ReqFromSchema<REST.GetRequest<Rsc[Key]>>,
+        ctx: Compute<
+          LowerServices<EffectDeps<SVC>> & GetCTX<REST.GetRequest<Rsc[Key]>> & Pick<Rsc[Key], "Response">,
+          "flat"
+        >
+      ) => Effect<A, E, R2>
+    ): (
+      req: ReqFromSchema<REST.GetRequest<Rsc[Key]>>,
+      ctx: GetCTX<REST.GetRequest<Rsc[Key]>>
+    ) => Effect<A, E | ValuesE<EffectDeps<SVC>>, ValuesR<EffectDeps<SVC>> | R2>
+  }
 
   type Keys = keyof Omit<Rsc, "meta">
 
@@ -161,7 +177,12 @@ export function matchFor<Rsc extends Record<string, any>>(
     controllers,
     ...typedKeysOf(rsc).reduce(
       (prev, cur) => {
-        ;(prev as any)[cur] = matchWithServices(cur)
+        ;(prev as any)[cur] = (svcOrFnOrEffect: any, fnOrNone: any) =>
+          Effect.isEffect(svcOrFnOrEffect)
+            ? () => svcOrFnOrEffect
+            : typeof svcOrFnOrEffect === "function"
+            ? (req: any, ctx: any) => svcOrFnOrEffect(req, { ...ctx, Response: rsc[cur].Response })
+            : matchWithServices(cur)(svcOrFnOrEffect, fnOrNone)
         return prev
       },
       {} as {

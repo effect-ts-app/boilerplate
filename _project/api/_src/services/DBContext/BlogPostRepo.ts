@@ -42,4 +42,9 @@ export class BlogPostRepo extends RepositoryDefaultImpl<BlogPostRepo>()<BlogPost
         .pipe(Layer.effect(BlogPostRepo))
     })
     .pipe(Layer.unwrapEffect, Layer.provide(Layer.mergeAll(RepoLive, UserRepo.Live, UserRepo.UserFromIdLayer)))
+
+  static readonly find = Effect.serviceFunctions(this).find
+  static readonly get = Effect.serviceFunctions(this).get
+  static readonly save = Effect.serviceFunctions(this).save
+  static readonly all = Effect.serviceConstants(this).all
 }

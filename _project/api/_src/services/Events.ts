@@ -21,4 +21,5 @@ const makeEvents = Effect.gen(function*($) {
  */
 export abstract class Events extends TagClassMake<Events>()(makeEvents) {
   static readonly Live = this.toLayer()
+  static readonly publish = Effect.serviceFunctions(this).publish
 }

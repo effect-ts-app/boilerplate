@@ -8,10 +8,9 @@ import { Order } from "effect-app"
 const users = matchFor(UsersRsc)
 
 const Index = users.Index(
-  { UserRepo },
-  (req, { Response, userRepo }) =>
-    userRepo
-      .query({ filter: UserRepo.query((where) => where("id", "in", req.filterByIds)) })
+  (req, { Response }) =>
+    UserRepo
+      .query1({ filter: UserRepo.query((where) => where("id", "in", req.filterByIds)) })
       .andThen((users) =>
         new Response({
           users: ReadonlyArray

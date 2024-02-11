@@ -5,8 +5,10 @@ import { Operations } from "api/services.js"
 const operations = matchFor(OperationsRsc)
 
 const Find = operations.Find(
-  { Operations },
-  ({ id }, { operations }) => operations.find(id).andThen((_) => _.value ?? null)
+  ({ id }) =>
+    Operations
+      .find(id)
+      .andThen((_) => _.value ?? null)
 )
 
 export default operations.controllers({ Find })

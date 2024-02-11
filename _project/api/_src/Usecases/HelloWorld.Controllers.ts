@@ -8,9 +8,8 @@ import { Effect, S } from "effect-app"
 const helloWorld = matchFor(HelloWorldRsc)
 
 const Get = helloWorld.Get(
-  { UserRepo },
-  ({ echo }, { Response, context, userRepo }) =>
-    userRepo
+  ({ echo }, { Response, context }) =>
+    UserRepo
       .getCurrentUser
       .pipe(
         Effect.catchTags({
