@@ -11,7 +11,7 @@ import { Effect, Layer, Ref } from "effect-app"
 import { GenericTag } from "effect/Context"
 import { createServer } from "node:http"
 import { MergedConfig } from "./config.js"
-import { fromArray, HttpClientNode, HttpMiddleware, HttpNode, HttpRouter, HttpServer } from "./lib/http.js"
+import { HttpClientNode, HttpMiddleware, HttpNode, HttpRouter, HttpServer } from "./lib/http.js"
 import * as MW from "./middleware/index.js"
 import { RequestContextMiddleware } from "./middleware/index.js"
 import { UserRepo } from "./services.js"
@@ -51,7 +51,8 @@ const App = Effect
     const app = all
       .pipe(Effect.map((_) => {
         const routes = Object.values(_)
-        return fromArray(routes)
+        return HttpRouter
+          .fromIterable(routes)
           .pipe(HttpRouter.get("/events", MW.events), HttpRouter.use(RequestContextMiddleware))
       }))
       // .zipLeft(RouteDescriptors.andThen((_) => _.get).andThen(writeOpenapiDocsI))
