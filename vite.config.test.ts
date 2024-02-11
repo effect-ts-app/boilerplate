@@ -51,18 +51,21 @@ export default function defineTestConfig(
   const cfg = {
     ...b,
     // eslint-disable-next-line @typescript-eslint/no-var-requires
-    plugins: useFullDist
-      ? [autoImport]
-      : [
-        ...useTransform
-          ? [effectPlugin({
-            tsconfig: fs.existsSync(d + "tsconfig.test.local.json")
-              ? d + "tsconfig.test.local.json"
-              : d + "tsconfig.test.json"
-          })]
-          : [],
-        autoImport
-      ],
+    plugins: [
+      ...b.plugins ?? [],
+      ...useFullDist
+        ? [autoImport]
+        : [
+          ...useTransform
+            ? [effectPlugin({
+              tsconfig: fs.existsSync(d + "tsconfig.test.local.json")
+                ? d + "tsconfig.test.local.json"
+                : d + "tsconfig.test.json"
+            })]
+            : [],
+          autoImport
+        ]
+    ],
     test: {
       ...b.test,
       alias: ["api", "core", "messages", "resources", "models"].reduce((acc, cur) => ({ ...acc, ...alias(cur) }), {}),
