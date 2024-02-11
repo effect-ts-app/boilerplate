@@ -66,4 +66,6 @@ export class UserRepo extends RepositoryDefaultImpl<UserRepo>()<UserPersistenceM
       .andThen((_) => _.pipe(Effect.mapError(() => new NotLoggedInError())))
       .andThen((_) => this.get(_.sub))
   }
+
+  static getCurrentUser = Effect.serviceConstants(this).getCurrentUser
 }
