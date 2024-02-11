@@ -10,7 +10,7 @@ const users = matchFor(UsersRsc)
 const Index = users.Index(
   (req, { Response }) =>
     UserRepo
-      .query1({ filter: UserRepo.query((where) => where("id", "in", req.filterByIds)) })
+      .query({ filter: UserRepo.Query((where) => where("id", "in", req.filterByIds)) })
       .andThen((users) =>
         new Response({
           users: ReadonlyArray

@@ -2,9 +2,7 @@ import type { UserId } from "@effect-app-boilerplate/models/User"
 import { User } from "@effect-app-boilerplate/models/User"
 import { NotFoundError, NotLoggedInError } from "@effect-app/infra/errors"
 import { Filters } from "@effect-app/infra/filter"
-import { queryEffect } from "@effect-app/infra/services/Repository"
 import { RepositoryDefaultImpl } from "@effect-app/infra/services/RepositoryBase"
-import type { Filter } from "@effect-app/infra/services/Store"
 import { generate, generateFromArbitrary } from "@effect-app/infra/test.arbs"
 import { RepoConfig } from "api/config.js"
 import { RepoLive } from "api/migrate.js"
@@ -89,17 +87,6 @@ export class UserRepo extends RepositoryDefaultImpl<UserRepo>()<UserPersistenceM
   }
 
   static getCurrentUser = Effect.serviceConstants(this).getCurrentUser
-
-  // TODO: cleanup
-  query1<S = User>(
-    // TODO: think about collectPM, collectE, and collect(Parsed)
-    map: { filter?: Filter<UserPersistenceModel>; collect?: (t: User) => Option<S>; limit?: number; skip?: number }
-  ) {
-    return queryEffect(this, Effect.sync(() => map))
-  }
-  static query1 = <S = User>(
-    map: { filter?: Filter<UserPersistenceModel>; collect?: (t: User) => Option<S>; limit?: number; skip?: number }
-  ) => this.andThen((_) => _.query1(map))
 }
 
 interface GetUserById extends Request.Request<User, NotFoundError<"User">> {
@@ -113,7 +100,7 @@ const getUserByIdResolver = RequestResolver
     UserRepo.pipe(
       Effect.andThen((_) =>
         _
-          .query({ filter: UserRepo.where((_) => _("id", Filters.in(...requests.map((_) => _.id)))) })
+          .query({ filter: UserRepo.Where((_) => _("id", Filters.in(...requests.map((_) => _.id)))) })
           .andThen((users) =>
             requests.forEachEffect(
               (r) =>
