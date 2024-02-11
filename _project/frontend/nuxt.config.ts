@@ -1,4 +1,5 @@
 import process from "process"
+import { fileURLToPath } from "url"
 
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
@@ -29,6 +30,14 @@ export default defineNuxtConfig({
   modules: ["@vueuse/nuxt"],
   // app doesn't need SSR, but also it causes problems with linking schema package.
   ssr: false,
+  alias: {
+    "@effect-app-boilerplate/resources": fileURLToPath(
+      new URL("../resources/_src", import.meta.url),
+    ),
+    "@effect-app-boilerplate/models": fileURLToPath(
+      new URL("../models/_src", import.meta.url),
+    ),
+  },
   vite: {
     build: {
       sourcemap: true,

@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/unbound-method */
 import { pipe } from "@effect-app/core/Function"
-import { LazyGetter } from "@effect-app/core/utils"
 import { A } from "@effect-app/schema"
 import { type Schema } from "@effect/schema/Schema"
 import { Context, Equivalence, S } from "effect-app"
@@ -81,7 +80,6 @@ export class User extends S.ExtendedClass<User, User.From>()({
   role: Role,
   passwordHash: S.NonEmptyString255
 }) {
-  @LazyGetter()
   get displayName() {
     return S.NonEmptyString2k(this.name.firstName + " " + this.name.lastName)
   }
