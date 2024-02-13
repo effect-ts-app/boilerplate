@@ -35,7 +35,7 @@ export default defineNuxtConfig({
       env: process.env.ENV ?? "local-dev",
     },
   },
-  modules: ["@vueuse/nuxt"],
+  modules: ["@vueuse/nuxt", "@hebilicious/vue-query-nuxt"],
   // app doesn't need SSR, but also it causes problems with linking schema package.
   ssr: false,
   alias: {
