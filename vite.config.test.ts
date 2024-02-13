@@ -1,5 +1,5 @@
 /// <reference types="vitest" />
-import { effectPlugin } from "@effect-app/compiler/vitePlugin2"
+
 import fs from "fs"
 import path from "path"
 import AutoImport from "unplugin-auto-import/vite"
@@ -57,11 +57,13 @@ export default function defineTestConfig(
         ? [autoImport]
         : [
           ...useTransform
-            ? [effectPlugin({
-              tsconfig: fs.existsSync(d + "tsconfig.test.local.json")
-                ? d + "tsconfig.test.local.json"
-                : d + "tsconfig.test.json"
-            })]
+            ? [
+              require("@effect-app/compiler/vitePlugin2").effectPlugin({
+                tsconfig: fs.existsSync(d + "tsconfig.test.local.json")
+                  ? d + "tsconfig.test.local.json"
+                  : d + "tsconfig.test.json"
+              })
+            ]
             : [],
           autoImport
         ]
