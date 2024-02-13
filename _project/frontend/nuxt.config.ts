@@ -10,6 +10,14 @@ export default defineNuxtConfig({
     server: true,
     client: true,
   },
+  alias: {
+    "@effect-app-boilerplate/resources": fileURLToPath(
+      new URL("../resources/_src", import.meta.url),
+    ),
+    "@effect-app-boilerplate/models": fileURLToPath(
+      new URL("../models/_src", import.meta.url),
+    ),
+  },
   build: {
     transpile: ["vuetify", "../../boilerplate/_project/schema"]
       // workaround for commonjs/esm module prod issue
