@@ -19,6 +19,7 @@ import {
   wrapContextManagerClass
 } from "@sentry/opentelemetry"
 import { Effect, Layer, Secret } from "effect-app"
+import { dropUndefinedT } from "effect-app/utils"
 import tcpPortUsed from "tcp-port-used"
 import { BaseConfig } from "./config.js"
 
@@ -51,7 +52,7 @@ const NodeSdkLive = Effect
       setupGlobalHub()
     }
 
-    Sentry.init({
+    Sentry.init(dropUndefinedT({
       dsn: Secret.value(appConfig.sentry.dsn),
       environment: appConfig.env,
       enabled: isRemote,
@@ -62,7 +63,7 @@ const NodeSdkLive = Effect
       tracesSampleRate: 1.0,
       // set the instrumenter to use OpenTelemetry instead of Sentry
       instrumenter: isRemote ? "otel" : undefined
-    })
+    }))
 
     const resource = yield* $(Resource.Resource)
 

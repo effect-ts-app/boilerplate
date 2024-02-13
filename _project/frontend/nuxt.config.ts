@@ -1,4 +1,5 @@
 import process from "process"
+import { fileURLToPath } from "url"
 
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
@@ -8,6 +9,14 @@ export default defineNuxtConfig({
   sourcemap: {
     server: true,
     client: true,
+  },
+  alias: {
+    "@effect-app-boilerplate/resources": fileURLToPath(
+      new URL("../resources/_src", import.meta.url),
+    ),
+    "@effect-app-boilerplate/models": fileURLToPath(
+      new URL("../models/_src", import.meta.url),
+    ),
   },
   build: {
     transpile: ["vuetify", "../../boilerplate/_project/schema"]
