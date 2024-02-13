@@ -29,7 +29,10 @@
   "editor.formatOnSave": true,
   "eslint.format.enable": true,
   "[vue]": {
-    "editor.defaultFormatter": "dbaeumer.vscode-eslint" // "Vue.volar"
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+    "editor.codeActionsOnSave": [
+      "source.addMissingImports"
+    ]
   },
   "[javascript]": {
     "editor.defaultFormatter": "dbaeumer.vscode-eslint",
