@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { HelloWorldRsc } from "@effect-app-boilerplate/resources"
 import { buildFormFromSchema } from "@effect-app/vue/form"
+
 import { S } from "~/utils/prelude"
 
-const helloWorldClient = clientFor(HelloWorldRsc)
 const schema = S.struct({
   title: S.NonEmptyString255,
   name: S.NonEmptyString2k,
@@ -22,15 +22,27 @@ const form = buildFormFromSchema(schema, state, v =>
   Promise.resolve(confirm("submitting: " + JSON.stringify(v))),
 )
 
-const [result, latestSuccess, execute] = useSafeQuery(
-  helloWorldClient.get,
-  () => ({
-    echo: "Echo me at: " + new Date().getTime(),
-  }),
-)
+const makeReq = () => ({
+  echo: "Echo me at: " + new Date().getTime(),
+})
+
+const req = ref(makeReq())
+
+const helloWorldClient = clientFor(HelloWorldRsc)
+const [result] = useSafeQuery(helloWorldClient.get, req)
+
+// onMounted(() => {
+//   setInterval(() => {
+//     // Fallback to the default focus check
+//     focusManager.setFocused(false)
+
+//     // Override the default focus state
+//     focusManager.setFocused(true)
+//   }, 2000)
+// })
 
 onMounted(() => {
-  const t = setInterval(() => execute().catch(console.error), 2000)
+  const t = setInterval(() => (req.value = makeReq()), 5000)
   return () => clearInterval(t)
 })
 </script>
