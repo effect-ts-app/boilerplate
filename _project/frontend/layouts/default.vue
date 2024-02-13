@@ -3,6 +3,7 @@ import { MeRsc } from "@effect-app-boilerplate/resources"
 import { isInitializing } from "@effect-app/vue"
 import { onMounted } from "vue"
 import { useRouter } from "vue-router"
+import { VueQueryDevtools } from "@tanstack/vue-query-devtools"
 
 const meClient = clientFor(MeRsc)
 const [userResult, currentUser, getCurrentUser] = useSafeQuery(meClient.get)
@@ -50,5 +51,6 @@ onMounted(() => {
     <v-footer app>
       <!-- -->
     </v-footer>
+    <VueQueryDevtools />
   </v-app>
 </template>

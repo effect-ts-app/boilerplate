@@ -36,12 +36,7 @@ export {
   isRefreshing,
   isSuccess,
 } from "effect-app/client"
-export {
-  useMutate,
-  useMutation,
-  useSafeQuery,
-  useSafeQuery_,
-} from "@effect-app/vue"
+export { useMutate, useMutation } from "@effect-app/vue"
 export {
   refreshAndWaitAForOperation,
   refreshAndWaitAForOperationP,
