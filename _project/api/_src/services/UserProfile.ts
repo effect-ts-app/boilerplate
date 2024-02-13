@@ -11,7 +11,7 @@ import { assignTag } from "effect-app/service"
 export class UserProfile extends assignTag<UserProfile>()(
   S.Class<UserProfile>()({
     sub: UserProfileId,
-    roles: S.array(Role).pipe(S.mapFrom("https://nomizz.com/roles")).withDefault
+    roles: S.array(Role).withDefault.pipe(S.mapFrom("https://nomizz.com/roles"))
   })
 ) {
 }

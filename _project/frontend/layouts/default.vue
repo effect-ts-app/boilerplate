@@ -36,6 +36,9 @@ onMounted(() => {
       <div v-if="isInitializing(userResult)">Loading...</div>
       <div v-else>
         <span v-if="currentUser">{{ currentUser.displayName }}</span>
+        <span v-else>
+          <a href="/login/No3o_xbwEh8z2gSbcantz">Login</a>
+        </span>
       </div>
     </v-app-bar>
     <v-main>
