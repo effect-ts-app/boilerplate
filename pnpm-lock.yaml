@@ -391,6 +391,9 @@ importers:
       '@formatjs/intl':
         specifier: 2.7.2
         version: 2.7.2(typescript@5.3.3)
+      '@hebilicious/vue-query-nuxt':
+        specifier: ^0.3.0
+        version: 0.3.0(@tanstack/vue-query@5.20.5)(nuxt@3.10.1)
       '@opentelemetry/context-zone':
         specifier: ^1.21.0
         version: 1.21.0(@opentelemetry/api@1.7.0)
@@ -3360,6 +3363,24 @@ packages:
     dependencies:
       '@hapi/hoek': 9.3.0
       '@hapi/topo': 5.1.0
+    dev: false
+
+  /@hebilicious/vue-query-nuxt@0.3.0(@tanstack/vue-query@5.20.5)(nuxt@3.10.1):
+    resolution: {integrity: sha512-3ULFb4Sq4vp7VCuMFTlvHOIipgLsFPTAUfSoPNrXiUzvuetsLquijaIFWMlgetWC/+1o5WEBXSVcrmX46uZB6w==}
+    requiresBuild: true
+    peerDependencies:
+      '@tanstack/vue-query': ^5.4.3
+      nuxt: ^3.8.0
+    dependencies:
+      '@nuxt/kit': 3.10.1
+      '@tanstack/vue-query': 5.20.5(vue@3.4.15)
+      defu: 6.1.4
+      esbuild: 0.19.12
+      magicast: 0.3.3
+      nuxt: 3.10.1(@types/node@20.11.17)(eslint@8.56.0)(sass@1.70.0)(typescript@5.3.3)(vite@5.1.1)(vue-tsc@1.8.27)
+    transitivePeerDependencies:
+      - rollup
+      - supports-color
     dev: false
 
   /@humanwhocodes/config-array@0.11.14:
