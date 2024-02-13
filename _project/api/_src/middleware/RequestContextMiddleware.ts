@@ -9,7 +9,7 @@ export const RequestContextMiddleware = HttpMiddleware.make((app) =>
   Effect.gen(function*($) {
     const req = yield* $(HttpServerRequest.ServerRequest)
 
-    const currentSpan = yield* $(Effect.currentSpan.pipe(Effect.orDie))
+    const currentSpan = yield* $(Effect.currentSpan.orDie)
     const parent = currentSpan?.parent ? currentSpan.parent.value : undefined
     const start = new Date()
     const supported = ["en", "de"] as const
