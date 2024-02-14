@@ -11,6 +11,18 @@ export default defineNuxtConfig({
     client: true,
   },
   alias: {
+    // effect: fileURLToPath(
+    //   new URL(
+    //     "../../../libs/packages/prelude/node_modules/effect",
+    //     import.meta.url,
+    //   ),
+    // ),
+    // "effect-app": fileURLToPath(
+    //   new URL("../../../libs/packages/prelude/dist", import.meta.url),
+    // ),
+    // "@effect-app/fluent-extensions": fileURLToPath(
+    //   new URL("../../../libs/packages/fluent-extensions/_src", import.meta.url),
+    // ),
     // "@effect-app/vue": fileURLToPath(
     //   new URL("../../../libs/packages/vue/_src", import.meta.url),
     // ),
