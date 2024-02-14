@@ -24,6 +24,7 @@ import { Cause, S } from "effect-app"
 import { useToast } from "vue-toastification"
 import { intl } from "./intl"
 import { isFailed } from "effect-app/client"
+import { useSafeMutation } from "@effect-app/vue"
 import type { MutationResult } from "@effect-app/vue"
 
 export { useToast } from "vue-toastification"
