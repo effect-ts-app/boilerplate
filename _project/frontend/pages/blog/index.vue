@@ -3,10 +3,8 @@ import { BlogRsc } from "@effect-app-boilerplate/resources"
 
 const blogClient = clientFor(BlogRsc)
 
-const [, createPost_] = useMutation(blogClient.createPost)
-const [r, , reloadPosts] = useSafeQuery(blogClient.getPosts)
-
-const createPost = flow(createPost_, _ => _.then(_ => reloadPosts()))
+const [, createPost] = useSafeMutation(blogClient.createPost)
+const [r] = useSafeQuery(blogClient.getPosts)
 </script>
 
 <template>
