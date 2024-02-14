@@ -11,6 +11,9 @@ export default defineNuxtConfig({
     client: true,
   },
   alias: {
+    // "@effect-app/vue": fileURLToPath(
+    //   new URL("../../../libs/packages/vue/_src", import.meta.url),
+    // ),
     "@effect-app-boilerplate/resources": fileURLToPath(
       new URL("../resources/_src", import.meta.url),
     ),
@@ -38,14 +41,7 @@ export default defineNuxtConfig({
   modules: ["@vueuse/nuxt", "@hebilicious/vue-query-nuxt"],
   // app doesn't need SSR, but also it causes problems with linking schema package.
   ssr: false,
-  alias: {
-    "@effect-app-boilerplate/resources": fileURLToPath(
-      new URL("../resources/_src", import.meta.url),
-    ),
-    "@effect-app-boilerplate/models": fileURLToPath(
-      new URL("../models/_src", import.meta.url),
-    ),
-  },
+
   vite: {
     build: {
       sourcemap: true,

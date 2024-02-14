@@ -7,6 +7,14 @@ settings:
 overrides:
   date-fns: ^2.29.3
   vue: ^3.3.9
+  '@effect-app/core': file:../libs/packages/core
+  '@effect-app/eslint-codegen-model': file:../libs/packages/eslint-codegen-model
+  effect-app: file:../libs/packages/prelude
+  '@effect-app/fluent-extensions': file:../libs/packages/fluent-extensions
+  '@effect-app/infra': file:../libs/packages/infra
+  '@effect-app/infra-adapters': file:../libs/packages/infra-adapters
+  '@effect-app/schema': file:../libs/packages/schema
+  '@effect-app/vue': file:../libs/packages/vue
 
 patchedDependencies:
   '@effect/schema@0.62.6':
@@ -91,11 +99,11 @@ importers:
         specifier: ^0.62.0
         version: 0.62.0(@types/node@20.11.17)
       '@effect-app/core':
-        specifier: ^0.136.0
-        version: 0.136.0(@effect/schema@0.62.6)(@effect/typeclass@0.22.12)
+        specifier: file:/Users/patrickroza/pj/effect-app/libs/packages/core
+        version: file:../libs/packages/core(@effect/schema@0.62.6)(@effect/typeclass@0.22.12)(fast-check@3.15.1)
       '@effect-app/eslint-codegen-model':
-        specifier: ^0.47.0
-        version: 0.47.0(eslint@8.56.0)(fp-ts@2.16.2)(typescript@5.3.3)
+        specifier: file:/Users/patrickroza/pj/effect-app/libs/packages/eslint-codegen-model
+        version: file:../libs/packages/eslint-codegen-model(eslint@8.56.0)(fp-ts@2.16.2)(typescript@5.3.3)
       '@phaphoso/eslint-plugin-dprint':
         specifier: ^0.5.2
         version: 0.5.2(patch_hash=5r3oafqkulzxdb6awceadivssy)(eslint@8.56.0)
@@ -124,8 +132,8 @@ importers:
         specifier: ^0.45.0
         version: 0.45.0
       effect-app:
-        specifier: ^0.158.5
-        version: 0.158.5(@effect/typeclass@0.22.12)(fast-check@3.15.1)
+        specifier: file:/Users/patrickroza/pj/effect-app/libs/packages/prelude
+        version: file:../libs/packages/prelude(@effect/typeclass@0.22.12)(fast-check@3.15.1)
       enhanced-resolve:
         specifier: ^5.15.0
         version: 5.15.0
@@ -220,23 +228,23 @@ importers:
         specifier: '*'
         version: link:../resources
       '@effect-app/core':
-        specifier: ^0.136.0
-        version: 0.136.0(@effect/schema@0.62.6)(@effect/typeclass@0.22.12)
+        specifier: file:/Users/patrickroza/pj/effect-app/libs/packages/core
+        version: file:../libs/packages/core(@effect/schema@0.62.6)(@effect/typeclass@0.22.12)(fast-check@3.15.1)
       '@effect-app/infra':
-        specifier: 0.182.5
-        version: 0.182.5(@effect/typeclass@0.22.12)(express@4.18.2)
+        specifier: file:/Users/patrickroza/pj/effect-app/libs/packages/infra
+        version: file:../libs/packages/infra(@effect/typeclass@0.22.12)(express@4.18.2)
       '@effect-app/infra-adapters':
-        specifier: ^0.123.5
-        version: 0.123.5(@effect/typeclass@0.22.12)(express@4.18.2)(fast-check@3.15.1)
+        specifier: file:/Users/patrickroza/pj/effect-app/libs/packages/infra-adapters
+        version: file:../libs/packages/infra-adapters(@effect/typeclass@0.22.12)(express@4.18.2)(fast-check@3.15.1)
       '@effect-app/schema':
-        specifier: ^0.189.0
-        version: 0.189.0(@effect/typeclass@0.22.12)(fast-check@3.15.1)
+        specifier: file:/Users/patrickroza/pj/effect-app/libs/packages/schema
+        version: file:../libs/packages/schema(@effect/typeclass@0.22.12)(fast-check@3.15.1)
       '@effect/opentelemetry':
-        specifier: ^0.31.5
-        version: 0.31.5(@opentelemetry/api@1.7.0)(@opentelemetry/resources@1.21.0)(@opentelemetry/sdk-metrics@1.21.0)(@opentelemetry/sdk-trace-base@1.21.0)(@opentelemetry/sdk-trace-node@1.21.0)(@opentelemetry/sdk-trace-web@1.21.0)(@opentelemetry/semantic-conventions@1.21.0)(effect@2.3.5)
+        specifier: ^0.31.6
+        version: 0.31.6(@opentelemetry/api@1.7.0)(@opentelemetry/resources@1.21.0)(@opentelemetry/sdk-metrics@1.21.0)(@opentelemetry/sdk-trace-base@1.21.0)(@opentelemetry/sdk-trace-node@1.21.0)(@opentelemetry/sdk-trace-web@1.21.0)(@opentelemetry/semantic-conventions@1.21.0)(effect@2.3.5)
       '@effect/platform-node':
-        specifier: 0.43.7
-        version: 0.43.7(@effect/platform@0.44.7)(effect@2.3.5)
+        specifier: 0.44.1
+        version: 0.44.1(@effect/platform@0.45.1)(effect@2.3.5)
       '@formatjs/cli':
         specifier: ^6.2.7
         version: 6.2.7
@@ -256,8 +264,8 @@ importers:
         specifier: ^0.48.0
         version: 0.48.0(@opentelemetry/api@1.7.0)
       '@sendgrid/mail':
-        specifier: ^8.1.0
-        version: 8.1.0
+        specifier: ^8.1.1
+        version: 8.1.1
       '@sentry/node':
         specifier: ^7.101.0
         version: 7.101.0
@@ -283,8 +291,8 @@ importers:
         specifier: ^2.3.5
         version: 2.3.5(patch_hash=7flqffzzb5nemzq6gsay3plece)
       effect-app:
-        specifier: ^0.158.5
-        version: 0.158.5(@effect/typeclass@0.22.12)(fast-check@3.15.1)
+        specifier: file:/Users/patrickroza/pj/effect-app/libs/packages/prelude
+        version: file:../libs/packages/prelude(@effect/typeclass@0.22.12)(fast-check@3.15.1)
       express:
         specifier: ^4.18.2
         version: 4.18.2
@@ -374,20 +382,20 @@ importers:
         specifier: '*'
         version: link:../resources
       '@effect-app/core':
-        specifier: ^0.136.0
-        version: 0.136.0(@effect/schema@0.62.6)(@effect/typeclass@0.22.12)
+        specifier: file:/Users/patrickroza/pj/effect-app/libs/packages/core
+        version: file:../libs/packages/core(@effect/schema@0.62.6)(@effect/typeclass@0.22.12)(fast-check@3.15.1)
       '@effect-app/fluent-extensions':
-        specifier: ^0.130.3
-        version: 0.130.3(@effect/schema@0.62.6)(@effect/typeclass@0.22.12)(fast-check@3.15.1)
+        specifier: file:/Users/patrickroza/pj/effect-app/libs/packages/fluent-extensions
+        version: file:../libs/packages/fluent-extensions(@effect/schema@0.62.6)(@effect/typeclass@0.22.12)(fast-check@3.15.1)
       '@effect-app/schema':
-        specifier: ^0.189.0
-        version: 0.189.0(@effect/typeclass@0.22.12)(fast-check@3.15.1)
+        specifier: file:/Users/patrickroza/pj/effect-app/libs/packages/schema
+        version: file:../libs/packages/schema(@effect/typeclass@0.22.12)(fast-check@3.15.1)
       '@effect-app/vue':
-        specifier: ^0.130.1
-        version: 0.130.1(@effect/typeclass@0.22.12)(fast-check@3.15.1)(typescript@5.3.3)
+        specifier: file:/Users/patrickroza/pj/effect-app/libs/packages/vue
+        version: file:../libs/packages/vue(@effect/typeclass@0.22.12)(fast-check@3.15.1)(typescript@5.3.3)
       '@effect/opentelemetry':
-        specifier: ^0.31.5
-        version: 0.31.5(@opentelemetry/api@1.7.0)(@opentelemetry/resources@1.21.0)(@opentelemetry/sdk-metrics@1.21.0)(@opentelemetry/sdk-trace-base@1.21.0)(@opentelemetry/sdk-trace-node@1.21.0)(@opentelemetry/sdk-trace-web@1.21.0)(@opentelemetry/semantic-conventions@1.21.0)(effect@2.3.5)
+        specifier: ^0.31.6
+        version: 0.31.6(@opentelemetry/api@1.7.0)(@opentelemetry/resources@1.21.0)(@opentelemetry/sdk-metrics@1.21.0)(@opentelemetry/sdk-trace-base@1.21.0)(@opentelemetry/sdk-trace-node@1.21.0)(@opentelemetry/sdk-trace-web@1.21.0)(@opentelemetry/semantic-conventions@1.21.0)(effect@2.3.5)
       '@formatjs/intl':
         specifier: 2.7.2
         version: 2.7.2(typescript@5.3.3)
@@ -443,8 +451,8 @@ importers:
         specifier: ^2.3.5
         version: 2.3.5(patch_hash=7flqffzzb5nemzq6gsay3plece)
       effect-app:
-        specifier: ^0.158.5
-        version: 0.158.5(@effect/typeclass@0.22.12)(fast-check@3.15.1)
+        specifier: file:/Users/patrickroza/pj/effect-app/libs/packages/prelude
+        version: file:../libs/packages/prelude(@effect/typeclass@0.22.12)(fast-check@3.15.1)
       highcharts:
         specifier: ^11.3.0
         version: 11.3.0
@@ -473,8 +481,8 @@ importers:
         specifier: ^2.0.0-rc.5
         version: 2.0.0-rc.5(vue@3.4.15)
       vuetify:
-        specifier: ^3.5.3
-        version: 3.5.3(typescript@5.3.3)(vue@3.4.15)
+        specifier: ^3.5.4
+        version: 3.5.4(typescript@5.3.3)(vue@3.4.15)
       xlsx:
         specifier: ^0.18.5
         version: 0.18.5
@@ -519,20 +527,20 @@ importers:
         specifier: '*'
         version: link:../resources
       '@effect-app/core':
-        specifier: ^0.136.0
-        version: 0.136.0(@effect/schema@0.62.6)(@effect/typeclass@0.22.12)
+        specifier: file:/Users/patrickroza/pj/effect-app/libs/packages/core
+        version: file:../libs/packages/core(@effect/schema@0.62.6)(@effect/typeclass@0.22.12)(fast-check@3.15.1)
       '@effect-app/infra':
-        specifier: 0.182.5
-        version: 0.182.5(@effect/typeclass@0.22.12)(express@4.18.2)
+        specifier: file:/Users/patrickroza/pj/effect-app/libs/packages/infra
+        version: file:../libs/packages/infra(@effect/typeclass@0.22.12)(express@4.18.2)
       '@effect-app/infra-adapters':
-        specifier: ^0.123.5
-        version: 0.123.5(@effect/typeclass@0.22.12)(express@4.18.2)(fast-check@3.15.1)
+        specifier: file:/Users/patrickroza/pj/effect-app/libs/packages/infra-adapters
+        version: file:../libs/packages/infra-adapters(@effect/typeclass@0.22.12)(express@4.18.2)(fast-check@3.15.1)
       '@effect-app/schema':
-        specifier: ^0.189.0
-        version: 0.189.0(@effect/typeclass@0.22.12)(fast-check@3.15.1)
+        specifier: file:/Users/patrickroza/pj/effect-app/libs/packages/schema
+        version: file:../libs/packages/schema(@effect/typeclass@0.22.12)(fast-check@3.15.1)
       change-case:
-        specifier: ^5.4.2
-        version: 5.4.2
+        specifier: ^5.4.3
+        version: 5.4.3
       cross-fetch:
         specifier: ^4.0.0
         version: 4.0.0
@@ -546,8 +554,8 @@ importers:
         specifier: ^2.3.5
         version: 2.3.5(patch_hash=7flqffzzb5nemzq6gsay3plece)
       effect-app:
-        specifier: ^0.158.5
-        version: 0.158.5(@effect/typeclass@0.22.12)(fast-check@3.15.1)
+        specifier: file:/Users/patrickroza/pj/effect-app/libs/packages/prelude
+        version: file:../libs/packages/prelude(@effect/typeclass@0.22.12)(fast-check@3.15.1)
       path-parser:
         specifier: ^6.1.0
         version: 6.1.0
@@ -555,14 +563,14 @@ importers:
   _project/models:
     dependencies:
       '@effect-app/core':
-        specifier: ^0.136.0
-        version: 0.136.0(@effect/schema@0.62.6)(@effect/typeclass@0.22.12)
+        specifier: file:/Users/patrickroza/pj/effect-app/libs/packages/core
+        version: file:../libs/packages/core(@effect/schema@0.62.6)(@effect/typeclass@0.22.12)(fast-check@3.15.1)
       '@effect-app/fluent-extensions':
-        specifier: ^0.130.3
-        version: 0.130.3(@effect/schema@0.62.6)(@effect/typeclass@0.22.12)(fast-check@3.15.1)
+        specifier: file:/Users/patrickroza/pj/effect-app/libs/packages/fluent-extensions
+        version: file:../libs/packages/fluent-extensions(@effect/schema@0.62.6)(@effect/typeclass@0.22.12)(fast-check@3.15.1)
       '@effect-app/schema':
-        specifier: ^0.189.0
-        version: 0.189.0(@effect/typeclass@0.22.12)(fast-check@3.15.1)
+        specifier: file:/Users/patrickroza/pj/effect-app/libs/packages/schema
+        version: file:../libs/packages/schema(@effect/typeclass@0.22.12)(fast-check@3.15.1)
       '@effect/schema':
         specifier: ^0.62.6
         version: 0.62.6(patch_hash=xl7hmec6rnt5wfsg6fv4tjlqma)(effect@2.3.5)(fast-check@3.15.1)
@@ -573,8 +581,8 @@ importers:
         specifier: ^2.3.5
         version: 2.3.5(patch_hash=7flqffzzb5nemzq6gsay3plece)
       effect-app:
-        specifier: ^0.158.5
-        version: 0.158.5(@effect/typeclass@0.22.12)(fast-check@3.15.1)
+        specifier: file:/Users/patrickroza/pj/effect-app/libs/packages/prelude
+        version: file:../libs/packages/prelude(@effect/typeclass@0.22.12)(fast-check@3.15.1)
       uuid:
         specifier: ^9.0.1
         version: 9.0.1
@@ -598,14 +606,14 @@ importers:
         specifier: '*'
         version: link:../models
       '@effect-app/core':
-        specifier: ^0.136.0
-        version: 0.136.0(@effect/schema@0.62.6)(@effect/typeclass@0.22.12)
+        specifier: file:/Users/patrickroza/pj/effect-app/libs/packages/core
+        version: file:../libs/packages/core(@effect/schema@0.62.6)(@effect/typeclass@0.22.12)(fast-check@3.15.1)
       '@effect-app/fluent-extensions':
-        specifier: ^0.130.3
-        version: 0.130.3(@effect/schema@0.62.6)(@effect/typeclass@0.22.12)(fast-check@3.15.1)
+        specifier: file:/Users/patrickroza/pj/effect-app/libs/packages/fluent-extensions
+        version: file:../libs/packages/fluent-extensions(@effect/schema@0.62.6)(@effect/typeclass@0.22.12)(fast-check@3.15.1)
       '@effect-app/schema':
-        specifier: ^0.189.0
-        version: 0.189.0(@effect/typeclass@0.22.12)(fast-check@3.15.1)
+        specifier: file:/Users/patrickroza/pj/effect-app/libs/packages/schema
+        version: file:../libs/packages/schema(@effect/typeclass@0.22.12)(fast-check@3.15.1)
       camel-case:
         specifier: ^4.1.2
         version: 4.1.2
@@ -619,8 +627,8 @@ importers:
         specifier: ^2.3.5
         version: 2.3.5(patch_hash=7flqffzzb5nemzq6gsay3plece)
       effect-app:
-        specifier: ^0.158.5
-        version: 0.158.5(@effect/typeclass@0.22.12)(fast-check@3.15.1)
+        specifier: file:/Users/patrickroza/pj/effect-app/libs/packages/prelude
+        version: file:../libs/packages/prelude(@effect/typeclass@0.22.12)(fast-check@3.15.1)
       papaparse:
         specifier: ^5.4.1
         version: 5.4.1
@@ -644,14 +652,14 @@ importers:
         specifier: '*'
         version: link:../_project/resources
       '@effect-app/core':
-        specifier: ^0.136.0
-        version: 0.136.0(@effect/schema@0.62.6)(@effect/typeclass@0.22.12)
+        specifier: file:/Users/patrickroza/pj/effect-app/libs/packages/core
+        version: file:../libs/packages/core(@effect/schema@0.62.6)(@effect/typeclass@0.22.12)(fast-check@3.15.1)
       '@effect-app/schema':
-        specifier: ^0.189.0
-        version: 0.189.0(@effect/typeclass@0.22.12)(fast-check@3.15.1)
+        specifier: file:/Users/patrickroza/pj/effect-app/libs/packages/schema
+        version: file:../libs/packages/schema(@effect/typeclass@0.22.12)(fast-check@3.15.1)
       '@effect/platform-node':
-        specifier: 0.43.7
-        version: 0.43.7(@effect/platform@0.44.7)(effect@2.3.5)
+        specifier: 0.44.1
+        version: 0.44.1(@effect/platform@0.45.1)(effect@2.3.5)
       '@tsplus/stdlib':
         specifier: ^0.2.8
         version: 0.2.8
@@ -662,8 +670,8 @@ importers:
         specifier: ^2.3.5
         version: 2.3.5(patch_hash=7flqffzzb5nemzq6gsay3plece)
       effect-app:
-        specifier: ^0.158.5
-        version: 0.158.5(@effect/typeclass@0.22.12)(fast-check@3.15.1)
+        specifier: file:/Users/patrickroza/pj/effect-app/libs/packages/prelude
+        version: file:../libs/packages/prelude(@effect/typeclass@0.22.12)(fast-check@3.15.1)
       tsconfig-paths:
         specifier: ^4.2.0
         version: 4.2.0
@@ -759,20 +767,20 @@ importers:
   play:
     dependencies:
       '@effect-app/core':
-        specifier: ^0.136.0
-        version: 0.136.0(@effect/schema@0.62.6)(@effect/typeclass@0.22.12)
+        specifier: file:/Users/patrickroza/pj/effect-app/libs/packages/core
+        version: file:../libs/packages/core(@effect/schema@0.62.6)(@effect/typeclass@0.22.12)(fast-check@3.15.1)
       '@effect-app/schema':
-        specifier: ^0.189.0
-        version: 0.189.0(@effect/typeclass@0.22.12)(fast-check@3.15.1)
+        specifier: file:/Users/patrickroza/pj/effect-app/libs/packages/schema
+        version: file:../libs/packages/schema(@effect/typeclass@0.22.12)(fast-check@3.15.1)
       change-case:
-        specifier: ^5.4.2
-        version: 5.4.2
+        specifier: ^5.4.3
+        version: 5.4.3
       cross-fetch:
         specifier: ^4.0.0
         version: 4.0.0
       effect-app:
-        specifier: ^0.158.5
-        version: 0.158.5(@effect/typeclass@0.22.12)(fast-check@3.15.1)
+        specifier: file:/Users/patrickroza/pj/effect-app/libs/packages/prelude
+        version: file:../libs/packages/prelude(@effect/typeclass@0.22.12)(fast-check@3.15.1)
       path-parser:
         specifier: ^6.1.0
         version: 6.1.0
@@ -2432,163 +2440,8 @@ packages:
       - terser
     dev: true
 
-  /@effect-app/core@0.136.0(@effect/schema@0.62.6)(@effect/typeclass@0.22.12):
-    resolution: {integrity: sha512-ISIHpTMvjo+e0d1GdJh+S1n+gdJ+Q64GPGI0wYg0uDPxhWawi+Wwsjdzw8vAHnDojCvv0yD34VOs+83TG18KOA==}
-    dependencies:
-      '@effect/platform': 0.44.7(@effect/schema@0.62.6)(effect@2.3.5)
-      '@fp-ts/optic': 0.22.0(patch_hash=2yuoegl5dhwsslauskmjxbvoeu)(@effect/typeclass@0.22.12)(effect@2.3.5)
-      cross-fetch: 4.0.0
-      effect: 2.3.5(patch_hash=7flqffzzb5nemzq6gsay3plece)
-      lodash: 4.17.21
-      path-parser: 6.1.0
-      query-string: 8.2.0
-      uuid: 9.0.1
-      validator: 13.11.0
-    transitivePeerDependencies:
-      - '@effect/schema'
-      - '@effect/typeclass'
-      - encoding
-
-  /@effect-app/eslint-codegen-model@0.47.0(eslint@8.56.0)(fp-ts@2.16.2)(typescript@5.3.3):
-    resolution: {integrity: sha512-wNm3608iwqiJZdcHj8yqpZfZyllXDlP3oalyN8VmGSZL4kD/AF0U86wZTuCC6U2J0qTj2Nxv2A1B+72Q1kuj3Q==}
-    dependencies:
-      '@babel/generator': 7.23.6
-      '@babel/parser': 7.23.9
-      '@typescript-eslint/utils': 7.0.1(eslint@8.56.0)(typescript@5.3.3)
-      eslint-plugin-codegen: 0.17.0(patch_hash=3ogk7peuefdu45q3hbzcgdiuna)
-      glob: 8.1.0
-      io-ts: 2.2.21(fp-ts@2.16.2)
-      io-ts-extra: 0.11.6
-      js-yaml: 4.1.0
-      lodash: 4.17.21
-    transitivePeerDependencies:
-      - eslint
-      - fp-ts
-      - supports-color
-      - typescript
-    dev: true
-
-  /@effect-app/fluent-extensions@0.130.3(@effect/schema@0.62.6)(@effect/typeclass@0.22.12)(fast-check@3.15.1):
-    resolution: {integrity: sha512-o860+aUhW9V+R+1Gt1wQO1P630Y7EEKhS3SKsJEo/o554HDpOfKAd107krxR4jFvfymEM94w7MtCDWvBQBi4SQ==}
-    dependencies:
-      '@effect-app/core': 0.136.0(@effect/schema@0.62.6)(@effect/typeclass@0.22.12)
-      '@effect-app/schema': 0.189.0(@effect/typeclass@0.22.12)(fast-check@3.15.1)
-      '@effect/platform': 0.44.7(@effect/schema@0.62.6)(effect@2.3.5)
-      '@fp-ts/optic': 0.22.0(patch_hash=2yuoegl5dhwsslauskmjxbvoeu)(@effect/typeclass@0.22.12)(effect@2.3.5)
-      date-fns: 2.30.0(patch_hash=g5hqt5bhnjezqo5vnkpprfkba4)
-      effect: 2.3.5(patch_hash=7flqffzzb5nemzq6gsay3plece)
-      lodash: 4.17.21
-      nanoid: 5.0.5
-      path-parser: 6.1.0
-      query-string: 8.2.0
-      ts-pattern: 5.0.6
-      uuid: 9.0.1
-      validator: 13.11.0
-    transitivePeerDependencies:
-      - '@effect/schema'
-      - '@effect/typeclass'
-      - encoding
-      - fast-check
-
-  /@effect-app/infra-adapters@0.123.5(@effect/typeclass@0.22.12)(express@4.18.2)(fast-check@3.15.1):
-    resolution: {integrity: sha512-dGkwVevyrrDj2hg+w+p+QwOnt7syoUL74JhG5rvGghJvDuk6U4uC6b6U8RupQm7F0rQ+Yq42vG/wbdpPXVcI0Q==}
-    peerDependencies:
-      express: ^4.18.2
-    dependencies:
-      '@effect-app/core': 0.136.0(@effect/schema@0.62.6)(@effect/typeclass@0.22.12)
-      '@effect-app/fluent-extensions': 0.130.3(@effect/schema@0.62.6)(@effect/typeclass@0.22.12)(fast-check@3.15.1)
-      '@effect-app/schema': 0.189.0(@effect/typeclass@0.22.12)(fast-check@3.15.1)
-      '@effect/platform': 0.44.7(@effect/schema@0.62.6)(effect@2.3.5)
-      '@effect/schema': 0.62.6(patch_hash=xl7hmec6rnt5wfsg6fv4tjlqma)(effect@2.3.5)(fast-check@3.15.1)
-      '@fp-ts/optic': 0.22.0(patch_hash=2yuoegl5dhwsslauskmjxbvoeu)(@effect/typeclass@0.22.12)(effect@2.3.5)
-      effect: 2.3.5(patch_hash=7flqffzzb5nemzq6gsay3plece)
-      effect-app: 0.158.5(@effect/typeclass@0.22.12)(fast-check@3.15.1)
-      express: 4.18.2
-      query-string: 8.2.0
-    transitivePeerDependencies:
-      - '@effect/typeclass'
-      - encoding
-      - fast-check
-    dev: false
-
-  /@effect-app/infra@0.182.5(@effect/typeclass@0.22.12)(express@4.18.2):
-    resolution: {integrity: sha512-3OUuU2PP90AAx1hK1nZz21bAGnB3VcrwZUHX/aUmn91LXtOd6rCRmYcBTUP6YERaRDhOeD3jD0W5v/yaPnEwZw==}
-    peerDependencies:
-      express: ^4.18.2
-    dependencies:
-      '@azure/cosmos': 4.0.0
-      '@azure/service-bus': 7.9.4
-      '@effect-app/core': 0.136.0(@effect/schema@0.62.6)(@effect/typeclass@0.22.12)
-      '@effect-app/fluent-extensions': 0.130.3(@effect/schema@0.62.6)(@effect/typeclass@0.22.12)(fast-check@3.15.1)
-      '@effect-app/infra-adapters': 0.123.5(@effect/typeclass@0.22.12)(express@4.18.2)(fast-check@3.15.1)
-      '@effect-app/schema': 0.189.0(@effect/typeclass@0.22.12)(fast-check@3.15.1)
-      '@effect/platform': 0.44.7(@effect/schema@0.62.6)(effect@2.3.5)
-      '@effect/schema': 0.62.6(patch_hash=xl7hmec6rnt5wfsg6fv4tjlqma)(effect@2.3.5)(fast-check@3.15.1)
-      '@faker-js/faker': 8.4.1
-      '@sendgrid/helpers': 8.0.0
-      '@sendgrid/mail': 8.1.0
-      change-case: 5.4.2
-      cross-fetch: 4.0.0
-      effect: 2.3.5(patch_hash=7flqffzzb5nemzq6gsay3plece)
-      effect-app: 0.158.5(@effect/typeclass@0.22.12)(fast-check@3.15.1)
-      express: 4.18.2
-      express-oauth2-jwt-bearer: 1.6.0
-      fast-check: 3.15.1(patch_hash=gmhutzas2jzobvkhr72gjyjori)
-      object-hash: 3.0.0
-      path-parser: 6.1.0
-      proper-lockfile: 4.1.2
-      pure-rand: 6.0.4
-      redlock: 4.2.0
-    transitivePeerDependencies:
-      - '@effect/typeclass'
-      - debug
-      - encoding
-      - supports-color
-    dev: false
-
-  /@effect-app/schema@0.189.0(@effect/typeclass@0.22.12)(fast-check@3.15.1):
-    resolution: {integrity: sha512-wiY/qbCAmqX7Kqi6M9bpUyyAqEzP1iRpcL7BESggAF/siSs0zG7q/zkLJzxlrkqOHu/9WIdEd0w6LwzCePm7bA==}
-    dependencies:
-      '@effect-app/core': 0.136.0(@effect/schema@0.62.6)(@effect/typeclass@0.22.12)
-      '@effect/schema': 0.62.6(patch_hash=xl7hmec6rnt5wfsg6fv4tjlqma)(effect@2.3.5)(fast-check@3.15.1)
-      cross-fetch: 4.0.0
-      effect: 2.3.5(patch_hash=7flqffzzb5nemzq6gsay3plece)
-      lodash: 4.17.21
-      nanoid: 5.0.5
-      path-parser: 6.1.0
-      uuid: 9.0.1
-      validator: 13.11.0
-    transitivePeerDependencies:
-      - '@effect/typeclass'
-      - encoding
-      - fast-check
-
-  /@effect-app/vue@0.130.1(@effect/typeclass@0.22.12)(fast-check@3.15.1)(typescript@5.3.3):
-    resolution: {integrity: sha512-W0mI4rZdNekW78ApPtGwZkEDEZ2zD/J4FqDMRYIcpf++y97vQueFq3JaHQzYM/k+D0ZjUC+VLZ1RO1ESwe2m3A==}
-    dependencies:
-      '@effect-app/core': 0.136.0(@effect/schema@0.62.6)(@effect/typeclass@0.22.12)
-      '@effect-app/fluent-extensions': 0.130.3(@effect/schema@0.62.6)(@effect/typeclass@0.22.12)(fast-check@3.15.1)
-      '@effect-app/schema': 0.189.0(@effect/typeclass@0.22.12)(fast-check@3.15.1)
-      '@effect/platform': 0.44.7(@effect/schema@0.62.6)(effect@2.3.5)
-      '@effect/platform-browser': 0.29.8(@effect/platform@0.44.7)(effect@2.3.5)
-      '@effect/schema': 0.62.6(patch_hash=xl7hmec6rnt5wfsg6fv4tjlqma)(effect@2.3.5)(fast-check@3.15.1)
-      '@formatjs/intl': 2.10.0(typescript@5.3.3)
-      '@tanstack/vue-query': 5.20.5(vue@3.4.15)
-      effect: 2.3.5(patch_hash=7flqffzzb5nemzq6gsay3plece)
-      effect-app: 0.158.5(@effect/typeclass@0.22.12)(fast-check@3.15.1)
-      query-string: 8.2.0
-      swrv: 1.0.4(vue@3.4.15)
-      vue: 3.4.15(typescript@5.3.3)
-    transitivePeerDependencies:
-      - '@effect/typeclass'
-      - '@vue/composition-api'
-      - encoding
-      - fast-check
-      - typescript
-    dev: false
-
-  /@effect/opentelemetry@0.31.5(@opentelemetry/api@1.7.0)(@opentelemetry/resources@1.21.0)(@opentelemetry/sdk-metrics@1.21.0)(@opentelemetry/sdk-trace-base@1.21.0)(@opentelemetry/sdk-trace-node@1.21.0)(@opentelemetry/sdk-trace-web@1.21.0)(@opentelemetry/semantic-conventions@1.21.0)(effect@2.3.5):
-    resolution: {integrity: sha512-o59a7iVEAIdg74ztORVmUMtuMthWtiwWyuFgiXeC2YyQbEo8HkdTkp69OWyIofwNO7+6E0WzMN8oMcO/na6Fzg==}
+  /@effect/opentelemetry@0.31.6(@opentelemetry/api@1.7.0)(@opentelemetry/resources@1.21.0)(@opentelemetry/sdk-metrics@1.21.0)(@opentelemetry/sdk-trace-base@1.21.0)(@opentelemetry/sdk-trace-node@1.21.0)(@opentelemetry/sdk-trace-web@1.21.0)(@opentelemetry/semantic-conventions@1.21.0)(effect@2.3.5):
+    resolution: {integrity: sha512-v0zlNhWflo8iRmDVzsdQ58hgxp7NYGD78dUxZXfUOwvSXEip0ztlF3Xn8bv82VKEI8U+G3W4w6OxgLLMKXgyuA==}
     peerDependencies:
       '@opentelemetry/api': ^1.6
       '@opentelemetry/resources': ^1.17
@@ -2629,25 +2482,25 @@ packages:
       multipasta: 0.1.21
     dev: false
 
-  /@effect/platform-node-shared@0.1.7(@effect/platform@0.44.7)(effect@2.3.5):
-    resolution: {integrity: sha512-y/aWPSCjAnIx6WQQD8qv3V8eKtQvOEVaGlTaLjoIeDstnhRO+uNctVE+h5julPw3XntaTpv82OwVlGWGpuhRUA==}
+  /@effect/platform-node-shared@0.1.9(@effect/platform@0.45.1)(effect@2.3.5):
+    resolution: {integrity: sha512-YHgKOXbs4GSuDt7Hn11557VLZiO2ehKmG+X+dL2inLbAi5S3qox16+DrmNSRXjfF01a57CWwFUo5cI6owzXUiQ==}
     peerDependencies:
-      '@effect/platform': ^0.44.7
+      '@effect/platform': ^0.45.1
       effect: ^2.3.5
     dependencies:
-      '@effect/platform': 0.44.7(@effect/schema@0.62.6)(effect@2.3.5)
+      '@effect/platform': 0.45.1(@effect/schema@0.62.6)(effect@2.3.5)
       effect: 2.3.5(patch_hash=7flqffzzb5nemzq6gsay3plece)
       multipasta: 0.1.21
     dev: false
 
-  /@effect/platform-node@0.43.7(@effect/platform@0.44.7)(effect@2.3.5):
-    resolution: {integrity: sha512-JUbx9sH46NH29YXI+5PoB0eHpG5zukshCimtr8AWoyYkvc2YSeEu4HUtoy+s2f+qTgno1gPMqlUrrYXpHSBpMw==}
+  /@effect/platform-node@0.44.1(@effect/platform@0.45.1)(effect@2.3.5):
+    resolution: {integrity: sha512-HL2ally1H77oXqjIygkUc8sWDW5pKj4HKOzBaQzPmqjFONeNZy/rGErA/MDvAlFy1ckPu78coQZ+vgJ1TFWa3A==}
     peerDependencies:
-      '@effect/platform': ^0.44.7
+      '@effect/platform': ^0.45.1
       effect: ^2.3.5
     dependencies:
-      '@effect/platform': 0.44.7(@effect/schema@0.62.6)(effect@2.3.5)
-      '@effect/platform-node-shared': 0.1.7(@effect/platform@0.44.7)(effect@2.3.5)
+      '@effect/platform': 0.45.1(@effect/schema@0.62.6)(effect@2.3.5)
+      '@effect/platform-node-shared': 0.1.9(@effect/platform@0.45.1)(effect@2.3.5)
       effect: 2.3.5(patch_hash=7flqffzzb5nemzq6gsay3plece)
       mime: 3.0.0
     dev: false
@@ -2663,6 +2516,19 @@ packages:
       find-my-way-ts: 0.1.1
       multipasta: 0.1.21
       path-browserify: 1.0.1
+
+  /@effect/platform@0.45.1(@effect/schema@0.62.6)(effect@2.3.5):
+    resolution: {integrity: sha512-9nhcNSCM3NWHN8+oKhJ/4XkeHa24pwEwUswpZMguoldIqpMe0CkeWSoK9Zs2wQKUmjbznLZ+emPpnVh4iRSKQg==}
+    peerDependencies:
+      '@effect/schema': ^0.62.6
+      effect: ^2.3.5
+    dependencies:
+      '@effect/schema': 0.62.6(patch_hash=xl7hmec6rnt5wfsg6fv4tjlqma)(effect@2.3.5)(fast-check@3.15.1)
+      effect: 2.3.5(patch_hash=7flqffzzb5nemzq6gsay3plece)
+      find-my-way-ts: 0.1.1
+      multipasta: 0.1.21
+      path-browserify: 1.0.1
+    dev: false
 
   /@effect/schema@0.62.6(patch_hash=xl7hmec6rnt5wfsg6fv4tjlqma)(effect@2.3.5)(fast-check@3.15.1):
     resolution: {integrity: sha512-Y/vkQ63EXcQUiJM01lbZ5lb7wCEK8gTcM5wZ1L20TvqFuAXHLp0cs66L3Sk3eIbiX0mv4aYxBWSKhwvhWAhc6g==}
@@ -5539,8 +5405,8 @@ packages:
     requiresBuild: true
     optional: true
 
-  /@sendgrid/client@8.1.0:
-    resolution: {integrity: sha512-Kp2kKLr307v/HnR3uGuySt0AbCkeG7naDVOzfPOtWvKHVZIEHmKidQjJjzytVZNYWtoRdYgNfBw6GyUznGqa6w==}
+  /@sendgrid/client@8.1.1:
+    resolution: {integrity: sha512-pg0gYhAdyQil3Aga7/xHVcZFpvDAjAQMNBgMy5njTSkjACoWHmpSi1nWBZM7nIH/ptcRNMpnBbm9B5EvQ8fX2w==}
     engines: {node: '>=12.*'}
     dependencies:
       '@sendgrid/helpers': 8.0.0
@@ -5556,11 +5422,11 @@ packages:
       deepmerge: 4.3.1
     dev: false
 
-  /@sendgrid/mail@8.1.0:
-    resolution: {integrity: sha512-WkE0qwOrJMX9oQ+Xvtl3CdmucD6/iKw6go0VPoPieVlfXc43rbIf91wvtO6m7sKPnzxw3G+8rekBgXibmP4S8Q==}
+  /@sendgrid/mail@8.1.1:
+    resolution: {integrity: sha512-tNtmgWLtBA7ZxKtPuEGOaIdEZP1vZSXsj5zg9iuoDBPVj/fNz+7LWzndvTcKumHk5eaDrS0UPXJqBm61m3+H1A==}
     engines: {node: '>=12.*'}
     dependencies:
-      '@sendgrid/client': 8.1.0
+      '@sendgrid/client': 8.1.1
       '@sendgrid/helpers': 8.0.0
     transitivePeerDependencies:
       - debug
@@ -7924,6 +7790,10 @@ packages:
     resolution: {integrity: sha512-WB3UiTDpT+vrTilAWaJS4gaIH/jc1He4H9f6erQvraUYas90uWT0JOYFkG1imdNv710XJ6gJvqynrgOHc4ihDA==}
     dev: false
 
+  /change-case@5.4.3:
+    resolution: {integrity: sha512-4cdyvorTy/lViZlVzw2O8/hHCLUuHqp4KpSSP3DlauhFCf3LdnfF+p5s0EAhjKsU7bqrMzu7iQArYfoPiHO2nw==}
+    dev: false
+
   /check-error@1.0.3:
     resolution: {integrity: sha512-iKEoDYaRmd1mxM90a2OEfWhjsjPpYPuQ+lMYsoxB126+t8fw7ySEO48nmDg5COTjxDI65/Y2OWpeEHk3ZOe8zg==}
     dependencies:
@@ -8891,29 +8761,6 @@ packages:
 
   /ee-first@1.1.1:
     resolution: {integrity: sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==}
-
-  /effect-app@0.158.5(@effect/typeclass@0.22.12)(fast-check@3.15.1):
-    resolution: {integrity: sha512-XzZNXZxTkSOIxgz4/b/XDI/89M49v6MH7+hJDezJBW/5dApQP6xk6kTLfLfrQqxVkZrDj8naKBiqPiz+7WJawg==}
-    dependencies:
-      '@effect-app/core': 0.136.0(@effect/schema@0.62.6)(@effect/typeclass@0.22.12)
-      '@effect-app/fluent-extensions': 0.130.3(@effect/schema@0.62.6)(@effect/typeclass@0.22.12)(fast-check@3.15.1)
-      '@effect-app/schema': 0.189.0(@effect/typeclass@0.22.12)(fast-check@3.15.1)
-      '@effect/platform': 0.44.7(@effect/schema@0.62.6)(effect@2.3.5)
-      '@effect/schema': 0.62.6(patch_hash=xl7hmec6rnt5wfsg6fv4tjlqma)(effect@2.3.5)(fast-check@3.15.1)
-      '@fp-ts/optic': 0.22.0(patch_hash=2yuoegl5dhwsslauskmjxbvoeu)(@effect/typeclass@0.22.12)(effect@2.3.5)
-      date-fns: 2.30.0(patch_hash=g5hqt5bhnjezqo5vnkpprfkba4)
-      effect: 2.3.5(patch_hash=7flqffzzb5nemzq6gsay3plece)
-      lodash: 4.17.21
-      nanoid: 5.0.5
-      path-parser: 6.1.0
-      query-string: 8.2.0
-      ts-pattern: 5.0.6
-      uuid: 9.0.1
-      validator: 13.11.0
-    transitivePeerDependencies:
-      - '@effect/typeclass'
-      - encoding
-      - fast-check
 
   /effect@2.3.5(patch_hash=7flqffzzb5nemzq6gsay3plece):
     resolution: {integrity: sha512-qarp/WBRty4VM//ZEKDY8Bu3Tolr1afEIwFVZtU3eMOtBZpRIQkLVQMTOjUTt3qeJAAIHfYfEk7GiKg6ABCWlg==}
@@ -16687,8 +16534,8 @@ packages:
       '@vue/shared': 3.4.15
       typescript: 5.3.3
 
-  /vuetify@3.5.3(typescript@5.3.3)(vue@3.4.15):
-    resolution: {integrity: sha512-z2H1HYEfFeqHTp47VbFOLAv6Nard/eP4+qIXY9c6Z/uUflLhq5K8cyXL6MKhfIzyUsto+KszjVTyX+bu7zT2QA==}
+  /vuetify@3.5.4(typescript@5.3.3)(vue@3.4.15):
+    resolution: {integrity: sha512-fHgfWMI7+z/UtbVPOezX+O1MNBOOMBW9HnKejcBIyQQ7jFRnTHbDQmbINf25FK0wrg/zkjfzyOmWWREKW39eXg==}
     engines: {node: ^12.20 || >=14.13}
     peerDependencies:
       typescript: '>=4.7'
@@ -17015,4 +16862,200 @@ packages:
     resolution: {integrity: sha512-82bctBg2hKcEJ21humWIkXRlLBBmrc3nN7DFh5LGGhcyycO2S7FN8NmdvlcKaGFDNVL4/9kFLmwmInTavdJERA==}
     dependencies:
       tslib: 2.6.2
+    dev: false
+
+  file:../libs/packages/core(@effect/schema@0.62.6)(@effect/typeclass@0.22.12)(fast-check@3.15.1):
+    resolution: {directory: ../libs/packages/core, type: directory}
+    id: file:../libs/packages/core
+    name: '@effect-app/core'
+    dependencies:
+      '@effect-app/fluent-extensions': file:../libs/packages/fluent-extensions(@effect/schema@0.62.6)(@effect/typeclass@0.22.12)(fast-check@3.15.1)
+      '@effect/platform': 0.44.7(@effect/schema@0.62.6)(effect@2.3.5)
+      '@fp-ts/optic': 0.22.0(patch_hash=2yuoegl5dhwsslauskmjxbvoeu)(@effect/typeclass@0.22.12)(effect@2.3.5)
+      cross-fetch: 4.0.0
+      effect: 2.3.5(patch_hash=7flqffzzb5nemzq6gsay3plece)
+      lodash: 4.17.21
+      path-parser: 6.1.0
+      query-string: 8.2.0
+      uuid: 9.0.1
+      validator: 13.11.0
+    transitivePeerDependencies:
+      - '@effect/schema'
+      - '@effect/typeclass'
+      - encoding
+      - fast-check
+
+  file:../libs/packages/eslint-codegen-model(eslint@8.56.0)(fp-ts@2.16.2)(typescript@5.3.3):
+    resolution: {directory: ../libs/packages/eslint-codegen-model, type: directory}
+    id: file:../libs/packages/eslint-codegen-model
+    name: '@effect-app/eslint-codegen-model'
+    dependencies:
+      '@babel/generator': 7.23.6
+      '@babel/parser': 7.23.9
+      '@typescript-eslint/utils': 7.0.1(eslint@8.56.0)(typescript@5.3.3)
+      eslint-plugin-codegen: 0.17.0(patch_hash=3ogk7peuefdu45q3hbzcgdiuna)
+      glob: 8.1.0
+      io-ts: 2.2.21(fp-ts@2.16.2)
+      io-ts-extra: 0.11.6
+      js-yaml: 4.1.0
+      lodash: 4.17.21
+    transitivePeerDependencies:
+      - eslint
+      - fp-ts
+      - supports-color
+      - typescript
+    dev: true
+
+  file:../libs/packages/fluent-extensions(@effect/schema@0.62.6)(@effect/typeclass@0.22.12)(fast-check@3.15.1):
+    resolution: {directory: ../libs/packages/fluent-extensions, type: directory}
+    id: file:../libs/packages/fluent-extensions
+    name: '@effect-app/fluent-extensions'
+    dependencies:
+      '@effect-app/core': file:../libs/packages/core(@effect/schema@0.62.6)(@effect/typeclass@0.22.12)(fast-check@3.15.1)
+      '@effect-app/schema': file:../libs/packages/schema(@effect/typeclass@0.22.12)(fast-check@3.15.1)
+      '@effect/platform': 0.44.7(@effect/schema@0.62.6)(effect@2.3.5)
+      '@fp-ts/optic': 0.22.0(patch_hash=2yuoegl5dhwsslauskmjxbvoeu)(@effect/typeclass@0.22.12)(effect@2.3.5)
+      date-fns: 2.30.0(patch_hash=g5hqt5bhnjezqo5vnkpprfkba4)
+      effect: 2.3.5(patch_hash=7flqffzzb5nemzq6gsay3plece)
+      lodash: 4.17.21
+      nanoid: 5.0.5
+      path-parser: 6.1.0
+      query-string: 8.2.0
+      ts-pattern: 5.0.6
+      uuid: 9.0.1
+      validator: 13.11.0
+    transitivePeerDependencies:
+      - '@effect/schema'
+      - '@effect/typeclass'
+      - encoding
+      - fast-check
+
+  file:../libs/packages/infra(@effect/typeclass@0.22.12)(express@4.18.2):
+    resolution: {directory: ../libs/packages/infra, type: directory}
+    id: file:../libs/packages/infra
+    name: '@effect-app/infra'
+    peerDependencies:
+      express: ^4.18.2
+    dependencies:
+      '@azure/cosmos': 4.0.0
+      '@azure/service-bus': 7.9.4
+      '@effect-app/core': file:../libs/packages/core(@effect/schema@0.62.6)(@effect/typeclass@0.22.12)(fast-check@3.15.1)
+      '@effect-app/fluent-extensions': file:../libs/packages/fluent-extensions(@effect/schema@0.62.6)(@effect/typeclass@0.22.12)(fast-check@3.15.1)
+      '@effect-app/infra-adapters': file:../libs/packages/infra-adapters(@effect/typeclass@0.22.12)(express@4.18.2)(fast-check@3.15.1)
+      '@effect-app/schema': file:../libs/packages/schema(@effect/typeclass@0.22.12)(fast-check@3.15.1)
+      '@effect/platform': 0.44.7(@effect/schema@0.62.6)(effect@2.3.5)
+      '@effect/schema': 0.62.6(patch_hash=xl7hmec6rnt5wfsg6fv4tjlqma)(effect@2.3.5)(fast-check@3.15.1)
+      '@faker-js/faker': 8.4.1
+      '@sendgrid/helpers': 8.0.0
+      '@sendgrid/mail': 8.1.1
+      change-case: 5.4.2
+      cross-fetch: 4.0.0
+      effect: 2.3.5(patch_hash=7flqffzzb5nemzq6gsay3plece)
+      effect-app: file:../libs/packages/prelude(@effect/typeclass@0.22.12)(fast-check@3.15.1)
+      express: 4.18.2
+      express-oauth2-jwt-bearer: 1.6.0
+      fast-check: 3.15.1(patch_hash=gmhutzas2jzobvkhr72gjyjori)
+      object-hash: 3.0.0
+      path-parser: 6.1.0
+      proper-lockfile: 4.1.2
+      pure-rand: 6.0.4
+      redlock: 4.2.0
+    transitivePeerDependencies:
+      - '@effect/typeclass'
+      - debug
+      - encoding
+      - supports-color
+    dev: false
+
+  file:../libs/packages/infra-adapters(@effect/typeclass@0.22.12)(express@4.18.2)(fast-check@3.15.1):
+    resolution: {directory: ../libs/packages/infra-adapters, type: directory}
+    id: file:../libs/packages/infra-adapters
+    name: '@effect-app/infra-adapters'
+    peerDependencies:
+      express: ^4.18.2
+    dependencies:
+      '@effect-app/core': file:../libs/packages/core(@effect/schema@0.62.6)(@effect/typeclass@0.22.12)(fast-check@3.15.1)
+      '@effect-app/fluent-extensions': file:../libs/packages/fluent-extensions(@effect/schema@0.62.6)(@effect/typeclass@0.22.12)(fast-check@3.15.1)
+      '@effect-app/schema': file:../libs/packages/schema(@effect/typeclass@0.22.12)(fast-check@3.15.1)
+      '@effect/platform': 0.44.7(@effect/schema@0.62.6)(effect@2.3.5)
+      '@effect/schema': 0.62.6(patch_hash=xl7hmec6rnt5wfsg6fv4tjlqma)(effect@2.3.5)(fast-check@3.15.1)
+      '@fp-ts/optic': 0.22.0(patch_hash=2yuoegl5dhwsslauskmjxbvoeu)(@effect/typeclass@0.22.12)(effect@2.3.5)
+      effect: 2.3.5(patch_hash=7flqffzzb5nemzq6gsay3plece)
+      effect-app: file:../libs/packages/prelude(@effect/typeclass@0.22.12)(fast-check@3.15.1)
+      express: 4.18.2
+      query-string: 8.2.0
+    transitivePeerDependencies:
+      - '@effect/typeclass'
+      - encoding
+      - fast-check
+    dev: false
+
+  file:../libs/packages/prelude(@effect/typeclass@0.22.12)(fast-check@3.15.1):
+    resolution: {directory: ../libs/packages/prelude, type: directory}
+    id: file:../libs/packages/prelude
+    name: effect-app
+    dependencies:
+      '@effect-app/core': file:../libs/packages/core(@effect/schema@0.62.6)(@effect/typeclass@0.22.12)(fast-check@3.15.1)
+      '@effect-app/fluent-extensions': file:../libs/packages/fluent-extensions(@effect/schema@0.62.6)(@effect/typeclass@0.22.12)(fast-check@3.15.1)
+      '@effect-app/schema': file:../libs/packages/schema(@effect/typeclass@0.22.12)(fast-check@3.15.1)
+      '@effect/platform': 0.44.7(@effect/schema@0.62.6)(effect@2.3.5)
+      '@effect/schema': 0.62.6(patch_hash=xl7hmec6rnt5wfsg6fv4tjlqma)(effect@2.3.5)(fast-check@3.15.1)
+      '@fp-ts/optic': 0.22.0(patch_hash=2yuoegl5dhwsslauskmjxbvoeu)(@effect/typeclass@0.22.12)(effect@2.3.5)
+      date-fns: 2.30.0(patch_hash=g5hqt5bhnjezqo5vnkpprfkba4)
+      effect: 2.3.5(patch_hash=7flqffzzb5nemzq6gsay3plece)
+      lodash: 4.17.21
+      nanoid: 5.0.5
+      path-parser: 6.1.0
+      query-string: 8.2.0
+      ts-pattern: 5.0.6
+      uuid: 9.0.1
+      validator: 13.11.0
+    transitivePeerDependencies:
+      - '@effect/typeclass'
+      - encoding
+      - fast-check
+
+  file:../libs/packages/schema(@effect/typeclass@0.22.12)(fast-check@3.15.1):
+    resolution: {directory: ../libs/packages/schema, type: directory}
+    id: file:../libs/packages/schema
+    name: '@effect-app/schema'
+    dependencies:
+      '@effect-app/core': file:../libs/packages/core(@effect/schema@0.62.6)(@effect/typeclass@0.22.12)(fast-check@3.15.1)
+      '@effect/schema': 0.62.6(patch_hash=xl7hmec6rnt5wfsg6fv4tjlqma)(effect@2.3.5)(fast-check@3.15.1)
+      cross-fetch: 4.0.0
+      effect: 2.3.5(patch_hash=7flqffzzb5nemzq6gsay3plece)
+      lodash: 4.17.21
+      nanoid: 5.0.5
+      path-parser: 6.1.0
+      uuid: 9.0.1
+      validator: 13.11.0
+    transitivePeerDependencies:
+      - '@effect/typeclass'
+      - encoding
+      - fast-check
+
+  file:../libs/packages/vue(@effect/typeclass@0.22.12)(fast-check@3.15.1)(typescript@5.3.3):
+    resolution: {directory: ../libs/packages/vue, type: directory}
+    id: file:../libs/packages/vue
+    name: '@effect-app/vue'
+    dependencies:
+      '@effect-app/core': file:../libs/packages/core(@effect/schema@0.62.6)(@effect/typeclass@0.22.12)(fast-check@3.15.1)
+      '@effect-app/fluent-extensions': file:../libs/packages/fluent-extensions(@effect/schema@0.62.6)(@effect/typeclass@0.22.12)(fast-check@3.15.1)
+      '@effect-app/schema': file:../libs/packages/schema(@effect/typeclass@0.22.12)(fast-check@3.15.1)
+      '@effect/platform': 0.44.7(@effect/schema@0.62.6)(effect@2.3.5)
+      '@effect/platform-browser': 0.29.8(@effect/platform@0.44.7)(effect@2.3.5)
+      '@effect/schema': 0.62.6(patch_hash=xl7hmec6rnt5wfsg6fv4tjlqma)(effect@2.3.5)(fast-check@3.15.1)
+      '@formatjs/intl': 2.10.0(typescript@5.3.3)
+      '@tanstack/vue-query': 5.20.5(vue@3.4.15)
+      effect: 2.3.5(patch_hash=7flqffzzb5nemzq6gsay3plece)
+      effect-app: file:../libs/packages/prelude(@effect/typeclass@0.22.12)(fast-check@3.15.1)
+      query-string: 8.2.0
+      swrv: 1.0.4(vue@3.4.15)
+      vue: 3.4.15(typescript@5.3.3)
+    transitivePeerDependencies:
+      - '@effect/typeclass'
+      - '@vue/composition-api'
+      - encoding
+      - fast-check
+      - typescript
     dev: false
