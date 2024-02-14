@@ -170,17 +170,23 @@ export const withSuccess: {
   <I, E extends ResponseErrors, A, X>(
     self: {
       handler: (i: I) => Effect<A, E, ApiConfig | HttpClient.Client.Default>
+      name: string
     },
     onSuccess: (a: A, i: I) => Promise<X>,
   ): {
     handler: (i: I) => Effect<X, E, ApiConfig | HttpClient.Client.Default>
+    name: string
   }
   <E extends ResponseErrors, A, X>(
     self: {
       handler: Effect<A, E, ApiConfig | HttpClient.Client.Default>
+      name: string
     },
     onSuccess: (_: A) => Promise<X>,
-  ): { handler: Effect<X, E, ApiConfig | HttpClient.Client.Default> }
+  ): {
+    handler: Effect<X, E, ApiConfig | HttpClient.Client.Default>
+    name: string
+  }
 } = (self: any, onSuccess: any): any => ({
   ...self,
   handler:
@@ -190,7 +196,7 @@ export const withSuccess: {
             (
               self.handler as (
                 i: any,
-              ) => Effect<ApiConfig | HttpClient.Client.Default, any, any>
+              ) => Effect<any, any, ApiConfig | HttpClient.Client.Default>
             )(i),
             Effect.flatMap(_ => Effect.promise(() => onSuccess(_, i))),
           )
@@ -200,6 +206,7 @@ export const withSuccess: {
 export function withSuccessE<I, E extends ResponseErrors, A, E2, X>(
   self: {
     handler: (i: I) => Effect<A, E, ApiConfig | HttpClient.Client.Default>
+    name: string
   },
   onSuccessE: (_: A, i: I) => Effect<X, E2>,
 ) {
