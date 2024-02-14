@@ -25,6 +25,7 @@ onMountedWithCleanup(() => {
 const progress = ref("")
 const [publishing, publish] = useAndHandleMutation(
   {
+    ...blogClient.publishPost,
     handler: refreshAndWaitForOperation(
       blogClient.publishPost.handler,
       Effect.promise(() => reloadPost()),

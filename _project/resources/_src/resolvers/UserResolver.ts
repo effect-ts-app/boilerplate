@@ -2,13 +2,12 @@ import { UserId } from "@effect-app-boilerplate/models/User"
 import { Effect, Exit, Request, RequestResolver } from "effect"
 import { Option, S } from "effect-app"
 import { ApiConfig, clientFor, NotFoundError } from "effect-app/client"
-import type { EffectRequest } from "effect-app/Request"
-import { HttpClient } from "effect-app/Request"
+import { HttpClient } from "effect-app/http"
 import { type Schema } from "effect-app/schema"
 import * as UsersRsc from "../Users.js"
 import { UserView } from "../Views/UserView.js"
 
-interface GetUserViewById extends EffectRequest<UserView, NotFoundError<"User">> {
+interface GetUserViewById extends Request.Request<UserView, NotFoundError<"User">> {
   readonly _tag: "GetUserViewById"
   readonly id: UserId
 }
@@ -35,9 +34,9 @@ const getUserViewByIdResolver = RequestResolver
       )
       .pipe(Effect.orDie)
   )
-  .pipe(RequestResolver.batchN(25), RequestResolver.contextFromServices(HttpClient, ApiConfig.Tag))
+  .pipe(RequestResolver.batchN(25), RequestResolver.contextFromServices(HttpClient.Client, ApiConfig.Tag))
 
-export const UserViewFromId: Schema<UserView, string, ApiConfig | HttpClient.Default> = S.transformOrFail(
+export const UserViewFromId: Schema<UserView, string, ApiConfig | HttpClient.Client.Default> = S.transformOrFail(
   UserId,
   S.to(UserView),
   (id) => Effect.request(GetUserViewById({ id }), getUserViewByIdResolver).pipe(Effect.orDie),

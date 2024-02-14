@@ -9,8 +9,6 @@ import {
   type SupportedErrors,
   type QueryResult,
 } from "effect-app/client"
-import type { MutationResult } from "@effect-app/vue"
-import { useMutation } from "@effect-app/vue"
 import { Failure, Success } from "effect-app/Operations"
 import * as Sentry from "@sentry/browser"
 import {
@@ -26,6 +24,7 @@ import { Cause, S } from "effect-app"
 import { useToast } from "vue-toastification"
 import { intl } from "./intl"
 import { isFailed } from "effect-app/client"
+import type { MutationResult } from "@effect-app/vue"
 
 export { useToast } from "vue-toastification"
 
@@ -36,8 +35,7 @@ export {
   isRefreshing,
   isSuccess,
 } from "effect-app/client"
-export { useSafeQuery } from "@effect-app/vue/query"
-export { useMutate, useMutation } from "@effect-app/vue"
+export { useSafeMutation, useSafeQuery } from "@effect-app/vue"
 export {
   refreshAndWaitAForOperation,
   refreshAndWaitAForOperationP,
@@ -96,6 +94,7 @@ export const useAndHandleMutation: {
   <I, E extends ResponseErrors, A>(
     self: {
       handler: (i: I) => Effect<A, E, ApiConfig | HttpClient.Client.Default>
+      name: string
     },
     action: string,
     options?: Opts<A>,
@@ -103,12 +102,13 @@ export const useAndHandleMutation: {
   <E extends ResponseErrors, A>(
     self: {
       handler: Effect<A, E, ApiConfig | HttpClient.Client.Default>
+      name: string
     },
     action: string,
     options?: Opts<A>,
   ): ActResp<E, A>
 } = (self: any, action: any, options: any) => {
-  const [a, b] = useMutation({
+  const [a, b] = useSafeMutation({
     handler: Effect.isEffect(self.handler)
       ? (pipe(
           self.handler,
@@ -119,6 +119,7 @@ export const useAndHandleMutation: {
             self.handler(...args),
             Effect.withSpan("mutation", { attributes: { action } }),
           ),
+    name: self.name,
   })
 
   return tuple(
@@ -126,10 +127,11 @@ export const useAndHandleMutation: {
     handleRequestWithToast(b as any, action, options),
   )
 }
-export const useMutationWithState = <I, E, A>(self: {
+export const useSafeMutationWithState = <I, E, A>(self: {
   handler: (i: I) => Effect<A, E, ApiConfig | HttpClient.Client.Default>
+  name: string
 }) => {
-  const [a, b] = useMutation(self)
+  const [a, b] = useSafeMutation(self)
 
   return tuple(
     computed(() => mutationResultToVue(a.value)),
@@ -144,6 +146,7 @@ export function makeUseAndHandleMutation(onSuccess: () => Promise<void>) {
         handler: (typeof self === "function"
           ? (i: any) => Effect.tap(self(i), () => Effect.promise(onSuccess))
           : Effect.tap(self, () => Effect.promise(onSuccess))) as any,
+        name: self.name,
       },
       action,
       options,
