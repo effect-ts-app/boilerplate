@@ -15,6 +15,9 @@ patchedDependencies:
   '@fp-ts/optic@0.22.0':
     hash: 2yuoegl5dhwsslauskmjxbvoeu
     path: patches/@fp-ts__optic@0.22.0.patch
+  '@hebilicious/vue-query-nuxt@0.3.0':
+    hash: 5dcq766eeuesmqdcvoqrnf6tzi
+    path: patches/@hebilicious__vue-query-nuxt@0.3.0.patch
   '@phaphoso/eslint-plugin-dprint@0.5.2':
     hash: 5r3oafqkulzxdb6awceadivssy
     path: patches/@phaphoso__eslint-plugin-dprint@0.5.2.patch
@@ -393,7 +396,7 @@ importers:
         version: 2.7.2(typescript@5.3.3)
       '@hebilicious/vue-query-nuxt':
         specifier: ^0.3.0
-        version: 0.3.0(@tanstack/vue-query@5.20.5)(nuxt@3.10.2)
+        version: 0.3.0(patch_hash=5dcq766eeuesmqdcvoqrnf6tzi)(@tanstack/vue-query@5.20.5)(nuxt@3.10.2)
       '@opentelemetry/context-zone':
         specifier: ^1.21.0
         version: 1.21.0(@opentelemetry/api@1.7.0)
@@ -3361,7 +3364,7 @@ packages:
       '@hapi/topo': 5.1.0
     dev: false
 
-  /@hebilicious/vue-query-nuxt@0.3.0(@tanstack/vue-query@5.20.5)(nuxt@3.10.2):
+  /@hebilicious/vue-query-nuxt@0.3.0(patch_hash=5dcq766eeuesmqdcvoqrnf6tzi)(@tanstack/vue-query@5.20.5)(nuxt@3.10.2):
     resolution: {integrity: sha512-3ULFb4Sq4vp7VCuMFTlvHOIipgLsFPTAUfSoPNrXiUzvuetsLquijaIFWMlgetWC/+1o5WEBXSVcrmX46uZB6w==}
     requiresBuild: true
     peerDependencies:
@@ -3378,6 +3381,7 @@ packages:
       - rollup
       - supports-color
     dev: false
+    patched: true
 
   /@humanwhocodes/config-array@0.11.14:
     resolution: {integrity: sha512-3T8LkOmg45BV5FICb15QQMsyUSWrQ8AygVfC7ZG32zOalnqrilm018ZVCw0eapXux8FtA33q8PSRSstjee3jSg==}
