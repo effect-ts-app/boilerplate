@@ -14,7 +14,7 @@ const [r] = useSafeQuery(blogClient.getPosts)
       <v-btn
         @click="
           createPost({
-            title: S.NonEmptyString255('empty'),
+            title: S.NonEmptyString255(new Date().toString()),
             body: S.NonEmptyString2k('A body'),
           })
         "
