@@ -1,5 +1,5 @@
-import { User } from "@effect-app-boilerplate/models/User"
-import { HelloWorldRsc } from "@effect-app-boilerplate/resources"
+import { User } from "@effect-app-boilerplate/api/models/User"
+import { HelloWorldRsc } from "@effect-app-boilerplate/api/resources"
 import { generateFromArbitrary } from "@effect-app/infra/test.arbs"
 import { matchFor } from "api/lib/matchFor.js"
 import { UserRepo } from "api/services.js"

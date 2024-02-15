@@ -1,6 +1,8 @@
 <script setup lang="ts">
-import { HelloWorldRsc } from "@effect-app-boilerplate/resources"
+import { HelloWorldRsc } from "@effect-app-boilerplate/api/resources"
+import { useSafeQuery } from "@effect-app/vue"
 import { buildFormFromSchema } from "@effect-app/vue/form"
+import { clientFor } from "effect-app/client"
 
 import { S } from "~/utils/prelude"
 

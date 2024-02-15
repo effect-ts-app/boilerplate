@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/ban-types */
-import { Role } from "@effect-app-boilerplate/models/User"
+import { Role } from "@effect-app-boilerplate/api/models/User"
 
 import { HttpServerRequest } from "@effect-app/infra/api/http"
 import { JWTError, type RequestHandler } from "@effect-app/infra/api/routing"
@@ -18,7 +18,7 @@ import {
 } from "../services/UserProfile.js"
 
 // Workaround for the error when using
-// import type { AllowAnonymous, RequestConfig } from "@effect-app-boilerplate/resources/lib"
+// import type { AllowAnonymous, RequestConfig } from "@effect-app-boilerplate/api/resources/lib"
 
 export type RequestConfig = { allowAnonymous?: true; allowedRoles?: readonly Role[] }
 

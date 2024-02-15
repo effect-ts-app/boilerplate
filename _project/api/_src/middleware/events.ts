@@ -1,4 +1,4 @@
-import { ClientEvents } from "@effect-app-boilerplate/resources"
+import { ClientEvents } from "@effect-app-boilerplate/api/resources"
 import { setupRequestContext } from "@effect-app/infra/api/setupRequest"
 import { reportError } from "@effect-app/infra/errorReporter"
 import { HttpHeaders, HttpServerResponse } from "api/lib/http.js"

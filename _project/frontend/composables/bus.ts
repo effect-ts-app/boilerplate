@@ -1,4 +1,4 @@
-import type { ClientEvents } from "@effect-app-boilerplate/resources"
+import type { ClientEvents } from "@effect-app-boilerplate/api/resources"
 
 import mitt from "mitt"
 

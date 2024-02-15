@@ -1,5 +1,5 @@
-import type { UserId } from "@effect-app-boilerplate/models/User"
-import { User } from "@effect-app-boilerplate/models/User"
+import type { UserId } from "@effect-app-boilerplate/api/models/User"
+import { User } from "@effect-app-boilerplate/api/models/User"
 import { NotFoundError, NotLoggedInError } from "@effect-app/infra/errors"
 import { Filters } from "@effect-app/infra/filter"
 import { RepositoryDefaultImpl } from "@effect-app/infra/services/RepositoryBase"

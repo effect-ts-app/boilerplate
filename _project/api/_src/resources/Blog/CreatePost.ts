@@ -1,5 +1,5 @@
-import { BlogPost, BlogPostId } from "@effect-app-boilerplate/models/Blog"
-import { S } from "@effect-app-boilerplate/resources/lib"
+import { BlogPost, BlogPostId } from "@effect-app-boilerplate/api/models/Blog"
+import { S } from "@effect-app-boilerplate/api/resources/lib"
 
 export class CreatePostRequest extends S.Req({ allowAnonymous: true, allowRoles: ["user"] })<CreatePostRequest>()(
   BlogPost.pick("title", "body")

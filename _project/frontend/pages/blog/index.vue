@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { BlogRsc } from "@effect-app-boilerplate/resources"
+import { BlogRsc } from "@effect-app-boilerplate/api/resources"
 
 const blogClient = clientFor(BlogRsc)
 

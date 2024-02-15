@@ -1,4 +1,4 @@
-import { OperationsRsc } from "@effect-app-boilerplate/resources"
+import { OperationsRsc } from "@effect-app-boilerplate/api/resources"
 import { matchFor } from "api/lib/matchFor.js"
 import { Operations } from "api/services.js"
 

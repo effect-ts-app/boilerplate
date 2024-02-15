@@ -21,7 +21,7 @@ import type { SupportedErrors } from "effect-app/client/errors"
 import { REST } from "effect-app/schema"
 import { handleRequestEnv } from "./RequestEnv.js"
 import type { CTX, GetContext, GetCTX, RequestEnv } from "./RequestEnv.js"
-import type {} from "@effect-app-boilerplate/resources/lib"
+import type {} from "@effect-app-boilerplate/api/resources/lib"
 
 function handle<
   TModule extends Record<

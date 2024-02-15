@@ -1,4 +1,4 @@
-import { ClientEvents } from "@effect-app-boilerplate/resources"
+import { ClientEvents } from "@effect-app-boilerplate/api/resources"
 import ReconnectingEventSource from "reconnecting-eventsource"
 import { bus } from "./bus"
 import { onMountedWithCleanup } from "./onMountedWithCleanup"

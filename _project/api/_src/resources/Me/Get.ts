@@ -1,5 +1,5 @@
-import { User } from "@effect-app-boilerplate/models/User"
-import { S } from "@effect-app-boilerplate/resources/lib"
+import { User } from "@effect-app-boilerplate/api/models/User"
+import { S } from "@effect-app-boilerplate/api/resources/lib"
 
 export class GetMeRequest extends S.Req()<GetMeRequest>()({}) {}
 

@@ -1,7 +1,17 @@
 <script setup lang="ts">
-import { BlogRsc } from "@effect-app-boilerplate/resources"
-import type { ClientEvents } from "@effect-app-boilerplate/resources"
-import { BlogPostId } from "@effect-app-boilerplate/models/Blog"
+import { BlogRsc } from "@effect-app-boilerplate/api/resources"
+import type { ClientEvents } from "@effect-app-boilerplate/api/resources"
+import { BlogPostId } from "@effect-app-boilerplate/api/models/Blog"
+import { useSafeQuery } from "@effect-app/vue"
+import { Effect } from "effect-app"
+import { clientFor } from "effect-app/client"
+import { bus } from "../../composables/bus"
+import {
+  useAndHandleMutation,
+  refreshAndWaitForOperation,
+} from "../../composables/client"
+import { onMountedWithCleanup } from "../../composables/onMountedWithCleanup"
+import { useRouteParams } from "../../composables/useRouteParams"
 
 const { id } = useRouteParams({ id: BlogPostId })
 

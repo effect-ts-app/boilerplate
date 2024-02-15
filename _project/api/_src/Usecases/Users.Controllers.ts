@@ -1,5 +1,5 @@
-import { UsersRsc } from "@effect-app-boilerplate/resources"
-import type { UserView } from "@effect-app-boilerplate/resources/Views"
+import { UsersRsc } from "@effect-app-boilerplate/api/resources"
+import type { UserView } from "@effect-app-boilerplate/api/resources/Views"
 import { matchFor } from "api/lib/matchFor.js"
 import { UserRepo } from "api/services.js"
 import { ReadonlyArray } from "effect"

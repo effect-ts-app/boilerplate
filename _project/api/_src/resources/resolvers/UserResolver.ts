@@ -1,4 +1,4 @@
-import { UserId } from "@effect-app-boilerplate/models/User"
+import { UserId } from "@effect-app-boilerplate/api/models/User"
 import { Effect, Exit, Request, RequestResolver } from "effect"
 import { Option, S } from "effect-app"
 import { ApiConfig, clientFor, NotFoundError } from "effect-app/client"

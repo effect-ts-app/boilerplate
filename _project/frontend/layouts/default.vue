@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { MeRsc } from "@effect-app-boilerplate/resources"
+import { MeRsc } from "@effect-app-boilerplate/api/resources"
 import { isInitializing } from "@effect-app/vue"
 import { onMounted } from "vue"
 import { useRouter } from "vue-router"

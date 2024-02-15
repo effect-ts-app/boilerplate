@@ -1,4 +1,4 @@
-import type { Role } from "@effect-app-boilerplate/models/User"
+import type { Role } from "@effect-app-boilerplate/api/models/User"
 
 import { Req as Req_ } from "@effect-app/schema/REST"
 

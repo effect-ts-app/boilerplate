@@ -1,4 +1,4 @@
-import { S } from "@effect-app-boilerplate/resources/lib"
+import { S } from "@effect-app-boilerplate/api/resources/lib"
 import { UserView } from "../Views.js"
 
 export class GetHelloWorldRequest
