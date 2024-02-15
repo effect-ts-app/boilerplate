@@ -12,7 +12,7 @@
 			"type": "shell",
 			"command": "pnpm watch-src",
 			// "options": {
-			// 	"cwd": "${workspaceRoot}/_project/api/_test",
+			// 	"cwd": "${workspaceRoot}/api/_test",
 			// },
 			"dependsOn": [
 				//"Scan Resources",
@@ -40,7 +40,7 @@
 			"type": "shell",
 			"command": "pnpm build-libs -w",
 			// "options": {
-			// 	"cwd": "${workspaceRoot}/_project/api/_test",
+			// 	"cwd": "${workspaceRoot}/api/_test",
 			// },
 			"dependsOn": [
 				//"Scan Resources",
@@ -90,7 +90,7 @@
 			"type": "shell",
 			"command": "pnpm watch",
 			"options": {
-				"cwd": "${workspaceRoot}/_project/frontend"
+				"cwd": "${workspaceRoot}/frontend"
 			},
 			"dependsOn": [
 				"Watch API, Models, Resources"
@@ -108,7 +108,7 @@
 					"base": "$tsc-watch",
 					"fileLocation": [
 						"relative",
-						"${workspaceRoot}/_project/frontend",
+						"${workspaceRoot}/frontend",
 					],
 				}
 			]
@@ -118,7 +118,7 @@
 			"type": "shell",
 			"command": "pnpm dev",
 			"options": {
-				"cwd": "${workspaceRoot}/_project/api"
+				"cwd": "${workspaceRoot}/api"
 			},
 			"isBackground": true,
 			// FAKE... but works..
@@ -147,7 +147,7 @@
 			"type": "shell",
 			"command": "pnpm dev",
 			"options": {
-				"cwd": "${workspaceRoot}/_project/frontend"
+				"cwd": "${workspaceRoot}/frontend"
 			},
 			"dependsOrder": "sequence",
 			"dependsOn": [
@@ -184,7 +184,7 @@
 			"type": "shell",
 			"command": "pnpm run test --watch",
 			"options": {
-				"cwd": "${workspaceRoot}/_project/api/_test"
+				"cwd": "${workspaceRoot}/api/_test"
 			},
 			"group": "test",
 			"isBackground": true,
@@ -244,7 +244,7 @@
 			"type": "shell",
 			"command": "pnpm build",
 			"options": {
-				"cwd": "${workspaceRoot}/_project/frontend"
+				"cwd": "${workspaceRoot}/frontend"
 			},
 			"group": "build",
 			"dependsOrder": "sequence",

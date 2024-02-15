@@ -34,7 +34,7 @@ export default defineNuxtConfig({
     ),
   },
   build: {
-    transpile: ["vuetify", "../../boilerplate/_project/schema"]
+    transpile: ["vuetify", "../../boilerplate/schema"]
       // workaround for commonjs/esm module prod issue
       // https://github.com/nuxt/framework/issues/7698
       .concat(

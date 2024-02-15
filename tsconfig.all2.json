@@ -5,19 +5,19 @@
     "moduleResolution": "Node16",
     "paths": {
       "api/*": [
-        "./_project/api/_src/*"
+        "./api/_src/*"
       ],
       // "core/*": [
-      //   "./_project/core/_src/*"
+      //   "./core/_src/*"
       // ]
     },
   },
   "include": [
-    "_project/api/_src/**/*",
-    "_project/api/_migrator/_src/**/*",
-    "_project/api/_test/**/*",
-    //"_project/e2e/**/*",
-    //"_project/frontend/**/*",
+    "api/_src/**/*",
+    "api/_migrator/_src/**/*",
+    "api/_test/**/*",
+    //"e2e/**/*",
+    //"frontend/**/*",
   ],
   "exclude": [
     "**/node_modules",
@@ -28,7 +28,7 @@
   ],
   "references": [
     {
-      "path": "./_project/api"
+      "path": "./api"
     }
   ]
 }

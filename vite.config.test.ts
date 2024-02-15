@@ -32,7 +32,7 @@ export default function defineTestConfig(
   }
 
   const alias = (name: string) => ({
-    [basePj + "/" + name]: path.join(__dirname, `/_project/${name}/` + (useDist || useTransform ? "dist" : "_src"))
+    [basePj + "/" + name]: path.join(__dirname, `/${name}/` + (useDist || useTransform ? "dist" : "_src"))
   })
 
   const b = makeConfig(dirName, useDist, useTransform)

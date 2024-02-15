@@ -5,7 +5,7 @@
     "moduleResolution": "Node16"
   },
   "include": [
-    "_project/api/_src/**/*"
+    "api/_src/**/*"
   ],
   "exclude": [
     "**/node_modules",
@@ -16,7 +16,7 @@
   ],
   "references": [
     {
-      "path": "./_project/api"
+      "path": "./api"
     }
   ]
 }

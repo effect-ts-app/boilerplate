@@ -14,7 +14,7 @@ export default function makeConfig(
   useTransform = false
 ): UserConfig {
   const alias = (name: string) => ({
-    [basePj + "/" + name]: path.join(__dirname, `/_project/${name}/` + (useDist || useTransform ? "dist" : "_src"))
+    [basePj + "/" + name]: path.join(__dirname, `/${name}/` + (useDist || useTransform ? "dist" : "_src"))
   })
   const projects = ["api", "core", "messages", "resources", "models"]
   const d = dirName ? dirName + "/" : ""
@@ -27,7 +27,7 @@ export default function makeConfig(
           tsconfig: dirName ? d + "tsconfig.json" : undefined
         })
       ]
-      : [tsconfigPaths({ projects: projects.map((_) => path.join(__dirname, `/_project/${_}`)) })],
+      : [tsconfigPaths({ projects: projects.map((_) => path.join(__dirname, `/${_}`)) })],
     test: {
       include: useDist ? ["./dist/**/*.test.js"] : ["./_src/**/*.test.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"],
       exclude: ["./_test/**/*"],
