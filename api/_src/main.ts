@@ -1,5 +1,5 @@
 import "@effect-app/fluent-extensions"
-import { runMain } from "@effect-app-boilerplate/api/messages/basicRuntime"
+import { runMain } from "./lib/basicRuntime.js"
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { api, devApi } from "@effect-app-boilerplate/api/api"
