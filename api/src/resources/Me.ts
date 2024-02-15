@@ -2,6 +2,6 @@
 export * as Get from "./Me/Get.js"
 // codegen:end
 
-// codegen:start {preset: meta}
+// codegen:start {preset: meta, sourcePrefix: src/resources/}
 export const meta = { moduleName: "Me" }
 // codegen:end

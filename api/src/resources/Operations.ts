@@ -2,6 +2,6 @@
 export * as Find from "./Operations/Find.js"
 // codegen:end
 
-// codegen:start {preset: meta}
+// codegen:start {preset: meta, sourcePrefix: src/resources/}
 export const meta = { moduleName: "Operations" }
 // codegen:end

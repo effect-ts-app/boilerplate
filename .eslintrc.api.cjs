@@ -1,6 +1,6 @@
 const makeBase = require("./.eslintrc.base.cjs")
 
-const base = makeBase(__dirname, undefined, "tsconfig.api.json")
+const base = makeBase(__dirname, true, "tsconfig.api.json")
 module.exports = {
   root: true,
   ...base,

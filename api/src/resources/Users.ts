@@ -2,6 +2,6 @@
 export * as Index from "./Users/Index.js"
 // codegen:end
 
-// codegen:start {preset: meta}
+// codegen:start {preset: meta, sourcePrefix: src/resources/}
 export const meta = { moduleName: "Users" }
 // codegen:end

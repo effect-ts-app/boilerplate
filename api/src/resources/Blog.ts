@@ -4,6 +4,6 @@ export * as FindPost from "./Blog/FindPost.js"
 export * as GetPosts from "./Blog/GetPosts.js"
 export * as PublishPost from "./Blog/PublishPost.js"
 // codegen:end
-// codegen:start {preset: meta}
+// codegen:start {preset: meta, sourcePrefix: src/resources/}
 export const meta = { moduleName: "Blog" }
 // codegen:end
