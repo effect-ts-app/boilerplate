@@ -16,7 +16,7 @@ export default function makeConfig(
   const alias = (name: string) => ({
     [basePj + "/" + name]: path.join(__dirname, `/${name}/` + (useDist || useTransform ? "dist" : "_src"))
   })
-  const projects = ["api", "core", "messages", "resources", "models"]
+  const projects = ["api"]
   const d = dirName ? dirName + "/" : ""
   return {
     plugins: useDist
