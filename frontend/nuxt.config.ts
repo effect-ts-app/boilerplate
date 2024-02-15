@@ -26,11 +26,8 @@ export default defineNuxtConfig({
     // "@effect-app/vue": fileURLToPath(
     //   new URL("../../libs/packages/vue/_src", import.meta.url),
     // ),
-    "@effect-app-boilerplate/api/resources": fileURLToPath(
-      new URL("../resources/_src", import.meta.url),
-    ),
-    "@effect-app-boilerplate/api/models": fileURLToPath(
-      new URL("../models/_src", import.meta.url),
+    "@effect-app-boilerplate/api": fileURLToPath(
+      new URL("../api/_src", import.meta.url),
     ),
   },
   build: {
