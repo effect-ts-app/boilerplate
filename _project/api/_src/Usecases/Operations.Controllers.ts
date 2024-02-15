@@ -4,11 +4,10 @@ import { Operations } from "api/services.js"
 
 const operations = matchFor(OperationsRsc)
 
-const Find = operations.Find(
-  ({ id }) =>
+export default operations.controllers({
+  Find: operations.Find(({ id }) =>
     Operations
       .find(id)
       .andThen((_) => _.value ?? null)
-)
-
-export default operations.controllers({ Find })
+  )
+})

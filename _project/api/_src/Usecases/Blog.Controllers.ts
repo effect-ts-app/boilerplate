@@ -8,29 +8,27 @@ import { NonNegativeInt } from "effect-app/schema"
 
 const blog = matchFor(BlogRsc)
 
-const FindPost = blog.FindPost(
-  (req) =>
+export default blog.controllers({
+  FindPost: blog.FindPost((req) =>
     BlogPostRepo
       .find(req.id)
       .andThen((_) => _.value ?? null)
-)
+  ),
 
-const GetPosts = blog.GetPosts(
-  BlogPostRepo
-    .all
-    .andThen((items) => ({ items }))
-)
+  GetPosts: blog.GetPosts(
+    BlogPostRepo
+      .all
+      .andThen((items) => ({ items }))
+  ),
 
-const CreatePost = blog.CreatePost(
-  (req) =>
+  CreatePost: blog.CreatePost((req) =>
     UserRepo
       .getCurrentUser
       .andThen((author) => (new BlogPost({ ...req, author }, true)))
       .tap(BlogPostRepo.save)
-)
+  ),
 
-const PublishPost = blog.PublishPost(
-  (req) =>
+  PublishPost: blog.PublishPost((req) =>
     Effect.gen(function*($) {
       const post = yield* $(BlogPostRepo.get(req.id))
 
@@ -75,6 +73,5 @@ const PublishPost = blog.PublishPost(
 
       return operationId
     })
-)
-
-export default blog.controllers({ FindPost, GetPosts, CreatePost, PublishPost })
+  )
+})

@@ -4,6 +4,6 @@ import { UserRepo } from "api/services.js"
 
 const me = matchFor(MeRsc)
 
-const Get = me.Get(UserRepo.getCurrentUser)
-
-export default me.controllers({ Get })
+export default me.controllers({
+  Get: me.Get(UserRepo.getCurrentUser)
+})

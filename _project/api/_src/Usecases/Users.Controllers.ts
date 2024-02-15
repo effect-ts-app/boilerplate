@@ -7,18 +7,13 @@ import { Order } from "effect-app"
 
 const users = matchFor(UsersRsc)
 
-const Index = users.Index(
-  (req, { Response }) =>
+export default users.controllers({
+  Index: users.Index((req) =>
     UserRepo
       .query({ filter: UserRepo.Query((where) => where("id", "in", req.filterByIds)) })
-      .andThen((users) =>
-        new Response({
-          users: ReadonlyArray
-            .sort(users, Order.mapInput(Order.string, (_: UserView) => _.displayName))
-        })
-      )
-)
-
-export default users.controllers({
-  Index
+      .andThen((users) => ({
+        users: ReadonlyArray
+          .sort(users, Order.mapInput(Order.string, (_: UserView) => _.displayName))
+      }))
+  )
 })

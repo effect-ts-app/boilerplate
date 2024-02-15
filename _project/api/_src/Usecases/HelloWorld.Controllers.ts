@@ -7,8 +7,8 @@ import { Effect, S } from "effect-app"
 
 const helloWorld = matchFor(HelloWorldRsc)
 
-const Get = helloWorld.Get(
-  ({ echo }, { Response, context }) =>
+export default helloWorld.controllers({
+  Get: helloWorld.Get(({ echo }, { Response, context }) =>
     UserRepo
       .getCurrentUser
       .pipe(
@@ -25,6 +25,5 @@ const Get = helloWorld.Get(
           randomUser: generateFromArbitrary(S.A.make(User)).value
         })
       )
-)
-
-export default helloWorld.controllers({ Get })
+  )
+})
