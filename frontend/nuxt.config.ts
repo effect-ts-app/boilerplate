@@ -21,13 +21,13 @@ export default defineNuxtConfig({
     //   new URL("../../libs/packages/prelude/dist", import.meta.url),
     // ),
     // "@effect-app/fluent-extensions": fileURLToPath(
-    //   new URL("../../libs/packages/fluent-extensions/_src", import.meta.url),
+    //   new URL("../../libs/packages/fluent-extensions/src", import.meta.url),
     // ),
     // "@effect-app/vue": fileURLToPath(
-    //   new URL("../../libs/packages/vue/_src", import.meta.url),
+    //   new URL("../../libs/packages/vue/src", import.meta.url),
     // ),
     "@effect-app-boilerplate/api": fileURLToPath(
-      new URL("../api/_src", import.meta.url),
+      new URL("../api/src", import.meta.url),
     ),
   },
   build: {

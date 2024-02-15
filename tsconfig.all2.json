@@ -5,17 +5,17 @@
     "moduleResolution": "Node16",
     "paths": {
       "api/*": [
-        "./api/_src/*"
+        "./api/src/*"
       ],
       // "core/*": [
-      //   "./core/_src/*"
+      //   "./core/src/*"
       // ]
     },
   },
   "include": [
-    "api/_src/**/*",
-    "api/_migrator/_src/**/*",
-    "api/_test/**/*",
+    "api/src/**/*",
+    "api/_migrator/src/**/*",
+    "api/test/**/*",
     //"e2e/**/*",
     //"frontend/**/*",
   ],

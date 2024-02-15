@@ -7,16 +7,16 @@
   "type": "module",
   "scripts": {
     "circular": "pnpm circular:src && pnpm circular:dist",
-    "circular:src": "madge --circular --ts-config ./tsconfig.json --extensions ts ./_src",
+    "circular:src": "madge --circular --ts-config ./tsconfig.json --extensions ts ./src",
     "circular:dist": "madge --circular --extensions js ./dist",
-    "clean": "rm -rf dist _test/dist",
+    "clean": "rm -rf dist test/dist",
     "clean-dist": "sh ../scripts/clean-dist.sh",
     "build": "pnpm clean-dist && NODE_OPTIONS=--max-old-space-size=8192 tsc --build",
     "watch": "pnpm build --watch",
     "watch2": "pnpm clean-dist && NODE_OPTIONS=--max-old-space-size=8192 tsc -w",
     "compile": "NODE_OPTIONS=--max-old-space-size=8192 tsc --noEmit",
-    "lint": "NODE_OPTIONS=--max-old-space-size=8192 ESLINT_TS=1 eslint _src _test",
-    "lint:watch": "ESLINT_TS=1 esw -w --changed --clear --ext ts,tsx _src _test",
+    "lint": "NODE_OPTIONS=--max-old-space-size=8192 ESLINT_TS=1 eslint src test",
+    "lint:watch": "ESLINT_TS=1 esw -w --changed --clear --ext ts,tsx src test",
     "autofix": "pnpm lint --fix",
     "test": "vitest",
     "test:run": "pnpm run test run --passWithNoTests",
@@ -26,9 +26,9 @@
     "dev:vite": "pnpm start:vite | ../scripts/humanlog.sh",
     "start": "pnpm start:compiled",
     "start:compiled": "node -r source-map-support/register ./dist/main.js",
-    "start:vite": "vite-node ./_src/main.ts",
+    "start:vite": "vite-node ./src/main.ts",
     "ncu": "ncu",
-    "extract:i18n": "formatjs extract './**/*.ts' --ignore './**/*.d.ts' --format _src/i18n/extraction-formatter.cjs --id-interpolation-pattern '[sha512:contenthash:base64:6]' --out-file _src/i18n/extracted/en.json"
+    "extract:i18n": "formatjs extract './**/*.ts' --ignore './**/*.d.ts' --format src/i18n/extraction-formatter.cjs --id-interpolation-pattern '[sha512:contenthash:base64:6]' --out-file src/i18n/extracted/en.json"
   },
   "exports": {
     ".": {

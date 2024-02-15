@@ -12,7 +12,7 @@
 			"type": "shell",
 			"command": "pnpm watch-src",
 			// "options": {
-			// 	"cwd": "${workspaceRoot}/api/_test",
+			// 	"cwd": "${workspaceRoot}/api/test",
 			// },
 			"dependsOn": [
 				//"Scan Resources",
@@ -40,7 +40,7 @@
 			"type": "shell",
 			"command": "pnpm build-libs -w",
 			// "options": {
-			// 	"cwd": "${workspaceRoot}/api/_test",
+			// 	"cwd": "${workspaceRoot}/api/test",
 			// },
 			"dependsOn": [
 				//"Scan Resources",
@@ -184,7 +184,7 @@
 			"type": "shell",
 			"command": "pnpm run test --watch",
 			"options": {
-				"cwd": "${workspaceRoot}/api/_test"
+				"cwd": "${workspaceRoot}/api/test"
 			},
 			"group": "test",
 			"isBackground": true,

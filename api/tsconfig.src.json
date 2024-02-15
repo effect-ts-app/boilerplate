@@ -7,12 +7,12 @@
     "tsBuildInfoFile": "./dist/.tsbuildinfo",
     "esModuleInterop": true,
     "baseUrl": "./",
-    "rootDir": "./_src",
+    "rootDir": "./src",
     // keep in here, cause madge can't detect it from extended tsconfig
     "moduleResolution": "Node16",
     "paths": {
       "api/*": [
-        "./_src/*"
+        "./src/*"
       ]
     },
     "types": [
@@ -32,7 +32,7 @@
     ]
   },
   "include": [
-    "./_src/**/*.ts"
+    "./src/**/*.ts"
   ],
   "exclude": [
     "./dist",
