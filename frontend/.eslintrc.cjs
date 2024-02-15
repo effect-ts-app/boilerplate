@@ -1,4 +1,4 @@
-const makeBase = require("../../.eslintrc.vue.cjs")
+const makeBase = require("../.eslintrc.vue.cjs")
 
 module.exports = {
   root: true,

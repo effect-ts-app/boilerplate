@@ -49,7 +49,7 @@
     "lint-api": "pnpm eslint -c ./.eslintrc.api.cjs api",
     "lint-e2e": "cd e2e && pnpm lint",
     "lint-frontend": "cd frontend && pnpm lint",
-    "build:tsc": "NODE_OPTIONS=--max-old-space-size=8192 effect-app-cli packagejson-target \"./api\" effect-app-cli index-multi tsc --build",
+    "build:tsc": "NODE_OPTIONS=--max-old-space-size=8192 effect-app-cli index-multi tsc --build",
     "build": "pnpm build:tsc ./tsconfig.all.json && cd frontend && pnpm compile",
     "watch": "pnpm build:tsc ./tsconfig.all.json --watch",
     "watch-src": "pnpm build:tsc ./tsconfig.src.json --watch",

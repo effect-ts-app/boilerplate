@@ -1,4 +1,4 @@
-import { BaseConfig } from "@effect-app-boilerplate/messages/config"
+import { BaseConfig } from "@effect-app-boilerplate/api/messages/config"
 import { Config, Effect } from "effect-app"
 import { secretURL } from "effect-app/Config/SecretURL"
 import * as SecretURL from "effect-app/Config/SecretURL"
@@ -49,7 +49,7 @@ export interface ApiConfig extends ConfigA<typeof ApiConfig> {}
 
 export interface ApiMainConfig extends ApiConfig, BaseConfig {}
 
-export * from "@effect-app-boilerplate/messages/config"
+export * from "@effect-app-boilerplate/api/messages/config"
 
 export const MergedConfig = ApiConfig
   .andThen((apiConfig) => BaseConfig.andThen((baseConfig) => ({ ...baseConfig, ...apiConfig })))

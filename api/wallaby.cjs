@@ -1,1 +1,1 @@
-module.exports = require("../../wallaby.base.cjs")
+module.exports = require("../wallaby.base.cjs")

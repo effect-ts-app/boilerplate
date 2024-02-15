@@ -13,18 +13,18 @@ export default defineNuxtConfig({
   alias: {
     // effect: fileURLToPath(
     //   new URL(
-    //     "../../../libs/packages/prelude/node_modules/effect",
+    //     "../../libs/packages/prelude/node_modules/effect",
     //     import.meta.url,
     //   ),
     // ),
     // "effect-app": fileURLToPath(
-    //   new URL("../../../libs/packages/prelude/dist", import.meta.url),
+    //   new URL("../../libs/packages/prelude/dist", import.meta.url),
     // ),
     // "@effect-app/fluent-extensions": fileURLToPath(
-    //   new URL("../../../libs/packages/fluent-extensions/_src", import.meta.url),
+    //   new URL("../../libs/packages/fluent-extensions/_src", import.meta.url),
     // ),
     // "@effect-app/vue": fileURLToPath(
-    //   new URL("../../../libs/packages/vue/_src", import.meta.url),
+    //   new URL("../../libs/packages/vue/_src", import.meta.url),
     // ),
     "@effect-app-boilerplate/api/resources": fileURLToPath(
       new URL("../resources/_src", import.meta.url),
@@ -34,7 +34,7 @@ export default defineNuxtConfig({
     ),
   },
   build: {
-    transpile: ["vuetify", "../../boilerplate/schema"]
+    transpile: ["vuetify"]
       // workaround for commonjs/esm module prod issue
       // https://github.com/nuxt/framework/issues/7698
       .concat(
