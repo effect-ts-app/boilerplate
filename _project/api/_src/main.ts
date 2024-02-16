@@ -14,9 +14,11 @@ setFaker(faker)
 const logConfig = MergedConfig.andThen((cfg) => console.debug(`Config: ${JSON.stringify(cfg, undefined, 2)}`))
 
 const program = devApi
-  .pipe(Layer.provide(api))
-  .pipe(Layer.provide(logConfig.pipe(Layer.scopedDiscard)))
-  .pipe(Layer.provide(TracingLive))
+  .pipe(
+    Layer.provide(api),
+    Layer.provide(logConfig.pipe(Layer.scopedDiscard)),
+    Layer.provide(TracingLive)
+  )
 
 // NOTE: all dependencies should have been provided, for us to be able to run the program.
 // if you get a type error here on the R argument, you haven't provided that dependency yet, or not at the appropriate time / location
