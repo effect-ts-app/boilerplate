@@ -2,16 +2,6 @@
 import { BlogRsc } from "resources"
 import type { ClientEvents } from "resources"
 import { BlogPostId } from "models/Blog"
-import { useSafeQuery } from "@effect-app/vue"
-import { Effect } from "effect-app"
-import { clientFor } from "effect-app/client"
-import { bus } from "../../composables/bus"
-import {
-  useAndHandleMutation,
-  refreshAndWaitForOperation,
-} from "../../composables/client"
-import { onMountedWithCleanup } from "../../composables/onMountedWithCleanup"
-import { useRouteParams } from "../../composables/useRouteParams"
 
 const { id } = useRouteParams({ id: BlogPostId })
 
