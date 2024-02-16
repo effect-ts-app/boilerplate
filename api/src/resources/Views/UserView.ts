@@ -1,5 +1,5 @@
-import { User } from "@effect-app-boilerplate/api/models/User"
-import { S } from "@effect-app-boilerplate/api/resources/lib"
+import { User } from "models/User.js"
+import { S } from "resources/lib.js"
 
 export class UserView extends S.ExtendedClass<UserView, UserView.From>()({
   ...User.pick("id", "role"),

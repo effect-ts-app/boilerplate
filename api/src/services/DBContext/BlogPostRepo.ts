@@ -1,4 +1,4 @@
-import { BlogPost } from "@effect-app-boilerplate/api/models/Blog"
+import { BlogPost } from "models/Blog.js"
 import { RepositoryDefaultImpl } from "@effect-app/infra/services/RepositoryBase"
 import { RepoLive } from "api/migrate.js"
 import { Effect, Layer } from "effect"

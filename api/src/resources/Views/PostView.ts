@@ -1,5 +1,5 @@
-import { BlogPost } from "@effect-app-boilerplate/api/models/Blog"
-import { S } from "@effect-app-boilerplate/api/resources/lib"
+import { BlogPost } from "models/Blog.js"
+import { S } from "resources/lib.js"
 import { UserViewFromId } from "../resolvers/UserResolver.js"
 
 export class BlogPostView extends S.ExtendedClass<BlogPostView, BlogPostView.From>()({

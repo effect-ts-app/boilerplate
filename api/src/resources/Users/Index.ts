@@ -1,5 +1,5 @@
-import { UserId } from "@effect-app-boilerplate/api/models/User"
-import { S } from "@effect-app-boilerplate/api/resources/lib"
+import { UserId } from "models/User.js"
+import { S } from "resources/lib.js"
 import { UserView } from "../Views/UserView.js"
 
 export class IndexUsersRequest extends S.Req({ allowAnonymous: true, allowRoles: ["user"] })<IndexUsersRequest>()({

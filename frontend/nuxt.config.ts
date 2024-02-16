@@ -26,9 +26,8 @@ export default defineNuxtConfig({
     // "@effect-app/vue": fileURLToPath(
     //   new URL("../../libs/packages/vue/src", import.meta.url),
     // ),
-    "@effect-app-boilerplate/api": fileURLToPath(
-      new URL("../api/src", import.meta.url),
-    ),
+    resources: fileURLToPath(new URL("../api/src/resources", import.meta.url)),
+    models: fileURLToPath(new URL("../api/src/models", import.meta.url)),
   },
   build: {
     transpile: ["vuetify"]

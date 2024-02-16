@@ -1,4 +1,4 @@
-import type { ClientEvents } from "@effect-app-boilerplate/api/resources"
+import type { ClientEvents } from "resources.js"
 import { storeId } from "@effect-app/infra/services/Store/Memory"
 import { Effect, FiberRef, PubSub, Stream } from "effect-app"
 import { TagClassMake } from "effect-app/service"

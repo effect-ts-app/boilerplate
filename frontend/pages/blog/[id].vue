@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { BlogRsc } from "@effect-app-boilerplate/api/resources"
-import type { ClientEvents } from "@effect-app-boilerplate/api/resources"
-import { BlogPostId } from "@effect-app-boilerplate/api/models/Blog"
+import { BlogRsc } from "resources"
+import type { ClientEvents } from "resources"
+import { BlogPostId } from "models/Blog"
 import { useSafeQuery } from "@effect-app/vue"
 import { Effect } from "effect-app"
 import { clientFor } from "effect-app/client"

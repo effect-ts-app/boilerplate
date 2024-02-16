@@ -1,4 +1,4 @@
-import { S } from "@effect-app-boilerplate/api/resources/lib"
+import { S } from "resources/lib.js"
 import type { Schema } from "effect-app/schema"
 
 export class BogusEvent extends S.ExtendedTaggedClass<BogusEvent, BogusEvent.From>()("BogusEvent", {

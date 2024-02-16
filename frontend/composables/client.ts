@@ -42,7 +42,7 @@ export {
   refreshAndWaitAForOperationP,
   refreshAndWaitForOperation,
   refreshAndWaitForOperationP,
-} from "@effect-app-boilerplate/api/resources/lib/operations"
+} from "resources/lib/operations"
 
 type ResponseErrors =
   | S.ParseResult.ParseError

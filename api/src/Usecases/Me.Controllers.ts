@@ -1,4 +1,4 @@
-import { MeRsc } from "@effect-app-boilerplate/api/resources"
+import { MeRsc } from "resources.js"
 import { matchFor } from "api/lib/matchFor.js"
 import { UserRepo } from "api/services.js"
 

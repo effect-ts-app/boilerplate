@@ -1,4 +1,4 @@
-import { Role } from "@effect-app-boilerplate/api/models/User"
+import { Role } from "models/User.js"
 import { parseJwt } from "@effect-app/infra/api/express/schema/jwt"
 import { S } from "effect-app"
 import { UserProfileId } from "effect-app/ids"
