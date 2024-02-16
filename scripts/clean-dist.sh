@@ -2,7 +2,7 @@
 
 for d in `find dist -type d | grep -v dist$`
 do
-  src_d="_src/${d#dist/}"
+  src_d="src/${d#dist/}"
   if [ ! -d "$src_d" ]; then
     echo "Removing $d"
     rm -rf $d
@@ -11,7 +11,7 @@ done
 
 for f in `find dist -type f | grep \\\.mjs$`
 do
-  src_f="_src/${f#dist/}"
+  src_f="src/${f#dist/}"
   src_f="${src_f%.mjs}.mts"
   raw="${f%.mjs}"
   if [ ! -f "$src_f" ]; then
@@ -23,7 +23,7 @@ done
 
 for f in `find dist -type f | grep \\\.js$`
 do
-  src_f="_src/${f#dist/}"
+  src_f="src/${f#dist/}"
   src_f="${src_f%.js}.ts"
   raw="${f%.js}"
   if [ ! -f "$src_f" ]; then
@@ -33,18 +33,18 @@ do
 done
 
 
-for d in `find _test/dist -type d | grep -v dist$`
+for d in `find test/dist -type d | grep -v dist$`
 do
-  src_d="_test/${d#_test/dist/}"
+  src_d="test/${d#test/dist/}"
   if [ ! -d "$src_d" ]; then
     echo "Removing $d"
     rm -rf $d
   fi
 done
 
-for f in `find _test/dist -type f | grep \\\.mjs$`
+for f in `find test/dist -type f | grep \\\.mjs$`
 do
-  src_f="_test/${f#_test/dist/}"
+  src_f="test/${f#test/dist/}"
   src_f="${src_f%.mjs}.mts"
   raw="${f%.mjs}"
   if [ ! -f "$src_f" ]; then
@@ -54,9 +54,9 @@ do
 done
 
 
-for f in `find _test/dist -type f | grep \\\.js$`
+for f in `find test/dist -type f | grep \\\.js$`
 do
-  src_f="_test/${f#_test/dist/}"
+  src_f="test/${f#test/dist/}"
   src_f="${src_f%.js}.ts"
   raw="${f%.js}"
   if [ ! -f "$src_f" ]; then

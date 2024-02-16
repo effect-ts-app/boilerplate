@@ -1,0 +1,17 @@
+{
+  // https://v3.nuxtjs.org/concepts/typescript
+  "extends": "./.nuxt/tsconfig.json",
+  "compilerOptions": {
+    "lib": [
+      "DOM",
+      "dom.iterable",
+      "ES2022"
+    ],
+    "strict": true
+  },
+  "references": [
+    {
+      "path": "../api"
+    }
+  ]
+}
