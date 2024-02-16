@@ -4,8 +4,7 @@ import {
   parseRouteParams,
   parseRouteParamsOption,
 } from "@effect-app/vue/routeParams"
-import type { S } from "~~/utils/prelude"
-import { Option } from "~~/utils/prelude"
+import type { S, Option } from "~~/utils/prelude"
 
 export const useRouteParams = <NER extends Record<string, S.Schema<any>>>(
   t: NER, // enforce non empty
