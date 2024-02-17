@@ -1,6 +1,8 @@
 import process from "process"
 import { fileURLToPath } from "url"
 
+const localLibs = false
+
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
   typescript: {
@@ -11,23 +13,36 @@ export default defineNuxtConfig({
     client: true,
   },
   alias: {
-    // effect: fileURLToPath(
-    //   new URL(
-    //     "../../libs/packages/prelude/node_modules/effect",
-    //     import.meta.url,
-    //   ),
-    // ),
-    // "effect-app": fileURLToPath(
-    //   new URL("../../libs/packages/prelude/dist", import.meta.url),
-    // ),
-    // "@effect-app/fluent-extensions": fileURLToPath(
-    //   new URL("../../libs/packages/fluent-extensions/src", import.meta.url),
-    // ),
-    // "@effect-app/vue": fileURLToPath(
-    //   new URL("../../libs/packages/vue/src", import.meta.url),
-    // ),
     resources: fileURLToPath(new URL("../api/src/resources", import.meta.url)),
     models: fileURLToPath(new URL("../api/src/models", import.meta.url)),
+    ...(localLibs
+      ? {
+          effect: fileURLToPath(
+            new URL(
+              "../../../effect-app/libs/packages/prelude/node_modules/effect",
+              import.meta.url,
+            ),
+          ),
+          "effect-app": fileURLToPath(
+            new URL(
+              "../../../effect-app/libs/packages/prelude/src",
+              import.meta.url,
+            ),
+          ),
+          "@effect-app/fluent-extensions": fileURLToPath(
+            new URL(
+              "../../../effect-app/libs/packages/fluent-extensions/src",
+              import.meta.url,
+            ),
+          ),
+          "@effect-app/vue": fileURLToPath(
+            new URL(
+              "../../../effect-app/libs/packages/vue/src",
+              import.meta.url,
+            ),
+          ),
+        }
+      : {}),
   },
   build: {
     transpile: ["vuetify"]
