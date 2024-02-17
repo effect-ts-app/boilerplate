@@ -33,9 +33,6 @@ export const LastName = S
 
 export type LastName = Schema.To<typeof LastName>
 
-/**
- * @tsplus type FullName
- */
 export class FullName extends S.ExtendedClass<FullName, FullName.From>()({
   firstName: FirstName,
   lastName: LastName
@@ -49,16 +46,10 @@ export class FullName extends S.ExtendedClass<FullName, FullName.From>()({
   }
 }
 
-/**
- * @tsplus getter FullName show
- */
 export function showFullName(fn: FullName) {
   return FullName.render(fn)
 }
 
-/**
- * @tsplus static FullName.From.Ops create
- */
 export function createFullName(firstName: string, lastName: string) {
   return { firstName, lastName }
 }
@@ -69,10 +60,6 @@ export type UserId = UserProfileId
 export const Role = S.withDefaults(S.literal("manager", "user"))
 export type Role = Schema.To<typeof Role>
 
-/**
- * @tsplus type User
- * @tsplus companion User
- */
 export class User extends S.ExtendedClass<User, User.From>()({
   id: UserId.withDefault,
   name: FullName,
@@ -97,26 +84,15 @@ export const UserFromId: Schema<User, string, UserFromId> = S.transformOrFail(
   (u) => Eff.succeed(u.id)
 )
 
-/**
- * @tsplus static User equal
- */
 export const defaultEqual = pipe(Equivalence.string, Equivalence.mapInput((u: User) => u.id))
 
 // codegen:start {preset: model}
 //
 /* eslint-disable */
 export namespace FullName {
-  /**
-   * @tsplus type FullName.From
-   * @tsplus companion FullName.From/Ops
-   */
   export class From extends S.FromClass<typeof FullName>() {}
 }
 export namespace User {
-  /**
-   * @tsplus type User.From
-   * @tsplus companion User.From/Ops
-   */
   export class From extends S.FromClass<typeof User>() {}
 }
 /* eslint-enable */

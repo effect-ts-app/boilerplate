@@ -15,7 +15,6 @@
     "ModelComplete": {
         "prefix": "moc",
         "body": [
-            "/** @tsplus type $1 */",
             "export class $1 extends ExtendedClass<$1, $1.From> ()({",
             "$2",
             "}) {}"
@@ -25,7 +24,6 @@
     "Model": {
         "prefix": "mo",
         "body": [
-            "/** @tsplus type $1 */",
             "export class $1 extends Class<$1>()({$2}) {}",
             ""
         ],

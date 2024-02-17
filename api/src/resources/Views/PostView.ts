@@ -11,10 +11,6 @@ export class BlogPostView extends S.ExtendedClass<BlogPostView, BlogPostView.Fro
 //
 /* eslint-disable */
 export namespace BlogPostView {
-  /**
-   * @tsplus type BlogPostView.From
-   * @tsplus companion BlogPostView.From/Ops
-   */
   export class From extends S.FromClass<typeof BlogPostView>() {}
 }
 /* eslint-enable */

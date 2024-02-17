@@ -4,10 +4,6 @@ import { UserProfileId } from "effect-app/ids"
 import { assignTag } from "effect-app/service"
 import { Role } from "models/User.js"
 
-/**
- * @tsplus type UserProfile
- * @tsplus companion UserProfile.Ops
- */
 export class UserProfile extends assignTag<UserProfile>()(
   S.Class<UserProfile>()({
     sub: UserProfileId,

@@ -19,10 +19,6 @@ export class BlogPost extends S.ExtendedClass<BlogPost, BlogPost.From>()({
 //
 /* eslint-disable */
 export namespace BlogPost {
-  /**
-   * @tsplus type BlogPost.From
-   * @tsplus companion BlogPost.From/Ops
-   */
   export class From extends S.FromClass<typeof BlogPost>() {}
 }
 /* eslint-enable */

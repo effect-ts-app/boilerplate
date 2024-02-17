@@ -11,10 +11,6 @@ export interface BlogPostPersistenceModel extends BlogPost.From {
 
 export type BlogPostSeed = "sample" | ""
 
-/**
- * @tsplus type BlogPostRepo
- * @tsplus companion BlogPostRepo.Ops
- */
 export class BlogPostRepo extends RepositoryDefaultImpl<BlogPostRepo>()<BlogPostPersistenceModel>()(
   "BlogPost",
   BlogPost

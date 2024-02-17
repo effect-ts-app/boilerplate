@@ -13,10 +13,6 @@ export type ClientEvents = Schema.To<typeof ClientEvents>
 //
 /* eslint-disable */
 export namespace BogusEvent {
-  /**
-   * @tsplus type BogusEvent.From
-   * @tsplus companion BogusEvent.From/Ops
-   */
   export class From extends S.FromClass<typeof BogusEvent>() {}
 }
 /* eslint-enable */
