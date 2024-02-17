@@ -22,7 +22,7 @@
     "test:run": "pnpm run test run --passWithNoTests",
     "testsuite": "pnpm circular && pnpm run test:run && pnpm lint",
     "dev": "NODE_ENV=development nodemon --signal SIGTERM --exec pnpm dev:vite",
-    "dev:compiled": "pnpm start:compiled | ../scripts/humanlog.sh",
+    "dev:compiled": "node -r source-map-support/register --inspect ./dist/main.js | ../scripts/humanlog.sh",
     "dev:vite": "pnpm start:vite | ../scripts/humanlog.sh",
     "start": "pnpm start:compiled",
     "start:compiled": "node -r source-map-support/register ./dist/main.js",

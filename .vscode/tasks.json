@@ -143,6 +143,35 @@
 			}
 		},
 		{
+			"label": "Run API Debug",
+			"type": "shell",
+			"command": "pnpm dev:compiled",
+			"options": {
+				"cwd": "${workspaceRoot}/api"
+			},
+			"isBackground": true,
+			// FAKE... but works..
+			"problemMatcher": {
+				"severity": "warning",
+				"pattern": [
+					{
+						"regexp": "^\\s+(.*)\\((\\d+),(\\d+)\\):\\s+(.*)$",
+						"file": 1,
+						"line": 2,
+						"column": 3,
+						"message": 4
+					}
+				],
+				"background": {
+					"beginsPattern": "starting",
+					"endsPattern": "Running on",
+				}
+			},
+			"presentation": {
+				"group": "run"
+			}
+		},
+		{
 			"label": "Run UI",
 			"type": "shell",
 			"command": "pnpm dev",
