@@ -1,9 +1,9 @@
-import { User } from "models/User.js"
-import { HelloWorldRsc } from "resources.js"
 import { generateFromArbitrary } from "@effect-app/infra/test.arbs"
 import { matchFor } from "api/lib/matchFor.js"
 import { UserRepo } from "api/services.js"
 import { Effect, S } from "effect-app"
+import { User } from "models/User.js"
+import { HelloWorldRsc } from "resources.js"
 
 const helloWorld = matchFor(HelloWorldRsc)
 

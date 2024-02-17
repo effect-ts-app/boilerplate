@@ -1,8 +1,8 @@
-import type { ClientEvents } from "resources.js"
 import { storeId } from "@effect-app/infra/services/Store/Memory"
 import { Effect, FiberRef, PubSub, Stream } from "effect-app"
 import { TagClassMake } from "effect-app/service"
 import type { NonEmptyReadonlyArray } from "effect/ReadonlyArray"
+import type { ClientEvents } from "resources.js"
 
 const makeEvents = Effect.gen(function*($) {
   const q = yield* $(PubSub.unbounded<{ evt: ClientEvents; namespace: string }>())

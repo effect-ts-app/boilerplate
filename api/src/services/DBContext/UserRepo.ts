@@ -1,5 +1,3 @@
-import type { UserId } from "models/User.js"
-import { User } from "models/User.js"
 import { NotFoundError, NotLoggedInError } from "@effect-app/infra/errors"
 import { Filters } from "@effect-app/infra/filter"
 import { RepositoryDefaultImpl } from "@effect-app/infra/services/RepositoryBase"
@@ -10,6 +8,8 @@ import { Effect, Exit, Layer, Option, ReadonlyArray, Request, RequestResolver, S
 import { fakerArb } from "effect-app/faker"
 import { Email } from "effect-app/schema"
 import fc from "fast-check"
+import type { UserId } from "models/User.js"
+import { User } from "models/User.js"
 import { UserProfile } from "../UserProfile.js"
 
 export interface UserPersistenceModel extends User.From {
