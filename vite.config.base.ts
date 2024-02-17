@@ -14,9 +14,9 @@ export default function makeConfig(
   useTransform = false
 ): UserConfig {
   const alias = (name: string) => ({
-    [basePj + "/" + name]: path.join(__dirname, `/_project/${name}/` + (useDist || useTransform ? "dist" : "_src"))
+    [basePj + "/" + name]: path.join(__dirname, `/${name}/` + (useDist || useTransform ? "dist" : "src"))
   })
-  const projects = ["api", "core", "messages", "resources", "models"]
+  const projects = ["api"]
   const d = dirName ? dirName + "/" : ""
   return {
     plugins: useDist
@@ -27,10 +27,10 @@ export default function makeConfig(
           tsconfig: dirName ? d + "tsconfig.json" : undefined
         })
       ]
-      : [tsconfigPaths({ projects: projects.map((_) => path.join(__dirname, `/_project/${_}`)) })],
+      : [tsconfigPaths({ projects: projects.map((_) => path.join(__dirname, `/${_}`)) })],
     test: {
-      include: useDist ? ["./dist/**/*.test.js"] : ["./_src/**/*.test.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"],
-      exclude: ["./_test/**/*"],
+      include: useDist ? ["./dist/**/*.test.js"] : ["./src/**/*.test.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"],
+      exclude: ["./test/**/*"],
       reporters: "verbose",
       globals: true
     },
@@ -43,7 +43,7 @@ export default function makeConfig(
           ),
           [JSON.parse(fs.readFileSync(dirName + "/package.json", "utf-8")).name]: path.join(
             dirName,
-            useDist ? "/dist" : "/_src"
+            useDist ? "/dist" : "/src"
           ),
           "@opentelemetry/resources": path.resolve(
             __dirname,

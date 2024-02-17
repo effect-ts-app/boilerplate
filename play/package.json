@@ -4,15 +4,15 @@
   "license": "MIT",
   "type": "module",
   "dependencies": {
-    "@effect-app/core": "^0.136.0",
-    "@effect-app/schema": "^0.189.0",
-    "effect-app": "^0.158.5",
-    "change-case": "^5.4.2",
+    "@effect-app/core": "^0.141.1",
+    "@effect-app/schema": "^0.193.1",
+    "effect-app": "^0.166.1",
+    "change-case": "^5.4.3",
     "cross-fetch": "^4.0.0",
     "path-parser": "^6.1.0"
   },
   "devDependencies": {
-    "vite-node": "^1.2.2"
+    "vite-node": "^1.3.0"
   },
   "exports": {
     "./*": {
@@ -30,13 +30,13 @@
     "build": "pnpm clean-dist && NODE_OPTIONS=--max-old-space-size=8192 tsc --build",
     "watch": "pnpm build --watch",
     "watch2": "pnpm clean-dist && NODE_OPTIONS=--max-old-space-size=8192 tsc -w",
-    "clean": "rm -rf dist _test/dist _cjs",
+    "clean": "rm -rf dist test/dist _cjs",
     "clean-dist": "sh ../scripts/clean-dist.sh",
     "circular": "pnpm circular:src && pnpm circular:dist",
-    "circular:src": "madge --circular --ts-config ./tsconfig.json --extensions ts ./_src",
+    "circular:src": "madge --circular --ts-config ./tsconfig.json --extensions ts ./src",
     "circular:dist": "madge --circular --extensions js ./dist",
     "compile": "NODE_OPTIONS=--max-old-space-size=8192 tsc --noEmit",
-    "lint": "NODE_OPTIONS=--max-old-space-size=8192 ESLINT_TS=1 eslint ./_src",
+    "lint": "NODE_OPTIONS=--max-old-space-size=8192 ESLINT_TS=1 eslint ./src",
     "lint:watch": "ESLINT_TS=1 esw -w --changed --clear --ext ts,tsx .",
     "prettier": "prettier \"**/*.ts\"",
     "autofix": "pnpm lint --fix",

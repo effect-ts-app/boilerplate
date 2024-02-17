@@ -14,14 +14,14 @@ Or see below for running manually.
 ### API, Models, Resources
 
 a) `pnpm build -w`
-b) `cd _project/api && pnpm dev`
+b) `cd api && pnpm dev`
 
 Visit: http://localhost:3610/docs
 The API is also proxied in the frontend on /api
 
 ### Frontend (Nuxt)
 
-- `cd _project/frontend && pnpm dev -o`
+- `cd frontend && pnpm dev -o`
 
 Visit: http://localhost:4000
 API Docs: http://localhost:4000/api/docs

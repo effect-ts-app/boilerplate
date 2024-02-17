@@ -1,0 +1,65 @@
+{
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    "lib": [
+      "esnext"
+    ],
+    "tsBuildInfoFile": "./dist/.tsbuildinfo",
+    "esModuleInterop": true,
+    "baseUrl": "./",
+    "rootDir": "./src",
+    // keep in here, cause madge can't detect it from extended tsconfig
+    "moduleResolution": "Node16",
+    "paths": {
+      "core/*": [
+        "./src/core/*"
+      ],
+      "resources.js": [
+        "./src/resources.js"
+      ],
+      "models.js": [
+        "./src/models.js"
+      ],
+      "resources/*": [
+        "./src/resources/*"
+      ],
+      "models/*": [
+        "./src/models/*"
+      ],
+      "api/*": [
+        "./src/*"
+      ]
+    },
+    "types": [
+      "../types/modules"
+    ],
+    "outDir": "./dist",
+    "plugins": [
+      // Transform paths in output .js files
+      {
+        "transform": "typescript-transform-paths"
+      },
+      // Transform paths in output .d.ts files (Include this line if you output declarations files)
+      {
+        "transform": "typescript-transform-paths",
+        "position": "afterDeclaration"
+      }
+    ]
+  },
+  "include": [
+    "./src/**/*.ts"
+  ],
+  "exclude": [
+    "./dist",
+    "*.test.ts",
+    "node_modules",
+    "build",
+    "lib",
+    "dist",
+    "**/*.d.ts.map",
+    ".git",
+    ".data",
+    "**/.*",
+    "**/*.tmp"
+  ]
+}

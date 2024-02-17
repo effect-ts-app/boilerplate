@@ -3,18 +3,22 @@ import type { ApiConfig } from "effect-app/client/config"
 import { layer as ApiConfigLayer } from "effect-app/client/config"
 import { initializeSync } from "@effect-app/vue/runtime"
 import * as HttpClientNode from "@effect/platform-node/HttpClient"
+import type * as HttpClient from "@effect/platform/Http/Client"
+import { HashMap, Layer } from "effect"
 import { readFileSync } from "fs"
 
 export function makeRuntime(config: ApiConfig) {
-  const layers = HttpClientNode.client.layer
-    > ApiConfigLayer({ apiUrl: config.apiUrl, headers: config.headers })
+  const layers = Layer.mergeAll(
+    HttpClientNode.client.layer,
+    ApiConfigLayer({ apiUrl: config.apiUrl, headers: config.headers })
+  )
   const runtime = initializeSync(layers)
 
   return runtime
 }
 
-export function makeHeaders(namespace: string, role?: "user" | "manager") {
-  const basicAuthCredentials = process.env["run_CREDENTIALS"]
+export function makeHeaders(namespace: string, role?: "manager") {
+  const basicAuthCredentials = process.env["BASIC_AUTH_CREDENTIALS"]
   let cookie: string | undefined = undefined
   if (role) {
     const f = readFileSync("./storageState." + role + ".json", "utf-8")
@@ -33,13 +37,13 @@ export function makeHeaders(namespace: string, role?: "user" | "manager") {
   }
 }
 
-export function makeHeadersHashMap(namespace: string, role?: "user" | "manager") {
+export function makeHeadersHashMap(namespace: string, role?: "manager") {
   const headers = makeHeaders(namespace, role)
   const keys = typedKeysOf(headers)
   return HashMap.make(...keys.map((_) => [_, headers[_]!] as const))
 }
 
-type Env = ApiConfig | HttpClient.Default
+type Env = ApiConfig | HttpClient.Client.Default
 export type SupportedEnv = Env // Effect.DefaultEnv |
 
 export function toBase64(b: string) {

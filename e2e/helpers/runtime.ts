@@ -1,5 +1,5 @@
 import { Option } from "effect-app"
-// import { UsersRsc } from "@effect-app-boilerplate/resources"
+// import { UsersRsc } from "resources"
 import { makeHeadersHashMap, makeRuntime } from "./shared.js"
 
 const baseUrl = process.env["BASE_URL"] ?? "http://localhost:4000"

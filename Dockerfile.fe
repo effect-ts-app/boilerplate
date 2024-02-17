@@ -16,25 +16,17 @@ RUN pnpm fetch --prod
 
 COPY package.json pnpm-workspace.yaml ./
 
-#COPY /_project/frontend/node_modules /app/_project/frontend/node_modules
-# COPY /package.json /pnpm-lock.yaml /app/
-COPY /_project/frontend/package.json /app/_project/frontend/
-# COPY /_project/models/package.json /app/_project/models/
-# COPY /_project/resources/package.json /app/_project/resources/
-# COPY /patches /app/_project/frontend/patches
+COPY /frontend/package.json /app/frontend/
 
-#COPY /_project/frontend /app/_project/frontend
+#COPY /frontend /app/frontend
 # As we're going to deploy, we want only the minimal production dependencies.
 # TODO
 RUN pnpm install --frozen-lockfile --prod
 #RUN --mount=type=cache,target=/root/.pnpm pnpm_CACHE_FOLDER=/root/.pnpm pnpm install --frozen-lockfile --prod
 
-COPY /_project/frontend/.output /app/_project/frontend/.output
+COPY /frontend/.output /app/frontend/.output
 
-# COPY /_project/models /app/_project/models
-# COPY /_project/resources /app/_project/resources
-
-WORKDIR /app/_project/frontend
+WORKDIR /app/frontend
 
 # USER nextjs
 EXPOSE 4000

@@ -28,7 +28,7 @@
     "@babel/preset-env": "^7.23.9",
     "@babel/preset-typescript": "^7.23.3",
     "@playwright/test": "~1.41.2",
-    "@types/node": "~20.11.17",
+    "@types/node": "~20.11.19",
     "babel-loader": "^9.1.3",
     "date-fns": "^3.3.1",
     "eslint": "^8.56.0",
@@ -47,16 +47,15 @@
     "ts-loader": "^9.5.1",
     "tsconfig-paths-webpack-plugin": "^4.1.0",
     "typescript": "^5.3.3",
-    "webpack": "^5.90.1"
+    "webpack": "^5.90.2"
   },
   "dependencies": {
-    "@effect-app-boilerplate/resources": "*",
-    "@effect-app-boilerplate/models": "*",
-    "@effect/platform-node": "0.43.7",
-    "effect-app": "^0.158.5",
-    "@effect-app/core": "^0.136.0",
-    "@effect-app/schema": "^0.189.0",
-    "effect": "^2.3.5",
+    "@effect-app-boilerplate/api": "*",
+    "@effect/platform-node": "0.44.4",
+    "effect-app": "^0.166.1",
+    "@effect-app/core": "^0.141.1",
+    "@effect-app/schema": "^0.193.1",
+    "effect": "^2.3.6",
     "@tsplus/stdlib": "^0.2.8",
     "cross-fetch": "^4.0.0",
     "tsconfig-paths": "^4.2.0"

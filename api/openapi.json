@@ -1,0 +1,465 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "api",
+    "version": "X"
+  },
+  "tags": [],
+  "paths": {
+    "/blog/posts": {
+      "post": {
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "title": {
+                    "minLength": 1,
+                    "maxLength": 255,
+                    "type": "string"
+                  },
+                  "body": {
+                    "minLength": 1,
+                    "maxLength": 2047,
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "title",
+                  "body"
+                ],
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "minLength": 6,
+                  "maxLength": 50,
+                  "title": "BlogPostId",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "ValidationError"
+          }
+        }
+      },
+      "get": {
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "items": {
+                      "items": {
+                        "$ref": "#/components/schemas/BlogPost"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "required": [
+                    "items"
+                  ],
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "ValidationError"
+          }
+        }
+      }
+    },
+    "/blog/posts/{id}": {
+      "get": {
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "minLength": 6,
+              "maxLength": 50,
+              "title": "BlogPostId",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BlogPost",
+                  "nullable": true
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "ValidationError"
+          }
+        }
+      }
+    },
+    "/blog/posts/{id}/publish": {
+      "post": {
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "minLength": 6,
+              "maxLength": 50,
+              "title": "BlogPostId",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {},
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "minLength": 6,
+                  "maxLength": 50,
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "ValidationError"
+          }
+        }
+      }
+    },
+    "/hello-world": {
+      "get": {
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "now": {
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    "context": {
+                      "properties": {},
+                      "type": "object"
+                    },
+                    "currentUser": {
+                      "$ref": "#/components/schemas/User",
+                      "nullable": true
+                    },
+                    "randomUser": {
+                      "$ref": "#/components/schemas/User"
+                    }
+                  },
+                  "required": [
+                    "now",
+                    "context",
+                    "currentUser",
+                    "randomUser"
+                  ],
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "ValidationError"
+          }
+        }
+      }
+    },
+    "/me": {
+      "get": {
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "id": {
+                      "minLength": 6,
+                      "maxLength": 50,
+                      "type": "string"
+                    },
+                    "displayName": {
+                      "minLength": 1,
+                      "maxLength": 255,
+                      "type": "string"
+                    },
+                    "role": {
+                      "enum": [
+                        "manager",
+                        "user"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "displayName",
+                    "role"
+                  ],
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "ValidationError"
+          }
+        }
+      }
+    },
+    "/operations/{id}": {
+      "get": {
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "minLength": 6,
+              "maxLength": 50,
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Operation",
+                  "nullable": true
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "ValidationError"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "schemas": {
+      "BlogPost": {
+        "title": "BlogPost",
+        "properties": {
+          "id": {
+            "minLength": 6,
+            "maxLength": 50,
+            "title": "BlogPostId",
+            "type": "string"
+          },
+          "title": {
+            "minLength": 1,
+            "maxLength": 255,
+            "type": "string"
+          },
+          "body": {
+            "minLength": 1,
+            "maxLength": 2047,
+            "type": "string"
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "body",
+          "createdAt"
+        ],
+        "type": "object"
+      },
+      "User": {
+        "title": "User",
+        "properties": {
+          "id": {
+            "minLength": 6,
+            "maxLength": 50,
+            "type": "string"
+          },
+          "displayName": {
+            "minLength": 1,
+            "maxLength": 255,
+            "type": "string"
+          },
+          "role": {
+            "enum": [
+              "manager",
+              "user"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "displayName",
+          "role"
+        ],
+        "type": "object"
+      },
+      "OperationProgress": {
+        "title": "OperationProgress",
+        "properties": {
+          "completed": {
+            "minimum": 0,
+            "exclusiveMinimum": false,
+            "type": "number"
+          },
+          "total": {
+            "minimum": 0,
+            "exclusiveMinimum": false,
+            "type": "number"
+          }
+        },
+        "required": [
+          "completed",
+          "total"
+        ],
+        "type": "object"
+      },
+      "Success": {
+        "title": "Success",
+        "properties": {
+          "_tag": {
+            "enum": [
+              "Success"
+            ],
+            "type": "string"
+          },
+          "message": {
+            "minLength": 1,
+            "maxLength": 2047,
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "required": [
+          "_tag",
+          "message"
+        ],
+        "type": "object"
+      },
+      "Failure": {
+        "title": "Failure",
+        "properties": {
+          "_tag": {
+            "enum": [
+              "Failure"
+            ],
+            "type": "string"
+          },
+          "message": {
+            "minLength": 1,
+            "maxLength": 2047,
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "required": [
+          "_tag",
+          "message"
+        ],
+        "type": "object"
+      },
+      "Operation": {
+        "title": "Operation",
+        "properties": {
+          "id": {
+            "minLength": 6,
+            "maxLength": 50,
+            "type": "string"
+          },
+          "progress": {
+            "$ref": "#/components/schemas/OperationProgress"
+          },
+          "result": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/Success"
+              },
+              {
+                "$ref": "#/components/schemas/Failure"
+              }
+            ],
+            "discriminator": {
+              "propertyName": "_tag"
+            }
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "required": [
+          "id",
+          "createdAt",
+          "updatedAt"
+        ],
+        "type": "object"
+      }
+    },
+    "parameters": {}
+  },
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ]
+}
