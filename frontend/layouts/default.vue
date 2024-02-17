@@ -6,7 +6,7 @@ import { useRouter } from "vue-router"
 import { VueQueryDevtools } from "@tanstack/vue-query-devtools"
 
 const meClient = clientFor(MeRsc)
-const [userResult, currentUser, getCurrentUser] = useSafeQuery(meClient.get)
+const [userResult, currentUser, getCurrentUser] = useSafeQuery(meClient.Get)
 
 const appConfig = {
   title: "@effect-app/boilerplate",

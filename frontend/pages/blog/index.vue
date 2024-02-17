@@ -3,8 +3,8 @@ import { BlogRsc } from "resources"
 
 const blogClient = clientFor(BlogRsc)
 
-const [, createPost] = useSafeMutation(blogClient.createPost)
-const [r] = useSafeQuery(blogClient.getPosts)
+const [, createPost] = useSafeMutation(blogClient.CreatePost)
+const [r] = useSafeQuery(blogClient.GetPosts)
 </script>
 
 <template>

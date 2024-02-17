@@ -6,7 +6,7 @@ import { BlogPostId } from "models/Blog"
 const { id } = useRouteParams({ id: BlogPostId })
 
 const blogClient = clientFor(BlogRsc)
-const [r, , reloadPost] = useSafeQuery(blogClient.findPost, {
+const [r, , reloadPost] = useSafeQuery(blogClient.FindPost, {
   id,
 })
 
@@ -25,9 +25,9 @@ onMountedWithCleanup(() => {
 const progress = ref("")
 const [publishing, publish] = useAndHandleMutation(
   {
-    ...blogClient.publishPost,
+    ...blogClient.PublishPost,
     handler: refreshAndWaitForOperation(
-      blogClient.publishPost.handler,
+      blogClient.PublishPost.handler,
       Effect.promise(() => reloadPost()),
       op => {
         progress.value = `${op.progress?.completed}/${op.progress?.total}`
