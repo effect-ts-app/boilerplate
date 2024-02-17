@@ -15,10 +15,6 @@ const makeEvents = Effect.gen(function*($) {
   return svc
 })
 
-/**
- * @tsplus type Events
- * @tsplus companion Events.Ops
- */
 export abstract class Events extends TagClassMake<Events>()(makeEvents) {
   static readonly Live = this.toLayer()
   static readonly publish = Effect.serviceFunctions(this).publish

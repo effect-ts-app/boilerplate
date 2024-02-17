@@ -47,9 +47,6 @@ export function refreshAndWaitForOperation<Req, R2, E2, A2, R, E>(
       .tap(() => refresh)
 }
 
-/**
- * @tsplus fluent effect/io/Effect waitForOperation
- */
 export function waitForOperation<R, E>(
   self: Effect<FetchResponse<OperationId>, E, R>,
   cb?: (op: Operation) => void
@@ -57,9 +54,6 @@ export function waitForOperation<R, E>(
   return self.andThen((r) => _waitForOperation(r.body, cb))
 }
 
-/**
- * @tsplus static effect/io/Effect waitForOperation_
- */
 export function waitForOperation_<Req, R, E>(self: (req: Req) => Effect<FetchResponse<OperationId>, E, R>) {
   return (req: Req) => self(req).andThen((r) => _waitForOperation(r.body))
 }

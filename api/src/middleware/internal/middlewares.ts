@@ -83,9 +83,6 @@ export const errorLog = Middleware.make((app) =>
   })
 )
 
-/**
- * @tsplus fluent NotLoggedInError toServerResponse
- */
 export const toServerResponse = (err: NotLoggedInError) =>
   HttpServerResponse.empty().pipe(
     HttpServerResponse.setStatus(401),

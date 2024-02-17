@@ -18,10 +18,6 @@ export interface UserPersistenceModel extends User.From {
 
 export type UserSeed = "sample" | ""
 
-/**
- * @tsplus type UserRepo
- * @tsplus companion UserRepo.Ops
- */
 export class UserRepo extends RepositoryDefaultImpl<UserRepo>()<UserPersistenceModel>()(
   "User",
   User
