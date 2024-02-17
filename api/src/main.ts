@@ -4,10 +4,21 @@ import { runMain } from "./lib/basicRuntime.js"
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { api, devApi } from "@effect-app-boilerplate/api/api"
 import { faker } from "@faker-js/faker"
-import { Layer } from "effect-app"
+import { Effect, Fiber, Layer } from "effect-app"
 import { setFaker } from "effect-app/faker"
 import { MergedConfig } from "./config.js"
 import { TracingLive } from "./observability.js"
+
+if (globalThis.fiberId) {
+  console.log("fiberId", globalThis.fiberId)
+  await Effect.runPromise(
+    Fiber
+      .getCurrentFiber()
+      .flatMap((fiber) => Fiber.interruptAs(fiber, globalThis.fiberId))
+  )
+}
+
+console.log("33")
 
 setFaker(faker)
 

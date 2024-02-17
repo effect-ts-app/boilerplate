@@ -1,7 +1,6 @@
 import { reportError } from "@effect-app/infra/errorReporter"
 import { logJson } from "@effect-app/infra/logger/jsonLogger"
 import { logFmt } from "@effect-app/infra/logger/logFmtLogger"
-import { runMain as runMainPlatform } from "@effect/platform-node/NodeRuntime"
 import { constantCase } from "change-case"
 import { Cause, Exit, Layer, Effect } from "effect-app"
 import * as ConfigProvider from "effect/ConfigProvider"
@@ -65,8 +64,50 @@ installFluentRuntimeExtensions(basicRuntime.runtime)
 const reportMainError = <E>(cause: Cause.Cause<E>) =>
   Cause.isInterruptedOnly(cause) ? Effect.unit : reportError("Main")(cause)
 
+  export const defaultTeardown = <E, A>(
+    exit: Exit.Exit<E, A>,
+    onExit: (code: number) => void
+  ) => {
+    onExit(Exit.isFailure(exit) && !Cause.isInterruptedOnly(exit.cause) ? 1 : 0)
+  }
+
+  
+const runMainPlatform2  = <E, A>(
+  effect: Effect.Effect<A, E>,
+  teardown = defaultTeardown
+) => {
+  const keepAlive = setInterval(() => {}, 2 ** 31 - 1)
+
+  const fiber = Effect.runFork(
+    Effect.tapErrorCause(effect, (cause) => {
+      if (Cause.isInterruptedOnly(cause)) {
+        return Effect.unit
+      }
+      return Effect.logError(cause)
+    })
+  )
+
+  fiber.addObserver((exit) => {
+    clearInterval(keepAlive)
+    teardown(exit, (code) => {
+      process.exit(code)
+    })
+  })
+
+  function onSigint() {
+    process.removeListener("SIGINT", onSigint)
+    process.removeListener("SIGTERM", onSigint)
+    fiber.unsafeInterruptAsFork(fiber.id())
+  }
+
+  globalThis.fiberId = fiber.id()
+
+  process.once("SIGINT", onSigint)
+  process.once("SIGTERM", onSigint)
+}
+
 export function runMain<A, E>(eff: Effect<A, E, never>) {
-  return runMainPlatform(
+  return runMainPlatform2(
     eff
       .pipe(
         Effect.tapErrorCause(reportMainError),
