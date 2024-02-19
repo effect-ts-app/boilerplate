@@ -92,24 +92,20 @@ const GetUserById = Request.tagged<GetUserById>("GetUserById")
 
 const getUserByIdResolver = RequestResolver
   .makeBatched((requests: GetUserById[]) =>
-    UserRepo.pipe(
-      Effect.andThen((_) =>
-        _
-          .query((where) => where("id", "in", requests.map((_) => _.id)))
-          .andThen((users) =>
-            requests.forEachEffect(
-              (r) =>
-                Request.complete(
-                  r,
-                  users
-                    .findFirstMap((_) => _.id === r.id ? Option.some(Exit.succeed(_)) : Option.none())
-                    .getOrElse(() => Exit.fail(new NotFoundError({ type: "User", id: r.id })))
-                ),
-              { discard: true }
-            )
-          )
+    UserRepo
+      .query((where) => where("id", "in", requests.map((_) => _.id)))
+      .andThen((users) =>
+        requests.forEachEffect(
+          (r) =>
+            Request.complete(
+              r,
+              users
+                .findFirstMap((_) => _.id === r.id ? Option.some(Exit.succeed(_)) : Option.none())
+                .getOrElse(() => Exit.fail(new NotFoundError({ type: "User", id: r.id })))
+            ),
+          { discard: true }
+        )
       )
-    )
   )
   .pipe(
     RequestResolver.batchN(25),
