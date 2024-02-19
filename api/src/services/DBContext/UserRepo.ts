@@ -1,5 +1,4 @@
 import { NotFoundError, NotLoggedInError } from "@effect-app/infra/errors"
-import { Filters } from "@effect-app/infra/filter"
 import { RepositoryDefaultImpl } from "@effect-app/infra/services/RepositoryBase"
 import { generate, generateFromArbitrary } from "@effect-app/infra/test.arbs"
 import { RepoConfig } from "api/config.js"
@@ -96,7 +95,7 @@ const getUserByIdResolver = RequestResolver
     UserRepo.pipe(
       Effect.andThen((_) =>
         _
-          .query({ filter: UserRepo.Where((_) => _("id", Filters.in(...requests.map((_) => _.id)))) })
+          .query((where) => where("id", "in", requests.map((_) => _.id)))
           .andThen((users) =>
             requests.forEachEffect(
               (r) =>
