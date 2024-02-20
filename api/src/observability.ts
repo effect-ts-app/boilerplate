@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { dropUndefinedT } from "@effect-app/core/utils"
 import * as Resource from "@effect/opentelemetry/Resource"
 import * as Tracer from "@effect/opentelemetry/Tracer"
 import { getNodeAutoInstrumentations } from "@opentelemetry/auto-instrumentations-node"
@@ -6,7 +7,7 @@ import { AsyncLocalStorageContextManager } from "@opentelemetry/context-async-ho
 import { OTLPTraceExporter } from "@opentelemetry/exporter-trace-otlp-http"
 import opentelemetry from "@opentelemetry/sdk-node"
 import type { Span } from "@opentelemetry/sdk-trace-node"
-import { BatchSpanProcessor, ConsoleSpanExporter } from "@opentelemetry/sdk-trace-node"
+import { AlwaysOffSampler, BatchSpanProcessor, ConsoleSpanExporter } from "@opentelemetry/sdk-trace-node"
 import * as Sentry from "@sentry/node"
 import {
   getCurrentHub,
@@ -19,7 +20,6 @@ import {
   wrapContextManagerClass
 } from "@sentry/opentelemetry"
 import { Effect, Layer, Secret } from "effect-app"
-import { dropUndefinedT } from "effect-app/utils"
 import tcpPortUsed from "tcp-port-used"
 import { BaseConfig } from "./config.js"
 
@@ -35,10 +35,12 @@ const NodeSdkLive = Effect
   .gen(function*($) {
     const isRemote = appConfig.env !== "local-dev"
 
+    // TODO: use this on frontend trace proxy too
     const isTelemetryExporterRunning = !isRemote
       && (yield* $(Effect.promise<boolean>(() => tcpPortUsed.check(4318, "localhost"))))
 
-    let props: Partial<opentelemetry.NodeSDKConfiguration> = {
+    let props: Partial<opentelemetry.NodeSDKConfiguration> = dropUndefinedT({
+      sampler: isTelemetryExporterRunning ? undefined : new AlwaysOffSampler(),
       spanProcessor: new BatchSpanProcessor(
         isTelemetryExporterRunning
           ? new OTLPTraceExporter({
@@ -46,7 +48,7 @@ const NodeSdkLive = Effect
           })
           : new ConsoleSpanExporter()
       )
-    }
+    })
 
     if (isRemote) {
       setupGlobalHub()
