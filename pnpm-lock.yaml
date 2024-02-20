@@ -91,8 +91,8 @@ importers:
         specifier: ^0.89.1
         version: 0.89.1
       '@effect-app/cli':
-        specifier: ^0.52.0
-        version: 0.52.0
+        specifier: ^0.53.1
+        version: 0.53.1
       '@effect-app/compiler':
         specifier: ^0.65.0
         version: 0.65.0(@types/node@20.11.19)
@@ -190,8 +190,8 @@ importers:
         specifier: ^5.3.3
         version: 5.3.3(patch_hash=3ycef2ljpgonrdhyvp6so6fiwe)
       typescript-transform-paths:
-        specifier: ^3.4.6
-        version: 3.4.6(typescript@5.3.3)
+        specifier: ^3.4.7
+        version: 3.4.7(typescript@5.3.3)
       unplugin-auto-import:
         specifier: ^0.17.5
         version: 0.17.5
@@ -277,8 +277,8 @@ importers:
         specifier: ^2.29.3
         version: 2.30.0(patch_hash=g5hqt5bhnjezqo5vnkpprfkba4)
       dotenv:
-        specifier: ^16.4.4
-        version: 16.4.4
+        specifier: ^16.4.5
+        version: 16.4.5
       effect:
         specifier: ^2.3.7
         version: 2.3.7(patch_hash=jvkrpyvp7n3vcht32p4lpnk55e)
@@ -2284,8 +2284,8 @@ packages:
     dev: true
     optional: true
 
-  /@effect-app/cli@0.52.0:
-    resolution: {integrity: sha512-pP9Xy9wJMipTWngC0VIIUPFRUVPo7fORGeH/606TKhbR1ZgYFgCqqrxPSkg4SmcVb0VH1GnXvAedfVMabzRwCQ==}
+  /@effect-app/cli@0.53.1:
+    resolution: {integrity: sha512-aVfBjVO76H9jwS15wk1FPt75z0zfkuS9L1Mr8sdKlo8meEOHV/El/ykJ5kQhRw2n6FSFvLZJLaj++AidzbzA0w==}
     hasBin: true
     dependencies:
       node-watch: 0.7.4
@@ -3783,7 +3783,7 @@ packages:
       create-require: 1.1.1
       defu: 6.1.4
       destr: 2.0.2
-      dotenv: 16.4.4
+      dotenv: 16.4.5
       git-url-parse: 13.1.1
       is-docker: 3.0.0
       jiti: 1.21.0
@@ -5510,7 +5510,7 @@ packages:
       '@sentry/cli': 2.28.0
       '@sentry/node': 7.101.1
       '@sentry/utils': 7.101.1
-      dotenv: 16.4.4
+      dotenv: 16.4.5
       find-up: 5.0.0
       glob: 9.3.2
       magic-string: 0.27.0
@@ -7661,7 +7661,7 @@ packages:
     dependencies:
       chokidar: 3.6.0
       defu: 6.1.4
-      dotenv: 16.4.4
+      dotenv: 16.4.5
       giget: 1.2.1
       jiti: 1.21.0
       json5: 2.2.3
@@ -8797,8 +8797,8 @@ packages:
     dependencies:
       type-fest: 3.13.1
 
-  /dotenv@16.4.4:
-    resolution: {integrity: sha512-XvPXc8XAQThSjAbY6cQ/9PcBXmFoWuw1sQ3b8HqUCR6ziGXjkTi//kB9SWa2UwqlgdAIuRqAa/9hVljzPehbYg==}
+  /dotenv@16.4.5:
+    resolution: {integrity: sha512-ZmdL2rui+eB2YwhsWzjInR8LldtZHGDoQ1ugH85ppHKwpUHL7j7rN0Ti9NCnGiQbhaZ11FpR+7ao1dNsmduNUg==}
     engines: {node: '>=12'}
 
   /dprint@0.45.0:
@@ -15761,8 +15761,8 @@ packages:
       is-typedarray: 1.0.0
     dev: true
 
-  /typescript-transform-paths@3.4.6(typescript@5.3.3):
-    resolution: {integrity: sha512-qdgpCk9oRHkIBhznxaHAapCFapJt5e4FbFik7Y4qdqtp6VyC3smAIPoDEIkjZ2eiF7x5+QxUPYNwJAtw0thsTw==}
+  /typescript-transform-paths@3.4.7(typescript@5.3.3):
+    resolution: {integrity: sha512-1Us1kdkdfKd2unbkBAOV2HHRmbRBYpSuk9nJ7cLD2hP4QmfToiM/VpxNlhJc1eezVwVqSKSBjNSzZsK/fWR/9A==}
     peerDependencies:
       typescript: '>=3.6.5'
     dependencies:
