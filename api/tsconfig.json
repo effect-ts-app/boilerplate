@@ -1,5 +1,26 @@
 {
-  "compilerOptions": {},
+  "compilerOptions": {
+    "paths": {
+      "core/*": [
+        "./src/core/*"
+      ],
+      "resources.js": [
+        "./src/resources.js"
+      ],
+      "models.js": [
+        "./src/models.js"
+      ],
+      "resources/*": [
+        "./src/resources/*"
+      ],
+      "models/*": [
+        "./src/models/*"
+      ],
+      "api/*": [
+        "./src/*"
+      ]
+    },
+  },
   "extends": "../tsconfig.base.json",
   "references": [
     {
