@@ -2,8 +2,8 @@ import "@effect-app/fluent-extensions"
 import { runMain } from "./lib/basicRuntime.js"
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { api, devApi } from "@effect-app-boilerplate/api/api"
 import { faker } from "@faker-js/faker"
+import { api, devApi } from "api/api.js"
 import { Layer } from "effect-app"
 import { setFaker } from "effect-app/faker"
 import { MergedConfig } from "./config.js"
