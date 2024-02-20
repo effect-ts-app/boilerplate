@@ -1,9 +1,6 @@
-FROM node:20-alpine
+FROM oven/bun:1
 
-RUN npm i -g pnpm
-
-# Install CUPS/AVAHI
-RUN apk update --no-cache && apk add --no-cache cups cups-filters avahi inotify-tools
+RUN bun install -g pnpm
 
 WORKDIR /app
 
