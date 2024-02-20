@@ -2,7 +2,7 @@
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
     "esModuleInterop": true,
-    "moduleResolution": "Node16",
+    "moduleResolution": "Bundler",
     "paths": {
       "api/*": [
         "./api/src/*"
