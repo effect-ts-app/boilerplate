@@ -4,3 +4,7 @@ export * from "./lib/req.js"
 // codegen:end
 
 export * as S from "./lib/schema.js"
+
+export default "$$$FML$$$"
+
+export const FML = "$$$FML$$$"

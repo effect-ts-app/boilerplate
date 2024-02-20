@@ -4,7 +4,7 @@ import { ApiConfig, clientFor, NotFoundError } from "effect-app/client"
 import { HttpClient } from "effect-app/http"
 import { type Schema } from "effect-app/schema"
 import { UserId } from "models/User.js"
-import * as UsersRsc from "../Users.js"
+import * as UsersRsc from "../../Usecases/Users.js"
 import { UserView } from "../Views/UserView.js"
 
 interface GetUserViewById extends Request.Request<UserView, NotFoundError<"User">> {
