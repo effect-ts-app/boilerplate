@@ -1,5 +1,5 @@
-import { S } from "resources/lib.js"
-import { BlogPostView } from "../Views.js"
+import { S } from "resources/lib"
+import { BlogPostView } from "../Views"
 
 export class GetPostsRequest extends S.Req({ allowAnonymous: true, allowRoles: ["user"] })<GetPostsRequest>()({}) {}
 

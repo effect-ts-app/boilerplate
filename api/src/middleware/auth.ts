@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable unused-imports/no-unused-vars */
-import { HttpHeaders, HttpMiddleware, HttpServerRequest, HttpServerResponse } from "api/lib/http.js"
+import { HttpHeaders, HttpMiddleware, HttpServerRequest, HttpServerResponse } from "api/lib/http"
 import { Config, Effect } from "effect-app"
 import {
   auth,

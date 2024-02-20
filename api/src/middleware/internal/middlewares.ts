@@ -10,14 +10,14 @@ import { NotLoggedInError } from "@effect-app/infra/errors"
 import * as Middleware from "@effect/platform/Http/Middleware"
 import * as ServerRequest from "@effect/platform/Http/ServerRequest"
 import * as ServerResponse from "@effect/platform/Http/ServerResponse"
-import { HttpBody, HttpHeaders, HttpServerResponse } from "api/lib/http.js"
+import { HttpBody, HttpHeaders, HttpServerResponse } from "api/lib/http"
 import { Effect } from "effect-app"
 import * as Either from "effect/Either"
 import * as FiberRef from "effect/FiberRef"
 import { pipe } from "effect/Function"
 import * as HashMap from "effect/HashMap"
 import * as Metric from "effect/Metric"
-import type * as Middlewares from "../Middlewares.js"
+import type * as Middlewares from "../Middlewares"
 
 export const accessLog = (level: "Info" | "Warning" | "Debug" = "Info") =>
   Middleware.make((app) =>

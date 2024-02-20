@@ -1,4 +1,4 @@
-import { HttpMiddleware, HttpRouter, HttpServerResponse } from "api/lib/http.js"
+import { HttpMiddleware, HttpRouter, HttpServerResponse } from "api/lib/http"
 
 export function serverHealth(version: string) {
   return HttpRouter.get(

@@ -1,5 +1,5 @@
-import { S } from "resources/lib.js"
-import { UserView } from "../Views.js"
+import { S } from "resources/lib"
+import { UserView } from "../Views"
 
 export class GetHelloWorldRequest
   extends S.Req({ allowAnonymous: true, allowRoles: ["user"] })<GetHelloWorldRequest>()({

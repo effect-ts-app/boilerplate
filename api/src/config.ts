@@ -1,7 +1,7 @@
 import { Config, Effect } from "effect-app"
 import { secretURL } from "effect-app/Config/SecretURL"
 import * as SecretURL from "effect-app/Config/SecretURL"
-import { BaseConfig } from "./baseConfig.js"
+import { BaseConfig } from "./baseConfig"
 
 const STORAGE_VERSION = "1"
 
@@ -49,7 +49,7 @@ export interface ApiConfig extends ConfigA<typeof ApiConfig> {}
 
 export interface ApiMainConfig extends ApiConfig, BaseConfig {}
 
-export * from "./baseConfig.js"
+export * from "./baseConfig"
 
 export const MergedConfig = ApiConfig
   .andThen((apiConfig) => BaseConfig.andThen((baseConfig) => ({ ...baseConfig, ...apiConfig })))

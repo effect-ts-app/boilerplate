@@ -1,3 +1,3 @@
-export { Req } from "./req.js"
+export { Req } from "./req"
 
 export * from "effect-app/schema"

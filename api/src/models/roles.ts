@@ -1,6 +1,6 @@
 // Poor man's RBAC
 
-import type { Role } from "./User.js"
+import type { Role } from "./User"
 
 /**
  * Allow role access

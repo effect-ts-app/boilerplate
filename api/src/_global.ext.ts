@@ -1,3 +1,3 @@
-import type {} from "./services/DBContext.js"
-import type {} from "./services/Events.js"
-import type {} from "./services/UserProfile.js"
+import type {} from "./services/DBContext"
+import type {} from "./services/Events"
+import type {} from "./services/UserProfile"

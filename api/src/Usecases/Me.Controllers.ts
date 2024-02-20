@@ -1,6 +1,6 @@
-import { matchFor } from "api/lib/matchFor.js"
-import { UserRepo } from "api/services.js"
-import { MeRsc } from "resources.js"
+import { matchFor } from "api/lib/matchFor"
+import { UserRepo } from "api/services"
+import { MeRsc } from "resources"
 
 const me = matchFor(MeRsc)
 

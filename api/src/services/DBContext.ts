@@ -1,4 +1,4 @@
 // codegen:start {preset: barrel, include: ./DBContext/* }
-export * from "./DBContext/BlogPostRepo.js"
-export * from "./DBContext/UserRepo.js"
+export * from "./DBContext/BlogPostRepo"
+export * from "./DBContext/UserRepo"
 // codegen:end

@@ -24,7 +24,7 @@
     "dev": "NODE_ENV=development nodemon --signal SIGTERM --exec pnpm dev:vite",
     "dev:compiled": "bun --inspect ./dist/main.js | ../scripts/humanlog.sh",
     "dev:vite": "pnpm start:bun | ../scripts/humanlog.sh",
-    "start": "pnpm start:compiled",
+    "start": "pnpm start:bun",
     "start:compiled": "node -r source-map-support/register ./dist/main.js",
     "start:vite": "vite-node ./src/main.ts",
     "start:bun": "bun ./src/main.ts",

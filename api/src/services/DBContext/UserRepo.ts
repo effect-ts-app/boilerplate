@@ -1,15 +1,15 @@
 import { NotFoundError, NotLoggedInError } from "@effect-app/infra/errors"
 import { RepositoryDefaultImpl } from "@effect-app/infra/services/RepositoryBase"
 import { generate, generateFromArbitrary } from "@effect-app/infra/test.arbs"
-import { RepoConfig } from "api/config.js"
-import { RepoLive } from "api/migrate.js"
+import { RepoConfig } from "api/config"
+import { RepoLive } from "api/migrate"
 import { Effect, Exit, Layer, Option, ReadonlyArray, Request, RequestResolver, S } from "effect-app"
 import { fakerArb } from "effect-app/faker"
 import { Email } from "effect-app/schema"
 import fc from "fast-check"
-import type { UserId } from "models/User.js"
-import { User } from "models/User.js"
-import { UserProfile } from "../UserProfile.js"
+import type { UserId } from "models/User"
+import { User } from "models/User"
+import { UserProfile } from "../UserProfile"
 
 export interface UserPersistenceModel extends User.From {
   _etag: string | undefined

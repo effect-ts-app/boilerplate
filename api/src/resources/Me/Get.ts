@@ -1,5 +1,5 @@
-import { User } from "models/User.js"
-import { S } from "resources/lib.js"
+import { User } from "models/User"
+import { S } from "resources/lib"
 
 export class GetMeRequest extends S.Req()<GetMeRequest>()({}) {}
 

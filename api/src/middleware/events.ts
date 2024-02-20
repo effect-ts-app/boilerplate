@@ -1,9 +1,9 @@
 import { setupRequestContext } from "@effect-app/infra/api/setupRequest"
 import { reportError } from "@effect-app/infra/errorReporter"
-import { HttpHeaders, HttpServerResponse } from "api/lib/http.js"
+import { HttpHeaders, HttpServerResponse } from "api/lib/http"
 import { Duration, Effect, S, Schedule, Stream } from "effect-app"
-import { ClientEvents } from "resources.js"
-import { Events } from "../services/Events.js"
+import { ClientEvents } from "resources"
+import { Events } from "../services/Events"
 
 export const events = Effect
   .gen(function*($) {

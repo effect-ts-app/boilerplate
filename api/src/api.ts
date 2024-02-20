@@ -6,16 +6,16 @@ import { Live as OperationsLive } from "@effect-app/infra/services/Operations/li
 import { RequestContextContainer } from "@effect-app/infra/services/RequestContextContainer"
 import { ContextMapContainer } from "@effect-app/infra/services/Store/ContextMapContainer"
 import { NodeContext } from "@effect/platform-node"
-import { all } from "api/routes.js"
+import { all } from "api/routes"
 import { Effect, Layer, Ref } from "effect-app"
 import { GenericTag } from "effect/Context"
 import { createServer } from "node:http"
-import { MergedConfig } from "./config.js"
-import { HttpClientNode, HttpMiddleware, HttpNode, HttpRouter, HttpServer } from "./lib/http.js"
-import * as MW from "./middleware/index.js"
-import { RequestContextMiddleware } from "./middleware/index.js"
-import { BlogPostRepo, UserRepo } from "./services.js"
-import { Events } from "./services/Events.js"
+import { MergedConfig } from "./config"
+import { HttpClientNode, HttpMiddleware, HttpNode, HttpRouter, HttpServer } from "./lib/http"
+import * as MW from "./middleware/index"
+import { RequestContextMiddleware } from "./middleware/index"
+import { BlogPostRepo, UserRepo } from "./services"
+import { Events } from "./services/Events"
 
 export const devApi = MergedConfig
   .andThen((cfg) => {

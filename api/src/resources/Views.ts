@@ -1,4 +1,4 @@
 // codegen:start {preset: barrel, include: ./Views/*.ts}
-export * from "./Views/PostView.js"
-export * from "./Views/UserView.js"
+export * from "./Views/PostView"
+export * from "./Views/UserView"
 // codegen:end

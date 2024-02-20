@@ -1,6 +1,6 @@
-import { BlogPostId } from "models/Blog.js"
-import { S } from "resources/lib.js"
-import { BlogPostView } from "../Views.js"
+import { BlogPostId } from "models/Blog"
+import { S } from "resources/lib"
+import { BlogPostView } from "../Views"
 
 export class FindPostRequest extends S.Req({ allowAnonymous: true, allowRoles: ["user"] })<FindPostRequest>()({
   id: BlogPostId

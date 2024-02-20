@@ -4,7 +4,7 @@ import { ContextMapContainer } from "@effect-app/infra/services/Store/ContextMap
 import { StoreMakerLayer } from "@effect-app/infra/services/Store/index"
 import * as HttpClientNode from "@effect/platform-node/NodeHttpClient"
 import { Layer } from "effect-app"
-import { SendgridConfig, StorageConfig } from "./config.js"
+import { SendgridConfig, StorageConfig } from "./config"
 
 export const RepoLive = StorageConfig
   .andThen(StoreMakerLayer)

@@ -1,9 +1,9 @@
-import { matchFor } from "api/lib/matchFor.js"
-import { UserRepo } from "api/services.js"
+import { matchFor } from "api/lib/matchFor"
+import { UserRepo } from "api/services"
 import { ReadonlyArray } from "effect"
 import { Order } from "effect-app"
-import { UsersRsc } from "resources.js"
-import type { UserView } from "resources/Views.js"
+import { UsersRsc } from "resources"
+import type { UserView } from "resources/Views"
 
 const users = matchFor(UsersRsc)
 

@@ -1,4 +1,4 @@
-import type { Role } from "models/User.js"
+import type { Role } from "models/User"
 
 import { Req as Req_ } from "@effect-app/schema/REST"
 

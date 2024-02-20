@@ -2,7 +2,7 @@ import { parseJwt } from "@effect-app/infra/api/express/schema/jwt"
 import { S } from "effect-app"
 import { UserProfileId } from "effect-app/ids"
 import { assignTag } from "effect-app/service"
-import { Role } from "models/User.js"
+import { Role } from "models/User"
 
 export class UserProfile extends assignTag<UserProfile>()(
   S.Class<UserProfile>()({

@@ -6,7 +6,7 @@
 import type { NotLoggedInError } from "@effect-app/infra/errors"
 import type * as App from "@effect/platform/Http/App"
 import type { Effect } from "effect-app"
-import * as internal from "./internal/middlewares.js"
+import * as internal from "./internal/middlewares"
 
 /**
  * Add access logs for handled requests. The log runs before each request.

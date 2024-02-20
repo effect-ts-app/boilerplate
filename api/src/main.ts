@@ -1,13 +1,13 @@
 import "@effect-app/fluent-extensions"
-import { runMain } from "./lib/basicRuntime.js"
+import { runMain } from "./lib/basicRuntime"
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { faker } from "@faker-js/faker"
-import { api, devApi } from "api/api.js"
+import { api, devApi } from "api/api"
 import { Layer } from "effect-app"
 import { setFaker } from "effect-app/faker"
-import { MergedConfig } from "./config.js"
-import { TracingLive } from "./observability.js"
+import { MergedConfig } from "./config"
+import { TracingLive } from "./observability"
 
 setFaker(faker)
 

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/ban-types */
-import { Role } from "models/User.js"
+import { Role } from "models/User"
 
 import { HttpServerRequest } from "@effect-app/infra/api/http"
 import { JWTError, type RequestHandler } from "@effect-app/infra/api/routing"
@@ -8,17 +8,17 @@ import type { RequestContext } from "@effect-app/infra/RequestContext"
 import { RequestContextContainer } from "@effect-app/infra/services/RequestContextContainer"
 import type { StructFields } from "@effect-app/schema"
 import { Req as Req_ } from "@effect-app/schema/REST"
-import { NotLoggedInError, UnauthorizedError } from "api/errors.js"
-import { Auth0Config, checkJWTI } from "api/middleware/auth.js"
+import { NotLoggedInError, UnauthorizedError } from "api/errors"
+import { Auth0Config, checkJWTI } from "api/middleware/auth"
 import { Duration, Effect, Exit, Layer, Option, Request } from "effect-app"
 import {
   makeUserProfileFromAuthorizationHeader,
   makeUserProfileFromUserHeader,
   UserProfile
-} from "../services/UserProfile.js"
+} from "../services/UserProfile"
 
 // Workaround for the error when using
-// import type { AllowAnonymous, RequestConfig } from "resources/lib.js"
+// import type { AllowAnonymous, RequestConfig } from "resources/lib"
 
 export type RequestConfig = { allowAnonymous?: true; allowedRoles?: readonly Role[] }
 
