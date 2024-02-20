@@ -40,8 +40,6 @@
     "update": "ncu -u && pnpm -r ncu -u",
     "ncu": "ncu",
     "build-libs": "cd libs && pnpm build && cd ../.. && pnpm build",
-    "l": "./scripts/link.sh",
-    "ul": "./scripts/unlink.sh",
     "lint:watch": "ESLINT_TS=1 esw -w --changed --clear --ext ts,tsx",
     "apps": "pnpm all --workspace-concurrency 1",
     "api": "pnpm all --workspace-concurrency 1 --filter \"./api\"",
@@ -77,14 +75,14 @@
     "package-up": "^5.0.0",
     "patch-package": "^8.0.0",
     "ts-patch": "^3.1.2",
-    "vite-node": "^1.3.0",
+    "vite-node": "^1.3.1",
     "vite-tsconfig-paths": "^4.3.1"
   },
   "devDependencies": {
     "@dprint/typescript": "^0.89.1",
-    "@effect-app/cli": "^0.53.1",
+    "@effect-app/cli": "^0.53.2",
     "@effect-app/compiler": "^0.65.0",
-    "@effect-app/core": "^0.144.1",
+    "@effect-app/core": "^0.144.3",
     "@effect-app/eslint-codegen-model": "^0.53.0",
     "@phaphoso/eslint-plugin-dprint": "^0.5.2",
     "@tsconfig/strictest": "^2.0.3",
@@ -95,7 +93,7 @@
     "@typescript-eslint/scope-manager": "^7.0.2",
     "concurrently": "^8.2.2",
     "dprint": "^0.45.0",
-    "effect-app": "^0.171.2",
+    "effect-app": "^0.171.4",
     "enhanced-resolve": "^5.15.0",
     "eslint": "^8.56.0",
     "eslint-import-resolver-typescript": "^3.6.1",
@@ -118,6 +116,6 @@
     "typescript-transform-paths": "^3.4.7",
     "unplugin-auto-import": "^0.17.5",
     "vite": "^5.1.3",
-    "vitest": "^1.3.0"
+    "vitest": "^1.3.1"
   }
 }
