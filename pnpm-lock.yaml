@@ -5,7 +5,7 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
-  date-fns: ^2.30.0
+  date-fns: ^3.3.1
   vue: ^3.4.19
 
 patchedDependencies:
@@ -21,9 +21,6 @@ patchedDependencies:
   '@phaphoso/eslint-plugin-dprint@0.5.2':
     hash: 5r3oafqkulzxdb6awceadivssy
     path: patches/@phaphoso__eslint-plugin-dprint@0.5.2.patch
-  date-fns@2.30.0:
-    hash: g5hqt5bhnjezqo5vnkpprfkba4
-    path: patches/date-fns@2.30.0.patch
   effect@2.3.8:
     hash: 6hgrqgy6n4sjzqknifhsqicwxa
     path: patches/effect@2.3.8.patch
@@ -84,8 +81,8 @@ importers:
         specifier: ^7.0.3
         version: 7.0.3
       date-fns:
-        specifier: ^2.30.0
-        version: 2.30.0(patch_hash=g5hqt5bhnjezqo5vnkpprfkba4)
+        specifier: ^3.3.1
+        version: 3.3.1
       effect:
         specifier: ^2.3.8
         version: 2.3.8(patch_hash=6hgrqgy6n4sjzqknifhsqicwxa)
@@ -115,8 +112,8 @@ importers:
         specifier: ^0.89.1
         version: 0.89.1
       '@effect-app/cli':
-        specifier: ^0.54.0
-        version: 0.54.0
+        specifier: ^0.55.1
+        version: 0.55.1
       '@effect-app/compiler':
         specifier: ^0.66.0
         version: 0.66.0(@types/node@20.11.19)
@@ -298,8 +295,8 @@ importers:
         specifier: ^4.0.0
         version: 4.0.0
       date-fns:
-        specifier: ^2.30.0
-        version: 2.30.0(patch_hash=g5hqt5bhnjezqo5vnkpprfkba4)
+        specifier: ^3.3.1
+        version: 3.3.1
       dotenv:
         specifier: ^16.4.5
         version: 16.4.5
@@ -456,8 +453,8 @@ importers:
         specifier: ^9.1.3
         version: 9.1.3(@babel/core@7.23.9)(webpack@5.90.3)
       date-fns:
-        specifier: ^2.30.0
-        version: 2.30.0(patch_hash=g5hqt5bhnjezqo5vnkpprfkba4)
+        specifier: ^3.3.1
+        version: 3.3.1
       eslint:
         specifier: ^8.56.0
         version: 8.56.0
@@ -582,8 +579,8 @@ importers:
         specifier: ^0.6.0
         version: 0.6.0
       date-fns:
-        specifier: ^2.30.0
-        version: 2.30.0(patch_hash=g5hqt5bhnjezqo5vnkpprfkba4)
+        specifier: ^3.3.1
+        version: 3.3.1
       effect:
         specifier: ^2.3.8
         version: 2.3.8(patch_hash=6hgrqgy6n4sjzqknifhsqicwxa)
@@ -2283,8 +2280,8 @@ packages:
     dev: true
     optional: true
 
-  /@effect-app/cli@0.54.0:
-    resolution: {integrity: sha512-t844fs4Rxnx0iUr/2nWTabBPgG0Ja+Z2W7T+f1H3ZjmfdUAY9t9ij1poRLZdOiHNZUXRekwaqQnw81R7SANlVw==}
+  /@effect-app/cli@0.55.1:
+    resolution: {integrity: sha512-eX4gFd+zK6uxYtTpxIjUNI5hzBf4Z2/HOCQW/blyCiWEb1KMc5kLAFRm29An/KDzCbRR0F05yZBcAdjjfb9HGw==}
     hasBin: true
     dependencies:
       node-watch: 0.7.4
@@ -2357,7 +2354,7 @@ packages:
     dependencies:
       '@effect/platform': 0.45.6(@effect/schema@0.62.9)(effect@2.3.8)
       '@fp-ts/optic': 0.22.0(patch_hash=2yuoegl5dhwsslauskmjxbvoeu)(@effect/typeclass@0.22.12)(effect@2.3.8)
-      date-fns: 2.30.0(patch_hash=g5hqt5bhnjezqo5vnkpprfkba4)
+      date-fns: 3.3.1
       effect: 2.3.8(patch_hash=6hgrqgy6n4sjzqknifhsqicwxa)
       lodash: 4.17.21
       nanoid: 5.0.6
@@ -8084,7 +8081,7 @@ packages:
     hasBin: true
     dependencies:
       chalk: 4.1.2
-      date-fns: 2.30.0(patch_hash=g5hqt5bhnjezqo5vnkpprfkba4)
+      date-fns: 3.3.1
       lodash: 4.17.21
       rxjs: 7.8.1
       shell-quote: 1.8.1
@@ -8368,12 +8365,8 @@ packages:
   /csstype@3.1.3:
     resolution: {integrity: sha512-M1uQkMl8rQK/szD0LNhtqxIPLpimGm8sOBwU7lLnCpSbTyY3yeU1Vc7l4KT5zT4s/yOxHH5O7tIuuLOCnLADRw==}
 
-  /date-fns@2.30.0(patch_hash=g5hqt5bhnjezqo5vnkpprfkba4):
-    resolution: {integrity: sha512-fnULvOpxnC5/Vg3NCiWelDsLiUc9bRwAPs/+LfTLNvetFCtCTN+yQz15C/fs4AwX1R9K5GLtLfn8QW+dWisaAw==}
-    engines: {node: '>=0.11'}
-    dependencies:
-      '@babel/runtime': 7.23.9
-    patched: true
+  /date-fns@3.3.1:
+    resolution: {integrity: sha512-y8e109LYGgoQDveiEBD3DYXKba1jWf5BA8YU1FL5Tvm0BTdEfy54WLCwnuYWZNnzzvALy/QQ4Hov+Q9RVRv+Zw==}
 
   /de-indent@1.0.2:
     resolution: {integrity: sha512-e/1zu3xH5MQryN2zdVaF0OrdNLUbvWxzMbi+iNA6Bky7l1RoP8a2fIbRocyHclXt/arDrrR6lL3TqFD9pMQTsg==}
@@ -8836,7 +8829,7 @@ packages:
       '@effect/schema': 0.62.9(patch_hash=7rlb3zq7nv33outk5reiwq3sqe)(effect@2.3.8)(fast-check@3.15.1)
       '@fp-ts/optic': 0.22.0(patch_hash=2yuoegl5dhwsslauskmjxbvoeu)(@effect/typeclass@0.22.12)(effect@2.3.8)
       '@tsconfig/strictest': 2.0.3
-      date-fns: 2.30.0(patch_hash=g5hqt5bhnjezqo5vnkpprfkba4)
+      date-fns: 3.3.1
       effect: 2.3.8(patch_hash=6hgrqgy6n4sjzqknifhsqicwxa)
       lodash: 4.17.21
       nanoid: 5.0.6
@@ -16583,7 +16576,7 @@ packages:
     peerDependencies:
       vue: ^3.4.19
     dependencies:
-      date-fns: 2.30.0(patch_hash=g5hqt5bhnjezqo5vnkpprfkba4)
+      date-fns: 3.3.1
       vue: 3.4.19(typescript@5.3.3)
     dev: false
 
