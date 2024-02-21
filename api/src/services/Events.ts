@@ -15,7 +15,7 @@ const makeEvents = Effect.gen(function*($) {
   return svc
 })
 
-export abstract class Events extends TagClassMakeId("Events", makeEvents)<Events>() {
+export class Events extends TagClassMakeId("Events", makeEvents)<Events>() {
   static readonly Live = this.toLayer()
   static readonly publish = Effect.serviceFunctions(this).publish
 }
