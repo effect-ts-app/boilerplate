@@ -41,6 +41,21 @@ importers:
 
   .:
     dependencies:
+      '@effect/experimental':
+        specifier: ^0.9.16
+        version: 0.9.16(@effect/platform-node@0.44.7)(@effect/platform@0.45.6)(@effect/schema@0.62.9)(effect@2.3.8)(ws@8.16.0)
+      '@effect/opentelemetry':
+        specifier: ^0.31.9
+        version: 0.31.9(@opentelemetry/api@1.7.0)(@opentelemetry/resources@1.21.0)(@opentelemetry/sdk-metrics@1.21.0)(@opentelemetry/sdk-trace-base@1.21.0)(@opentelemetry/sdk-trace-node@1.21.0)(@opentelemetry/sdk-trace-web@1.21.0)(@opentelemetry/semantic-conventions@1.21.0)(effect@2.3.8)
+      '@effect/platform':
+        specifier: ^0.45.6
+        version: 0.45.6(@effect/schema@0.62.9)(effect@2.3.8)
+      '@effect/platform-node':
+        specifier: ^0.44.7
+        version: 0.44.7(@effect/platform@0.45.6)(effect@2.3.8)
+      '@effect/schema':
+        specifier: ^0.62.9
+        version: 0.62.9(patch_hash=7rlb3zq7nv33outk5reiwq3sqe)(effect@2.3.8)(fast-check@3.15.1)
       '@opentelemetry/api':
         specifier: ^1.7
         version: 1.7.0
@@ -68,6 +83,9 @@ importers:
       cross-env:
         specifier: ^7.0.3
         version: 7.0.3
+      effect:
+        specifier: ^2.3.8
+        version: 2.3.8(patch_hash=6hgrqgy6n4sjzqknifhsqicwxa)
       fast-check:
         specifier: ^3.15.1
         version: 3.15.1(patch_hash=gmhutzas2jzobvkhr72gjyjori)
@@ -630,31 +648,6 @@ importers:
       vue-tsc:
         specifier: ~1.8.27
         version: 1.8.27(typescript@5.3.3)
-
-  play:
-    dependencies:
-      '@effect-app/core':
-        specifier: ^0.145.0
-        version: 0.145.0(@effect/platform@0.45.6)(@fp-ts/optic@0.22.0)(effect@2.3.8)
-      '@effect-app/schema':
-        specifier: ^0.196.0
-        version: 0.196.0(@effect/platform@0.45.6)(@effect/schema@0.62.9)(@fp-ts/optic@0.22.0)(effect@2.3.8)
-      change-case:
-        specifier: ^5.4.3
-        version: 5.4.3
-      cross-fetch:
-        specifier: ^4.0.0
-        version: 4.0.0
-      effect-app:
-        specifier: ^0.172.0
-        version: 0.172.0(@effect/platform@0.45.6)(@effect/schema@0.62.9)(@fp-ts/optic@0.22.0)(effect@2.3.8)
-      path-parser:
-        specifier: ^6.1.0
-        version: 6.1.0
-    devDependencies:
-      vite-node:
-        specifier: ^1.3.1
-        version: 1.3.1(@types/node@20.11.19)(sass@1.71.1)
 
 packages:
 
@@ -2477,6 +2470,32 @@ packages:
       - typescript
     dev: false
 
+  /@effect/experimental@0.9.16(@effect/platform-node@0.44.7)(@effect/platform@0.45.6)(@effect/schema@0.62.9)(effect@2.3.8)(ws@8.16.0):
+    resolution: {integrity: sha512-c9t7p4Lv90ButLJCjdUzNa3mqtIZLAcCX2MsBVcxAr6l/UIT1X4dfB9A85MGX2+JtW/4OJdAkZLX7kxPUgeBXA==}
+    peerDependencies:
+      '@effect/platform': ^0.45.6
+      '@effect/platform-node': ^0.44.7
+      '@effect/schema': ^0.62.9
+      effect: ^2.3.8
+      lmdb: ^2.9.2
+      ws: ^8.14
+    peerDependenciesMeta:
+      '@effect/platform-node':
+        optional: true
+      lmdb:
+        optional: true
+      ws:
+        optional: true
+    dependencies:
+      '@effect/platform': 0.45.6(@effect/schema@0.62.9)(effect@2.3.8)
+      '@effect/platform-node': 0.44.7(@effect/platform@0.45.6)(effect@2.3.8)
+      '@effect/schema': 0.62.9(patch_hash=7rlb3zq7nv33outk5reiwq3sqe)(effect@2.3.8)(fast-check@3.15.1)
+      effect: 2.3.8(patch_hash=6hgrqgy6n4sjzqknifhsqicwxa)
+      isomorphic-ws: 5.0.0(ws@8.16.0)
+      msgpackr: 1.10.1
+      ws: 8.16.0
+    dev: false
+
   /@effect/opentelemetry@0.31.9(@opentelemetry/api@1.7.0)(@opentelemetry/resources@1.21.0)(@opentelemetry/sdk-metrics@1.21.0)(@opentelemetry/sdk-trace-base@1.21.0)(@opentelemetry/sdk-trace-node@1.21.0)(@opentelemetry/sdk-trace-web@1.21.0)(@opentelemetry/semantic-conventions@1.21.0)(effect@2.3.8):
     resolution: {integrity: sha512-mONiSFF2b7lpTu4CvjEYM2j2stXyPLG26k9iICaSMChRffnG//G0XxoVYUfsWRezS3dMBl1rMFlIAZ9Bzd+d6A==}
     peerDependencies:
@@ -3393,6 +3412,54 @@ packages:
     transitivePeerDependencies:
       - debug
     dev: false
+
+  /@msgpackr-extract/msgpackr-extract-darwin-arm64@3.0.2:
+    resolution: {integrity: sha512-9bfjwDxIDWmmOKusUcqdS4Rw+SETlp9Dy39Xui9BEGEk19dDwH0jhipwFzEff/pFg95NKymc6TOTbRKcWeRqyQ==}
+    cpu: [arm64]
+    os: [darwin]
+    requiresBuild: true
+    dev: false
+    optional: true
+
+  /@msgpackr-extract/msgpackr-extract-darwin-x64@3.0.2:
+    resolution: {integrity: sha512-lwriRAHm1Yg4iDf23Oxm9n/t5Zpw1lVnxYU3HnJPTi2lJRkKTrps1KVgvL6m7WvmhYVt/FIsssWay+k45QHeuw==}
+    cpu: [x64]
+    os: [darwin]
+    requiresBuild: true
+    dev: false
+    optional: true
+
+  /@msgpackr-extract/msgpackr-extract-linux-arm64@3.0.2:
+    resolution: {integrity: sha512-FU20Bo66/f7He9Fp9sP2zaJ1Q8L9uLPZQDub/WlUip78JlPeMbVL8546HbZfcW9LNciEXc8d+tThSJjSC+tmsg==}
+    cpu: [arm64]
+    os: [linux]
+    requiresBuild: true
+    dev: false
+    optional: true
+
+  /@msgpackr-extract/msgpackr-extract-linux-arm@3.0.2:
+    resolution: {integrity: sha512-MOI9Dlfrpi2Cuc7i5dXdxPbFIgbDBGgKR5F2yWEa6FVEtSWncfVNKW5AKjImAQ6CZlBK9tympdsZJ2xThBiWWA==}
+    cpu: [arm]
+    os: [linux]
+    requiresBuild: true
+    dev: false
+    optional: true
+
+  /@msgpackr-extract/msgpackr-extract-linux-x64@3.0.2:
+    resolution: {integrity: sha512-gsWNDCklNy7Ajk0vBBf9jEx04RUxuDQfBse918Ww+Qb9HCPoGzS+XJTLe96iN3BVK7grnLiYghP/M4L8VsaHeA==}
+    cpu: [x64]
+    os: [linux]
+    requiresBuild: true
+    dev: false
+    optional: true
+
+  /@msgpackr-extract/msgpackr-extract-win32-x64@3.0.2:
+    resolution: {integrity: sha512-O+6Gs8UeDbyFpbSh2CPEz/UOrrdWPTBYNblZK5CxxLisYt4kGX3Sc+czffFonyjiGSq3jWLwJS/CCJc7tBr4sQ==}
+    cpu: [x64]
+    os: [win32]
+    requiresBuild: true
+    dev: false
+    optional: true
 
   /@netlify/functions@2.5.1:
     resolution: {integrity: sha512-7//hmiFHXGusAzuzEuXvRT9ItaeRjRs5lRs6lYUkaAXO1jnTWYDB2XdqFq5X4yMRX+/A96nrQ2HwCE+Pd0YMwg==}
@@ -5511,7 +5578,7 @@ packages:
       '@sentry/babel-plugin-component-annotate': 2.14.1
       '@sentry/cli': 2.28.0
       '@sentry/node': 7.102.0
-      '@sentry/utils': 7.101.1
+      '@sentry/utils': 7.102.0
       dotenv: 16.4.5
       find-up: 5.0.0
       glob: 9.3.2
@@ -5661,21 +5728,9 @@ packages:
       '@sentry-internal/tracing': 7.102.0
     dev: false
 
-  /@sentry/types@7.101.1:
-    resolution: {integrity: sha512-bwtkQvrCZ6JGc7vqX7TEAKBgkbQFORt84FFS3JQQb8G3efTt9fZd2ReY4buteKQdlALl8h1QWVngTLmI+kyUuw==}
-    engines: {node: '>=8'}
-    dev: false
-
   /@sentry/types@7.102.0:
     resolution: {integrity: sha512-FPfFBP0x3LkPARw1/6cWySLq1djIo8ao3Qo2KNBeE9CHdq8bsS1a8zzjJLuWG4Ww+wieLP8/lY3WTgrCz4jowg==}
     engines: {node: '>=8'}
-    dev: false
-
-  /@sentry/utils@7.101.1:
-    resolution: {integrity: sha512-Nrg0nrEI3nrOCd9SLJ/WGzxS5KMQE4cryLOvrDcHJRWpsSyGBF1hLLerk84Nsw/0myMsn7zTYU+xoq7idNsX5A==}
-    engines: {node: '>=8'}
-    dependencies:
-      '@sentry/types': 7.101.1
     dev: false
 
   /@sentry/utils@7.102.0:
@@ -6753,7 +6808,7 @@ packages:
       '@vue/shared': 3.4.15
       estree-walker: 2.0.2
       magic-string: 0.30.7
-      postcss: 8.4.34
+      postcss: 8.4.35
       source-map-js: 1.0.2
 
   /@vue/compiler-ssr@3.4.15:
@@ -7799,21 +7854,6 @@ packages:
       get-func-name: 2.0.2
     dev: true
 
-  /chokidar@3.5.3:
-    resolution: {integrity: sha512-Dr3sfKRP6oTcjf2JmUmFJfeVMvXBdegxB0iVQ5eb2V10uFJUCAS8OByZdVAyVb8xXNz3GjjTgj9kLWsZTqE6kw==}
-    engines: {node: '>= 8.10.0'}
-    dependencies:
-      anymatch: 3.1.3
-      braces: 3.0.2
-      glob-parent: 5.1.2
-      is-binary-path: 2.1.0
-      is-glob: 4.0.3
-      normalize-path: 3.0.0
-      readdirp: 3.6.0
-    optionalDependencies:
-      fsevents: 2.3.3
-    dev: true
-
   /chokidar@3.6.0:
     resolution: {integrity: sha512-7VT13fmjotKpGipCW9JEQAusEPE+Ei8nl6/g4FBAmIm0GOOLMua9NDDo/DWp0ZAxCr3cPq5ZpBqmPAQgDda2Pw==}
     engines: {node: '>= 8.10.0'}
@@ -8593,8 +8633,8 @@ packages:
     engines: {node: ^12.0.0 || ^14.0.0 || >=16.0.0}
     dependencies:
       is-url: 1.2.4
-      postcss: 8.4.34
-      postcss-values-parser: 6.0.2(postcss@8.4.34)
+      postcss: 8.4.35
+      postcss-values-parser: 6.0.2(postcss@8.4.35)
     dev: true
 
   /detective-sass@3.0.2:
@@ -9357,7 +9397,7 @@ packages:
     peerDependencies:
       eslint: '>=8 <9.0.0'
     dependencies:
-      chokidar: 3.5.3
+      chokidar: 3.6.0
       debug: 4.3.4(supports-color@5.5.0)
       eslint: 8.56.0
       execa: 5.1.1
@@ -11012,6 +11052,14 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
+  /isomorphic-ws@5.0.0(ws@8.16.0):
+    resolution: {integrity: sha512-muId7Zzn9ywDsyXgTIafTry2sV3nySZeUDe6YedVd1Hvuuep5AsIlqK+XefWpYTyJG5e503F2xIuT2lcU6rCSw==}
+    peerDependencies:
+      ws: '*'
+    dependencies:
+      ws: 8.16.0
+    dev: false
+
   /jackspeak@2.3.6:
     resolution: {integrity: sha512-N3yCS/NegsOBokc8GAdM8UcmfsKiSS8cipheD/nivzr700H+nsMOxJjQnvwOcRYVuFkdH0wGUvW2WbXGmrZGbQ==}
     engines: {node: '>=14'}
@@ -11982,6 +12030,28 @@ packages:
   /ms@2.1.3:
     resolution: {integrity: sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==}
 
+  /msgpackr-extract@3.0.2:
+    resolution: {integrity: sha512-SdzXp4kD/Qf8agZ9+iTu6eql0m3kWm1A2y1hkpTeVNENutaB0BwHlSvAIaMxwntmRUAUjon2V4L8Z/njd0Ct8A==}
+    hasBin: true
+    requiresBuild: true
+    dependencies:
+      node-gyp-build-optional-packages: 5.0.7
+    optionalDependencies:
+      '@msgpackr-extract/msgpackr-extract-darwin-arm64': 3.0.2
+      '@msgpackr-extract/msgpackr-extract-darwin-x64': 3.0.2
+      '@msgpackr-extract/msgpackr-extract-linux-arm': 3.0.2
+      '@msgpackr-extract/msgpackr-extract-linux-arm64': 3.0.2
+      '@msgpackr-extract/msgpackr-extract-linux-x64': 3.0.2
+      '@msgpackr-extract/msgpackr-extract-win32-x64': 3.0.2
+    dev: false
+    optional: true
+
+  /msgpackr@1.10.1:
+    resolution: {integrity: sha512-r5VRLv9qouXuLiIBrLpl2d5ZvPt8svdQTl5/vMvE4nzDMyEX4sgW5yWhuBBj5UmgwOTWj8CIdSXn5sAfsHAWIQ==}
+    optionalDependencies:
+      msgpackr-extract: 3.0.2
+    dev: false
+
   /muggle-string@0.3.1:
     resolution: {integrity: sha512-ckmWDJjphvd/FvZawgygcUeQCxzvohjFO5RxTjj4eq8kw359gFF3E1brjfI+viLMxss5JrHTDRHZvu2/tuy0Qg==}
 
@@ -12229,6 +12299,13 @@ packages:
     resolution: {integrity: sha512-dPEtOeMvF9VMcYV/1Wb8CPoVAXtp6MKMlcbAt4ddqmGqUJ6fQZFXkNZNkNlfevtNkGtaSoXf/vNNNSvgrdXwtA==}
     engines: {node: '>= 6.13.0'}
 
+  /node-gyp-build-optional-packages@5.0.7:
+    resolution: {integrity: sha512-YlCCc6Wffkx0kHkmam79GKvDQ6x+QZkMjFGrIMxgFNILFvGSbCp2fCBC55pGTT9gVaz8Na5CLmxt/urtzRv36w==}
+    hasBin: true
+    requiresBuild: true
+    dev: false
+    optional: true
+
   /node-gyp-build@4.8.0:
     resolution: {integrity: sha512-u6fs2AEUljNho3EYTJNBfImO5QTo/J/1Etd+NVdCj7qWKUSN/bSLkZwhDv7I+w/MSC6qJ4cknepkAYykDdK8og==}
     hasBin: true
@@ -12305,7 +12382,7 @@ packages:
     engines: {node: '>=10'}
     hasBin: true
     dependencies:
-      chokidar: 3.5.3
+      chokidar: 3.6.0
       debug: 4.3.4(supports-color@5.5.0)
       ignore-by-default: 1.0.1
       minimatch: 3.1.2
@@ -13301,7 +13378,7 @@ packages:
     peerDependencies:
       playwright: '>=1'
     dependencies:
-      chokidar: 3.5.3
+      chokidar: 3.6.0
       cosmiconfig: 7.1.0
       playwright: 1.41.2
       yargs: 17.7.2
@@ -13602,7 +13679,7 @@ packages:
       uniq: 1.0.1
     dev: true
 
-  /postcss-values-parser@6.0.2(postcss@8.4.34):
+  /postcss-values-parser@6.0.2(postcss@8.4.35):
     resolution: {integrity: sha512-YLJpK0N1brcNJrs9WatuJFtHaV9q5aAOj+S4DI5S7jgHlRfm0PIbDCAFRYMQD5SHq7Fy6xsDhyutgS0QOAs0qw==}
     engines: {node: '>=10'}
     peerDependencies:
@@ -13610,7 +13687,7 @@ packages:
     dependencies:
       color-name: 1.1.4
       is-url-superb: 4.0.0
-      postcss: 8.4.34
+      postcss: 8.4.35
       quote-unquote: 1.0.0
     dev: true
 
@@ -13622,14 +13699,6 @@ packages:
       picocolors: 1.0.0
       source-map-js: 1.0.2
     dev: false
-
-  /postcss@8.4.34:
-    resolution: {integrity: sha512-4eLTO36woPSocqZ1zIrFD2K1v6wH7pY1uBh0JIM2KKfrVtGvPFiAku6aNOP0W1Wr9qwnaCsF0Z+CrVnryB2A8Q==}
-    engines: {node: ^10 || ^12 || >=14}
-    dependencies:
-      nanoid: 3.3.7
-      picocolors: 1.0.0
-      source-map-js: 1.0.2
 
   /postcss@8.4.35:
     resolution: {integrity: sha512-u5U8qYpBCpN13BsiEB0CbR1Hhh4Gc0zLFuedrHJKMctHCHAGrMdG0PRM/KErzAL3CU6/eckEtmHNB3x6e3c0vA==}
@@ -14553,9 +14622,6 @@ packages:
       ajv-formats: 2.1.1(ajv@8.12.0)
       ajv-keywords: 5.1.0(ajv@8.12.0)
     dev: true
-
-  /scule@1.2.0:
-    resolution: {integrity: sha512-CRCmi5zHQnSoeCik9565PONMg0kfkvYmcSqrbOJY4txFfy1wvVULV4FDaiXhUblUgahdqz3F2NwHZ8i4eBTwUw==}
 
   /scule@1.3.0:
     resolution: {integrity: sha512-6FtHJEvt+pVMIB9IBY+IcCJ6Z5f1iQnytgyfKMhDKgmzYG+TeH/wx1y3l27rshSbLiSanrR9ffZDrEsmjlQF2g==}
@@ -15846,7 +15912,7 @@ packages:
       mlly: 1.5.0
       pathe: 1.1.2
       pkg-types: 1.0.3
-      scule: 1.2.0
+      scule: 1.3.0
       strip-literal: 1.3.0
       unplugin: 1.7.1
     transitivePeerDependencies:
