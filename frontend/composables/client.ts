@@ -280,7 +280,7 @@ export function handleRequestWithToast<
   A,
   Args extends unknown[],
 >(
-  f: (...args: Args) => Promise<Either<E, A>>,
+  f: (...args: Args) => Promise<Either<A, E>>,
   action: string,
   options: Opts<A> = { suppressErrorToast: false },
 ) {

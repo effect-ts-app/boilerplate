@@ -27,14 +27,10 @@ export function makeHeaders(namespace: string, role?: "manager") {
     cookie = cookies.map((_) => `${_.name}=${_.value}`).join(";")
   }
   return <Record<string, string>> {
-    ...basicAuthCredentials
-      ? { "authorization": `Basic ${Buffer.from(basicAuthCredentials).toString("base64")}` }
-      : undefined,
-    ...cookie
-      ? { "Cookie": cookie }
-      : undefined,
+    ...(basicAuthCredentials ? { "authorization": `Basic ${Buffer.from(basicAuthCredentials).toString("base64")}` } : undefined),
+    ...(cookie ? { "Cookie": cookie } : undefined),
     "x-store-id": namespace
-  }
+  };
 }
 
 export function makeHeadersHashMap(namespace: string, role?: "manager") {
