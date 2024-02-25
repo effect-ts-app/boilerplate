@@ -5,7 +5,7 @@ import {
   Refreshing,
   type ApiConfig,
   type FetchError,
-  type ResponseError,
+  type ResError,
   type SupportedErrors,
   type QueryResult,
 } from "effect-app/client"
@@ -44,11 +44,11 @@ export {
   refreshAndWaitForOperationP,
 } from "resources/lib/operations"
 
-type ResponseErrors =
+type ResErrors =
   | S.ParseResult.ParseError
   | SupportedErrors
   | FetchError
-  | ResponseError
+  | ResError
 
 export function pauseWhileProcessing(
   iv: Pausable,
@@ -92,7 +92,7 @@ interface Opts<A> {
  * Returns a tuple with state ref and execution function which reports errors as Toast.
  */
 export const useAndHandleMutation: {
-  <I, E extends ResponseErrors, A>(
+  <I, E extends ResErrors, A>(
     self: {
       handler: (i: I) => Effect<A, E, ApiConfig | HttpClient.Client.Default>
       name: string
@@ -100,7 +100,7 @@ export const useAndHandleMutation: {
     action: string,
     options?: Opts<A>,
   ): Resp<I, E, A>
-  <E extends ResponseErrors, A>(
+  <E extends ResErrors, A>(
     self: {
       handler: Effect<A, E, ApiConfig | HttpClient.Client.Default>
       name: string
@@ -153,12 +153,12 @@ export function makeUseAndHandleMutation(onSuccess: () => Promise<void>) {
       options,
     )
   }) as {
-    <I, E extends ResponseErrors, A>(
+    <I, E extends ResErrors, A>(
       self: (i: I) => Effect<A, E, ApiConfig | HttpClient.Client.Default>,
       action: string,
       options?: Opts<A>,
     ): Resp<I, E, A>
-    <E extends ResponseErrors, A>(
+    <E extends ResErrors, A>(
       self: Effect<A, E, ApiConfig | HttpClient.Client.Default>,
       action: string,
       options?: Opts<A>,
@@ -167,7 +167,7 @@ export function makeUseAndHandleMutation(onSuccess: () => Promise<void>) {
 }
 
 export const withSuccess: {
-  <I, E extends ResponseErrors, A, X>(
+  <I, E extends ResErrors, A, X>(
     self: {
       handler: (i: I) => Effect<A, E, ApiConfig | HttpClient.Client.Default>
       name: string
@@ -177,7 +177,7 @@ export const withSuccess: {
     handler: (i: I) => Effect<X, E, ApiConfig | HttpClient.Client.Default>
     name: string
   }
-  <E extends ResponseErrors, A, X>(
+  <E extends ResErrors, A, X>(
     self: {
       handler: Effect<A, E, ApiConfig | HttpClient.Client.Default>
       name: string
@@ -203,7 +203,7 @@ export const withSuccess: {
       : Effect.flatMap(self.handler, _ => Effect.promise(() => onSuccess(_))),
 })
 
-export function withSuccessE<I, E extends ResponseErrors, A, E2, X>(
+export function withSuccessE<I, E extends ResErrors, A, E2, X>(
   self: {
     handler: (i: I) => Effect<A, E, ApiConfig | HttpClient.Client.Default>
     name: string
@@ -276,7 +276,7 @@ const messages: Record<string, string | undefined> = {}
  * Returns an execution function which reports errors as Toast.
  */
 export function handleRequestWithToast<
-  E extends ResponseErrors,
+  E extends ResErrors,
   A,
   Args extends unknown[],
 >(
@@ -360,7 +360,7 @@ export function handleRequestWithToast<
   )
 }
 
-export function renderError(e: ResponseErrors): string {
+export function renderError(e: ResErrors): string {
   return Match.value(e).pipe(
     Match.tags({
       HttpErrorRequest: e =>

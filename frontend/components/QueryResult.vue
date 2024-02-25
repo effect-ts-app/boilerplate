@@ -15,7 +15,7 @@
     >
       <div>
         {{
-            Match.value(result.current.left as SupportedErrors | FetchError | ResponseError).pipe(
+            Match.value(result.current.left as SupportedErrors | FetchError | ResError).pipe(
             Match.tags({
               NotFoundError: () => "Nicht gefunden",
               NotLoggedInError: () => "Sie mussen eingelogt sein",
@@ -36,11 +36,11 @@
   </template>
   <Delayed v-else><v-progress-circular /></Delayed>
 </template>
-<script setup lang="ts" generic="E extends SupportedErrors | FetchError | ResponseError,A">
+<script setup lang="ts" generic="E extends SupportedErrors | FetchError | ResError,A">
 import { isRefreshing } from "effect-app/client"
 import type {
   FetchError,
-  ResponseError,
+  ResError,
   Done,
   QueryResult,
   Refreshing,
