@@ -1,7 +1,7 @@
 import { setupRequestContext } from "@effect-app/infra/api/setupRequest"
 import { RequestContext } from "@effect-app/infra/RequestContext"
-import { HttpMiddleware, HttpServerRequest, HttpServerResponse } from "api/lib/http.js"
 import { Effect, S } from "effect-app"
+import { HttpMiddleware, HttpServerRequest, HttpServerResponse } from "effect-app/http"
 import { RequestId } from "effect-app/ids"
 import { NonEmptyString255 } from "effect-app/schema"
 

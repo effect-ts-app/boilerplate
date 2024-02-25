@@ -3,7 +3,7 @@ import { runMain } from "./lib/basicRuntime.js"
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { faker } from "@faker-js/faker"
-import { api, devApi } from "api/api.js"
+import { api } from "api/api.js"
 import { Layer } from "effect-app"
 import { setFaker } from "effect-app/faker"
 import { MergedConfig } from "./config.js"
@@ -13,9 +13,8 @@ setFaker(faker)
 
 const logConfig = MergedConfig.andThen((cfg) => console.debug(`Config: ${JSON.stringify(cfg, undefined, 2)}`))
 
-const program = devApi
+const program = api
   .pipe(
-    Layer.provide(api),
     Layer.provide(logConfig.pipe(Layer.scopedDiscard)),
     Layer.provide(TracingLive)
   )

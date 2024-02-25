@@ -1,8 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/ban-types */
-import { Role } from "models/User.js"
-
-import { HttpServerRequest } from "@effect-app/infra/api/http"
 import { JWTError, type RequestHandler } from "@effect-app/infra/api/routing"
 import type { RequestContext } from "@effect-app/infra/RequestContext"
 import { RequestContextContainer } from "@effect-app/infra/services/RequestContextContainer"
@@ -11,6 +8,8 @@ import { Req as Req_ } from "@effect-app/schema/REST"
 import { NotLoggedInError, UnauthorizedError } from "api/errors.js"
 import { Auth0Config, checkJWTI } from "api/middleware/auth.js"
 import { Duration, Effect, Exit, Layer, Option, Request } from "effect-app"
+import { HttpServerRequest } from "effect-app/http"
+import { Role } from "models/User.js"
 import {
   makeUserProfileFromAuthorizationHeader,
   makeUserProfileFromUserHeader,
@@ -73,7 +72,7 @@ const UserAuthorizationLive = <Req extends RequestConfig>(request: Req) =>
       if (!fakeLogin && !request.allowAnonymous) {
         yield* $(Effect.catchAll(checkJWTI(authConfig), (err) => Effect.fail(new JWTError({ error: err }))))
       }
-      const req = yield* $(HttpServerRequest)
+      const req = yield* $(HttpServerRequest.ServerRequest)
       const r = (fakeLogin
         ? makeUserProfileFromUserHeader(req.headers["x-user"])
         : makeUserProfileFromAuthorizationHeader(
