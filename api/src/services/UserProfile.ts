@@ -1,4 +1,4 @@
-import { parseJwt } from "@effect-app/infra/api/express/schema/jwt"
+import { parseJwt } from "@effect-app/infra/api/routing/schema/jwt"
 import { S } from "effect-app"
 import { UserProfileId } from "effect-app/ids"
 import { assignTag } from "effect-app/service"

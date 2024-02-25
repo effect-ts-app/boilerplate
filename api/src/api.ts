@@ -1,32 +1,23 @@
-import * as Ex from "@effect-app/infra-adapters/express"
 // import { writeOpenapiDocsI } from "@effect-app/infra/api/writeDocs"
-import type { RouteDescriptorAny } from "@effect-app/infra/api/express/schema/routing"
 import { RouteDescriptors } from "@effect-app/infra/api/routing"
+import type { RouteDescriptorAny } from "@effect-app/infra/api/routing/schema/routing"
 import { Live as OperationsLive } from "@effect-app/infra/services/Operations/live"
 import { RequestContextContainer } from "@effect-app/infra/services/RequestContextContainer"
 import { ContextMapContainer } from "@effect-app/infra/services/Store/ContextMapContainer"
 import { NodeContext } from "@effect/platform-node"
 import { all } from "api/routes.js"
 import { Effect, Layer, Ref } from "effect-app"
+import { HttpMiddleware, HttpRouter, HttpServer } from "effect-app/http"
 import { GenericTag } from "effect/Context"
 import { createServer } from "node:http"
 import { MergedConfig } from "./config.js"
-import { HttpClientNode, HttpMiddleware, HttpNode, HttpRouter, HttpServer } from "./lib/http.js"
 import * as MW from "./middleware/index.js"
 import { RequestContextMiddleware } from "./middleware/index.js"
 import { BlogPostRepo, UserRepo } from "./services.js"
 import { Events } from "./services/Events.js"
 
-export const devApi = MergedConfig
-  .andThen((cfg) => {
-    const app = MW.openapiRoutes("http://localhost:" + cfg.port)
-    const program = app
-      .andThen(Effect.logInfo(`Running /docs and /swagger on http://${cfg.host}:${cfg.devPort}`))
-    const services = Ex.LiveExpress(cfg.host, cfg.devPort)
-    const l = program.pipe(Layer.scopedDiscard, Layer.provide(services))
-    return l
-  })
-  .pipe(Layer.unwrapEffect)
+import * as HttpNode from "@effect/platform-node/Http/Server"
+import * as HttpClientNode from "@effect/platform-node/NodeHttpClient"
 
 export const ApiPortTag = GenericTag<{ port: number }>("@services/ApiPortTag")
 
