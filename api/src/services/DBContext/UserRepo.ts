@@ -94,7 +94,7 @@ const GetUserById = Request.tagged<GetUserById>("GetUserById")
 const getUserByIdResolver = RequestResolver
   .makeBatched((requests: GetUserById[]) =>
     UserRepo
-      .q2(Q.where("id", "in", requests.map((_) => _.id)))
+      .query(Q.where("id", "in", requests.map((_) => _.id)))
       .andThen((users) =>
         requests.forEachEffect(
           (r) =>
