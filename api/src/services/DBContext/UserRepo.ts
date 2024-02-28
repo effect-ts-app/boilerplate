@@ -9,6 +9,7 @@ import { Email } from "effect-app/schema"
 import fc from "fast-check"
 import type { UserId } from "models/User.js"
 import { User } from "models/User.js"
+import { Q } from "../lib.js"
 import { UserProfile } from "../UserProfile.js"
 
 export interface UserPersistenceModel extends User.From {
@@ -93,7 +94,7 @@ const GetUserById = Request.tagged<GetUserById>("GetUserById")
 const getUserByIdResolver = RequestResolver
   .makeBatched((requests: GetUserById[]) =>
     UserRepo
-      .query((where) => where("id", "in", requests.map((_) => _.id)))
+      .q2(Q.where("id", "in", requests.map((_) => _.id)))
       .andThen((users) =>
         requests.forEachEffect(
           (r) =>
