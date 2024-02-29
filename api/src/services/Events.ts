@@ -17,5 +17,4 @@ const makeEvents = Effect.gen(function*($) {
 
 export class Events extends TagClassMakeId("Events", makeEvents)<Events>() {
   static readonly Live = this.toLayer()
-  static readonly publish = Effect.serviceFunctions(this).publish
 }
