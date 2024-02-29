@@ -25,7 +25,6 @@ import type { CTX, GetContext, GetCTX, RequestEnv } from "./RequestEnv.js"
 import type {} from "resources/lib.js"
 import type { HttpServerRequest, HttpServerResponse } from "effect-app/http"
 import type {} from "@effect/schema/ParseResult"
-import type { RT } from "api/lib/basicRuntime.js"
 
 function handle<
   TModule extends Record<
@@ -189,7 +188,7 @@ export function matchFor<Rsc extends Record<string, any>>(
         ResFromSchema<REST.GetResponse<Rsc[K]>>,
         REST.GetRequest<Rsc[K]>,
         REST.GetResponse<Rsc[K]>,
-        RT,
+        THandlers[K]["_tag"],
         GetCTX<REST.GetRequest<Rsc[K]>>,
         GetContext<REST.GetRequest<Rsc[K]>>
       >
