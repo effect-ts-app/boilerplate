@@ -9,6 +9,7 @@ import type {
   EffectDeps,
   Extr,
   Flatten,
+  JWTError,
   ReqFromSchema,
   ReqHandler,
   RequestHandler,
@@ -22,6 +23,9 @@ import { REST } from "effect-app/schema"
 import { handleRequestEnv } from "./RequestEnv.js"
 import type { CTX, GetContext, GetCTX, RequestEnv } from "./RequestEnv.js"
 import type {} from "resources/lib.js"
+import type { HttpServerRequest, HttpServerResponse } from "effect-app/http"
+import type {} from "@effect/schema/ParseResult"
+import type { RT } from "api/lib/basicRuntime.js"
 
 function handle<
   TModule extends Record<
@@ -44,17 +48,18 @@ function handle<
   >
   type Res = S.Schema.To<Extr<ResSchema>>
 
-  return <R, E>(
-    h: (r: Req) => Effect<Res, E, R>
+  return <R, E, RT extends "raw" | "d">(
+    h: AWithHandler<RT, (r: Req) => Effect<Res, E, R>>
   ) => ({
     adaptResponse,
-    h,
+    h: h.handler,
     name,
     Request,
     Response,
     ResponseOpenApi: _.ResponseOpenApi ?? Response,
     Context: null as any,
-    CTX: null as any
+    CTX: null as any,
+    rt: h._tag
   } as ReqHandler<
     Req,
     R,
@@ -62,11 +67,15 @@ function handle<
     Res,
     ReqSchema,
     ResSchema,
+    RT,
     GetCTX<Req>,
     GetContext<Req>
   >)
 }
-
+type AWithHandler<T extends "raw" | "d", handler> = {
+  _tag: T
+  handler: handler
+}
 export function matchFor<Rsc extends Record<string, any>>(
   rsc: Rsc
 ) {
@@ -95,22 +104,28 @@ export function matchFor<Rsc extends Record<string, any>>(
         .andThen((svc2) => f(req, { ...ctx, ...svc2 as any, Response: rsc[action].Response }))
   }
 
-  type MatchWithServicesNew<Key extends keyof Rsc> = {
+  type MatchWithServicesNew<RT extends "raw" | "d", Key extends keyof Rsc> = {
     <R2, E, A>(
       f: Effect<A, E, R2>
-    ): (
-      req: ReqFromSchema<REST.GetRequest<Rsc[Key]>>,
-      ctx: GetCTX<REST.GetRequest<Rsc[Key]>>
-    ) => Effect<A, E, R2>
+    ): AWithHandler<
+      RT,
+      (
+        req: ReqFromSchema<REST.GetRequest<Rsc[Key]>>,
+        ctx: GetCTX<REST.GetRequest<Rsc[Key]>>
+      ) => Effect<A, E, R2>
+    >
     <R2, E, A>(
       f: (
         req: ReqFromSchema<REST.GetRequest<Rsc[Key]>>,
         ctx: GetCTX<REST.GetRequest<Rsc[Key]>> & Pick<Rsc[Key], "Response">
       ) => Effect<A, E, R2>
-    ): (
-      req: ReqFromSchema<REST.GetRequest<Rsc[Key]>>,
-      ctx: GetCTX<REST.GetRequest<Rsc[Key]>>
-    ) => Effect<A, E, R2>
+    ): AWithHandler<
+      RT,
+      (
+        req: ReqFromSchema<REST.GetRequest<Rsc[Key]>>,
+        ctx: GetCTX<REST.GetRequest<Rsc[Key]>>
+      ) => Effect<A, E, R2>
+    >
     <
       SVC extends Record<
         string,
@@ -128,22 +143,29 @@ export function matchFor<Rsc extends Record<string, any>>(
           "flat"
         >
       ) => Effect<A, E, R2>
-    ): (
-      req: ReqFromSchema<REST.GetRequest<Rsc[Key]>>,
-      ctx: GetCTX<REST.GetRequest<Rsc[Key]>>
-    ) => Effect<A, E | ValuesE<EffectDeps<SVC>>, ValuesR<EffectDeps<SVC>> | R2>
+    ): AWithHandler<
+      RT,
+      (
+        req: ReqFromSchema<REST.GetRequest<Rsc[Key]>>,
+        ctx: GetCTX<REST.GetRequest<Rsc[Key]>>
+      ) => Effect<A, E | ValuesE<EffectDeps<SVC>>, ValuesR<EffectDeps<SVC>> | R2>
+    >
   }
 
   type Keys = keyof Omit<Rsc, "meta">
 
-  type Handler<K extends keyof Rsc, R, Context extends CTX> = (
+  type Handler<K extends keyof Rsc, RT extends "raw" | "d", R, Context extends CTX> = (
     req: ReqFromSchema<REST.GetRequest<Rsc[K]>>,
     ctx: Context
-  ) => Effect<ResFromSchema<REST.GetResponse<Rsc[K]>>, SupportedErrors, R>
+  ) => Effect<
+    RT extends "raw" ? ResRawFromSchema<REST.GetResponse<Rsc[K]>> : ResFromSchema<REST.GetResponse<Rsc[K]>>,
+    SupportedErrors | S.ParseResult.ParseError,
+    R
+  >
 
   const controllers = <
     THandlers extends {
-      [K in Keys]: Handler<K, any, any>
+      [K in Keys]: AWithHandler<"raw", Handler<K, "raw", any, any>> | AWithHandler<"d", Handler<K, "d", any, any>>
     }
   >(
     controllers: THandlers
@@ -162,16 +184,19 @@ export function matchFor<Rsc extends Record<string, any>>(
     return handler as {
       [K in Keys]: ReqHandler<
         ReqFromSchema<REST.GetRequest<Rsc[K]>>,
-        _R<ReturnType<THandlers[K]>>,
-        _E<ReturnType<THandlers[K]>>,
+        _R<ReturnType<THandlers[K]["handler"]>>,
+        _E<ReturnType<THandlers[K]["handler"]>>,
         ResFromSchema<REST.GetResponse<Rsc[K]>>,
         REST.GetRequest<Rsc[K]>,
         REST.GetResponse<Rsc[K]>,
+        RT,
         GetCTX<REST.GetRequest<Rsc[K]>>,
         GetContext<REST.GetRequest<Rsc[K]>>
       >
     }
   }
+
+  type ResRawFromSchema<ResSchema> = S.Schema.From<Extr<ResSchema>>
 
   const r = {
     controllers,
@@ -179,19 +204,45 @@ export function matchFor<Rsc extends Record<string, any>>(
       (prev, cur) => {
         ;(prev as any)[cur] = (svcOrFnOrEffect: any, fnOrNone: any) =>
           Effect.isEffect(svcOrFnOrEffect)
-            ? () => svcOrFnOrEffect
+            ? { _tag: "d", handler: () => svcOrFnOrEffect }
             : typeof svcOrFnOrEffect === "function"
-            ? (req: any, ctx: any) => svcOrFnOrEffect(req, { ...ctx, Response: rsc[cur].Response })
-            : matchWithServices(cur)(svcOrFnOrEffect, fnOrNone)
+            ? {
+              _tag: "d",
+              handler: (req: any, ctx: any) => svcOrFnOrEffect(req, { ...ctx, Response: rsc[cur].Response })
+            }
+            : { _tag: "d", handler: matchWithServices(cur)(svcOrFnOrEffect, fnOrNone) }
+        ;(prev as any)[(cur as any) + "Raw"] = (svcOrFnOrEffect: any, fnOrNone: any) =>
+          Effect.isEffect(svcOrFnOrEffect)
+            ? { _tag: "raw", handler: () => svcOrFnOrEffect }
+            : typeof svcOrFnOrEffect === "function"
+            ? {
+              _tag: "raw",
+              handler: (req: any, ctx: any) => svcOrFnOrEffect(req, { ...ctx, Response: rsc[cur].Response })
+            }
+            : { _tag: "raw", handler: matchWithServices(cur)(svcOrFnOrEffect, fnOrNone) }
         return prev
       },
-      {} as {
-        // use Rsc as Key over using Keys, so that the Go To on X.Action remain in tact in Controllers files
-        [Key in keyof Rsc as Key extends "meta" ? never : Key]: MatchWithServicesNew<Key>
-      }
+      {} as
+        & {
+          // use Rsc as Key over using Keys, so that the Go To on X.Action remain in tact in Controllers files
+          [Key in keyof Rsc as Key extends "meta" ? never : Key]: MatchWithServicesNew<"d", Key>
+        }
+        & {
+          // use Rsc as Key over using Keys, so that the Go To on X.Action remain in tact in Controllers files
+          [Key in keyof Rsc as Key extends "meta" ? never : Key extends string ? `${Key}Raw` : never]:
+            MatchWithServicesNew<"raw", Key>
+        }
     )
   }
   return r
+}
+
+export function errorHandler<R>(
+  req: HttpServerRequest.ServerRequest,
+  res: HttpServerResponse.ServerResponse,
+  r2: Effect<HttpServerResponse.ServerResponse, SupportedErrors | JWTError | S.ParseResult.ParseError, R>
+) {
+  return defaultErrorHandler(req, res, Effect.catchTag(r2, "ParseError", (_) => Effect.die(_)))
 }
 
 function _matchAll<T extends RequestHandlers>(handlers: T) {
@@ -205,8 +256,12 @@ function _matchAll<T extends RequestHandlers>(handlers: T) {
     if (req.method === "AUTO") {
       Object.assign(Request, { [Request.method === "GET" || Request.method === "DELETE" ? "Query" : "Body"]: req.Auto })
     }
-    Object.assign(handlers[cur]!, { Request })
-    prev[cur] = match(handlers[cur]!, defaultErrorHandler, handleRequestEnv)
+    Object.assign(handlers[cur], { Request })
+    prev[cur] = match(
+      handlers[cur]!,
+      errorHandler,
+      handleRequestEnv
+    )
     return prev
   }, {} as any) as RouteAll<typeof handlers>
 
@@ -238,7 +293,8 @@ export type SupportedRequestHandler = RequestHandler<
   any,
   any,
   any,
-  SupportedErrors,
+  SupportedErrors | S.ParseResult.ParseError,
+  any,
   any,
   any,
   any,
@@ -255,6 +311,7 @@ type RouteAll<T extends RequestHandlers> = {
     infer M,
     infer R,
     SupportedErrors, // infer ResE,
+    any,
     any,
     any,
     any,
