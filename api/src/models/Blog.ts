@@ -13,6 +13,9 @@ export class BlogPost extends S.ExtendedClass<BlogPost, BlogPost.From>()({
   body: S.NonEmptyString2k,
   createdAt: S.Date.withDefault,
   author: UserFromId.pipe(S.mapFrom("authorId"))
+  // todo: needs on the parseMany a .pipe(
+  // S.annotations({ [BatchingAnnotationId]: true })
+  // )
 }) {}
 
 // codegen:start {preset: model}
