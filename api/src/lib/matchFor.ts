@@ -2,29 +2,146 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import type { EffectUnunified, LowerServices, ValuesE, ValuesR } from "@effect-app/core/Effect"
 import { allLower } from "@effect-app/core/Effect"
-import { type Compute, typedKeysOf } from "@effect-app/core/utils"
+import { typedKeysOf } from "@effect-app/core/utils"
+import type { Compute, EnforceNonEmptyRecord } from "@effect-app/core/utils"
 import type {
   _E,
   _R,
   EffectDeps,
   Extr,
-  Flatten,
   JWTError,
+  Middleware,
   ReqFromSchema,
   ReqHandler,
   RequestHandler,
-  ResFromSchema,
-  RouteMatch
+  ResFromSchema
 } from "@effect-app/infra/api/routing"
-import { defaultErrorHandler, match } from "@effect-app/infra/api/routing"
+import { defaultErrorHandler, makeRequestHandler } from "@effect-app/infra/api/routing"
+import type { Layer, Scope } from "effect-app"
 import { Effect, S } from "effect-app"
-import type { SupportedErrors } from "effect-app/client/errors"
+import type { SupportedErrors, ValidationError } from "effect-app/client/errors"
+import type { StructFields } from "effect-app/schema"
 import { REST } from "effect-app/schema"
 import { handleRequestEnv } from "./RequestEnv.js"
-import type { CTX, GetContext, GetCTX, RequestEnv } from "./RequestEnv.js"
+import type { CTX, GetContext, GetCTX } from "./RequestEnv.js"
 import type {} from "resources/lib.js"
+import { HttpRouter } from "effect-app/http"
 import type { HttpServerRequest, HttpServerResponse } from "effect-app/http"
 import type {} from "@effect/schema/ParseResult"
+
+export function match<
+  R,
+  M,
+  PathA extends StructFields,
+  CookieA extends StructFields,
+  QueryA extends StructFields,
+  BodyA extends StructFields,
+  HeaderA extends StructFields,
+  ReqA extends PathA & QueryA & BodyA,
+  ResA extends StructFields,
+  ResE,
+  MiddlewareE,
+  PPath extends `/${string}`,
+  R2,
+  PR,
+  RErr,
+  CTX,
+  Context,
+  RT extends "raw" | "d",
+  Config
+>(
+  requestHandler: RequestHandler<
+    R,
+    M,
+    PathA,
+    CookieA,
+    QueryA,
+    BodyA,
+    HeaderA,
+    ReqA,
+    ResA,
+    ResE,
+    PPath,
+    CTX,
+    Context,
+    RT,
+    Config
+  >,
+  errorHandler: <R>(
+    req: HttpServerRequest.ServerRequest,
+    res: HttpServerResponse.ServerResponse,
+    r2: Effect<HttpServerResponse.ServerResponse, ValidationError | MiddlewareE | ResE, R>
+  ) => Effect<
+    HttpServerResponse.ServerResponse,
+    never,
+    Exclude<RErr | R, HttpServerRequest.ServerRequest | HttpRouter.RouteContext | Scope>
+  >,
+  middleware?: Middleware<
+    R,
+    M,
+    PathA,
+    CookieA,
+    QueryA,
+    BodyA,
+    HeaderA,
+    ReqA,
+    ResA,
+    ResE,
+    MiddlewareE,
+    PPath,
+    R2,
+    PR,
+    CTX,
+    Context,
+    RT,
+    Config
+  >
+) {
+  let middlewareLayer: Layer<PR, MiddlewareE, R2> | undefined = undefined
+  if (middleware) {
+    const { handler, makeRequestLayer } = middleware(requestHandler)
+    requestHandler = handler as any // todo
+    middlewareLayer = makeRequestLayer
+  }
+  // const rdesc = yield* $(RouteDescriptors.flatMap((_) => _.get))
+
+  const handler = makeRequestHandler<
+    R,
+    M,
+    PathA,
+    CookieA,
+    QueryA,
+    BodyA,
+    HeaderA,
+    ReqA,
+    ResA,
+    ResE,
+    MiddlewareE,
+    R2,
+    PR,
+    RErr,
+    PPath,
+    RT,
+    Config
+  >(
+    requestHandler as any, // one argument if no middleware, 2 if has middleware. TODO: clean this shit up
+    errorHandler,
+    middlewareLayer
+  )
+
+  const route = HttpRouter.makeRoute(
+    requestHandler.Request.method,
+    requestHandler.Request.path,
+    handler
+  )
+  // TODO
+  // rdesc.push(makeRouteDescriptor(
+  //   requestHandler.Request.path,
+  //   requestHandler.Request.method,
+  //   requestHandler
+  // ))
+  return route
+}
 
 function handle<
   TModule extends Record<
@@ -75,6 +192,16 @@ type AWithHandler<T extends "raw" | "d", handler> = {
   _tag: T
   handler: handler
 }
+
+export type RouteMatch<
+  R,
+  M,
+  // TODO: specific errors
+  // Err extends SupportedErrors | S.ParseResult.ParseError,
+  PR = never
+> // RErr = never,
+ = HttpRouter.Route<Exclude<Exclude<R, EnforceNonEmptyRecord<M>>, PR>, never>
+
 export function matchFor<Rsc extends Record<string, any>>(
   rsc: Rsc
 ) {
@@ -164,35 +291,83 @@ export function matchFor<Rsc extends Record<string, any>>(
 
   const controllers = <
     THandlers extends {
+      // import to keep them separate via | for type checking!!
       [K in Keys]: AWithHandler<"raw", Handler<K, "raw", any, any>> | AWithHandler<"d", Handler<K, "d", any, any>>
     }
   >(
     controllers: THandlers
   ) => {
-    const handler = typedKeysOf(rsc).reduce((prev, cur) => {
-      if (cur === "meta") return prev
-      const m = (rsc as any).meta as { moduleName: string }
-      if (!m) throw new Error("Resource has no meta specified")
+    const handlers = typedKeysOf(rsc).reduce(
+      (acc, cur) => {
+        if (cur === "meta") return acc
+        const m = (rsc as any).meta as { moduleName: string }
+        if (!m) throw new Error("Resource has no meta specified")
+        ;(acc as any)[cur] = handle(
+          rsc[cur],
+          m.moduleName + "." + (cur as string)
+        )(controllers[cur as keyof typeof controllers] as any)
+        return acc
+      },
+      {} as {
+        [K in Keys]: ReqHandler<
+          ReqFromSchema<REST.GetRequest<Rsc[K]>>,
+          _R<ReturnType<THandlers[K]["handler"]>>,
+          _E<ReturnType<THandlers[K]["handler"]>>,
+          ResFromSchema<REST.GetResponse<Rsc[K]>>,
+          REST.GetRequest<Rsc[K]>,
+          REST.GetResponse<Rsc[K]>,
+          THandlers[K]["_tag"],
+          GetCTX<REST.GetRequest<Rsc[K]>>,
+          GetContext<REST.GetRequest<Rsc[K]>>
+        >
+      }
+    )
 
-      prev[cur] = handle(rsc[cur], m.moduleName + "." + (cur as string))(
-        controllers[cur as keyof typeof controllers] as any
+    const mapped = typedKeysOf(handlers).reduce((acc, cur) => {
+      const handler = handlers[cur]
+      const req = handler.Request
+
+      class Request extends (req as any) {
+        static path = "/" + handler.name + (req.path === "/" ? "" : req.path)
+        static method = req.method === "AUTO"
+          ? REST.determineMethod(handler.name.split(".")[1]!, req)
+          : req.method
+      }
+      if (req.method === "AUTO") {
+        Object.assign(Request, {
+          [Request.method === "GET" || Request.method === "DELETE" ? "Query" : "Body"]: req.Auto
+        })
+      }
+      Object.assign(handler, { Request })
+      acc[cur] = match(
+        handler as any,
+        errorHandler,
+        handleRequestEnv as any // TODO
       )
-      return prev
-    }, {} as any)
-
-    return handler as {
-      [K in Keys]: ReqHandler<
-        ReqFromSchema<REST.GetRequest<Rsc[K]>>,
+      return acc
+    }, {} as any) as {
+      [K in Keys]: RouteMatch<
         _R<ReturnType<THandlers[K]["handler"]>>,
-        _E<ReturnType<THandlers[K]["handler"]>>,
-        ResFromSchema<REST.GetResponse<Rsc[K]>>,
-        REST.GetRequest<Rsc[K]>,
-        REST.GetResponse<Rsc[K]>,
-        THandlers[K]["_tag"],
-        GetCTX<REST.GetRequest<Rsc[K]>>,
+        ReqFromSchema<REST.GetRequest<Rsc[K]>>,
+        //        _E<ReturnType<THandlers[K]["handler"]>>,
         GetContext<REST.GetRequest<Rsc[K]>>
       >
     }
+
+    type _RRoute<T extends HttpRouter.Route<any, any>> = [T] extends [
+      HttpRouter.Route<infer R, any>
+    ] ? R
+      : never
+
+    type _ERoute<T extends HttpRouter.Route<any, any>> = [T] extends [
+      HttpRouter.Route<any, infer E>
+    ] ? E
+      : never
+
+    return HttpRouter.fromIterable(Object.values(mapped)) as HttpRouter.Router<
+      _RRoute<typeof mapped[keyof typeof mapped]>,
+      _ERoute<typeof mapped[keyof typeof mapped]>
+    >
   }
 
   type ResRawFromSchema<ResSchema> = S.Schema.From<Extr<ResSchema>>
@@ -244,42 +419,30 @@ export function errorHandler<R>(
   return defaultErrorHandler(req, res, Effect.catchTag(r2, "ParseError", (_) => Effect.die(_)))
 }
 
-function _matchAll<T extends RequestHandlers>(handlers: T) {
-  const mapped = typedKeysOf(handlers).reduce((prev, cur) => {
-    const req = handlers[cur]!.Request
-
-    class Request extends req {
-      static path = "/" + handlers[cur]!.name + (req.path === "/" ? "" : req.path)
-      static method = req.method === "AUTO" ? REST.determineMethod(handlers[cur]!.name.split(".")[1]!, req) : req.method
-    }
-    if (req.method === "AUTO") {
-      Object.assign(Request, { [Request.method === "GET" || Request.method === "DELETE" ? "Query" : "Body"]: req.Auto })
-    }
-    Object.assign(handlers[cur], { Request })
-    prev[cur] = match(
-      handlers[cur]!,
-      errorHandler,
-      handleRequestEnv
-    )
-    return prev
-  }, {} as any) as RouteAll<typeof handlers>
-
-  return mapped
-}
-
 /**
  * Gather all handlers of a module and attach them to the Server.
  * If no `allowAnonymous` flag is on the Request, will require a valid authenticated user.
  */
 
 export function matchAll<T extends RequestHandlersTest>(handlers: T) {
-  const mapped = typedKeysOf(handlers).reduce((prev, cur) => {
-    const matches = _matchAll(handlers[cur])
-    typedKeysOf(matches).forEach((key) => prev[`${cur as string}.${key as string}`] = matches[key])
-    return prev
-  }, {} as any) as Flatten<RouteAllNested<typeof handlers>>
+  const r = typedKeysOf(handlers).reduce((acc, cur) => {
+    return HttpRouter.concat(acc, handlers[cur] as any)
+  }, HttpRouter.empty)
 
-  return mapped
+  type _RRouter<T extends HttpRouter.Router<any, any>> = [T] extends [
+    HttpRouter.Router<infer R, any>
+  ] ? R
+    : never
+
+  type _ERouter<T extends HttpRouter.Router<any, any>> = [T] extends [
+    HttpRouter.Router<any, infer E>
+  ] ? E
+    : never
+
+  return r as HttpRouter.Router<
+    _RRouter<typeof handlers[keyof typeof handlers]>,
+    _ERouter<typeof handlers[keyof typeof handlers]>
+  >
 }
 
 export type SupportedRequestHandler = RequestHandler<
@@ -302,25 +465,5 @@ export type SupportedRequestHandler = RequestHandler<
 
 export type RequestHandlers = { [key: string]: SupportedRequestHandler }
 export type RequestHandlersTest = {
-  [key: string]: Record<string, SupportedRequestHandler>
-}
-
-type RouteAll<T extends RequestHandlers> = {
-  [K in keyof T]: T[K] extends ReqHandler<
-    infer M,
-    infer R,
-    SupportedErrors, // infer ResE,
-    any,
-    any,
-    any,
-    any,
-    any,
-    infer Context
-  > // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
-    ? RouteMatch<R, M, RequestEnv | Context>
-    : never
-}
-
-type RouteAllNested<T extends RequestHandlersTest> = {
-  [K in keyof T]: RouteAll<T[K]>
+  [key: string]: HttpRouter.Router<any, any>
 }

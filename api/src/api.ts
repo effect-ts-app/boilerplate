@@ -1,12 +1,10 @@
 // import { writeOpenapiDocsI } from "@effect-app/infra/api/writeDocs"
-import { RouteDescriptors } from "@effect-app/infra/api/routing"
-import type { RouteDescriptorAny } from "@effect-app/infra/api/routing/schema/routing"
 import { Live as OperationsLive } from "@effect-app/infra/services/Operations/live"
 import { RequestContextContainer } from "@effect-app/infra/services/RequestContextContainer"
 import { ContextMapContainer } from "@effect-app/infra/services/Store/ContextMapContainer"
 import { NodeContext } from "@effect/platform-node"
-import { all } from "api/routes.js"
-import { Effect, Layer, Ref } from "effect-app"
+import { router } from "api/routes.js"
+import { Effect, Layer } from "effect-app"
 import { HttpMiddleware, HttpRouter, HttpServer } from "effect-app/http"
 import { GenericTag } from "effect/Context"
 import { createServer } from "node:http"
@@ -39,22 +37,22 @@ const App = Effect
       return s
     }, { port: cfg.port, host: cfg.host })
 
-    const app = all
-      .pipe(Effect.map((_) => {
-        const routes = Object.values(_)
-        return HttpRouter
-          .fromIterable(routes)
-          .pipe(HttpRouter.get("/events", MW.events), HttpRouter.use(RequestContextMiddleware))
-      }))
-      // .zipLeft(RouteDescriptors.andThen((_) => _.get).andThen(writeOpenapiDocsI))
-      .pipe(Effect.provideService(RouteDescriptors, Ref.unsafeMake<RouteDescriptorAny[]>([])))
-
-    const serve = app
+    const app = router
       .pipe(
-        Effect.map(MW.serverHealth(cfg.apiVersion)),
-        Effect.map(MW.cors()),
+        HttpRouter.get("/events", MW.events),
+        // HttpRouter.use(Effect.provide(RequestLayerLive)),
+        HttpRouter.use(RequestContextMiddleware),
+        MW.serverHealth(cfg.apiVersion),
+        MW.cors(),
         // we trust proxy and handle the x-forwarded etc headers
-        Effect.map(HttpMiddleware.xForwardedHeaders),
+        HttpMiddleware.xForwardedHeaders
+      )
+
+    // .tap(RouteDescriptors.andThen((_) => _.get).andThen(writeOpenapiDocsI))
+    // .provideService(RouteDescriptors, Ref.unsafeMake<RouteDescriptorAny[]>([]))
+    const serve = Effect
+      .succeed(app)
+      .pipe(
         Effect.zipLeft(
           Effect.logInfo(`Running on http://${cfg.host}:${cfg.port} at version: ${cfg.apiVersion}. ENV: ${cfg.env}`)
         ),
