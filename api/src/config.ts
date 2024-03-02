@@ -52,6 +52,8 @@ export interface ApiMainConfig extends ApiConfig, BaseConfig {}
 export * from "./baseConfig.js"
 
 export const MergedConfig = ApiConfig
-  .andThen((apiConfig) => BaseConfig.andThen((baseConfig) => ({ ...baseConfig, ...apiConfig })))
-  .pipe(Effect.cached)
+  .pipe(
+    Effect.andThen((apiConfig) => Effect.andThen(BaseConfig, (baseConfig) => ({ ...baseConfig, ...apiConfig }))),
+    Effect.cached
+  )
   .runSync

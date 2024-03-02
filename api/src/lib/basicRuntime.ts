@@ -8,7 +8,6 @@ import * as ConfigProvider from "effect/ConfigProvider"
 import * as Logger from "effect/Logger"
 import * as Level from "effect/LogLevel"
 import * as Scope from "effect/Scope"
-import { installFluentRuntimeExtensions } from "@effect-app/fluent-extensions/runtime"
 import type * as Runtime from "effect/Runtime"
 import type * as Fiber from "effect/Fiber"
 
@@ -59,8 +58,6 @@ export const basicLayer = Layer.mergeAll(
 )
 
 export const basicRuntime = Effect.runSync(makeBasicRuntime(basicLayer))
-
-installFluentRuntimeExtensions(basicRuntime.runtime)
 
 const reportMainError = <E>(cause: Cause.Cause<E>) =>
   Cause.isInterruptedOnly(cause) ? Effect.unit : reportError("Main")(cause)

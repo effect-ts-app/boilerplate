@@ -18,12 +18,13 @@ export function refreshAndWaitAForOperation<R2, E2, A2, R, E>(
   refresh: Effect<A2, E2, R2>,
   cb?: (op: Operation) => void
 ) {
-  return waitForOperation(
-    act
-      .tap(() => refresh),
-    cb
+  return Effect.tap(
+    waitForOperation(
+      Effect.tap(act, refresh),
+      cb
+    ),
+    refresh
   )
-    .tap(() => refresh)
 }
 
 export function refreshAndWaitForOperationP<Req, R, E>(
@@ -39,33 +40,31 @@ export function refreshAndWaitForOperation<Req, R2, E2, A2, R, E>(
   cb?: (op: Operation) => void
 ) {
   return (req: Req) =>
-    waitForOperation(
-      act(req)
-        .tap(() => refresh),
-      cb
+    Effect.tap(
+      waitForOperation(Effect.tap(act(req), refresh), cb),
+      refresh
     )
-      .tap(() => refresh)
 }
 
 export function waitForOperation<R, E>(
   self: Effect<FetchResponse<OperationId>, E, R>,
   cb?: (op: Operation) => void
 ) {
-  return self.andThen((r) => _waitForOperation(r.body, cb))
+  return Effect.andThen(self, (r) => _waitForOperation(r.body, cb))
 }
 
 export function waitForOperation_<Req, R, E>(self: (req: Req) => Effect<FetchResponse<OperationId>, E, R>) {
-  return (req: Req) => self(req).andThen((r) => _waitForOperation(r.body))
+  return (req: Req) => Effect.andThen(self(req), (r) => _waitForOperation(r.body))
 }
 
 function _waitForOperation(id: OperationId, cb?: (op: Operation) => void) {
   return Effect.gen(function*($) {
-    let r = yield* $(opsClient.Find.handler({ id }).andThen((_) => _.body))
+    let r = yield* $(opsClient.Find.handler({ id }).pipe(Effect.andThen((_) => _.body)))
     while (r) {
       if (cb) cb(r)
       if (r.result) return r.result
       yield* $(Effect.sleep(Duration.seconds(2)))
-      r = yield* $(opsClient.Find.handler({ id }).andThen((_) => _.body))
+      r = yield* $(opsClient.Find.handler({ id }).pipe(Effect.andThen((_) => _.body)))
     }
   })
 }

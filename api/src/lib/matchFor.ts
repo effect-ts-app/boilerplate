@@ -226,8 +226,7 @@ export function matchFor<Rsc extends Record<string, any>>(
       ) => Effect<A, E, R2>
     ) =>
     (req: any, ctx: any) =>
-      allLower(services)
-        .andThen((svc2) => f(req, { ...ctx, ...svc2 as any, Response: rsc[action].Response }))
+      Effect.andThen(allLower(services), (svc2) => f(req, { ...ctx, ...svc2 as any, Response: rsc[action].Response }))
   }
 
   type MatchWithServicesNew<RT extends "raw" | "d", Key extends keyof Rsc> = {

@@ -57,9 +57,9 @@ const fakeLogin = true
 
 const checkRoles = (request: any, userProfile: Option<UserProfile>) =>
   Effect.gen(function*($) {
-    const userRoles = userProfile
-      .map((_) => _.roles.includes("manager") ? [Role("manager"), Role("user")] : [Role("user")])
-      .getOrElse(() => [Role("user")])
+    const userRoles = Option
+      .map(userProfile, (_) => _.roles.includes("manager") ? [Role("manager"), Role("user")] : [Role("user")])
+      .pipe(Option.getOrElse(() => [Role("user")]))
     const allowedRoles: readonly Role[] = request.allowedRoles ?? ["user"]
     if (!allowedRoles.some((_) => userRoles.includes(_))) {
       return yield* $(new UnauthorizedError())
@@ -86,9 +86,9 @@ const UserAuthorizationLive = <Req extends RequestConfig>(request: Req) =>
       const userProfile = Option.fromNullable(Exit.isSuccess(r) ? r.value : undefined)
 
       const rcc = yield* $(RequestContextContainer)
-      yield* $(rcc.update((_): RequestContext => ({ ..._, userProfile: userProfile.value })))
+      const up = Option.getOrUndefined(userProfile)
+      yield* $(rcc.update((_): RequestContext => ({ ..._, userProfile: up })))
 
-      const up = userProfile.value
       if (!request.allowAnonymous && !up) {
         return yield* $(new NotLoggedInError())
       }
@@ -148,10 +148,14 @@ export function handleRequestEnv<
         Effect
           .all({
             context: RequestContextContainer.get,
-            userProfile: Effect.serviceOption(UserProfile).andThen((_) => _.value)
+            userProfile: Effect.andThen(Effect.serviceOption(UserProfile), Option.getOrUndefined)
           })
-          .andThen((ctx) => (handler.h as (i: any, ctx: CTX) => Effect<ResA, ResE, R>)(pars, ctx as any /* TODO */))
-          .pipe(Effect.provide(RequestCacheLayers))
+          .pipe(
+            Effect.andThen((ctx) =>
+              (handler.h as (i: any, ctx: CTX) => Effect<ResA, ResE, R>)(pars, ctx as any /* TODO */)
+            ),
+            Effect.provide(RequestCacheLayers)
+          )
     },
     makeRequestLayer: RequestEnv(handler)
   }

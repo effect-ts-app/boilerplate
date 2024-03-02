@@ -1,17 +1,19 @@
-import "@effect-app/fluent-extensions"
 import { runMain } from "./lib/basicRuntime.js"
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { faker } from "@faker-js/faker"
 import { api } from "api/api.js"
-import { Layer } from "effect-app"
+import { Effect, Layer, pipe } from "effect-app"
 import { setFaker } from "effect-app/faker"
 import { MergedConfig } from "./config.js"
 import { TracingLive } from "./observability.js"
 
 setFaker(faker)
 
-const logConfig = MergedConfig.andThen((cfg) => console.debug(`Config: ${JSON.stringify(cfg, undefined, 2)}`))
+const logConfig = pipe(
+  MergedConfig,
+  Effect.andThen((cfg) => console.debug(`Config: ${JSON.stringify(cfg, undefined, 2)}`))
+)
 
 const program = api
   .pipe(

@@ -1,6 +1,6 @@
 import { setupRequestContext } from "@effect-app/infra/api/setupRequest"
 import { RequestContext } from "@effect-app/infra/RequestContext"
-import { Effect, S } from "effect-app"
+import { Effect, Option, S } from "effect-app"
 import { HttpMiddleware, HttpServerRequest, HttpServerResponse } from "effect-app/http"
 import { RequestId } from "effect-app/ids"
 import { NonEmptyString255 } from "effect-app/schema"
@@ -9,8 +9,8 @@ export const RequestContextMiddleware = HttpMiddleware.make((app) =>
   Effect.gen(function*($) {
     const req = yield* $(HttpServerRequest.ServerRequest)
 
-    const currentSpan = yield* $(Effect.currentSpan.orDie)
-    const parent = currentSpan?.parent ? currentSpan.parent.value : undefined
+    const currentSpan = yield* $(Effect.currentSpan.pipe(Effect.orDie))
+    const parent = currentSpan?.parent ? Option.getOrUndefined(currentSpan.parent) : undefined
     const start = new Date()
     const supported = ["en", "de"] as const
     const desiredLocale = req.headers["x-locale"]
