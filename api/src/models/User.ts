@@ -2,11 +2,9 @@
 import { pipe } from "@effect-app/core/Function"
 import { A } from "@effect-app/schema"
 import { type Schema } from "@effect/schema/Schema"
-import { Context, Equivalence, S } from "effect-app"
+import { Context, Effect, Equivalence, S } from "effect-app"
 import { fakerArb } from "effect-app/faker"
 import { UserProfileId } from "effect-app/ids"
-import type { Effect } from "effect/Effect"
-import * as Eff from "effect/Effect"
 
 export const FirstName = S
   .NonEmptyString255
@@ -80,8 +78,8 @@ export interface UserFromId {
 export const UserFromId: Schema<User, string, UserFromId> = S.transformOrFail(
   UserId,
   S.to(User),
-  (id) => User.resolver.andThen((_) => _(id)),
-  (u) => Eff.succeed(u.id)
+  (id) => Effect.andThen(User.resolver, (_) => _(id)),
+  (u) => Effect.succeed(u.id)
 )
 
 export const defaultEqual = pipe(Equivalence.string, Equivalence.mapInput((u: User) => u.id))

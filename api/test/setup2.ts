@@ -24,8 +24,7 @@ const ApiConfigLive = Config
       )
       .pipe(Config.option)
   })
-  .andThen(LiveApiConfig)
-  .pipe(Layer.unwrapEffect)
+  .pipe(Effect.andThen(LiveApiConfig), Layer.unwrapEffect)
 
 const appLayer = ApiLive
   .pipe(Layer.provideMerge(
@@ -73,8 +72,10 @@ beforeAll(async () => {
   const cleanup = () =>
     Effect
       .promise(() => runtime)
-      .andThen((_) => _.clean)
-      .runPromise
+      .pipe(
+        Effect.andThen((_) => _.clean),
+        Effect.runPromise
+      )
 
   globalThis.cleanup = cleanup
   globalThis.runtime = (await runtime).runtime

@@ -3,7 +3,7 @@ import { RepositoryDefaultImpl } from "@effect-app/infra/services/RepositoryBase
 import { generate, generateFromArbitrary } from "@effect-app/infra/test.arbs"
 import { RepoConfig } from "api/config.js"
 import { RepoLive } from "api/migrate.js"
-import { Effect, Exit, Layer, Option, ReadonlyArray, Request, RequestResolver, S } from "effect-app"
+import { Effect, Exit, Layer, Option, pipe, ReadonlyArray, Request, RequestResolver, S } from "effect-app"
 import { fakerArb } from "effect-app/faker"
 import { Email } from "effect-app/schema"
 import fc from "fast-check"
@@ -22,32 +22,34 @@ export class UserRepo extends RepositoryDefaultImpl<UserRepo>()<UserPersistenceM
   "User",
   User
 ) {
-  static Live = RepoConfig
-    .andThen((cfg) => {
+  static Live = Effect
+    .andThen(RepoConfig, (cfg) => {
       const seed = cfg.fakeUsers === "seed" ? "seed" : cfg.fakeUsers === "sample" ? "sample" : ""
-      const fakeUsers = ReadonlyArray
-        .range(1, 8)
-        .map((_, i): User => {
-          const g = generateFromArbitrary(S.A.make(User)).value
-          const emailArb = fakerArb((_) => () =>
-            _
-              .internet
-              .exampleEmail({ firstName: g.name.firstName, lastName: g.name.lastName })
-          )
-          return new User({
-            ...g,
-            email: Email(generate(emailArb(fc)).value),
-            role: i === 0 || i === 1 ? "manager" : "user"
-          })
-        })
-        .toNonEmpty
-        .pipe(Option
+      const fakeUsers = pipe(
+        ReadonlyArray
+          .range(1, 8)
+          .map((_, i): User => {
+            const g = generateFromArbitrary(S.A.make(User)).value
+            const emailArb = fakerArb((_) => () =>
+              _
+                .internet
+                .exampleEmail({ firstName: g.name.firstName, lastName: g.name.lastName })
+            )
+            return new User({
+              ...g,
+              email: Email(generate(emailArb(fc)).value),
+              role: i === 0 || i === 1 ? "manager" : "user"
+            })
+          }),
+        ReadonlyArray.toNonEmptyArray,
+        Option
           .match({
             onNone: () => {
               throw new Error("must have fake users")
             },
             onSome: (_) => _
-          }))
+          })
+      )
       const makeInitial = Effect.sync(() => {
         const items = seed === "sample" ? fakeUsers : []
         return items
@@ -76,10 +78,11 @@ export class UserRepo extends RepositoryDefaultImpl<UserRepo>()<UserPersistenceM
     .pipe(Layer.provide(this.Live))
 
   get getCurrentUser() {
-    return Effect
-      .serviceOption(UserProfile)
-      .andThen((_) => _.pipe(Effect.mapError(() => new NotLoggedInError())))
-      .andThen((_) => this.get(_.sub))
+    return pipe(
+      Effect.serviceOption(UserProfile),
+      Effect.andThen((_) => _.pipe(Effect.mapError(() => new NotLoggedInError()))),
+      Effect.andThen((_) => this.get(_.sub))
+    )
   }
 
   static getCurrentUser = Effect.serviceConstants(this).getCurrentUser
@@ -95,18 +98,15 @@ const getUserByIdResolver = RequestResolver
   .makeBatched((requests: GetUserById[]) =>
     UserRepo
       .query(Q.where("id", "in", requests.map((_) => _.id)))
-      .andThen((users) =>
-        requests.forEachEffect(
-          (r) =>
-            Request.complete(
-              r,
-              users
-                .findFirstMap((_) => _.id === r.id ? Option.some(Exit.succeed(_)) : Option.none())
-                .getOrElse(() => Exit.fail(new NotFoundError({ type: "User", id: r.id })))
-            ),
-          { discard: true }
-        )
-      )
+      .pipe(Effect.andThen((users) =>
+        Effect.forEach(requests, (r) =>
+          Request.complete(
+            r,
+            ReadonlyArray
+              .findFirst(users, (_) => _.id === r.id ? Option.some(Exit.succeed(_)) : Option.none())
+              .pipe(Option.getOrElse(() => Exit.fail(new NotFoundError({ type: "User", id: r.id }))))
+          ), { discard: true })
+      ))
   )
   .pipe(
     RequestResolver.batchN(25),

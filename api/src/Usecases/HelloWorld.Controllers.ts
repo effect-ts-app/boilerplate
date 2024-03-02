@@ -15,15 +15,15 @@ export default helloWorld.controllers({
         Effect.catchTags({
           "NotLoggedInError": () => Effect.succeed(null),
           "NotFoundError": () => Effect.succeed(null)
-        })
-      )
-      .andThen((user) =>
-        new Response({
-          context,
-          echo,
-          currentUser: user,
-          randomUser: generateFromArbitrary(S.A.make(User)).value
-        })
+        }),
+        Effect.andThen((user) =>
+          new Response({
+            context,
+            echo,
+            currentUser: user,
+            randomUser: generateFromArbitrary(S.A.make(User)).value
+          })
+        )
       )
   )
 })
