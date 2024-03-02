@@ -20,17 +20,19 @@ export class BlogPostRepo extends RepositoryDefaultImpl<BlogPostRepo>()<BlogPost
       const seed = "sample"
       const makeInitial = seed === "sample"
         ? UserRepo
-          .andThen((userRepo) => userRepo.all)
-          .andThen((users) =>
-            users
-              .flatMap((_) => [_, _])
-              .map((user, i) =>
-                new BlogPost({
-                  title: NonEmptyString255("Test post " + i),
-                  body: NonEmptyString2k("imma test body"),
-                  author: user
-                }, true)
-              )
+          .pipe(
+            Effect.andThen((userRepo) => userRepo.all),
+            Effect.andThen((users) =>
+              users
+                .flatMap((_) => [_, _])
+                .map((user, i) =>
+                  new BlogPost({
+                    title: NonEmptyString255("Test post " + i),
+                    body: NonEmptyString2k("imma test body"),
+                    author: user
+                  }, true)
+                )
+            )
           )
         : Effect.succeed([])
       return BlogPostRepo

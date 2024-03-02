@@ -1,6 +1,7 @@
 import { matchFor } from "api/lib/matchFor.js"
 import { BlogPostRepo, Events, forkOperationWithEffect, Operations, UserRepo } from "api/services.js"
 import { Duration, Effect, Schedule } from "effect"
+import { Option } from "effect-app"
 import { NonNegativeInt } from "effect-app/schema"
 import { BlogPost } from "models/Blog.js"
 import { BlogRsc } from "resources.js"
@@ -12,20 +13,22 @@ export default blog.controllers({
   FindPost: blog.FindPost((req) =>
     BlogPostRepo
       .find(req.id)
-      .andThen((_) => _.value ?? null)
+      .pipe(Effect.andThen(Option.getOrNull))
   ),
 
   GetPosts: blog.GetPosts(
     BlogPostRepo
       .all
-      .andThen((items) => ({ items }))
+      .pipe(Effect.andThen((items) => ({ items })))
   ),
 
   CreatePost: blog.CreatePost((req) =>
     UserRepo
       .getCurrentUser
-      .andThen((author) => (new BlogPost({ ...req, author }, true)))
-      .tap(BlogPostRepo.save)
+      .pipe(
+        Effect.andThen((author) => (new BlogPost({ ...req, author }, true))),
+        Effect.tap(BlogPostRepo.save)
+      )
   ),
 
   PublishPost: blog.PublishPost((req) =>
@@ -50,19 +53,21 @@ export default blog.controllers({
                 total: NonNegativeInt(targets.length),
                 completed: NonNegativeInt(done.length)
               })
-              .andThen(targets
-                .forEachEffect((_) =>
+              .pipe(
+                Effect.andThen(Effect.forEach(targets, (_) =>
                   Effect
                     .sync(() => done.push(_))
-                    .tap(() =>
-                      Operations.update(opId, {
-                        total: NonNegativeInt(targets.length),
-                        completed: NonNegativeInt(done.length)
-                      })
-                    )
-                    .pipe(Effect.delay(Duration.seconds(4)))
-                ))
-              .andThen(() => "the answer to the universe is 41"),
+                    .pipe(
+                      Effect.tap(() =>
+                        Operations.update(opId, {
+                          total: NonNegativeInt(targets.length),
+                          completed: NonNegativeInt(done.length)
+                        })
+                      ),
+                      Effect.delay(Duration.seconds(4))
+                    ))),
+                Effect.andThen(() => "the answer to the universe is 41")
+              ),
           // while operation is running...
           (_opId) =>
             Effect
