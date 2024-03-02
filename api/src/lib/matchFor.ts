@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/ban-types */
-import type { EffectUnunified, LowerServices, ValuesE, ValuesR } from "@effect-app/core/Effect"
+import type { EffectUnunified, LowerServices } from "@effect-app/core/Effect"
 import { allLower } from "@effect-app/core/Effect"
 import { typedKeysOf } from "@effect-app/core/utils"
 import type { Compute, EnforceNonEmptyRecord } from "@effect-app/core/utils"
@@ -17,13 +17,13 @@ import type {
   ResFromSchema
 } from "@effect-app/infra/api/routing"
 import { defaultErrorHandler, makeRequestHandler } from "@effect-app/infra/api/routing"
-import type { Layer, Scope } from "effect-app"
+import type { Layer, Scope, Types } from "effect-app"
 import { Effect, S } from "effect-app"
 import type { SupportedErrors, ValidationError } from "effect-app/client/errors"
 import type { StructFields } from "effect-app/schema"
 import { REST } from "effect-app/schema"
 import { handleRequestEnv } from "./RequestEnv.js"
-import type { CTX, GetContext, GetCTX } from "./RequestEnv.js"
+import type { GetContext, GetCTX } from "./RequestEnv.js"
 import type {} from "resources/lib.js"
 import { HttpRouter } from "effect-app/http"
 import type { HttpServerRequest, HttpServerResponse } from "effect-app/http"
@@ -47,7 +47,6 @@ export function match<
   RErr,
   CTX,
   Context,
-  RT extends "raw" | "d",
   Config
 >(
   requestHandler: RequestHandler<
@@ -64,7 +63,6 @@ export function match<
     PPath,
     CTX,
     Context,
-    RT,
     Config
   >,
   errorHandler: <R>(
@@ -93,7 +91,6 @@ export function match<
     PR,
     CTX,
     Context,
-    RT,
     Config
   >
 ) {
@@ -121,7 +118,6 @@ export function match<
     PR,
     RErr,
     PPath,
-    RT,
     Config
   >(
     requestHandler as any, // one argument if no middleware, 2 if has middleware. TODO: clean this shit up
@@ -164,8 +160,8 @@ function handle<
   >
   type Res = S.Schema.To<Extr<ResSchema>>
 
-  return <R, E, RT extends "raw" | "d">(
-    h: AWithHandler<RT, (r: Req) => Effect<Res, E, R>>
+  return <R, E>(
+    h: { _tag: "raw" | "d"; handler: (r: Req) => Effect<Res, E, R> }
   ) => ({
     adaptResponse,
     h: h.handler,
@@ -183,14 +179,9 @@ function handle<
     Res,
     ReqSchema,
     ResSchema,
-    RT,
     GetCTX<Req>,
     GetContext<Req>
   >)
-}
-type AWithHandler<T extends "raw" | "d", handler> = {
-  _tag: T
-  handler: handler
 }
 
 export type RouteMatch<
@@ -232,24 +223,26 @@ export function matchFor<Rsc extends Record<string, any>>(
   type MatchWithServicesNew<RT extends "raw" | "d", Key extends keyof Rsc> = {
     <R2, E, A>(
       f: Effect<A, E, R2>
-    ): AWithHandler<
+    ): Handler<
+      ReqFromSchema<REST.GetRequest<Rsc[Key]>>,
+      Types.Simplify<GetCTX<REST.GetRequest<Rsc[Key]>>>,
       RT,
-      (
-        req: ReqFromSchema<REST.GetRequest<Rsc[Key]>>,
-        ctx: GetCTX<REST.GetRequest<Rsc[Key]>>
-      ) => Effect<A, E, R2>
+      A,
+      E,
+      R2
     >
     <R2, E, A>(
       f: (
         req: ReqFromSchema<REST.GetRequest<Rsc[Key]>>,
         ctx: GetCTX<REST.GetRequest<Rsc[Key]>> & Pick<Rsc[Key], "Response">
       ) => Effect<A, E, R2>
-    ): AWithHandler<
+    ): Handler<
+      ReqFromSchema<REST.GetRequest<Rsc[Key]>>,
+      Types.Simplify<GetCTX<REST.GetRequest<Rsc[Key]>>>,
       RT,
-      (
-        req: ReqFromSchema<REST.GetRequest<Rsc[Key]>>,
-        ctx: GetCTX<REST.GetRequest<Rsc[Key]>>
-      ) => Effect<A, E, R2>
+      A,
+      E,
+      R2
     >
     <
       SVC extends Record<
@@ -268,30 +261,49 @@ export function matchFor<Rsc extends Record<string, any>>(
           "flat"
         >
       ) => Effect<A, E, R2>
-    ): AWithHandler<
+    ): Handler<
+      ReqFromSchema<REST.GetRequest<Rsc[Key]>>,
+      Types.Simplify<GetCTX<REST.GetRequest<Rsc[Key]>>>,
       RT,
-      (
-        req: ReqFromSchema<REST.GetRequest<Rsc[Key]>>,
-        ctx: GetCTX<REST.GetRequest<Rsc[Key]>>
-      ) => Effect<A, E | ValuesE<EffectDeps<SVC>>, ValuesR<EffectDeps<SVC>> | R2>
+      A,
+      E,
+      R2
     >
   }
 
   type Keys = keyof Omit<Rsc, "meta">
-
-  type Handler<K extends keyof Rsc, RT extends "raw" | "d", R, Context extends CTX> = (
-    req: ReqFromSchema<REST.GetRequest<Rsc[K]>>,
-    ctx: Context
-  ) => Effect<
-    RT extends "raw" ? ResRawFromSchema<REST.GetResponse<Rsc[K]>> : ResFromSchema<REST.GetResponse<Rsc[K]>>,
-    SupportedErrors | S.ParseResult.ParseError,
-    R
-  >
+  type Handler<Req, Context, RT extends "raw" | "d", A, E, R> = {
+    _tag: RT
+    handler: (
+      req: Req,
+      ctx: Context
+    ) => Effect<
+      A,
+      E,
+      R
+    >
+  }
 
   const controllers = <
     THandlers extends {
       // import to keep them separate via | for type checking!!
-      [K in Keys]: AWithHandler<"raw", Handler<K, "raw", any, any>> | AWithHandler<"d", Handler<K, "d", any, any>>
+      [K in Keys]:
+        | Handler<
+          ReqFromSchema<REST.GetRequest<Rsc[K]>>,
+          GetCTX<REST.GetRequest<Rsc[K]>>,
+          "raw",
+          ResRawFromSchema<REST.GetResponse<Rsc[K]>>,
+          SupportedErrors | S.ParseResult.ParseError,
+          any
+        >
+        | Handler<
+          ReqFromSchema<REST.GetRequest<Rsc[K]>>,
+          GetCTX<REST.GetRequest<Rsc[K]>>,
+          "d",
+          ResFromSchema<REST.GetResponse<Rsc[K]>>,
+          SupportedErrors | S.ParseResult.ParseError,
+          any
+        >
     }
   >(
     controllers: THandlers
@@ -315,7 +327,6 @@ export function matchFor<Rsc extends Record<string, any>>(
           ResFromSchema<REST.GetResponse<Rsc[K]>>,
           REST.GetRequest<Rsc[K]>,
           REST.GetResponse<Rsc[K]>,
-          THandlers[K]["_tag"],
           GetCTX<REST.GetRequest<Rsc[K]>>,
           GetContext<REST.GetRequest<Rsc[K]>>
         >
@@ -455,7 +466,6 @@ export type SupportedRequestHandler = RequestHandler<
   any,
   any,
   SupportedErrors | S.ParseResult.ParseError,
-  any,
   any,
   any,
   any,

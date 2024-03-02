@@ -120,7 +120,6 @@ export function handleRequestEnv<
   ResE,
   PPath extends `/${string}`,
   CTX,
-  RT extends "raw" | "d",
   Context
 >(
   handler: RequestHandler<
@@ -137,7 +136,6 @@ export function handleRequestEnv<
     PPath,
     CTX,
     Context,
-    RT,
     RequestConfig
   >
 ) {
