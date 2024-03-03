@@ -2,9 +2,10 @@
 import { pipe } from "@effect-app/core/Function"
 import { A } from "@effect-app/schema"
 import { type Schema } from "@effect/schema/Schema"
-import { Context, Effect, Equivalence, S } from "effect-app"
+import { Effect, Equivalence, S } from "effect-app"
 import { fakerArb } from "effect-app/faker"
 import { UserProfileId } from "effect-app/ids"
+import { TagClassId } from "effect-app/service"
 
 export const FirstName = S
   .NonEmptyString255
@@ -58,6 +59,10 @@ export type UserId = UserProfileId
 export const Role = S.withDefaults(S.literal("manager", "user"))
 export type Role = Schema.To<typeof Role>
 
+export class UserFromIdResolver
+  extends TagClassId("UserFromId")<UserFromIdResolver, (userId: UserId) => Effect<User>>()
+{}
+
 export class User extends S.ExtendedClass<User, User.From>()({
   id: UserId.withDefault,
   name: FullName,
@@ -68,17 +73,13 @@ export class User extends S.ExtendedClass<User, User.From>()({
   get displayName() {
     return S.NonEmptyString2k(this.name.firstName + " " + this.name.lastName)
   }
-  static readonly resolver = Context.GenericTag<UserFromId, (userId: UserId) => Effect<User>>("UserFromId")
+  static readonly resolver = UserFromIdResolver
 }
 
-export interface UserFromId {
-  readonly _: unique symbol
-}
-
-export const UserFromId: Schema<User, string, UserFromId> = S.transformOrFail(
+export const UserFromId: Schema<User, string, UserFromIdResolver> = S.transformOrFail(
   UserId,
   S.to(User),
-  (id) => Effect.andThen(User.resolver, (_) => _(id)),
+  (id) => User.resolver.use((_) => _(id)),
   (u) => Effect.succeed(u.id)
 )
 
