@@ -22,7 +22,7 @@ patchedDependencies:
     hash: 5r3oafqkulzxdb6awceadivssy
     path: patches/@phaphoso__eslint-plugin-dprint@0.5.2.patch
   effect@2.4.1:
-    hash: jgmaqgxjs7vtyr3p2zturibgli
+    hash: k3qxbeegzohgbxipcbhbka24oy
     path: patches/effect@2.4.1.patch
   eslint-plugin-codegen@0.17.0:
     hash: 3ogk7peuefdu45q3hbzcgdiuna
@@ -85,7 +85,7 @@ importers:
         version: 3.3.1
       effect:
         specifier: ^2.4.1
-        version: 2.4.1(patch_hash=jgmaqgxjs7vtyr3p2zturibgli)
+        version: 2.4.1(patch_hash=k3qxbeegzohgbxipcbhbka24oy)
       fast-check:
         specifier: ^3.15.1
         version: 3.15.1(patch_hash=gmhutzas2jzobvkhr72gjyjori)
@@ -118,8 +118,8 @@ importers:
         specifier: ^0.71.0
         version: 0.71.0(@types/node@20.11.24)
       '@effect-app/core':
-        specifier: ^0.150.3
-        version: 0.150.3(@effect/platform@0.46.3)(@fp-ts/optic@0.22.0)(effect@2.4.1)
+        specifier: ^0.150.5
+        version: 0.150.5(@effect/platform@0.46.3)(@fp-ts/optic@0.22.0)(effect@2.4.1)
       '@effect-app/eslint-codegen-model':
         specifier: ^0.59.0
         version: 0.59.0(effect@2.4.1)(eslint@8.57.0)(fp-ts@2.16.2)(typescript@5.3.3)
@@ -151,8 +151,8 @@ importers:
         specifier: ^0.45.0
         version: 0.45.0
       effect-app:
-        specifier: ^0.181.1
-        version: 0.181.1(@effect/platform@0.46.3)(@effect/schema@0.63.2)(@fp-ts/optic@0.22.0)(effect@2.4.1)
+        specifier: ^0.181.3
+        version: 0.181.3(@effect/platform@0.46.3)(@effect/schema@0.63.2)(@fp-ts/optic@0.22.0)(effect@2.4.1)
       enhanced-resolve:
         specifier: ^5.15.1
         version: 5.15.1
@@ -238,17 +238,17 @@ importers:
         specifier: ^12.17.0
         version: 12.17.0
       '@effect-app/core':
-        specifier: ^0.150.3
-        version: 0.150.3(@effect/platform@0.46.3)(@fp-ts/optic@0.22.0)(effect@2.4.1)
+        specifier: ^0.150.5
+        version: 0.150.5(@effect/platform@0.46.3)(@fp-ts/optic@0.22.0)(effect@2.4.1)
       '@effect-app/infra':
-        specifier: 0.210.2
-        version: 0.210.2(@effect/platform@0.46.3)(@effect/schema@0.63.2)(@fp-ts/optic@0.22.0)(effect@2.4.1)(express@4.18.3)
+        specifier: 0.210.4
+        version: 0.210.4(@effect/platform@0.46.3)(@effect/schema@0.63.2)(@fp-ts/optic@0.22.0)(effect@2.4.1)(express@4.18.3)
       '@effect-app/infra-adapters':
-        specifier: ^0.137.12
-        version: 0.137.12(@effect/platform@0.46.3)(@effect/schema@0.63.2)(@fp-ts/optic@0.22.0)(effect@2.4.1)
+        specifier: ^0.137.14
+        version: 0.137.14(@effect/platform@0.46.3)(@effect/schema@0.63.2)(@fp-ts/optic@0.22.0)(effect@2.4.1)
       '@effect-app/schema':
-        specifier: ^0.202.3
-        version: 0.202.3(@effect/platform@0.46.3)(@effect/schema@0.63.2)(@fp-ts/optic@0.22.0)(effect@2.4.1)
+        specifier: ^0.202.5
+        version: 0.202.5(@effect/platform@0.46.3)(@effect/schema@0.63.2)(@fp-ts/optic@0.22.0)(effect@2.4.1)
       '@effect/opentelemetry':
         specifier: ^0.31.11
         version: 0.31.11(@opentelemetry/api@1.7.0)(@opentelemetry/resources@1.22.0)(@opentelemetry/sdk-metrics@1.22.0)(@opentelemetry/sdk-trace-base@1.22.0)(@opentelemetry/sdk-trace-node@1.22.0)(@opentelemetry/sdk-trace-web@1.22.0)(@opentelemetry/semantic-conventions@1.22.0)(effect@2.4.1)
@@ -302,10 +302,10 @@ importers:
         version: 16.4.5
       effect:
         specifier: ^2.4.1
-        version: 2.4.1(patch_hash=jgmaqgxjs7vtyr3p2zturibgli)
+        version: 2.4.1(patch_hash=k3qxbeegzohgbxipcbhbka24oy)
       effect-app:
-        specifier: ^0.181.1
-        version: 0.181.1(@effect/platform@0.46.3)(@effect/schema@0.63.2)(@fp-ts/optic@0.22.0)(effect@2.4.1)
+        specifier: ^0.181.3
+        version: 0.181.3(@effect/platform@0.46.3)(@effect/schema@0.63.2)(@fp-ts/optic@0.22.0)(effect@2.4.1)
       express:
         specifier: ^4.18.3
         version: 4.18.3
@@ -392,11 +392,11 @@ importers:
         specifier: '*'
         version: link:../api
       '@effect-app/core':
-        specifier: ^0.150.3
-        version: 0.150.3(@effect/platform@0.46.3)(@fp-ts/optic@0.22.0)(effect@2.4.1)
+        specifier: ^0.150.5
+        version: 0.150.5(@effect/platform@0.46.3)(@fp-ts/optic@0.22.0)(effect@2.4.1)
       '@effect-app/schema':
-        specifier: ^0.202.3
-        version: 0.202.3(@effect/platform@0.46.3)(@effect/schema@0.63.2)(@fp-ts/optic@0.22.0)(effect@2.4.1)
+        specifier: ^0.202.5
+        version: 0.202.5(@effect/platform@0.46.3)(@effect/schema@0.63.2)(@fp-ts/optic@0.22.0)(effect@2.4.1)
       '@effect/platform':
         specifier: ^0.46.3
         version: 0.46.3(@effect/schema@0.63.2)(effect@2.4.1)
@@ -411,10 +411,10 @@ importers:
         version: 4.0.0
       effect:
         specifier: ^2.4.1
-        version: 2.4.1(patch_hash=jgmaqgxjs7vtyr3p2zturibgli)
+        version: 2.4.1(patch_hash=k3qxbeegzohgbxipcbhbka24oy)
       effect-app:
-        specifier: ^0.181.1
-        version: 0.181.1(@effect/platform@0.46.3)(@effect/schema@0.63.2)(@fp-ts/optic@0.22.0)(effect@2.4.1)
+        specifier: ^0.181.3
+        version: 0.181.3(@effect/platform@0.46.3)(@effect/schema@0.63.2)(@fp-ts/optic@0.22.0)(effect@2.4.1)
       tsconfig-paths:
         specifier: ^4.2.0
         version: 4.2.0
@@ -513,17 +513,17 @@ importers:
         specifier: '*'
         version: link:../api
       '@effect-app/core':
-        specifier: ^0.150.3
-        version: 0.150.3(@effect/platform@0.46.3)(@fp-ts/optic@0.22.0)(effect@2.4.1)
+        specifier: ^0.150.5
+        version: 0.150.5(@effect/platform@0.46.3)(@fp-ts/optic@0.22.0)(effect@2.4.1)
       '@effect-app/fluent-extensions':
-        specifier: ^0.143.2
-        version: 0.143.2(@effect/platform@0.46.3)(@fp-ts/optic@0.22.0)(effect@2.4.1)
+        specifier: ^0.143.4
+        version: 0.143.4(@effect/platform@0.46.3)(@fp-ts/optic@0.22.0)(effect@2.4.1)
       '@effect-app/schema':
-        specifier: ^0.202.3
-        version: 0.202.3(@effect/platform@0.46.3)(@effect/schema@0.63.2)(@fp-ts/optic@0.22.0)(effect@2.4.1)
+        specifier: ^0.202.5
+        version: 0.202.5(@effect/platform@0.46.3)(@effect/schema@0.63.2)(@fp-ts/optic@0.22.0)(effect@2.4.1)
       '@effect-app/vue':
-        specifier: ^0.147.12
-        version: 0.147.12(@effect/platform-browser@0.30.10)(@effect/platform@0.46.3)(@effect/schema@0.63.2)(@fp-ts/optic@0.22.0)(effect@2.4.1)(typescript@5.3.3)(vue@3.4.21)
+        specifier: ^0.147.14
+        version: 0.147.14(@effect/platform-browser@0.30.10)(@effect/platform@0.46.3)(@effect/schema@0.63.2)(@fp-ts/optic@0.22.0)(effect@2.4.1)(typescript@5.3.3)(vue@3.4.21)
       '@effect/opentelemetry':
         specifier: ^0.31.11
         version: 0.31.11(@opentelemetry/api@1.8.0)(@opentelemetry/resources@1.22.0)(@opentelemetry/sdk-metrics@1.22.0)(@opentelemetry/sdk-trace-base@1.22.0)(@opentelemetry/sdk-trace-node@1.22.0)(@opentelemetry/sdk-trace-web@1.22.0)(@opentelemetry/semantic-conventions@1.22.0)(effect@2.4.1)
@@ -583,10 +583,10 @@ importers:
         version: 3.3.1
       effect:
         specifier: ^2.4.1
-        version: 2.4.1(patch_hash=jgmaqgxjs7vtyr3p2zturibgli)
+        version: 2.4.1(patch_hash=k3qxbeegzohgbxipcbhbka24oy)
       effect-app:
-        specifier: ^0.181.1
-        version: 0.181.1(@effect/platform@0.46.3)(@effect/schema@0.63.2)(@fp-ts/optic@0.22.0)(effect@2.4.1)
+        specifier: ^0.181.3
+        version: 0.181.3(@effect/platform@0.46.3)(@effect/schema@0.63.2)(@fp-ts/optic@0.22.0)(effect@2.4.1)
       highcharts:
         specifier: ^11.3.0
         version: 11.3.0
@@ -2303,18 +2303,18 @@ packages:
       - terser
     dev: true
 
-  /@effect-app/core@0.150.3(@effect/platform@0.46.3)(@fp-ts/optic@0.22.0)(effect@2.4.1):
-    resolution: {integrity: sha512-SXPvF2BD5L920m2OhG8NtYJZefUfkEaG7uZcCXMFyWjMlVvOf/HJ39q47fFD3jlvDtN2POxA04Uux6MNzB929g==}
+  /@effect-app/core@0.150.5(@effect/platform@0.46.3)(@fp-ts/optic@0.22.0)(effect@2.4.1):
+    resolution: {integrity: sha512-aPQHWNL0fTivDXT4aiHaTk9tjRG58Ga1W5lWUkrGEZGADzLcXOn3MaKdpwOPBGW7rrh81kq99q7vI8dO41VSeQ==}
     peerDependencies:
       '@effect/platform': ^0.46.3
       '@fp-ts/optic': 0.22.0
       effect: ^2.4.1
     dependencies:
-      '@effect-app/fluent-extensions': 0.143.2(@effect/platform@0.46.3)(@fp-ts/optic@0.22.0)(effect@2.4.1)
+      '@effect-app/fluent-extensions': 0.143.4(@effect/platform@0.46.3)(@fp-ts/optic@0.22.0)(effect@2.4.1)
       '@effect/platform': 0.46.3(@effect/schema@0.63.2)(effect@2.4.1)
       '@fp-ts/optic': 0.22.0(patch_hash=2yuoegl5dhwsslauskmjxbvoeu)(@effect/typeclass@0.22.12)(effect@2.4.1)
       cross-fetch: 4.0.0
-      effect: 2.4.1(patch_hash=jgmaqgxjs7vtyr3p2zturibgli)
+      effect: 2.4.1(patch_hash=k3qxbeegzohgbxipcbhbka24oy)
       lodash: 4.17.21
       path-parser: 6.1.0
       query-string: 9.0.0
@@ -2331,7 +2331,7 @@ packages:
       '@babel/generator': 7.23.6
       '@babel/parser': 7.24.0
       '@typescript-eslint/utils': 7.1.0(eslint@8.57.0)(typescript@5.3.3)
-      effect: 2.4.1(patch_hash=jgmaqgxjs7vtyr3p2zturibgli)
+      effect: 2.4.1(patch_hash=k3qxbeegzohgbxipcbhbka24oy)
       eslint-plugin-codegen: 0.17.0(patch_hash=3ogk7peuefdu45q3hbzcgdiuna)
       glob: 8.1.0
       io-ts: 2.2.21(fp-ts@2.16.2)
@@ -2345,8 +2345,8 @@ packages:
       - typescript
     dev: true
 
-  /@effect-app/fluent-extensions@0.143.2(@effect/platform@0.46.3)(@fp-ts/optic@0.22.0)(effect@2.4.1):
-    resolution: {integrity: sha512-azBeP9ECUnQk+/DE4zovGdpul+JrSo/iLl0/pXPaLbpefuOMaj8E4XmUpdIIVQw6HYX/I3qQSGTiQwTJUOutsQ==}
+  /@effect-app/fluent-extensions@0.143.4(@effect/platform@0.46.3)(@fp-ts/optic@0.22.0)(effect@2.4.1):
+    resolution: {integrity: sha512-+njIYLIAqChhxdSxU68fDecZLEefXav7seA75Xn+UsFsybB7+2Gb6r/5KH26sQkJMyyL87vuOUZ55cafmlOGJQ==}
     peerDependencies:
       '@effect/platform': ^0.46.3
       '@fp-ts/optic': 0.22.0
@@ -2355,7 +2355,7 @@ packages:
       '@effect/platform': 0.46.3(@effect/schema@0.63.2)(effect@2.4.1)
       '@fp-ts/optic': 0.22.0(patch_hash=2yuoegl5dhwsslauskmjxbvoeu)(@effect/typeclass@0.22.12)(effect@2.4.1)
       date-fns: 3.3.1
-      effect: 2.4.1(patch_hash=jgmaqgxjs7vtyr3p2zturibgli)
+      effect: 2.4.1(patch_hash=k3qxbeegzohgbxipcbhbka24oy)
       lodash: 4.17.21
       nanoid: 5.0.6
       path-parser: 6.1.0
@@ -2364,29 +2364,29 @@ packages:
       uuid: 9.0.1
       validator: 13.11.0
 
-  /@effect-app/infra-adapters@0.137.12(@effect/platform@0.46.3)(@effect/schema@0.63.2)(@fp-ts/optic@0.22.0)(effect@2.4.1):
-    resolution: {integrity: sha512-My64lwyMHU0E5rq9uTA4Qz5NCFP6UJofhFif1EwBe3QYEq4ENXmugqfE6J+6tO4I6YAKooVGy48pzWrj5xyfaA==}
+  /@effect-app/infra-adapters@0.137.14(@effect/platform@0.46.3)(@effect/schema@0.63.2)(@fp-ts/optic@0.22.0)(effect@2.4.1):
+    resolution: {integrity: sha512-BPSrAdRx4IVDPf0Zs95uVlSYMvj4Zl2toaKvstqxIF4ez2V4bWpVLKg+0mg8Ww9tnbTNdhbF+9A2UPPML7PfGg==}
     peerDependencies:
       '@effect/platform': ^0.46.3
       '@effect/schema': ^0.63.2
       '@fp-ts/optic': 0.22.0
       effect: ^2.4.1
     dependencies:
-      '@effect-app/core': 0.150.3(@effect/platform@0.46.3)(@fp-ts/optic@0.22.0)(effect@2.4.1)
-      '@effect-app/fluent-extensions': 0.143.2(@effect/platform@0.46.3)(@fp-ts/optic@0.22.0)(effect@2.4.1)
-      '@effect-app/schema': 0.202.3(@effect/platform@0.46.3)(@effect/schema@0.63.2)(@fp-ts/optic@0.22.0)(effect@2.4.1)
+      '@effect-app/core': 0.150.5(@effect/platform@0.46.3)(@fp-ts/optic@0.22.0)(effect@2.4.1)
+      '@effect-app/fluent-extensions': 0.143.4(@effect/platform@0.46.3)(@fp-ts/optic@0.22.0)(effect@2.4.1)
+      '@effect-app/schema': 0.202.5(@effect/platform@0.46.3)(@effect/schema@0.63.2)(@fp-ts/optic@0.22.0)(effect@2.4.1)
       '@effect/platform': 0.46.3(@effect/schema@0.63.2)(effect@2.4.1)
       '@effect/schema': 0.63.2(patch_hash=q7yt4qibahb6kbwjtebvim2x5y)(effect@2.4.1)(fast-check@3.15.1)
       '@fp-ts/optic': 0.22.0(patch_hash=2yuoegl5dhwsslauskmjxbvoeu)(@effect/typeclass@0.22.12)(effect@2.4.1)
-      effect: 2.4.1(patch_hash=jgmaqgxjs7vtyr3p2zturibgli)
-      effect-app: 0.181.1(@effect/platform@0.46.3)(@effect/schema@0.63.2)(@fp-ts/optic@0.22.0)(effect@2.4.1)
+      effect: 2.4.1(patch_hash=k3qxbeegzohgbxipcbhbka24oy)
+      effect-app: 0.181.3(@effect/platform@0.46.3)(@effect/schema@0.63.2)(@fp-ts/optic@0.22.0)(effect@2.4.1)
       query-string: 9.0.0
     transitivePeerDependencies:
       - encoding
     dev: false
 
-  /@effect-app/infra@0.210.2(@effect/platform@0.46.3)(@effect/schema@0.63.2)(@fp-ts/optic@0.22.0)(effect@2.4.1)(express@4.18.3):
-    resolution: {integrity: sha512-ii3i0K1rRhATNo+5pNPPBJc6hhekCDrQrVDXFJuytkrLHeHxTuCITxnJ8jT9cSpGTCY247oFG7avCmjAnY4JTw==}
+  /@effect-app/infra@0.210.4(@effect/platform@0.46.3)(@effect/schema@0.63.2)(@fp-ts/optic@0.22.0)(effect@2.4.1)(express@4.18.3):
+    resolution: {integrity: sha512-u2Jr0KW6eGgi5n//Rj19DCc8KVrFl809rIyBbvlHjlINw1cZAzLhAcPwlNtu5fm9gmHb0liSjEcPqYfWtyphTg==}
     peerDependencies:
       '@effect/platform': ^0.46.3
       '@effect/schema': ^0.63.2
@@ -2395,10 +2395,10 @@ packages:
     dependencies:
       '@azure/cosmos': 4.0.0
       '@azure/service-bus': 7.9.4
-      '@effect-app/core': 0.150.3(@effect/platform@0.46.3)(@fp-ts/optic@0.22.0)(effect@2.4.1)
-      '@effect-app/fluent-extensions': 0.143.2(@effect/platform@0.46.3)(@fp-ts/optic@0.22.0)(effect@2.4.1)
-      '@effect-app/infra-adapters': 0.137.12(@effect/platform@0.46.3)(@effect/schema@0.63.2)(@fp-ts/optic@0.22.0)(effect@2.4.1)
-      '@effect-app/schema': 0.202.3(@effect/platform@0.46.3)(@effect/schema@0.63.2)(@fp-ts/optic@0.22.0)(effect@2.4.1)
+      '@effect-app/core': 0.150.5(@effect/platform@0.46.3)(@fp-ts/optic@0.22.0)(effect@2.4.1)
+      '@effect-app/fluent-extensions': 0.143.4(@effect/platform@0.46.3)(@fp-ts/optic@0.22.0)(effect@2.4.1)
+      '@effect-app/infra-adapters': 0.137.14(@effect/platform@0.46.3)(@effect/schema@0.63.2)(@fp-ts/optic@0.22.0)(effect@2.4.1)
+      '@effect-app/schema': 0.202.5(@effect/platform@0.46.3)(@effect/schema@0.63.2)(@fp-ts/optic@0.22.0)(effect@2.4.1)
       '@effect/platform': 0.46.3(@effect/schema@0.63.2)(effect@2.4.1)
       '@effect/schema': 0.63.2(patch_hash=q7yt4qibahb6kbwjtebvim2x5y)(effect@2.4.1)(fast-check@3.15.1)
       '@faker-js/faker': 8.4.1
@@ -2406,8 +2406,8 @@ packages:
       '@sendgrid/mail': 8.1.1
       change-case: 5.4.3
       cross-fetch: 4.0.0
-      effect: 2.4.1(patch_hash=jgmaqgxjs7vtyr3p2zturibgli)
-      effect-app: 0.181.1(@effect/platform@0.46.3)(@effect/schema@0.63.2)(@fp-ts/optic@0.22.0)(effect@2.4.1)
+      effect: 2.4.1(patch_hash=k3qxbeegzohgbxipcbhbka24oy)
+      effect-app: 0.181.3(@effect/platform@0.46.3)(@effect/schema@0.63.2)(@fp-ts/optic@0.22.0)(effect@2.4.1)
       express: 4.18.3
       express-oauth2-jwt-bearer: 1.6.0
       fast-check: 3.15.1(patch_hash=gmhutzas2jzobvkhr72gjyjori)
@@ -2423,16 +2423,16 @@ packages:
       - supports-color
     dev: false
 
-  /@effect-app/schema@0.202.3(@effect/platform@0.46.3)(@effect/schema@0.63.2)(@fp-ts/optic@0.22.0)(effect@2.4.1):
-    resolution: {integrity: sha512-hGcKclAP4kecoJ2y4ksPkJ1RIhSMqoCbkoLbo/fxcQsfyAJug3B3cZp7fEvF3KTe1ppbPrwjlazjDf9SRk9JPA==}
+  /@effect-app/schema@0.202.5(@effect/platform@0.46.3)(@effect/schema@0.63.2)(@fp-ts/optic@0.22.0)(effect@2.4.1):
+    resolution: {integrity: sha512-wtJVZ5uETZTGrxr1Q+ioQAx5wXseBQoIrH9nWbUdKv5fHDp6gvnR+KiUa0IhdlusNXr6nenkwMwA8jFey0RO+w==}
     peerDependencies:
       '@effect/schema': ^0.63.2
       effect: ^2.4.1
     dependencies:
-      '@effect-app/core': 0.150.3(@effect/platform@0.46.3)(@fp-ts/optic@0.22.0)(effect@2.4.1)
+      '@effect-app/core': 0.150.5(@effect/platform@0.46.3)(@fp-ts/optic@0.22.0)(effect@2.4.1)
       '@effect/schema': 0.63.2(patch_hash=q7yt4qibahb6kbwjtebvim2x5y)(effect@2.4.1)(fast-check@3.15.1)
       cross-fetch: 4.0.0
-      effect: 2.4.1(patch_hash=jgmaqgxjs7vtyr3p2zturibgli)
+      effect: 2.4.1(patch_hash=k3qxbeegzohgbxipcbhbka24oy)
       lodash: 4.17.21
       nanoid: 5.0.6
       path-parser: 6.1.0
@@ -2443,8 +2443,8 @@ packages:
       - '@fp-ts/optic'
       - encoding
 
-  /@effect-app/vue@0.147.12(@effect/platform-browser@0.30.10)(@effect/platform@0.46.3)(@effect/schema@0.63.2)(@fp-ts/optic@0.22.0)(effect@2.4.1)(typescript@5.3.3)(vue@3.4.21):
-    resolution: {integrity: sha512-855GofK5CIXR6F5NcCwtHwOmNpfIUFwrj4NM2RJYWE2kJXvhc1x45Nhf9PUV4VJO01Rtzug9HJWA6ic6TXwxrQ==}
+  /@effect-app/vue@0.147.14(@effect/platform-browser@0.30.10)(@effect/platform@0.46.3)(@effect/schema@0.63.2)(@fp-ts/optic@0.22.0)(effect@2.4.1)(typescript@5.3.3)(vue@3.4.21):
+    resolution: {integrity: sha512-xcN+6T99hrmZoVle4uc7BupKaDiBn8bfX0GWioLyRN5ApVN5QI/7RgqfkKnIe+kiJZmA9ASsIb8k9CMx0Ua2WQ==}
     peerDependencies:
       '@effect/platform': ^0.46.3
       '@effect/platform-browser': ^0.30.10
@@ -2452,16 +2452,16 @@ packages:
       effect: ^2.4.1
       vue: ^3.4.21
     dependencies:
-      '@effect-app/core': 0.150.3(@effect/platform@0.46.3)(@fp-ts/optic@0.22.0)(effect@2.4.1)
-      '@effect-app/fluent-extensions': 0.143.2(@effect/platform@0.46.3)(@fp-ts/optic@0.22.0)(effect@2.4.1)
-      '@effect-app/schema': 0.202.3(@effect/platform@0.46.3)(@effect/schema@0.63.2)(@fp-ts/optic@0.22.0)(effect@2.4.1)
+      '@effect-app/core': 0.150.5(@effect/platform@0.46.3)(@fp-ts/optic@0.22.0)(effect@2.4.1)
+      '@effect-app/fluent-extensions': 0.143.4(@effect/platform@0.46.3)(@fp-ts/optic@0.22.0)(effect@2.4.1)
+      '@effect-app/schema': 0.202.5(@effect/platform@0.46.3)(@effect/schema@0.63.2)(@fp-ts/optic@0.22.0)(effect@2.4.1)
       '@effect/platform': 0.46.3(@effect/schema@0.63.2)(effect@2.4.1)
       '@effect/platform-browser': 0.30.10(@effect/platform@0.46.3)(effect@2.4.1)
       '@effect/schema': 0.63.2(patch_hash=q7yt4qibahb6kbwjtebvim2x5y)(effect@2.4.1)(fast-check@3.15.1)
       '@formatjs/intl': 2.10.0(typescript@5.3.3)
       '@tanstack/vue-query': 5.24.6(vue@3.4.21)
-      effect: 2.4.1(patch_hash=jgmaqgxjs7vtyr3p2zturibgli)
-      effect-app: 0.181.1(@effect/platform@0.46.3)(@effect/schema@0.63.2)(@fp-ts/optic@0.22.0)(effect@2.4.1)
+      effect: 2.4.1(patch_hash=k3qxbeegzohgbxipcbhbka24oy)
+      effect-app: 0.181.3(@effect/platform@0.46.3)(@effect/schema@0.63.2)(@fp-ts/optic@0.22.0)(effect@2.4.1)
       query-string: 9.0.0
       vue: 3.4.21(typescript@5.3.3)
     transitivePeerDependencies:
@@ -2491,7 +2491,7 @@ packages:
       '@effect/platform': 0.46.3(@effect/schema@0.63.2)(effect@2.4.1)
       '@effect/platform-node': 0.44.11(@effect/platform@0.46.3)(effect@2.4.1)
       '@effect/schema': 0.63.2(patch_hash=q7yt4qibahb6kbwjtebvim2x5y)(effect@2.4.1)(fast-check@3.15.1)
-      effect: 2.4.1(patch_hash=jgmaqgxjs7vtyr3p2zturibgli)
+      effect: 2.4.1(patch_hash=k3qxbeegzohgbxipcbhbka24oy)
       isomorphic-ws: 5.0.0(ws@8.16.0)
       msgpackr: 1.10.1
       ws: 8.16.0
@@ -2525,7 +2525,7 @@ packages:
       '@opentelemetry/sdk-trace-node': 1.22.0(@opentelemetry/api@1.8.0)
       '@opentelemetry/sdk-trace-web': 1.22.0(@opentelemetry/api@1.8.0)
       '@opentelemetry/semantic-conventions': 1.22.0
-      effect: 2.4.1(patch_hash=jgmaqgxjs7vtyr3p2zturibgli)
+      effect: 2.4.1(patch_hash=k3qxbeegzohgbxipcbhbka24oy)
     dev: false
 
   /@effect/opentelemetry@0.31.11(@opentelemetry/api@1.8.0)(@opentelemetry/resources@1.22.0)(@opentelemetry/sdk-metrics@1.22.0)(@opentelemetry/sdk-trace-base@1.22.0)(@opentelemetry/sdk-trace-node@1.22.0)(@opentelemetry/sdk-trace-web@1.22.0)(@opentelemetry/semantic-conventions@1.22.0)(effect@2.4.1):
@@ -2556,7 +2556,7 @@ packages:
       '@opentelemetry/sdk-trace-node': 1.22.0(@opentelemetry/api@1.8.0)
       '@opentelemetry/sdk-trace-web': 1.22.0(@opentelemetry/api@1.8.0)
       '@opentelemetry/semantic-conventions': 1.22.0
-      effect: 2.4.1(patch_hash=jgmaqgxjs7vtyr3p2zturibgli)
+      effect: 2.4.1(patch_hash=k3qxbeegzohgbxipcbhbka24oy)
     dev: false
 
   /@effect/platform-browser@0.30.10(@effect/platform@0.46.3)(effect@2.4.1):
@@ -2566,7 +2566,7 @@ packages:
       effect: ^2.4.1
     dependencies:
       '@effect/platform': 0.46.3(@effect/schema@0.63.2)(effect@2.4.1)
-      effect: 2.4.1(patch_hash=jgmaqgxjs7vtyr3p2zturibgli)
+      effect: 2.4.1(patch_hash=k3qxbeegzohgbxipcbhbka24oy)
       multipasta: 0.1.21
     dev: false
 
@@ -2577,7 +2577,7 @@ packages:
       effect: ^2.4.1
     dependencies:
       '@effect/platform': 0.46.3(@effect/schema@0.63.2)(effect@2.4.1)
-      effect: 2.4.1(patch_hash=jgmaqgxjs7vtyr3p2zturibgli)
+      effect: 2.4.1(patch_hash=k3qxbeegzohgbxipcbhbka24oy)
       multipasta: 0.1.21
     dev: false
 
@@ -2589,7 +2589,7 @@ packages:
     dependencies:
       '@effect/platform': 0.46.3(@effect/schema@0.63.2)(effect@2.4.1)
       '@effect/platform-node-shared': 0.2.3(@effect/platform@0.46.3)(effect@2.4.1)
-      effect: 2.4.1(patch_hash=jgmaqgxjs7vtyr3p2zturibgli)
+      effect: 2.4.1(patch_hash=k3qxbeegzohgbxipcbhbka24oy)
       mime: 3.0.0
     dev: false
 
@@ -2600,7 +2600,7 @@ packages:
       effect: ^2.4.1
     dependencies:
       '@effect/schema': 0.63.2(patch_hash=q7yt4qibahb6kbwjtebvim2x5y)(effect@2.4.1)(fast-check@3.15.1)
-      effect: 2.4.1(patch_hash=jgmaqgxjs7vtyr3p2zturibgli)
+      effect: 2.4.1(patch_hash=k3qxbeegzohgbxipcbhbka24oy)
       find-my-way-ts: 0.1.1
       multipasta: 0.1.21
       path-browserify: 1.0.1
@@ -2611,7 +2611,7 @@ packages:
       effect: ^2.4.1
       fast-check: ^3.13.2
     dependencies:
-      effect: 2.4.1(patch_hash=jgmaqgxjs7vtyr3p2zturibgli)
+      effect: 2.4.1(patch_hash=k3qxbeegzohgbxipcbhbka24oy)
       fast-check: 3.15.1(patch_hash=gmhutzas2jzobvkhr72gjyjori)
     patched: true
 
@@ -2620,7 +2620,7 @@ packages:
     peerDependencies:
       effect: ^2.2.3
     dependencies:
-      effect: 2.4.1(patch_hash=jgmaqgxjs7vtyr3p2zturibgli)
+      effect: 2.4.1(patch_hash=k3qxbeegzohgbxipcbhbka24oy)
 
   /@emotion/is-prop-valid@1.2.1:
     resolution: {integrity: sha512-61Mf7Ufx4aDxx1xlDeOm8aFFigGHE4z+0sKCa+IHCeZKiyP9RLD0Mmx7m8b9/Cf37f7NAvQOOJAbQQGVr5uERw==}
@@ -3219,7 +3219,7 @@ packages:
       effect: ^2.0.0
     dependencies:
       '@effect/typeclass': 0.22.12(effect@2.4.1)
-      effect: 2.4.1(patch_hash=jgmaqgxjs7vtyr3p2zturibgli)
+      effect: 2.4.1(patch_hash=k3qxbeegzohgbxipcbhbka24oy)
     patched: true
 
   /@gar/promisify@1.1.3:
@@ -9276,23 +9276,23 @@ packages:
   /ee-first@1.1.1:
     resolution: {integrity: sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==}
 
-  /effect-app@0.181.1(@effect/platform@0.46.3)(@effect/schema@0.63.2)(@fp-ts/optic@0.22.0)(effect@2.4.1):
-    resolution: {integrity: sha512-7L3s6wgKxjl6soCBagqUZjzhjxzAVsXF2M6WgxdihdcHgGodx48rVKfBQLGtQOLNVyEaH/ivO8nzpaPlxOQjmA==}
+  /effect-app@0.181.3(@effect/platform@0.46.3)(@effect/schema@0.63.2)(@fp-ts/optic@0.22.0)(effect@2.4.1):
+    resolution: {integrity: sha512-jp/a9mVGUIkHIdXNnrHW139OcMKJq3bUSpvU7Tu6X5nLyEYFEvVIOqtmJ+n6PmTb5sU3jWRotwZSHgWqQ4YqRg==}
     peerDependencies:
       '@effect/platform': ^0.46.3
       '@effect/schema': ^0.63.2
       '@fp-ts/optic': 0.22.0
       effect: ^2.4.1
     dependencies:
-      '@effect-app/core': 0.150.3(@effect/platform@0.46.3)(@fp-ts/optic@0.22.0)(effect@2.4.1)
-      '@effect-app/fluent-extensions': 0.143.2(@effect/platform@0.46.3)(@fp-ts/optic@0.22.0)(effect@2.4.1)
-      '@effect-app/schema': 0.202.3(@effect/platform@0.46.3)(@effect/schema@0.63.2)(@fp-ts/optic@0.22.0)(effect@2.4.1)
+      '@effect-app/core': 0.150.5(@effect/platform@0.46.3)(@fp-ts/optic@0.22.0)(effect@2.4.1)
+      '@effect-app/fluent-extensions': 0.143.4(@effect/platform@0.46.3)(@fp-ts/optic@0.22.0)(effect@2.4.1)
+      '@effect-app/schema': 0.202.5(@effect/platform@0.46.3)(@effect/schema@0.63.2)(@fp-ts/optic@0.22.0)(effect@2.4.1)
       '@effect/platform': 0.46.3(@effect/schema@0.63.2)(effect@2.4.1)
       '@effect/schema': 0.63.2(patch_hash=q7yt4qibahb6kbwjtebvim2x5y)(effect@2.4.1)(fast-check@3.15.1)
       '@fp-ts/optic': 0.22.0(patch_hash=2yuoegl5dhwsslauskmjxbvoeu)(@effect/typeclass@0.22.12)(effect@2.4.1)
       '@tsconfig/strictest': 2.0.3
       date-fns: 3.3.1
-      effect: 2.4.1(patch_hash=jgmaqgxjs7vtyr3p2zturibgli)
+      effect: 2.4.1(patch_hash=k3qxbeegzohgbxipcbhbka24oy)
       lodash: 4.17.21
       nanoid: 5.0.6
       path-parser: 6.1.0
@@ -9303,7 +9303,7 @@ packages:
     transitivePeerDependencies:
       - encoding
 
-  /effect@2.4.1(patch_hash=jgmaqgxjs7vtyr3p2zturibgli):
+  /effect@2.4.1(patch_hash=k3qxbeegzohgbxipcbhbka24oy):
     resolution: {integrity: sha512-YsoMB/EGCohGKFyTPYqaFe2B7UCU2MM303dkoowF8DNOdks/4q/00cyhTbBUmM/0FMDoUPmUi/AJ0Aj3E7vO1A==}
     patched: true
 
