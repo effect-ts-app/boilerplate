@@ -68,11 +68,12 @@ export class UserRepo extends RepositoryDefaultImpl<UserRepo>()<UserPersistenceM
           getUserByIdResolver
             .pipe(
               Effect.provideService(this, userRepo),
-              Effect.map((resolver) => (id: UserId) =>
-                Effect
-                  .request(GetUserById({ id }), resolver)
-                  .pipe(Effect.orDie)
-              )
+              Effect.map((resolver) => ({
+                get: (id: UserId) =>
+                  Effect
+                    .request(GetUserById({ id }), resolver)
+                    .pipe(Effect.orDie)
+              }))
             ))
     )
     .pipe(Layer.provide(this.Live))

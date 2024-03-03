@@ -60,7 +60,7 @@ export const Role = S.withDefaults(S.literal("manager", "user"))
 export type Role = Schema.To<typeof Role>
 
 export class UserFromIdResolver
-  extends TagClassId("UserFromId")<UserFromIdResolver, (userId: UserId) => Effect<User>>()
+  extends TagClassId("UserFromId")<UserFromIdResolver, { get: (userId: UserId) => Effect<User> }>()
 {}
 
 export class User extends S.ExtendedClass<User, User.From>()({
@@ -79,7 +79,7 @@ export class User extends S.ExtendedClass<User, User.From>()({
 export const UserFromId: Schema<User, string, UserFromIdResolver> = S.transformOrFail(
   UserId,
   S.to(User),
-  (id) => User.resolver.use((_) => _(id)),
+  User.resolver.get,
   (u) => Effect.succeed(u.id)
 )
 
