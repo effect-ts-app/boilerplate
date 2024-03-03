@@ -14,7 +14,7 @@ export const events = Effect
     // Tell the client to retry every 10 seconds if connectivity is lost
     const setRetry = Stream.succeed("retry: 10000")
     const keepAlive = Stream.schedule(Effect.succeed(":keep-alive"), Schedule.fixed(Duration.seconds(15)))
-    const events = yield* $(Events.$.stream)
+    const events = yield* $(Events.stream)
 
     const stream = setRetry
       .pipe(
