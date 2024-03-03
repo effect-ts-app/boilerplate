@@ -1,7 +1,7 @@
 /* eslint-disable no-var */
 import * as HttpClientNode from "@effect/platform-node/NodeHttpClient"
 import { api, ApiPortTag } from "api/api.js"
-import { basicLayer } from "api/lib/basicRuntime.js"
+import { basicLayer, basicRuntime } from "api/lib/basicRuntime.js"
 import { Config, Effect, Exit, Layer } from "effect-app"
 import { layer as LiveApiConfig } from "effect-app/client/config"
 import type { Runtime } from "effect/Runtime"
@@ -62,8 +62,8 @@ beforeAll(async () => {
       }
     })
 
-  const runtime = appRuntime(appLayer)
-    .runPromise
+  const runtime = basicRuntime
+    .runPromise(appRuntime(appLayer))
     .catch((error: unknown) => {
       console.error(error)
       throw error
@@ -74,7 +74,7 @@ beforeAll(async () => {
       .promise(() => runtime)
       .pipe(
         Effect.andThen((_) => _.clean),
-        Effect.runPromise
+        basicRuntime.runPromise
       )
 
   globalThis.cleanup = cleanup
