@@ -60,9 +60,9 @@ export class UserRepo extends RepositoryDefaultImpl<UserRepo>()<UserPersistenceM
     })
     .pipe(Layer.unwrapEffect, Layer.provide(RepoLive))
 
-  static readonly UserFromIdLayer = Layer
-    .effect(
-      User.resolver,
+  static readonly UserFromIdLayer = User
+    .resolver
+    .toLayer(
       Effect
         .andThen(this, (userRepo) =>
           getUserByIdResolver
