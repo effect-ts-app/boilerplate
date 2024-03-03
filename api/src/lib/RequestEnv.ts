@@ -15,6 +15,7 @@ import {
   makeUserProfileFromUserHeader,
   UserProfile
 } from "../services/UserProfile.js"
+import { basicRuntime } from "./basicRuntime.js"
 
 // Workaround for the error when using
 // import type { AllowAnonymous, RequestConfig } from "resources/lib.js"
@@ -51,7 +52,7 @@ export const RequestCacheLayers = Layer.mergeAll(
   Layer.setRequestBatching(true)
 )
 
-const authConfig = Auth0Config.runSync
+const authConfig = basicRuntime.runSync(Auth0Config)
 const EmptyLayer = Effect.unit.pipe(Layer.scopedDiscard)
 const fakeLogin = true
 
@@ -78,8 +79,7 @@ const UserAuthorizationLive = <Req extends RequestConfig>(request: Req) =>
         : makeUserProfileFromAuthorizationHeader(
           req.headers["authorization"]
         ))
-        .pipe(Effect.exit)
-        .runSync
+        .pipe(Effect.exit, basicRuntime.runSync)
       if (!Exit.isSuccess(r)) {
         yield* $(Effect.logWarning("Parsing userInfo failed").pipe(Effect.annotateLogs("r", r)))
       }
