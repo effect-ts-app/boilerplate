@@ -2,6 +2,7 @@ import { Config, Effect } from "effect-app"
 import { secretURL } from "effect-app/Config/SecretURL"
 import * as SecretURL from "effect-app/Config/SecretURL"
 import { BaseConfig } from "./baseConfig.js"
+import { basicRuntime } from "./lib/basicRuntime.js"
 
 const STORAGE_VERSION = "1"
 
@@ -54,6 +55,6 @@ export * from "./baseConfig.js"
 export const MergedConfig = ApiConfig
   .pipe(
     Effect.andThen((apiConfig) => Effect.andThen(BaseConfig, (baseConfig) => ({ ...baseConfig, ...apiConfig }))),
-    Effect.cached
+    Effect.cached,
+    basicRuntime.runSync
   )
-  .runSync

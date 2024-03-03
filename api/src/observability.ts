@@ -22,8 +22,9 @@ import {
 import { Effect, Layer, Secret } from "effect-app"
 import tcpPortUsed from "tcp-port-used"
 import { BaseConfig } from "./config.js"
+import { basicRuntime } from "./lib/basicRuntime.js"
 
-const appConfig = BaseConfig.runSync
+const appConfig = basicRuntime.runSync(BaseConfig)
 
 class SentryFilteredSpanProcessor extends SentrySpanProcessor {
   override _shouldSendSpanToSentry(span: Span): boolean {
