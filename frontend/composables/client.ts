@@ -144,9 +144,10 @@ export function makeUseAndHandleMutation(onSuccess: () => Promise<void>) {
   return ((self: any, action: any, options: any) => {
     return useAndHandleMutation(
       {
-        handler: (typeof self === "function"
-          ? (i: any) => Effect.tap(self(i), () => Effect.promise(onSuccess))
-          : Effect.tap(self, () => Effect.promise(onSuccess))) as any,
+        handler: (typeof self.handler === "function"
+          ? (i: any) =>
+              Effect.tap(self.handler(i), () => Effect.promise(onSuccess))
+          : Effect.tap(self.handler, () => Effect.promise(onSuccess))) as any,
         name: self.name,
       },
       action,
@@ -154,12 +155,18 @@ export function makeUseAndHandleMutation(onSuccess: () => Promise<void>) {
     )
   }) as {
     <I, E extends ResErrors, A>(
-      self: (i: I) => Effect<A, E, ApiConfig | HttpClient.Client.Default>,
+      self: {
+        handler: (i: I) => Effect<A, E, ApiConfig | HttpClient.Client.Default>
+        name: string
+      },
       action: string,
       options?: Opts<A>,
     ): Resp<I, E, A>
     <E extends ResErrors, A>(
-      self: Effect<A, E, ApiConfig | HttpClient.Client.Default>,
+      self: {
+        handler: Effect<A, E, ApiConfig | HttpClient.Client.Default>
+        name: string
+      },
       action: string,
       options?: Opts<A>,
     ): ActResp<E, A>
