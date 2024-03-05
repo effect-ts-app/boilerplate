@@ -438,7 +438,7 @@ function parseError(e: string) {
 }
 
 function orPrevious<E, A>(result: QueryResult<E, A>) {
-  return isFailed(result) && result.previous.value !== undefined
+  return isFailed(result) && Option.isSome(result.previous)
     ? result._tag === "Done"
       ? Done.succeed(result.previous.value)
       : Refreshing.succeed(result.previous.value)
@@ -467,16 +467,16 @@ export function composeQueries<R extends Record<string, QueryResult<any, any>>>(
   if (error) {
     return error as any // TODO
   }
-  const initial = values.findFirstMap(x =>
+  const initial = ReadonlyArray.findFirst(values, x =>
     x._tag === "Initial" ? Option.some(x) : Option.none(),
   )
-  if (initial.value !== undefined) {
+  if (Option.isSome(initial)) {
     return initial.value
   }
-  const loading = values.findFirstMap(x =>
+  const loading = ReadonlyArray.findFirst(values, x =>
     x._tag === "Loading" ? Option.some(x) : Option.none(),
   )
-  if (loading.value !== undefined) {
+  if (Option.isSome(loading)) {
     return loading.value
   }
 

@@ -4,7 +4,8 @@ import {
   parseRouteParams,
   parseRouteParamsOption,
 } from "@effect-app/vue/routeParams"
-import type { S, Option } from "~~/utils/prelude"
+import { Option } from "~~/utils/prelude"
+import type { S } from "~~/utils/prelude"
 
 export const useRouteParams = <NER extends Record<string, S.Schema<any>>>(
   t: NER, // enforce non empty
@@ -22,7 +23,7 @@ export const useRouteParamsOption = <NER extends Record<string, S.Schema<any>>>(
   type Result = typeof result
   return typedKeysOf(result).reduce(
     (prev, cur) => {
-      prev[cur] = result[cur].value
+      prev[cur] = Option.getOrUndefined(result[cur])
       return prev
     },
     {} as Record<keyof Result, unknown>,
