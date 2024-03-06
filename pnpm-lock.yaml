@@ -264,7 +264,7 @@ importers:
         version: 6.2.7(vue@3.4.21)
       '@formatjs/intl':
         specifier: 2.7.2
-        version: 2.7.2(typescript@5.3.3)
+        version: 2.7.2(typescript@5.4.1-rc)
       '@mollie/api-client':
         specifier: ^3.7.0
         version: 3.7.0
@@ -384,8 +384,8 @@ importers:
         specifier: ^4.12.2
         version: 4.12.2(eslint@8.57.0)
       typescript:
-        specifier: ^5.3.3
-        version: 5.3.3
+        specifier: ^5.4.1-rc
+        version: 5.4.1-rc(patch_hash=53hv5e33djmceeaiom2noinb3m)
 
   e2e:
     dependencies:
@@ -3176,24 +3176,6 @@ packages:
       intl-messageformat: 10.5.11
       tslib: 2.6.2
       typescript: 5.4.1-rc(patch_hash=53hv5e33djmceeaiom2noinb3m)
-    dev: false
-
-  /@formatjs/intl@2.7.2(typescript@5.3.3):
-    resolution: {integrity: sha512-ziiQfnXwY0/rXhtohSAmYMqDjRsihoMKdl8H2aA+FvxG9638E0XrvfBFCb+1HhimNiuqRz5fTY7F/bZtsJxsjA==}
-    peerDependencies:
-      typescript: ^4.7 || 5
-    peerDependenciesMeta:
-      typescript:
-        optional: true
-    dependencies:
-      '@formatjs/ecma402-abstract': 1.15.0
-      '@formatjs/fast-memoize': 2.0.1
-      '@formatjs/icu-messageformat-parser': 2.4.0
-      '@formatjs/intl-displaynames': 6.3.2
-      '@formatjs/intl-listformat': 7.2.2
-      intl-messageformat: 10.3.5
-      tslib: 2.6.2
-      typescript: 5.3.3
     dev: false
 
   /@formatjs/intl@2.7.2(typescript@5.4.1-rc):
@@ -16363,6 +16345,7 @@ packages:
     resolution: {integrity: sha512-pXWcraxM0uxAS+tN0AG/BF2TyqmHO014Z070UsJ+pFvYuRSq8KH8DmWpnbXe0pEPDHXZV3FcAbJkijJ5oNEnWw==}
     engines: {node: '>=14.17'}
     hasBin: true
+    dev: true
 
   /typescript@5.4.1-rc(patch_hash=53hv5e33djmceeaiom2noinb3m):
     resolution: {integrity: sha512-gInURzaO0bbfzfQAc3mfcHxh8qev+No4QOFUZHajo9vBgOLaljELJ3wuzyoGo/zHIzMSezdhtrsRdqL6E9SvNA==}
