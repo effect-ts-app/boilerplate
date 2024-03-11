@@ -193,6 +193,14 @@ export type RouteMatch<
 > // RErr = never,
  = HttpRouter.Route<Exclude<Exclude<R, EnforceNonEmptyRecord<M>>, PR>, never>
 
+export interface Hint<Err extends string> {
+  Err: Err
+}
+
+type HandleVoid<Expected, Actual, Result> = Expected extends void
+  ? Actual extends void ? Result : Hint<"You're returning non void for a void Response, please fix">
+  : Result
+
 export function matchFor<Rsc extends Record<string, any>>(
   rsc: Rsc
 ) {
@@ -223,26 +231,34 @@ export function matchFor<Rsc extends Record<string, any>>(
   type MatchWithServicesNew<RT extends "raw" | "d", Key extends keyof Rsc> = {
     <R2, E, A>(
       f: Effect<A, E, R2>
-    ): Handler<
-      ReqFromSchema<REST.GetRequest<Rsc[Key]>>,
-      Types.Simplify<GetCTX<REST.GetRequest<Rsc[Key]>>>,
-      RT,
+    ): HandleVoid<
+      S.Schema.To<REST.GetResponse<Rsc[Key]>>,
       A,
-      E,
-      R2
+      Handler<
+        ReqFromSchema<REST.GetRequest<Rsc[Key]>>,
+        Types.Simplify<GetCTX<REST.GetRequest<Rsc[Key]>>>,
+        RT,
+        A,
+        E,
+        R2
+      >
     >
     <R2, E, A>(
       f: (
         req: ReqFromSchema<REST.GetRequest<Rsc[Key]>>,
         ctx: GetCTX<REST.GetRequest<Rsc[Key]>> & Pick<Rsc[Key], "Response">
       ) => Effect<A, E, R2>
-    ): Handler<
-      ReqFromSchema<REST.GetRequest<Rsc[Key]>>,
-      Types.Simplify<GetCTX<REST.GetRequest<Rsc[Key]>>>,
-      RT,
+    ): HandleVoid<
+      S.Schema.To<REST.GetResponse<Rsc[Key]>>,
       A,
-      E,
-      R2
+      Handler<
+        ReqFromSchema<REST.GetRequest<Rsc[Key]>>,
+        Types.Simplify<GetCTX<REST.GetRequest<Rsc[Key]>>>,
+        RT,
+        A,
+        E,
+        R2
+      >
     >
     <
       SVC extends Record<
@@ -261,13 +277,17 @@ export function matchFor<Rsc extends Record<string, any>>(
           "flat"
         >
       ) => Effect<A, E, R2>
-    ): Handler<
-      ReqFromSchema<REST.GetRequest<Rsc[Key]>>,
-      Types.Simplify<GetCTX<REST.GetRequest<Rsc[Key]>>>,
-      RT,
+    ): HandleVoid<
+      S.Schema.To<REST.GetResponse<Rsc[Key]>>,
       A,
-      E,
-      R2
+      Handler<
+        ReqFromSchema<REST.GetRequest<Rsc[Key]>>,
+        Types.Simplify<GetCTX<REST.GetRequest<Rsc[Key]>>>,
+        RT,
+        A,
+        E,
+        R2
+      >
     >
   }
 
