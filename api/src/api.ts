@@ -1,5 +1,5 @@
 // import { writeOpenapiDocsI } from "@effect-app/infra/api/writeDocs"
-import { Live as OperationsLive } from "@effect-app/infra/services/Operations/live"
+import { Operations } from "@effect-app/infra/services/Operations"
 import { RequestContextContainer } from "@effect-app/infra/services/RequestContextContainer"
 import { ContextMapContainer } from "@effect-app/infra/services/Store/ContextMapContainer"
 import { NodeContext } from "@effect/platform-node"
@@ -69,7 +69,7 @@ const App = Effect
             .provide(NodeContext.layer)
         )
 
-      const services = Layer.merge(OperationsLive, Events.Live)
+      const services = Layer.merge(Operations.Live, Events.Live)
 
       return HttpLive.pipe(Layer.provide(services))
     }),
