@@ -67,6 +67,8 @@ export default defineNuxtConfig({
 
   vite: {
     build: {
+      minify: "terser",
+      terserOptions: { keep_classnames: true },
       sourcemap: true,
     },
     optimizeDeps: {
