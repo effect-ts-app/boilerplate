@@ -12,7 +12,7 @@ export class BlogPost extends S.ExtendedClass<BlogPost, BlogPost.From>()({
   title: S.NonEmptyString255,
   body: S.NonEmptyString2k,
   createdAt: S.Date.withDefault,
-  author: UserFromId.pipe(S.mapFrom("authorId"))
+  author: S.propertySignature(UserFromId).pipe(S.fromKey("authorId"))
 }) {}
 
 // codegen:start {preset: model}

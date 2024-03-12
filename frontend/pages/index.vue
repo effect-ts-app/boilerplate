@@ -13,7 +13,7 @@ const schema = S.struct({
   email: S.Email,
 })
 
-const state = ref<S.Schema.From<typeof schema>>({
+const state = ref<S.Schema.Encoded<typeof schema>>({
   title: "",
   name: "",
   age: 0,

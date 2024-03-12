@@ -3,7 +3,7 @@
 import { JWTError, type RequestHandler } from "@effect-app/infra/api/routing"
 import type { RequestContext } from "@effect-app/infra/RequestContext"
 import { RequestContextContainer } from "@effect-app/infra/services/RequestContextContainer"
-import type { StructFields } from "@effect-app/schema"
+import type { Struct } from "@effect-app/schema"
 import { Req as Req_ } from "@effect-app/schema/REST"
 import { NotLoggedInError, UnauthorizedError } from "api/errors.js"
 import { Auth0Config, checkJWTI } from "api/middleware/auth.js"
@@ -110,13 +110,13 @@ export type RequestEnv = Layer.Layer.Success<ReturnType<typeof RequestEnv>>
 export function handleRequestEnv<
   R,
   M,
-  PathA extends StructFields,
-  CookieA extends StructFields,
-  QueryA extends StructFields,
-  BodyA extends StructFields,
-  HeaderA extends StructFields,
+  PathA extends Struct.Fields,
+  CookieA extends Struct.Fields,
+  QueryA extends Struct.Fields,
+  BodyA extends Struct.Fields,
+  HeaderA extends Struct.Fields,
   ReqA extends PathA & QueryA & BodyA,
-  ResA extends StructFields,
+  ResA extends Struct.Fields,
   ResE,
   PPath extends `/${string}`,
   CTX,

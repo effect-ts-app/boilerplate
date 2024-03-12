@@ -37,7 +37,7 @@ const getUserViewByIdResolver = RequestResolver
 
 export const UserViewFromId: Schema<UserView, string, ApiConfig | HttpClient.Client.Default> = S.transformOrFail(
   UserId,
-  S.to(UserView),
+  S.typeSchema(UserView),
   (id) => Effect.request(GetUserViewById({ id }), getUserViewByIdResolver).pipe(Effect.orDie),
   (u) => Effect.succeed(u.id)
 )

@@ -7,7 +7,7 @@ export class BogusEvent extends S.ExtendedTaggedClass<BogusEvent, BogusEvent.Fro
 }) {}
 
 export const ClientEvents = S.union(BogusEvent)
-export type ClientEvents = Schema.To<typeof ClientEvents>
+export type ClientEvents = Schema.Type<typeof ClientEvents>
 
 // codegen:start {preset: model}
 //

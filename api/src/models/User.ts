@@ -16,10 +16,10 @@ export const FirstName = S
     S.withDefaults
   )
 
-export type FirstName = Schema.To<typeof FirstName>
+export type FirstName = Schema.Type<typeof FirstName>
 
 export const DisplayName = FirstName
-export type DisplayName = Schema.To<typeof DisplayName>
+export type DisplayName = Schema.Type<typeof DisplayName>
 
 export const LastName = S
   .NonEmptyString255
@@ -30,7 +30,7 @@ export const LastName = S
     S.withDefaults
   )
 
-export type LastName = Schema.To<typeof LastName>
+export type LastName = Schema.Type<typeof LastName>
 
 export class FullName extends S.ExtendedClass<FullName, FullName.From>()({
   firstName: FirstName,
@@ -57,7 +57,7 @@ export const UserId = UserProfileId
 export type UserId = UserProfileId
 
 export const Role = S.withDefaults(S.literal("manager", "user"))
-export type Role = Schema.To<typeof Role>
+export type Role = Schema.Type<typeof Role>
 
 export class UserFromIdResolver
   extends TagClassId("UserFromId")<UserFromIdResolver, { get: (userId: UserId) => Effect<User> }>()
@@ -78,7 +78,7 @@ export class User extends S.ExtendedClass<User, User.From>()({
 
 export const UserFromId: Schema<User, string, UserFromIdResolver> = S.transformOrFail(
   UserId,
-  S.to(User),
+  S.typeSchema(User),
   User.resolver.get,
   (u) => Effect.succeed(u.id)
 )

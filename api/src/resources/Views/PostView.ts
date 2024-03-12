@@ -4,7 +4,7 @@ import { UserViewFromId } from "../resolvers/UserResolver.js"
 
 export class BlogPostView extends S.ExtendedClass<BlogPostView, BlogPostView.From>()({
   ...BlogPost.omit("author"),
-  author: UserViewFromId.pipe(S.mapFrom("authorId"))
+  author: S.propertySignature(UserViewFromId).pipe(S.fromKey("authorId"))
 }) {}
 
 // codegen:start {preset: model}
