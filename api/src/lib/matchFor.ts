@@ -232,7 +232,7 @@ export function matchFor<Rsc extends Record<string, any>>(
     <R2, E, A>(
       f: Effect<A, E, R2>
     ): HandleVoid<
-      S.Schema.To<REST.GetResponse<Rsc[Key]>>,
+      S.Schema.Type<REST.GetResponse<Rsc[Key]>>,
       A,
       Handler<
         ReqFromSchema<REST.GetRequest<Rsc[Key]>>,
@@ -249,7 +249,7 @@ export function matchFor<Rsc extends Record<string, any>>(
         ctx: GetCTX<REST.GetRequest<Rsc[Key]>> & Pick<Rsc[Key], "Response">
       ) => Effect<A, E, R2>
     ): HandleVoid<
-      S.Schema.To<REST.GetResponse<Rsc[Key]>>,
+      S.Schema.Type<REST.GetResponse<Rsc[Key]>>,
       A,
       Handler<
         ReqFromSchema<REST.GetRequest<Rsc[Key]>>,
@@ -278,7 +278,7 @@ export function matchFor<Rsc extends Record<string, any>>(
         >
       ) => Effect<A, E, R2>
     ): HandleVoid<
-      S.Schema.To<REST.GetResponse<Rsc[Key]>>,
+      S.Schema.Type<REST.GetResponse<Rsc[Key]>>,
       A,
       Handler<
         ReqFromSchema<REST.GetRequest<Rsc[Key]>>,
