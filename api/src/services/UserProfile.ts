@@ -7,7 +7,7 @@ import { Role } from "models/User.js"
 export class UserProfile extends assignTag<UserProfile>()(
   S.Class<UserProfile>()({
     sub: UserProfileId,
-    roles: S.array(Role).withDefault.pipe(S.mapFrom("https://nomizz.com/roles"))
+    roles: S.array(Role).withDefault.pipe(S.fromKey("https://nomizz.com/roles"))
   })
 ) {
 }

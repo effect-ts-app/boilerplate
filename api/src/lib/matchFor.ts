@@ -20,7 +20,7 @@ import { defaultErrorHandler, makeRequestHandler } from "@effect-app/infra/api/r
 import type { Layer, Scope, Types } from "effect-app"
 import { Effect, S } from "effect-app"
 import type { SupportedErrors, ValidationError } from "effect-app/client/errors"
-import type { StructFields } from "effect-app/schema"
+import type { Struct } from "effect-app/schema"
 import { REST } from "effect-app/schema"
 import { handleRequestEnv } from "./RequestEnv.js"
 import type { GetContext, GetCTX } from "./RequestEnv.js"
@@ -32,13 +32,13 @@ import type {} from "@effect/schema/ParseResult"
 export function match<
   R,
   M,
-  PathA extends StructFields,
-  CookieA extends StructFields,
-  QueryA extends StructFields,
-  BodyA extends StructFields,
-  HeaderA extends StructFields,
+  PathA extends Struct.Fields,
+  CookieA extends Struct.Fields,
+  QueryA extends Struct.Fields,
+  BodyA extends Struct.Fields,
+  HeaderA extends Struct.Fields,
   ReqA extends PathA & QueryA & BodyA,
-  ResA extends StructFields,
+  ResA extends Struct.Fields,
   ResE,
   MiddlewareE,
   PPath extends `/${string}`,
@@ -158,7 +158,7 @@ function handle<
     ReqSchema extends { new(...args: any[]): any } ? ReqSchema
       : never
   >
-  type Res = S.Schema.To<Extr<ResSchema>>
+  type Res = S.Schema.Type<Extr<ResSchema>>
 
   return <R, E>(
     h: { _tag: "raw" | "d"; handler: (r: Req) => Effect<Res, E, R> }
@@ -400,7 +400,7 @@ export function matchFor<Rsc extends Record<string, any>>(
     >
   }
 
-  type ResRawFromSchema<ResSchema> = S.Schema.From<Extr<ResSchema>>
+  type ResRawFromSchema<ResSchema> = S.Schema.Encoded<Extr<ResSchema>>
 
   const r = {
     controllers,
