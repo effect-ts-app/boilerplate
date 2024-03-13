@@ -8,11 +8,10 @@
       "@phaphoso/eslint-plugin-dprint@0.5.2": "patches/@phaphoso__eslint-plugin-dprint@0.5.2.patch",
       "fast-check@3.16.0": "patches/fast-check@3.16.0.patch",
       "@fp-ts/optic@0.22.0": "patches/@fp-ts__optic@0.22.0.patch",
-      "effect@2.4.3": "patches/effect@2.4.3.patch",
-      "@effect/schema@0.63.4": "patches/@effect__schema@0.63.4.patch",
+      "effect@2.4.4": "patches/effect@2.4.4.patch",
+      "@effect/schema@0.64.0": "patches/@effect__schema@0.64.0.patch",
       "@hebilicious/vue-query-nuxt@0.3.0": "patches/@hebilicious__vue-query-nuxt@0.3.0.patch",
-      "typescript@5.4.2": "patches/typescript@5.4.2.patch",
-      "@effect/platform@0.47.1": "patches/@effect__platform@0.47.1.patch"
+      "typescript@5.4.2": "patches/typescript@5.4.2.patch"
     }
   },
   "scripts": {
@@ -60,12 +59,12 @@
   },
   "dependencies": {
     "date-fns": "^3.4.0",
-    "effect": "^2.4.3",
-    "@effect/experimental": "^0.10.1",
-    "@effect/opentelemetry": "^0.31.13",
-    "@effect/platform": "^0.47.1",
-    "@effect/platform-node": "^0.45.1",
-    "@effect/schema": "^0.63.4",
+    "effect": "^2.4.4",
+    "@effect/experimental": "^0.11.0",
+    "@effect/opentelemetry": "^0.31.14",
+    "@effect/platform": "^0.48.0",
+    "@effect/platform-node": "^0.45.2",
+    "@effect/schema": "^0.64.0",
     "@opentelemetry/api": "^1.8",
     "@opentelemetry/exporter-trace-otlp-http": "^0.49.1",
     "@opentelemetry/resources": "^1.22",
@@ -86,8 +85,8 @@
   "devDependencies": {
     "@dprint/typescript": "^0.89.3",
     "@effect-app/cli": "^0.62.0",
-    "@effect-app/core": "^0.152.1",
-    "@effect-app/eslint-codegen-model": "^0.62.0",
+    "@effect-app/core": "^0.153.0",
+    "@effect-app/eslint-codegen-model": "^0.63.0",
     "@phaphoso/eslint-plugin-dprint": "^0.5.2",
     "@tsconfig/strictest": "^2.0.3",
     "@types/lodash": "^4.17.0",
@@ -97,7 +96,7 @@
     "@typescript-eslint/scope-manager": "^7.2.0",
     "concurrently": "^8.2.2",
     "dprint": "^0.45.0",
-    "effect-app": "^0.185.5",
+    "effect-app": "^0.186.1",
     "enhanced-resolve": "^5.16.0",
     "eslint": "^8.57.0",
     "eslint-import-resolver-typescript": "^3.6.1",
