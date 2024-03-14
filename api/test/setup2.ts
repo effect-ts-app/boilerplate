@@ -2,10 +2,9 @@
 import * as HttpClientNode from "@effect/platform-node/NodeHttpClient"
 import { api, ApiPortTag } from "api/api.js"
 import { basicLayer, basicRuntime } from "api/lib/basicRuntime.js"
-import { Config, Effect, Exit, Layer } from "effect-app"
+import { Config, Effect, Layer, ManagedRuntime } from "effect-app"
 import { layer as LiveApiConfig } from "effect-app/client/config"
 import type { Runtime } from "effect/Runtime"
-import * as Scope from "effect/Scope"
 
 const POOL_ID = process.env["VITEST_POOL_ID"]
 const PORT = 40000 + parseInt(POOL_ID ?? "1")
@@ -48,37 +47,16 @@ beforeAll(async () => {
   if (globalThis.runtime) return
   console.log(`[${POOL_ID}] Creating runtime`)
 
-  const appRuntime = <R, E, A>(layer: Layer.Layer<R, E, A>) =>
-    Effect.gen(function*($) {
-      const scope = yield* $(Scope.make())
-      const env = yield* $(Layer.buildWithScope(layer, scope))
-      const runtime = yield* $(
-        Effect.runtime<A>().pipe(Effect.scoped, Effect.provide(env))
-      )
+  const rt = ManagedRuntime
+    .make(appLayer)
 
-      return {
-        runtime,
-        clean: Scope.close(scope, Exit.unit)
-      }
-    })
-
-  const runtime = basicRuntime
-    .runPromise(appRuntime(appLayer))
+  globalThis.cleanup = () => basicRuntime.runPromise(rt.disposeEffect)
+  globalThis.runtime = await rt
+    .runtime()
     .catch((error: unknown) => {
       console.error(error)
       throw error
     })
-
-  const cleanup = () =>
-    Effect
-      .promise(() => runtime)
-      .pipe(
-        Effect.andThen((_) => _.clean),
-        basicRuntime.runPromise
-      )
-
-  globalThis.cleanup = cleanup
-  globalThis.runtime = (await runtime).runtime
 }, 30 * 1000)
 
 afterAll(async () => {

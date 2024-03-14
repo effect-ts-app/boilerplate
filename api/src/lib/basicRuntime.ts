@@ -3,28 +3,11 @@ import { logJson } from "@effect-app/infra/logger/jsonLogger"
 import { logFmt } from "@effect-app/infra/logger/logFmtLogger"
 import { runMain as runMainPlatform } from "@effect/platform-node/NodeRuntime"
 import { constantCase } from "change-case"
-import { Cause, Effect, Exit, Layer, Scope } from "effect-app"
+import { Cause, Effect, Layer, ManagedRuntime } from "effect-app"
 import * as ConfigProvider from "effect/ConfigProvider"
 import * as Logger from "effect/Logger"
 import * as Level from "effect/LogLevel"
-import * as Runtime from "effect/Runtime"
-
-const makeBasicRuntime = <R, A, E>(layer: Layer<R, A, E>) =>
-  Effect.gen(function*($) {
-    const scope = yield* $(Scope.make())
-    const env = yield* $(Layer.buildWithScope(layer, scope))
-    const runtime = yield* $(
-      Effect.runtime<A>().pipe(Effect.scoped, Effect.provide(env))
-    )
-
-    return {
-      runtime,
-      clean: Scope.close(scope, Exit.unit),
-      runSync: Runtime.runSync(runtime),
-      runPromise: Runtime.runPromise(runtime),
-      runFork: Runtime.runFork(runtime)
-    }
-  })
+import type * as Runtime from "effect/Runtime"
 
 const envProviderConstantCase = ConfigProvider.mapInputPath(
   ConfigProvider.fromEnv({
@@ -58,7 +41,7 @@ export const basicLayer = Layer.mergeAll(
   Layer.setConfigProvider(envProviderConstantCase)
 )
 
-export const basicRuntime = Effect.runSync(makeBasicRuntime(basicLayer))
+export const basicRuntime = ManagedRuntime.make(basicLayer)
 
 const reportMainError = <E>(cause: Cause.Cause<E>) =>
   Cause.isInterruptedOnly(cause) ? Effect.unit : reportError("Main")(cause)
