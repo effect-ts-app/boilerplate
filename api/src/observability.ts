@@ -24,6 +24,8 @@ import tcpPortUsed from "tcp-port-used"
 import { BaseConfig } from "./config.js"
 import { basicRuntime } from "./lib/basicRuntime.js"
 
+import fs from "fs"
+
 const appConfig = basicRuntime.runSync(BaseConfig)
 
 class SentryFilteredSpanProcessor extends SentrySpanProcessor {
@@ -39,6 +41,15 @@ const NodeSdkLive = Effect
     // TODO: use this on frontend trace proxy too
     const isTelemetryExporterRunning = !isRemote
       && (yield* $(Effect.promise<boolean>(() => tcpPortUsed.check(4318, "localhost"))))
+
+    if (isTelemetryExporterRunning) {
+      fs.writeFileSync(
+        "../.telemetry-exporter-running",
+        isTelemetryExporterRunning.toString()
+      )
+    } else {
+      if (fs.existsSync("../.telemetry-exporter-running")) fs.unlinkSync("../.telemetry-exporter-running")
+    }
 
     let props: Partial<opentelemetry.NodeSDKConfiguration> = dropUndefinedT({
       sampler: isTelemetryExporterRunning ? undefined : new AlwaysOffSampler(),

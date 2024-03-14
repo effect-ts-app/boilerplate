@@ -20,7 +20,7 @@ const RequestCacheLayers = Layer.mergeAll(
   Layer.setRequestBatching(true),
 )
 
-function makeRuntime(feVersion: string, isRemote: boolean) {
+function makeRuntime(feVersion: string, disableTracing: boolean) {
   const apiLayers = Layer.mergeAll(
     Layer.provideMerge(
       Layer.effect(
@@ -47,7 +47,7 @@ function makeRuntime(feVersion: string, isRemote: boolean) {
     clean: () => void
   } = initializeSync(
     // TODO: tracing when deployed
-    isRemote
+    disableTracing
       ? apiLayers
       : apiLayers.pipe(
           Layer.merge(
@@ -74,6 +74,6 @@ export default defineNuxtPlugin(_ => {
   const config = useRuntimeConfig()
   runtime.value = makeRuntime(
     config.public.feVersion,
-    config.public.env !== "local-dev",
+    config.public.env !== "local-dev" || !config.public.telemetry,
   )
 })

@@ -1,5 +1,6 @@
 import process from "process"
 import { fileURLToPath } from "url"
+import fs from "fs"
 
 const localLibs = false
 
@@ -56,6 +57,9 @@ export default defineNuxtConfig({
     basicAuthCredentials: "",
     apiRoot: "http://127.0.0.1:3610",
     public: {
+      telemetry:
+        fs.existsSync("../.telemetry-exporter-running") &&
+        fs.readFileSync("../.telemetry-exporter-running", "utf-8") === "true",
       baseUrl: "http://localhost:4000",
       feVersion: "-1",
       env: process.env.ENV ?? "local-dev",
