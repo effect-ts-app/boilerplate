@@ -5,13 +5,9 @@ import { NonEmptyString255, NonEmptyString2k } from "effect-app/schema"
 import { BlogPost } from "models/Blog.js"
 import { UserRepo } from "./UserRepo.js"
 
-export interface BlogPostPersistenceModel extends BlogPost.From {
-  _etag: string | undefined
-}
-
 export type BlogPostSeed = "sample" | ""
 
-export class BlogPostRepo extends RepositoryDefaultImpl<BlogPostRepo>()<BlogPostPersistenceModel>()(
+export class BlogPostRepo extends RepositoryDefaultImpl<BlogPostRepo>()(
   "BlogPost",
   BlogPost
 ) {
