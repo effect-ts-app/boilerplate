@@ -18,7 +18,7 @@ export interface UserPersistenceModel extends User.From {
 
 export type UserSeed = "sample" | ""
 
-export class UserRepo extends RepositoryDefaultImpl<UserRepo>()<UserPersistenceModel>()(
+export class UserRepo extends RepositoryDefaultImpl<UserRepo>()(
   "User",
   User
 ) {
