@@ -9,7 +9,7 @@
       "fast-check@3.16.0": "patches/fast-check@3.16.0.patch",
       "@fp-ts/optic@0.22.0": "patches/@fp-ts__optic@0.22.0.patch",
       "effect@2.4.7": "patches/effect@2.4.7.patch",
-      "@effect/schema@0.64.4": "patches/@effect__schema@0.64.4.patch",
+      "@effect/schema@0.64.5": "patches/@effect__schema@0.64.5.patch",
       "@hebilicious/vue-query-nuxt@0.3.0": "patches/@hebilicious__vue-query-nuxt@0.3.0.patch",
       "typescript@5.4.2": "patches/typescript@5.4.2.patch"
     }
@@ -60,11 +60,11 @@
   "dependencies": {
     "date-fns": "^3.5.0",
     "effect": "^2.4.7",
-    "@effect/experimental": "^0.13.3",
+    "@effect/experimental": "^0.13.4",
     "@effect/opentelemetry": "^0.31.17",
-    "@effect/platform": "^0.48.7",
-    "@effect/platform-node": "^0.45.9",
-    "@effect/schema": "^0.64.4",
+    "@effect/platform": "^0.48.8",
+    "@effect/platform-node": "^0.45.10",
+    "@effect/schema": "^0.64.5",
     "@opentelemetry/api": "^1.8",
     "@opentelemetry/exporter-trace-otlp-http": "^0.49.1",
     "@opentelemetry/resources": "^1.22",
@@ -78,25 +78,25 @@
     "package-up": "^5.0.0",
     "patch-package": "^8.0.0",
     "ts-patch": "^3.1.2",
-    "vite-node": "^1.3.1",
+    "vite-node": "^1.4.0",
     "vite-tsconfig-paths": "^4.3.2",
     "vue": "^3.4.21"
   },
   "devDependencies": {
     "@dprint/typescript": "^0.89.3",
     "@effect-app/cli": "^0.63.0",
-    "@effect-app/core": "^0.155.0",
-    "@effect-app/eslint-codegen-model": "^0.65.0",
+    "@effect-app/core": "^0.156.0",
+    "@effect-app/eslint-codegen-model": "^0.66.0",
     "@phaphoso/eslint-plugin-dprint": "^0.5.2",
     "@tsconfig/strictest": "^2.0.3",
     "@types/lodash": "^4.17.0",
-    "@types/node": "~20.11.27",
+    "@types/node": "~20.11.28",
     "@typescript-eslint/eslint-plugin": "^7.2.0",
     "@typescript-eslint/parser": "^7.2.0",
     "@typescript-eslint/scope-manager": "^7.2.0",
     "concurrently": "^8.2.2",
     "dprint": "^0.45.0",
-    "effect-app": "^0.188.0",
+    "effect-app": "^0.189.0",
     "enhanced-resolve": "^5.16.0",
     "eslint": "^8.57.0",
     "eslint-import-resolver-typescript": "^3.6.1",
@@ -120,6 +120,6 @@
     "typescript-transform-paths": "^3.4.7",
     "unplugin-auto-import": "^0.17.5",
     "vite": "^5.1.6",
-    "vitest": "^1.3.1"
+    "vitest": "^1.4.0"
   }
 }
