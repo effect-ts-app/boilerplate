@@ -13,7 +13,6 @@ import * as Tag from "effect/Context"
 import * as PubSub from "effect/PubSub"
 import * as Order from "effect/Order"
 import * as Chunk from "@effect-app/core/Chunk"
-import * as Optic from "@effect-app/core/Optic"
 import * as Stream from "effect/Stream"
 
 export { flow, pipe } from "@effect-app/core/Function"
@@ -30,7 +29,6 @@ export {
   ClientRequest,
   Match,
   Option,
-  Optic,
   S,
   Order,
   PubSub,
