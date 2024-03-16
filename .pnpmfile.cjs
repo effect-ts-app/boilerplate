@@ -1,7 +1,6 @@
 // TODO: Write a marker to package.json instead?
 const enforceSingleVersion = [
     "effect",
-    "@fp-ts/optic",
     "@effect/schema",
     "@effect-app/core",
     "@effect-app/infra-adapters",
