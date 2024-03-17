@@ -1,6 +1,5 @@
 import { storeId } from "@effect-app/infra/services/Store/Memory"
-import { Effect, FiberRef, PubSub, Stream } from "effect-app"
-import { TagClassMakeId } from "effect-app/service"
+import { Context, Effect, FiberRef, PubSub, Stream } from "effect-app"
 import type { NonEmptyReadonlyArray } from "effect/ReadonlyArray"
 import type { ClientEvents } from "resources.js"
 
@@ -15,6 +14,6 @@ const makeEvents = Effect.gen(function*($) {
   return svc
 })
 
-export class Events extends TagClassMakeId("Events", makeEvents)<Events>() {
+export class Events extends Context.TagMakeId("Events", makeEvents)<Events>() {
   static readonly Live = this.toLayer()
 }

@@ -2,10 +2,9 @@
 import { pipe } from "@effect-app/core/Function"
 import { A } from "@effect-app/schema"
 import { type Schema } from "@effect/schema/Schema"
-import { Effect, Equivalence, S } from "effect-app"
+import { Context, Effect, Equivalence, S } from "effect-app"
 import { fakerArb } from "effect-app/faker"
 import { UserProfileId } from "effect-app/ids"
-import { TagClassId } from "effect-app/service"
 
 export const FirstName = S
   .NonEmptyString255
@@ -60,7 +59,7 @@ export const Role = S.withDefaults(S.literal("manager", "user"))
 export type Role = Schema.Type<typeof Role>
 
 export class UserFromIdResolver
-  extends TagClassId("UserFromId")<UserFromIdResolver, { get: (userId: UserId) => Effect<User> }>()
+  extends Context.TagId("UserFromId")<UserFromIdResolver, { get: (userId: UserId) => Effect<User> }>()
 {}
 
 export class User extends S.ExtendedClass<User, User.From>()({
