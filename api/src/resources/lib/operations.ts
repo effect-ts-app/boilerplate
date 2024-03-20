@@ -39,11 +39,7 @@ export function refreshAndWaitForOperation<Req, R2, E2, A2, R, E>(
   refresh: Effect<A2, E2, R2>,
   cb?: (op: Operation) => void
 ) {
-  return (req: Req) =>
-    Effect.tap(
-      waitForOperation(Effect.tap(act(req), refresh), cb),
-      refresh
-    )
+  return (req: Req) => refreshAndWaitAForOperation(act(req), refresh, cb)
 }
 
 export function waitForOperation<R, E>(
