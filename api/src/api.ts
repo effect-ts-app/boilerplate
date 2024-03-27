@@ -10,7 +10,7 @@ import { createServer } from "node:http"
 import { MergedConfig } from "./config.js"
 import * as MW from "./middleware/index.js"
 import { RequestContextMiddleware } from "./middleware/index.js"
-import { UserRepo } from "./services.js"
+import { BlogPostRepo, UserRepo } from "./services.js"
 import { Events } from "./services/Events.js"
 
 import * as HttpNode from "@effect/platform-node/Http/Server"
@@ -70,6 +70,7 @@ export const api = Effect
           RequestContextContainer.live,
           HttpClientNode.layer,
           UserRepo.Live,
+          BlogPostRepo.Live,
           Operations.Live,
           Events.Live
         ))

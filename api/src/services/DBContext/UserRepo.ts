@@ -12,10 +12,6 @@ import { User } from "models/User.js"
 import { Q } from "../lib.js"
 import { UserProfile } from "../UserProfile.js"
 
-export interface UserPersistenceModel extends User.From {
-  _etag: string | undefined
-}
-
 export type UserSeed = "sample" | ""
 
 export class UserRepo extends RepositoryDefaultImpl<UserRepo>()(
