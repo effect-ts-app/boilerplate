@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/unbound-method */
 import { pipe } from "@effect-app/core/Function"
-import { A } from "@effect-app/schema"
+import * as A from "@effect/schema/Arbitrary"
 import { type Schema } from "@effect/schema/Schema"
 import { Context, Effect, Equivalence, S } from "effect-app"
 import { fakerArb } from "effect-app/faker"
@@ -10,7 +10,7 @@ export const FirstName = S
   .NonEmptyString255
   .pipe(
     S.annotations({
-      [A.ArbitraryHookId]: (): A.Arbitrary<string> => fakerArb((faker) => faker.person.firstName)
+      [A.ArbitraryHookId]: (): A.Arbitrary<string> => (fc) => fc.string()
     }),
     S.withDefaults
   )
@@ -19,6 +19,10 @@ export type FirstName = Schema.Type<typeof FirstName>
 
 export const DisplayName = FirstName
 export type DisplayName = Schema.Type<typeof DisplayName>
+
+S.array(S.NonEmptyString255).pipe(
+  S.annotations({ [A.ArbitraryHookId]: (): A.Arbitrary<Array<string>> => (fc) => fc.tuple() })
+)
 
 export const LastName = S
   .NonEmptyString255

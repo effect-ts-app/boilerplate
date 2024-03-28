@@ -6,13 +6,13 @@ settings:
 
 overrides:
   date-fns: ^3.6.0
-  fast-check: ^3.17.0
+  fast-check: ^3.17.1
   vue: ^3.4.21
 
 patchedDependencies:
-  '@effect/schema@0.64.14':
-    hash: hwusuhxqroo2bbm6rcbepoubfi
-    path: patches/@effect__schema@0.64.14.patch
+  '@effect/schema@0.64.15':
+    hash: rxu5vmjl4om2wfokejfcswfuiq
+    path: patches/@effect__schema@0.64.15.patch
   '@hebilicious/vue-query-nuxt@0.3.0':
     hash: 5dcq766eeuesmqdcvoqrnf6tzi
     path: patches/@hebilicious__vue-query-nuxt@0.3.0.patch
@@ -22,9 +22,6 @@ patchedDependencies:
   eslint-plugin-codegen@0.17.0:
     hash: 3ogk7peuefdu45q3hbzcgdiuna
     path: patches/eslint-plugin-codegen@0.17.0.patch
-  fast-check@3.17.0:
-    hash: gmhutzas2jzobvkhr72gjyjori
-    path: patches/fast-check@3.17.0.patch
   typescript@5.4.3:
     hash: 53hv5e33djmceeaiom2noinb3m
     path: patches/typescript@5.4.3.patch
@@ -34,20 +31,20 @@ importers:
   .:
     dependencies:
       '@effect/experimental':
-        specifier: ^0.14.5
-        version: 0.14.5(@effect/platform-node@0.45.22)(@effect/platform@0.48.20)(@effect/schema@0.64.14)(effect@2.4.14)(ws@8.16.0)
+        specifier: ^0.14.6
+        version: 0.14.6(@effect/platform-node@0.45.23)(@effect/platform@0.48.21)(@effect/schema@0.64.15)(effect@2.4.15)(ws@8.16.0)
       '@effect/opentelemetry':
-        specifier: ^0.31.24
-        version: 0.31.24(@opentelemetry/api@1.8.0)(@opentelemetry/resources@1.22.0)(@opentelemetry/sdk-metrics@1.22.0)(@opentelemetry/sdk-trace-base@1.22.0)(@opentelemetry/sdk-trace-node@1.22.0)(@opentelemetry/sdk-trace-web@1.22.0)(@opentelemetry/semantic-conventions@1.22.0)(effect@2.4.14)
+        specifier: ^0.31.25
+        version: 0.31.25(@opentelemetry/api@1.8.0)(@opentelemetry/resources@1.22.0)(@opentelemetry/sdk-metrics@1.22.0)(@opentelemetry/sdk-trace-base@1.22.0)(@opentelemetry/sdk-trace-node@1.22.0)(@opentelemetry/sdk-trace-web@1.22.0)(@opentelemetry/semantic-conventions@1.22.0)(effect@2.4.15)
       '@effect/platform':
-        specifier: ^0.48.20
-        version: 0.48.20(@effect/schema@0.64.14)(effect@2.4.14)(ws@8.16.0)
+        specifier: ^0.48.21
+        version: 0.48.21(@effect/schema@0.64.15)(effect@2.4.15)(ws@8.16.0)
       '@effect/platform-node':
-        specifier: ^0.45.22
-        version: 0.45.22(@effect/platform@0.48.20)(effect@2.4.14)
+        specifier: ^0.45.23
+        version: 0.45.23(@effect/platform@0.48.21)(effect@2.4.15)
       '@effect/schema':
-        specifier: ^0.64.14
-        version: 0.64.14(patch_hash=hwusuhxqroo2bbm6rcbepoubfi)(effect@2.4.14)(fast-check@3.17.0)
+        specifier: ^0.64.15
+        version: 0.64.15(patch_hash=rxu5vmjl4om2wfokejfcswfuiq)(effect@2.4.15)(fast-check@3.17.1)
       '@opentelemetry/api':
         specifier: ^1.8
         version: 1.8.0
@@ -79,11 +76,11 @@ importers:
         specifier: ^3.6.0
         version: 3.6.0
       effect:
-        specifier: ^2.4.14
-        version: 2.4.14
+        specifier: ^2.4.15
+        version: 2.4.15
       fast-check:
-        specifier: ^3.17.0
-        version: 3.17.0(patch_hash=gmhutzas2jzobvkhr72gjyjori)
+        specifier: ^3.17.1
+        version: 3.17.1
       package-up:
         specifier: ^5.0.0
         version: 5.0.0
@@ -107,20 +104,20 @@ importers:
         specifier: ^0.89.3
         version: 0.89.3
       '@effect-app/cli':
-        specifier: ^0.65.0
-        version: 0.65.0
+        specifier: ^0.69.0
+        version: 0.69.0
       '@effect-app/core':
-        specifier: ^0.161.0
-        version: 0.161.0(@effect/platform@0.48.20)(effect@2.4.14)
+        specifier: ^0.166.0
+        version: 0.166.0(@effect/platform@0.48.21)(effect@2.4.15)
       '@effect-app/eslint-codegen-model':
-        specifier: ^0.68.0
-        version: 0.68.0(effect@2.4.14)(eslint@8.57.0)(fp-ts@2.16.2)(typescript@5.4.3)
+        specifier: ^0.71.0
+        version: 0.71.0(effect@2.4.15)(eslint@8.57.0)(fp-ts@2.16.2)(typescript@5.4.3)
       '@phaphoso/eslint-plugin-dprint':
         specifier: ^0.5.2
         version: 0.5.2(patch_hash=5r3oafqkulzxdb6awceadivssy)(eslint@8.57.0)
       '@tsconfig/strictest':
-        specifier: ^2.0.4
-        version: 2.0.4
+        specifier: ^2.0.5
+        version: 2.0.5
       '@types/lodash':
         specifier: ^4.17.0
         version: 4.17.0
@@ -143,8 +140,8 @@ importers:
         specifier: ^0.45.0
         version: 0.45.0
       effect-app:
-        specifier: ^0.194.0
-        version: 0.194.0(@effect/platform@0.48.20)(@effect/schema@0.64.14)(effect@2.4.14)
+        specifier: ^0.197.0
+        version: 0.197.0(@effect/platform@0.48.21)(@effect/schema@0.64.15)(effect@2.4.15)
       enhanced-resolve:
         specifier: ^5.16.0
         version: 5.16.0
@@ -194,8 +191,8 @@ importers:
         specifier: ^9.6.0
         version: 9.6.0
       tsc-watch:
-        specifier: ^6.0.4
-        version: 6.0.4(typescript@5.4.3)
+        specifier: ^6.1.0
+        version: 6.1.0(typescript@5.4.3)
       tsconfig-paths:
         specifier: ^4.2.0
         version: 4.2.0
@@ -233,29 +230,29 @@ importers:
         specifier: ^12.17.0
         version: 12.17.0
       '@effect-app/core':
-        specifier: ^0.161.0
-        version: 0.161.0(@effect/platform@0.48.20)(effect@2.4.14)
+        specifier: ^0.166.0
+        version: 0.166.0(@effect/platform@0.48.21)(effect@2.4.15)
       '@effect-app/infra':
-        specifier: 0.227.0
-        version: 0.227.0(@effect/platform@0.48.20)(@effect/schema@0.64.14)(effect@2.4.14)(express@4.19.2)
+        specifier: 0.230.0
+        version: 0.230.0(@effect/platform@0.48.21)(@effect/schema@0.64.15)(effect@2.4.15)(express@4.19.2)
       '@effect-app/infra-adapters':
-        specifier: ^0.148.0
-        version: 0.148.0(@effect/platform@0.48.20)(@effect/schema@0.64.14)(effect@2.4.14)
+        specifier: ^0.151.0
+        version: 0.151.0(@effect/platform@0.48.21)(@effect/schema@0.64.15)(effect@2.4.15)
       '@effect-app/schema':
-        specifier: ^0.213.0
-        version: 0.213.0(@effect/platform@0.48.20)(@effect/schema@0.64.14)(effect@2.4.14)
+        specifier: ^0.216.0
+        version: 0.216.0(@effect/platform@0.48.21)(@effect/schema@0.64.15)(effect@2.4.15)
       '@effect/opentelemetry':
-        specifier: ^0.31.24
-        version: 0.31.24(@opentelemetry/api@1.8.0)(@opentelemetry/resources@1.22.0)(@opentelemetry/sdk-metrics@1.22.0)(@opentelemetry/sdk-trace-base@1.22.0)(@opentelemetry/sdk-trace-node@1.22.0)(@opentelemetry/sdk-trace-web@1.22.0)(@opentelemetry/semantic-conventions@1.22.0)(effect@2.4.14)
+        specifier: ^0.31.25
+        version: 0.31.25(@opentelemetry/api@1.8.0)(@opentelemetry/resources@1.22.0)(@opentelemetry/sdk-metrics@1.22.0)(@opentelemetry/sdk-trace-base@1.22.0)(@opentelemetry/sdk-trace-node@1.22.0)(@opentelemetry/sdk-trace-web@1.22.0)(@opentelemetry/semantic-conventions@1.22.0)(effect@2.4.15)
       '@effect/platform':
-        specifier: ^0.48.20
-        version: 0.48.20(@effect/schema@0.64.14)(effect@2.4.14)(ws@8.16.0)
+        specifier: ^0.48.21
+        version: 0.48.21(@effect/schema@0.64.15)(effect@2.4.15)(ws@8.16.0)
       '@effect/platform-node':
-        specifier: 0.45.22
-        version: 0.45.22(@effect/platform@0.48.20)(effect@2.4.14)
+        specifier: 0.45.23
+        version: 0.45.23(@effect/platform@0.48.21)(effect@2.4.15)
       '@formatjs/cli':
-        specifier: ^6.2.8
-        version: 6.2.8(vue@3.4.21)
+        specifier: ^6.2.9
+        version: 6.2.9(vue@3.4.21)
       '@formatjs/intl':
         specifier: 2.7.2
         version: 2.7.2(typescript@5.4.3)
@@ -296,11 +293,11 @@ importers:
         specifier: ^16.4.5
         version: 16.4.5
       effect:
-        specifier: ^2.4.14
-        version: 2.4.14
+        specifier: ^2.4.15
+        version: 2.4.15
       effect-app:
-        specifier: ^0.194.0
-        version: 0.194.0(@effect/platform@0.48.20)(@effect/schema@0.64.14)(effect@2.4.14)
+        specifier: ^0.197.0
+        version: 0.197.0(@effect/platform@0.48.21)(@effect/schema@0.64.15)(effect@2.4.15)
       express:
         specifier: ^4.19.2
         version: 4.19.2
@@ -311,8 +308,8 @@ importers:
         specifier: ^1.6.0
         version: 1.6.0
       fast-check:
-        specifier: ^3.17.0
-        version: 3.17.0(patch_hash=gmhutzas2jzobvkhr72gjyjori)
+        specifier: ^3.17.1
+        version: 3.17.1
       jwks-rsa:
         specifier: 2.1.4
         version: 2.1.4
@@ -387,17 +384,17 @@ importers:
         specifier: '*'
         version: link:../api
       '@effect-app/core':
-        specifier: ^0.161.0
-        version: 0.161.0(@effect/platform@0.48.20)(effect@2.4.14)
+        specifier: ^0.166.0
+        version: 0.166.0(@effect/platform@0.48.21)(effect@2.4.15)
       '@effect-app/schema':
-        specifier: ^0.213.0
-        version: 0.213.0(@effect/platform@0.48.20)(@effect/schema@0.64.14)(effect@2.4.14)
+        specifier: ^0.216.0
+        version: 0.216.0(@effect/platform@0.48.21)(@effect/schema@0.64.15)(effect@2.4.15)
       '@effect/platform':
-        specifier: ^0.48.20
-        version: 0.48.20(@effect/schema@0.64.14)(effect@2.4.14)(ws@8.16.0)
+        specifier: ^0.48.21
+        version: 0.48.21(@effect/schema@0.64.15)(effect@2.4.15)(ws@8.16.0)
       '@effect/platform-node':
-        specifier: 0.45.22
-        version: 0.45.22(@effect/platform@0.48.20)(effect@2.4.14)
+        specifier: 0.45.23
+        version: 0.45.23(@effect/platform@0.48.21)(effect@2.4.15)
       '@tsplus/stdlib':
         specifier: ^0.2.8
         version: 0.2.8
@@ -405,11 +402,11 @@ importers:
         specifier: ^4.0.0
         version: 4.0.0
       effect:
-        specifier: ^2.4.14
-        version: 2.4.14
+        specifier: ^2.4.15
+        version: 2.4.15
       effect-app:
-        specifier: ^0.194.0
-        version: 0.194.0(@effect/platform@0.48.20)(@effect/schema@0.64.14)(effect@2.4.14)
+        specifier: ^0.197.0
+        version: 0.197.0(@effect/platform@0.48.21)(@effect/schema@0.64.15)(effect@2.4.15)
       tsconfig-paths:
         specifier: ^4.2.0
         version: 4.2.0
@@ -508,29 +505,29 @@ importers:
         specifier: '*'
         version: link:../api
       '@effect-app/core':
-        specifier: ^0.161.0
-        version: 0.161.0(@effect/platform@0.48.20)(effect@2.4.14)
+        specifier: ^0.166.0
+        version: 0.166.0(@effect/platform@0.48.21)(effect@2.4.15)
       '@effect-app/fluent-extensions':
-        specifier: ^0.155.0
-        version: 0.155.0(@effect/platform@0.48.20)(effect@2.4.14)
+        specifier: ^0.159.0
+        version: 0.159.0(@effect/platform@0.48.21)(effect@2.4.15)
       '@effect-app/schema':
-        specifier: ^0.213.0
-        version: 0.213.0(@effect/platform@0.48.20)(@effect/schema@0.64.14)(effect@2.4.14)
+        specifier: ^0.216.0
+        version: 0.216.0(@effect/platform@0.48.21)(@effect/schema@0.64.15)(effect@2.4.15)
       '@effect-app/vue':
-        specifier: ^0.157.0
-        version: 0.157.0(@effect/platform-browser@0.31.20)(@effect/platform@0.48.20)(@effect/schema@0.64.14)(effect@2.4.14)(typescript@5.4.3)(vue@3.4.21)
+        specifier: ^0.162.0
+        version: 0.162.0(@effect/platform-browser@0.31.21)(@effect/platform@0.48.21)(@effect/schema@0.64.15)(effect@2.4.15)(typescript@5.4.3)(vue@3.4.21)
       '@effect/opentelemetry':
-        specifier: ^0.31.24
-        version: 0.31.24(@opentelemetry/api@1.8.0)(@opentelemetry/resources@1.22.0)(@opentelemetry/sdk-metrics@1.22.0)(@opentelemetry/sdk-trace-base@1.22.0)(@opentelemetry/sdk-trace-node@1.22.0)(@opentelemetry/sdk-trace-web@1.22.0)(@opentelemetry/semantic-conventions@1.22.0)(effect@2.4.14)
+        specifier: ^0.31.25
+        version: 0.31.25(@opentelemetry/api@1.8.0)(@opentelemetry/resources@1.22.0)(@opentelemetry/sdk-metrics@1.22.0)(@opentelemetry/sdk-trace-base@1.22.0)(@opentelemetry/sdk-trace-node@1.22.0)(@opentelemetry/sdk-trace-web@1.22.0)(@opentelemetry/semantic-conventions@1.22.0)(effect@2.4.15)
       '@effect/platform':
-        specifier: ^0.48.20
-        version: 0.48.20(@effect/schema@0.64.14)(effect@2.4.14)(ws@8.16.0)
+        specifier: ^0.48.21
+        version: 0.48.21(@effect/schema@0.64.15)(effect@2.4.15)(ws@8.16.0)
       '@formatjs/intl':
         specifier: 2.7.2
         version: 2.7.2(typescript@5.4.3)
       '@hebilicious/vue-query-nuxt':
         specifier: ^0.3.0
-        version: 0.3.0(patch_hash=5dcq766eeuesmqdcvoqrnf6tzi)(@tanstack/vue-query@5.28.8)(nuxt@3.11.1)
+        version: 0.3.0(patch_hash=5dcq766eeuesmqdcvoqrnf6tzi)(@tanstack/vue-query@5.28.9)(nuxt@3.11.1)
       '@opentelemetry/context-zone':
         specifier: ^1.22.0
         version: 1.22.0(@opentelemetry/api@1.8.0)
@@ -559,11 +556,11 @@ importers:
         specifier: ^7.108.0
         version: 7.108.0(vue@3.4.21)
       '@tanstack/vue-query':
-        specifier: ^5.28.8
-        version: 5.28.8(vue@3.4.21)
+        specifier: ^5.28.9
+        version: 5.28.9(vue@3.4.21)
       '@tanstack/vue-query-devtools':
-        specifier: ^5.28.8
-        version: 5.28.8(@tanstack/vue-query@5.28.8)(vue@3.4.21)
+        specifier: ^5.28.10
+        version: 5.28.10(@tanstack/vue-query@5.28.9)(vue@3.4.21)
       '@vueuse/core':
         specifier: ^10.9.0
         version: 10.9.0(vue@3.4.21)
@@ -577,11 +574,11 @@ importers:
         specifier: ^3.6.0
         version: 3.6.0
       effect:
-        specifier: ^2.4.14
-        version: 2.4.14
+        specifier: ^2.4.15
+        version: 2.4.15
       effect-app:
-        specifier: ^0.194.0
-        version: 0.194.0(@effect/platform@0.48.20)(@effect/schema@0.64.14)(effect@2.4.14)
+        specifier: ^0.197.0
+        version: 0.197.0(@effect/platform@0.48.21)(@effect/schema@0.64.15)(effect@2.4.15)
       highcharts:
         specifier: ^11.4.0
         version: 11.4.0
@@ -610,8 +607,8 @@ importers:
         specifier: ^2.0.0-rc.5
         version: 2.0.0-rc.5(vue@3.4.21)
       vuetify:
-        specifier: ^3.5.11
-        version: 3.5.11(typescript@5.4.3)(vue@3.4.21)
+        specifier: ^3.5.13
+        version: 3.5.13(typescript@5.4.3)(vue@3.4.21)
       xlsx:
         specifier: ^0.18.5
         version: 0.18.5
@@ -2238,23 +2235,22 @@ packages:
     dev: true
     optional: true
 
-  /@effect-app/cli@0.65.0:
-    resolution: {integrity: sha512-PXuVNPuB4I7K/EarqXxnOUkPGDfoI+g/QXzlr+zkZo+SM+tD5bR3pF+dDsP2XPiKgVu8TEcoqfvZ2E6scTIHlw==}
+  /@effect-app/cli@0.69.0:
+    resolution: {integrity: sha512-4WM9rpKlw95cqIuXqcCkhI8e4iVDCO8AzFaY6/CaITvan+UPOkncBvoESrRlF9BqMuTeUtit6lJySltwk9yIyA==}
     hasBin: true
     dependencies:
       node-watch: 0.7.4
     dev: true
 
-  /@effect-app/core@0.161.0(@effect/platform@0.48.20)(effect@2.4.14):
-    resolution: {integrity: sha512-fSRGnqmeQriwlKGeK/Av6T7sVlBvuBdi+C4NX4d25XgEecZRi8PFgtgMk8FuC5pRWyf2fVRe0nORwbPzi+1KOQ==}
+  /@effect-app/core@0.166.0(@effect/platform@0.48.21)(effect@2.4.15):
+    resolution: {integrity: sha512-LBXcnrhluY/u5iLOmUJgDkHogetfEPe5RLUd8YfWJfd9j1J9IMd/xdUlL+M07ESvGJxYu81SZ2AXwizc8BVDoA==}
     peerDependencies:
-      '@effect/platform': ^0.48.20
-      effect: ^2.4.14
+      '@effect/platform': ^0.48.21
+      effect: ^2.4.15
     dependencies:
-      '@effect-app/fluent-extensions': 0.155.0(@effect/platform@0.48.20)(effect@2.4.14)
-      '@effect/platform': 0.48.20(@effect/schema@0.64.14)(effect@2.4.14)(ws@8.16.0)
+      '@effect/platform': 0.48.21(@effect/schema@0.64.15)(effect@2.4.15)(ws@8.16.0)
       cross-fetch: 4.0.0
-      effect: 2.4.14
+      effect: 2.4.15
       path-parser: 6.1.0
       query-string: 9.0.0
       uuid: 9.0.1
@@ -2262,15 +2258,15 @@ packages:
     transitivePeerDependencies:
       - encoding
 
-  /@effect-app/eslint-codegen-model@0.68.0(effect@2.4.14)(eslint@8.57.0)(fp-ts@2.16.2)(typescript@5.4.3):
-    resolution: {integrity: sha512-qjYkJuNHnUaIIjEpohFpfSaIdY1pR2xNNMCESnF0KyaBgWvLlmOD3W10FZJ3wJGy4HLPEwY1OyL8mtnJ3xUTNg==}
+  /@effect-app/eslint-codegen-model@0.71.0(effect@2.4.15)(eslint@8.57.0)(fp-ts@2.16.2)(typescript@5.4.3):
+    resolution: {integrity: sha512-EAKPYGcNcQf2t6MR6vWvNxNkcFl2FW1vxesawqrpMajToyUyuYwj8A68cknpRUrGVfDM3+quh2JbtjeemaNZSQ==}
     peerDependencies:
-      effect: ^2.4.14
+      effect: ^2.4.15
     dependencies:
       '@babel/generator': 7.24.1
       '@babel/parser': 7.24.1
       '@typescript-eslint/utils': 7.4.0(eslint@8.57.0)(typescript@5.4.3)
-      effect: 2.4.14
+      effect: 2.4.15
       eslint-plugin-codegen: 0.17.0(patch_hash=3ogk7peuefdu45q3hbzcgdiuna)
       glob: 8.1.0
       io-ts: 2.2.21(fp-ts@2.16.2)
@@ -2284,67 +2280,69 @@ packages:
       - typescript
     dev: true
 
-  /@effect-app/fluent-extensions@0.155.0(@effect/platform@0.48.20)(effect@2.4.14):
-    resolution: {integrity: sha512-0JBrbfvX8JUNtJGPHJebNa3giLlbVzyQ9jKqOoRGuiux0n6vZaINJE1lv3lEfr1KqIirjWoYIv5oH52kMgJ3tQ==}
+  /@effect-app/fluent-extensions@0.159.0(@effect/platform@0.48.21)(effect@2.4.15):
+    resolution: {integrity: sha512-MQqJj81gbuwkku17GkHyA9XUzBTuNrKRFH8UO2YLqSm1kXNlgqyeGUw8KstbV/ya5q3wv0Nockk9ChthgaNqPQ==}
     peerDependencies:
-      '@effect/platform': ^0.48.20
-      effect: ^2.4.14
+      '@effect/platform': ^0.48.21
+      effect: ^2.4.15
     dependencies:
-      '@effect/platform': 0.48.20(@effect/schema@0.64.14)(effect@2.4.14)(ws@8.16.0)
+      '@effect-app/core': 0.166.0(@effect/platform@0.48.21)(effect@2.4.15)
+      '@effect/platform': 0.48.21(@effect/schema@0.64.15)(effect@2.4.15)(ws@8.16.0)
       date-fns: 3.6.0
-      effect: 2.4.14
+      effect: 2.4.15
       nanoid: 5.0.6
       path-parser: 6.1.0
       query-string: 9.0.0
       ts-pattern: 5.0.8
       uuid: 9.0.1
       validator: 13.11.0
+    transitivePeerDependencies:
+      - encoding
+    dev: false
 
-  /@effect-app/infra-adapters@0.148.0(@effect/platform@0.48.20)(@effect/schema@0.64.14)(effect@2.4.14):
-    resolution: {integrity: sha512-7V8wv7wPPCoJwsuvK5iVj8ZlikioktGOkyIVmSS+zAvYYrHC5MWMVYo8eXYdMY1H1Y7ykukepuDuBVgI/MlO6Q==}
+  /@effect-app/infra-adapters@0.151.0(@effect/platform@0.48.21)(@effect/schema@0.64.15)(effect@2.4.15):
+    resolution: {integrity: sha512-zFaq/RiOqXK8xfvtIlRBXDpZI1WMWCIy/Xb4CZd97XHH6HsxZDYfp6XC0tTfLQU/F1JS5I5+RL7l62dwkQ4KFg==}
     peerDependencies:
-      '@effect/platform': ^0.48.20
-      '@effect/schema': ^0.64.14
-      effect: ^2.4.14
+      '@effect/platform': ^0.48.21
+      '@effect/schema': ^0.64.15
+      effect: ^2.4.15
     dependencies:
-      '@effect-app/core': 0.161.0(@effect/platform@0.48.20)(effect@2.4.14)
-      '@effect-app/fluent-extensions': 0.155.0(@effect/platform@0.48.20)(effect@2.4.14)
-      '@effect-app/schema': 0.213.0(@effect/platform@0.48.20)(@effect/schema@0.64.14)(effect@2.4.14)
-      '@effect/platform': 0.48.20(@effect/schema@0.64.14)(effect@2.4.14)(ws@8.16.0)
-      '@effect/schema': 0.64.14(patch_hash=hwusuhxqroo2bbm6rcbepoubfi)(effect@2.4.14)(fast-check@3.17.0)
-      effect: 2.4.14
-      effect-app: 0.194.0(@effect/platform@0.48.20)(@effect/schema@0.64.14)(effect@2.4.14)
+      '@effect-app/core': 0.166.0(@effect/platform@0.48.21)(effect@2.4.15)
+      '@effect-app/schema': 0.216.0(@effect/platform@0.48.21)(@effect/schema@0.64.15)(effect@2.4.15)
+      '@effect/platform': 0.48.21(@effect/schema@0.64.15)(effect@2.4.15)(ws@8.16.0)
+      '@effect/schema': 0.64.15(patch_hash=rxu5vmjl4om2wfokejfcswfuiq)(effect@2.4.15)(fast-check@3.17.1)
+      effect: 2.4.15
+      effect-app: 0.197.0(@effect/platform@0.48.21)(@effect/schema@0.64.15)(effect@2.4.15)
       query-string: 9.0.0
     transitivePeerDependencies:
       - encoding
     dev: false
 
-  /@effect-app/infra@0.227.0(@effect/platform@0.48.20)(@effect/schema@0.64.14)(effect@2.4.14)(express@4.19.2):
-    resolution: {integrity: sha512-l9T3cem6V12ALa85smhnvi4dKQfqCiauQ+7S3GnvQsaJIDFe8nqPdqfWsVcmbXbY4VGce6DjlQ9zQImpeacP6A==}
+  /@effect-app/infra@0.230.0(@effect/platform@0.48.21)(@effect/schema@0.64.15)(effect@2.4.15)(express@4.19.2):
+    resolution: {integrity: sha512-7Lp53gI1ORyrqUfOf9fZAFkYyxQkemWpV3kHtbvfd7o8UmzjYzB9i1GbqJTcXr4es3HBqeFqVSt4vWys9cRLyA==}
     peerDependencies:
-      '@effect/platform': ^0.48.20
-      '@effect/schema': ^0.64.14
-      effect: ^2.4.14
+      '@effect/platform': ^0.48.21
+      '@effect/schema': ^0.64.15
+      effect: ^2.4.15
       express: ^4.19.2
     dependencies:
       '@azure/cosmos': 4.0.0
       '@azure/service-bus': 7.9.4
-      '@effect-app/core': 0.161.0(@effect/platform@0.48.20)(effect@2.4.14)
-      '@effect-app/fluent-extensions': 0.155.0(@effect/platform@0.48.20)(effect@2.4.14)
-      '@effect-app/infra-adapters': 0.148.0(@effect/platform@0.48.20)(@effect/schema@0.64.14)(effect@2.4.14)
-      '@effect-app/schema': 0.213.0(@effect/platform@0.48.20)(@effect/schema@0.64.14)(effect@2.4.14)
-      '@effect/platform': 0.48.20(@effect/schema@0.64.14)(effect@2.4.14)(ws@8.16.0)
-      '@effect/schema': 0.64.14(patch_hash=hwusuhxqroo2bbm6rcbepoubfi)(effect@2.4.14)(fast-check@3.17.0)
+      '@effect-app/core': 0.166.0(@effect/platform@0.48.21)(effect@2.4.15)
+      '@effect-app/infra-adapters': 0.151.0(@effect/platform@0.48.21)(@effect/schema@0.64.15)(effect@2.4.15)
+      '@effect-app/schema': 0.216.0(@effect/platform@0.48.21)(@effect/schema@0.64.15)(effect@2.4.15)
+      '@effect/platform': 0.48.21(@effect/schema@0.64.15)(effect@2.4.15)(ws@8.16.0)
+      '@effect/schema': 0.64.15(patch_hash=rxu5vmjl4om2wfokejfcswfuiq)(effect@2.4.15)(fast-check@3.17.1)
       '@faker-js/faker': 8.4.1
       '@sendgrid/helpers': 8.0.0
       '@sendgrid/mail': 8.1.1
       change-case: 5.4.3
       cross-fetch: 4.0.0
-      effect: 2.4.14
-      effect-app: 0.194.0(@effect/platform@0.48.20)(@effect/schema@0.64.14)(effect@2.4.14)
+      effect: 2.4.15
+      effect-app: 0.197.0(@effect/platform@0.48.21)(@effect/schema@0.64.15)(effect@2.4.15)
       express: 4.19.2
       express-oauth2-jwt-bearer: 1.6.0
-      fast-check: 3.17.0(patch_hash=gmhutzas2jzobvkhr72gjyjori)
+      fast-check: 3.17.1
       object-hash: 3.0.0
       path-parser: 6.1.0
       proper-lockfile: 4.1.2
@@ -2356,16 +2354,16 @@ packages:
       - supports-color
     dev: false
 
-  /@effect-app/schema@0.213.0(@effect/platform@0.48.20)(@effect/schema@0.64.14)(effect@2.4.14):
-    resolution: {integrity: sha512-RKKyBN8H3dBLEFIEraA0ViryHRXgtJEtIhEb0mqyhIjv7T+w95R237nJfM+TsH66vTKhXSQHSbx4ZgSRZjEb3Q==}
+  /@effect-app/schema@0.216.0(@effect/platform@0.48.21)(@effect/schema@0.64.15)(effect@2.4.15):
+    resolution: {integrity: sha512-q6KDx6/SZODBHILu4ubQJngrA9shwDDiGeB7SmCp4gMsrjSPeFxemoaPIwy9HGZd7SJFSTZnjgQWljN21XybZA==}
     peerDependencies:
-      '@effect/schema': ^0.64.14
-      effect: ^2.4.14
+      '@effect/schema': ^0.64.15
+      effect: ^2.4.15
     dependencies:
-      '@effect-app/core': 0.161.0(@effect/platform@0.48.20)(effect@2.4.14)
-      '@effect/schema': 0.64.14(patch_hash=hwusuhxqroo2bbm6rcbepoubfi)(effect@2.4.14)(fast-check@3.17.0)
+      '@effect-app/core': 0.166.0(@effect/platform@0.48.21)(effect@2.4.15)
+      '@effect/schema': 0.64.15(patch_hash=rxu5vmjl4om2wfokejfcswfuiq)(effect@2.4.15)(fast-check@3.17.1)
       cross-fetch: 4.0.0
-      effect: 2.4.14
+      effect: 2.4.15
       nanoid: 5.0.6
       path-parser: 6.1.0
       uuid: 9.0.1
@@ -2374,25 +2372,24 @@ packages:
       - '@effect/platform'
       - encoding
 
-  /@effect-app/vue@0.157.0(@effect/platform-browser@0.31.20)(@effect/platform@0.48.20)(@effect/schema@0.64.14)(effect@2.4.14)(typescript@5.4.3)(vue@3.4.21):
-    resolution: {integrity: sha512-zGmY6pX/Mlj59uG4Ao14WHXnRPcQEEmpEfU8clSYM/u+BbQZUYuHX7g9mGt3Pc4YyQauiJ6P/Uiwo+X/vkyrfA==}
+  /@effect-app/vue@0.162.0(@effect/platform-browser@0.31.21)(@effect/platform@0.48.21)(@effect/schema@0.64.15)(effect@2.4.15)(typescript@5.4.3)(vue@3.4.21):
+    resolution: {integrity: sha512-CPu+DUaQ2755M2VHYrrDtaX/pMfTm96vC7vqv1wpyJvV6H4dVRWRq0xBABqonZG4MTF8HY+1INbkVXdHhwOG7g==}
     peerDependencies:
-      '@effect/platform': ^0.48.20
-      '@effect/platform-browser': ^0.31.20
-      '@effect/schema': ^0.64.14
-      effect: ^2.4.14
+      '@effect/platform': ^0.48.21
+      '@effect/platform-browser': ^0.31.21
+      '@effect/schema': ^0.64.15
+      effect: ^2.4.15
       vue: ^3.4.21
     dependencies:
-      '@effect-app/core': 0.161.0(@effect/platform@0.48.20)(effect@2.4.14)
-      '@effect-app/fluent-extensions': 0.155.0(@effect/platform@0.48.20)(effect@2.4.14)
-      '@effect-app/schema': 0.213.0(@effect/platform@0.48.20)(@effect/schema@0.64.14)(effect@2.4.14)
-      '@effect/platform': 0.48.20(@effect/schema@0.64.14)(effect@2.4.14)(ws@8.16.0)
-      '@effect/platform-browser': 0.31.20(@effect/platform@0.48.20)(effect@2.4.14)
-      '@effect/schema': 0.64.14(patch_hash=hwusuhxqroo2bbm6rcbepoubfi)(effect@2.4.14)(fast-check@3.17.0)
+      '@effect-app/core': 0.166.0(@effect/platform@0.48.21)(effect@2.4.15)
+      '@effect-app/schema': 0.216.0(@effect/platform@0.48.21)(@effect/schema@0.64.15)(effect@2.4.15)
+      '@effect/platform': 0.48.21(@effect/schema@0.64.15)(effect@2.4.15)(ws@8.16.0)
+      '@effect/platform-browser': 0.31.21(@effect/platform@0.48.21)(effect@2.4.15)
+      '@effect/schema': 0.64.15(patch_hash=rxu5vmjl4om2wfokejfcswfuiq)(effect@2.4.15)(fast-check@3.17.1)
       '@formatjs/intl': 2.10.1(typescript@5.4.3)
-      '@tanstack/vue-query': 5.28.8(vue@3.4.21)
-      effect: 2.4.14
-      effect-app: 0.194.0(@effect/platform@0.48.20)(@effect/schema@0.64.14)(effect@2.4.14)
+      '@tanstack/vue-query': 5.28.9(vue@3.4.21)
+      effect: 2.4.15
+      effect-app: 0.197.0(@effect/platform@0.48.21)(@effect/schema@0.64.15)(effect@2.4.15)
       query-string: 9.0.0
       vue: 3.4.21(typescript@5.4.3)
     transitivePeerDependencies:
@@ -2401,13 +2398,13 @@ packages:
       - typescript
     dev: false
 
-  /@effect/experimental@0.14.5(@effect/platform-node@0.45.22)(@effect/platform@0.48.20)(@effect/schema@0.64.14)(effect@2.4.14)(ws@8.16.0):
-    resolution: {integrity: sha512-Ji/yJSgGWwCl++m3TWYwo9jwXW9mvEbgg+SE9EAqObL6eN0sH7reKtOgzVAhI1IhTm660CHhBmbznLEL9d3JCQ==}
+  /@effect/experimental@0.14.6(@effect/platform-node@0.45.23)(@effect/platform@0.48.21)(@effect/schema@0.64.15)(effect@2.4.15)(ws@8.16.0):
+    resolution: {integrity: sha512-8uVHr84RXOtabzfMTC0ANTh3WRbCd7oZ2Wf5fqhzoEQbm0BpLlZEE8pxGIWIHQ1ZkFUS1A3TkU5RIPuDESK3Vg==}
     peerDependencies:
-      '@effect/platform': ^0.48.20
-      '@effect/platform-node': ^0.45.22
-      '@effect/schema': ^0.64.14
-      effect: ^2.4.14
+      '@effect/platform': ^0.48.21
+      '@effect/platform-node': ^0.45.23
+      '@effect/schema': ^0.64.15
+      effect: ^2.4.15
       ioredis: ^5.3.2
       lmdb: ^2.9.2
       ws: ^8.14
@@ -2421,17 +2418,17 @@ packages:
       ws:
         optional: true
     dependencies:
-      '@effect/platform': 0.48.20(@effect/schema@0.64.14)(effect@2.4.14)(ws@8.16.0)
-      '@effect/platform-node': 0.45.22(@effect/platform@0.48.20)(effect@2.4.14)
-      '@effect/schema': 0.64.14(patch_hash=hwusuhxqroo2bbm6rcbepoubfi)(effect@2.4.14)(fast-check@3.17.0)
-      effect: 2.4.14
+      '@effect/platform': 0.48.21(@effect/schema@0.64.15)(effect@2.4.15)(ws@8.16.0)
+      '@effect/platform-node': 0.45.23(@effect/platform@0.48.21)(effect@2.4.15)
+      '@effect/schema': 0.64.15(patch_hash=rxu5vmjl4om2wfokejfcswfuiq)(effect@2.4.15)(fast-check@3.17.1)
+      effect: 2.4.15
       isomorphic-ws: 5.0.0(ws@8.16.0)
       msgpackr: 1.10.1
       ws: 8.16.0
     dev: false
 
-  /@effect/opentelemetry@0.31.24(@opentelemetry/api@1.8.0)(@opentelemetry/resources@1.22.0)(@opentelemetry/sdk-metrics@1.22.0)(@opentelemetry/sdk-trace-base@1.22.0)(@opentelemetry/sdk-trace-node@1.22.0)(@opentelemetry/sdk-trace-web@1.22.0)(@opentelemetry/semantic-conventions@1.22.0)(effect@2.4.14):
-    resolution: {integrity: sha512-ObJmakfiVr2b0h8DS8gk05Cd3yUa2scncyzK3siUp1SjavNW3e5IOr0QY6Tz091JXErRJmHYJZF5VXsyr7h1LA==}
+  /@effect/opentelemetry@0.31.25(@opentelemetry/api@1.8.0)(@opentelemetry/resources@1.22.0)(@opentelemetry/sdk-metrics@1.22.0)(@opentelemetry/sdk-trace-base@1.22.0)(@opentelemetry/sdk-trace-node@1.22.0)(@opentelemetry/sdk-trace-web@1.22.0)(@opentelemetry/semantic-conventions@1.22.0)(effect@2.4.15):
+    resolution: {integrity: sha512-XyzFD9LOBWUZdFJpVoUbsJsWbzdh7PsVVzJZLssMf0aqTdmpns+bJuJTJrOPNy8GWL4LUKTXNakUKGoaQRAlEQ==}
     peerDependencies:
       '@opentelemetry/api': ^1.6
       '@opentelemetry/resources': ^1.17
@@ -2440,7 +2437,7 @@ packages:
       '@opentelemetry/sdk-trace-node': ^1.17
       '@opentelemetry/sdk-trace-web': ^1.17
       '@opentelemetry/semantic-conventions': ^1.17
-      effect: ^2.4.14
+      effect: ^2.4.15
     peerDependenciesMeta:
       '@opentelemetry/sdk-metrics':
         optional: true
@@ -2458,41 +2455,41 @@ packages:
       '@opentelemetry/sdk-trace-node': 1.22.0(@opentelemetry/api@1.8.0)
       '@opentelemetry/sdk-trace-web': 1.22.0(@opentelemetry/api@1.8.0)
       '@opentelemetry/semantic-conventions': 1.22.0
-      effect: 2.4.14
+      effect: 2.4.15
     dev: false
 
-  /@effect/platform-browser@0.31.20(@effect/platform@0.48.20)(effect@2.4.14):
-    resolution: {integrity: sha512-YM/tKcv12OvXdk9eDIWcPKOeqF/A77dVls2pyM4HO+ZFDHB2qeFAN3c78vlEDCNP9Qb8N2RAT9b1dbSct47s4A==}
+  /@effect/platform-browser@0.31.21(@effect/platform@0.48.21)(effect@2.4.15):
+    resolution: {integrity: sha512-Jyip3OBxLYgm1mdUzstWDIlDY9JUHV70wJWO7DLMq3Ce3wCECGne5BWDx8fQ+iFsg8SvWQEI++RBFYwEEVAl6g==}
     peerDependencies:
-      '@effect/platform': ^0.48.20
-      effect: ^2.4.14
+      '@effect/platform': ^0.48.21
+      effect: ^2.4.15
     dependencies:
-      '@effect/platform': 0.48.20(@effect/schema@0.64.14)(effect@2.4.14)(ws@8.16.0)
-      effect: 2.4.14
+      '@effect/platform': 0.48.21(@effect/schema@0.64.15)(effect@2.4.15)(ws@8.16.0)
+      effect: 2.4.15
       multipasta: 0.2.0
     dev: false
 
-  /@effect/platform-node-shared@0.3.20(@effect/platform@0.48.20)(effect@2.4.14):
-    resolution: {integrity: sha512-65tV0Zflaps4yZ38/ER0NrMu1QnyDLQ3+uBSgHXtUERbktv3HEmiNdISm+kg/LyDuG3J+dSmwR0ORKHe1p8JPg==}
+  /@effect/platform-node-shared@0.3.21(@effect/platform@0.48.21)(effect@2.4.15):
+    resolution: {integrity: sha512-wRcG9U27q1oxWxgrTha0vIT89jroj0Hh+VQ6wEg6qUbSyF2ETHbHlYy2mWn7RbzyxTgu7Q9KsrHbkv4FquLKgg==}
     peerDependencies:
-      '@effect/platform': ^0.48.20
-      effect: ^2.4.14
+      '@effect/platform': ^0.48.21
+      effect: ^2.4.15
     dependencies:
-      '@effect/platform': 0.48.20(@effect/schema@0.64.14)(effect@2.4.14)(ws@8.16.0)
+      '@effect/platform': 0.48.21(@effect/schema@0.64.15)(effect@2.4.15)(ws@8.16.0)
       '@parcel/watcher': 2.4.1
-      effect: 2.4.14
+      effect: 2.4.15
       multipasta: 0.2.0
     dev: false
 
-  /@effect/platform-node@0.45.22(@effect/platform@0.48.20)(effect@2.4.14):
-    resolution: {integrity: sha512-5DlNmsPzrFEubR8ovOhBZVnIoRYErv1cpiXcCllUFddOEgoqGT3yTXnykoXekcA9lzotaUMHaHUYimp74amptg==}
+  /@effect/platform-node@0.45.23(@effect/platform@0.48.21)(effect@2.4.15):
+    resolution: {integrity: sha512-TbVyZjXK3N03CeKXqSQCNcpCo4R3BtsfcBNsT7zDHwHCpL0LCsYWchbwEUQZn0oEglL6HyU+jhwaFjOlK9R1HA==}
     peerDependencies:
-      '@effect/platform': ^0.48.20
-      effect: ^2.4.14
+      '@effect/platform': ^0.48.21
+      effect: ^2.4.15
     dependencies:
-      '@effect/platform': 0.48.20(@effect/schema@0.64.14)(effect@2.4.14)(ws@8.16.0)
-      '@effect/platform-node-shared': 0.3.20(@effect/platform@0.48.20)(effect@2.4.14)
-      effect: 2.4.14
+      '@effect/platform': 0.48.21(@effect/schema@0.64.15)(effect@2.4.15)(ws@8.16.0)
+      '@effect/platform-node-shared': 0.3.21(@effect/platform@0.48.21)(effect@2.4.15)
+      effect: 2.4.15
       mime: 3.0.0
       undici: 6.10.1
       ws: 8.16.0
@@ -2501,14 +2498,14 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@effect/platform@0.48.20(@effect/schema@0.64.14)(effect@2.4.14)(ws@8.16.0):
-    resolution: {integrity: sha512-HyEaKvtX8D9ZkX7uXHoPkiu/B50nRAvEy+hvbNNoxNkOr86jM6zvLBMHJ/FEQpohW7Xhet+lOAQIcOqANmcrmg==}
+  /@effect/platform@0.48.21(@effect/schema@0.64.15)(effect@2.4.15)(ws@8.16.0):
+    resolution: {integrity: sha512-0wDnhQWLPPw8YZJGmqikzmxFdqqroQpzYQMXdjVH5CujBASL01hPuH2Ix/mIcMmwgc9EKVOcLrze1wc5nkmxKg==}
     peerDependencies:
-      '@effect/schema': ^0.64.14
-      effect: ^2.4.14
+      '@effect/schema': ^0.64.15
+      effect: ^2.4.15
     dependencies:
-      '@effect/schema': 0.64.14(patch_hash=hwusuhxqroo2bbm6rcbepoubfi)(effect@2.4.14)(fast-check@3.17.0)
-      effect: 2.4.14
+      '@effect/schema': 0.64.15(patch_hash=rxu5vmjl4om2wfokejfcswfuiq)(effect@2.4.15)(fast-check@3.17.1)
+      effect: 2.4.15
       find-my-way-ts: 0.1.1
       isomorphic-ws: 5.0.0(ws@8.16.0)
       multipasta: 0.2.0
@@ -2516,14 +2513,14 @@ packages:
     transitivePeerDependencies:
       - ws
 
-  /@effect/schema@0.64.14(patch_hash=hwusuhxqroo2bbm6rcbepoubfi)(effect@2.4.14)(fast-check@3.17.0):
-    resolution: {integrity: sha512-f/3glHpm+Qu7i6gK5FxNhxtXXB7NbQQ+r5kOXijFYGJIfUoYpF6GIjUxoKKRH9QLAeMaDeJLml076Yi3LTbUvg==}
+  /@effect/schema@0.64.15(patch_hash=rxu5vmjl4om2wfokejfcswfuiq)(effect@2.4.15)(fast-check@3.17.1):
+    resolution: {integrity: sha512-d9Ye0lZRmiEyUghK6PYAz1qPE7ZuVeZhpqo1FmbAVFC1kMDeRRPg9+0yW6iAccF5SPApeKM/cWbbnNj2ZsWx9g==}
     peerDependencies:
-      effect: ^2.4.14
-      fast-check: ^3.17.0
+      effect: ^2.4.15
+      fast-check: ^3.17.1
     dependencies:
-      effect: 2.4.14
-      fast-check: 3.17.0(patch_hash=gmhutzas2jzobvkhr72gjyjori)
+      effect: 2.4.15
+      fast-check: 3.17.1
     patched: true
 
   /@emotion/is-prop-valid@1.2.1:
@@ -2954,8 +2951,8 @@ packages:
     resolution: {integrity: sha512-+KpH+QxZU7O4675t3mnkQKcZZg56u+K/Ct2K+N2AZYNVK8kyeo/bI18tI8aPm3tvNNRyTWfj6s5tnGNlcbQRsA==}
     engines: {node: '>=14'}
 
-  /@formatjs/cli@6.2.8(vue@3.4.21):
-    resolution: {integrity: sha512-sGtFehlHpNL5xbCkP5/zz5lgIVPPdQFqhY6Pcc9+whpBawln6VDzbaGA5ttWjtBDVVKZbEukiCFk8HW2H0OVxQ==}
+  /@formatjs/cli@6.2.9(vue@3.4.21):
+    resolution: {integrity: sha512-YH09kY6oufPdNDIwva/rC7wyg/ptJG6hRZ768eJEafiBR5R1VV1pKFmx106FV5WT7nzBm8Xf4Td+8+Mu+DtQsg==}
     engines: {node: '>= 16'}
     hasBin: true
     peerDependencies:
@@ -3202,7 +3199,7 @@ packages:
       '@hapi/topo': 5.1.0
     dev: false
 
-  /@hebilicious/vue-query-nuxt@0.3.0(patch_hash=5dcq766eeuesmqdcvoqrnf6tzi)(@tanstack/vue-query@5.28.8)(nuxt@3.11.1):
+  /@hebilicious/vue-query-nuxt@0.3.0(patch_hash=5dcq766eeuesmqdcvoqrnf6tzi)(@tanstack/vue-query@5.28.9)(nuxt@3.11.1):
     resolution: {integrity: sha512-3ULFb4Sq4vp7VCuMFTlvHOIipgLsFPTAUfSoPNrXiUzvuetsLquijaIFWMlgetWC/+1o5WEBXSVcrmX46uZB6w==}
     requiresBuild: true
     peerDependencies:
@@ -3210,7 +3207,7 @@ packages:
       nuxt: ^3.8.0
     dependencies:
       '@nuxt/kit': 3.11.1
-      '@tanstack/vue-query': 5.28.8(vue@3.4.21)
+      '@tanstack/vue-query': 5.28.9(vue@3.4.21)
       defu: 6.1.4
       esbuild: 0.19.12
       magicast: 0.3.3
@@ -5796,27 +5793,27 @@ packages:
       remove-accents: 0.4.2
     dev: false
 
-  /@tanstack/query-core@5.28.8:
-    resolution: {integrity: sha512-cx64XHeB0kvKxFt22ibvegPeOxnaWVFUbAuhXoIrb7+XePEexHWoB9Kq5n9qroNPkRwQZwgFAP9HNbQz5ohoIg==}
+  /@tanstack/query-core@5.28.9:
+    resolution: {integrity: sha512-hNlfCiqZevr3GRVPXS3MhaGW5hjcxvCsIQ4q6ff7EPlvFwYZaS+0d9EIIgofnegDaU2BbCDlyURoYfRl5rmzow==}
     dev: false
 
-  /@tanstack/query-devtools@5.28.6:
-    resolution: {integrity: sha512-DXJGqbrsteWU9XehDf6s3k3QxwQqGUlNXpitsF1xbwkYBcDaAakiC6hjJSMfPBHOrbZCnWfAGCVf4vh2D75/xw==}
+  /@tanstack/query-devtools@5.28.10:
+    resolution: {integrity: sha512-5UN629fKa5/1K/2Pd26gaU7epxRrYiT1gy+V+pW5K6hnf1DeUKK3pANSb2eHKlecjIKIhTwyF7k9XdyE2gREvQ==}
     dev: false
 
-  /@tanstack/vue-query-devtools@5.28.8(@tanstack/vue-query@5.28.8)(vue@3.4.21):
-    resolution: {integrity: sha512-y9jVeuYFdpK242rOQyy7acg9Qtd3Hlsd/hGAceiN9ru0ibV525YsEVna2ZUuv4S62dafYiv/Gf55y5mp40F9EA==}
+  /@tanstack/vue-query-devtools@5.28.10(@tanstack/vue-query@5.28.9)(vue@3.4.21):
+    resolution: {integrity: sha512-KfJssD1dMVw/gAxAFCzUoYXCXm+xszEa83SxMQdLtEbXO0O8PuIN5zIJZBxDTcUHfq89k2OJUKzU9rPiMMoT0w==}
     peerDependencies:
-      '@tanstack/vue-query': ^5.28.8
+      '@tanstack/vue-query': ^5.28.9
       vue: ^3.4.21
     dependencies:
-      '@tanstack/query-devtools': 5.28.6
-      '@tanstack/vue-query': 5.28.8(vue@3.4.21)
+      '@tanstack/query-devtools': 5.28.10
+      '@tanstack/vue-query': 5.28.9(vue@3.4.21)
       vue: 3.4.21(typescript@5.4.3)
     dev: false
 
-  /@tanstack/vue-query@5.28.8(vue@3.4.21):
-    resolution: {integrity: sha512-JpByXdFpOMws0QYNAtMQXye/rEhKJ/oMD1MPutLkOI89Phl4MgUf1NqiMF/kAEIfUQmMd+r8tiJNB5FdO8Ld+w==}
+  /@tanstack/vue-query@5.28.9(vue@3.4.21):
+    resolution: {integrity: sha512-gZgUdnxIvb8X3TNLYFbWYAZWX1ziyLlqE8yEutDojW5zwkwWWSC4N3KjvMfarTehBfdQ2F6y8db2Ccip63f0Xw==}
     peerDependencies:
       '@vue/composition-api': ^1.1.2
       vue: ^3.4.21
@@ -5825,7 +5822,7 @@ packages:
         optional: true
     dependencies:
       '@tanstack/match-sorter-utils': 8.11.8
-      '@tanstack/query-core': 5.28.8
+      '@tanstack/query-core': 5.28.9
       '@vue/devtools-api': 6.5.1
       vue: 3.4.21(typescript@5.4.3)
       vue-demi: 0.14.7(vue@3.4.21)
@@ -5839,8 +5836,8 @@ packages:
     resolution: {integrity: sha512-L7z9BgrNEcYyUYtF+HaEfiS5ebkh9jXqbszz7pC0hRBPaatV0XjSD3+eHrpqFemQfgwiFF0QPIarnIihIDn7OA==}
     engines: {node: '>=10.13.0'}
 
-  /@tsconfig/strictest@2.0.4:
-    resolution: {integrity: sha512-/VKO/oufDOvAE48KGzZOEXFBKtR3PnGlb4cJoRtw3Ax5tYwaWnaNgyTJDviIbvjlnn82WMfTNvhegFkj5Xt2UA==}
+  /@tsconfig/strictest@2.0.5:
+    resolution: {integrity: sha512-ec4tjL2Rr0pkZ5hww65c+EEPYwxOi4Ryv+0MtjeaSQRJyq322Q27eOQiFbuNgw2hpL4hB1/W/HBGk3VKS43osg==}
 
   /@tsplus/stdlib@0.2.8:
     resolution: {integrity: sha512-UKAN06h9V/wUflSbOU1WwACisXEi4+PHwGqR+bwxqcClrEAA8KKTTLZ0ATMbqbVAVTudE0vW4pd5iY6vGvSFBw==}
@@ -8766,21 +8763,20 @@ packages:
   /ee-first@1.1.1:
     resolution: {integrity: sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==}
 
-  /effect-app@0.194.0(@effect/platform@0.48.20)(@effect/schema@0.64.14)(effect@2.4.14):
-    resolution: {integrity: sha512-PVmjiHrwXWAO9qzIDLUBkfYDOL59yWEMcrx7vHuoRIvKFldDmtVqniLtichl1fRqBZCYiHHz/8YSq9fIJZAIRA==}
+  /effect-app@0.197.0(@effect/platform@0.48.21)(@effect/schema@0.64.15)(effect@2.4.15):
+    resolution: {integrity: sha512-uAG0cMiNUUOKgDpzXtCFnnpNs4H/dLseBPlOkAqqNOp+EZq/7GdkSfLN/MBfKir6nwomFvEdfI8cYASJaW8blw==}
     peerDependencies:
-      '@effect/platform': ^0.48.20
-      '@effect/schema': ^0.64.14
-      effect: ^2.4.14
+      '@effect/platform': ^0.48.21
+      '@effect/schema': ^0.64.15
+      effect: ^2.4.15
     dependencies:
-      '@effect-app/core': 0.161.0(@effect/platform@0.48.20)(effect@2.4.14)
-      '@effect-app/fluent-extensions': 0.155.0(@effect/platform@0.48.20)(effect@2.4.14)
-      '@effect-app/schema': 0.213.0(@effect/platform@0.48.20)(@effect/schema@0.64.14)(effect@2.4.14)
-      '@effect/platform': 0.48.20(@effect/schema@0.64.14)(effect@2.4.14)(ws@8.16.0)
-      '@effect/schema': 0.64.14(patch_hash=hwusuhxqroo2bbm6rcbepoubfi)(effect@2.4.14)(fast-check@3.17.0)
-      '@tsconfig/strictest': 2.0.4
+      '@effect-app/core': 0.166.0(@effect/platform@0.48.21)(effect@2.4.15)
+      '@effect-app/schema': 0.216.0(@effect/platform@0.48.21)(@effect/schema@0.64.15)(effect@2.4.15)
+      '@effect/platform': 0.48.21(@effect/schema@0.64.15)(effect@2.4.15)(ws@8.16.0)
+      '@effect/schema': 0.64.15(patch_hash=rxu5vmjl4om2wfokejfcswfuiq)(effect@2.4.15)(fast-check@3.17.1)
+      '@tsconfig/strictest': 2.0.5
       date-fns: 3.6.0
-      effect: 2.4.14
+      effect: 2.4.15
       nanoid: 5.0.6
       path-parser: 6.1.0
       query-string: 9.0.0
@@ -8790,8 +8786,8 @@ packages:
     transitivePeerDependencies:
       - encoding
 
-  /effect@2.4.14:
-    resolution: {integrity: sha512-uEw/M4sMxE2qfkrY9TcUHtHI1P1ffxk6KA/siVajb83IxIttX1i1F7folF6/vrGHrSWKI4fBdTfMg8wgXp4eKw==}
+  /effect@2.4.15:
+    resolution: {integrity: sha512-fwOeADUSbmlvbNpAlUlNhuCPHN08VKt53YbtSzNe9aZK3CclVJdq2gPgo1TCaGQsJpPf42xw7QrrTBQiH94few==}
 
   /electron-to-chromium@1.4.708:
     resolution: {integrity: sha512-iWgEEvREL4GTXXHKohhh33+6Y8XkPI5eHihDmm8zUk5Zo7HICEW+wI/j5kJ2tbuNUCXJ/sNXa03ajW635DiJXA==}
@@ -9615,12 +9611,11 @@ packages:
       pathe: 1.1.2
       ufo: 1.5.3
 
-  /fast-check@3.17.0(patch_hash=gmhutzas2jzobvkhr72gjyjori):
-    resolution: {integrity: sha512-9A7UiBENXxMBb40qY+xOcIcGdxF5CYbXJOU4b+omh773RIFcIQRejHEjjrzIHQFLIQXWgWQu3dl6FrWR9VpYRQ==}
+  /fast-check@3.17.1:
+    resolution: {integrity: sha512-jIKXJVe6ZO0SpwEgVtEVujTf8TwjI9wMXFJCjsDHUB3RroUbXBgF4kOSz3A7MW0UR26aqsoB8i9O2mjtjERAiA==}
     engines: {node: '>=8.0.0'}
     dependencies:
       pure-rand: 6.1.0
-    patched: true
 
   /fast-decode-uri-component@1.0.1:
     resolution: {integrity: sha512-WKgKWg5eUxvRZGwW8FvfbaH7AXSh2cL+3j5fMGzUMCxWBJ3dV3a7Wz8y2f/uQ0e3B6WmodD3oS54jTQ9HVTIIg==}
@@ -15550,8 +15545,8 @@ packages:
     resolution: {integrity: sha512-nsZd8ZeNUzukXPlJmTBwUAuABDe/9qtVDelJeT/qW0ow3ZS3BsQJtNkan1802aM9Uf68/Y8ljw86Hu0h5IUW3w==}
     dev: true
 
-  /tsc-watch@6.0.4(typescript@5.4.3):
-    resolution: {integrity: sha512-cHvbvhjO86w2aGlaHgSCeQRl+Aqw6X6XN4sQMPZKF88GoP30O+oTuh5lRIJr5pgFWrRpF1AgXnJJ2DoFEIPHyg==}
+  /tsc-watch@6.1.0(typescript@5.4.3):
+    resolution: {integrity: sha512-bNjUt25O/qZb4Yb+PyrnKnJzu4rpCtGHGb0HE737mGnfxrRDbILxsUM1321o87Bl00BETZ0Ry+wDEJbYzcxRTA==}
     engines: {node: '>=12.12.0'}
     hasBin: true
     peerDependencies:
@@ -16591,15 +16586,15 @@ packages:
       '@vue/shared': 3.4.21
       typescript: 5.4.3(patch_hash=53hv5e33djmceeaiom2noinb3m)
 
-  /vuetify@3.5.11(typescript@5.4.3)(vue@3.4.21):
-    resolution: {integrity: sha512-us5I0jyFwIQYG4v41PFmVMkoc/oJddVT4C2RFjJTI99ttigbQ92gsTeG5SB8BPfmfnUS4paR5BedZwk6W3KlJw==}
+  /vuetify@3.5.13(typescript@5.4.3)(vue@3.4.21):
+    resolution: {integrity: sha512-3ZyIoHgB2GR87ojIpqNwkkRXlUNTEKh83fjUuQ1hOKdTXzEuZXBgtfUt9kp4WOVnYILGdZKWTJ6gv8nXOa/tZA==}
     engines: {node: ^12.20 || >=14.13}
     peerDependencies:
       typescript: '>=4.7'
-      vite-plugin-vuetify: '>=2.0.3'
+      vite-plugin-vuetify: '>=1.0.0'
       vue: ^3.4.21
       vue-i18n: ^9.0.0
-      webpack-plugin-vuetify: '>=2.0.0-alpha.11'
+      webpack-plugin-vuetify: '>=2.0.0'
     peerDependenciesMeta:
       typescript:
         optional: true
