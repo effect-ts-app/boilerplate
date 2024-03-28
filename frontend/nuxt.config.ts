@@ -2,7 +2,11 @@ import process from "process"
 import { fileURLToPath } from "url"
 import fs from "fs"
 
-const localLibs = false
+import rootPj from "../package.json"
+
+// use `pnpm effa link` in the root project
+// `pnpm effa unlink` to revert
+const localLibs = !!(rootPj.resolutions as any)["effect-app"]
 
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
@@ -18,21 +22,9 @@ export default defineNuxtConfig({
     models: fileURLToPath(new URL("../api/src/models", import.meta.url)),
     ...(localLibs
       ? {
-          effect: fileURLToPath(
-            new URL(
-              "../../../effect-app/libs/packages/prelude/node_modules/effect",
-              import.meta.url,
-            ),
-          ),
           "effect-app": fileURLToPath(
             new URL(
               "../../../effect-app/libs/packages/prelude/src",
-              import.meta.url,
-            ),
-          ),
-          "@effect-app/fluent-extensions": fileURLToPath(
-            new URL(
-              "../../../effect-app/libs/packages/fluent-extensions/src",
               import.meta.url,
             ),
           ),
