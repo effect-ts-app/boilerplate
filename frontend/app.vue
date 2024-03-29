@@ -1,5 +1,6 @@
 <script setup lang="ts">
 useApiEventSource()
+import "./worker/main"
 </script>
 <template>
   <v-no-ssr>
