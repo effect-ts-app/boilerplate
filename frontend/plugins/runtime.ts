@@ -6,7 +6,7 @@ import { Effect, HttpClient, Option } from "@/utils/prelude"
 import { WebSdkLive } from "~/utils/observability"
 import type { ApiConfig } from "effect-app/client"
 import * as EffectRequest from "effect/Request"
-import "@effect-app/fluent-extensions/builtin"
+import "@effect-app/core/builtin"
 
 export const versionMatch = ref(true)
 
