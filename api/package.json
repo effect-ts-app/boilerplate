@@ -24,11 +24,10 @@
     "dev": "NODE_ENV=development nodemon --signal SIGTERM --exec pnpm dev:tsx",
     "dev:compiled": "pnpm start:compiled | ../scripts/humanlog.sh",
     "dev:tsx": "pnpm start:tsx | ../scripts/humanlog.sh",
-    "dev:vite": "pnpm start:vite | ../scripts/humanlog.sh",
+    "dev:vite": "vite-node --watch ./src/main.ts | ../scripts/humanlog.sh",
     "start": "pnpm start:compiled",
     "start:compiled": "node -r source-map-support/register ./dist/main.js",
     "start:tsx": "tsx ./src/main.ts",
-    "start:vite": "vite-node ./src/main.ts",
     "ncu": "ncu",
     "extract:i18n": "formatjs extract './**/*.ts' --ignore './**/*.d.ts' --format src/i18n/extraction-formatter.cjs --id-interpolation-pattern '[sha512:contenthash:base64:6]' --out-file src/i18n/extracted/en.json"
   },

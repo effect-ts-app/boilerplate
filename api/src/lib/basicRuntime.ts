@@ -1,7 +1,6 @@
 import { reportError } from "@effect-app/infra/errorReporter"
 import { logJson } from "@effect-app/infra/logger/jsonLogger"
 import { logFmt } from "@effect-app/infra/logger/logFmtLogger"
-import { runMain as runMainPlatform } from "@effect/platform-node/NodeRuntime"
 import { constantCase } from "change-case"
 import { Cause, Effect, Layer, ManagedRuntime } from "effect-app"
 import * as ConfigProvider from "effect/ConfigProvider"
@@ -43,17 +42,7 @@ export const basicLayer = Layer.mergeAll(
 
 export const basicRuntime = ManagedRuntime.make(basicLayer)
 
-const reportMainError = <E>(cause: Cause.Cause<E>) =>
+export const reportMainError = <E>(cause: Cause.Cause<E>) =>
   Cause.isInterruptedOnly(cause) ? Effect.unit : reportError("Main")(cause)
-
-export function runMain<A, E>(eff: Effect<A, E, never>) {
-  return runMainPlatform(
-    eff
-      .pipe(
-        Effect.tapErrorCause(reportMainError),
-        Effect.provide(basicLayer)
-      )
-  )
-}
 
 export type RT = typeof basicRuntime.runtime extends Runtime.Runtime<infer R> ? R : never

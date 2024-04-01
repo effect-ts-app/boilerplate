@@ -2,6 +2,8 @@
 import { Operations } from "@effect-app/infra/services/Operations"
 import { RequestContextContainer } from "@effect-app/infra/services/RequestContextContainer"
 import { ContextMapContainer } from "@effect-app/infra/services/Store/ContextMapContainer"
+import * as HttpNode from "@effect/platform-node/Http/Server"
+import * as HttpClientNode from "@effect/platform-node/NodeHttpClient"
 import { router } from "api/routes.js"
 import { Effect, Layer, Option } from "effect-app"
 import { HttpMiddleware, HttpRouter, HttpServer } from "effect-app/http"
@@ -12,9 +14,6 @@ import * as MW from "./middleware/index.js"
 import { RequestContextMiddleware } from "./middleware/index.js"
 import { UserRepo } from "./services.js"
 import { Events } from "./services/Events.js"
-
-import * as HttpNode from "@effect/platform-node/Http/Server"
-import * as HttpClientNode from "@effect/platform-node/NodeHttpClient"
 
 export const ApiPortTag = GenericTag<{ port: number }>("@services/ApiPortTag")
 
