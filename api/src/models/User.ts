@@ -92,10 +92,10 @@ export const defaultEqual = pipe(Equivalence.string, Equivalence.mapInput((u: Us
 //
 /* eslint-disable */
 export namespace FullName {
-  export class From extends S.FromClass<typeof FullName>() {}
+  export interface From extends S.Struct.Encoded<typeof FullName["fields"]> {}
 }
 export namespace User {
-  export class From extends S.FromClass<typeof User>() {}
+  export interface From extends S.Struct.Encoded<typeof User["fields"]> {}
 }
 /* eslint-enable */
 //
