@@ -48,8 +48,8 @@ const runMainPlatform: RunMain = (
   process.once("SIGTERM", onSigint)
 
   if (import.meta.hot) {
-    import.meta.hot.accept(async (newModule) => {})
-    import.meta.hot.dispose(async (data) => {
+    import.meta.hot.accept(async () => {})
+    import.meta.hot.dispose(async () => {
       await basicRuntime.runPromise(Fiber.interrupt(fiber))
     })
   }
