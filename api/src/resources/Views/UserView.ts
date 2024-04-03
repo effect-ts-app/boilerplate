@@ -10,7 +10,7 @@ export class UserView extends S.ExtendedClass<UserView, UserView.From>()({
 //
 /* eslint-disable */
 export namespace UserView {
-  export class From extends S.FromClass<typeof UserView>() {}
+  export interface From extends S.Struct.Encoded<typeof UserView["fields"]> {}
 }
 /* eslint-enable */
 //

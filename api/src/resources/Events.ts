@@ -13,7 +13,7 @@ export type ClientEvents = Schema.Type<typeof ClientEvents>
 //
 /* eslint-disable */
 export namespace BogusEvent {
-  export class From extends S.FromClass<typeof BogusEvent>() {}
+  export interface From extends S.Struct.Encoded<typeof BogusEvent["fields"]> {}
 }
 /* eslint-enable */
 //
