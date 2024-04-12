@@ -10,6 +10,10 @@ import { setFaker } from "effect-app/faker"
 import { MergedConfig } from "./config.js"
 import { TracingLive } from "./observability.js"
 
+setInterval(() => {
+  console.log("pid", process.pid)
+}, 3000)
+
 const runMainPlatform: RunMain = (
   effect,
   options
