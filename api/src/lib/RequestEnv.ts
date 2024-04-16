@@ -53,7 +53,6 @@ export const RequestCacheLayers = Layer.mergeAll(
 )
 
 const authConfig = basicRuntime.runSync(Auth0Config)
-const EmptyLayer = Effect.unit.pipe(Layer.scopedDiscard)
 const fakeLogin = true
 
 const checkRoles = (request: any, userProfile: Option<UserProfile>) =>
@@ -98,7 +97,7 @@ const UserAuthorizationLive = <Req extends RequestConfig>(request: Req) =>
       if (up) {
         return Layer.succeed(UserProfile, up)
       }
-      return EmptyLayer
+      return Layer.empty
     })
     .pipe(Effect.withSpan("middleware"), Layer.unwrapEffect)
 

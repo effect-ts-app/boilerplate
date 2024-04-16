@@ -22,7 +22,7 @@ const runMainPlatform: RunMain = (
       ? effect
       : Effect.tapErrorCause(effect, (cause) => {
         if (Cause.isInterruptedOnly(cause)) {
-          return Effect.unit
+          return Effect.void
         }
         return Effect.logError(cause)
       })

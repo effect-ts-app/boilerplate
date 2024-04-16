@@ -3,7 +3,7 @@ import { RepositoryDefaultImpl } from "@effect-app/infra/services/RepositoryBase
 import { generate } from "@effect-app/infra/test.arbs"
 import { RepoConfig } from "api/config.js"
 import { RepoLive } from "api/migrate.js"
-import { Effect, Exit, Layer, Option, pipe, ReadonlyArray, Request, RequestResolver, S } from "effect-app"
+import { Effect, Exit, Layer, Option, pipe, Array, Request, RequestResolver, S } from "effect-app"
 import { fakerArb } from "effect-app/faker"
 import { Email } from "effect-app/schema"
 import fc from "fast-check"
@@ -22,7 +22,7 @@ export class UserRepo extends RepositoryDefaultImpl<UserRepo>()(
     .andThen(RepoConfig, (cfg) => {
       const seed = cfg.fakeUsers === "seed" ? "seed" : cfg.fakeUsers === "sample" ? "sample" : ""
       const fakeUsers = pipe(
-        ReadonlyArray
+        Array
           .range(1, 8)
           .map((_, i): User => {
             const g = generate(S.A.make(User)).value
@@ -37,7 +37,7 @@ export class UserRepo extends RepositoryDefaultImpl<UserRepo>()(
               role: i === 0 || i === 1 ? "manager" : "user"
             })
           }),
-        ReadonlyArray.toNonEmptyArray,
+        Array.toNonEmptyArray,
         Option
           .match({
             onNone: () => {
@@ -99,7 +99,7 @@ const getUserByIdResolver = RequestResolver
         Effect.forEach(requests, (r) =>
           Request.complete(
             r,
-            ReadonlyArray
+            Array
               .findFirst(users, (_) => _.id === r.id ? Option.some(Exit.succeed(_)) : Option.none())
               .pipe(Option.getOrElse(() => Exit.fail(new NotFoundError({ type: "User", id: r.id }))))
           ), { discard: true })

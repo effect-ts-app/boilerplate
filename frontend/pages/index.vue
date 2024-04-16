@@ -3,10 +3,9 @@ import { HelloWorldRsc } from "resources"
 import { useSafeQuery } from "@effect-app/vue"
 import { buildFormFromSchema } from "@effect-app/vue/form"
 import { clientFor } from "effect-app/client"
-
 import { S } from "~/utils/prelude"
 
-const schema = S.struct({
+const schema = S.Struct({
   title: S.NonEmptyString255,
   name: S.NonEmptyString2k,
   age: S.NonNegativeInt,
