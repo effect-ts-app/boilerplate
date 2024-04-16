@@ -14,6 +14,7 @@ import * as MW from "./middleware/index.js"
 import { RequestContextMiddleware } from "./middleware/index.js"
 import { UserRepo } from "./services.js"
 import { Events } from "./services/Events.js"
+import { RequestFiberSet } from "@effect-app/infra-adapters/RequestFiberSet"
 
 export const ApiPortTag = GenericTag<{ port: number }>("@services/ApiPortTag")
 
@@ -70,7 +71,8 @@ export const api = Effect
           HttpClientNode.layer,
           UserRepo.Live,
           Operations.Live,
-          Events.Live
+          Events.Live,
+          RequestFiberSet.Live
         ))
       )
     return HttpLive

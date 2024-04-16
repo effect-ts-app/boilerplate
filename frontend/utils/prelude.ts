@@ -4,7 +4,7 @@ import * as HttpClient from "@effect/platform/Http/Client"
 import * as ClientRequest from "@effect/platform/Http/ClientRequest"
 import * as Duration from "effect/Duration"
 import type { NonEmptyReadonlyArray } from "effect-app"
-import { ReadonlyArray, Effect, Either, Option } from "effect-app"
+import { Array, Effect, Either, Option } from "effect-app"
 import type { NonEmptyArray } from "@effect-app/core/Array"
 import * as Layer from "effect/Layer"
 import * as HashMap from "effect/HashMap"
@@ -33,7 +33,7 @@ export {
   Order,
   PubSub,
   Stream,
-  ReadonlyArray,
+  Array,
   Tag,
 }
 export type { NonEmptyArray, NonEmptyReadonlyArray }

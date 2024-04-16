@@ -43,6 +43,6 @@ export const basicLayer = Layer.mergeAll(
 export const basicRuntime = ManagedRuntime.make(basicLayer)
 
 export const reportMainError = <E>(cause: Cause.Cause<E>) =>
-  Cause.isInterruptedOnly(cause) ? Effect.unit : reportError("Main")(cause)
+  Cause.isInterruptedOnly(cause) ? Effect.void : reportError("Main")(cause)
 
 export type RT = typeof basicRuntime.runtime extends Runtime.Runtime<infer R> ? R : never

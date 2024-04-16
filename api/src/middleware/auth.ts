@@ -36,7 +36,7 @@ export const checkJWTI = (config: Effect.Success<typeof Auth0Config>) => {
       Effect.async<void, InsufficientScopeError | InvalidRequestError | InvalidTokenError | UnauthorizedError>(
         (cb) => {
           const next = (err?: unknown) => {
-            if (!err) return cb(Effect.unit)
+            if (!err) return cb(Effect.void)
             if (
               err instanceof InsufficientScopeError
               || err instanceof InvalidRequestError

@@ -19,7 +19,7 @@ import {
 } from "@vueuse/core"
 import type { ComputedRef } from "vue"
 import type { Either, HttpClient } from "@/utils/prelude"
-import { Effect, Match, Option } from "@/utils/prelude"
+import { Array, Effect, Match, Option } from "@/utils/prelude"
 import { Cause, S } from "effect-app"
 import { useToast } from "vue-toastification"
 import { intl } from "./intl"
@@ -467,13 +467,13 @@ export function composeQueries<R extends Record<string, QueryResult<any, any>>>(
   if (error) {
     return error as any // TODO
   }
-  const initial = ReadonlyArray.findFirst(values, x =>
+  const initial = Array.findFirst(values, x =>
     x._tag === "Initial" ? Option.some(x) : Option.none(),
   )
   if (Option.isSome(initial)) {
     return initial.value
   }
-  const loading = ReadonlyArray.findFirst(values, x =>
+  const loading = Array.findFirst(values, x =>
     x._tag === "Loading" ? Option.some(x) : Option.none(),
   )
   if (Option.isSome(loading)) {

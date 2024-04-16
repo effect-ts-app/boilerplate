@@ -89,7 +89,7 @@ export const toServerResponse = (err: NotLoggedInError) =>
     HttpServerResponse.setBody(HttpBody.unsafeJson({ message: err.message }))
   )
 
-export const basicAuth = <R, _>(
+export const basicAuth = <_, R>(
   checkCredentials: (
     credentials: Middlewares.BasicAuthCredentials
   ) => Effect<_, NotLoggedInError, R>,

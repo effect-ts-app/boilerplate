@@ -76,7 +76,7 @@ export const basicAuth: <R2, _>(
     headerName: string
     skipPaths: readonly string[]
   }>
-) => <R1, E>(app: App.Default<R1, E>) => App.Default<R1 | R2, E> = internal.basicAuth
+) => <R1, E>(app: App.Default<E, R1>) => App.Default<E, R1 | R2> = internal.basicAuth
 
 /**
  * @category models
