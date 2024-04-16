@@ -10,7 +10,7 @@ export const FirstName = S
   .NonEmptyString255
   .pipe(
     S.annotations({
-      [A.ArbitraryHookId]: (): A.Arbitrary<string> => (fc) => fc.string()
+      [A.ArbitraryHookId]: (): A.LazyArbitrary<string> => (fc) => fc.string()
     }),
     S.withDefaults
   )
@@ -20,15 +20,15 @@ export type FirstName = Schema.Type<typeof FirstName>
 export const DisplayName = FirstName
 export type DisplayName = Schema.Type<typeof DisplayName>
 
-S.array(S.NonEmptyString255).pipe(
-  S.annotations({ [A.ArbitraryHookId]: (): A.Arbitrary<Array<string>> => (fc) => fc.tuple() })
+S.Array(S.NonEmptyString255).pipe(
+  S.annotations({ [A.ArbitraryHookId]: (): A.LazyArbitrary<Array<string>> => (fc) => fc.tuple() })
 )
 
 export const LastName = S
   .NonEmptyString255
   .pipe(
     S.annotations({
-      [A.ArbitraryHookId]: (): A.Arbitrary<string> => fakerArb((faker) => faker.person.lastName)
+      [A.ArbitraryHookId]: (): A.LazyArbitrary<string> => fakerArb((faker) => faker.person.lastName)
     }),
     S.withDefaults
   )
@@ -59,7 +59,7 @@ export function createFullName(firstName: string, lastName: string) {
 export const UserId = UserProfileId
 export type UserId = UserProfileId
 
-export const Role = S.withDefaults(S.literal("manager", "user"))
+export const Role = S.withDefaults(S.Literal("manager", "user"))
 export type Role = Schema.Type<typeof Role>
 
 export class UserFromIdResolver
@@ -82,8 +82,8 @@ export class User extends S.ExtendedClass<User, User.From>()({
 export const UserFromId: Schema<User, string, UserFromIdResolver> = S.transformOrFail(
   UserId,
   S.typeSchema(User),
-  User.resolver.get,
-  (u) => Effect.succeed(u.id)
+  { decode: User.resolver.get, encode: 
+  (u) => Effect.succeed(u.id) }
 )
 
 export const defaultEqual = pipe(Equivalence.string, Equivalence.mapInput((u: User) => u.id))
