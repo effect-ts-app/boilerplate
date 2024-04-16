@@ -3,7 +3,7 @@
 import { JWTError, type RequestHandler } from "@effect-app/infra/api/routing"
 import type { RequestContext } from "@effect-app/infra/RequestContext"
 import { RequestContextContainer } from "@effect-app/infra/services/RequestContextContainer"
-import type { Struct } from "@effect-app/schema"
+import type { Struct } from "@effect/schema/Schema"
 import { Req as Req_ } from "@effect-app/schema/REST"
 import { NotLoggedInError, UnauthorizedError } from "api/errors.js"
 import { Auth0Config, checkJWTI } from "api/middleware/auth.js"

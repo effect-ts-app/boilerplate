@@ -6,7 +6,7 @@ import { Role } from "models/User.js"
 export class UserProfile extends Context.assignTag<UserProfile>()(
   S.Class<UserProfile>()({
     sub: UserProfileId,
-    roles: S.array(Role).withDefault.pipe(S.fromKey("https://nomizz.com/roles"))
+    roles: S.Array(Role).withDefault.pipe(S.fromKey("https://nomizz.com/roles"))
   })
 ) {
 }

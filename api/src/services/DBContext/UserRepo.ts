@@ -1,6 +1,6 @@
 import { NotFoundError, NotLoggedInError } from "@effect-app/infra/errors"
 import { RepositoryDefaultImpl } from "@effect-app/infra/services/RepositoryBase"
-import { generate, generateFromArbitrary } from "@effect-app/infra/test.arbs"
+import { generate } from "@effect-app/infra/test.arbs"
 import { RepoConfig } from "api/config.js"
 import { RepoLive } from "api/migrate.js"
 import { Effect, Exit, Layer, Option, pipe, ReadonlyArray, Request, RequestResolver, S } from "effect-app"
@@ -29,7 +29,7 @@ export class UserRepo extends RepositoryDefaultImpl<UserRepo>()(
         ReadonlyArray
           .range(1, 8)
           .map((_, i): User => {
-            const g = generateFromArbitrary(S.A.make(User)).value
+            const g = generate(S.A.make(User)).value
             const emailArb = fakerArb((_) => () =>
               _
                 .internet

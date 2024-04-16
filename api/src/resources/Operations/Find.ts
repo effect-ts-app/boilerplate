@@ -7,4 +7,4 @@ export class FindOperationRequest
   })
 {}
 
-export const FindOperationResponse = S.nullable(Operation)
+export const FindOperationResponse = S.NullOr(Operation)

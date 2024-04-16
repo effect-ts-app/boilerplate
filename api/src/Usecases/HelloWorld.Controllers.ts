@@ -1,4 +1,4 @@
-import { generateFromArbitrary } from "@effect-app/infra/test.arbs"
+import { generate } from "@effect-app/infra/test.arbs"
 import { matchFor } from "api/lib/matchFor.js"
 import { UserRepo } from "api/services.js"
 import { Effect, S } from "effect-app"
@@ -21,7 +21,7 @@ export default helloWorld.controllers({
             context,
             echo,
             currentUser: user,
-            randomUser: generateFromArbitrary(S.A.make(User)).value
+            randomUser: generate(S.A.make(User)).value
           })
         )
       )

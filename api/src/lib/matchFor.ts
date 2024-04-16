@@ -20,7 +20,7 @@ import { defaultErrorHandler, makeRequestHandler } from "@effect-app/infra/api/r
 import type { Layer, Scope, Types } from "effect-app"
 import { Effect, S } from "effect-app"
 import type { SupportedErrors, ValidationError } from "effect-app/client/errors"
-import type { Struct } from "effect-app/schema"
+import type { Struct } from "@effect/schema/Schema"
 import { REST } from "effect-app/schema"
 import { handleRequestEnv } from "./RequestEnv.js"
 import type { GetContext, GetCTX } from "./RequestEnv.js"
