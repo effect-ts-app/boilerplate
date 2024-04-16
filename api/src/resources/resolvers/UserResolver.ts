@@ -1,5 +1,5 @@
 import { Effect, Exit, Request, RequestResolver } from "effect"
-import { Option, pipe, Array, S } from "effect-app"
+import { Array, Option, pipe, S } from "effect-app"
 import { ApiConfig, clientFor, NotFoundError } from "effect-app/client"
 import { HttpClient } from "effect-app/http"
 import { type Schema } from "effect-app/schema"
@@ -38,6 +38,8 @@ const getUserViewByIdResolver = RequestResolver
 export const UserViewFromId: Schema<UserView, string, ApiConfig | HttpClient.Client.Default> = S.transformOrFail(
   UserId,
   S.typeSchema(UserView),
-  { decode: (id) => Effect.request(GetUserViewById({ id }), getUserViewByIdResolver).pipe(Effect.orDie), encode: 
-  (u) => Effect.succeed(u.id)}
+  {
+    decode: (id) => Effect.request(GetUserViewById({ id }), getUserViewByIdResolver).pipe(Effect.orDie),
+    encode: (u) => Effect.succeed(u.id)
+  }
 )

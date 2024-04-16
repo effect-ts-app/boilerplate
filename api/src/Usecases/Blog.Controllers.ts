@@ -73,7 +73,7 @@ export default blog.controllers({
             Effect
               .suspend(() => Events.publish(new BogusEvent()))
               .pipe(Effect.schedule(Schedule.spaced(Duration.seconds(1)))),
-              NonEmptyString2k("post publishing")
+          NonEmptyString2k("post publishing")
         )
       )
 

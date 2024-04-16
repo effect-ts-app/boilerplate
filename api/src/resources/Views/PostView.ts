@@ -11,7 +11,7 @@ export class BlogPostView extends S.ExtendedClass<BlogPostView, BlogPostView.Fro
 //
 /* eslint-disable */
 export namespace BlogPostView {
-  export class From extends S.FromClass<typeof BlogPostView>() {}
+  export interface From extends S.Struct.Encoded<typeof BlogPostView["fields"]> {}
 }
 /* eslint-enable */
 //

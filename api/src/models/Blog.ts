@@ -19,7 +19,7 @@ export class BlogPost extends S.ExtendedClass<BlogPost, BlogPost.From>()({
 //
 /* eslint-disable */
 export namespace BlogPost {
-  export class From extends S.FromClass<typeof BlogPost>() {}
+  export interface From extends S.Struct.Encoded<typeof BlogPost["fields"]> {}
 }
 /* eslint-enable */
 //

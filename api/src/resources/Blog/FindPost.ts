@@ -6,4 +6,4 @@ export class FindPostRequest extends S.Req({ allowAnonymous: true, allowRoles: [
   id: BlogPostId
 }) {}
 
-export const FindPostResponse = S.nullable(BlogPostView)
+export const FindPostResponse = S.NullOr(BlogPostView)
