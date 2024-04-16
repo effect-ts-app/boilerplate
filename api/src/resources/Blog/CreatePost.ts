@@ -5,4 +5,4 @@ export class CreatePostRequest extends S.Req({ allowAnonymous: true, allowRoles:
   BlogPost.pick("title", "body")
 ) {}
 
-export const CreatePostResponse = S.struct({ id: BlogPostId })
+export const CreatePostResponse = S.Struct({ id: BlogPostId })

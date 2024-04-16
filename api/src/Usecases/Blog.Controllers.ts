@@ -2,7 +2,7 @@ import { matchFor } from "api/lib/matchFor.js"
 import { BlogPostRepo, Events, forkOperationWithEffect, Operations, UserRepo } from "api/services.js"
 import { Duration, Effect, Schedule } from "effect"
 import { Option } from "effect-app"
-import { NonNegativeInt } from "effect-app/schema"
+import { NonEmptyString2k, NonNegativeInt } from "effect-app/schema"
 import { BlogPost } from "models/Blog.js"
 import { BlogRsc } from "resources.js"
 import { BogusEvent } from "resources/Events.js"
@@ -72,7 +72,8 @@ export default blog.controllers({
           (_opId) =>
             Effect
               .suspend(() => Events.publish(new BogusEvent()))
-              .pipe(Effect.schedule(Schedule.spaced(Duration.seconds(1))))
+              .pipe(Effect.schedule(Schedule.spaced(Duration.seconds(1)))),
+              NonEmptyString2k("post publishing")
         )
       )
 

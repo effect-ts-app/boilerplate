@@ -1,6 +1,6 @@
 import { matchFor } from "api/lib/matchFor.js"
 import { Q, UserRepo } from "api/services.js"
-import { ReadonlyArray } from "effect"
+import { Array } from "effect"
 import { Effect, Order } from "effect-app"
 import { UsersRsc } from "resources.js"
 import type { UserView } from "resources/Views.js"
@@ -12,7 +12,7 @@ export default users.controllers({
     UserRepo
       .query(Q.where("id", "in", req.filterByIds))
       .pipe(Effect.andThen((users) => ({
-        users: ReadonlyArray
+        users: Array
           .sort(users, Order.mapInput(Order.string, (_: UserView) => _.displayName))
       })))
   )

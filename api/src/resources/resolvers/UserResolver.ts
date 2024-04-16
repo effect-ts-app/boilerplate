@@ -1,5 +1,5 @@
 import { Effect, Exit, Request, RequestResolver } from "effect"
-import { Option, pipe, ReadonlyArray, S } from "effect-app"
+import { Option, pipe, Array, S } from "effect-app"
 import { ApiConfig, clientFor, NotFoundError } from "effect-app/client"
 import { HttpClient } from "effect-app/http"
 import { type Schema } from "effect-app/schema"
@@ -19,13 +19,13 @@ const getUserViewByIdResolver = RequestResolver
   .makeBatched((requests: GetUserViewById[]) =>
     userClient
       .Index
-      .handler({ filterByIds: pipe(requests.map((_) => _.id), ReadonlyArray.toNonEmptyArray, Option.getOrUndefined)! })
+      .handler({ filterByIds: pipe(requests.map((_) => _.id), Array.toNonEmptyArray, Option.getOrUndefined)! })
       .pipe(
         Effect.andThen(({ body: { users } }) =>
           Effect.forEach(requests, (r) =>
             Request.complete(
               r,
-              ReadonlyArray
+              Array
                 .findFirst(users, (_) => _.id === r.id ? Option.some(Exit.succeed(_)) : Option.none())
                 .pipe(Option.getOrElse(() => Exit.fail(new NotFoundError({ type: "User", id: r.id }))))
             ), { discard: true })
@@ -38,6 +38,6 @@ const getUserViewByIdResolver = RequestResolver
 export const UserViewFromId: Schema<UserView, string, ApiConfig | HttpClient.Client.Default> = S.transformOrFail(
   UserId,
   S.typeSchema(UserView),
-  (id) => Effect.request(GetUserViewById({ id }), getUserViewByIdResolver).pipe(Effect.orDie),
-  (u) => Effect.succeed(u.id)
+  { decode: (id) => Effect.request(GetUserViewById({ id }), getUserViewByIdResolver).pipe(Effect.orDie), encode: 
+  (u) => Effect.succeed(u.id)}
 )
