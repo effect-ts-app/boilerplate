@@ -1,4 +1,5 @@
 // import { writeOpenapiDocsI } from "@effect-app/infra/api/writeDocs"
+import { RequestFiberSet } from "@effect-app/infra-adapters/RequestFiberSet"
 import { Operations } from "@effect-app/infra/services/Operations"
 import { RequestContextContainer } from "@effect-app/infra/services/RequestContextContainer"
 import { ContextMapContainer } from "@effect-app/infra/services/Store/ContextMapContainer"
@@ -14,13 +15,12 @@ import * as MW from "./middleware/index.js"
 import { RequestContextMiddleware } from "./middleware/index.js"
 import { UserRepo } from "./services.js"
 import { Events } from "./services/Events.js"
-import { RequestFiberSet } from "@effect-app/infra-adapters/RequestFiberSet"
 
 export const ApiPortTag = GenericTag<{ port: number }>("@services/ApiPortTag")
 
 export const api = Effect
-  .gen(function*($) {
-    let cfg = yield* $(MergedConfig)
+  .gen(function*() {
+    let cfg = yield* MergedConfig
 
     const app = router
       .pipe(
@@ -45,7 +45,7 @@ export const api = Effect
         Layer.unwrapEffect
       )
 
-    const portOverride = yield* $(Effect.serviceOption(ApiPortTag))
+    const portOverride = yield* Effect.serviceOption(ApiPortTag)
     const p = Option.getOrUndefined(portOverride)
     if (p) cfg = { ...cfg, port: p.port }
 

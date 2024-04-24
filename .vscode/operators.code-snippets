@@ -30,14 +30,14 @@
   "Gen Function $": {
     "prefix": "$gen",
     "body": [
-      "function* ($) {$1}"
+      "function* () {$1}"
     ],
     "description": "Generator Function with _ input"
   },
   "Gen Yield $": {
-    "prefix": "$!",
+    "prefix": "yyield",
     "body": [
-      "yield* $($1)"
+      "yield* $1"
     ],
     "description": "Yield generator calling $()"
   }

@@ -17,10 +17,10 @@ import type {
   ResFromSchema
 } from "@effect-app/infra/api/routing"
 import { defaultErrorHandler, makeRequestHandler } from "@effect-app/infra/api/routing"
+import type { Struct } from "@effect/schema/Schema"
 import type { Layer, Scope, Types } from "effect-app"
 import { Effect, S } from "effect-app"
 import type { SupportedErrors, ValidationError } from "effect-app/client/errors"
-import type { Struct } from "@effect/schema/Schema"
 import { REST } from "effect-app/schema"
 import { handleRequestEnv } from "./RequestEnv.js"
 import type { GetContext, GetCTX } from "./RequestEnv.js"
@@ -100,7 +100,7 @@ export function match<
     requestHandler = handler as any // todo
     middlewareLayer = makeRequestLayer
   }
-  // const rdesc = yield* $(RouteDescriptors.flatMap((_) => _.get))
+  // const rdesc = yield* RouteDescriptors.flatMap((_) => _.get)
 
   const handler = makeRequestHandler<
     R,

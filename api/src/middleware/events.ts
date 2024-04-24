@@ -10,12 +10,12 @@ const setRetry = Stream.succeed("retry: 10000")
 const keepAlive = Stream.schedule(Effect.succeed(":keep-alive"), Schedule.fixed(Duration.seconds(15)))
 
 export const events = Effect
-  .gen(function*($) {
-    yield* $(Effect.logInfo("$ start listening to events"))
+  .gen(function*() {
+    yield Effect.logInfo("$ start listening to events")
 
     const enc = new TextEncoder()
 
-    const events = yield* $(Events.stream)
+    const events = yield* Events.stream
     const eventStream = Stream.map(
       events,
       (_) => `id: ${_.evt.id}\ndata: ${JSON.stringify(S.encodeSync(ClientEvents)(_.evt))}`
@@ -23,7 +23,7 @@ export const events = Effect
 
     const stream = pipe(setRetry, Stream.merge(keepAlive), Stream.merge(eventStream))
 
-    const ctx = yield* $(Effect.context<never>())
+    const ctx = yield* Effect.context<never>()
     const res = HttpServerResponse.stream(
       stream
         .pipe(
