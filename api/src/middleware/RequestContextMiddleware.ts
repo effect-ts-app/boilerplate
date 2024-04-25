@@ -6,10 +6,10 @@ import { RequestId } from "effect-app/ids"
 import { NonEmptyString255 } from "effect-app/schema"
 
 export const RequestContextMiddleware = HttpMiddleware.make((app) =>
-  Effect.gen(function*($) {
-    const req = yield* $(HttpServerRequest.ServerRequest)
+  Effect.gen(function*() {
+    const req = yield* HttpServerRequest.ServerRequest
 
-    const currentSpan = yield* $(Effect.currentSpan.pipe(Effect.orDie))
+    const currentSpan = yield* Effect.currentSpan.pipe(Effect.orDie)
     const parent = currentSpan?.parent ? Option.getOrUndefined(currentSpan.parent) : undefined
     const start = new Date()
     const supported = ["en", "de"] as const
@@ -37,7 +37,7 @@ export const RequestContextMiddleware = HttpMiddleware.make((app) =>
       createdAt: start,
       namespace
     })
-    const res = yield* $(setupRequestContext(app, requestContext))
+    const res = yield* setupRequestContext(app, requestContext)
 
     return res.pipe(
       HttpServerResponse.setHeaders({ "request-id": requestContext.rootId, "Content-Language": requestContext.locale })

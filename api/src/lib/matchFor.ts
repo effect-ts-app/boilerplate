@@ -100,7 +100,7 @@ export function match<
     requestHandler = handler as any // todo
     middlewareLayer = makeRequestLayer
   }
-  // const rdesc = yield* $(RouteDescriptors.flatMap((_) => _.get))
+  // const rdesc = yield* RouteDescriptors.flatMap((_) => _.get)
 
   const handler = makeRequestHandler<
     R,

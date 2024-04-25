@@ -12,9 +12,9 @@ overrides:
 pnpmfileChecksum: bzwflog5bmrbow5mp4rcfwcaeq
 
 patchedDependencies:
-  '@effect/schema@0.66.7':
-    hash: ufz4u4i3vvmww6pp4dmwdzr6hq
-    path: patches/@effect__schema@0.66.7.patch
+  '@effect/schema@0.66.8':
+    hash: wmlimzeocbhaz657kwd65dpjku
+    path: patches/@effect__schema@0.66.8.patch
   '@hebilicious/vue-query-nuxt@0.3.0':
     hash: 5dcq766eeuesmqdcvoqrnf6tzi
     path: patches/@hebilicious__vue-query-nuxt@0.3.0.patch
@@ -33,20 +33,20 @@ importers:
   .:
     dependencies:
       '@effect/experimental':
-        specifier: ^0.15.9
-        version: 0.15.9(@effect/platform-node@0.47.4(@effect/platform@0.50.4(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(ws@8.16.0))(effect@3.0.4))(@effect/platform@0.50.4(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(ws@8.16.0))(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(ioredis@5.3.2)(ws@8.16.0)
+        specifier: ^0.15.10
+        version: 0.15.10(@effect/platform-node@0.47.5(@effect/platform@0.50.5(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(ws@8.16.0))(effect@3.0.5))(@effect/platform@0.50.5(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(ws@8.16.0))(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(ioredis@5.3.2)(ws@8.16.0)
       '@effect/opentelemetry':
-        specifier: ^0.33.1
-        version: 0.33.1(@opentelemetry/api@1.8.0)(@opentelemetry/resources@1.24.0(@opentelemetry/api@1.8.0))(@opentelemetry/sdk-metrics@1.24.0(@opentelemetry/api@1.8.0))(@opentelemetry/sdk-trace-base@1.24.0(@opentelemetry/api@1.8.0))(@opentelemetry/sdk-trace-node@1.24.0(@opentelemetry/api@1.8.0))(@opentelemetry/sdk-trace-web@1.24.0(@opentelemetry/api@1.8.0))(@opentelemetry/semantic-conventions@1.24.0)(effect@3.0.4)
+        specifier: ^0.33.2
+        version: 0.33.2(@opentelemetry/api@1.8.0)(@opentelemetry/resources@1.24.0(@opentelemetry/api@1.8.0))(@opentelemetry/sdk-metrics@1.24.0(@opentelemetry/api@1.8.0))(@opentelemetry/sdk-trace-base@1.24.0(@opentelemetry/api@1.8.0))(@opentelemetry/sdk-trace-node@1.24.0(@opentelemetry/api@1.8.0))(@opentelemetry/sdk-trace-web@1.24.0(@opentelemetry/api@1.8.0))(@opentelemetry/semantic-conventions@1.24.0)(effect@3.0.5)
       '@effect/platform':
-        specifier: ^0.50.4
-        version: 0.50.4(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(ws@8.16.0)
+        specifier: ^0.50.5
+        version: 0.50.5(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(ws@8.16.0)
       '@effect/platform-node':
-        specifier: ^0.47.4
-        version: 0.47.4(@effect/platform@0.50.4(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(ws@8.16.0))(effect@3.0.4)
+        specifier: ^0.47.5
+        version: 0.47.5(@effect/platform@0.50.5(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(ws@8.16.0))(effect@3.0.5)
       '@effect/schema':
-        specifier: ^0.66.7
-        version: 0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2)
+        specifier: ^0.66.8
+        version: 0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2)
       '@opentelemetry/api':
         specifier: ^1.8
         version: 1.8.0
@@ -78,8 +78,8 @@ importers:
         specifier: ^3.6.0
         version: 3.6.0
       effect:
-        specifier: ^3.0.4
-        version: 3.0.4
+        specifier: ^3.0.5
+        version: 3.0.5
       fast-check:
         specifier: ^3.17.2
         version: 3.17.2
@@ -103,17 +103,17 @@ importers:
         version: 3.4.25(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))
     devDependencies:
       '@dprint/typescript':
-        specifier: ^0.90.3
-        version: 0.90.3
+        specifier: ^0.90.4
+        version: 0.90.4
       '@effect-app/cli':
         specifier: ^0.72.1
         version: 0.72.1
       '@effect-app/core':
         specifier: ^1.0.5
-        version: 1.0.5(@effect/platform@0.50.4(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(ws@8.16.0))(effect@3.0.4)(encoding@0.1.13)
+        version: 1.0.5(@effect/platform@0.50.5(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(ws@8.16.0))(effect@3.0.5)(encoding@0.1.13)
       '@effect-app/eslint-codegen-model':
         specifier: ^1.0.3
-        version: 1.0.3(effect@3.0.4)(eslint@8.57.0)(fp-ts@2.16.2)(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))
+        version: 1.0.3(effect@3.0.5)(eslint@8.57.0)(fp-ts@2.16.2)(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))
       '@phaphoso/eslint-plugin-dprint':
         specifier: ^0.5.2
         version: 0.5.2(patch_hash=5r3oafqkulzxdb6awceadivssy)(eslint@8.57.0)
@@ -143,7 +143,7 @@ importers:
         version: 0.45.1
       effect-app:
         specifier: ^1.0.7
-        version: 1.0.7(@effect/platform@0.50.4(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(ws@8.16.0))(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(encoding@0.1.13)
+        version: 1.0.7(@effect/platform@0.50.5(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(ws@8.16.0))(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(encoding@0.1.13)
       enhanced-resolve:
         specifier: ^5.16.0
         version: 5.16.0
@@ -233,25 +233,25 @@ importers:
         version: 12.17.0(encoding@0.1.13)
       '@effect-app/core':
         specifier: ^1.0.5
-        version: 1.0.5(@effect/platform@0.50.4(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(ws@8.16.0))(effect@3.0.4)(encoding@0.1.13)
+        version: 1.0.5(@effect/platform@0.50.5(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(ws@8.16.0))(effect@3.0.5)(encoding@0.1.13)
       '@effect-app/infra':
         specifier: 1.1.9
-        version: 1.1.9(@effect/platform@0.50.4(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(ws@8.16.0))(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(encoding@0.1.13)(express@4.19.2)
+        version: 1.1.9(@effect/platform@0.50.5(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(ws@8.16.0))(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(encoding@0.1.13)(express@4.19.2)
       '@effect-app/infra-adapters':
         specifier: ^1.0.11
-        version: 1.0.11(@effect/platform@0.50.4(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(ws@8.16.0))(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(encoding@0.1.13)
+        version: 1.0.11(@effect/platform@0.50.5(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(ws@8.16.0))(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(encoding@0.1.13)
       '@effect-app/schema':
         specifier: ^1.0.7
-        version: 1.0.7(@effect/platform@0.50.4(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(ws@8.16.0))(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(encoding@0.1.13)
+        version: 1.0.7(@effect/platform@0.50.5(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(ws@8.16.0))(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(encoding@0.1.13)
       '@effect/opentelemetry':
-        specifier: ^0.33.1
-        version: 0.33.1(@opentelemetry/api@1.8.0)(@opentelemetry/resources@1.24.0(@opentelemetry/api@1.8.0))(@opentelemetry/sdk-metrics@1.24.0(@opentelemetry/api@1.8.0))(@opentelemetry/sdk-trace-base@1.24.0(@opentelemetry/api@1.8.0))(@opentelemetry/sdk-trace-node@1.24.0(@opentelemetry/api@1.8.0))(@opentelemetry/sdk-trace-web@1.24.0(@opentelemetry/api@1.8.0))(@opentelemetry/semantic-conventions@1.24.0)(effect@3.0.4)
+        specifier: ^0.33.2
+        version: 0.33.2(@opentelemetry/api@1.8.0)(@opentelemetry/resources@1.24.0(@opentelemetry/api@1.8.0))(@opentelemetry/sdk-metrics@1.24.0(@opentelemetry/api@1.8.0))(@opentelemetry/sdk-trace-base@1.24.0(@opentelemetry/api@1.8.0))(@opentelemetry/sdk-trace-node@1.24.0(@opentelemetry/api@1.8.0))(@opentelemetry/sdk-trace-web@1.24.0(@opentelemetry/api@1.8.0))(@opentelemetry/semantic-conventions@1.24.0)(effect@3.0.5)
       '@effect/platform':
-        specifier: ^0.50.4
-        version: 0.50.4(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(ws@8.16.0)
+        specifier: ^0.50.5
+        version: 0.50.5(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(ws@8.16.0)
       '@effect/platform-node':
-        specifier: 0.47.4
-        version: 0.47.4(@effect/platform@0.50.4(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(ws@8.16.0))(effect@3.0.4)
+        specifier: 0.47.5
+        version: 0.47.5(@effect/platform@0.50.5(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(ws@8.16.0))(effect@3.0.5)
       '@formatjs/cli':
         specifier: ^6.2.9
         version: 6.2.9(vue@3.4.25(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))
@@ -295,11 +295,11 @@ importers:
         specifier: ^16.4.5
         version: 16.4.5
       effect:
-        specifier: ^3.0.4
-        version: 3.0.4
+        specifier: ^3.0.5
+        version: 3.0.5
       effect-app:
         specifier: ^1.0.7
-        version: 1.0.7(@effect/platform@0.50.4(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(ws@8.16.0))(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(encoding@0.1.13)
+        version: 1.0.7(@effect/platform@0.50.5(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(ws@8.16.0))(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(encoding@0.1.13)
       express:
         specifier: ^4.19.2
         version: 4.19.2
@@ -387,16 +387,16 @@ importers:
         version: link:../api
       '@effect-app/core':
         specifier: ^1.0.5
-        version: 1.0.5(@effect/platform@0.50.4(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(ws@8.16.0))(effect@3.0.4)(encoding@0.1.13)
+        version: 1.0.5(@effect/platform@0.50.5(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(ws@8.16.0))(effect@3.0.5)(encoding@0.1.13)
       '@effect-app/schema':
         specifier: ^1.0.7
-        version: 1.0.7(@effect/platform@0.50.4(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(ws@8.16.0))(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(encoding@0.1.13)
+        version: 1.0.7(@effect/platform@0.50.5(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(ws@8.16.0))(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(encoding@0.1.13)
       '@effect/platform':
-        specifier: ^0.50.4
-        version: 0.50.4(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(ws@8.16.0)
+        specifier: ^0.50.5
+        version: 0.50.5(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(ws@8.16.0)
       '@effect/platform-node':
-        specifier: 0.47.4
-        version: 0.47.4(@effect/platform@0.50.4(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(ws@8.16.0))(effect@3.0.4)
+        specifier: 0.47.5
+        version: 0.47.5(@effect/platform@0.50.5(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(ws@8.16.0))(effect@3.0.5)
       '@tsplus/stdlib':
         specifier: ^0.2.8
         version: 0.2.8
@@ -404,11 +404,11 @@ importers:
         specifier: ^4.0.0
         version: 4.0.0(encoding@0.1.13)
       effect:
-        specifier: ^3.0.4
-        version: 3.0.4
+        specifier: ^3.0.5
+        version: 3.0.5
       effect-app:
         specifier: ^1.0.7
-        version: 1.0.7(@effect/platform@0.50.4(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(ws@8.16.0))(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(encoding@0.1.13)
+        version: 1.0.7(@effect/platform@0.50.5(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(ws@8.16.0))(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(encoding@0.1.13)
       tsconfig-paths:
         specifier: ^4.2.0
         version: 4.2.0
@@ -505,22 +505,22 @@ importers:
         version: link:../api
       '@effect-app/core':
         specifier: ^1.0.5
-        version: 1.0.5(@effect/platform@0.50.4(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(ws@8.16.0))(effect@3.0.4)(encoding@0.1.13)
+        version: 1.0.5(@effect/platform@0.50.5(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(ws@8.16.0))(effect@3.0.5)(encoding@0.1.13)
       '@effect-app/fluent-extensions':
         specifier: ^1.0.6
-        version: 1.0.6(@effect/platform@0.50.4(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(ws@8.16.0))(effect@3.0.4)(encoding@0.1.13)
+        version: 1.0.6(@effect/platform@0.50.5(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(ws@8.16.0))(effect@3.0.5)(encoding@0.1.13)
       '@effect-app/schema':
         specifier: ^1.0.7
-        version: 1.0.7(@effect/platform@0.50.4(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(ws@8.16.0))(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(encoding@0.1.13)
+        version: 1.0.7(@effect/platform@0.50.5(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(ws@8.16.0))(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(encoding@0.1.13)
       '@effect-app/vue':
         specifier: ^1.0.8
-        version: 1.0.8(@effect/platform-browser@0.32.3(@effect/platform@0.50.4(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(ws@8.16.0))(effect@3.0.4))(@effect/platform@0.50.4(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(ws@8.16.0))(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(encoding@0.1.13)(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))(vue@3.4.25(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))
+        version: 1.0.8(@effect/platform-browser@0.32.3(@effect/platform@0.50.5(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(ws@8.16.0))(effect@3.0.5))(@effect/platform@0.50.5(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(ws@8.16.0))(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(encoding@0.1.13)(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))(vue@3.4.25(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))
       '@effect/opentelemetry':
-        specifier: ^0.33.1
-        version: 0.33.1(@opentelemetry/api@1.8.0)(@opentelemetry/resources@1.24.0(@opentelemetry/api@1.8.0))(@opentelemetry/sdk-metrics@1.24.0(@opentelemetry/api@1.8.0))(@opentelemetry/sdk-trace-base@1.24.0(@opentelemetry/api@1.8.0))(@opentelemetry/sdk-trace-node@1.24.0(@opentelemetry/api@1.8.0))(@opentelemetry/sdk-trace-web@1.24.0(@opentelemetry/api@1.8.0))(@opentelemetry/semantic-conventions@1.24.0)(effect@3.0.4)
+        specifier: ^0.33.2
+        version: 0.33.2(@opentelemetry/api@1.8.0)(@opentelemetry/resources@1.24.0(@opentelemetry/api@1.8.0))(@opentelemetry/sdk-metrics@1.24.0(@opentelemetry/api@1.8.0))(@opentelemetry/sdk-trace-base@1.24.0(@opentelemetry/api@1.8.0))(@opentelemetry/sdk-trace-node@1.24.0(@opentelemetry/api@1.8.0))(@opentelemetry/sdk-trace-web@1.24.0(@opentelemetry/api@1.8.0))(@opentelemetry/semantic-conventions@1.24.0)(effect@3.0.5)
       '@effect/platform':
-        specifier: ^0.50.4
-        version: 0.50.4(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(ws@8.16.0)
+        specifier: ^0.50.5
+        version: 0.50.5(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(ws@8.16.0)
       '@formatjs/intl':
         specifier: 2.7.2
         version: 2.7.2(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))
@@ -573,11 +573,11 @@ importers:
         specifier: ^3.6.0
         version: 3.6.0
       effect:
-        specifier: ^3.0.4
-        version: 3.0.4
+        specifier: ^3.0.5
+        version: 3.0.5
       effect-app:
         specifier: ^1.0.7
-        version: 1.0.7(@effect/platform@0.50.4(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(ws@8.16.0))(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(encoding@0.1.13)
+        version: 1.0.7(@effect/platform@0.50.5(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(ws@8.16.0))(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(encoding@0.1.13)
       highcharts:
         specifier: ^11.4.1
         version: 11.4.1
@@ -1418,8 +1418,8 @@ packages:
     cpu: [x64]
     os: [linux]
 
-  '@dprint/typescript@0.90.3':
-    resolution: {integrity: sha512-tQikHHThDqgN82i0Xm9gwOd01aG4mQB7mGDM68Bs/tMYmqc2Hjgg0dC/dnSDZ1AyomM+PoCMB/zn9MN1381vug==}
+  '@dprint/typescript@0.90.4':
+    resolution: {integrity: sha512-O4nlE7BEvh9kpwfhTqBbfqEJJCXyshRT/7hNaiJzrj42Dg/Yx3XZTiZOf59GRFepVl3iYkU/JgNqgYjDYRiqSw==}
 
   '@dprint/win32-x64@0.45.1':
     resolution: {integrity: sha512-2l78XM7KsW46P2Yv6uPB3fE+y92EsBlrCxi+RVQ0pbznPFdMdkLyGgaCuh683zdld14jHlaADpIQ7YchGAEMAg==}
@@ -1477,13 +1477,13 @@ packages:
       effect: ^3.0.4
       vue: ^3.4.25
 
-  '@effect/experimental@0.15.9':
-    resolution: {integrity: sha512-CIk4r8h9HBelu3u8sI9iJIhyeVS4MGemQayX9WZQ9rLUKnfHrlyIGBRcYtBaNlq7d/76I85Q+D+zvx/O5+M+Zw==}
+  '@effect/experimental@0.15.10':
+    resolution: {integrity: sha512-cv7kiGmD3cgxnlDW9eAiTzOUqhAXdCTG8JZDdm88jBwwxThlUe26VfrIrucOuAvzgmKHEQC2EA3cWX9tVL+2bw==}
     peerDependencies:
-      '@effect/platform': ^0.50.4
-      '@effect/platform-node': ^0.47.4
-      '@effect/schema': ^0.66.7
-      effect: ^3.0.4
+      '@effect/platform': ^0.50.5
+      '@effect/platform-node': ^0.47.5
+      '@effect/schema': ^0.66.8
+      effect: ^3.0.5
       ioredis: ^5.3.2
       lmdb: ^2.9.2
       ws: ^8.14
@@ -1497,8 +1497,8 @@ packages:
       ws:
         optional: true
 
-  '@effect/opentelemetry@0.33.1':
-    resolution: {integrity: sha512-cLL9QJzSM44RU4wHWaxtHwqSmGn3qSqe35wiIxrK89NF2VufCcm3E90tYwakmrWj7somQFK11ebJ8FRR70IorA==}
+  '@effect/opentelemetry@0.33.2':
+    resolution: {integrity: sha512-kna6JvpGf4Ai/dEyJ+W1J5CPbmAlDrNycmM7V/Rfd79sSY6eMzq0/xLVHelk6+c+ZtgaKAA13n5cRBitaiS61A==}
     peerDependencies:
       '@opentelemetry/api': ^1.6
       '@opentelemetry/resources': ^1.22
@@ -1507,7 +1507,7 @@ packages:
       '@opentelemetry/sdk-trace-node': ^1.22
       '@opentelemetry/sdk-trace-web': ^1.22
       '@opentelemetry/semantic-conventions': ^1.22
-      effect: ^3.0.4
+      effect: ^3.0.5
     peerDependenciesMeta:
       '@opentelemetry/sdk-metrics':
         optional: true
@@ -1524,28 +1524,28 @@ packages:
       '@effect/platform': ^0.49.3
       effect: ^3.0.1
 
-  '@effect/platform-node-shared@0.4.9':
-    resolution: {integrity: sha512-kgQggTMP0WxcCedxS9WrwoWtw17U2VvY5DJ1WAtQYwB4URNEfs5PV+FJoh76DNJSKyXpBRBPMYw5P1vnncPPjQ==}
+  '@effect/platform-node-shared@0.4.10':
+    resolution: {integrity: sha512-fZGHgpuvym7E3nxwM2WXWVkGy+HTUfJ1wqqZLJq6vTRRnW+H637djvcWyodF3hjGZQWQiVE3pazobrjAIg9Ptg==}
     peerDependencies:
-      '@effect/platform': ^0.50.4
-      effect: ^3.0.4
+      '@effect/platform': ^0.50.5
+      effect: ^3.0.5
 
-  '@effect/platform-node@0.47.4':
-    resolution: {integrity: sha512-D3epaU5/r3VLni7d1i4FfO4erA4FddYTkHPZyozezLUVS6n0hq/LSK2maZA9Fw1UYxElVIZT4tR2+DocF4tRGg==}
+  '@effect/platform-node@0.47.5':
+    resolution: {integrity: sha512-/+DHaNDmjJ3BAAF6yljgwKOlxGKPEbUh+ilOkehovpKCkF5eBTLfabHegN1iNALCkSG6V4dbc6ZTu2EAOtwwKA==}
     peerDependencies:
-      '@effect/platform': ^0.50.4
-      effect: ^3.0.4
+      '@effect/platform': ^0.50.5
+      effect: ^3.0.5
 
-  '@effect/platform@0.50.4':
-    resolution: {integrity: sha512-LaW4YuHUv3lcIUXbSlH8UpjQEzJQAq3mOVAF20jjjH61gep1PRfLdXbBDEfRv/7kLQR357GewYU+2WDui8JjfQ==}
+  '@effect/platform@0.50.5':
+    resolution: {integrity: sha512-l9umNU8Ozd4dt2PuoqJNqrJTTpDDKbStBr82268yGb+qOHNOxXGJ7ajHRpgfEEIY0qar5xPw1GT7wW2jFrbPyQ==}
     peerDependencies:
-      '@effect/schema': ^0.66.7
-      effect: ^3.0.4
+      '@effect/schema': ^0.66.8
+      effect: ^3.0.5
 
-  '@effect/schema@0.66.7':
-    resolution: {integrity: sha512-bfxicQHhnZjlEe3W0a1e4B6OHWTTewigxbaSpzqIlwFrJ5pFh6MleBQaRt7X2YkTUbnkTYuNdY976W4tFJbIYg==}
+  '@effect/schema@0.66.8':
+    resolution: {integrity: sha512-TJ2wGt1O4WqNrZtz9bRd+Mo8sitS33Ifj1u9TqXAg8FlWn7OA+MtULQmktdDVAlWw18QmamKX7grKeatL+0iCg==}
     peerDependencies:
-      effect: ^3.0.4
+      effect: ^3.0.5
       fast-check: ^3.17.2
 
   '@emotion/is-prop-valid@1.2.1':
@@ -5137,8 +5137,8 @@ packages:
       '@effect/schema': ^0.66.7
       effect: ^3.0.4
 
-  effect@3.0.4:
-    resolution: {integrity: sha512-KxkTPwNP2A2wUQ5CVLcp0gCpBSajHIL9XQwqpruKNdkMCvCVpLg8b3dx71ADwlzeB+LfUFe+cj4MgvrYQutXVQ==}
+  effect@3.0.5:
+    resolution: {integrity: sha512-cXAKns46iWEQkZHgRU+ehgfV2Au34HopVIBkWwTbD+iRR50zMOHNEHEjXGnyJPtWyYlLBQtB9AZXFoc72ChwPA==}
 
   electron-to-chromium@1.4.708:
     resolution: {integrity: sha512-iWgEEvREL4GTXXHKohhh33+6Y8XkPI5eHihDmm8zUk5Zo7HICEW+wI/j5kJ2tbuNUCXJ/sNXa03ajW635DiJXA==}
@@ -10677,7 +10677,7 @@ snapshots:
   '@dprint/linux-x64-musl@0.45.1':
     optional: true
 
-  '@dprint/typescript@0.90.3': {}
+  '@dprint/typescript@0.90.4': {}
 
   '@dprint/win32-x64@0.45.1':
     optional: true
@@ -10686,11 +10686,11 @@ snapshots:
     dependencies:
       node-watch: 0.7.4
 
-  '@effect-app/core@1.0.5(@effect/platform@0.50.4(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(ws@8.16.0))(effect@3.0.4)(encoding@0.1.13)':
+  '@effect-app/core@1.0.5(@effect/platform@0.50.5(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(ws@8.16.0))(effect@3.0.5)(encoding@0.1.13)':
     dependencies:
-      '@effect/platform': 0.50.4(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(ws@8.16.0)
+      '@effect/platform': 0.50.5(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(ws@8.16.0)
       cross-fetch: 4.0.0(encoding@0.1.13)
-      effect: 3.0.4
+      effect: 3.0.5
       path-parser: 6.1.0
       query-string: 9.0.0
       uuid: 9.0.1
@@ -10698,12 +10698,12 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
-  '@effect-app/eslint-codegen-model@1.0.3(effect@3.0.4)(eslint@8.57.0)(fp-ts@2.16.2)(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))':
+  '@effect-app/eslint-codegen-model@1.0.3(effect@3.0.5)(eslint@8.57.0)(fp-ts@2.16.2)(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))':
     dependencies:
       '@babel/generator': 7.24.4
       '@babel/parser': 7.24.4
       '@typescript-eslint/utils': 7.7.1(eslint@8.57.0)(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))
-      effect: 3.0.4
+      effect: 3.0.5
       eslint-plugin-codegen: 0.17.0(patch_hash=3ogk7peuefdu45q3hbzcgdiuna)
       glob: 8.1.0
       io-ts: 2.2.21(fp-ts@2.16.2)
@@ -10716,12 +10716,12 @@ snapshots:
       - supports-color
       - typescript
 
-  '@effect-app/fluent-extensions@1.0.6(@effect/platform@0.50.4(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(ws@8.16.0))(effect@3.0.4)(encoding@0.1.13)':
+  '@effect-app/fluent-extensions@1.0.6(@effect/platform@0.50.5(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(ws@8.16.0))(effect@3.0.5)(encoding@0.1.13)':
     dependencies:
-      '@effect-app/core': 1.0.5(@effect/platform@0.50.4(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(ws@8.16.0))(effect@3.0.4)(encoding@0.1.13)
-      '@effect/platform': 0.50.4(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(ws@8.16.0)
+      '@effect-app/core': 1.0.5(@effect/platform@0.50.5(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(ws@8.16.0))(effect@3.0.5)(encoding@0.1.13)
+      '@effect/platform': 0.50.5(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(ws@8.16.0)
       date-fns: 3.6.0
-      effect: 3.0.4
+      effect: 3.0.5
       nanoid: 5.0.7
       path-parser: 6.1.0
       query-string: 9.0.0
@@ -10731,34 +10731,34 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
-  '@effect-app/infra-adapters@1.0.11(@effect/platform@0.50.4(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(ws@8.16.0))(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(encoding@0.1.13)':
+  '@effect-app/infra-adapters@1.0.11(@effect/platform@0.50.5(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(ws@8.16.0))(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(encoding@0.1.13)':
     dependencies:
-      '@effect-app/core': 1.0.5(@effect/platform@0.50.4(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(ws@8.16.0))(effect@3.0.4)(encoding@0.1.13)
-      '@effect-app/schema': 1.0.7(@effect/platform@0.50.4(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(ws@8.16.0))(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(encoding@0.1.13)
-      '@effect/platform': 0.50.4(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(ws@8.16.0)
-      '@effect/schema': 0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2)
-      effect: 3.0.4
-      effect-app: 1.0.7(@effect/platform@0.50.4(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(ws@8.16.0))(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(encoding@0.1.13)
+      '@effect-app/core': 1.0.5(@effect/platform@0.50.5(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(ws@8.16.0))(effect@3.0.5)(encoding@0.1.13)
+      '@effect-app/schema': 1.0.7(@effect/platform@0.50.5(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(ws@8.16.0))(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(encoding@0.1.13)
+      '@effect/platform': 0.50.5(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(ws@8.16.0)
+      '@effect/schema': 0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2)
+      effect: 3.0.5
+      effect-app: 1.0.7(@effect/platform@0.50.5(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(ws@8.16.0))(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(encoding@0.1.13)
       query-string: 9.0.0
     transitivePeerDependencies:
       - encoding
 
-  '@effect-app/infra@1.1.9(@effect/platform@0.50.4(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(ws@8.16.0))(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(encoding@0.1.13)(express@4.19.2)':
+  '@effect-app/infra@1.1.9(@effect/platform@0.50.5(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(ws@8.16.0))(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(encoding@0.1.13)(express@4.19.2)':
     dependencies:
       '@azure/cosmos': 4.0.0
       '@azure/service-bus': 7.9.4
-      '@effect-app/core': 1.0.5(@effect/platform@0.50.4(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(ws@8.16.0))(effect@3.0.4)(encoding@0.1.13)
-      '@effect-app/infra-adapters': 1.0.11(@effect/platform@0.50.4(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(ws@8.16.0))(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(encoding@0.1.13)
-      '@effect-app/schema': 1.0.7(@effect/platform@0.50.4(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(ws@8.16.0))(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(encoding@0.1.13)
-      '@effect/platform': 0.50.4(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(ws@8.16.0)
-      '@effect/schema': 0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2)
+      '@effect-app/core': 1.0.5(@effect/platform@0.50.5(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(ws@8.16.0))(effect@3.0.5)(encoding@0.1.13)
+      '@effect-app/infra-adapters': 1.0.11(@effect/platform@0.50.5(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(ws@8.16.0))(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(encoding@0.1.13)
+      '@effect-app/schema': 1.0.7(@effect/platform@0.50.5(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(ws@8.16.0))(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(encoding@0.1.13)
+      '@effect/platform': 0.50.5(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(ws@8.16.0)
+      '@effect/schema': 0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2)
       '@faker-js/faker': 8.4.1
       '@sendgrid/helpers': 8.0.0
       '@sendgrid/mail': 8.1.3
       change-case: 5.4.4
       cross-fetch: 4.0.0(encoding@0.1.13)
-      effect: 3.0.4
-      effect-app: 1.0.7(@effect/platform@0.50.4(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(ws@8.16.0))(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(encoding@0.1.13)
+      effect: 3.0.5
+      effect-app: 1.0.7(@effect/platform@0.50.5(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(ws@8.16.0))(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(encoding@0.1.13)
       express: 4.19.2
       express-oauth2-jwt-bearer: 1.6.0
       fast-check: 3.17.2
@@ -10772,12 +10772,12 @@ snapshots:
       - encoding
       - supports-color
 
-  '@effect-app/schema@1.0.7(@effect/platform@0.50.4(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(ws@8.16.0))(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(encoding@0.1.13)':
+  '@effect-app/schema@1.0.7(@effect/platform@0.50.5(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(ws@8.16.0))(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(encoding@0.1.13)':
     dependencies:
-      '@effect-app/core': 1.0.5(@effect/platform@0.50.4(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(ws@8.16.0))(effect@3.0.4)(encoding@0.1.13)
-      '@effect/schema': 0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2)
+      '@effect-app/core': 1.0.5(@effect/platform@0.50.5(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(ws@8.16.0))(effect@3.0.5)(encoding@0.1.13)
+      '@effect/schema': 0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2)
       cross-fetch: 4.0.0(encoding@0.1.13)
-      effect: 3.0.4
+      effect: 3.0.5
       nanoid: 5.0.7
       path-parser: 6.1.0
       uuid: 9.0.1
@@ -10786,17 +10786,17 @@ snapshots:
       - '@effect/platform'
       - encoding
 
-  '@effect-app/vue@1.0.8(@effect/platform-browser@0.32.3(@effect/platform@0.50.4(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(ws@8.16.0))(effect@3.0.4))(@effect/platform@0.50.4(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(ws@8.16.0))(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(encoding@0.1.13)(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))(vue@3.4.25(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))':
+  '@effect-app/vue@1.0.8(@effect/platform-browser@0.32.3(@effect/platform@0.50.5(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(ws@8.16.0))(effect@3.0.5))(@effect/platform@0.50.5(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(ws@8.16.0))(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(encoding@0.1.13)(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))(vue@3.4.25(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))':
     dependencies:
-      '@effect-app/core': 1.0.5(@effect/platform@0.50.4(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(ws@8.16.0))(effect@3.0.4)(encoding@0.1.13)
-      '@effect-app/schema': 1.0.7(@effect/platform@0.50.4(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(ws@8.16.0))(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(encoding@0.1.13)
-      '@effect/platform': 0.50.4(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(ws@8.16.0)
-      '@effect/platform-browser': 0.32.3(@effect/platform@0.50.4(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(ws@8.16.0))(effect@3.0.4)
-      '@effect/schema': 0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2)
+      '@effect-app/core': 1.0.5(@effect/platform@0.50.5(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(ws@8.16.0))(effect@3.0.5)(encoding@0.1.13)
+      '@effect-app/schema': 1.0.7(@effect/platform@0.50.5(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(ws@8.16.0))(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(encoding@0.1.13)
+      '@effect/platform': 0.50.5(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(ws@8.16.0)
+      '@effect/platform-browser': 0.32.3(@effect/platform@0.50.5(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(ws@8.16.0))(effect@3.0.5)
+      '@effect/schema': 0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2)
       '@formatjs/intl': 2.10.1(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))
       '@tanstack/vue-query': 5.32.0(vue@3.4.25(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))
-      effect: 3.0.4
-      effect-app: 1.0.7(@effect/platform@0.50.4(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(ws@8.16.0))(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(encoding@0.1.13)
+      effect: 3.0.5
+      effect-app: 1.0.7(@effect/platform@0.50.5(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(ws@8.16.0))(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(encoding@0.1.13)
       query-string: 9.0.0
       vue: 3.4.25(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))
     transitivePeerDependencies:
@@ -10804,47 +10804,47 @@ snapshots:
       - encoding
       - typescript
 
-  '@effect/experimental@0.15.9(@effect/platform-node@0.47.4(@effect/platform@0.50.4(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(ws@8.16.0))(effect@3.0.4))(@effect/platform@0.50.4(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(ws@8.16.0))(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(ioredis@5.3.2)(ws@8.16.0)':
+  '@effect/experimental@0.15.10(@effect/platform-node@0.47.5(@effect/platform@0.50.5(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(ws@8.16.0))(effect@3.0.5))(@effect/platform@0.50.5(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(ws@8.16.0))(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(ioredis@5.3.2)(ws@8.16.0)':
     dependencies:
-      '@effect/platform': 0.50.4(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(ws@8.16.0)
-      '@effect/schema': 0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2)
-      effect: 3.0.4
+      '@effect/platform': 0.50.5(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(ws@8.16.0)
+      '@effect/schema': 0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2)
+      effect: 3.0.5
       msgpackr: 1.10.1
     optionalDependencies:
-      '@effect/platform-node': 0.47.4(@effect/platform@0.50.4(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(ws@8.16.0))(effect@3.0.4)
+      '@effect/platform-node': 0.47.5(@effect/platform@0.50.5(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(ws@8.16.0))(effect@3.0.5)
       ioredis: 5.3.2
       ws: 8.16.0
 
-  '@effect/opentelemetry@0.33.1(@opentelemetry/api@1.8.0)(@opentelemetry/resources@1.24.0(@opentelemetry/api@1.8.0))(@opentelemetry/sdk-metrics@1.24.0(@opentelemetry/api@1.8.0))(@opentelemetry/sdk-trace-base@1.24.0(@opentelemetry/api@1.8.0))(@opentelemetry/sdk-trace-node@1.24.0(@opentelemetry/api@1.8.0))(@opentelemetry/sdk-trace-web@1.24.0(@opentelemetry/api@1.8.0))(@opentelemetry/semantic-conventions@1.24.0)(effect@3.0.4)':
+  '@effect/opentelemetry@0.33.2(@opentelemetry/api@1.8.0)(@opentelemetry/resources@1.24.0(@opentelemetry/api@1.8.0))(@opentelemetry/sdk-metrics@1.24.0(@opentelemetry/api@1.8.0))(@opentelemetry/sdk-trace-base@1.24.0(@opentelemetry/api@1.8.0))(@opentelemetry/sdk-trace-node@1.24.0(@opentelemetry/api@1.8.0))(@opentelemetry/sdk-trace-web@1.24.0(@opentelemetry/api@1.8.0))(@opentelemetry/semantic-conventions@1.24.0)(effect@3.0.5)':
     dependencies:
       '@opentelemetry/api': 1.8.0
       '@opentelemetry/resources': 1.24.0(@opentelemetry/api@1.8.0)
       '@opentelemetry/semantic-conventions': 1.24.0
-      effect: 3.0.4
+      effect: 3.0.5
     optionalDependencies:
       '@opentelemetry/sdk-metrics': 1.24.0(@opentelemetry/api@1.8.0)
       '@opentelemetry/sdk-trace-base': 1.24.0(@opentelemetry/api@1.8.0)
       '@opentelemetry/sdk-trace-node': 1.24.0(@opentelemetry/api@1.8.0)
       '@opentelemetry/sdk-trace-web': 1.24.0(@opentelemetry/api@1.8.0)
 
-  '@effect/platform-browser@0.32.3(@effect/platform@0.50.4(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(ws@8.16.0))(effect@3.0.4)':
+  '@effect/platform-browser@0.32.3(@effect/platform@0.50.5(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(ws@8.16.0))(effect@3.0.5)':
     dependencies:
-      '@effect/platform': 0.50.4(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(ws@8.16.0)
-      effect: 3.0.4
+      '@effect/platform': 0.50.5(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(ws@8.16.0)
+      effect: 3.0.5
       multipasta: 0.2.0
 
-  '@effect/platform-node-shared@0.4.9(@effect/platform@0.50.4(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(ws@8.16.0))(effect@3.0.4)':
+  '@effect/platform-node-shared@0.4.10(@effect/platform@0.50.5(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(ws@8.16.0))(effect@3.0.5)':
     dependencies:
-      '@effect/platform': 0.50.4(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(ws@8.16.0)
+      '@effect/platform': 0.50.5(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(ws@8.16.0)
       '@parcel/watcher': 2.4.1
-      effect: 3.0.4
+      effect: 3.0.5
       multipasta: 0.2.0
 
-  '@effect/platform-node@0.47.4(@effect/platform@0.50.4(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(ws@8.16.0))(effect@3.0.4)':
+  '@effect/platform-node@0.47.5(@effect/platform@0.50.5(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(ws@8.16.0))(effect@3.0.5)':
     dependencies:
-      '@effect/platform': 0.50.4(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(ws@8.16.0)
-      '@effect/platform-node-shared': 0.4.9(@effect/platform@0.50.4(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(ws@8.16.0))(effect@3.0.4)
-      effect: 3.0.4
+      '@effect/platform': 0.50.5(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(ws@8.16.0)
+      '@effect/platform-node-shared': 0.4.10(@effect/platform@0.50.5(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(ws@8.16.0))(effect@3.0.5)
+      effect: 3.0.5
       mime: 3.0.0
       undici: 6.10.1
       ws: 8.16.0
@@ -10852,10 +10852,10 @@ snapshots:
       - bufferutil
       - utf-8-validate
 
-  '@effect/platform@0.50.4(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(ws@8.16.0)':
+  '@effect/platform@0.50.5(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(ws@8.16.0)':
     dependencies:
-      '@effect/schema': 0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2)
-      effect: 3.0.4
+      '@effect/schema': 0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2)
+      effect: 3.0.5
       find-my-way-ts: 0.1.1
       isows: 1.0.4(ws@8.16.0)
       multipasta: 0.2.0
@@ -10863,9 +10863,9 @@ snapshots:
     transitivePeerDependencies:
       - ws
 
-  '@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2)':
+  '@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2)':
     dependencies:
-      effect: 3.0.4
+      effect: 3.0.5
       fast-check: 3.17.2
 
   '@emotion/is-prop-valid@1.2.1':
@@ -15173,15 +15173,15 @@ snapshots:
 
   ee-first@1.1.1: {}
 
-  effect-app@1.0.7(@effect/platform@0.50.4(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(ws@8.16.0))(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(encoding@0.1.13):
+  effect-app@1.0.7(@effect/platform@0.50.5(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(ws@8.16.0))(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(encoding@0.1.13):
     dependencies:
-      '@effect-app/core': 1.0.5(@effect/platform@0.50.4(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(ws@8.16.0))(effect@3.0.4)(encoding@0.1.13)
-      '@effect-app/schema': 1.0.7(@effect/platform@0.50.4(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(ws@8.16.0))(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(encoding@0.1.13)
-      '@effect/platform': 0.50.4(@effect/schema@0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2))(effect@3.0.4)(ws@8.16.0)
-      '@effect/schema': 0.66.7(patch_hash=ufz4u4i3vvmww6pp4dmwdzr6hq)(effect@3.0.4)(fast-check@3.17.2)
+      '@effect-app/core': 1.0.5(@effect/platform@0.50.5(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(ws@8.16.0))(effect@3.0.5)(encoding@0.1.13)
+      '@effect-app/schema': 1.0.7(@effect/platform@0.50.5(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(ws@8.16.0))(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(encoding@0.1.13)
+      '@effect/platform': 0.50.5(@effect/schema@0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2))(effect@3.0.5)(ws@8.16.0)
+      '@effect/schema': 0.66.8(patch_hash=wmlimzeocbhaz657kwd65dpjku)(effect@3.0.5)(fast-check@3.17.2)
       '@tsconfig/strictest': 2.0.5
       date-fns: 3.6.0
-      effect: 3.0.4
+      effect: 3.0.5
       nanoid: 5.0.7
       path-parser: 6.1.0
       query-string: 9.0.0
@@ -15191,7 +15191,7 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
-  effect@3.0.4: {}
+  effect@3.0.5: {}
 
   electron-to-chromium@1.4.708: {}
 

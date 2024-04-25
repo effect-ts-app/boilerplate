@@ -19,8 +19,8 @@ import { Events } from "./services/Events.js"
 export const ApiPortTag = GenericTag<{ port: number }>("@services/ApiPortTag")
 
 export const api = Effect
-  .gen(function*($) {
-    let cfg = yield* $(MergedConfig)
+  .gen(function*() {
+    let cfg = yield* MergedConfig
 
     const app = router
       .pipe(
@@ -45,7 +45,7 @@ export const api = Effect
         Layer.unwrapEffect
       )
 
-    const portOverride = yield* $(Effect.serviceOption(ApiPortTag))
+    const portOverride = yield* Effect.serviceOption(ApiPortTag)
     const p = Option.getOrUndefined(portOverride)
     if (p) cfg = { ...cfg, port: p.port }
 

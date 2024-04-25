@@ -6,7 +6,7 @@
     "patchedDependencies": {
       "eslint-plugin-codegen@0.17.0": "patches/eslint-plugin-codegen@0.17.0.patch",
       "@phaphoso/eslint-plugin-dprint@0.5.2": "patches/@phaphoso__eslint-plugin-dprint@0.5.2.patch",
-      "@effect/schema@0.66.7": "patches/@effect__schema@0.66.7.patch",
+      "@effect/schema@0.66.8": "patches/@effect__schema@0.66.8.patch",
       "@hebilicious/vue-query-nuxt@0.3.0": "patches/@hebilicious__vue-query-nuxt@0.3.0.patch",
       "typescript@5.4.5": "patches/typescript@5.4.5.patch"
     }
@@ -60,12 +60,12 @@
   },
   "dependencies": {
     "date-fns": "^3.6.0",
-    "effect": "^3.0.4",
-    "@effect/experimental": "^0.15.9",
-    "@effect/opentelemetry": "^0.33.1",
-    "@effect/platform": "^0.50.4",
-    "@effect/platform-node": "^0.47.4",
-    "@effect/schema": "^0.66.7",
+    "effect": "^3.0.5",
+    "@effect/experimental": "^0.15.10",
+    "@effect/opentelemetry": "^0.33.2",
+    "@effect/platform": "^0.50.5",
+    "@effect/platform-node": "^0.47.5",
+    "@effect/schema": "^0.66.8",
     "@opentelemetry/api": "^1.8",
     "@opentelemetry/exporter-trace-otlp-http": "^0.51.0",
     "@opentelemetry/resources": "^1.24",
@@ -84,7 +84,7 @@
     "vue": "^3.4.25"
   },
   "devDependencies": {
-    "@dprint/typescript": "^0.90.3",
+    "@dprint/typescript": "^0.90.4",
     "@effect-app/cli": "^0.72.1",
     "@effect-app/core": "^1.0.5",
     "@effect-app/eslint-codegen-model": "^1.0.3",

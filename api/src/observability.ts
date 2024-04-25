@@ -35,12 +35,12 @@ class SentryFilteredSpanProcessor extends SentrySpanProcessor {
 }
 
 const NodeSdkLive = Effect
-  .gen(function*($) {
+  .gen(function*() {
     const isRemote = appConfig.env !== "local-dev"
 
     // TODO: use this on frontend trace proxy too
     const isTelemetryExporterRunning = !isRemote
-      && (yield* $(Effect.promise<boolean>(() => tcpPortUsed.check(4318, "localhost"))))
+      && (yield* Effect.promise<boolean>(() => tcpPortUsed.check(4318, "localhost")))
 
     if (isTelemetryExporterRunning) {
       fs.writeFileSync(
@@ -79,7 +79,7 @@ const NodeSdkLive = Effect
       instrumenter: isRemote ? "otel" : undefined
     }))
 
-    const resource = yield* $(Resource.Resource)
+    const resource = yield* Resource.Resource
 
     if (isRemote) {
       const client = getCurrentHub().getClient()!
@@ -111,7 +111,7 @@ const NodeSdkLive = Effect
     // Ensure OpenTelemetry Context & Sentry Hub/Scope is synced
     setOpenTelemetryContextAsyncContextStrategy()
 
-    yield* $(Effect.addFinalizer(() => Effect.promise(() => sdk.shutdown())))
+    yield* Effect.addFinalizer(() => Effect.promise(() => sdk.shutdown()))
 
     sdk.start()
   })
