@@ -32,8 +32,8 @@ export default blog.controllers({
   ),
 
   PublishPost: blog.PublishPost((req) =>
-    Effect.gen(function*($) {
-      const post = yield* $(BlogPostRepo.get(req.id))
+    Effect.gen(function*() {
+      const post = yield* BlogPostRepo.get(req.id)
 
       console.log("publishing post", post)
 
@@ -45,36 +45,34 @@ export default blog.controllers({
 
       const done: string[] = []
 
-      const operationId = yield* $(
-        forkOperationWithEffect(
-          (opId) =>
-            Operations
-              .update(opId, {
-                total: NonNegativeInt(targets.length),
-                completed: NonNegativeInt(done.length)
-              })
-              .pipe(
-                Effect.andThen(Effect.forEach(targets, (_) =>
-                  Effect
-                    .sync(() => done.push(_))
-                    .pipe(
-                      Effect.tap(() =>
-                        Operations.update(opId, {
-                          total: NonNegativeInt(targets.length),
-                          completed: NonNegativeInt(done.length)
-                        })
-                      ),
-                      Effect.delay(Duration.seconds(4))
-                    ))),
-                Effect.andThen(() => "the answer to the universe is 41")
-              ),
-          // while operation is running...
-          (_opId) =>
-            Effect
-              .suspend(() => Events.publish(new BogusEvent()))
-              .pipe(Effect.schedule(Schedule.spaced(Duration.seconds(1)))),
-          NonEmptyString2k("post publishing")
-        )
+      const operationId = yield* forkOperationWithEffect(
+        (opId) =>
+          Operations
+            .update(opId, {
+              total: NonNegativeInt(targets.length),
+              completed: NonNegativeInt(done.length)
+            })
+            .pipe(
+              Effect.andThen(Effect.forEach(targets, (_) =>
+                Effect
+                  .sync(() => done.push(_))
+                  .pipe(
+                    Effect.tap(() =>
+                      Operations.update(opId, {
+                        total: NonNegativeInt(targets.length),
+                        completed: NonNegativeInt(done.length)
+                      })
+                    ),
+                    Effect.delay(Duration.seconds(4))
+                  ))),
+              Effect.andThen(() => "the answer to the universe is 41")
+            ),
+        // while operation is running...
+        (_opId) =>
+          Effect
+            .suspend(() => Events.publish(new BogusEvent()))
+            .pipe(Effect.schedule(Schedule.spaced(Duration.seconds(1)))),
+        NonEmptyString2k("post publishing")
       )
 
       return operationId
