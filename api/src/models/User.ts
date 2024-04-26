@@ -82,8 +82,7 @@ export class User extends S.ExtendedClass<User, User.From>()({
 export const UserFromId: Schema<User, string, UserFromIdResolver> = S.transformOrFail(
   UserId,
   S.typeSchema(User),
-  { decode: User.resolver.get, encode: 
-  (u) => Effect.succeed(u.id) }
+  { decode: User.resolver.get, encode: (u) => Effect.succeed(u.id) }
 )
 
 export const defaultEqual = pipe(Equivalence.string, Equivalence.mapInput((u: User) => u.id))

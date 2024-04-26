@@ -3,7 +3,7 @@ import { RepositoryDefaultImpl } from "@effect-app/infra/services/RepositoryBase
 import { generate } from "@effect-app/infra/test.arbs"
 import { RepoConfig } from "api/config.js"
 import { RepoLive } from "api/migrate.js"
-import { Effect, Exit, Layer, Option, pipe, Array, Request, RequestResolver, S } from "effect-app"
+import { Array, Effect, Exit, Layer, Option, pipe, Request, RequestResolver, S } from "effect-app"
 import { fakerArb } from "effect-app/faker"
 import { Email } from "effect-app/schema"
 import fc from "fast-check"
