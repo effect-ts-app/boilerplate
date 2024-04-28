@@ -101,7 +101,7 @@ export const WebSdkLive = (resource: {
 }) =>
   layer(() => ({
     resource,
-    spanProcessors: [
+    spanProcessor: [
       new BatchSpanProcessor(
         new OTLPTraceExporter({
           headers: {}, // magic here !!!
@@ -128,7 +128,7 @@ export const SentrySdkLive = (
     ),
     layer(() => ({
       resource,
-      spanProcessors: [new SentrySpanProcessor()],
+      spanProcessor: [new SentrySpanProcessor()],
     })),
   )
 

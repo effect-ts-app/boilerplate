@@ -80,7 +80,7 @@ const UserAuthorizationLive = <Req extends RequestConfig>(request: Req) =>
         ))
         .pipe(Effect.exit, basicRuntime.runSync)
       if (!Exit.isSuccess(r)) {
-        yield Effect.logWarning("Parsing userInfo failed").pipe(Effect.annotateLogs("r", r))
+        yield* Effect.logWarning("Parsing userInfo failed").pipe(Effect.annotateLogs("r", r))
       }
       const userProfile = Option.fromNullable(Exit.isSuccess(r) ? r.value : undefined)
 

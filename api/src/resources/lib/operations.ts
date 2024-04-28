@@ -59,7 +59,7 @@ function _waitForOperation(id: OperationId, cb?: (op: Operation) => void) {
     while (r) {
       if (cb) cb(r)
       if (r.result) return r.result
-      yield Effect.sleep(Duration.seconds(2))
+      yield* Effect.sleep(Duration.seconds(2))
       r = yield* opsClient.Find.handler({ id }).pipe(Effect.andThen((_) => _.body))
     }
   })

@@ -11,7 +11,7 @@ const keepAlive = Stream.schedule(Effect.succeed(":keep-alive"), Schedule.fixed(
 
 export const events = Effect
   .gen(function*() {
-    yield Effect.logInfo("$ start listening to events")
+    yield* Effect.logInfo("$ start listening to events")
 
     const enc = new TextEncoder()
 
