@@ -1,3 +1,17 @@
+import { layer } from "@effect/opentelemetry/WebSdk"
+import { OTLPTraceExporter } from "@opentelemetry/exporter-trace-otlp-http"
+import { BatchSpanProcessor } from "@opentelemetry/sdk-trace-web"
+import type * as Resources from "@opentelemetry/resources"
+import * as Sentry from "@sentry/vue"
+import { browserTracingIntegration } from "@sentry/browser"
+import {
+  SentrySpanProcessor,
+  SentryPropagator,
+} from "@sentry/opentelemetry-node"
+import type { App } from "vue"
+import otelApi from "@opentelemetry/api"
+import { isErrorReported } from "effect-app/client"
+
 // import {
 //   ConsoleSpanExporter,
 //   SimpleSpanProcessor,
@@ -17,10 +31,68 @@
 //   contextManager: new ZoneContextManager(),
 //   propagator: new B3Propagator(),
 // })
-import { layer } from "@effect/opentelemetry/WebSdk"
-import { OTLPTraceExporter } from "@opentelemetry/exporter-trace-otlp-http"
-import { SimpleSpanProcessor } from "@opentelemetry/sdk-trace-base"
-import type * as Resources from "@opentelemetry/resources"
+type Primitive = number | string | boolean | bigint | symbol | null | undefined
+const annotateTags = (tags: { [key: string]: Primitive }) => {
+  // tags["user.role"] = store.user?.role
+}
+
+// watch(
+//   store,
+//   ({ user }) => {
+//     Sentry.setUser({ id: user?.id, username: user?.displayName })
+//   },
+//   { immediate: true },
+// )
+
+export const setupSentry = (app: App<Element>, isRemote: boolean) => {
+  const config = useRuntimeConfig()
+  Sentry.init({
+    app,
+    environment: config.public.env,
+    release: config.public.feVersion,
+    enabled: isRemote,
+    dsn: "FIXME",
+    integrations: [
+      browserTracingIntegration({
+        //routingInstrumentation: Sentry.vueRouterInstrumentation(router),
+        tracePropagationTargets: ["localhost", /^\//],
+      }),
+    ],
+    instrumenter: "otel",
+    // Set tracesSampleRate to 1.0 to capture 100%
+    // of transactions for performance monitoring.
+    // We recommend adjusting this value in production
+    tracesSampleRate: 1.0,
+    beforeSendTransaction(event) {
+      if (event.transaction === "eventsource: receive event") {
+        return null
+      }
+      if (!event.tags) {
+        event.tags = {}
+      }
+      annotateTags(event.tags)
+      return event
+    },
+    beforeSend(event, hint) {
+      if (
+        // skip handled errors
+        hint.originalException &&
+        typeof hint.originalException === "object" &&
+        (isErrorReported(hint.originalException) ||
+          ("name" in hint.originalException &&
+            hint.originalException["name"] === "HandledError"))
+      ) {
+        console.warn("Sentry: skipped HandledError", hint.originalException)
+        return null
+      }
+      if (!event.tags) {
+        event.tags = {}
+      }
+      annotateTags(event.tags)
+      return event
+    },
+  })
+}
 
 export const WebSdkLive = (resource: {
   readonly serviceName: string
@@ -29,14 +101,36 @@ export const WebSdkLive = (resource: {
 }) =>
   layer(() => ({
     resource,
-    spanProcessor: new SimpleSpanProcessor(
-      new OTLPTraceExporter({
-        headers: {}, // magic here !!!
+    spanProcessors: [
+      new BatchSpanProcessor(
+        new OTLPTraceExporter({
+          headers: {}, // magic here !!!
 
-        url: "/api/traces",
+          url: "/api/traces",
+        }),
+      ),
+    ],
+  }))
+
+export const SentrySdkLive = (
+  resource: {
+    readonly serviceName: string
+    readonly serviceVersion?: string | undefined
+    readonly attributes?: Resources.ResourceAttributes | undefined
+  },
+  _env: string,
+) =>
+  Layer.merge(
+    Layer.effectDiscard(
+      Effect.sync(() => {
+        otelApi.propagation.setGlobalPropagator(new SentryPropagator())
       }),
     ),
-  }))
+    layer(() => ({
+      resource,
+      spanProcessors: [new SentrySpanProcessor()],
+    })),
+  )
 
 // registerInstrumentations({
 //   instrumentations: [

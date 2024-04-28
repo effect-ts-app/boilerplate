@@ -8,7 +8,9 @@
       "@phaphoso/eslint-plugin-dprint@0.5.2": "patches/@phaphoso__eslint-plugin-dprint@0.5.2.patch",
       "@effect/schema@0.66.8": "patches/@effect__schema@0.66.8.patch",
       "@hebilicious/vue-query-nuxt@0.3.0": "patches/@hebilicious__vue-query-nuxt@0.3.0.patch",
-      "typescript@5.4.5": "patches/typescript@5.4.5.patch"
+      "typescript@5.4.5": "patches/typescript@5.4.5.patch",
+      "@effect/platform@0.50.5": "patches/@effect__platform@0.50.5.patch",
+      "@effect/opentelemetry@0.33.2": "patches/@effect__opentelemetry@0.33.2.patch"
     }
   },
   "engines": {
@@ -66,6 +68,7 @@
     "@effect/platform-node": "^0.47.5",
     "@effect/schema": "^0.66.8",
     "@opentelemetry/api": "^1.8",
+    "@opentelemetry/exporter-metrics-otlp-http": "^0.51.0",
     "@opentelemetry/exporter-trace-otlp-http": "^0.51.0",
     "@opentelemetry/resources": "^1.24",
     "@opentelemetry/sdk-metrics": "^1.24",
@@ -96,7 +99,7 @@
     "@typescript-eslint/scope-manager": "^7.7.1",
     "concurrently": "^8.2.2",
     "dprint": "^0.45.1",
-    "effect-app": "^1.0.10",
+    "effect-app": "^1.0.11",
     "enhanced-resolve": "^5.16.0",
     "eslint": "^8.57.0",
     "eslint-import-resolver-typescript": "^3.6.1",

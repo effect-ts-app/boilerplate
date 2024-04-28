@@ -39,8 +39,9 @@ export const RequestContextMiddleware = HttpMiddleware.make((app) =>
     })
     const res = yield* setupRequestContext(app, requestContext)
 
-    return res.pipe(
-      HttpServerResponse.setHeaders({ "request-id": requestContext.rootId, "Content-Language": requestContext.locale })
-    )
+    return HttpServerResponse.setHeaders(res, {
+      "request-id": requestContext.rootId,
+      "Content-Language": requestContext.locale
+    })
   })
 )
