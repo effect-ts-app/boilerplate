@@ -1,21 +1,20 @@
 <template>
-  <template v-if="result._tag !== 'Initial' && result._tag !== 'Loading'">
+  <template v-if="result._tag !== 'Initial'">
     <slot
       v-if="getLatest(result)"
       :latest="getLatest(result)!"
-      :refreshing="isRefreshing(result)"
-      :latest-error="
-        result.current._tag === 'Left' ? result.current.left : null
-      "
+      :refreshing="result.waiting"
+      :latest-error="Result.isFailure(result) ? result.cause : null"
     />
     <slot
       name="error"
-      :error="result.current.left"
-      v-else-if="result.current._tag === 'Left'"
+      :error="result.cause"
+      v-else-if="Result.isFailure(result)"
     >
       <div>
         {{
-            Match.value(result.current.left as SupportedErrors | FetchError | ResError).pipe(
+          Cause.failureOrCause(result.cause)
+          .pipe(Either.match({ onLeft: (error) => Match.value(error as SupportedErrors | FetchError | ResponseError).pipe(
             Match.tags({
               NotFoundError: () => "Nicht gefunden",
               NotLoggedInError: () => "Sie mussen eingelogt sein",
@@ -26,34 +25,27 @@
               () =>
                 "Es ist ein Fehler aufgetreten. Wir wurden benachrichtigt und werden das Problem in Kürze beheben. Versuchen Sie es erneut.",
             )
-            )
+            ), onRight: (cause) => Cause.isInterrupted(cause) ? "Die Anfrage wurde unterbrochen" : "Es ist ein Fehler aufgetreten. Wir wurden benachrichtigt und werden das Problem in Kürze beheben. Versuchen Sie es erneut."})
+          )
         }}
         <div v-if="config.public.env === 'local-dev'">
-          dev details: {{ result.current.left }}
+          dev details: {{ Cause.pretty(result.cause) }}
         </div>
       </div>
     </slot>
   </template>
   <Delayed v-else><v-progress-circular /></Delayed>
 </template>
-<script setup lang="ts" generic="E extends SupportedErrors | FetchError | ResError,A">
-import { isRefreshing } from "effect-app/client"
-import type {
-  FetchError,
-  ResError,
-  Done,
-  QueryResult,
-  Refreshing,
-  SupportedErrors,
-} from "effect-app/client"
-import { Option, Match } from "@/utils/prelude"
+<script setup lang="ts" generic="E extends SupportedErrors | FetchError | ResError, A">
+import type { FetchError, ResError, SupportedErrors } from "effect-app/client"
+import { Match, Option } from "@/utils/prelude"
 import Delayed from "./Delayed.vue"
+import type { ResponseError } from "@effect/platform/Http/ClientError"
+import { Result } from "~/composables/client"
 
-defineProps<{ result: QueryResult<E, A> }>()
+defineProps<{ result: Result.Result<A, E> }>()
 const config = useRuntimeConfig()
 
-const getLatest = (result: Refreshing<E, A> | Done<E, A>): A | null =>
-  result.current._tag === "Right"
-    ? result.current.right
-    : Option.getOrNull(result.previous)
+const getLatest = (result: Result.Result<A, E>): A | null =>
+  Option.getOrNull(Result.value(result))
 </script>
