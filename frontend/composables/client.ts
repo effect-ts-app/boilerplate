@@ -23,7 +23,7 @@ import { intl } from "./intl"
 
 export { useToast } from "vue-toastification"
 
-import { Result, type MutationResult } from "@effect-app/vue"
+import { Result, useSafeMutation, type MutationResult } from "@effect-app/vue"
 
 export { clientFor } from "effect-app/client"
 export {
