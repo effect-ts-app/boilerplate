@@ -241,8 +241,8 @@ importers:
         specifier: ^1.1.0
         version: 1.1.0(@effect/platform@0.51.0(patch_hash=4l27ijewzxdep2iz7letap7qgi)(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(ws@8.17.0))(effect@3.1.0)(encoding@0.1.13)
       '@effect-app/infra':
-        specifier: 1.3.2
-        version: 1.3.2(@effect/platform@0.51.0(patch_hash=4l27ijewzxdep2iz7letap7qgi)(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(ws@8.17.0))(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(encoding@0.1.13)(express@4.19.2)
+        specifier: 1.3.3
+        version: 1.3.3(@effect/platform@0.51.0(patch_hash=4l27ijewzxdep2iz7letap7qgi)(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(ws@8.17.0))(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(encoding@0.1.13)(express@4.19.2)
       '@effect-app/infra-adapters':
         specifier: ^1.1.0
         version: 1.1.0(@effect/platform@0.51.0(patch_hash=4l27ijewzxdep2iz7letap7qgi)(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(ws@8.17.0))(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(encoding@0.1.13)
@@ -1463,8 +1463,8 @@ packages:
       '@effect/schema': ^0.66.12
       effect: ^3.1.0
 
-  '@effect-app/infra@1.3.2':
-    resolution: {integrity: sha512-KBf8nDDp16QpwsO/3U5ujZBX2d+LomfRbov6ht/6EOPyF5B8srJsWMoQ5l/fqRLvK+7p4KzJnm3aj9eJT20XnQ==}
+  '@effect-app/infra@1.3.3':
+    resolution: {integrity: sha512-NYUC1sMpd+UjKlqhxFkzRw0f6gZDZFHMHOWZHtObxEMc7GWh4sVyp6BrP4CUDs9Ai2BXAta2/9vj0Rxtdx+cQw==}
     peerDependencies:
       '@effect/platform': ^0.51.0
       '@effect/schema': ^0.66.12
@@ -10982,7 +10982,7 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
-  '@effect-app/infra@1.3.2(@effect/platform@0.51.0(patch_hash=4l27ijewzxdep2iz7letap7qgi)(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(ws@8.17.0))(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(encoding@0.1.13)(express@4.19.2)':
+  '@effect-app/infra@1.3.3(@effect/platform@0.51.0(patch_hash=4l27ijewzxdep2iz7letap7qgi)(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(ws@8.17.0))(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(encoding@0.1.13)(express@4.19.2)':
     dependencies:
       '@azure/cosmos': 4.0.0
       '@azure/service-bus': 7.9.4

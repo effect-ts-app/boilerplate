@@ -481,7 +481,7 @@ export function composeQueries<
   const isRefreshing = values.some(x => x.waiting)
 
   const r = Object.entries(results).reduce((prev, [key, value]) => {
-    prev[key] = (value as any).current.right
+    prev[key] = Result.value(value).value
     return prev
   }, {} as any)
   return Result.success(r, isRefreshing)
