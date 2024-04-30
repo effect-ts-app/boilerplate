@@ -1,13 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { flow, pipe, tuple } from "@effect-app/core/Function"
 import {
-  Done,
-  Refreshing,
   type ApiConfig,
   type FetchError,
   type ResError,
   type SupportedErrors,
-  type QueryResult,
 } from "effect-app/client"
 import { Failure, Success } from "effect-app/Operations"
 import * as Sentry from "@sentry/browser"
@@ -19,24 +16,22 @@ import {
 } from "@vueuse/core"
 import type { ComputedRef } from "vue"
 import type { Either, HttpClient } from "@/utils/prelude"
-import { Array, Effect, Match, Option } from "@/utils/prelude"
+import { Array$, Effect, Match, Option } from "@/utils/prelude"
 import { Cause, S } from "effect-app"
 import { useToast } from "vue-toastification"
 import { intl } from "./intl"
-import { isFailed } from "effect-app/client"
-import { useSafeMutation } from "@effect-app/vue"
-import type { MutationResult } from "@effect-app/vue"
 
 export { useToast } from "vue-toastification"
 
+import { Result, type MutationResult } from "@effect-app/vue"
+
+export { clientFor } from "effect-app/client"
 export {
-  clientFor,
-  isFailed,
-  isInitializing,
-  isRefreshing,
-  isSuccess,
-} from "effect-app/client"
-export { useSafeMutation, useSafeQuery } from "@effect-app/vue"
+  useSafeMutation,
+  useSafeQuery,
+  Result,
+  type MutationResult,
+} from "@effect-app/vue"
 export {
   refreshAndWaitAForOperation,
   refreshAndWaitAForOperationP,
@@ -227,7 +222,7 @@ export function withSuccessE<I, E extends ResErrors, A, E2, X>(
   }
 }
 
-interface Res<E, A> {
+interface Res<A, E> {
   readonly loading: boolean
   readonly data: A | undefined
   readonly error: E | undefined
@@ -240,18 +235,17 @@ type WithAction<A> = A & {
 // computed() takes a getter function and returns a readonly reactive ref
 // object for the returned value from the getter.
 type Resp<I, E, A> = readonly [
-  ComputedRef<Res<E, A>>,
+  ComputedRef<Res<A, E>>,
   WithAction<(I: I) => Promise<void>>,
 ]
 
 type ActResp<E, A> = readonly [
-  ComputedRef<Res<E, A>>,
+  ComputedRef<Res<A, E>>,
   WithAction<() => Promise<void>>,
 ]
-
-function mutationResultToVue<E, A>(
-  mutationResult: MutationResult<E, A>,
-): Res<E, A> {
+function mutationResultToVue<A, E>(
+  mutationResult: MutationResult<A, E>,
+): Res<A, E> {
   switch (mutationResult._tag) {
     case "Loading": {
       return { loading: true, data: undefined, error: undefined }
@@ -335,7 +329,9 @@ export function handleRequestWithToast<
                   toast.error(`${errorMessage}:\n` + renderError(r.left)),
               )
                 // eslint-disable-next-line @typescript-eslint/no-empty-function
-                .then(_ => {}),
+                .then(_ => {
+                  console.warn(r.left, r.left.toString())
+                }),
         err => {
           if (Cause.isInterruptedException(err)) {
             return
@@ -404,7 +400,8 @@ export function renderError(e: ResErrors): string {
           { id: "handle.response_error" },
           { error: `${e.error}` },
         ),
-      ParseError: () => {
+      ParseError: e => {
+        console.warn(e.toString())
         return intl.value.formatMessage({ id: "validation.failed" })
       },
     }),
@@ -437,54 +434,55 @@ function parseError(e: string) {
   }
 }
 
-function orPrevious<E, A>(result: QueryResult<E, A>) {
-  return isFailed(result) && Option.isSome(result.previous)
-    ? result._tag === "Done"
-      ? Done.succeed(result.previous.value)
-      : Refreshing.succeed(result.previous.value)
+
+function orPrevious<E, A>(result: Result.Result<A, E>) {
+  return Result.isFailure(result) && Option.isSome(result.previousValue)
+    ? Result.success(result.previousValue.value, result.waiting)
     : result
 }
 
-export function composeQueries<R extends Record<string, QueryResult<any, any>>>(
+export function composeQueries<
+  R extends Record<string, Result.Result<any, any>>,
+>(
   results: R,
   renderPreviousOnFailure?: boolean,
-): QueryResult<
+): Result.Result<
   {
-    [Property in keyof R]: R[Property] extends QueryResult<infer E, any>
-      ? E
-      : never
-  }[keyof R],
-  {
-    [Property in keyof R]: R[Property] extends QueryResult<any, infer A>
+    [Property in keyof R]: R[Property] extends Result.Result<infer A, any>
       ? A
       : never
-  }
+  },
+  {
+    [Property in keyof R]: R[Property] extends Result.Result<any, infer E>
+      ? E
+      : never
+  }[keyof R]
 > {
   const values = renderPreviousOnFailure
     ? Object.values(results).map(orPrevious)
     : Object.values(results)
-  const error = values.find(isFailed)
+  const error = values.find(Result.isFailure)
   if (error) {
-    return error as any // TODO
+    return error
   }
-  const initial = Array.findFirst(values, x =>
+  const initial = Array$.findFirst(values, x =>
     x._tag === "Initial" ? Option.some(x) : Option.none(),
   )
-  if (Option.isSome(initial)) {
+  if (initial.value !== undefined) {
     return initial.value
   }
-  const loading = Array.findFirst(values, x =>
-    x._tag === "Loading" ? Option.some(x) : Option.none(),
+  const loading = Array$.findFirst(values, x =>
+    Result.isInitial(x) && x.waiting ? Option.some(x) : Option.none(),
   )
-  if (Option.isSome(loading)) {
+  if (loading.value !== undefined) {
     return loading.value
   }
 
-  const isRefreshing = values.some(x => x._tag === "Refreshing")
+  const isRefreshing = values.some(x => x.waiting)
 
   const r = Object.entries(results).reduce((prev, [key, value]) => {
     prev[key] = (value as any).current.right
     return prev
   }, {} as any)
-  return isRefreshing ? Refreshing.succeed(r) : Done.succeed(r)
+  return Result.success(r, isRefreshing)
 }

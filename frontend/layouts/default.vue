@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { MeRsc } from "resources"
-import { isInitializing } from "@effect-app/vue"
 import { onMounted } from "vue"
 import { useRouter } from "vue-router"
 import { VueQueryDevtools } from "@tanstack/vue-query-devtools"
+import { Result } from "~/composables/client"
 
 const meClient = clientFor(MeRsc)
 const [userResult, currentUser, getCurrentUser] = useSafeQuery(meClient.Get)
@@ -34,7 +34,7 @@ onMounted(() => {
 
       <div>{{ router.currentRoute.value.name }}</div>
       &nbsp;
-      <div v-if="isInitializing(userResult)">Loading...</div>
+      <div v-if="Result.isInitial(userResult)">Loading...</div>
       <div v-else>
         <span v-if="currentUser">{{ currentUser.displayName }}</span>
         <span v-else>
