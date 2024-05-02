@@ -12,12 +12,12 @@ overrides:
 pnpmfileChecksum: bzwflog5bmrbow5mp4rcfwcaeq
 
 patchedDependencies:
-  '@effect/platform@0.51.0':
-    hash: 4l27ijewzxdep2iz7letap7qgi
-    path: patches/@effect__platform@0.51.0.patch
-  '@effect/schema@0.66.12':
-    hash: zqgw5no4kkxyjgt5bitm5hxqka
-    path: patches/@effect__schema@0.66.12.patch
+  '@effect/platform@0.52.1':
+    hash: uyodkqziw4lpz6lgrtxl2viobi
+    path: patches/@effect__platform@0.52.1.patch
+  '@effect/schema@0.66.13':
+    hash: jb2myy2uygu6kaawvt5cbmngra
+    path: patches/@effect__schema@0.66.13.patch
   '@hebilicious/vue-query-nuxt@0.3.0':
     hash: 5dcq766eeuesmqdcvoqrnf6tzi
     path: patches/@hebilicious__vue-query-nuxt@0.3.0.patch
@@ -36,20 +36,20 @@ importers:
   .:
     dependencies:
       '@effect/experimental':
-        specifier: ^0.15.14
-        version: 0.15.14(@effect/platform-node@0.48.0(@effect/platform@0.51.0(patch_hash=4l27ijewzxdep2iz7letap7qgi)(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(ws@8.17.0))(effect@3.1.0))(@effect/platform@0.51.0(patch_hash=4l27ijewzxdep2iz7letap7qgi)(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(ws@8.17.0))(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(ioredis@5.3.2)(ws@8.17.0)
+        specifier: ^0.15.16
+        version: 0.15.16(@effect/platform-node@0.48.2(@effect/platform@0.52.1(patch_hash=uyodkqziw4lpz6lgrtxl2viobi)(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(ws@8.17.0))(effect@3.1.1))(@effect/platform@0.52.1(patch_hash=uyodkqziw4lpz6lgrtxl2viobi)(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(ws@8.17.0))(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(ioredis@5.3.2)(ws@8.17.0)
       '@effect/opentelemetry':
-        specifier: ^0.34.0
-        version: 0.34.0(@opentelemetry/api@1.8.0)(@opentelemetry/resources@1.24.0(@opentelemetry/api@1.8.0))(@opentelemetry/sdk-metrics@1.24.0(@opentelemetry/api@1.8.0))(@opentelemetry/sdk-trace-base@1.24.0(@opentelemetry/api@1.8.0))(@opentelemetry/sdk-trace-node@1.24.0(@opentelemetry/api@1.8.0))(@opentelemetry/sdk-trace-web@1.24.0(@opentelemetry/api@1.8.0))(@opentelemetry/semantic-conventions@1.24.0)(effect@3.1.0)
+        specifier: ^0.34.1
+        version: 0.34.1(@opentelemetry/api@1.8.0)(@opentelemetry/resources@1.24.0(@opentelemetry/api@1.8.0))(@opentelemetry/sdk-metrics@1.24.0(@opentelemetry/api@1.8.0))(@opentelemetry/sdk-trace-base@1.24.0(@opentelemetry/api@1.8.0))(@opentelemetry/sdk-trace-node@1.24.0(@opentelemetry/api@1.8.0))(@opentelemetry/sdk-trace-web@1.24.0(@opentelemetry/api@1.8.0))(@opentelemetry/semantic-conventions@1.24.0)(effect@3.1.1)
       '@effect/platform':
-        specifier: ^0.51.0
-        version: 0.51.0(patch_hash=4l27ijewzxdep2iz7letap7qgi)(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(ws@8.17.0)
+        specifier: ^0.52.1
+        version: 0.52.1(patch_hash=uyodkqziw4lpz6lgrtxl2viobi)(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(ws@8.17.0)
       '@effect/platform-node':
-        specifier: ^0.48.0
-        version: 0.48.0(@effect/platform@0.51.0(patch_hash=4l27ijewzxdep2iz7letap7qgi)(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(ws@8.17.0))(effect@3.1.0)
+        specifier: ^0.48.2
+        version: 0.48.2(@effect/platform@0.52.1(patch_hash=uyodkqziw4lpz6lgrtxl2viobi)(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(ws@8.17.0))(effect@3.1.1)
       '@effect/schema':
-        specifier: ^0.66.12
-        version: 0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0)
+        specifier: ^0.66.13
+        version: 0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0)
       '@opentelemetry/api':
         specifier: ^1.8
         version: 1.8.0
@@ -84,8 +84,8 @@ importers:
         specifier: ^3.6.0
         version: 3.6.0
       effect:
-        specifier: ^3.1.0
-        version: 3.1.0
+        specifier: ^3.1.1
+        version: 3.1.1
       fast-check:
         specifier: ^3.18.0
         version: 3.18.0
@@ -99,11 +99,11 @@ importers:
         specifier: ^3.1.2
         version: 3.1.2
       vite-node:
-        specifier: ^1.5.2
-        version: 1.5.2(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0)
+        specifier: ^1.5.3
+        version: 1.5.3(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0)
       vite-tsconfig-paths:
         specifier: ^4.3.2
-        version: 4.3.2(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0))
+        version: 4.3.2(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))(vite@5.2.11(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0))
       vue:
         specifier: ^3.4.26
         version: 3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))
@@ -112,14 +112,14 @@ importers:
         specifier: ^0.90.4
         version: 0.90.4
       '@effect-app/cli':
-        specifier: ^0.73.0
-        version: 0.73.0
+        specifier: ^0.73.1
+        version: 0.73.1
       '@effect-app/core':
-        specifier: ^1.1.0
-        version: 1.1.0(@effect/platform@0.51.0(patch_hash=4l27ijewzxdep2iz7letap7qgi)(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(ws@8.17.0))(effect@3.1.0)(encoding@0.1.13)
+        specifier: ^1.1.2
+        version: 1.1.2(@effect/platform@0.52.1(patch_hash=uyodkqziw4lpz6lgrtxl2viobi)(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(ws@8.17.0))(effect@3.1.1)(encoding@0.1.13)
       '@effect-app/eslint-codegen-model':
-        specifier: ^1.1.0
-        version: 1.1.0(effect@3.1.0)(eslint@8.57.0)(fp-ts@2.16.2)(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))
+        specifier: ^1.1.1
+        version: 1.1.1(effect@3.1.1)(eslint@8.57.0)(fp-ts@2.16.2)(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))
       '@phaphoso/eslint-plugin-dprint':
         specifier: ^0.5.2
         version: 0.5.2(patch_hash=5r3oafqkulzxdb6awceadivssy)(eslint@8.57.0)
@@ -130,8 +130,8 @@ importers:
         specifier: ^4.17.0
         version: 4.17.0
       '@types/node':
-        specifier: ~20.12.7
-        version: 20.12.7
+        specifier: ~20.12.8
+        version: 20.12.8
       '@typescript-eslint/eslint-plugin':
         specifier: ^7.8.0
         version: 7.8.0(@typescript-eslint/parser@7.8.0(eslint@8.57.0)(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))(eslint@8.57.0)(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))
@@ -148,8 +148,8 @@ importers:
         specifier: ^0.45.1
         version: 0.45.1
       effect-app:
-        specifier: ^1.2.0
-        version: 1.2.0(@effect/platform@0.51.0(patch_hash=4l27ijewzxdep2iz7letap7qgi)(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(ws@8.17.0))(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(encoding@0.1.13)
+        specifier: ^1.2.2
+        version: 1.2.2(@effect/platform@0.52.1(patch_hash=uyodkqziw4lpz6lgrtxl2viobi)(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(ws@8.17.0))(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(encoding@0.1.13)
       enhanced-resolve:
         specifier: ^5.16.0
         version: 5.16.0
@@ -178,8 +178,8 @@ importers:
         specifier: ^2.0.0
         version: 2.0.0(eslint@8.57.0)
       eslint-plugin-unused-imports:
-        specifier: ^3.1.0
-        version: 3.1.0(@typescript-eslint/eslint-plugin@7.8.0(@typescript-eslint/parser@7.8.0(eslint@8.57.0)(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))(eslint@8.57.0)(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))(eslint@8.57.0)
+        specifier: ^3.2.0
+        version: 3.2.0(@typescript-eslint/eslint-plugin@7.8.0(@typescript-eslint/parser@7.8.0(eslint@8.57.0)(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))(eslint@8.57.0)(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))(eslint@8.57.0)
       eslint-watch:
         specifier: ^8.0.0
         version: 8.0.0(eslint@8.57.0)
@@ -205,8 +205,8 @@ importers:
         specifier: ^4.2.0
         version: 4.2.0
       tsx:
-        specifier: ^4.7.3
-        version: 4.7.3
+        specifier: ^4.8.2
+        version: 4.8.2
       typescript:
         specifier: ^5.4.5
         version: 5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)
@@ -217,11 +217,11 @@ importers:
         specifier: ^0.17.5
         version: 0.17.5(@nuxt/kit@3.11.2(rollup@4.14.2))(@vueuse/core@10.9.0(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))))(rollup@4.14.2)
       vite:
-        specifier: ^5.2.10
-        version: 5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0)
+        specifier: ^5.2.11
+        version: 5.2.11(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0)
       vitest:
-        specifier: ^1.5.2
-        version: 1.5.2(@types/node@20.12.7)(jsdom@20.0.3)(sass@1.75.0)(terser@5.27.0)
+        specifier: ^1.5.3
+        version: 1.5.3(@types/node@20.12.8)(jsdom@20.0.3)(sass@1.76.0)(terser@5.27.0)
 
   api:
     dependencies:
@@ -238,26 +238,26 @@ importers:
         specifier: ^12.17.0
         version: 12.17.0(encoding@0.1.13)
       '@effect-app/core':
-        specifier: ^1.1.0
-        version: 1.1.0(@effect/platform@0.51.0(patch_hash=4l27ijewzxdep2iz7letap7qgi)(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(ws@8.17.0))(effect@3.1.0)(encoding@0.1.13)
+        specifier: ^1.1.2
+        version: 1.1.2(@effect/platform@0.52.1(patch_hash=uyodkqziw4lpz6lgrtxl2viobi)(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(ws@8.17.0))(effect@3.1.1)(encoding@0.1.13)
       '@effect-app/infra':
-        specifier: 1.3.3
-        version: 1.3.3(@effect/platform@0.51.0(patch_hash=4l27ijewzxdep2iz7letap7qgi)(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(ws@8.17.0))(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(encoding@0.1.13)(express@4.19.2)
+        specifier: 1.3.6
+        version: 1.3.6(@effect/platform@0.52.1(patch_hash=uyodkqziw4lpz6lgrtxl2viobi)(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(ws@8.17.0))(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(encoding@0.1.13)(express@4.19.2)
       '@effect-app/infra-adapters':
-        specifier: ^1.1.0
-        version: 1.1.0(@effect/platform@0.51.0(patch_hash=4l27ijewzxdep2iz7letap7qgi)(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(ws@8.17.0))(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(encoding@0.1.13)
+        specifier: ^1.1.2
+        version: 1.1.2(@effect/platform@0.52.1(patch_hash=uyodkqziw4lpz6lgrtxl2viobi)(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(ws@8.17.0))(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(encoding@0.1.13)
       '@effect-app/schema':
-        specifier: ^1.1.0
-        version: 1.1.0(@effect/platform@0.51.0(patch_hash=4l27ijewzxdep2iz7letap7qgi)(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(ws@8.17.0))(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(encoding@0.1.13)
+        specifier: ^1.1.2
+        version: 1.1.2(@effect/platform@0.52.1(patch_hash=uyodkqziw4lpz6lgrtxl2viobi)(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(ws@8.17.0))(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(encoding@0.1.13)
       '@effect/opentelemetry':
-        specifier: ^0.34.0
-        version: 0.34.0(@opentelemetry/api@1.8.0)(@opentelemetry/resources@1.24.0(@opentelemetry/api@1.8.0))(@opentelemetry/sdk-metrics@1.24.0(@opentelemetry/api@1.8.0))(@opentelemetry/sdk-trace-base@1.24.0(@opentelemetry/api@1.8.0))(@opentelemetry/sdk-trace-node@1.24.0(@opentelemetry/api@1.8.0))(@opentelemetry/sdk-trace-web@1.24.0(@opentelemetry/api@1.8.0))(@opentelemetry/semantic-conventions@1.24.0)(effect@3.1.0)
+        specifier: ^0.34.1
+        version: 0.34.1(@opentelemetry/api@1.8.0)(@opentelemetry/resources@1.24.0(@opentelemetry/api@1.8.0))(@opentelemetry/sdk-metrics@1.24.0(@opentelemetry/api@1.8.0))(@opentelemetry/sdk-trace-base@1.24.0(@opentelemetry/api@1.8.0))(@opentelemetry/sdk-trace-node@1.24.0(@opentelemetry/api@1.8.0))(@opentelemetry/sdk-trace-web@1.24.0(@opentelemetry/api@1.8.0))(@opentelemetry/semantic-conventions@1.24.0)(effect@3.1.1)
       '@effect/platform':
-        specifier: ^0.51.0
-        version: 0.51.0(patch_hash=4l27ijewzxdep2iz7letap7qgi)(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(ws@8.17.0)
+        specifier: ^0.52.1
+        version: 0.52.1(patch_hash=uyodkqziw4lpz6lgrtxl2viobi)(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(ws@8.17.0)
       '@effect/platform-node':
-        specifier: 0.48.0
-        version: 0.48.0(@effect/platform@0.51.0(patch_hash=4l27ijewzxdep2iz7letap7qgi)(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(ws@8.17.0))(effect@3.1.0)
+        specifier: 0.48.2
+        version: 0.48.2(@effect/platform@0.52.1(patch_hash=uyodkqziw4lpz6lgrtxl2viobi)(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(ws@8.17.0))(effect@3.1.1)
       '@formatjs/cli':
         specifier: ^6.2.9
         version: 6.2.9(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))
@@ -268,8 +268,8 @@ importers:
         specifier: ^3.7.0
         version: 3.7.0
       '@opentelemetry/auto-instrumentations-node':
-        specifier: ^0.45.0
-        version: 0.45.0(@opentelemetry/api@1.8.0)(encoding@0.1.13)
+        specifier: ^0.46.0
+        version: 0.46.0(@opentelemetry/api@1.8.0)(encoding@0.1.13)
       '@opentelemetry/context-async-hooks':
         specifier: ^1.24.0
         version: 1.24.0(@opentelemetry/api@1.8.0)
@@ -301,11 +301,11 @@ importers:
         specifier: ^16.4.5
         version: 16.4.5
       effect:
-        specifier: ^3.1.0
-        version: 3.1.0
+        specifier: ^3.1.1
+        version: 3.1.1
       effect-app:
-        specifier: ^1.2.0
-        version: 1.2.0(@effect/platform@0.51.0(patch_hash=4l27ijewzxdep2iz7letap7qgi)(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(ws@8.17.0))(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(encoding@0.1.13)
+        specifier: ^1.2.2
+        version: 1.2.2(@effect/platform@0.52.1(patch_hash=uyodkqziw4lpz6lgrtxl2viobi)(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(ws@8.17.0))(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(encoding@0.1.13)
       express:
         specifier: ^4.19.2
         version: 4.19.2
@@ -343,8 +343,8 @@ importers:
         specifier: ^2.1.0
         version: 2.1.0
       shippo:
-        specifier: ^2.0.0
-        version: 2.0.0(zod@3.23.4)
+        specifier: ^2.1.1
+        version: 2.1.1(zod@3.23.4)
       source-map-support:
         specifier: ^0.5.21
         version: 0.5.21
@@ -392,17 +392,17 @@ importers:
         specifier: workspace:*
         version: link:../api
       '@effect-app/core':
-        specifier: ^1.1.0
-        version: 1.1.0(@effect/platform@0.51.0(patch_hash=4l27ijewzxdep2iz7letap7qgi)(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(ws@8.17.0))(effect@3.1.0)(encoding@0.1.13)
+        specifier: ^1.1.2
+        version: 1.1.2(@effect/platform@0.52.1(patch_hash=uyodkqziw4lpz6lgrtxl2viobi)(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(ws@8.17.0))(effect@3.1.1)(encoding@0.1.13)
       '@effect-app/schema':
-        specifier: ^1.1.0
-        version: 1.1.0(@effect/platform@0.51.0(patch_hash=4l27ijewzxdep2iz7letap7qgi)(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(ws@8.17.0))(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(encoding@0.1.13)
+        specifier: ^1.1.2
+        version: 1.1.2(@effect/platform@0.52.1(patch_hash=uyodkqziw4lpz6lgrtxl2viobi)(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(ws@8.17.0))(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(encoding@0.1.13)
       '@effect/platform':
-        specifier: ^0.51.0
-        version: 0.51.0(patch_hash=4l27ijewzxdep2iz7letap7qgi)(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(ws@8.17.0)
+        specifier: ^0.52.1
+        version: 0.52.1(patch_hash=uyodkqziw4lpz6lgrtxl2viobi)(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(ws@8.17.0)
       '@effect/platform-node':
-        specifier: 0.48.0
-        version: 0.48.0(@effect/platform@0.51.0(patch_hash=4l27ijewzxdep2iz7letap7qgi)(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(ws@8.17.0))(effect@3.1.0)
+        specifier: 0.48.2
+        version: 0.48.2(@effect/platform@0.52.1(patch_hash=uyodkqziw4lpz6lgrtxl2viobi)(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(ws@8.17.0))(effect@3.1.1)
       '@tsplus/stdlib':
         specifier: ^0.2.8
         version: 0.2.8
@@ -410,11 +410,11 @@ importers:
         specifier: ^4.0.0
         version: 4.0.0(encoding@0.1.13)
       effect:
-        specifier: ^3.1.0
-        version: 3.1.0
+        specifier: ^3.1.1
+        version: 3.1.1
       effect-app:
-        specifier: ^1.2.0
-        version: 1.2.0(@effect/platform@0.51.0(patch_hash=4l27ijewzxdep2iz7letap7qgi)(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(ws@8.17.0))(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(encoding@0.1.13)
+        specifier: ^1.2.2
+        version: 1.2.2(@effect/platform@0.52.1(patch_hash=uyodkqziw4lpz6lgrtxl2viobi)(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(ws@8.17.0))(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(encoding@0.1.13)
       tsconfig-paths:
         specifier: ^4.2.0
         version: 4.2.0
@@ -447,8 +447,8 @@ importers:
         specifier: ~1.43.1
         version: 1.43.1
       '@types/node':
-        specifier: ~20.12.7
-        version: 20.12.7
+        specifier: ~20.12.8
+        version: 20.12.8
       babel-loader:
         specifier: ^9.1.3
         version: 9.1.3(@babel/core@7.24.5)(webpack@5.91.0)
@@ -477,8 +477,8 @@ importers:
         specifier: ^2.0.0
         version: 2.0.0(eslint@8.57.0)
       eslint-plugin-unused-imports:
-        specifier: ^3.1.0
-        version: 3.1.0(@typescript-eslint/eslint-plugin@7.8.0(@typescript-eslint/parser@7.8.0(eslint@8.57.0)(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))(eslint@8.57.0)(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))(eslint@8.57.0)
+        specifier: ^3.2.0
+        version: 3.2.0(@typescript-eslint/eslint-plugin@7.8.0(@typescript-eslint/parser@7.8.0(eslint@8.57.0)(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))(eslint@8.57.0)(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))(eslint@8.57.0)
       npm-check-updates:
         specifier: ^16.14.20
         version: 16.14.20
@@ -510,29 +510,29 @@ importers:
         specifier: workspace:*
         version: link:../api
       '@effect-app/core':
-        specifier: ^1.1.0
-        version: 1.1.0(@effect/platform@0.51.0(patch_hash=4l27ijewzxdep2iz7letap7qgi)(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(ws@8.17.0))(effect@3.1.0)(encoding@0.1.13)
+        specifier: ^1.1.2
+        version: 1.1.2(@effect/platform@0.52.1(patch_hash=uyodkqziw4lpz6lgrtxl2viobi)(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(ws@8.17.0))(effect@3.1.1)(encoding@0.1.13)
       '@effect-app/fluent-extensions':
-        specifier: ^1.1.0
-        version: 1.1.0(@effect/platform@0.51.0(patch_hash=4l27ijewzxdep2iz7letap7qgi)(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(ws@8.17.0))(effect@3.1.0)(encoding@0.1.13)
+        specifier: ^1.1.2
+        version: 1.1.2(@effect/platform@0.52.1(patch_hash=uyodkqziw4lpz6lgrtxl2viobi)(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(ws@8.17.0))(effect@3.1.1)(encoding@0.1.13)
       '@effect-app/schema':
-        specifier: ^1.1.0
-        version: 1.1.0(@effect/platform@0.51.0(patch_hash=4l27ijewzxdep2iz7letap7qgi)(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(ws@8.17.0))(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(encoding@0.1.13)
+        specifier: ^1.1.2
+        version: 1.1.2(@effect/platform@0.52.1(patch_hash=uyodkqziw4lpz6lgrtxl2viobi)(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(ws@8.17.0))(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(encoding@0.1.13)
       '@effect-app/vue':
-        specifier: ^1.3.0
-        version: 1.3.0(@effect-rx/rx-vue@0.8.1(effect@3.1.0)(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))))(@effect-rx/rx@0.29.1(effect@3.1.0))(@effect/platform-browser@0.32.3(@effect/platform@0.51.0(patch_hash=4l27ijewzxdep2iz7letap7qgi)(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(ws@8.17.0))(effect@3.1.0))(@effect/platform@0.51.0(patch_hash=4l27ijewzxdep2iz7letap7qgi)(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(ws@8.17.0))(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(@sentry/browser@7.112.2)(effect@3.1.0)(encoding@0.1.13)(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))
+        specifier: ^1.3.3
+        version: 1.3.3(@effect-rx/rx-vue@0.8.1(effect@3.1.1)(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))))(@effect-rx/rx@0.29.1(effect@3.1.1))(@effect/platform-browser@0.32.3(@effect/platform@0.52.1(patch_hash=uyodkqziw4lpz6lgrtxl2viobi)(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(ws@8.17.0))(effect@3.1.1))(@effect/platform@0.52.1(patch_hash=uyodkqziw4lpz6lgrtxl2viobi)(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(ws@8.17.0))(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(@sentry/browser@7.112.2)(effect@3.1.1)(encoding@0.1.13)(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))
       '@effect/opentelemetry':
-        specifier: ^0.34.0
-        version: 0.34.0(@opentelemetry/api@1.8.0)(@opentelemetry/resources@1.24.0(@opentelemetry/api@1.8.0))(@opentelemetry/sdk-metrics@1.24.0(@opentelemetry/api@1.8.0))(@opentelemetry/sdk-trace-base@1.24.0(@opentelemetry/api@1.8.0))(@opentelemetry/sdk-trace-node@1.24.0(@opentelemetry/api@1.8.0))(@opentelemetry/sdk-trace-web@1.24.0(@opentelemetry/api@1.8.0))(@opentelemetry/semantic-conventions@1.24.0)(effect@3.1.0)
+        specifier: ^0.34.1
+        version: 0.34.1(@opentelemetry/api@1.8.0)(@opentelemetry/resources@1.24.0(@opentelemetry/api@1.8.0))(@opentelemetry/sdk-metrics@1.24.0(@opentelemetry/api@1.8.0))(@opentelemetry/sdk-trace-base@1.24.0(@opentelemetry/api@1.8.0))(@opentelemetry/sdk-trace-node@1.24.0(@opentelemetry/api@1.8.0))(@opentelemetry/sdk-trace-web@1.24.0(@opentelemetry/api@1.8.0))(@opentelemetry/semantic-conventions@1.24.0)(effect@3.1.1)
       '@effect/platform':
-        specifier: ^0.51.0
-        version: 0.51.0(patch_hash=4l27ijewzxdep2iz7letap7qgi)(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(ws@8.17.0)
+        specifier: ^0.52.1
+        version: 0.52.1(patch_hash=uyodkqziw4lpz6lgrtxl2viobi)(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(ws@8.17.0)
       '@formatjs/intl':
         specifier: 2.7.2
         version: 2.7.2(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))
       '@hebilicious/vue-query-nuxt':
         specifier: ^0.3.0
-        version: 0.3.0(patch_hash=5dcq766eeuesmqdcvoqrnf6tzi)(@tanstack/vue-query@5.32.0(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))))(nuxt@3.11.2(@azure/cosmos@4.0.0)(@azure/storage-blob@12.17.0(encoding@0.1.13))(@parcel/watcher@2.4.1)(@types/node@20.12.7)(@unocss/reset@0.59.2)(axios@1.6.8)(change-case@5.4.4)(encoding@0.1.13)(eslint@8.57.0)(floating-vue@5.2.2(@nuxt/kit@3.11.2(rollup@4.14.2))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))))(ioredis@5.3.2)(jwt-decode@4.0.0)(optionator@0.9.3)(rollup@4.14.2)(sass@1.75.0)(terser@5.27.0)(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))(unocss@0.59.2(postcss@8.4.38)(rollup@4.14.2)(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0)))(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0))(vue-tsc@1.8.27(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))(xml2js@0.5.0))(rollup@4.14.2)
+        version: 0.3.0(patch_hash=5dcq766eeuesmqdcvoqrnf6tzi)(@tanstack/vue-query@5.32.1(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))))(nuxt@3.11.2(@azure/cosmos@4.0.0)(@azure/storage-blob@12.17.0(encoding@0.1.13))(@parcel/watcher@2.4.1)(@types/node@20.12.8)(@unocss/reset@0.59.2)(axios@1.6.8)(change-case@5.4.4)(encoding@0.1.13)(eslint@8.57.0)(floating-vue@5.2.2(@nuxt/kit@3.11.2(rollup@4.14.2))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))))(ioredis@5.3.2)(jwt-decode@4.0.0)(optionator@0.9.3)(rollup@4.14.2)(sass@1.76.0)(terser@5.27.0)(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))(unocss@0.59.2(postcss@8.4.38)(rollup@4.14.2)(vite@5.2.11(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0)))(vite@5.2.11(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0))(vue-tsc@1.8.27(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))(xml2js@0.5.0))(rollup@4.14.2)
       '@opentelemetry/context-zone':
         specifier: ^1.24.0
         version: 1.24.0(@opentelemetry/api@1.8.0)
@@ -564,17 +564,17 @@ importers:
         specifier: ^7.112.2
         version: 7.112.2(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))
       '@tanstack/vue-query':
-        specifier: ^5.32.0
-        version: 5.32.0(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))
+        specifier: ^5.32.1
+        version: 5.32.1(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))
       '@tanstack/vue-query-devtools':
-        specifier: ^5.32.0
-        version: 5.32.0(@tanstack/vue-query@5.32.0(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))
+        specifier: ^5.32.1
+        version: 5.32.1(@tanstack/vue-query@5.32.1(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))
       '@vueuse/core':
         specifier: ^10.9.0
         version: 10.9.0(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))
       '@vueuse/nuxt':
         specifier: ^10.9.0
-        version: 10.9.0(nuxt@3.11.2(@azure/cosmos@4.0.0)(@azure/storage-blob@12.17.0(encoding@0.1.13))(@parcel/watcher@2.4.1)(@types/node@20.12.7)(@unocss/reset@0.59.2)(axios@1.6.8)(change-case@5.4.4)(encoding@0.1.13)(eslint@8.57.0)(floating-vue@5.2.2(@nuxt/kit@3.11.2(rollup@4.14.2))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))))(ioredis@5.3.2)(jwt-decode@4.0.0)(optionator@0.9.3)(rollup@4.14.2)(sass@1.75.0)(terser@5.27.0)(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))(unocss@0.59.2(postcss@8.4.38)(rollup@4.14.2)(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0)))(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0))(vue-tsc@1.8.27(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))(xml2js@0.5.0))(rollup@4.14.2)(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))
+        version: 10.9.0(nuxt@3.11.2(@azure/cosmos@4.0.0)(@azure/storage-blob@12.17.0(encoding@0.1.13))(@parcel/watcher@2.4.1)(@types/node@20.12.8)(@unocss/reset@0.59.2)(axios@1.6.8)(change-case@5.4.4)(encoding@0.1.13)(eslint@8.57.0)(floating-vue@5.2.2(@nuxt/kit@3.11.2(rollup@4.14.2))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))))(ioredis@5.3.2)(jwt-decode@4.0.0)(optionator@0.9.3)(rollup@4.14.2)(sass@1.76.0)(terser@5.27.0)(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))(unocss@0.59.2(postcss@8.4.38)(rollup@4.14.2)(vite@5.2.11(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0)))(vite@5.2.11(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0))(vue-tsc@1.8.27(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))(xml2js@0.5.0))(rollup@4.14.2)(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))
       cookie:
         specifier: ^0.6.0
         version: 0.6.0
@@ -582,11 +582,11 @@ importers:
         specifier: ^3.6.0
         version: 3.6.0
       effect:
-        specifier: ^3.1.0
-        version: 3.1.0
+        specifier: ^3.1.1
+        version: 3.1.1
       effect-app:
-        specifier: ^1.2.0
-        version: 1.2.0(@effect/platform@0.51.0(patch_hash=4l27ijewzxdep2iz7letap7qgi)(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(ws@8.17.0))(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(encoding@0.1.13)
+        specifier: ^1.2.2
+        version: 1.2.2(@effect/platform@0.52.1(patch_hash=uyodkqziw4lpz6lgrtxl2viobi)(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(ws@8.17.0))(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(encoding@0.1.13)
       highcharts:
         specifier: ^11.4.1
         version: 11.4.1
@@ -598,7 +598,7 @@ importers:
         version: 3.0.1
       next-auth:
         specifier: 4.21.1
-        version: 4.21.1(next@13.5.6(@babel/core@7.24.5)(@opentelemetry/api@1.8.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(sass@1.75.0))(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+        version: 4.21.1(next@13.5.6(@babel/core@7.24.5)(@opentelemetry/api@1.8.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(sass@1.76.0))(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       papaparse:
         specifier: ^5.4.1
         version: 5.4.1
@@ -615,8 +615,8 @@ importers:
         specifier: ^2.0.0-rc.5
         version: 2.0.0-rc.5(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))
       vuetify:
-        specifier: ^3.5.17
-        version: 3.5.17(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))
+        specifier: ^3.6.3
+        version: 3.6.3(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))
       xlsx:
         specifier: ^0.18.5
         version: 0.18.5
@@ -631,8 +631,8 @@ importers:
         specifier: ^1.17.14
         version: 1.17.14
       '@types/markdown-it':
-        specifier: ^14.0.1
-        version: 14.0.1
+        specifier: ^14.1.1
+        version: 14.1.1
       eslint-plugin-vue:
         specifier: ^9.25.0
         version: 9.25.0(eslint@8.57.0)
@@ -641,10 +641,10 @@ importers:
         version: 1.11.1
       nuxt:
         specifier: ~3.11.2
-        version: 3.11.2(@azure/cosmos@4.0.0)(@azure/storage-blob@12.17.0(encoding@0.1.13))(@parcel/watcher@2.4.1)(@types/node@20.12.7)(@unocss/reset@0.59.2)(axios@1.6.8)(change-case@5.4.4)(encoding@0.1.13)(eslint@8.57.0)(floating-vue@5.2.2(@nuxt/kit@3.11.2(rollup@4.14.2))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))))(ioredis@5.3.2)(jwt-decode@4.0.0)(optionator@0.9.3)(rollup@4.14.2)(sass@1.75.0)(terser@5.27.0)(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))(unocss@0.59.2(postcss@8.4.38)(rollup@4.14.2)(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0)))(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0))(vue-tsc@1.8.27(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))(xml2js@0.5.0)
+        version: 3.11.2(@azure/cosmos@4.0.0)(@azure/storage-blob@12.17.0(encoding@0.1.13))(@parcel/watcher@2.4.1)(@types/node@20.12.8)(@unocss/reset@0.59.2)(axios@1.6.8)(change-case@5.4.4)(encoding@0.1.13)(eslint@8.57.0)(floating-vue@5.2.2(@nuxt/kit@3.11.2(rollup@4.14.2))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))))(ioredis@5.3.2)(jwt-decode@4.0.0)(optionator@0.9.3)(rollup@4.14.2)(sass@1.76.0)(terser@5.27.0)(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))(unocss@0.59.2(postcss@8.4.38)(rollup@4.14.2)(vite@5.2.11(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0)))(vite@5.2.11(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0))(vue-tsc@1.8.27(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))(xml2js@0.5.0)
       sass:
-        specifier: ^1.75.0
-        version: 1.75.0
+        specifier: ^1.76.0
+        version: 1.76.0
       typescript:
         specifier: ^5.4.5
         version: 5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)
@@ -1435,58 +1435,58 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@effect-app/cli@0.73.0':
-    resolution: {integrity: sha512-1ZRYAA7DXTuXAzHssXJtdfah0NyZUVvoY363U698ahQlheOWm6w3t9DiRnwLF434eanIStUWbCROAbD+mfPebw==}
+  '@effect-app/cli@0.73.1':
+    resolution: {integrity: sha512-uouK9vHZCqrJMW43Xjdqqm9AIs9WDHL+o4gq35iHDk7ebx+w858MvhgZn048o12aqQmDeaicvvVuIZMqQH0tbA==}
     hasBin: true
 
-  '@effect-app/core@1.1.0':
-    resolution: {integrity: sha512-kzBhuK2Bq9Gmu/8hoRx3ZE+XRPaqJuiCZOddw23YIlike1womiMtTUdmfl16JWeFTDfK8a2hOiP8xojBJHxOEQ==}
+  '@effect-app/core@1.1.2':
+    resolution: {integrity: sha512-rCofKs4Sj/NN1vdmrm8NklS55bt6d6dqS0im+Uh8Gru2PJmL1+q5/x+37FIHtFjKrTE2/06W19yUKPtqpvw/cQ==}
     peerDependencies:
-      '@effect/platform': ^0.51.0
-      effect: ^3.1.0
+      '@effect/platform': ^0.52.1
+      effect: ^3.1.1
 
-  '@effect-app/eslint-codegen-model@1.1.0':
-    resolution: {integrity: sha512-JkLmXzOosVR+i9DMT1Wqz/D7ysh0mndM/1wxtgorDW+Lev0yZb6no39vsWam7brgu1uSKRazHIvY9weGR6rZmQ==}
+  '@effect-app/eslint-codegen-model@1.1.1':
+    resolution: {integrity: sha512-iULc4TE/p+zsBNQKBOqZint+lXOa6UGqr2Nw/3VVl/3unankJmUB8vjwkdbjdpoLfrDhYLi+Oqoee+YD8JZE8g==}
     peerDependencies:
-      effect: ^3.1.0
+      effect: ^3.1.1
 
-  '@effect-app/fluent-extensions@1.1.0':
-    resolution: {integrity: sha512-SwOdfgRAnmPeHSSgqa7AbIgMXRKj4sC7xt9RYb3WgbVL4D9dTQ7AHZ7LGb453i1fbdx4KRDB6dasXDyJD3DvmQ==}
+  '@effect-app/fluent-extensions@1.1.2':
+    resolution: {integrity: sha512-3iXCaomK+l6qDkQPlXENsHvWDV3Pl+2KDk1nCa0ULPZFptYkHG8kUfybulrLRqPIfO3t47uI1NyyVyAWDPBl4g==}
     peerDependencies:
-      '@effect/platform': ^0.51.0
-      effect: ^3.1.0
+      '@effect/platform': ^0.52.1
+      effect: ^3.1.1
 
-  '@effect-app/infra-adapters@1.1.0':
-    resolution: {integrity: sha512-8sxnW55C0za3F+jTpxtur97Ti0DVvasNN2P0ucjpkgdSFQuksTInRRbGosO8Jpqu/k+01XBlxtjHITFZeukRXA==}
+  '@effect-app/infra-adapters@1.1.2':
+    resolution: {integrity: sha512-qk2ST6iQLw0cB0b+WCP3+GAhnqAxSY1oyLKLPZtwVp3K7Z82IDjnz8fw1Vyl8K0s6q5AgkFUCRG6ONjDwuo1Qw==}
     peerDependencies:
-      '@effect/platform': ^0.51.0
-      '@effect/schema': ^0.66.12
-      effect: ^3.1.0
+      '@effect/platform': ^0.52.1
+      '@effect/schema': ^0.66.13
+      effect: ^3.1.1
 
-  '@effect-app/infra@1.3.3':
-    resolution: {integrity: sha512-NYUC1sMpd+UjKlqhxFkzRw0f6gZDZFHMHOWZHtObxEMc7GWh4sVyp6BrP4CUDs9Ai2BXAta2/9vj0Rxtdx+cQw==}
+  '@effect-app/infra@1.3.6':
+    resolution: {integrity: sha512-RR0W85n+7HgZ2Cdyduw7r4FQ/SvSULML+xp44jHJV9cF3p1V71cq3XVzoeZRzBSrKOxLOo4/6jdpWvOfe/ahEA==}
     peerDependencies:
-      '@effect/platform': ^0.51.0
-      '@effect/schema': ^0.66.12
-      effect: ^3.1.0
+      '@effect/platform': ^0.52.1
+      '@effect/schema': ^0.66.13
+      effect: ^3.1.1
       express: ^4.19.2
 
-  '@effect-app/schema@1.1.0':
-    resolution: {integrity: sha512-BDJ+R4+ZNYBp2Bl60S2dRyTJzE1fHTeBJn1mfZvOpBsp+KUAPG9rST5S16mV3tRw8yZNWvWOAUr02my8PEyeNQ==}
+  '@effect-app/schema@1.1.2':
+    resolution: {integrity: sha512-vX7EO/JxIkNRext+0lOYDGRngeLRIBAPMNgD+WAPXJpRt1ewebe31iWa+2eXdhZjD0Xd/Wv4xkbki7NXeKdqgw==}
     peerDependencies:
-      '@effect/schema': ^0.66.12
-      effect: ^3.1.0
+      '@effect/schema': ^0.66.13
+      effect: ^3.1.1
 
-  '@effect-app/vue@1.3.0':
-    resolution: {integrity: sha512-tUf9+AkHqwOVWQMErHoSK7/otAwyzyJBiot3Zgu5AqURk9OmxasPAiKREcF10fInSp5SsjlQogG+aDA/tH9/bQ==}
+  '@effect-app/vue@1.3.3':
+    resolution: {integrity: sha512-XTKYKmsACklljtzIGVbHObhxHwizgHTodwr7BROdyhPsWPCA0WqlZoGS5nUDMoriUdREVxXCzaK4dHbW/9fk1g==}
     peerDependencies:
-      '@effect-rx/rx': ^0.29.1
-      '@effect-rx/rx-vue': ^0.8.1
-      '@effect/platform': ^0.51.0
-      '@effect/platform-browser': ^0.33.9
-      '@effect/schema': ^0.66.12
+      '@effect-rx/rx': ^0.29.2
+      '@effect-rx/rx-vue': ^0.8.2
+      '@effect/platform': ^0.52.1
+      '@effect/platform-browser': ^0.33.11
+      '@effect/schema': ^0.66.13
       '@sentry/browser': ^7.112.2
-      effect: ^3.1.0
+      effect: ^3.1.1
       vue: ^3.4.26
 
   '@effect-rx/rx-vue@0.8.1':
@@ -1500,13 +1500,13 @@ packages:
     peerDependencies:
       effect: ^3.0.5
 
-  '@effect/experimental@0.15.14':
-    resolution: {integrity: sha512-w0E0DE5Tj6Pq6dQgKU3qcdkA/1HSqEpA+uFsS+jxjtLBu/7/FJ8U6qpZ3Hscnl7JMz/MWheFZZK3RDTiwpX1VQ==}
+  '@effect/experimental@0.15.16':
+    resolution: {integrity: sha512-sOZWs+8KbUeEkkY/2A2DrksxFduJqbjcTZEqdb+S2sJb/vndZC/PMnWgbluL6P69Y9lNkQQoL0otVJkekQxmxg==}
     peerDependencies:
-      '@effect/platform': ^0.51.0
-      '@effect/platform-node': ^0.48.0
-      '@effect/schema': ^0.66.12
-      effect: ^3.1.0
+      '@effect/platform': ^0.52.1
+      '@effect/platform-node': ^0.48.2
+      '@effect/schema': ^0.66.13
+      effect: ^3.1.1
       ioredis: ^5
       lmdb: ^3
       ws: ^8
@@ -1520,8 +1520,8 @@ packages:
       ws:
         optional: true
 
-  '@effect/opentelemetry@0.34.0':
-    resolution: {integrity: sha512-E1Y+hKVriq+n/EUt8GTlxLXFL1OZ0kUneFMbhCFWyo6cG0kaLa/xM8gmEQ6+Vq6ogKsCfetPhtND4NRiJ2A8eg==}
+  '@effect/opentelemetry@0.34.1':
+    resolution: {integrity: sha512-P+E8eM9KvaHV6A6Uv7EpxfX/bd51/FSA+29JvckLCQ8No91ppIDnxlw00edVa87Fo6Qm58jSxeYHV7IKc/FAMg==}
     peerDependencies:
       '@opentelemetry/api': ^1.6
       '@opentelemetry/resources': ^1.22
@@ -1530,7 +1530,7 @@ packages:
       '@opentelemetry/sdk-trace-node': ^1.22
       '@opentelemetry/sdk-trace-web': ^1.22
       '@opentelemetry/semantic-conventions': ^1.22
-      effect: ^3.1.0
+      effect: ^3.1.1
     peerDependenciesMeta:
       '@opentelemetry/sdk-metrics':
         optional: true
@@ -1547,28 +1547,28 @@ packages:
       '@effect/platform': ^0.49.3
       effect: ^3.0.1
 
-  '@effect/platform-node-shared@0.4.14':
-    resolution: {integrity: sha512-Utp0YIVRkL5xuq1PEMw4e6Cv2r/7QPnGMDYws4M84x8SYXtC65L2ILZUyw/2dR+65eoC2q9Jdj9/gjIlpmBxmQ==}
+  '@effect/platform-node-shared@0.4.16':
+    resolution: {integrity: sha512-F9tyKUzeLOj3KECIxK0wOfpcSBMRirlvgXlyt5yc5PUxGrMHNjiJChjoNSo+Fby3MiGOvUMZSL1aqYi4pK3goQ==}
     peerDependencies:
-      '@effect/platform': ^0.51.0
-      effect: ^3.1.0
+      '@effect/platform': ^0.52.1
+      effect: ^3.1.1
 
-  '@effect/platform-node@0.48.0':
-    resolution: {integrity: sha512-/YdNMl+yY92kMSUQBKcwqKJOOHYB2GGveGDsdn3CgmqAd0GQXISzbAH3JaK098ChO8I2EdF7MuqLp1NOvzyCmw==}
+  '@effect/platform-node@0.48.2':
+    resolution: {integrity: sha512-rizkeN4mT5G6O69K/dT6Klb2wiB3aC8qQ9tb4vqCW91o5S64KQpLS0A8Zh9CXp7j4fM1gNilY8waC0UYk78SEQ==}
     peerDependencies:
-      '@effect/platform': ^0.51.0
-      effect: ^3.1.0
+      '@effect/platform': ^0.52.1
+      effect: ^3.1.1
 
-  '@effect/platform@0.51.0':
-    resolution: {integrity: sha512-j5kV5jNsMYjBARYiCYdxuLe5FVqnOpYo8Ox3K0QupmsyUS0bvZ9v+xdhc29e+1Rn7Vtm1YlBsoY8Gi7HZPJAiw==}
+  '@effect/platform@0.52.1':
+    resolution: {integrity: sha512-zC/KxHeS1IDnzPUeVnpMlIi8gFObp4yWoipZ8VccT7VX1Q8tkRjPzQFff/r4P5FWekB34lJmhokwQQng1zN9Eg==}
     peerDependencies:
-      '@effect/schema': ^0.66.12
-      effect: ^3.1.0
+      '@effect/schema': ^0.66.13
+      effect: ^3.1.1
 
-  '@effect/schema@0.66.12':
-    resolution: {integrity: sha512-14X3D2FxTFDtll41MWw5OkLQCWqcs6pLYhs38oRK1o7rQ9gM2fdL4sw/gJu4dayAqv122GMgoIEOrzO5PyBuYA==}
+  '@effect/schema@0.66.13':
+    resolution: {integrity: sha512-v7Xkcldn/kuuG2z6VScxd7B3uC3ZguaIy/giYr/HjhiU1edo2HL531g5f0HKGiJNFm2peY/OZPYBE10/E3JX3g==}
     peerDependencies:
-      effect: ^3.1.0
+      effect: ^3.1.1
       fast-check: ^3.18.0
 
   '@emotion/is-prop-valid@1.2.1':
@@ -2331,8 +2331,8 @@ packages:
     resolution: {integrity: sha512-I/s6F7yKUDdtMsoBWXJe8Qz40Tui5vsuKCWJEWVL+5q9sSWRzzx6v2KeNsOBEwd94j0eWkpWCH4yB6rZg9Mf0w==}
     engines: {node: '>=8.0.0'}
 
-  '@opentelemetry/auto-instrumentations-node@0.45.0':
-    resolution: {integrity: sha512-l4+f5S1YyOUS2upiI/c2VipV9Ow7rv593D0lNWTLzx+quSFlzQjSEjNn550kbFb+oqc9ZmaU0ogj5VN3nuYU2g==}
+  '@opentelemetry/auto-instrumentations-node@0.46.0':
+    resolution: {integrity: sha512-F8d8usvvpuEngiNSyHaT0QU6CEwg9q5LFXscSeU4qhFQ+n8eoWcifk3jBcytRLansljtQu1XGdC+dV1oqbIomQ==}
     engines: {node: '>=14'}
     peerDependencies:
       '@opentelemetry/api': ^1.4.1
@@ -2475,8 +2475,8 @@ packages:
     peerDependencies:
       '@opentelemetry/api': ^1.3.0
 
-  '@opentelemetry/instrumentation-dns@0.36.0':
-    resolution: {integrity: sha512-Uo4lLqqryToV7IfX7EVg+pOHdq6f2F0gIQoMZoC4LIcr3lO9Uk6pJr0YSB9Y4Pcu+PcGuDDXIIwKuUqEDfcTOw==}
+  '@opentelemetry/instrumentation-dns@0.36.1':
+    resolution: {integrity: sha512-NWRbQ7q0E3co/CNTWLZZvUzZoKhB1iTitY282IM8HDTXkA6VRssCfOcvaHw5ezOh23TJbAeYxmmpVj4hFvDPYQ==}
     engines: {node: '>=14'}
     peerDependencies:
       '@opentelemetry/api': ^1.3.0
@@ -2499,8 +2499,8 @@ packages:
     peerDependencies:
       '@opentelemetry/api': ^1.3.0
 
-  '@opentelemetry/instrumentation-fastify@0.36.0':
-    resolution: {integrity: sha512-nJQEi5cInZ7j5eC6QvgwlRsEFUZVGvlI8BDSLZ9xY33GTd6U6fCS8M+i26c1U74MLNRikpNBLV/1baT5GGIayg==}
+  '@opentelemetry/instrumentation-fastify@0.36.1':
+    resolution: {integrity: sha512-3Nfm43PI0I+3EX+1YbSy6xbDu276R1Dh1tqAk68yd4yirnIh52Kd5B+nJ8CgHA7o3UKakpBjj6vSzi5vNCzJIA==}
     engines: {node: '>=14'}
     peerDependencies:
       '@opentelemetry/api': ^1.3.0
@@ -2541,8 +2541,8 @@ packages:
     peerDependencies:
       '@opentelemetry/api': ^1.3.0
 
-  '@opentelemetry/instrumentation-hapi@0.37.0':
-    resolution: {integrity: sha512-LprBF0Z/wz3WXwdwoatsfU0IaKkl9At98umNfWtMcMUnYqeIiqVJJ+ijsBDHIhfuc3pbeZ9W4n8CAM1SBYFWxg==}
+  '@opentelemetry/instrumentation-hapi@0.38.0':
+    resolution: {integrity: sha512-ZcOqEuwuutTDYIjhDIStix22ECblG/i9pHje23QGs4Q4YS4RMaZ5hKCoQJxW88Z4K7T53rQkdISmoXFKDV8xMg==}
     engines: {node: '>=14'}
     peerDependencies:
       '@opentelemetry/api': ^1.3.0
@@ -2565,8 +2565,8 @@ packages:
     peerDependencies:
       '@opentelemetry/api': ^1.3.0
 
-  '@opentelemetry/instrumentation-knex@0.36.0':
-    resolution: {integrity: sha512-UXMZhhOHXlsaS/U9xCj1i7+CjWSmmWnOSEUiwa9iCfCnx7qD96BuMSxmq68h3kUfxpUbFGq8OX7znSXbcatInQ==}
+  '@opentelemetry/instrumentation-knex@0.36.1':
+    resolution: {integrity: sha512-6bEuiI+yMf3D0+ZWZE2AKmXhIhBvZ0brdO/0A8lUqeqeS+sS4fTcjA1F2CclsCNxYWEgcs8o3QyQqPceBeVRlg==}
     engines: {node: '>=14'}
     peerDependencies:
       '@opentelemetry/api': ^1.3.0
@@ -2613,8 +2613,8 @@ packages:
     peerDependencies:
       '@opentelemetry/api': ^1.3.0
 
-  '@opentelemetry/instrumentation-mongoose@0.38.0':
-    resolution: {integrity: sha512-2SnkQQDlsB6GS6OlXb/wQj1FkXMRPgIbwZxjnZ3KUJC+NQgwnzQRKZFxUrRg29l2WLeUWTSBPX1zO7RKBdKtYw==}
+  '@opentelemetry/instrumentation-mongoose@0.38.1':
+    resolution: {integrity: sha512-zaeiasdnRjXe6VhYCBMdkmAVh1S5MmXC/0spet+yqoaViGnYst/DOxPvhwg3yT4Yag5crZNWsVXnA538UjP6Ow==}
     engines: {node: '>=14'}
     peerDependencies:
       '@opentelemetry/api': ^1.3.0
@@ -2625,8 +2625,8 @@ packages:
     peerDependencies:
       '@opentelemetry/api': ^1.3.0
 
-  '@opentelemetry/instrumentation-mysql2@0.38.0':
-    resolution: {integrity: sha512-x6BN7sNKgGzERoQOwkfp9WZdNqDzmQF6c2nSXaAV/kPzhOlPVQ9sJLrpyL+/i/+6iVQRZvA0KaPdCWiUSuBupQ==}
+  '@opentelemetry/instrumentation-mysql2@0.38.1':
+    resolution: {integrity: sha512-qkpHMgWSDTYVB1vlZ9sspf7l2wdS5DDq/rbIepDwX5BA0N0068JTQqh0CgAh34tdFqSCnWXIhcyOXC2TtRb0sg==}
     engines: {node: '>=14'}
     peerDependencies:
       '@opentelemetry/api': ^1.3.0
@@ -2637,8 +2637,8 @@ packages:
     peerDependencies:
       '@opentelemetry/api': ^1.3.0
 
-  '@opentelemetry/instrumentation-mysql@0.38.0':
-    resolution: {integrity: sha512-EbbvU9/UPmtNnqQ4JVd2ku8IOeMdCY6OcvJz3SgfWQINXyPL8SZhcPm/CW6hkFq88BYMMlLDSOzu1S3gZwJ1+Q==}
+  '@opentelemetry/instrumentation-mysql@0.38.1':
+    resolution: {integrity: sha512-+iBAawUaTfX/HAlvySwozx0C2B6LBfNPXX1W8Z2On1Uva33AGkw2UjL9XgIg1Pj4eLZ9R4EoJ/aFz+Xj4E/7Fw==}
     engines: {node: '>=14'}
     peerDependencies:
       '@opentelemetry/api': ^1.3.0
@@ -2649,8 +2649,8 @@ packages:
     peerDependencies:
       '@opentelemetry/api': ^1.3.0
 
-  '@opentelemetry/instrumentation-nestjs-core@0.37.0':
-    resolution: {integrity: sha512-9/ZZ9x9s5ZNcWZYrmqTVIGb0ADNGxYaqR65gznkHzxXUXuckgzw9jaXKaErjWEyouW0FOECVLgeAB9NcjYB57g==}
+  '@opentelemetry/instrumentation-nestjs-core@0.37.1':
+    resolution: {integrity: sha512-ebYQjHZEmGHWEALwwDGhSQVLBaurFnuLIkZD5igPXrt7ohfF4lc5/4al1LO+vKc0NHk8SJWStuRueT86ISA8Vg==}
     engines: {node: '>=14'}
     peerDependencies:
       '@opentelemetry/api': ^1.3.0
@@ -2673,8 +2673,8 @@ packages:
     peerDependencies:
       '@opentelemetry/api': ^1.3.0
 
-  '@opentelemetry/instrumentation-pino@0.38.0':
-    resolution: {integrity: sha512-m4tkO+tuKv0zs2uLNxsMw06RwBNjHua8r9FYUlSlVcaF4EHTqC2XOk3h3OWw8HosZAvJvjryAgbEGuX9wJPn7A==}
+  '@opentelemetry/instrumentation-pino@0.39.0':
+    resolution: {integrity: sha512-uA17F2iP77o3NculB63QD2zv3jkJ093Gfb0GxHLEqTIqpYs1ToJ53ybWwjJwqFByxk7GrliaxaxVtWC23PKzBg==}
     engines: {node: '>=14'}
     peerDependencies:
       '@opentelemetry/api': ^1.3.0
@@ -2685,8 +2685,8 @@ packages:
     peerDependencies:
       '@opentelemetry/api': ^1.3.0
 
-  '@opentelemetry/instrumentation-redis@0.39.0':
-    resolution: {integrity: sha512-yjHWwufY7kfKtf20rliqlETgP32X3ZynGAfoP59NXSSHwTCZS7QMn+S+Hb0iLjwbca/iTM/BooiVFrB943kMrw==}
+  '@opentelemetry/instrumentation-redis@0.39.1':
+    resolution: {integrity: sha512-HUjTerD84jRJnSyDrRPqn6xQ7K91o9qLflRPZqzRvq0GRj5PMfc6TJ/z3q/ayWy/2Kzffhrp7HCIVp0u0TkgUg==}
     engines: {node: '>=14'}
     peerDependencies:
       '@opentelemetry/api': ^1.3.0
@@ -2709,11 +2709,17 @@ packages:
     peerDependencies:
       '@opentelemetry/api': ^1.3.0
 
-  '@opentelemetry/instrumentation-tedious@0.10.0':
-    resolution: {integrity: sha512-9P3bMtx6ncM1IPjSy6nilVohqFJ1Y0XutY6/WHO8Xuphca8MIq2vzmjzREbS+9TfW+1Eq4Q6Y4LMNoDrHwSAaw==}
+  '@opentelemetry/instrumentation-tedious@0.10.1':
+    resolution: {integrity: sha512-maSXMxgS0szU52khQzAROV4nWr+3M8mZajMQOc3/7tYjo+Q3HlWAowOuagPvp4pwROK4x6oDaFYlY+ZSj1qjYA==}
     engines: {node: '>=14'}
     peerDependencies:
       '@opentelemetry/api': ^1.3.0
+
+  '@opentelemetry/instrumentation-undici@0.2.0':
+    resolution: {integrity: sha512-RH9WdVRtpnyp8kvya2RYqKsJouPxvHl7jKPsIfrbL8u2QCKloAGi0uEqDHoOS15ZRYPQTDXZ7d8jSpUgSQmvpA==}
+    engines: {node: '>=14'}
+    peerDependencies:
+      '@opentelemetry/api': ^1.7.0
 
   '@opentelemetry/instrumentation-winston@0.37.0':
     resolution: {integrity: sha512-vOx55fxdNjo2XojJf8JN4jP7VVvQCh7UQzzQ2Q2FpGJpt8Z3EErKaY8xOBkOuJH0TtL/Q72rmIn9c+mRG46BxA==}
@@ -2811,6 +2817,12 @@ packages:
 
   '@opentelemetry/resource-detector-aws@1.4.2':
     resolution: {integrity: sha512-Rt4cztIz8UZZ32wRbotKPVbkRfukiMM8xfzf2C1M+Puv91Cw6kDJHAfWCqkx7FdNe0e6aF4u2lkFweE1849RCg==}
+    engines: {node: '>=14'}
+    peerDependencies:
+      '@opentelemetry/api': ^1.0.0
+
+  '@opentelemetry/resource-detector-azure@0.2.7':
+    resolution: {integrity: sha512-+R3VnPaK6rc+kKfdvhgQlYDGXy0+JMAjPNDjcRQSeXY8pVOzHGCIrY+gT6gUrpjsw8w1EgNBVofr+qeNOr+o4A==}
     engines: {node: '>=14'}
     peerDependencies:
       '@opentelemetry/api': ^1.0.0
@@ -3494,20 +3506,20 @@ packages:
     resolution: {integrity: sha512-3VPh0SYMGCa5dWQEqNab87UpCMk+ANWHDP4ALs5PeEW9EpfTAbrezzaOk/OiM52IESViefkoAOYuxdoa04p6aA==}
     engines: {node: '>=12'}
 
-  '@tanstack/query-core@5.32.0':
-    resolution: {integrity: sha512-Z3flEgCat55DRXU5UMwYU1U+DgFZKA3iufyOKs+II7iRAo0uXkeU7PH5e6sOH1CGEag0IpKmZxlUFpCg6roSKw==}
+  '@tanstack/query-core@5.32.1':
+    resolution: {integrity: sha512-mCWa1wdGb1jiny4+qYegbSeadcFj+Nq65KFSs4A1DRveoIq7SrTwUhqu7hrB6d54cQH5x59DfJvxusn3w1Cj/g==}
 
-  '@tanstack/query-devtools@5.28.10':
-    resolution: {integrity: sha512-5UN629fKa5/1K/2Pd26gaU7epxRrYiT1gy+V+pW5K6hnf1DeUKK3pANSb2eHKlecjIKIhTwyF7k9XdyE2gREvQ==}
+  '@tanstack/query-devtools@5.32.1':
+    resolution: {integrity: sha512-7Xq57Ctopiy/4atpb0uNY5VRuCqRS/1fi/WBCKKX6jHMa6cCgDuV/AQuiwRXcKARbq2OkVAOrW2v4xK9nTbcCA==}
 
-  '@tanstack/vue-query-devtools@5.32.0':
-    resolution: {integrity: sha512-MSHVdIBm7d6iEnw31CRFiW5sKc0kZIH1etyIJ3Gb4Ll7oyl/tqoYOBlh+PdDtX1RfdzgFT9e8mVyRmkpNZYuSw==}
+  '@tanstack/vue-query-devtools@5.32.1':
+    resolution: {integrity: sha512-/uaNcShZkpQYAUoqv1ncM75cXX0Fn67Yp2dN5ksASQtfd0LO7jtYEG73ZaMAhlwUO3Vzh6vSAsamNkN9O8a3yg==}
     peerDependencies:
-      '@tanstack/vue-query': ^5.32.0
+      '@tanstack/vue-query': ^5.32.1
       vue: ^3.4.26
 
-  '@tanstack/vue-query@5.32.0':
-    resolution: {integrity: sha512-lmTw3NZud+iT6EqbF1fYNE/7mA2lk3iD8KexF3scV2uWfeTE9diboNjNbZGyBHQSQOzmZJYh7Stnv+ARa8Femw==}
+  '@tanstack/vue-query@5.32.1':
+    resolution: {integrity: sha512-YOmckzcflbwSvc/GQWX/h5dAZPw7pQJtTSeRV2+L/wQsdp56R1HHSUbz4GxHw9WyvIkvu9o4fOk0z9bxoQweaw==}
     peerDependencies:
       '@vue/composition-api': ^1.1.2
       vue: ^3.4.26
@@ -3653,17 +3665,17 @@ packages:
   '@types/koa__router@12.0.3':
     resolution: {integrity: sha512-5YUJVv6NwM1z7m6FuYpKfNLTZ932Z6EF6xy2BbtpJSyn13DKNQEkXVffFVSnJHxvwwWh2SAeumpjAYUELqgjyw==}
 
-  '@types/linkify-it@3.0.5':
-    resolution: {integrity: sha512-yg6E+u0/+Zjva+buc3EIb+29XEg4wltq7cSmd4Uc2EE/1nUVmxyzpX6gUXD0V8jIrG0r7YeOGVIbYRkxeooCtw==}
+  '@types/linkify-it@5.0.0':
+    resolution: {integrity: sha512-sVDA58zAw4eWAffKOaQH5/5j3XeayukzDk+ewSsnv3p4yJEZHCCzMDiZM8e0OUrRvmpGZ85jf4yDHkHsgBNr9Q==}
 
   '@types/lodash@4.17.0':
     resolution: {integrity: sha512-t7dhREVv6dbNj0q17X12j7yDG4bD/DHYX7o5/DbDxobP0HnGPgpRz2Ej77aL7TZT3DSw13fqUTj8J4mMnqa7WA==}
 
-  '@types/markdown-it@14.0.1':
-    resolution: {integrity: sha512-6WfOG3jXR78DW8L5cTYCVVGAsIFZskRHCDo5tbqa+qtKVt4oDRVH7hyIWu1SpDQJlmIoEivNQZ5h+AGAOrgOtQ==}
+  '@types/markdown-it@14.1.1':
+    resolution: {integrity: sha512-4NpsnpYl2Gt1ljyBGrKMxFYAYvpqbnnkgP/i/g+NLpjEUa3obn1XJCur9YbEXKDAkaXqsR1LbDnGEJ0MmKFxfg==}
 
-  '@types/mdurl@1.0.5':
-    resolution: {integrity: sha512-6L6VymKTzYSrEf4Nev4Xa1LCHKrlTlYCBMTlQKFuddo1CvQcE52I0mwfOJayueUC7MJuXOeHTcIU683lzd0cUA==}
+  '@types/mdurl@2.0.0':
+    resolution: {integrity: sha512-RGdgjQUZba5p6QEFAVx2OGb8rQDL/cPRG7GiedRzMcJ1tYnUANBncjbSB1NRGwbvjcPeikRABz2nshyPk1bhWg==}
 
   '@types/memcached@2.2.10':
     resolution: {integrity: sha512-AM9smvZN55Gzs2wRrqeMHVP7KE8KWgCJO/XL5yCly2xF6EKa4YlbpK+cLSAH4NG/Ah64HrlegmGqW8kYws7Vxg==}
@@ -3686,8 +3698,8 @@ packages:
   '@types/node@17.0.45':
     resolution: {integrity: sha512-w+tIMs3rq2afQdsPJlODhoUEKzFP1ayaoyl1CcnwtIlsVe7K7bA1NGm4s3PraqTLlXnbIN84zuBlxBWo1u9BLw==}
 
-  '@types/node@20.12.7':
-    resolution: {integrity: sha512-wq0cICSkRLVaf3UGLMGItu/PtdY7oaXaI/RVU+xliKVOtRna3PRY57ZDfztpDL0n11vfymMUnXv8QwYCO7L1wg==}
+  '@types/node@20.12.8':
+    resolution: {integrity: sha512-NU0rJLJnshZWdE/097cdCBbyW1h4hEg0xpovcoAQYHl8dnEyp/NAOiE45pvc+Bd1Dt+2r94v2eGFpQJ4R7g+2w==}
 
   '@types/normalize-package-data@2.4.4':
     resolution: {integrity: sha512-37i+OaWTh9qeK4LSHPsyRC7NahnGotNuZvjLSgcPzblpHB3rrCJxAOgI5gCdKm7coonsaX1Of0ILiTcnZjbfxA==}
@@ -3991,20 +4003,20 @@ packages:
       vite: ^5.0.0
       vue: ^3.4.26
 
-  '@vitest/expect@1.5.2':
-    resolution: {integrity: sha512-rf7MTD1WCoDlN3FfYJ9Llfp0PbdtOMZ3FIF0AVkDnKbp3oiMW1c8AmvRZBcqbAhDUAvF52e9zx4WQM1r3oraVA==}
+  '@vitest/expect@1.5.3':
+    resolution: {integrity: sha512-y+waPz31pOFr3rD7vWTbwiLe5+MgsMm40jTZbQE8p8/qXyBX3CQsIXRx9XK12IbY7q/t5a5aM/ckt33b4PxK2g==}
 
-  '@vitest/runner@1.5.2':
-    resolution: {integrity: sha512-7IJ7sJhMZrqx7HIEpv3WrMYcq8ZNz9L6alo81Y6f8hV5mIE6yVZsFoivLZmr0D777klm1ReqonE9LyChdcmw6g==}
+  '@vitest/runner@1.5.3':
+    resolution: {integrity: sha512-7PlfuReN8692IKQIdCxwir1AOaP5THfNkp0Uc4BKr2na+9lALNit7ub9l3/R7MP8aV61+mHKRGiqEKRIwu6iiQ==}
 
-  '@vitest/snapshot@1.5.2':
-    resolution: {integrity: sha512-CTEp/lTYos8fuCc9+Z55Ga5NVPKUgExritjF5VY7heRFUfheoAqBneUlvXSUJHUZPjnPmyZA96yLRJDP1QATFQ==}
+  '@vitest/snapshot@1.5.3':
+    resolution: {integrity: sha512-K3mvIsjyKYBhNIDujMD2gfQEzddLe51nNOAf45yKRt/QFJcUIeTQd2trRvv6M6oCBHNVnZwFWbQ4yj96ibiDsA==}
 
-  '@vitest/spy@1.5.2':
-    resolution: {integrity: sha512-xCcPvI8JpCtgikT9nLpHPL1/81AYqZy1GCy4+MCHBE7xi8jgsYkULpW5hrx5PGLgOQjUpb6fd15lqcriJ40tfQ==}
+  '@vitest/spy@1.5.3':
+    resolution: {integrity: sha512-Llj7Jgs6lbnL55WoshJUUacdJfjU2honvGcAJBxhra5TPEzTJH8ZuhI3p/JwqqfnTr4PmP7nDmOXP53MS7GJlg==}
 
-  '@vitest/utils@1.5.2':
-    resolution: {integrity: sha512-sWOmyofuXLJ85VvXNsroZur7mOJGiQeM0JN3/0D1uU8U9bGFM69X1iqHaRXl6R8BwaLY6yPCogP257zxTzkUdA==}
+  '@vitest/utils@1.5.3':
+    resolution: {integrity: sha512-rE9DTN1BRhzkzqNQO+kw8ZgfeEBCLXiHJwetk668shmNBpSagQxneT5eSqEBLP+cqSiAeecvQmbpFfdMyLcIQA==}
 
   '@volar/language-core@1.11.1':
     resolution: {integrity: sha512-dOcNn3i9GgZAcJt43wuaEykSluAuOkQgzni1cuxLxTV0nJKanQztp7FxyswdRILaKH+P2XZMPRp2S4MV/pElCw==}
@@ -5265,15 +5277,15 @@ packages:
   ee-first@1.1.1:
     resolution: {integrity: sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==}
 
-  effect-app@1.2.0:
-    resolution: {integrity: sha512-cn7CSnKVHm93KVOH/PUdq4pIBH/pA/Wmo5cQvult/KrzM94khR8Tge1iGHVz/3j+DCsbwIHX4pHZZ44WrYTUGA==}
+  effect-app@1.2.2:
+    resolution: {integrity: sha512-JBYtI9dtbhFhzhmKrk7LjdENcXWjF6Hgj2uvHD9InINtq1FvdtrMFVy6cMJwi9g2O4/js6A0hbi14+AnnJgXqg==}
     peerDependencies:
-      '@effect/platform': ^0.51.0
-      '@effect/schema': ^0.66.12
-      effect: ^3.1.0
+      '@effect/platform': ^0.52.1
+      '@effect/schema': ^0.66.13
+      effect: ^3.1.1
 
-  effect@3.1.0:
-    resolution: {integrity: sha512-A0kUH8qeH0jS0X4ViJXf/O5qfMQBrJRsTD1xHed4jpFF5ChUP96LmseaV9LQkFbVDo791REFWTOlMPGCyM/0Ng==}
+  effect@3.1.1:
+    resolution: {integrity: sha512-9qcLfQTeg+4lzVPIE23ix00EPdegqd1Gt8L3YxO+89HwJvk6x431wVCz/hWe37jJqmvuaqchteyZ1Z0kPbGN5Q==}
 
   electron-to-chromium@1.4.708:
     resolution: {integrity: sha512-iWgEEvREL4GTXXHKohhh33+6Y8XkPI5eHihDmm8zUk5Zo7HICEW+wI/j5kJ2tbuNUCXJ/sNXa03ajW635DiJXA==}
@@ -5486,8 +5498,8 @@ packages:
     peerDependencies:
       eslint: 5 - 9
 
-  eslint-plugin-unused-imports@3.1.0:
-    resolution: {integrity: sha512-9l1YFCzXKkw1qtAru1RWUtG2EVDZY0a0eChKXcL+EZ5jitG7qxdctu4RnvhOJHv4xfmUf7h+JJPINlVpGhZMrw==}
+  eslint-plugin-unused-imports@3.2.0:
+    resolution: {integrity: sha512-6uXyn6xdINEpxE1MtDjxQsyXB37lfyO2yKGVVgtD7WEWQGORSOZjgrD6hBhvGv4/SO+TOlS+UnC6JppRqbuwGQ==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     peerDependencies:
       '@typescript-eslint/eslint-plugin': 6 - 7
@@ -5705,8 +5717,8 @@ packages:
     resolution: {integrity: sha512-9ZonPT4ZAK4a+1pUPVPZJapbi7O5qbbJPdYw/NOQWZZbVLdDTYM3A4R9z/DpAM08IDaFGsvPgiGZ82WEwUDWjg==}
     engines: {node: '>=14.16'}
 
-  find-my-way-ts@0.1.1:
-    resolution: {integrity: sha512-nXUdq29JRQ1tYa1/n+DHTVChMARJHz+gi7sDZibwQukzHP7Hrr6s+sxKbaIM8xB3LzhSBJy5yLb0JhIUmHmOiA==}
+  find-my-way-ts@0.1.2:
+    resolution: {integrity: sha512-AWsH49RGcyayzzxSAkwQKC1bToY5ForAfNreix88slo7wijg1wwTtCPvUUoVm/qhIY3UVSHBKApw8mOGPxsvSg==}
 
   find-root@1.1.0:
     resolution: {integrity: sha512-NKfW6bec6GfKc0SGx1e07QZY9PE99u0Bft/0rzSD5k3sO/vwkVUpDUKVm5Gpp5Ue3YfShPFTX2070tDs5kB9Ng==}
@@ -5908,8 +5920,8 @@ packages:
     resolution: {integrity: sha512-KmuibvwbWaM4BHcBRYwJfZ1JxyJeBwB8ct9YYu67SvYdbEIlcQ2e56dHxfbobqW38GXo8/zDFqJeGtHiVbWyQw==}
     engines: {node: '>= 0.4'}
 
-  get-tsconfig@4.7.2:
-    resolution: {integrity: sha512-wuMsz4leaj5hbGgg4IvDU0bqJagpftG5l5cXIAvo8uZrqn0NJqwtfupTN00VnkQJPcIRrxYrm1Ue24btpCha2A==}
+  get-tsconfig@4.7.3:
+    resolution: {integrity: sha512-ZvkrzoUA0PQZM6fy6+/Hce561s+faD1rsNwhnO5FelNjyy7EMGJ3Rz1AQ8GYDWjhRs/7dBLOEJvhK8MiEJOAFg==}
 
   giget@1.2.1:
     resolution: {integrity: sha512-4VG22mopWtIeHwogGSy1FViXVo0YT+m6BrqZfz0JJFwbSsePsCdOzdLIIli5BtMp7Xe8f/o2OmBpQX2NBOC24g==}
@@ -7146,8 +7158,8 @@ packages:
   muggle-string@0.3.1:
     resolution: {integrity: sha512-ckmWDJjphvd/FvZawgygcUeQCxzvohjFO5RxTjj4eq8kw359gFF3E1brjfI+viLMxss5JrHTDRHZvu2/tuy0Qg==}
 
-  multipasta@0.2.0:
-    resolution: {integrity: sha512-MNAym1D9GTpY0/CKYJFDmaJ3TfhblfsQyyipCCSsgasMZCAyR2fCNDJhR7lACfJ0YMwQSDi5RHeIdJcsze6WMg==}
+  multipasta@0.2.1:
+    resolution: {integrity: sha512-0NR15o5iewJFMsZ4jN6cztCd4izTLZPyHUfBrakbg/x70B8zplPE6qumbs+A7LmhGtQMzpN/K8MOOdifMgAKFA==}
 
   nanoid@3.3.7:
     resolution: {integrity: sha512-eSRppjcPIatRIMC1U6UngP8XFcz8MQWGQdt1MTBQ7NaAmvXDfvNxbvWV3x2y6CdEUciCSsDHDQZbhYaB8QEo2g==}
@@ -8454,8 +8466,8 @@ packages:
     engines: {node: '>=14'}
     hasBin: true
 
-  sass@1.75.0:
-    resolution: {integrity: sha512-ShMYi3WkrDWxExyxSZPst4/okE9ts46xZmJDSawJQrnte7M1V9fScVB+uNXOVKRBt0PggHOwoZcn8mYX4trnBw==}
+  sass@1.76.0:
+    resolution: {integrity: sha512-nc3LeqvF2FNW5xGF1zxZifdW3ffIz5aBb7I7tSvOoNu7z1RQ6pFt9MBuiPtjgaI62YWrM/txjWlOCFiGtf2xpw==}
     engines: {node: '>=14.0.0'}
     hasBin: true
 
@@ -8556,8 +8568,8 @@ packages:
   shimmer@1.2.1:
     resolution: {integrity: sha512-sQTKC1Re/rM6XyFM6fIAGHRPVGvyXfgzIDvzoq608vM+jeyVD0Tu1E6Np0Kc2zAIFWIj963V2800iF/9LPieQw==}
 
-  shippo@2.0.0:
-    resolution: {integrity: sha512-ZCeqNGjvBXmCMBi7I73u6H3N16XzwXk/OdCs3Pb5nczYJZS7GOC/enWN+lPS0HiOS9bFPT6gkxdh7UDjqjkMeA==}
+  shippo@2.1.1:
+    resolution: {integrity: sha512-5Zw0Lil5vPXlZTbhmJR/2pSwHbFfehW3KEymwq/rBbc8kQEvo+cwLxxeiaJ8Z615FqiOwcFEX/FjNZHRqqp+hw==}
     peerDependencies:
       zod: '>= 3'
 
@@ -9107,8 +9119,8 @@ packages:
     peerDependencies:
       typescript: '>=2.8.0 || >= 3.2.0-dev || >= 3.3.0-dev || >= 3.4.0-dev || >= 3.5.0-dev || >= 3.6.0-dev || >= 3.6.0-beta || >= 3.7.0-dev || >= 3.7.0-beta'
 
-  tsx@4.7.3:
-    resolution: {integrity: sha512-+fQnMqIp/jxZEXLcj6WzYy9FhcS5/Dfk8y4AtzJ6ejKcKqmfTF8Gso/jtrzDggCF2zTU20gJa6n8XqPYwDAUYQ==}
+  tsx@4.8.2:
+    resolution: {integrity: sha512-hmmzS4U4mdy1Cnzpl/NQiPUC2k34EcNSTZYVJThYKhdqTwuBeF+4cG9KUK/PFQ7KHaAaYwqlb7QfmsE2nuj+WA==}
     engines: {node: '>=18.0.0'}
     hasBin: true
 
@@ -9462,8 +9474,8 @@ packages:
     peerDependencies:
       vite: ^2.6.0 || ^3.0.0 || ^4.0.0 || ^5.0.0-0
 
-  vite-node@1.5.2:
-    resolution: {integrity: sha512-Y8p91kz9zU+bWtF7HGt6DVw2JbhyuB2RlZix3FPYAYmUyZ3n7iTp8eSyLyY6sxtPegvxQtmlTMhfPhUfCUF93A==}
+  vite-node@1.5.3:
+    resolution: {integrity: sha512-axFo00qiCpU/JLd8N1gu9iEYL3xTbMbMrbe5nDp9GL0nb6gurIdZLkkFogZXWnE8Oyy5kfSLwNVIcVsnhE7lgQ==}
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
 
@@ -9521,8 +9533,8 @@ packages:
       vite:
         optional: true
 
-  vite@5.2.10:
-    resolution: {integrity: sha512-PAzgUZbP7msvQvqdSD+ErD5qGnSFiGOoWmV5yAKUEI0kdhjbH6nMWVyZQC/hSc4aXwc0oJ9aEdIiF9Oje0JFCw==}
+  vite@5.2.11:
+    resolution: {integrity: sha512-HndV31LWW05i1BLPMUCE1B9E9GFbOu1MbenhS58FuK6owSO5qHm7GiCotrNY1YE5rMeQSFBGmT5ZaLEjFizgiQ==}
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
     peerDependencies:
@@ -9549,15 +9561,15 @@ packages:
       terser:
         optional: true
 
-  vitest@1.5.2:
-    resolution: {integrity: sha512-l9gwIkq16ug3xY7BxHwcBQovLZG75zZL0PlsiYQbf76Rz6QGs54416UWMtC0jXeihvHvcHrf2ROEjkQRVpoZYw==}
+  vitest@1.5.3:
+    resolution: {integrity: sha512-2oM7nLXylw3mQlW6GXnRriw+7YvZFk/YNV8AxIC3Z3MfFbuziLGWP9GPxxu/7nRlXhqyxBikpamr+lEEj1sUEw==}
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
     peerDependencies:
       '@edge-runtime/vm': '*'
       '@types/node': ^18.0.0 || >=20.0.0
-      '@vitest/browser': 1.5.2
-      '@vitest/ui': 1.5.2
+      '@vitest/browser': 1.5.3
+      '@vitest/ui': 1.5.3
       happy-dom: '*'
       jsdom: '*'
     peerDependenciesMeta:
@@ -9673,8 +9685,8 @@ packages:
       typescript:
         optional: true
 
-  vuetify@3.5.17:
-    resolution: {integrity: sha512-/Veklxxyu/l63q7QQOqJZeZukIKI2sBxY7FKMDcNup2KSGMjyjT+oYXy1DOdl7wlU3c3fKGQMFHqVWb0HDsyDw==}
+  vuetify@3.6.3:
+    resolution: {integrity: sha512-OBYYJYnNeUYA7kwrv8Rag1EBFbGWAQxJpp0s98U2KQ6SPU7MzzcrvNn7t69vcDbj7mR7Dcf9/jvFapfranXZvA==}
     engines: {node: ^12.20 || >=14.13}
     peerDependencies:
       typescript: '>=4.7'
@@ -10921,15 +10933,15 @@ snapshots:
   '@dprint/win32-x64@0.45.1':
     optional: true
 
-  '@effect-app/cli@0.73.0':
+  '@effect-app/cli@0.73.1':
     dependencies:
       node-watch: 0.7.4
 
-  '@effect-app/core@1.1.0(@effect/platform@0.51.0(patch_hash=4l27ijewzxdep2iz7letap7qgi)(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(ws@8.17.0))(effect@3.1.0)(encoding@0.1.13)':
+  '@effect-app/core@1.1.2(@effect/platform@0.52.1(patch_hash=uyodkqziw4lpz6lgrtxl2viobi)(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(ws@8.17.0))(effect@3.1.1)(encoding@0.1.13)':
     dependencies:
-      '@effect/platform': 0.51.0(patch_hash=4l27ijewzxdep2iz7letap7qgi)(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(ws@8.17.0)
+      '@effect/platform': 0.52.1(patch_hash=uyodkqziw4lpz6lgrtxl2viobi)(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(ws@8.17.0)
       cross-fetch: 4.0.0(encoding@0.1.13)
-      effect: 3.1.0
+      effect: 3.1.1
       path-parser: 6.1.0
       query-string: 9.0.0
       uuid: 9.0.1
@@ -10937,12 +10949,12 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
-  '@effect-app/eslint-codegen-model@1.1.0(effect@3.1.0)(eslint@8.57.0)(fp-ts@2.16.2)(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))':
+  '@effect-app/eslint-codegen-model@1.1.1(effect@3.1.1)(eslint@8.57.0)(fp-ts@2.16.2)(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))':
     dependencies:
       '@babel/generator': 7.24.5
       '@babel/parser': 7.24.5
       '@typescript-eslint/utils': 7.8.0(eslint@8.57.0)(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))
-      effect: 3.1.0
+      effect: 3.1.1
       eslint-plugin-codegen: 0.17.0(patch_hash=3ogk7peuefdu45q3hbzcgdiuna)
       glob: 8.1.0
       io-ts: 2.2.21(fp-ts@2.16.2)
@@ -10955,12 +10967,12 @@ snapshots:
       - supports-color
       - typescript
 
-  '@effect-app/fluent-extensions@1.1.0(@effect/platform@0.51.0(patch_hash=4l27ijewzxdep2iz7letap7qgi)(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(ws@8.17.0))(effect@3.1.0)(encoding@0.1.13)':
+  '@effect-app/fluent-extensions@1.1.2(@effect/platform@0.52.1(patch_hash=uyodkqziw4lpz6lgrtxl2viobi)(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(ws@8.17.0))(effect@3.1.1)(encoding@0.1.13)':
     dependencies:
-      '@effect-app/core': 1.1.0(@effect/platform@0.51.0(patch_hash=4l27ijewzxdep2iz7letap7qgi)(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(ws@8.17.0))(effect@3.1.0)(encoding@0.1.13)
-      '@effect/platform': 0.51.0(patch_hash=4l27ijewzxdep2iz7letap7qgi)(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(ws@8.17.0)
+      '@effect-app/core': 1.1.2(@effect/platform@0.52.1(patch_hash=uyodkqziw4lpz6lgrtxl2viobi)(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(ws@8.17.0))(effect@3.1.1)(encoding@0.1.13)
+      '@effect/platform': 0.52.1(patch_hash=uyodkqziw4lpz6lgrtxl2viobi)(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(ws@8.17.0)
       date-fns: 3.6.0
-      effect: 3.1.0
+      effect: 3.1.1
       nanoid: 5.0.7
       path-parser: 6.1.0
       query-string: 9.0.0
@@ -10970,34 +10982,34 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
-  '@effect-app/infra-adapters@1.1.0(@effect/platform@0.51.0(patch_hash=4l27ijewzxdep2iz7letap7qgi)(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(ws@8.17.0))(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(encoding@0.1.13)':
+  '@effect-app/infra-adapters@1.1.2(@effect/platform@0.52.1(patch_hash=uyodkqziw4lpz6lgrtxl2viobi)(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(ws@8.17.0))(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(encoding@0.1.13)':
     dependencies:
-      '@effect-app/core': 1.1.0(@effect/platform@0.51.0(patch_hash=4l27ijewzxdep2iz7letap7qgi)(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(ws@8.17.0))(effect@3.1.0)(encoding@0.1.13)
-      '@effect-app/schema': 1.1.0(@effect/platform@0.51.0(patch_hash=4l27ijewzxdep2iz7letap7qgi)(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(ws@8.17.0))(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(encoding@0.1.13)
-      '@effect/platform': 0.51.0(patch_hash=4l27ijewzxdep2iz7letap7qgi)(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(ws@8.17.0)
-      '@effect/schema': 0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0)
-      effect: 3.1.0
-      effect-app: 1.2.0(@effect/platform@0.51.0(patch_hash=4l27ijewzxdep2iz7letap7qgi)(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(ws@8.17.0))(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(encoding@0.1.13)
+      '@effect-app/core': 1.1.2(@effect/platform@0.52.1(patch_hash=uyodkqziw4lpz6lgrtxl2viobi)(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(ws@8.17.0))(effect@3.1.1)(encoding@0.1.13)
+      '@effect-app/schema': 1.1.2(@effect/platform@0.52.1(patch_hash=uyodkqziw4lpz6lgrtxl2viobi)(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(ws@8.17.0))(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(encoding@0.1.13)
+      '@effect/platform': 0.52.1(patch_hash=uyodkqziw4lpz6lgrtxl2viobi)(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(ws@8.17.0)
+      '@effect/schema': 0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0)
+      effect: 3.1.1
+      effect-app: 1.2.2(@effect/platform@0.52.1(patch_hash=uyodkqziw4lpz6lgrtxl2viobi)(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(ws@8.17.0))(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(encoding@0.1.13)
       query-string: 9.0.0
     transitivePeerDependencies:
       - encoding
 
-  '@effect-app/infra@1.3.3(@effect/platform@0.51.0(patch_hash=4l27ijewzxdep2iz7letap7qgi)(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(ws@8.17.0))(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(encoding@0.1.13)(express@4.19.2)':
+  '@effect-app/infra@1.3.6(@effect/platform@0.52.1(patch_hash=uyodkqziw4lpz6lgrtxl2viobi)(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(ws@8.17.0))(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(encoding@0.1.13)(express@4.19.2)':
     dependencies:
       '@azure/cosmos': 4.0.0
       '@azure/service-bus': 7.9.4
-      '@effect-app/core': 1.1.0(@effect/platform@0.51.0(patch_hash=4l27ijewzxdep2iz7letap7qgi)(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(ws@8.17.0))(effect@3.1.0)(encoding@0.1.13)
-      '@effect-app/infra-adapters': 1.1.0(@effect/platform@0.51.0(patch_hash=4l27ijewzxdep2iz7letap7qgi)(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(ws@8.17.0))(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(encoding@0.1.13)
-      '@effect-app/schema': 1.1.0(@effect/platform@0.51.0(patch_hash=4l27ijewzxdep2iz7letap7qgi)(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(ws@8.17.0))(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(encoding@0.1.13)
-      '@effect/platform': 0.51.0(patch_hash=4l27ijewzxdep2iz7letap7qgi)(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(ws@8.17.0)
-      '@effect/schema': 0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0)
+      '@effect-app/core': 1.1.2(@effect/platform@0.52.1(patch_hash=uyodkqziw4lpz6lgrtxl2viobi)(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(ws@8.17.0))(effect@3.1.1)(encoding@0.1.13)
+      '@effect-app/infra-adapters': 1.1.2(@effect/platform@0.52.1(patch_hash=uyodkqziw4lpz6lgrtxl2viobi)(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(ws@8.17.0))(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(encoding@0.1.13)
+      '@effect-app/schema': 1.1.2(@effect/platform@0.52.1(patch_hash=uyodkqziw4lpz6lgrtxl2viobi)(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(ws@8.17.0))(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(encoding@0.1.13)
+      '@effect/platform': 0.52.1(patch_hash=uyodkqziw4lpz6lgrtxl2viobi)(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(ws@8.17.0)
+      '@effect/schema': 0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0)
       '@faker-js/faker': 8.4.1
       '@sendgrid/helpers': 8.0.0
       '@sendgrid/mail': 8.1.3
       change-case: 5.4.4
       cross-fetch: 4.0.0(encoding@0.1.13)
-      effect: 3.1.0
-      effect-app: 1.2.0(@effect/platform@0.51.0(patch_hash=4l27ijewzxdep2iz7letap7qgi)(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(ws@8.17.0))(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(encoding@0.1.13)
+      effect: 3.1.1
+      effect-app: 1.2.2(@effect/platform@0.52.1(patch_hash=uyodkqziw4lpz6lgrtxl2viobi)(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(ws@8.17.0))(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(encoding@0.1.13)
       express: 4.19.2
       express-oauth2-jwt-bearer: 1.6.0
       fast-check: 3.18.0
@@ -11011,12 +11023,12 @@ snapshots:
       - encoding
       - supports-color
 
-  '@effect-app/schema@1.1.0(@effect/platform@0.51.0(patch_hash=4l27ijewzxdep2iz7letap7qgi)(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(ws@8.17.0))(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(encoding@0.1.13)':
+  '@effect-app/schema@1.1.2(@effect/platform@0.52.1(patch_hash=uyodkqziw4lpz6lgrtxl2viobi)(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(ws@8.17.0))(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(encoding@0.1.13)':
     dependencies:
-      '@effect-app/core': 1.1.0(@effect/platform@0.51.0(patch_hash=4l27ijewzxdep2iz7letap7qgi)(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(ws@8.17.0))(effect@3.1.0)(encoding@0.1.13)
-      '@effect/schema': 0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0)
+      '@effect-app/core': 1.1.2(@effect/platform@0.52.1(patch_hash=uyodkqziw4lpz6lgrtxl2viobi)(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(ws@8.17.0))(effect@3.1.1)(encoding@0.1.13)
+      '@effect/schema': 0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0)
       cross-fetch: 4.0.0(encoding@0.1.13)
-      effect: 3.1.0
+      effect: 3.1.1
       nanoid: 5.0.7
       path-parser: 6.1.0
       uuid: 9.0.1
@@ -11025,20 +11037,20 @@ snapshots:
       - '@effect/platform'
       - encoding
 
-  '@effect-app/vue@1.3.0(@effect-rx/rx-vue@0.8.1(effect@3.1.0)(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))))(@effect-rx/rx@0.29.1(effect@3.1.0))(@effect/platform-browser@0.32.3(@effect/platform@0.51.0(patch_hash=4l27ijewzxdep2iz7letap7qgi)(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(ws@8.17.0))(effect@3.1.0))(@effect/platform@0.51.0(patch_hash=4l27ijewzxdep2iz7letap7qgi)(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(ws@8.17.0))(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(@sentry/browser@7.112.2)(effect@3.1.0)(encoding@0.1.13)(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))':
+  '@effect-app/vue@1.3.3(@effect-rx/rx-vue@0.8.1(effect@3.1.1)(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))))(@effect-rx/rx@0.29.1(effect@3.1.1))(@effect/platform-browser@0.32.3(@effect/platform@0.52.1(patch_hash=uyodkqziw4lpz6lgrtxl2viobi)(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(ws@8.17.0))(effect@3.1.1))(@effect/platform@0.52.1(patch_hash=uyodkqziw4lpz6lgrtxl2viobi)(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(ws@8.17.0))(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(@sentry/browser@7.112.2)(effect@3.1.1)(encoding@0.1.13)(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))':
     dependencies:
-      '@effect-app/core': 1.1.0(@effect/platform@0.51.0(patch_hash=4l27ijewzxdep2iz7letap7qgi)(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(ws@8.17.0))(effect@3.1.0)(encoding@0.1.13)
-      '@effect-app/schema': 1.1.0(@effect/platform@0.51.0(patch_hash=4l27ijewzxdep2iz7letap7qgi)(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(ws@8.17.0))(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(encoding@0.1.13)
-      '@effect-rx/rx': 0.29.1(effect@3.1.0)
-      '@effect-rx/rx-vue': 0.8.1(effect@3.1.0)(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))
-      '@effect/platform': 0.51.0(patch_hash=4l27ijewzxdep2iz7letap7qgi)(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(ws@8.17.0)
-      '@effect/platform-browser': 0.32.3(@effect/platform@0.51.0(patch_hash=4l27ijewzxdep2iz7letap7qgi)(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(ws@8.17.0))(effect@3.1.0)
-      '@effect/schema': 0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0)
+      '@effect-app/core': 1.1.2(@effect/platform@0.52.1(patch_hash=uyodkqziw4lpz6lgrtxl2viobi)(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(ws@8.17.0))(effect@3.1.1)(encoding@0.1.13)
+      '@effect-app/schema': 1.1.2(@effect/platform@0.52.1(patch_hash=uyodkqziw4lpz6lgrtxl2viobi)(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(ws@8.17.0))(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(encoding@0.1.13)
+      '@effect-rx/rx': 0.29.1(effect@3.1.1)
+      '@effect-rx/rx-vue': 0.8.1(effect@3.1.1)(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))
+      '@effect/platform': 0.52.1(patch_hash=uyodkqziw4lpz6lgrtxl2viobi)(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(ws@8.17.0)
+      '@effect/platform-browser': 0.32.3(@effect/platform@0.52.1(patch_hash=uyodkqziw4lpz6lgrtxl2viobi)(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(ws@8.17.0))(effect@3.1.1)
+      '@effect/schema': 0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0)
       '@formatjs/intl': 2.10.1(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))
       '@sentry/browser': 7.112.2
-      '@tanstack/vue-query': 5.32.0(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))
-      effect: 3.1.0
-      effect-app: 1.2.0(@effect/platform@0.51.0(patch_hash=4l27ijewzxdep2iz7letap7qgi)(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(ws@8.17.0))(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(encoding@0.1.13)
+      '@tanstack/vue-query': 5.32.1(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))
+      effect: 3.1.1
+      effect-app: 1.2.2(@effect/platform@0.52.1(patch_hash=uyodkqziw4lpz6lgrtxl2viobi)(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(ws@8.17.0))(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(encoding@0.1.13)
       query-string: 9.0.0
       vue: 3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))
     transitivePeerDependencies:
@@ -11046,57 +11058,57 @@ snapshots:
       - encoding
       - typescript
 
-  '@effect-rx/rx-vue@0.8.1(effect@3.1.0)(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))':
+  '@effect-rx/rx-vue@0.8.1(effect@3.1.1)(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))':
     dependencies:
-      '@effect-rx/rx': 0.29.1(effect@3.1.0)
-      effect: 3.1.0
+      '@effect-rx/rx': 0.29.1(effect@3.1.1)
+      effect: 3.1.1
       vue: 3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))
 
-  '@effect-rx/rx@0.29.1(effect@3.1.0)':
+  '@effect-rx/rx@0.29.1(effect@3.1.1)':
     dependencies:
-      effect: 3.1.0
+      effect: 3.1.1
 
-  '@effect/experimental@0.15.14(@effect/platform-node@0.48.0(@effect/platform@0.51.0(patch_hash=4l27ijewzxdep2iz7letap7qgi)(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(ws@8.17.0))(effect@3.1.0))(@effect/platform@0.51.0(patch_hash=4l27ijewzxdep2iz7letap7qgi)(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(ws@8.17.0))(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(ioredis@5.3.2)(ws@8.17.0)':
+  '@effect/experimental@0.15.16(@effect/platform-node@0.48.2(@effect/platform@0.52.1(patch_hash=uyodkqziw4lpz6lgrtxl2viobi)(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(ws@8.17.0))(effect@3.1.1))(@effect/platform@0.52.1(patch_hash=uyodkqziw4lpz6lgrtxl2viobi)(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(ws@8.17.0))(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(ioredis@5.3.2)(ws@8.17.0)':
     dependencies:
-      '@effect/platform': 0.51.0(patch_hash=4l27ijewzxdep2iz7letap7qgi)(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(ws@8.17.0)
-      '@effect/schema': 0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0)
-      effect: 3.1.0
+      '@effect/platform': 0.52.1(patch_hash=uyodkqziw4lpz6lgrtxl2viobi)(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(ws@8.17.0)
+      '@effect/schema': 0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0)
+      effect: 3.1.1
       msgpackr: 1.10.1
     optionalDependencies:
-      '@effect/platform-node': 0.48.0(@effect/platform@0.51.0(patch_hash=4l27ijewzxdep2iz7letap7qgi)(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(ws@8.17.0))(effect@3.1.0)
+      '@effect/platform-node': 0.48.2(@effect/platform@0.52.1(patch_hash=uyodkqziw4lpz6lgrtxl2viobi)(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(ws@8.17.0))(effect@3.1.1)
       ioredis: 5.3.2
       ws: 8.17.0
 
-  '@effect/opentelemetry@0.34.0(@opentelemetry/api@1.8.0)(@opentelemetry/resources@1.24.0(@opentelemetry/api@1.8.0))(@opentelemetry/sdk-metrics@1.24.0(@opentelemetry/api@1.8.0))(@opentelemetry/sdk-trace-base@1.24.0(@opentelemetry/api@1.8.0))(@opentelemetry/sdk-trace-node@1.24.0(@opentelemetry/api@1.8.0))(@opentelemetry/sdk-trace-web@1.24.0(@opentelemetry/api@1.8.0))(@opentelemetry/semantic-conventions@1.24.0)(effect@3.1.0)':
+  '@effect/opentelemetry@0.34.1(@opentelemetry/api@1.8.0)(@opentelemetry/resources@1.24.0(@opentelemetry/api@1.8.0))(@opentelemetry/sdk-metrics@1.24.0(@opentelemetry/api@1.8.0))(@opentelemetry/sdk-trace-base@1.24.0(@opentelemetry/api@1.8.0))(@opentelemetry/sdk-trace-node@1.24.0(@opentelemetry/api@1.8.0))(@opentelemetry/sdk-trace-web@1.24.0(@opentelemetry/api@1.8.0))(@opentelemetry/semantic-conventions@1.24.0)(effect@3.1.1)':
     dependencies:
       '@opentelemetry/api': 1.8.0
       '@opentelemetry/resources': 1.24.0(@opentelemetry/api@1.8.0)
       '@opentelemetry/semantic-conventions': 1.24.0
-      effect: 3.1.0
+      effect: 3.1.1
     optionalDependencies:
       '@opentelemetry/sdk-metrics': 1.24.0(@opentelemetry/api@1.8.0)
       '@opentelemetry/sdk-trace-base': 1.24.0(@opentelemetry/api@1.8.0)
       '@opentelemetry/sdk-trace-node': 1.24.0(@opentelemetry/api@1.8.0)
       '@opentelemetry/sdk-trace-web': 1.24.0(@opentelemetry/api@1.8.0)
 
-  '@effect/platform-browser@0.32.3(@effect/platform@0.51.0(patch_hash=4l27ijewzxdep2iz7letap7qgi)(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(ws@8.17.0))(effect@3.1.0)':
+  '@effect/platform-browser@0.32.3(@effect/platform@0.52.1(patch_hash=uyodkqziw4lpz6lgrtxl2viobi)(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(ws@8.17.0))(effect@3.1.1)':
     dependencies:
-      '@effect/platform': 0.51.0(patch_hash=4l27ijewzxdep2iz7letap7qgi)(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(ws@8.17.0)
-      effect: 3.1.0
-      multipasta: 0.2.0
+      '@effect/platform': 0.52.1(patch_hash=uyodkqziw4lpz6lgrtxl2viobi)(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(ws@8.17.0)
+      effect: 3.1.1
+      multipasta: 0.2.1
 
-  '@effect/platform-node-shared@0.4.14(@effect/platform@0.51.0(patch_hash=4l27ijewzxdep2iz7letap7qgi)(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(ws@8.17.0))(effect@3.1.0)':
+  '@effect/platform-node-shared@0.4.16(@effect/platform@0.52.1(patch_hash=uyodkqziw4lpz6lgrtxl2viobi)(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(ws@8.17.0))(effect@3.1.1)':
     dependencies:
-      '@effect/platform': 0.51.0(patch_hash=4l27ijewzxdep2iz7letap7qgi)(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(ws@8.17.0)
+      '@effect/platform': 0.52.1(patch_hash=uyodkqziw4lpz6lgrtxl2viobi)(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(ws@8.17.0)
       '@parcel/watcher': 2.4.1
-      effect: 3.1.0
-      multipasta: 0.2.0
+      effect: 3.1.1
+      multipasta: 0.2.1
 
-  '@effect/platform-node@0.48.0(@effect/platform@0.51.0(patch_hash=4l27ijewzxdep2iz7letap7qgi)(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(ws@8.17.0))(effect@3.1.0)':
+  '@effect/platform-node@0.48.2(@effect/platform@0.52.1(patch_hash=uyodkqziw4lpz6lgrtxl2viobi)(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(ws@8.17.0))(effect@3.1.1)':
     dependencies:
-      '@effect/platform': 0.51.0(patch_hash=4l27ijewzxdep2iz7letap7qgi)(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(ws@8.17.0)
-      '@effect/platform-node-shared': 0.4.14(@effect/platform@0.51.0(patch_hash=4l27ijewzxdep2iz7letap7qgi)(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(ws@8.17.0))(effect@3.1.0)
-      effect: 3.1.0
+      '@effect/platform': 0.52.1(patch_hash=uyodkqziw4lpz6lgrtxl2viobi)(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(ws@8.17.0)
+      '@effect/platform-node-shared': 0.4.16(@effect/platform@0.52.1(patch_hash=uyodkqziw4lpz6lgrtxl2viobi)(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(ws@8.17.0))(effect@3.1.1)
+      effect: 3.1.1
       mime: 3.0.0
       undici: 6.15.0
       ws: 8.17.0
@@ -11104,20 +11116,20 @@ snapshots:
       - bufferutil
       - utf-8-validate
 
-  '@effect/platform@0.51.0(patch_hash=4l27ijewzxdep2iz7letap7qgi)(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(ws@8.17.0)':
+  '@effect/platform@0.52.1(patch_hash=uyodkqziw4lpz6lgrtxl2viobi)(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(ws@8.17.0)':
     dependencies:
-      '@effect/schema': 0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0)
-      effect: 3.1.0
-      find-my-way-ts: 0.1.1
+      '@effect/schema': 0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0)
+      effect: 3.1.1
+      find-my-way-ts: 0.1.2
       isows: 1.0.4(ws@8.17.0)
-      multipasta: 0.2.0
+      multipasta: 0.2.1
       path-browserify: 1.0.1
     transitivePeerDependencies:
       - ws
 
-  '@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0)':
+  '@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0)':
     dependencies:
-      effect: 3.1.0
+      effect: 3.1.1
       fast-check: 3.18.0
 
   '@emotion/is-prop-valid@1.2.1':
@@ -11420,7 +11432,7 @@ snapshots:
   '@grpc/grpc-js@1.9.14':
     dependencies:
       '@grpc/proto-loader': 0.7.10
-      '@types/node': 20.12.7
+      '@types/node': 20.12.8
 
   '@grpc/proto-loader@0.7.10':
     dependencies:
@@ -11470,14 +11482,14 @@ snapshots:
       '@hapi/hoek': 9.3.0
       '@hapi/topo': 5.1.0
 
-  '@hebilicious/vue-query-nuxt@0.3.0(patch_hash=5dcq766eeuesmqdcvoqrnf6tzi)(@tanstack/vue-query@5.32.0(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))))(nuxt@3.11.2(@azure/cosmos@4.0.0)(@azure/storage-blob@12.17.0(encoding@0.1.13))(@parcel/watcher@2.4.1)(@types/node@20.12.7)(@unocss/reset@0.59.2)(axios@1.6.8)(change-case@5.4.4)(encoding@0.1.13)(eslint@8.57.0)(floating-vue@5.2.2(@nuxt/kit@3.11.2(rollup@4.14.2))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))))(ioredis@5.3.2)(jwt-decode@4.0.0)(optionator@0.9.3)(rollup@4.14.2)(sass@1.75.0)(terser@5.27.0)(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))(unocss@0.59.2(postcss@8.4.38)(rollup@4.14.2)(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0)))(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0))(vue-tsc@1.8.27(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))(xml2js@0.5.0))(rollup@4.14.2)':
+  '@hebilicious/vue-query-nuxt@0.3.0(patch_hash=5dcq766eeuesmqdcvoqrnf6tzi)(@tanstack/vue-query@5.32.1(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))))(nuxt@3.11.2(@azure/cosmos@4.0.0)(@azure/storage-blob@12.17.0(encoding@0.1.13))(@parcel/watcher@2.4.1)(@types/node@20.12.8)(@unocss/reset@0.59.2)(axios@1.6.8)(change-case@5.4.4)(encoding@0.1.13)(eslint@8.57.0)(floating-vue@5.2.2(@nuxt/kit@3.11.2(rollup@4.14.2))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))))(ioredis@5.3.2)(jwt-decode@4.0.0)(optionator@0.9.3)(rollup@4.14.2)(sass@1.76.0)(terser@5.27.0)(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))(unocss@0.59.2(postcss@8.4.38)(rollup@4.14.2)(vite@5.2.11(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0)))(vite@5.2.11(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0))(vue-tsc@1.8.27(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))(xml2js@0.5.0))(rollup@4.14.2)':
     dependencies:
       '@nuxt/kit': 3.11.2(rollup@4.14.2)
-      '@tanstack/vue-query': 5.32.0(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))
+      '@tanstack/vue-query': 5.32.1(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))
       defu: 6.1.4
       esbuild: 0.19.12
       magicast: 0.3.3
-      nuxt: 3.11.2(@azure/cosmos@4.0.0)(@azure/storage-blob@12.17.0(encoding@0.1.13))(@parcel/watcher@2.4.1)(@types/node@20.12.7)(@unocss/reset@0.59.2)(axios@1.6.8)(change-case@5.4.4)(encoding@0.1.13)(eslint@8.57.0)(floating-vue@5.2.2(@nuxt/kit@3.11.2(rollup@4.14.2))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))))(ioredis@5.3.2)(jwt-decode@4.0.0)(optionator@0.9.3)(rollup@4.14.2)(sass@1.75.0)(terser@5.27.0)(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))(unocss@0.59.2(postcss@8.4.38)(rollup@4.14.2)(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0)))(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0))(vue-tsc@1.8.27(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))(xml2js@0.5.0)
+      nuxt: 3.11.2(@azure/cosmos@4.0.0)(@azure/storage-blob@12.17.0(encoding@0.1.13))(@parcel/watcher@2.4.1)(@types/node@20.12.8)(@unocss/reset@0.59.2)(axios@1.6.8)(change-case@5.4.4)(encoding@0.1.13)(eslint@8.57.0)(floating-vue@5.2.2(@nuxt/kit@3.11.2(rollup@4.14.2))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))))(ioredis@5.3.2)(jwt-decode@4.0.0)(optionator@0.9.3)(rollup@4.14.2)(sass@1.76.0)(terser@5.27.0)(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))(unocss@0.59.2(postcss@8.4.38)(rollup@4.14.2)(vite@5.2.11(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0)))(vite@5.2.11(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0))(vue-tsc@1.8.27(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))(xml2js@0.5.0)
     transitivePeerDependencies:
       - rollup
       - supports-color
@@ -11523,14 +11535,14 @@ snapshots:
     dependencies:
       '@jest/fake-timers': 29.7.0
       '@jest/types': 29.6.3
-      '@types/node': 20.12.7
+      '@types/node': 20.12.8
       jest-mock: 29.7.0
 
   '@jest/fake-timers@29.7.0':
     dependencies:
       '@jest/types': 29.6.3
       '@sinonjs/fake-timers': 10.3.0
-      '@types/node': 20.12.7
+      '@types/node': 20.12.8
       jest-message-util: 29.7.0
       jest-mock: 29.7.0
       jest-util: 29.7.0
@@ -11543,7 +11555,7 @@ snapshots:
     dependencies:
       '@types/istanbul-lib-coverage': 2.0.6
       '@types/istanbul-reports': 3.0.4
-      '@types/node': 20.12.7
+      '@types/node': 20.12.8
       '@types/yargs': 15.0.19
       chalk: 4.1.2
 
@@ -11552,7 +11564,7 @@ snapshots:
       '@jest/schemas': 29.6.3
       '@types/istanbul-lib-coverage': 2.0.6
       '@types/istanbul-reports': 3.0.4
-      '@types/node': 20.12.7
+      '@types/node': 20.12.8
       '@types/yargs': 17.0.32
       chalk: 4.1.2
 
@@ -11780,13 +11792,13 @@ snapshots:
 
   '@nuxt/devalue@2.0.2': {}
 
-  '@nuxt/devtools-kit@1.1.5(nuxt@3.11.2(@azure/cosmos@4.0.0)(@azure/storage-blob@12.17.0(encoding@0.1.13))(@parcel/watcher@2.4.1)(@types/node@20.12.7)(@unocss/reset@0.59.2)(axios@1.6.8)(change-case@5.4.4)(encoding@0.1.13)(eslint@8.57.0)(floating-vue@5.2.2(@nuxt/kit@3.11.2(rollup@4.14.2))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))))(ioredis@5.3.2)(jwt-decode@4.0.0)(optionator@0.9.3)(rollup@4.14.2)(sass@1.75.0)(terser@5.27.0)(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))(unocss@0.59.2(postcss@8.4.38)(rollup@4.14.2)(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0)))(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0))(vue-tsc@1.8.27(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))(xml2js@0.5.0))(rollup@4.14.2)(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0))':
+  '@nuxt/devtools-kit@1.1.5(nuxt@3.11.2(@azure/cosmos@4.0.0)(@azure/storage-blob@12.17.0(encoding@0.1.13))(@parcel/watcher@2.4.1)(@types/node@20.12.8)(@unocss/reset@0.59.2)(axios@1.6.8)(change-case@5.4.4)(encoding@0.1.13)(eslint@8.57.0)(floating-vue@5.2.2(@nuxt/kit@3.11.2(rollup@4.14.2))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))))(ioredis@5.3.2)(jwt-decode@4.0.0)(optionator@0.9.3)(rollup@4.14.2)(sass@1.76.0)(terser@5.27.0)(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))(unocss@0.59.2(postcss@8.4.38)(rollup@4.14.2)(vite@5.2.11(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0)))(vite@5.2.11(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0))(vue-tsc@1.8.27(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))(xml2js@0.5.0))(rollup@4.14.2)(vite@5.2.11(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0))':
     dependencies:
       '@nuxt/kit': 3.11.2(rollup@4.14.2)
       '@nuxt/schema': 3.11.2(rollup@4.14.2)
       execa: 7.2.0
-      nuxt: 3.11.2(@azure/cosmos@4.0.0)(@azure/storage-blob@12.17.0(encoding@0.1.13))(@parcel/watcher@2.4.1)(@types/node@20.12.7)(@unocss/reset@0.59.2)(axios@1.6.8)(change-case@5.4.4)(encoding@0.1.13)(eslint@8.57.0)(floating-vue@5.2.2(@nuxt/kit@3.11.2(rollup@4.14.2))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))))(ioredis@5.3.2)(jwt-decode@4.0.0)(optionator@0.9.3)(rollup@4.14.2)(sass@1.75.0)(terser@5.27.0)(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))(unocss@0.59.2(postcss@8.4.38)(rollup@4.14.2)(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0)))(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0))(vue-tsc@1.8.27(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))(xml2js@0.5.0)
-      vite: 5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0)
+      nuxt: 3.11.2(@azure/cosmos@4.0.0)(@azure/storage-blob@12.17.0(encoding@0.1.13))(@parcel/watcher@2.4.1)(@types/node@20.12.8)(@unocss/reset@0.59.2)(axios@1.6.8)(change-case@5.4.4)(encoding@0.1.13)(eslint@8.57.0)(floating-vue@5.2.2(@nuxt/kit@3.11.2(rollup@4.14.2))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))))(ioredis@5.3.2)(jwt-decode@4.0.0)(optionator@0.9.3)(rollup@4.14.2)(sass@1.76.0)(terser@5.27.0)(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))(unocss@0.59.2(postcss@8.4.38)(rollup@4.14.2)(vite@5.2.11(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0)))(vite@5.2.11(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0))(vue-tsc@1.8.27(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))(xml2js@0.5.0)
+      vite: 5.2.11(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0)
     transitivePeerDependencies:
       - rollup
       - supports-color
@@ -11804,14 +11816,14 @@ snapshots:
       rc9: 2.1.1
       semver: 7.6.0
 
-  ? '@nuxt/devtools@1.1.5(@unocss/reset@0.59.2)(axios@1.6.8)(change-case@5.4.4)(floating-vue@5.2.2(@nuxt/kit@3.11.2(rollup@4.14.2))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))))(jwt-decode@4.0.0)(nuxt@3.11.2(@azure/cosmos@4.0.0)(@azure/storage-blob@12.17.0(encoding@0.1.13))(@parcel/watcher@2.4.1)(@types/node@20.12.7)(@unocss/reset@0.59.2)(axios@1.6.8)(change-case@5.4.4)(encoding@0.1.13)(eslint@8.57.0)(floating-vue@5.2.2(@nuxt/kit@3.11.2(rollup@4.14.2))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))))(ioredis@5.3.2)(jwt-decode@4.0.0)(optionator@0.9.3)(rollup@4.14.2)(sass@1.75.0)(terser@5.27.0)(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))(unocss@0.59.2(postcss@8.4.38)(rollup@4.14.2)(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0)))(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0))(vue-tsc@1.8.27(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))(xml2js@0.5.0))(rollup@4.14.2)(unocss@0.59.2(postcss@8.4.38)(rollup@4.14.2)(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0)))(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))'
+  ? '@nuxt/devtools@1.1.5(@unocss/reset@0.59.2)(axios@1.6.8)(change-case@5.4.4)(floating-vue@5.2.2(@nuxt/kit@3.11.2(rollup@4.14.2))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))))(jwt-decode@4.0.0)(nuxt@3.11.2(@azure/cosmos@4.0.0)(@azure/storage-blob@12.17.0(encoding@0.1.13))(@parcel/watcher@2.4.1)(@types/node@20.12.8)(@unocss/reset@0.59.2)(axios@1.6.8)(change-case@5.4.4)(encoding@0.1.13)(eslint@8.57.0)(floating-vue@5.2.2(@nuxt/kit@3.11.2(rollup@4.14.2))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))))(ioredis@5.3.2)(jwt-decode@4.0.0)(optionator@0.9.3)(rollup@4.14.2)(sass@1.76.0)(terser@5.27.0)(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))(unocss@0.59.2(postcss@8.4.38)(rollup@4.14.2)(vite@5.2.11(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0)))(vite@5.2.11(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0))(vue-tsc@1.8.27(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))(xml2js@0.5.0))(rollup@4.14.2)(unocss@0.59.2(postcss@8.4.38)(rollup@4.14.2)(vite@5.2.11(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0)))(vite@5.2.11(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))'
   : dependencies:
       '@antfu/utils': 0.7.7
-      '@nuxt/devtools-kit': 1.1.5(nuxt@3.11.2(@azure/cosmos@4.0.0)(@azure/storage-blob@12.17.0(encoding@0.1.13))(@parcel/watcher@2.4.1)(@types/node@20.12.7)(@unocss/reset@0.59.2)(axios@1.6.8)(change-case@5.4.4)(encoding@0.1.13)(eslint@8.57.0)(floating-vue@5.2.2(@nuxt/kit@3.11.2(rollup@4.14.2))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))))(ioredis@5.3.2)(jwt-decode@4.0.0)(optionator@0.9.3)(rollup@4.14.2)(sass@1.75.0)(terser@5.27.0)(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))(unocss@0.59.2(postcss@8.4.38)(rollup@4.14.2)(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0)))(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0))(vue-tsc@1.8.27(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))(xml2js@0.5.0))(rollup@4.14.2)(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0))
+      '@nuxt/devtools-kit': 1.1.5(nuxt@3.11.2(@azure/cosmos@4.0.0)(@azure/storage-blob@12.17.0(encoding@0.1.13))(@parcel/watcher@2.4.1)(@types/node@20.12.8)(@unocss/reset@0.59.2)(axios@1.6.8)(change-case@5.4.4)(encoding@0.1.13)(eslint@8.57.0)(floating-vue@5.2.2(@nuxt/kit@3.11.2(rollup@4.14.2))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))))(ioredis@5.3.2)(jwt-decode@4.0.0)(optionator@0.9.3)(rollup@4.14.2)(sass@1.76.0)(terser@5.27.0)(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))(unocss@0.59.2(postcss@8.4.38)(rollup@4.14.2)(vite@5.2.11(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0)))(vite@5.2.11(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0))(vue-tsc@1.8.27(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))(xml2js@0.5.0))(rollup@4.14.2)(vite@5.2.11(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0))
       '@nuxt/devtools-wizard': 1.1.5
       '@nuxt/kit': 3.11.2(rollup@4.14.2)
-      '@vue/devtools-applet': 7.0.27(@unocss/reset@0.59.2)(axios@1.6.8)(change-case@5.4.4)(floating-vue@5.2.2(@nuxt/kit@3.11.2(rollup@4.14.2))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))))(jwt-decode@4.0.0)(unocss@0.59.2(postcss@8.4.38)(rollup@4.14.2)(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0)))(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))
-      '@vue/devtools-core': 7.0.27(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))
+      '@vue/devtools-applet': 7.0.27(@unocss/reset@0.59.2)(axios@1.6.8)(change-case@5.4.4)(floating-vue@5.2.2(@nuxt/kit@3.11.2(rollup@4.14.2))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))))(jwt-decode@4.0.0)(unocss@0.59.2(postcss@8.4.38)(rollup@4.14.2)(vite@5.2.11(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0)))(vite@5.2.11(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))
+      '@vue/devtools-core': 7.0.27(vite@5.2.11(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))
       '@vue/devtools-kit': 7.0.27(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))
       birpc: 0.2.17
       consola: 3.2.3
@@ -11828,7 +11840,7 @@ snapshots:
       launch-editor: 2.6.1
       local-pkg: 0.5.0
       magicast: 0.3.3
-      nuxt: 3.11.2(@azure/cosmos@4.0.0)(@azure/storage-blob@12.17.0(encoding@0.1.13))(@parcel/watcher@2.4.1)(@types/node@20.12.7)(@unocss/reset@0.59.2)(axios@1.6.8)(change-case@5.4.4)(encoding@0.1.13)(eslint@8.57.0)(floating-vue@5.2.2(@nuxt/kit@3.11.2(rollup@4.14.2))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))))(ioredis@5.3.2)(jwt-decode@4.0.0)(optionator@0.9.3)(rollup@4.14.2)(sass@1.75.0)(terser@5.27.0)(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))(unocss@0.59.2(postcss@8.4.38)(rollup@4.14.2)(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0)))(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0))(vue-tsc@1.8.27(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))(xml2js@0.5.0)
+      nuxt: 3.11.2(@azure/cosmos@4.0.0)(@azure/storage-blob@12.17.0(encoding@0.1.13))(@parcel/watcher@2.4.1)(@types/node@20.12.8)(@unocss/reset@0.59.2)(axios@1.6.8)(change-case@5.4.4)(encoding@0.1.13)(eslint@8.57.0)(floating-vue@5.2.2(@nuxt/kit@3.11.2(rollup@4.14.2))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))))(ioredis@5.3.2)(jwt-decode@4.0.0)(optionator@0.9.3)(rollup@4.14.2)(sass@1.76.0)(terser@5.27.0)(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))(unocss@0.59.2(postcss@8.4.38)(rollup@4.14.2)(vite@5.2.11(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0)))(vite@5.2.11(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0))(vue-tsc@1.8.27(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))(xml2js@0.5.0)
       nypm: 0.3.8
       ohash: 1.1.3
       pacote: 17.0.6
@@ -11841,9 +11853,9 @@ snapshots:
       simple-git: 3.24.0
       sirv: 2.0.4
       unimport: 3.7.1(rollup@4.14.2)
-      vite: 5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0)
-      vite-plugin-inspect: 0.8.3(@nuxt/kit@3.11.2(rollup@4.14.2))(rollup@4.14.2)(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0))
-      vite-plugin-vue-inspector: 4.0.2(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0))
+      vite: 5.2.11(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0)
+      vite-plugin-inspect: 0.8.3(@nuxt/kit@3.11.2(rollup@4.14.2))(rollup@4.14.2)(vite@5.2.11(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0))
+      vite-plugin-vue-inspector: 4.0.2(vite@5.2.11(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0))
       which: 3.0.1
       ws: 8.17.0
     transitivePeerDependencies:
@@ -11935,12 +11947,12 @@ snapshots:
 
   '@nuxt/ui-templates@1.3.3': {}
 
-  '@nuxt/vite-builder@3.11.2(@types/node@20.12.7)(eslint@8.57.0)(optionator@0.9.3)(rollup@4.14.2)(sass@1.75.0)(terser@5.27.0)(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))(vue-tsc@1.8.27(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))':
+  '@nuxt/vite-builder@3.11.2(@types/node@20.12.8)(eslint@8.57.0)(optionator@0.9.3)(rollup@4.14.2)(sass@1.76.0)(terser@5.27.0)(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))(vue-tsc@1.8.27(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))':
     dependencies:
       '@nuxt/kit': 3.11.2(rollup@4.14.2)
       '@rollup/plugin-replace': 5.0.5(rollup@4.14.2)
-      '@vitejs/plugin-vue': 5.0.4(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))
-      '@vitejs/plugin-vue-jsx': 3.1.0(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))
+      '@vitejs/plugin-vue': 5.0.4(vite@5.2.11(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))
+      '@vitejs/plugin-vue-jsx': 3.1.0(vite@5.2.11(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))
       autoprefixer: 10.4.19(postcss@8.4.38)
       clear: 0.1.0
       consola: 3.2.3
@@ -11967,9 +11979,9 @@ snapshots:
       ufo: 1.5.3
       unenv: 1.9.0
       unplugin: 1.10.1
-      vite: 5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0)
-      vite-node: 1.5.2(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0)
-      vite-plugin-checker: 0.6.4(eslint@8.57.0)(optionator@0.9.3)(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0))(vue-tsc@1.8.27(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))
+      vite: 5.2.11(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0)
+      vite-node: 1.5.3(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0)
+      vite-plugin-checker: 0.6.4(eslint@8.57.0)(optionator@0.9.3)(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))(vite@5.2.11(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0))(vue-tsc@1.8.27(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))
       vue: 3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))
       vue-bundle-renderer: 2.0.0
     transitivePeerDependencies:
@@ -12010,7 +12022,7 @@ snapshots:
 
   '@opentelemetry/api@1.8.0': {}
 
-  '@opentelemetry/auto-instrumentations-node@0.45.0(@opentelemetry/api@1.8.0)(encoding@0.1.13)':
+  '@opentelemetry/auto-instrumentations-node@0.46.0(@opentelemetry/api@1.8.0)(encoding@0.1.13)':
     dependencies:
       '@opentelemetry/api': 1.8.0
       '@opentelemetry/instrumentation': 0.51.0(@opentelemetry/api@1.8.0)
@@ -12022,37 +12034,39 @@ snapshots:
       '@opentelemetry/instrumentation-connect': 0.36.0(@opentelemetry/api@1.8.0)
       '@opentelemetry/instrumentation-cucumber': 0.6.0(@opentelemetry/api@1.8.0)
       '@opentelemetry/instrumentation-dataloader': 0.9.0(@opentelemetry/api@1.8.0)
-      '@opentelemetry/instrumentation-dns': 0.36.0(@opentelemetry/api@1.8.0)
+      '@opentelemetry/instrumentation-dns': 0.36.1(@opentelemetry/api@1.8.0)
       '@opentelemetry/instrumentation-express': 0.38.0(@opentelemetry/api@1.8.0)
-      '@opentelemetry/instrumentation-fastify': 0.36.0(@opentelemetry/api@1.8.0)
+      '@opentelemetry/instrumentation-fastify': 0.36.1(@opentelemetry/api@1.8.0)
       '@opentelemetry/instrumentation-fs': 0.12.0(@opentelemetry/api@1.8.0)
       '@opentelemetry/instrumentation-generic-pool': 0.36.0(@opentelemetry/api@1.8.0)
       '@opentelemetry/instrumentation-graphql': 0.40.0(@opentelemetry/api@1.8.0)
       '@opentelemetry/instrumentation-grpc': 0.51.0(@opentelemetry/api@1.8.0)
-      '@opentelemetry/instrumentation-hapi': 0.37.0(@opentelemetry/api@1.8.0)
+      '@opentelemetry/instrumentation-hapi': 0.38.0(@opentelemetry/api@1.8.0)
       '@opentelemetry/instrumentation-http': 0.51.0(@opentelemetry/api@1.8.0)
       '@opentelemetry/instrumentation-ioredis': 0.40.0(@opentelemetry/api@1.8.0)
-      '@opentelemetry/instrumentation-knex': 0.36.0(@opentelemetry/api@1.8.0)
+      '@opentelemetry/instrumentation-knex': 0.36.1(@opentelemetry/api@1.8.0)
       '@opentelemetry/instrumentation-koa': 0.40.0(@opentelemetry/api@1.8.0)
       '@opentelemetry/instrumentation-lru-memoizer': 0.37.0(@opentelemetry/api@1.8.0)
       '@opentelemetry/instrumentation-memcached': 0.36.0(@opentelemetry/api@1.8.0)
       '@opentelemetry/instrumentation-mongodb': 0.43.0(@opentelemetry/api@1.8.0)
-      '@opentelemetry/instrumentation-mongoose': 0.38.0(@opentelemetry/api@1.8.0)
-      '@opentelemetry/instrumentation-mysql': 0.38.0(@opentelemetry/api@1.8.0)
-      '@opentelemetry/instrumentation-mysql2': 0.38.0(@opentelemetry/api@1.8.0)
-      '@opentelemetry/instrumentation-nestjs-core': 0.37.0(@opentelemetry/api@1.8.0)
+      '@opentelemetry/instrumentation-mongoose': 0.38.1(@opentelemetry/api@1.8.0)
+      '@opentelemetry/instrumentation-mysql': 0.38.1(@opentelemetry/api@1.8.0)
+      '@opentelemetry/instrumentation-mysql2': 0.38.1(@opentelemetry/api@1.8.0)
+      '@opentelemetry/instrumentation-nestjs-core': 0.37.1(@opentelemetry/api@1.8.0)
       '@opentelemetry/instrumentation-net': 0.36.0(@opentelemetry/api@1.8.0)
       '@opentelemetry/instrumentation-pg': 0.41.0(@opentelemetry/api@1.8.0)
-      '@opentelemetry/instrumentation-pino': 0.38.0(@opentelemetry/api@1.8.0)
-      '@opentelemetry/instrumentation-redis': 0.39.0(@opentelemetry/api@1.8.0)
+      '@opentelemetry/instrumentation-pino': 0.39.0(@opentelemetry/api@1.8.0)
+      '@opentelemetry/instrumentation-redis': 0.39.1(@opentelemetry/api@1.8.0)
       '@opentelemetry/instrumentation-redis-4': 0.39.0(@opentelemetry/api@1.8.0)
       '@opentelemetry/instrumentation-restify': 0.38.0(@opentelemetry/api@1.8.0)
       '@opentelemetry/instrumentation-router': 0.37.0(@opentelemetry/api@1.8.0)
       '@opentelemetry/instrumentation-socket.io': 0.39.0(@opentelemetry/api@1.8.0)
-      '@opentelemetry/instrumentation-tedious': 0.10.0(@opentelemetry/api@1.8.0)
+      '@opentelemetry/instrumentation-tedious': 0.10.1(@opentelemetry/api@1.8.0)
+      '@opentelemetry/instrumentation-undici': 0.2.0(@opentelemetry/api@1.8.0)
       '@opentelemetry/instrumentation-winston': 0.37.0(@opentelemetry/api@1.8.0)
       '@opentelemetry/resource-detector-alibaba-cloud': 0.28.9(@opentelemetry/api@1.8.0)
       '@opentelemetry/resource-detector-aws': 1.4.2(@opentelemetry/api@1.8.0)
+      '@opentelemetry/resource-detector-azure': 0.2.7(@opentelemetry/api@1.8.0)
       '@opentelemetry/resource-detector-container': 0.3.9(@opentelemetry/api@1.8.0)
       '@opentelemetry/resource-detector-gcp': 0.29.9(@opentelemetry/api@1.8.0)(encoding@0.1.13)
       '@opentelemetry/resources': 1.24.0(@opentelemetry/api@1.8.0)
@@ -12241,7 +12255,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@opentelemetry/instrumentation-dns@0.36.0(@opentelemetry/api@1.8.0)':
+  '@opentelemetry/instrumentation-dns@0.36.1(@opentelemetry/api@1.8.0)':
     dependencies:
       '@opentelemetry/api': 1.8.0
       '@opentelemetry/instrumentation': 0.51.0(@opentelemetry/api@1.8.0)
@@ -12277,7 +12291,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@opentelemetry/instrumentation-fastify@0.36.0(@opentelemetry/api@1.8.0)':
+  '@opentelemetry/instrumentation-fastify@0.36.1(@opentelemetry/api@1.8.0)':
     dependencies:
       '@opentelemetry/api': 1.8.0
       '@opentelemetry/core': 1.24.0(@opentelemetry/api@1.8.0)
@@ -12334,13 +12348,12 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@opentelemetry/instrumentation-hapi@0.37.0(@opentelemetry/api@1.8.0)':
+  '@opentelemetry/instrumentation-hapi@0.38.0(@opentelemetry/api@1.8.0)':
     dependencies:
       '@opentelemetry/api': 1.8.0
       '@opentelemetry/core': 1.24.0(@opentelemetry/api@1.8.0)
       '@opentelemetry/instrumentation': 0.51.0(@opentelemetry/api@1.8.0)
       '@opentelemetry/semantic-conventions': 1.24.0
-      '@types/hapi__hapi': 20.0.13
     transitivePeerDependencies:
       - supports-color
 
@@ -12373,7 +12386,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@opentelemetry/instrumentation-knex@0.36.0(@opentelemetry/api@1.8.0)':
+  '@opentelemetry/instrumentation-knex@0.36.1(@opentelemetry/api@1.8.0)':
     dependencies:
       '@opentelemetry/api': 1.8.0
       '@opentelemetry/instrumentation': 0.51.0(@opentelemetry/api@1.8.0)
@@ -12446,7 +12459,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@opentelemetry/instrumentation-mongoose@0.38.0(@opentelemetry/api@1.8.0)':
+  '@opentelemetry/instrumentation-mongoose@0.38.1(@opentelemetry/api@1.8.0)':
     dependencies:
       '@opentelemetry/api': 1.8.0
       '@opentelemetry/core': 1.24.0(@opentelemetry/api@1.8.0)
@@ -12464,7 +12477,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@opentelemetry/instrumentation-mysql2@0.38.0(@opentelemetry/api@1.8.0)':
+  '@opentelemetry/instrumentation-mysql2@0.38.1(@opentelemetry/api@1.8.0)':
     dependencies:
       '@opentelemetry/api': 1.8.0
       '@opentelemetry/instrumentation': 0.51.0(@opentelemetry/api@1.8.0)
@@ -12482,7 +12495,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@opentelemetry/instrumentation-mysql@0.38.0(@opentelemetry/api@1.8.0)':
+  '@opentelemetry/instrumentation-mysql@0.38.1(@opentelemetry/api@1.8.0)':
     dependencies:
       '@opentelemetry/api': 1.8.0
       '@opentelemetry/instrumentation': 0.51.0(@opentelemetry/api@1.8.0)
@@ -12499,7 +12512,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@opentelemetry/instrumentation-nestjs-core@0.37.0(@opentelemetry/api@1.8.0)':
+  '@opentelemetry/instrumentation-nestjs-core@0.37.1(@opentelemetry/api@1.8.0)':
     dependencies:
       '@opentelemetry/api': 1.8.0
       '@opentelemetry/instrumentation': 0.51.0(@opentelemetry/api@1.8.0)
@@ -12537,7 +12550,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@opentelemetry/instrumentation-pino@0.38.0(@opentelemetry/api@1.8.0)':
+  '@opentelemetry/instrumentation-pino@0.39.0(@opentelemetry/api@1.8.0)':
     dependencies:
       '@opentelemetry/api': 1.8.0
       '@opentelemetry/instrumentation': 0.51.0(@opentelemetry/api@1.8.0)
@@ -12553,7 +12566,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@opentelemetry/instrumentation-redis@0.39.0(@opentelemetry/api@1.8.0)':
+  '@opentelemetry/instrumentation-redis@0.39.1(@opentelemetry/api@1.8.0)':
     dependencies:
       '@opentelemetry/api': 1.8.0
       '@opentelemetry/instrumentation': 0.51.0(@opentelemetry/api@1.8.0)
@@ -12587,12 +12600,20 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@opentelemetry/instrumentation-tedious@0.10.0(@opentelemetry/api@1.8.0)':
+  '@opentelemetry/instrumentation-tedious@0.10.1(@opentelemetry/api@1.8.0)':
     dependencies:
       '@opentelemetry/api': 1.8.0
       '@opentelemetry/instrumentation': 0.51.0(@opentelemetry/api@1.8.0)
       '@opentelemetry/semantic-conventions': 1.24.0
       '@types/tedious': 4.0.14
+    transitivePeerDependencies:
+      - supports-color
+
+  '@opentelemetry/instrumentation-undici@0.2.0(@opentelemetry/api@1.8.0)':
+    dependencies:
+      '@opentelemetry/api': 1.8.0
+      '@opentelemetry/core': 1.24.0(@opentelemetry/api@1.8.0)
+      '@opentelemetry/instrumentation': 0.51.0(@opentelemetry/api@1.8.0)
     transitivePeerDependencies:
       - supports-color
 
@@ -12724,6 +12745,12 @@ snapshots:
     dependencies:
       '@opentelemetry/api': 1.8.0
       '@opentelemetry/core': 1.24.0(@opentelemetry/api@1.8.0)
+      '@opentelemetry/resources': 1.24.0(@opentelemetry/api@1.8.0)
+      '@opentelemetry/semantic-conventions': 1.24.0
+
+  '@opentelemetry/resource-detector-azure@0.2.7(@opentelemetry/api@1.8.0)':
+    dependencies:
+      '@opentelemetry/api': 1.8.0
       '@opentelemetry/resources': 1.24.0(@opentelemetry/api@1.8.0)
       '@opentelemetry/semantic-conventions': 1.24.0
 
@@ -13447,20 +13474,20 @@ snapshots:
     dependencies:
       remove-accents: 0.4.2
 
-  '@tanstack/query-core@5.32.0': {}
+  '@tanstack/query-core@5.32.1': {}
 
-  '@tanstack/query-devtools@5.28.10': {}
+  '@tanstack/query-devtools@5.32.1': {}
 
-  '@tanstack/vue-query-devtools@5.32.0(@tanstack/vue-query@5.32.0(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))':
+  '@tanstack/vue-query-devtools@5.32.1(@tanstack/vue-query@5.32.1(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))':
     dependencies:
-      '@tanstack/query-devtools': 5.28.10
-      '@tanstack/vue-query': 5.32.0(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))
+      '@tanstack/query-devtools': 5.32.1
+      '@tanstack/vue-query': 5.32.1(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))
       vue: 3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))
 
-  '@tanstack/vue-query@5.32.0(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))':
+  '@tanstack/vue-query@5.32.1(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))':
     dependencies:
       '@tanstack/match-sorter-utils': 8.11.8
-      '@tanstack/query-core': 5.32.0
+      '@tanstack/query-core': 5.32.1
       '@vue/devtools-api': 6.5.1
       vue: 3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))
       vue-demi: 0.14.7(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))
@@ -13489,26 +13516,26 @@ snapshots:
 
   '@types/accepts@1.3.7':
     dependencies:
-      '@types/node': 20.12.7
+      '@types/node': 20.12.8
 
   '@types/aws-lambda@8.10.122': {}
 
   '@types/body-parser@1.19.5':
     dependencies:
       '@types/connect': 3.4.38
-      '@types/node': 20.12.7
+      '@types/node': 20.12.8
 
   '@types/bunyan@1.8.9':
     dependencies:
-      '@types/node': 20.12.7
+      '@types/node': 20.12.8
 
   '@types/connect@3.4.36':
     dependencies:
-      '@types/node': 20.12.7
+      '@types/node': 20.12.8
 
   '@types/connect@3.4.38':
     dependencies:
-      '@types/node': 20.12.7
+      '@types/node': 20.12.8
 
   '@types/content-disposition@0.5.8': {}
 
@@ -13519,11 +13546,11 @@ snapshots:
       '@types/connect': 3.4.38
       '@types/express': 4.17.21
       '@types/keygrip': 1.0.6
-      '@types/node': 20.12.7
+      '@types/node': 20.12.8
 
   '@types/cors@2.8.17':
     dependencies:
-      '@types/node': 20.12.7
+      '@types/node': 20.12.8
 
   '@types/eslint-scope@3.7.7':
     dependencies:
@@ -13539,7 +13566,7 @@ snapshots:
 
   '@types/express-serve-static-core@4.17.43':
     dependencies:
-      '@types/node': 20.12.7
+      '@types/node': 20.12.8
       '@types/qs': 6.9.11
       '@types/range-parser': 1.2.7
       '@types/send': 0.17.4
@@ -13561,7 +13588,7 @@ snapshots:
       '@types/hapi__catbox': 10.2.6
       '@types/hapi__mimos': 4.1.4
       '@types/hapi__shot': 4.1.6
-      '@types/node': 20.12.7
+      '@types/node': 20.12.8
       joi: 17.12.1
 
   '@types/hapi__mimos@4.1.4':
@@ -13570,7 +13597,7 @@ snapshots:
 
   '@types/hapi__shot@4.1.6':
     dependencies:
-      '@types/node': 20.12.7
+      '@types/node': 20.12.8
 
   '@types/http-assert@1.5.5': {}
 
@@ -13580,11 +13607,11 @@ snapshots:
 
   '@types/http-proxy@1.17.14':
     dependencies:
-      '@types/node': 20.12.7
+      '@types/node': 20.12.8
 
   '@types/is-buffer@2.0.2':
     dependencies:
-      '@types/node': 20.12.7
+      '@types/node': 20.12.8
 
   '@types/istanbul-lib-coverage@2.0.6': {}
 
@@ -13598,7 +13625,7 @@ snapshots:
 
   '@types/jsdom@20.0.1':
     dependencies:
-      '@types/node': 20.12.7
+      '@types/node': 20.12.8
       '@types/tough-cookie': 4.0.5
       parse5: 7.1.2
 
@@ -13610,7 +13637,7 @@ snapshots:
 
   '@types/jsonwebtoken@8.5.9':
     dependencies:
-      '@types/node': 20.12.7
+      '@types/node': 20.12.8
 
   '@types/keygrip@1.0.6': {}
 
@@ -13627,26 +13654,26 @@ snapshots:
       '@types/http-errors': 2.0.4
       '@types/keygrip': 1.0.6
       '@types/koa-compose': 3.2.8
-      '@types/node': 20.12.7
+      '@types/node': 20.12.8
 
   '@types/koa__router@12.0.3':
     dependencies:
       '@types/koa': 2.14.0
 
-  '@types/linkify-it@3.0.5': {}
+  '@types/linkify-it@5.0.0': {}
 
   '@types/lodash@4.17.0': {}
 
-  '@types/markdown-it@14.0.1':
+  '@types/markdown-it@14.1.1':
     dependencies:
-      '@types/linkify-it': 3.0.5
-      '@types/mdurl': 1.0.5
+      '@types/linkify-it': 5.0.0
+      '@types/mdurl': 2.0.0
 
-  '@types/mdurl@1.0.5': {}
+  '@types/mdurl@2.0.0': {}
 
   '@types/memcached@2.2.10':
     dependencies:
-      '@types/node': 20.12.7
+      '@types/node': 20.12.8
 
   '@types/mime-db@1.43.5': {}
 
@@ -13656,16 +13683,16 @@ snapshots:
 
   '@types/mysql@2.15.22':
     dependencies:
-      '@types/node': 20.12.7
+      '@types/node': 20.12.8
 
   '@types/node-fetch@2.6.11':
     dependencies:
-      '@types/node': 20.12.7
+      '@types/node': 20.12.8
       form-data: 4.0.0
 
   '@types/node@17.0.45': {}
 
-  '@types/node@20.12.7':
+  '@types/node@20.12.8':
     dependencies:
       undici-types: 5.26.5
 
@@ -13679,7 +13706,7 @@ snapshots:
 
   '@types/pg@8.6.1':
     dependencies:
-      '@types/node': 20.12.7
+      '@types/node': 20.12.8
       pg-protocol: 1.6.0
       pg-types: 2.2.0
 
@@ -13691,7 +13718,7 @@ snapshots:
 
   '@types/redis@2.8.32':
     dependencies:
-      '@types/node': 20.12.7
+      '@types/node': 20.12.8
 
   '@types/resolve@1.20.2': {}
 
@@ -13702,13 +13729,13 @@ snapshots:
   '@types/send@0.17.4':
     dependencies:
       '@types/mime': 1.3.5
-      '@types/node': 20.12.7
+      '@types/node': 20.12.8
 
   '@types/serve-static@1.15.5':
     dependencies:
       '@types/http-errors': 2.0.4
       '@types/mime': 3.0.4
-      '@types/node': 20.12.7
+      '@types/node': 20.12.8
 
   '@types/shimmer@1.0.5': {}
 
@@ -13725,13 +13752,13 @@ snapshots:
 
   '@types/tedious@4.0.14':
     dependencies:
-      '@types/node': 20.12.7
+      '@types/node': 20.12.8
 
   '@types/tough-cookie@4.0.5': {}
 
   '@types/tunnel@0.0.3':
     dependencies:
-      '@types/node': 20.12.7
+      '@types/node': 20.12.8
 
   '@types/web-bluetooth@0.0.20': {}
 
@@ -13922,13 +13949,13 @@ snapshots:
       unhead: 1.9.5
       vue: 3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))
 
-  '@unocss/astro@0.59.2(rollup@4.14.2)(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0))':
+  '@unocss/astro@0.59.2(rollup@4.14.2)(vite@5.2.11(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0))':
     dependencies:
       '@unocss/core': 0.59.2
       '@unocss/reset': 0.59.2
-      '@unocss/vite': 0.59.2(rollup@4.14.2)(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0))
+      '@unocss/vite': 0.59.2(rollup@4.14.2)(vite@5.2.11(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0))
     optionalDependencies:
-      vite: 5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0)
+      vite: 5.2.11(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0)
     transitivePeerDependencies:
       - rollup
 
@@ -14059,7 +14086,7 @@ snapshots:
     dependencies:
       '@unocss/core': 0.59.2
 
-  '@unocss/vite@0.59.2(rollup@4.14.2)(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0))':
+  '@unocss/vite@0.59.2(rollup@4.14.2)(vite@5.2.11(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0))':
     dependencies:
       '@ampproject/remapping': 2.3.0
       '@rollup/pluginutils': 5.1.0(rollup@4.14.2)
@@ -14071,7 +14098,7 @@ snapshots:
       chokidar: 3.6.0
       fast-glob: 3.3.2
       magic-string: 0.30.10
-      vite: 5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0)
+      vite: 5.2.11(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0)
     transitivePeerDependencies:
       - rollup
 
@@ -14093,44 +14120,44 @@ snapshots:
       - encoding
       - supports-color
 
-  '@vitejs/plugin-vue-jsx@3.1.0(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))':
+  '@vitejs/plugin-vue-jsx@3.1.0(vite@5.2.11(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))':
     dependencies:
       '@babel/core': 7.24.5
       '@babel/plugin-transform-typescript': 7.24.1(@babel/core@7.24.5)
       '@vue/babel-plugin-jsx': 1.2.1(@babel/core@7.24.5)
-      vite: 5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0)
+      vite: 5.2.11(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0)
       vue: 3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))
     transitivePeerDependencies:
       - supports-color
 
-  '@vitejs/plugin-vue@5.0.4(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))':
+  '@vitejs/plugin-vue@5.0.4(vite@5.2.11(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))':
     dependencies:
-      vite: 5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0)
+      vite: 5.2.11(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0)
       vue: 3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))
 
-  '@vitest/expect@1.5.2':
+  '@vitest/expect@1.5.3':
     dependencies:
-      '@vitest/spy': 1.5.2
-      '@vitest/utils': 1.5.2
+      '@vitest/spy': 1.5.3
+      '@vitest/utils': 1.5.3
       chai: 4.4.1
 
-  '@vitest/runner@1.5.2':
+  '@vitest/runner@1.5.3':
     dependencies:
-      '@vitest/utils': 1.5.2
+      '@vitest/utils': 1.5.3
       p-limit: 5.0.0
       pathe: 1.1.2
 
-  '@vitest/snapshot@1.5.2':
+  '@vitest/snapshot@1.5.3':
     dependencies:
       magic-string: 0.30.10
       pathe: 1.1.2
       pretty-format: 29.7.0
 
-  '@vitest/spy@1.5.2':
+  '@vitest/spy@1.5.3':
     dependencies:
       tinyspy: 2.2.0
 
-  '@vitest/utils@1.5.2':
+  '@vitest/utils@1.5.3':
     dependencies:
       diff-sequences: 29.6.3
       estree-walker: 3.0.3
@@ -14224,12 +14251,12 @@ snapshots:
 
   '@vue/devtools-api@6.5.1': {}
 
-  '@vue/devtools-applet@7.0.27(@unocss/reset@0.59.2)(axios@1.6.8)(change-case@5.4.4)(floating-vue@5.2.2(@nuxt/kit@3.11.2(rollup@4.14.2))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))))(jwt-decode@4.0.0)(unocss@0.59.2(postcss@8.4.38)(rollup@4.14.2)(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0)))(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))':
+  '@vue/devtools-applet@7.0.27(@unocss/reset@0.59.2)(axios@1.6.8)(change-case@5.4.4)(floating-vue@5.2.2(@nuxt/kit@3.11.2(rollup@4.14.2))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))))(jwt-decode@4.0.0)(unocss@0.59.2(postcss@8.4.38)(rollup@4.14.2)(vite@5.2.11(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0)))(vite@5.2.11(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))':
     dependencies:
-      '@vue/devtools-core': 7.0.27(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))
+      '@vue/devtools-core': 7.0.27(vite@5.2.11(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))
       '@vue/devtools-kit': 7.0.27(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))
       '@vue/devtools-shared': 7.0.27
-      '@vue/devtools-ui': 7.0.27(@unocss/reset@0.59.2)(axios@1.6.8)(change-case@5.4.4)(floating-vue@5.2.2(@nuxt/kit@3.11.2(rollup@4.14.2))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))))(jwt-decode@4.0.0)(unocss@0.59.2(postcss@8.4.38)(rollup@4.14.2)(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0)))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))
+      '@vue/devtools-ui': 7.0.27(@unocss/reset@0.59.2)(axios@1.6.8)(change-case@5.4.4)(floating-vue@5.2.2(@nuxt/kit@3.11.2(rollup@4.14.2))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))))(jwt-decode@4.0.0)(unocss@0.59.2(postcss@8.4.38)(rollup@4.14.2)(vite@5.2.11(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0)))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))
       perfect-debounce: 1.0.0
       splitpanes: 3.1.5
       vue: 3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))
@@ -14252,14 +14279,14 @@ snapshots:
       - unocss
       - vite
 
-  '@vue/devtools-core@7.0.27(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))':
+  '@vue/devtools-core@7.0.27(vite@5.2.11(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))':
     dependencies:
       '@vue/devtools-kit': 7.0.27(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))
       '@vue/devtools-shared': 7.0.27
       mitt: 3.0.1
       nanoid: 3.3.7
       pathe: 1.1.2
-      vite-hot-client: 0.2.3(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0))
+      vite-hot-client: 0.2.3(vite@5.2.11(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0))
     transitivePeerDependencies:
       - vite
       - vue
@@ -14277,7 +14304,7 @@ snapshots:
     dependencies:
       rfdc: 1.3.1
 
-  '@vue/devtools-ui@7.0.27(@unocss/reset@0.59.2)(axios@1.6.8)(change-case@5.4.4)(floating-vue@5.2.2(@nuxt/kit@3.11.2(rollup@4.14.2))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))))(jwt-decode@4.0.0)(unocss@0.59.2(postcss@8.4.38)(rollup@4.14.2)(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0)))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))':
+  '@vue/devtools-ui@7.0.27(@unocss/reset@0.59.2)(axios@1.6.8)(change-case@5.4.4)(floating-vue@5.2.2(@nuxt/kit@3.11.2(rollup@4.14.2))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))))(jwt-decode@4.0.0)(unocss@0.59.2(postcss@8.4.38)(rollup@4.14.2)(vite@5.2.11(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0)))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))':
     dependencies:
       '@unocss/reset': 0.59.2
       '@vueuse/components': 10.9.0(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))
@@ -14286,7 +14313,7 @@ snapshots:
       colord: 2.9.3
       floating-vue: 5.2.2(@nuxt/kit@3.11.2(rollup@4.14.2))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))
       focus-trap: 7.5.4
-      unocss: 0.59.2(postcss@8.4.38)(rollup@4.14.2)(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0))
+      unocss: 0.59.2(postcss@8.4.38)(rollup@4.14.2)(vite@5.2.11(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0))
       vue: 3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))
     transitivePeerDependencies:
       - '@vue/composition-api'
@@ -14374,13 +14401,13 @@ snapshots:
 
   '@vueuse/metadata@10.9.0': {}
 
-  '@vueuse/nuxt@10.9.0(nuxt@3.11.2(@azure/cosmos@4.0.0)(@azure/storage-blob@12.17.0(encoding@0.1.13))(@parcel/watcher@2.4.1)(@types/node@20.12.7)(@unocss/reset@0.59.2)(axios@1.6.8)(change-case@5.4.4)(encoding@0.1.13)(eslint@8.57.0)(floating-vue@5.2.2(@nuxt/kit@3.11.2(rollup@4.14.2))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))))(ioredis@5.3.2)(jwt-decode@4.0.0)(optionator@0.9.3)(rollup@4.14.2)(sass@1.75.0)(terser@5.27.0)(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))(unocss@0.59.2(postcss@8.4.38)(rollup@4.14.2)(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0)))(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0))(vue-tsc@1.8.27(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))(xml2js@0.5.0))(rollup@4.14.2)(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))':
+  '@vueuse/nuxt@10.9.0(nuxt@3.11.2(@azure/cosmos@4.0.0)(@azure/storage-blob@12.17.0(encoding@0.1.13))(@parcel/watcher@2.4.1)(@types/node@20.12.8)(@unocss/reset@0.59.2)(axios@1.6.8)(change-case@5.4.4)(encoding@0.1.13)(eslint@8.57.0)(floating-vue@5.2.2(@nuxt/kit@3.11.2(rollup@4.14.2))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))))(ioredis@5.3.2)(jwt-decode@4.0.0)(optionator@0.9.3)(rollup@4.14.2)(sass@1.76.0)(terser@5.27.0)(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))(unocss@0.59.2(postcss@8.4.38)(rollup@4.14.2)(vite@5.2.11(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0)))(vite@5.2.11(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0))(vue-tsc@1.8.27(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))(xml2js@0.5.0))(rollup@4.14.2)(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))':
     dependencies:
       '@nuxt/kit': 3.11.2(rollup@4.14.2)
       '@vueuse/core': 10.9.0(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))
       '@vueuse/metadata': 10.9.0
       local-pkg: 0.5.0
-      nuxt: 3.11.2(@azure/cosmos@4.0.0)(@azure/storage-blob@12.17.0(encoding@0.1.13))(@parcel/watcher@2.4.1)(@types/node@20.12.7)(@unocss/reset@0.59.2)(axios@1.6.8)(change-case@5.4.4)(encoding@0.1.13)(eslint@8.57.0)(floating-vue@5.2.2(@nuxt/kit@3.11.2(rollup@4.14.2))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))))(ioredis@5.3.2)(jwt-decode@4.0.0)(optionator@0.9.3)(rollup@4.14.2)(sass@1.75.0)(terser@5.27.0)(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))(unocss@0.59.2(postcss@8.4.38)(rollup@4.14.2)(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0)))(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0))(vue-tsc@1.8.27(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))(xml2js@0.5.0)
+      nuxt: 3.11.2(@azure/cosmos@4.0.0)(@azure/storage-blob@12.17.0(encoding@0.1.13))(@parcel/watcher@2.4.1)(@types/node@20.12.8)(@unocss/reset@0.59.2)(axios@1.6.8)(change-case@5.4.4)(encoding@0.1.13)(eslint@8.57.0)(floating-vue@5.2.2(@nuxt/kit@3.11.2(rollup@4.14.2))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))))(ioredis@5.3.2)(jwt-decode@4.0.0)(optionator@0.9.3)(rollup@4.14.2)(sass@1.76.0)(terser@5.27.0)(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))(unocss@0.59.2(postcss@8.4.38)(rollup@4.14.2)(vite@5.2.11(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0)))(vite@5.2.11(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0))(vue-tsc@1.8.27(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))(xml2js@0.5.0)
       vue-demi: 0.14.7(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))
     transitivePeerDependencies:
       - '@vue/composition-api'
@@ -15608,15 +15635,15 @@ snapshots:
 
   ee-first@1.1.1: {}
 
-  effect-app@1.2.0(@effect/platform@0.51.0(patch_hash=4l27ijewzxdep2iz7letap7qgi)(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(ws@8.17.0))(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(encoding@0.1.13):
+  effect-app@1.2.2(@effect/platform@0.52.1(patch_hash=uyodkqziw4lpz6lgrtxl2viobi)(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(ws@8.17.0))(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(encoding@0.1.13):
     dependencies:
-      '@effect-app/core': 1.1.0(@effect/platform@0.51.0(patch_hash=4l27ijewzxdep2iz7letap7qgi)(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(ws@8.17.0))(effect@3.1.0)(encoding@0.1.13)
-      '@effect-app/schema': 1.1.0(@effect/platform@0.51.0(patch_hash=4l27ijewzxdep2iz7letap7qgi)(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(ws@8.17.0))(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(encoding@0.1.13)
-      '@effect/platform': 0.51.0(patch_hash=4l27ijewzxdep2iz7letap7qgi)(@effect/schema@0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0))(effect@3.1.0)(ws@8.17.0)
-      '@effect/schema': 0.66.12(patch_hash=zqgw5no4kkxyjgt5bitm5hxqka)(effect@3.1.0)(fast-check@3.18.0)
+      '@effect-app/core': 1.1.2(@effect/platform@0.52.1(patch_hash=uyodkqziw4lpz6lgrtxl2viobi)(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(ws@8.17.0))(effect@3.1.1)(encoding@0.1.13)
+      '@effect-app/schema': 1.1.2(@effect/platform@0.52.1(patch_hash=uyodkqziw4lpz6lgrtxl2viobi)(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(ws@8.17.0))(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(encoding@0.1.13)
+      '@effect/platform': 0.52.1(patch_hash=uyodkqziw4lpz6lgrtxl2viobi)(@effect/schema@0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0))(effect@3.1.1)(ws@8.17.0)
+      '@effect/schema': 0.66.13(patch_hash=jb2myy2uygu6kaawvt5cbmngra)(effect@3.1.1)(fast-check@3.18.0)
       '@tsconfig/strictest': 2.0.5
       date-fns: 3.6.0
-      effect: 3.1.0
+      effect: 3.1.1
       nanoid: 5.0.7
       path-parser: 6.1.0
       query-string: 9.0.0
@@ -15626,7 +15653,7 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
-  effect@3.1.0: {}
+  effect@3.1.1: {}
 
   electron-to-chromium@1.4.708: {}
 
@@ -15832,7 +15859,7 @@ snapshots:
       eslint-module-utils: 2.8.0(@typescript-eslint/parser@7.8.0(eslint@8.57.0)(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@7.8.0(eslint@8.57.0)(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))(eslint-import-resolver-webpack@0.13.8)(eslint-plugin-import@2.29.1)(eslint@8.57.0))(eslint-import-resolver-webpack@0.13.8(eslint-plugin-import@2.29.1)(webpack@5.91.0))(eslint@8.57.0)
       eslint-plugin-import: 2.29.1(@typescript-eslint/parser@7.8.0(eslint@8.57.0)(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))(eslint-import-resolver-typescript@3.6.1)(eslint-import-resolver-webpack@0.13.8)(eslint@8.57.0)
       fast-glob: 3.3.2
-      get-tsconfig: 4.7.2
+      get-tsconfig: 4.7.3
       is-core-module: 2.13.1
       is-glob: 4.0.3
     transitivePeerDependencies:
@@ -15961,7 +15988,7 @@ snapshots:
       eslint: 8.57.0
       natural-compare-lite: 1.4.0
 
-  eslint-plugin-unused-imports@3.1.0(@typescript-eslint/eslint-plugin@7.8.0(@typescript-eslint/parser@7.8.0(eslint@8.57.0)(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))(eslint@8.57.0)(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))(eslint@8.57.0):
+  eslint-plugin-unused-imports@3.2.0(@typescript-eslint/eslint-plugin@7.8.0(@typescript-eslint/parser@7.8.0(eslint@8.57.0)(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))(eslint@8.57.0)(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))(eslint@8.57.0):
     dependencies:
       eslint: 8.57.0
       eslint-rule-composer: 0.3.0
@@ -16314,7 +16341,7 @@ snapshots:
       common-path-prefix: 3.0.0
       pkg-dir: 7.0.0
 
-  find-my-way-ts@0.1.1:
+  find-my-way-ts@0.1.2:
     dependencies:
       fast-querystring: 1.1.2
 
@@ -16519,7 +16546,7 @@ snapshots:
       call-bind: 1.0.6
       es-errors: 1.3.0
 
-  get-tsconfig@4.7.2:
+  get-tsconfig@4.7.3:
     dependencies:
       resolve-pkg-maps: 1.0.0
 
@@ -17137,7 +17164,7 @@ snapshots:
       '@jest/fake-timers': 29.7.0
       '@jest/types': 29.6.3
       '@types/jsdom': 20.0.1
-      '@types/node': 20.12.7
+      '@types/node': 20.12.8
       jest-mock: 29.7.0
       jest-util: 29.7.0
       jsdom: 20.0.3
@@ -17182,7 +17209,7 @@ snapshots:
   jest-mock@29.7.0:
     dependencies:
       '@jest/types': 29.6.3
-      '@types/node': 20.12.7
+      '@types/node': 20.12.8
       jest-util: 29.7.0
 
   jest-regex-util@26.0.0: {}
@@ -17190,7 +17217,7 @@ snapshots:
   jest-util@29.7.0:
     dependencies:
       '@jest/types': 29.6.3
-      '@types/node': 20.12.7
+      '@types/node': 20.12.8
       chalk: 4.1.2
       ci-info: 3.9.0
       graceful-fs: 4.2.11
@@ -17198,7 +17225,7 @@ snapshots:
 
   jest-worker@27.5.1:
     dependencies:
-      '@types/node': 20.12.7
+      '@types/node': 20.12.8
       merge-stream: 2.0.0
       supports-color: 8.1.1
 
@@ -17828,7 +17855,7 @@ snapshots:
 
   muggle-string@0.3.1: {}
 
-  multipasta@0.2.0: {}
+  multipasta@0.2.1: {}
 
   nanoid@3.3.7: {}
 
@@ -17846,13 +17873,13 @@ snapshots:
 
   neo-async@2.6.2: {}
 
-  next-auth@4.21.1(next@13.5.6(@babel/core@7.24.5)(@opentelemetry/api@1.8.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(sass@1.75.0))(react-dom@18.2.0(react@18.2.0))(react@18.2.0):
+  next-auth@4.21.1(next@13.5.6(@babel/core@7.24.5)(@opentelemetry/api@1.8.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(sass@1.76.0))(react-dom@18.2.0(react@18.2.0))(react@18.2.0):
     dependencies:
       '@babel/runtime': 7.23.9
       '@panva/hkdf': 1.1.1
       cookie: 0.5.0
       jose: 4.15.4
-      next: 13.5.6(@babel/core@7.24.5)(@opentelemetry/api@1.8.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(sass@1.75.0)
+      next: 13.5.6(@babel/core@7.24.5)(@opentelemetry/api@1.8.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(sass@1.76.0)
       oauth: 0.9.15
       openid-client: 5.6.4
       preact: 10.19.3
@@ -17861,7 +17888,7 @@ snapshots:
       react-dom: 18.2.0(react@18.2.0)
       uuid: 8.3.2
 
-  next@13.5.6(@babel/core@7.24.5)(@opentelemetry/api@1.8.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(sass@1.75.0):
+  next@13.5.6(@babel/core@7.24.5)(@opentelemetry/api@1.8.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(sass@1.76.0):
     dependencies:
       '@next/env': 13.5.6
       '@swc/helpers': 0.5.2
@@ -17883,7 +17910,7 @@ snapshots:
       '@next/swc-win32-ia32-msvc': 13.5.6
       '@next/swc-win32-x64-msvc': 13.5.6
       '@opentelemetry/api': 1.8.0
-      sass: 1.75.0
+      sass: 1.76.0
     transitivePeerDependencies:
       - '@babel/core'
       - babel-plugin-macros
@@ -18252,15 +18279,15 @@ snapshots:
     optionalDependencies:
       fsevents: 2.3.3
 
-  nuxt@3.11.2(@azure/cosmos@4.0.0)(@azure/storage-blob@12.17.0(encoding@0.1.13))(@parcel/watcher@2.4.1)(@types/node@20.12.7)(@unocss/reset@0.59.2)(axios@1.6.8)(change-case@5.4.4)(encoding@0.1.13)(eslint@8.57.0)(floating-vue@5.2.2(@nuxt/kit@3.11.2(rollup@4.14.2))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))))(ioredis@5.3.2)(jwt-decode@4.0.0)(optionator@0.9.3)(rollup@4.14.2)(sass@1.75.0)(terser@5.27.0)(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))(unocss@0.59.2(postcss@8.4.38)(rollup@4.14.2)(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0)))(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0))(vue-tsc@1.8.27(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))(xml2js@0.5.0):
+  nuxt@3.11.2(@azure/cosmos@4.0.0)(@azure/storage-blob@12.17.0(encoding@0.1.13))(@parcel/watcher@2.4.1)(@types/node@20.12.8)(@unocss/reset@0.59.2)(axios@1.6.8)(change-case@5.4.4)(encoding@0.1.13)(eslint@8.57.0)(floating-vue@5.2.2(@nuxt/kit@3.11.2(rollup@4.14.2))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))))(ioredis@5.3.2)(jwt-decode@4.0.0)(optionator@0.9.3)(rollup@4.14.2)(sass@1.76.0)(terser@5.27.0)(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))(unocss@0.59.2(postcss@8.4.38)(rollup@4.14.2)(vite@5.2.11(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0)))(vite@5.2.11(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0))(vue-tsc@1.8.27(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))(xml2js@0.5.0):
     dependencies:
       '@nuxt/devalue': 2.0.2
-      '@nuxt/devtools': 1.1.5(@unocss/reset@0.59.2)(axios@1.6.8)(change-case@5.4.4)(floating-vue@5.2.2(@nuxt/kit@3.11.2(rollup@4.14.2))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))))(jwt-decode@4.0.0)(nuxt@3.11.2(@azure/cosmos@4.0.0)(@azure/storage-blob@12.17.0(encoding@0.1.13))(@parcel/watcher@2.4.1)(@types/node@20.12.7)(@unocss/reset@0.59.2)(axios@1.6.8)(change-case@5.4.4)(encoding@0.1.13)(eslint@8.57.0)(floating-vue@5.2.2(@nuxt/kit@3.11.2(rollup@4.14.2))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))))(ioredis@5.3.2)(jwt-decode@4.0.0)(optionator@0.9.3)(rollup@4.14.2)(sass@1.75.0)(terser@5.27.0)(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))(unocss@0.59.2(postcss@8.4.38)(rollup@4.14.2)(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0)))(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0))(vue-tsc@1.8.27(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))(xml2js@0.5.0))(rollup@4.14.2)(unocss@0.59.2(postcss@8.4.38)(rollup@4.14.2)(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0)))(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))
+      '@nuxt/devtools': 1.1.5(@unocss/reset@0.59.2)(axios@1.6.8)(change-case@5.4.4)(floating-vue@5.2.2(@nuxt/kit@3.11.2(rollup@4.14.2))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))))(jwt-decode@4.0.0)(nuxt@3.11.2(@azure/cosmos@4.0.0)(@azure/storage-blob@12.17.0(encoding@0.1.13))(@parcel/watcher@2.4.1)(@types/node@20.12.8)(@unocss/reset@0.59.2)(axios@1.6.8)(change-case@5.4.4)(encoding@0.1.13)(eslint@8.57.0)(floating-vue@5.2.2(@nuxt/kit@3.11.2(rollup@4.14.2))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))))(ioredis@5.3.2)(jwt-decode@4.0.0)(optionator@0.9.3)(rollup@4.14.2)(sass@1.76.0)(terser@5.27.0)(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))(unocss@0.59.2(postcss@8.4.38)(rollup@4.14.2)(vite@5.2.11(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0)))(vite@5.2.11(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0))(vue-tsc@1.8.27(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))(xml2js@0.5.0))(rollup@4.14.2)(unocss@0.59.2(postcss@8.4.38)(rollup@4.14.2)(vite@5.2.11(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0)))(vite@5.2.11(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))
       '@nuxt/kit': 3.11.2(rollup@4.14.2)
       '@nuxt/schema': 3.11.2(rollup@4.14.2)
       '@nuxt/telemetry': 2.5.3(rollup@4.14.2)
       '@nuxt/ui-templates': 1.3.3
-      '@nuxt/vite-builder': 3.11.2(@types/node@20.12.7)(eslint@8.57.0)(optionator@0.9.3)(rollup@4.14.2)(sass@1.75.0)(terser@5.27.0)(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))(vue-tsc@1.8.27(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))
+      '@nuxt/vite-builder': 3.11.2(@types/node@20.12.8)(eslint@8.57.0)(optionator@0.9.3)(rollup@4.14.2)(sass@1.76.0)(terser@5.27.0)(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))(vue-tsc@1.8.27(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))
       '@unhead/dom': 1.9.5
       '@unhead/ssr': 1.9.5
       '@unhead/vue': 1.9.5(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))
@@ -18312,7 +18339,7 @@ snapshots:
       vue-router: 4.3.0(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)))
     optionalDependencies:
       '@parcel/watcher': 2.4.1
-      '@types/node': 20.12.7
+      '@types/node': 20.12.8
     transitivePeerDependencies:
       - '@azure/app-configuration'
       - '@azure/cosmos'
@@ -19119,7 +19146,7 @@ snapshots:
       '@protobufjs/path': 1.1.2
       '@protobufjs/pool': 1.1.0
       '@protobufjs/utf8': 1.1.0
-      '@types/node': 20.12.7
+      '@types/node': 20.12.8
       long: 5.2.3
 
   protocols@2.0.1: {}
@@ -19553,7 +19580,7 @@ snapshots:
     dependencies:
       commander: 10.0.1
 
-  sass@1.75.0:
+  sass@1.76.0:
     dependencies:
       chokidar: 3.6.0
       immutable: 4.3.5
@@ -19671,7 +19698,7 @@ snapshots:
 
   shimmer@1.2.1: {}
 
-  shippo@2.0.0(zod@3.23.4):
+  shippo@2.1.1(zod@3.23.4):
     dependencies:
       zod: 3.23.4
 
@@ -20243,10 +20270,10 @@ snapshots:
       tslib: 1.14.1
       typescript: 5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)
 
-  tsx@4.7.3:
+  tsx@4.8.2:
     dependencies:
-      esbuild: 0.19.12
-      get-tsconfig: 4.7.2
+      esbuild: 0.20.2
+      get-tsconfig: 4.7.3
     optionalDependencies:
       fsevents: 2.3.3
 
@@ -20450,9 +20477,9 @@ snapshots:
 
   universalify@2.0.1: {}
 
-  unocss@0.59.2(postcss@8.4.38)(rollup@4.14.2)(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0)):
+  unocss@0.59.2(postcss@8.4.38)(rollup@4.14.2)(vite@5.2.11(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0)):
     dependencies:
-      '@unocss/astro': 0.59.2(rollup@4.14.2)(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0))
+      '@unocss/astro': 0.59.2(rollup@4.14.2)(vite@5.2.11(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0))
       '@unocss/cli': 0.59.2(rollup@4.14.2)
       '@unocss/core': 0.59.2
       '@unocss/extractor-arbitrary-variants': 0.59.2
@@ -20471,9 +20498,9 @@ snapshots:
       '@unocss/transformer-compile-class': 0.59.2
       '@unocss/transformer-directives': 0.59.2
       '@unocss/transformer-variant-group': 0.59.2
-      '@unocss/vite': 0.59.2(rollup@4.14.2)(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0))
+      '@unocss/vite': 0.59.2(rollup@4.14.2)(vite@5.2.11(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0))
     optionalDependencies:
-      vite: 5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0)
+      vite: 5.2.11(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0)
     transitivePeerDependencies:
       - postcss
       - rollup
@@ -20651,17 +20678,17 @@ snapshots:
 
   vary@1.1.2: {}
 
-  vite-hot-client@0.2.3(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0)):
+  vite-hot-client@0.2.3(vite@5.2.11(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0)):
     dependencies:
-      vite: 5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0)
+      vite: 5.2.11(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0)
 
-  vite-node@1.5.2(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0):
+  vite-node@1.5.3(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0):
     dependencies:
       cac: 6.7.14
       debug: 4.3.4(supports-color@5.5.0)
       pathe: 1.1.2
       picocolors: 1.0.0
-      vite: 5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0)
+      vite: 5.2.11(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0)
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -20672,7 +20699,7 @@ snapshots:
       - supports-color
       - terser
 
-  vite-plugin-checker@0.6.4(eslint@8.57.0)(optionator@0.9.3)(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0))(vue-tsc@1.8.27(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))):
+  vite-plugin-checker@0.6.4(eslint@8.57.0)(optionator@0.9.3)(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))(vite@5.2.11(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0))(vue-tsc@1.8.27(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))):
     dependencies:
       '@babel/code-frame': 7.24.2
       ansi-escapes: 4.3.2
@@ -20685,7 +20712,7 @@ snapshots:
       semver: 7.6.0
       strip-ansi: 6.0.1
       tiny-invariant: 1.3.1
-      vite: 5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0)
+      vite: 5.2.11(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0)
       vscode-languageclient: 7.0.0
       vscode-languageserver: 7.0.0
       vscode-languageserver-textdocument: 1.0.11
@@ -20696,7 +20723,7 @@ snapshots:
       typescript: 5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)
       vue-tsc: 1.8.27(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))
 
-  vite-plugin-inspect@0.8.3(@nuxt/kit@3.11.2(rollup@4.14.2))(rollup@4.14.2)(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0)):
+  vite-plugin-inspect@0.8.3(@nuxt/kit@3.11.2(rollup@4.14.2))(rollup@4.14.2)(vite@5.2.11(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0)):
     dependencies:
       '@antfu/utils': 0.7.7
       '@rollup/pluginutils': 5.1.0(rollup@4.14.2)
@@ -20707,14 +20734,14 @@ snapshots:
       perfect-debounce: 1.0.0
       picocolors: 1.0.0
       sirv: 2.0.4
-      vite: 5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0)
+      vite: 5.2.11(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0)
     optionalDependencies:
       '@nuxt/kit': 3.11.2(rollup@4.14.2)
     transitivePeerDependencies:
       - rollup
       - supports-color
 
-  vite-plugin-vue-inspector@4.0.2(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0)):
+  vite-plugin-vue-inspector@4.0.2(vite@5.2.11(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0)):
     dependencies:
       '@babel/core': 7.24.5
       '@babel/plugin-proposal-decorators': 7.24.1(@babel/core@7.24.5)
@@ -20725,39 +20752,39 @@ snapshots:
       '@vue/compiler-dom': 3.4.26
       kolorist: 1.8.0
       magic-string: 0.30.10
-      vite: 5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0)
+      vite: 5.2.11(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0)
     transitivePeerDependencies:
       - supports-color
 
-  vite-tsconfig-paths@4.3.2(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))(vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0)):
+  vite-tsconfig-paths@4.3.2(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))(vite@5.2.11(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0)):
     dependencies:
       debug: 4.3.4(supports-color@5.5.0)
       globrex: 0.1.2
       tsconfck: 3.0.3(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))
     optionalDependencies:
-      vite: 5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0)
+      vite: 5.2.11(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0)
     transitivePeerDependencies:
       - supports-color
       - typescript
 
-  vite@5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0):
+  vite@5.2.11(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0):
     dependencies:
       esbuild: 0.20.2
       postcss: 8.4.38
       rollup: 4.14.2
     optionalDependencies:
-      '@types/node': 20.12.7
+      '@types/node': 20.12.8
       fsevents: 2.3.3
-      sass: 1.75.0
+      sass: 1.76.0
       terser: 5.27.0
 
-  vitest@1.5.2(@types/node@20.12.7)(jsdom@20.0.3)(sass@1.75.0)(terser@5.27.0):
+  vitest@1.5.3(@types/node@20.12.8)(jsdom@20.0.3)(sass@1.76.0)(terser@5.27.0):
     dependencies:
-      '@vitest/expect': 1.5.2
-      '@vitest/runner': 1.5.2
-      '@vitest/snapshot': 1.5.2
-      '@vitest/spy': 1.5.2
-      '@vitest/utils': 1.5.2
+      '@vitest/expect': 1.5.3
+      '@vitest/runner': 1.5.3
+      '@vitest/snapshot': 1.5.3
+      '@vitest/spy': 1.5.3
+      '@vitest/utils': 1.5.3
       acorn-walk: 8.3.2
       chai: 4.4.1
       debug: 4.3.4(supports-color@5.5.0)
@@ -20770,11 +20797,11 @@ snapshots:
       strip-literal: 2.1.0
       tinybench: 2.6.0
       tinypool: 0.8.3
-      vite: 5.2.10(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0)
-      vite-node: 1.5.2(@types/node@20.12.7)(sass@1.75.0)(terser@5.27.0)
+      vite: 5.2.11(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0)
+      vite-node: 1.5.3(@types/node@20.12.8)(sass@1.76.0)(terser@5.27.0)
       why-is-node-running: 2.2.2
     optionalDependencies:
-      '@types/node': 20.12.7
+      '@types/node': 20.12.8
       jsdom: 20.0.3
     transitivePeerDependencies:
       - less
@@ -20887,7 +20914,7 @@ snapshots:
     optionalDependencies:
       typescript: 5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm)
 
-  vuetify@3.5.17(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))):
+  vuetify@3.6.3(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))(vue@3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))):
     dependencies:
       vue: 3.4.26(typescript@5.4.5(patch_hash=o72pyyepyod6ibex2ph2czxshm))
     optionalDependencies:
