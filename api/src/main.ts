@@ -1,6 +1,7 @@
 import { basicLayer, basicRuntime, reportMainError } from "./lib/basicRuntime.js"
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import * as DevTools from "@effect/experimental/DevTools"
 import type { RunMain } from "@effect/platform/Runtime"
 import { defaultTeardown } from "@effect/platform/Runtime"
 import { faker } from "@faker-js/faker"
@@ -9,7 +10,6 @@ import { Cause, Effect, Fiber, Layer, pipe } from "effect-app"
 import { setFaker } from "effect-app/faker"
 import { MergedConfig } from "./config.js"
 import { TracingLive } from "./observability.js"
-import * as DevTools from "@effect/experimental/DevTools"
 
 const runMainPlatform: RunMain = (
   effect,
