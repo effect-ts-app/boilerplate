@@ -1,6 +1,7 @@
 import { basicLayer, basicRuntime, reportMainError } from "./lib/basicRuntime.js"
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import * as DevTools from "@effect/experimental/DevTools"
 import type { RunMain } from "@effect/platform/Runtime"
 import { defaultTeardown } from "@effect/platform/Runtime"
 import { faker } from "@faker-js/faker"

@@ -12,7 +12,7 @@ export const FirstName = S
     S.annotations({
       [A.ArbitraryHookId]: (): A.LazyArbitrary<string> => (fc) => fc.string()
     }),
-    S.withDefaults
+    S.withDefaultMake
   )
 
 export type FirstName = Schema.Type<typeof FirstName>
@@ -30,7 +30,7 @@ export const LastName = S
     S.annotations({
       [A.ArbitraryHookId]: (): A.LazyArbitrary<string> => fakerArb((faker) => faker.person.lastName)
     }),
-    S.withDefaults
+    S.withDefaultMake
   )
 
 export type LastName = Schema.Type<typeof LastName>
@@ -59,7 +59,7 @@ export function createFullName(firstName: string, lastName: string) {
 export const UserId = UserProfileId
 export type UserId = UserProfileId
 
-export const Role = S.withDefaults(S.Literal("manager", "user"))
+export const Role = S.withDefaultMake(S.Literal("manager", "user"))
 export type Role = Schema.Type<typeof Role>
 
 export class UserFromIdResolver
