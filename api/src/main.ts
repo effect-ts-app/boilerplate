@@ -10,6 +10,7 @@ import { Cause, Effect, Fiber, Layer, pipe } from "effect-app"
 import { setFaker } from "effect-app/faker"
 import { MergedConfig } from "./config.js"
 import { TracingLive } from "./observability.js"
+import * as DevTools from "@effect/experimental/DevTools"
 
 const runMainPlatform: RunMain = (
   effect,
