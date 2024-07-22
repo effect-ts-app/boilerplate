@@ -191,7 +191,7 @@ export type RouteMatch<
   // Err extends SupportedErrors | S.ParseResult.ParseError,
   PR = never
 > // RErr = never,
- = HttpRouter.Route<Exclude<Exclude<R, EnforceNonEmptyRecord<M>>, PR>, never>
+ = HttpRouter.Route<never, Exclude<Exclude<R, EnforceNonEmptyRecord<M>>, PR>>
 
 export interface Hint<Err extends string> {
   Err: Err
@@ -385,16 +385,16 @@ export function matchFor<Rsc extends Record<string, any>>(
     }
 
     type _RRoute<T extends HttpRouter.Route<any, any>> = [T] extends [
-      HttpRouter.Route<infer R, any>
+      HttpRouter.Route<any, infer R>
     ] ? R
       : never
 
     type _ERoute<T extends HttpRouter.Route<any, any>> = [T] extends [
-      HttpRouter.Route<any, infer E>
+      HttpRouter.Route<infer E, any>
     ] ? E
       : never
 
-    return HttpRouter.fromIterable(Object.values(mapped)) as HttpRouter.Router<
+    return HttpRouter.fromIterable(Object.values(mapped)) as HttpRouter.HttpRouter<
       _RRoute<typeof mapped[keyof typeof mapped]>,
       _ERoute<typeof mapped[keyof typeof mapped]>
     >
