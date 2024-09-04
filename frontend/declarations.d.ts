@@ -2,9 +2,11 @@
 import type {
   ComponentCustomOptions as _ComponentCustomOptions,
   ComponentCustomProperties as _ComponentCustomProperties,
-} from 'vue';
+} from "vue"
 
-declare module '@vue/runtime-core' {
+declare module "@vue/runtime-core" {
+  // eslint-disable-next-line @typescript-eslint/no-empty-object-type
   interface ComponentCustomProperties extends _ComponentCustomProperties {}
+  // eslint-disable-next-line @typescript-eslint/no-empty-object-type
   interface ComponentCustomOptions extends _ComponentCustomOptions {}
 }
