@@ -1,5 +1,5 @@
 import "./resources/lib/operations.js"
-import type {} from "@effect/platform/Http/Client"
+import type {} from "@effect/platform/HttpClient"
 
 export { ClientEvents } from "./resources/Events.js"
 

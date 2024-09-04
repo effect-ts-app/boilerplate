@@ -7,9 +7,9 @@ import * as crypto from "crypto"
 
 import { dropUndefined } from "@effect-app/core/utils"
 import { NotLoggedInError } from "@effect-app/infra/errors"
-import * as Middleware from "@effect/platform/Http/Middleware"
-import * as ServerRequest from "@effect/platform/Http/ServerRequest"
-import * as ServerResponse from "@effect/platform/Http/ServerResponse"
+import * as Middleware from "@effect/platform/HttpMiddleware"
+import * as HttpServerRequest from "@effect/platform/HttpServerRequest"
+import * as ServerResponse from "@effect/platform/HttpServerResponse"
 import { Effect } from "effect-app"
 import { HttpBody, HttpHeaders, HttpServerResponse } from "effect-app/http"
 import * as Either from "effect/Either"
@@ -22,7 +22,7 @@ import type * as Middlewares from "../Middlewares.js"
 export const accessLog = (level: "Info" | "Warning" | "Debug" = "Info") =>
   Middleware.make((app) =>
     pipe(
-      ServerRequest.ServerRequest,
+      HttpServerRequest.HttpServerRequest,
       Effect.flatMap((request) => Effect[`log${level}`](`${request.method} ${request.url}`)),
       Effect.flatMap(() => app)
     )
@@ -47,7 +47,7 @@ export const endpointCallsMetric = () => {
 
   return Middleware.make((app) =>
     Effect.gen(function*(_) {
-      const request = yield* _(ServerRequest.ServerRequest)
+      const request = yield* _(HttpServerRequest.HttpServerRequest)
 
       yield* _(
         Metric.increment(endpointCalledCounter),
@@ -61,7 +61,7 @@ export const endpointCallsMetric = () => {
 
 export const errorLog = Middleware.make((app) =>
   Effect.gen(function*(_) {
-    const request = yield* _(ServerRequest.ServerRequest)
+    const request = yield* _(HttpServerRequest.HttpServerRequest)
 
     const response = yield* _(app)
 
@@ -102,7 +102,7 @@ export const basicAuth = <_, R>(
     Effect.gen(function*(_) {
       const headerName = options?.headerName ?? "Authorization"
       const skippedPaths = options?.skipPaths ?? []
-      const request = yield* _(ServerRequest.ServerRequest)
+      const request = yield* _(HttpServerRequest.HttpServerRequest)
 
       if (skippedPaths.includes(request.url)) {
         return yield* _(app)
@@ -256,7 +256,7 @@ export const cors = (_options?: Partial<Middlewares.CorsOptions>) => {
 
   return Middleware.make((app) =>
     Effect.gen(function*(_) {
-      const request = yield* _(ServerRequest.ServerRequest)
+      const request = yield* _(HttpServerRequest.HttpServerRequest)
 
       const origin = request.headers["origin"]
       const accessControlRequestHeaders = request.headers["access-control-request-headers"]

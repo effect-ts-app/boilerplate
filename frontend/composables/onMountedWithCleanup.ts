@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/ban-types */
+/* eslint-disable @typescript-eslint/no-unsafe-function-type */
 /**
  * A convenience wrapper for onMounted and onUnmounted, the returned Function of the callback,
  * will be ran on unmount.

@@ -21,13 +21,17 @@ export const events = Effect
       (_) => `id: ${_.evt.id}\ndata: ${JSON.stringify(S.encodeSync(ClientEvents)(_.evt))}`
     )
 
-    const stream = pipe(setRetry, Stream.merge(keepAlive), Stream.merge(eventStream))
+    const stream = pipe(
+      setRetry,
+      Stream.merge(keepAlive),
+      Stream.merge(eventStream),
+      Stream.map((_) => enc.encode(_ + "\n\n"))
+    )
 
     const ctx = yield* Effect.context<never>()
     const res = HttpServerResponse.stream(
       stream
         .pipe(
-          Stream.map((_) => enc.encode(_ + "\n\n")),
           Stream.tapErrorCause(reportError("Request")),
           Stream.provideContext(ctx)
         ),
