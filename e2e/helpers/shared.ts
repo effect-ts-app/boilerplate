@@ -2,14 +2,14 @@ import { typedKeysOf } from "@effect-app/core/utils"
 import type { ApiConfig } from "effect-app/client/config"
 import { layer as ApiConfigLayer } from "effect-app/client/config"
 import { initializeSync } from "@effect-app/vue/runtime"
-import * as HttpClientNode from "@effect/platform-node/HttpClient"
-import type * as HttpClient from "@effect/platform/Http/Client"
+import * as HttpClientNode from "@effect/platform-node/NodeHttpClient"
+import type * as HttpClient from "@effect/platform/HttpClient"
 import { HashMap, Layer } from "effect"
 import { readFileSync } from "fs"
 
 export function makeRuntime(config: ApiConfig) {
   const layers = Layer.mergeAll(
-    HttpClientNode.client.layer,
+    HttpClientNode.layer,
     ApiConfigLayer({ apiUrl: config.apiUrl, headers: config.headers })
   )
   const runtime = initializeSync(layers)

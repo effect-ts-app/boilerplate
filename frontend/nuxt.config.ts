@@ -13,10 +13,12 @@ export default defineNuxtConfig({
   typescript: {
     tsConfig: { compilerOptions: { moduleResolution: "bundler" } },
   },
+
   sourcemap: {
     server: true,
     client: true,
   },
+
   alias: {
     resources: fileURLToPath(new URL("../api/src/resources", import.meta.url)),
     models: fileURLToPath(new URL("../api/src/models", import.meta.url)),
@@ -37,6 +39,7 @@ export default defineNuxtConfig({
         }
       : {}),
   },
+
   build: {
     transpile: ["vuetify"]
       // workaround for commonjs/esm module prod issue
@@ -45,6 +48,7 @@ export default defineNuxtConfig({
         process.env.NODE_ENV === "production" ? ["vue-toastification"] : [],
       ),
   },
+
   runtimeConfig: {
     basicAuthCredentials: "",
     apiRoot: "http://127.0.0.1:3610",
@@ -57,7 +61,9 @@ export default defineNuxtConfig({
       env: process.env.ENV ?? "local-dev",
     },
   },
+
   modules: ["@vueuse/nuxt", "@hebilicious/vue-query-nuxt"],
+
   // app doesn't need SSR, but also it causes problems with linking schema package.
   ssr: false,
 
@@ -91,4 +97,6 @@ export default defineNuxtConfig({
         ]
       : [],
   },
+
+  compatibilityDate: "2024-09-04",
 })

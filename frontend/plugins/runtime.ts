@@ -24,9 +24,9 @@ function makeRuntime(feVersion: string, disableTracing: boolean) {
   const apiLayers = Layer.mergeAll(
     Layer.provideMerge(
       Layer.effect(
-        HttpClient.Client,
+        HttpClient.HttpClient,
         Effect.map(
-          HttpClient.Client,
+          HttpClient.HttpClient,
           HttpClient.tap(r =>
             Effect.sync(() => {
               const remoteFeVersion = r.headers["x-fe-version"]
@@ -68,7 +68,7 @@ function makeRuntime(feVersion: string, disableTracing: boolean) {
 }
 
 // TODO: make sure the runtime provides these
-export type RT = ApiConfig | HttpClient.Client.Default
+export type RT = ApiConfig | HttpClient.HttpClient.Default
 
 export default defineNuxtPlugin(_ => {
   const config = useRuntimeConfig()

@@ -40,7 +40,7 @@
 import type { FetchError, ResError, SupportedErrors } from "effect-app/client"
 import { Match, Option } from "@/utils/prelude"
 import Delayed from "./Delayed.vue"
-import type { ResponseError } from "@effect/platform/Http/ClientError"
+import type { ResponseError } from "@effect/platform/HttpClientError"
 import { Result } from "~/composables/client"
 
 defineProps<{ result: Result.Result<A, E> }>()
