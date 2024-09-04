@@ -72,7 +72,7 @@ const UserAuthorizationLive = <Req extends RequestConfig>(request: Req) =>
       if (!fakeLogin && !request.allowAnonymous) {
         yield* Effect.catchAll(checkJWTI(authConfig), (err) => Effect.fail(new JWTError({ error: err })))
       }
-      const req = yield* HttpServerRequest.ServerRequest
+      const req = yield* HttpServerRequest.HttpServerRequest
       const r = (fakeLogin
         ? makeUserProfileFromUserHeader(req.headers["x-user"])
         : makeUserProfileFromAuthorizationHeader(

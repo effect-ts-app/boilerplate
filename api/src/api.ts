@@ -3,7 +3,7 @@ import { RequestFiberSet } from "@effect-app/infra-adapters/RequestFiberSet"
 import { Operations } from "@effect-app/infra/services/Operations"
 import { RequestContextContainer } from "@effect-app/infra/services/RequestContextContainer"
 import { ContextMapContainer } from "@effect-app/infra/services/Store/ContextMapContainer"
-import * as HttpNode from "@effect/platform-node/Http/Server"
+import * as HttpNode from "@effect/platform-node/NodeHttpServer"
 import * as HttpClientNode from "@effect/platform-node/NodeHttpClient"
 import { router } from "api/routes.js"
 import { Effect, Layer, Option } from "effect-app"
@@ -15,8 +15,21 @@ import * as MW from "./middleware/index.js"
 import { RequestContextMiddleware } from "./middleware/index.js"
 import { UserRepo } from "./services.js"
 import { Events } from "./services/Events.js"
+import { OperationsRepo } from "@effect-app/infra/services/OperationsRepo"
+import { RepoTest } from "./migrate.js"
 
 export const ApiPortTag = GenericTag<{ port: number }>("@services/ApiPortTag")
+
+class OperationsRepoImpl extends OperationsRepo {
+  static readonly toLayer = this
+    .makeWith({
+      config: {
+        allowNamespace: () => true
+      }
+    }, (_) => new this(_))
+    .pipe(Layer.effect(this))
+  static readonly Live = this.toLayer.pipe(Layer.provide(RepoTest))
+}
 
 export const api = Effect
   .gen(function*() {
@@ -70,7 +83,7 @@ export const api = Effect
           RequestContextContainer.live,
           HttpClientNode.layer,
           UserRepo.Live,
-          Operations.Live,
+          Operations.Live.pipe(Layer.provide(OperationsRepoImpl.Live)),
           Events.Live,
           RequestFiberSet.Live
         ))

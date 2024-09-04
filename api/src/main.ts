@@ -2,7 +2,7 @@ import { basicLayer, basicRuntime, reportMainError } from "./lib/basicRuntime.js
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import * as DevTools from "@effect/experimental/DevTools"
-import type { RunMain } from "@effect/platform/Runtime"
+import type { RunMain, Teardown } from "@effect/platform/Runtime"
 import { defaultTeardown } from "@effect/platform/Runtime"
 import { faker } from "@faker-js/faker"
 import { api } from "api/api.js"
@@ -10,11 +10,13 @@ import { Cause, Effect, Fiber, Layer, pipe } from "effect-app"
 import { setFaker } from "effect-app/faker"
 import { MergedConfig } from "./config.js"
 import { TracingLive } from "./observability.js"
+import { dual } from "@effect-app/core/Function"
 
-const runMainPlatform: RunMain = (
-  effect,
-  options
-) => {
+const runMainPlatform: RunMain = dual((args) => Effect.isEffect(args[0]), (effect: Effect.Effect<any, any>, options?: {
+  readonly disableErrorReporting?: boolean | undefined
+  readonly disablePrettyLogger?: boolean | undefined
+  readonly teardown?: Teardown | undefined
+}) => {
   const teardown = options?.teardown ?? defaultTeardown
   const keepAlive = setInterval(() => {}, 2 ** 31 - 1)
 
@@ -54,7 +56,7 @@ const runMainPlatform: RunMain = (
       await basicRuntime.runPromise(Fiber.interrupt(fiber))
     })
   }
-}
+})
 
 function runMain<A, E>(eff: Effect<A, E, never>) {
   return runMainPlatform(

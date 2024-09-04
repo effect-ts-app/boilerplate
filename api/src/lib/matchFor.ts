@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/ban-types */
 import type { EffectUnunified, LowerServices } from "@effect-app/core/Effect"
 import { allLower } from "@effect-app/core/Effect"
 import { typedKeysOf } from "@effect-app/core/utils"
@@ -17,10 +16,10 @@ import type {
   ResFromSchema
 } from "@effect-app/infra/api/routing"
 import { defaultErrorHandler, makeRequestHandler } from "@effect-app/infra/api/routing"
-import type { Struct } from "@effect/schema/Schema"
 import type { Layer, Scope, Types } from "effect-app"
 import { Effect, S } from "effect-app"
 import type { SupportedErrors, ValidationError } from "effect-app/client/errors"
+import type { Struct } from "effect-app/schema"
 import { REST } from "effect-app/schema"
 import { handleRequestEnv } from "./RequestEnv.js"
 import type { GetContext, GetCTX } from "./RequestEnv.js"
@@ -66,13 +65,13 @@ export function match<
     Config
   >,
   errorHandler: <R>(
-    req: HttpServerRequest.ServerRequest,
-    res: HttpServerResponse.ServerResponse,
-    r2: Effect<HttpServerResponse.ServerResponse, ValidationError | MiddlewareE | ResE, R>
+    req: HttpServerRequest.HttpServerRequest,
+    res: HttpServerResponse.HttpServerResponse,
+    r2: Effect<HttpServerResponse.HttpServerResponse, ValidationError | MiddlewareE | ResE, R>
   ) => Effect<
-    HttpServerResponse.ServerResponse,
+    HttpServerResponse.HttpServerResponse,
     never,
-    Exclude<RErr | R, HttpServerRequest.ServerRequest | HttpRouter.RouteContext | Scope>
+    Exclude<RErr | R, HttpServerRequest.HttpServerRequest | HttpRouter.RouteContext | Scope>
   >,
   middleware?: Middleware<
     R,
@@ -442,9 +441,9 @@ export function matchFor<Rsc extends Record<string, any>>(
 }
 
 export function errorHandler<R>(
-  req: HttpServerRequest.ServerRequest,
-  res: HttpServerResponse.ServerResponse,
-  r2: Effect<HttpServerResponse.ServerResponse, SupportedErrors | JWTError | S.ParseResult.ParseError, R>
+  req: HttpServerRequest.HttpServerRequest,
+  res: HttpServerResponse.HttpServerResponse,
+  r2: Effect<HttpServerResponse.HttpServerResponse, SupportedErrors | JWTError | S.ParseResult.ParseError, R>
 ) {
   return defaultErrorHandler(req, res, Effect.catchTag(r2, "ParseError", (_) => Effect.die(_)))
 }
@@ -459,19 +458,19 @@ export function matchAll<T extends RequestHandlersTest>(handlers: T) {
     return HttpRouter.concat(acc, handlers[cur] as any)
   }, HttpRouter.empty)
 
-  type _RRouter<T extends HttpRouter.Router<any, any>> = [T] extends [
-    HttpRouter.Router<infer R, any>
+  type _RRouter<T extends HttpRouter.HttpRouter<any, any>> = [T] extends [
+    HttpRouter.HttpRouter<infer R, any>
   ] ? R
     : never
 
-  type _ERouter<T extends HttpRouter.Router<any, any>> = [T] extends [
-    HttpRouter.Router<any, infer E>
+  type _ERouter<T extends HttpRouter.HttpRouter<any, any>> = [T] extends [
+    HttpRouter.HttpRouter<any, infer E>
   ] ? E
     : never
 
-  return r as HttpRouter.Router<
-    _RRouter<typeof handlers[keyof typeof handlers]>,
-    _ERouter<typeof handlers[keyof typeof handlers]>
+  return r as HttpRouter.HttpRouter<
+    _ERouter<typeof handlers[keyof typeof handlers]>,
+    _RRouter<typeof handlers[keyof typeof handlers]>
   >
 }
 
@@ -494,5 +493,5 @@ export type SupportedRequestHandler = RequestHandler<
 
 export type RequestHandlers = { [key: string]: SupportedRequestHandler }
 export type RequestHandlersTest = {
-  [key: string]: HttpRouter.Router<any, any>
+  [key: string]: HttpRouter.HttpRouter<any, any>
 }

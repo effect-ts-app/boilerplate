@@ -4,7 +4,7 @@
  * @since 1.0.0
  */
 import type { NotLoggedInError } from "@effect-app/infra/errors"
-import type * as App from "@effect/platform/Http/App"
+import type * as App from "@effect/platform/HttpApp"
 import type { Effect } from "effect-app"
 import * as internal from "./internal/middlewares.js"
 
