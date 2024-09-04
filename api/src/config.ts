@@ -46,6 +46,7 @@ export const ApiConfig = Config.all({
 
 type ConfigA<Cfg> = Cfg extends Config.Config.Variance<infer A> ? A : never
 
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface ApiConfig extends ConfigA<typeof ApiConfig> {}
 
 export interface ApiMainConfig extends ApiConfig, BaseConfig {}

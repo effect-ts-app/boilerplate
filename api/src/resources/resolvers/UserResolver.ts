@@ -33,9 +33,9 @@ const getUserViewByIdResolver = RequestResolver
         Effect.orDie
       )
   )
-  .pipe(RequestResolver.batchN(25), RequestResolver.contextFromServices(HttpClient.Client, ApiConfig.Tag))
+  .pipe(RequestResolver.batchN(25), RequestResolver.contextFromServices(HttpClient.HttpClient, ApiConfig.Tag))
 
-export const UserViewFromId: Schema<UserView, string, ApiConfig | HttpClient.Client.Default> = S.transformOrFail(
+export const UserViewFromId: Schema<UserView, string, ApiConfig | HttpClient.HttpClient.Default> = S.transformOrFail(
   UserId,
   S.typeSchema(UserView),
   {

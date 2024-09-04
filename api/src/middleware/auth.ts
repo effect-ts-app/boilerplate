@@ -30,7 +30,7 @@ export const checkJWTI = (config: Effect.Success<typeof Auth0Config>) => {
     jwksUri: `${config.issuer}/.well-known/jwks.json`
   })
   return Effect.gen(function*() {
-    const req = yield* HttpServerRequest.ServerRequest
+    const req = yield* HttpServerRequest.HttpServerRequest
 
     return yield* Effect.async<
       void,
@@ -64,13 +64,14 @@ export const checkJwt = (config: Effect.Success<typeof Auth0Config>) => {
   const check = checkJWTI(config)
   return HttpMiddleware.make((app) =>
     Effect.gen(function*() {
-      const response = yield* Effect.catchAll(check, (e) =>
+      const response = yield* check.pipe(Effect.catchAll((e) =>
         Effect.succeed(
           HttpServerResponse.unsafeJson({ message: e.message }, {
             status: e.status,
             headers: HttpHeaders.fromInput(e.headers)
           })
-        ))
+        )
+      ))
       if (response) {
         return response
       }

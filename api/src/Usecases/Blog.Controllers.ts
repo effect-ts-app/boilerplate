@@ -45,7 +45,7 @@ export default blog.controllers({
 
       const done: string[] = []
 
-      const operationId = yield* forkOperationWithEffect(
+      const op = yield* forkOperationWithEffect(
         (opId) =>
           Operations
             .update(opId, {
@@ -75,7 +75,7 @@ export default blog.controllers({
         NonEmptyString2k("post publishing")
       )
 
-      return operationId
+      return op.id
     })
   )
 })

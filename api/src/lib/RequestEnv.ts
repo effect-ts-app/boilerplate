@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/ban-types */
 import { JWTError, type RequestHandler } from "@effect-app/infra/api/routing"
 import type { RequestContext } from "@effect-app/infra/RequestContext"
 import { RequestContextContainer } from "@effect-app/infra/services/RequestContextContainer"
@@ -37,11 +36,9 @@ export type GetCTX<Req> =
   & (AllowAnonymous<Req> extends true ? {
       userProfile?: UserProfile
     }
-    // eslint-disable-next-line @typescript-eslint/ban-types
     : { userProfile: UserProfile })
 
 export type GetContext<Req> = AllowAnonymous<Req> extends true ? never
-  // eslint-disable-next-line @typescript-eslint/ban-types
   : UserProfile
 
 export const RequestCacheLayers = Layer.mergeAll(
@@ -72,7 +69,7 @@ const UserAuthorizationLive = <Req extends RequestConfig>(request: Req) =>
       if (!fakeLogin && !request.allowAnonymous) {
         yield* Effect.catchAll(checkJWTI(authConfig), (err) => Effect.fail(new JWTError({ error: err })))
       }
-      const req = yield* HttpServerRequest.ServerRequest
+      const req = yield* HttpServerRequest.HttpServerRequest
       const r = (fakeLogin
         ? makeUserProfileFromUserHeader(req.headers["x-user"])
         : makeUserProfileFromAuthorizationHeader(
