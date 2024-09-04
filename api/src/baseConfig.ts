@@ -48,6 +48,7 @@ export const BaseConfig = C.all({
   //  log: C.string("LOG").
 })
 type ConfigA<Cfg> = Cfg extends C.Config<infer A> ? A : never
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface BaseConfig extends ConfigA<typeof BaseConfig> {}
 
 export const SB_PREFIX = "Endpoint=sb://"

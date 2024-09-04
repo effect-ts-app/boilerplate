@@ -6,6 +6,7 @@ import rootPj from "../package.json"
 
 // use `pnpm effa link` in the root project
 // `pnpm effa unlink` to revert
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const localLibs = !!(rootPj.resolutions as any)["effect-app"]
 
 // https://v3.nuxtjs.org/api/configuration/nuxt.config

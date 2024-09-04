@@ -1,6 +1,7 @@
 import { basicLayer, basicRuntime, reportMainError } from "./lib/basicRuntime.js"
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { dual } from "@effect-app/core/Function"
 import * as DevTools from "@effect/experimental/DevTools"
 import type { RunMain, Teardown } from "@effect/platform/Runtime"
 import { defaultTeardown } from "@effect/platform/Runtime"
@@ -10,7 +11,6 @@ import { Cause, Effect, Fiber, Layer, pipe } from "effect-app"
 import { setFaker } from "effect-app/faker"
 import { MergedConfig } from "./config.js"
 import { TracingLive } from "./observability.js"
-import { dual } from "@effect-app/core/Function"
 
 const runMainPlatform: RunMain = dual((args) => Effect.isEffect(args[0]), (effect: Effect.Effect<any, any>, options?: {
   readonly disableErrorReporting?: boolean | undefined

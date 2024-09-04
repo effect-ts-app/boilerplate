@@ -21,9 +21,9 @@ import { Cause, S } from "effect-app"
 import { useToast } from "vue-toastification"
 import { intl } from "./intl"
 
-export { useToast } from "vue-toastification"
-
 import { Result, useSafeMutation, type MutationResult } from "@effect-app/vue"
+
+export { useToast } from "vue-toastification"
 
 export { clientFor } from "effect-app/client"
 export {
@@ -151,7 +151,9 @@ export function makeUseAndHandleMutation(onSuccess: () => Promise<void>) {
   }) as {
     <I, E extends ResErrors, A>(
       self: {
-        handler: (i: I) => Effect<A, E, ApiConfig | HttpClient.HttpClient.Default>
+        handler: (
+          i: I,
+        ) => Effect<A, E, ApiConfig | HttpClient.HttpClient.Default>
         name: string
       },
       action: string,
@@ -433,7 +435,6 @@ function parseError(e: string) {
     return "There was an error trying to parse the error response"
   }
 }
-
 
 function orPrevious<E, A>(result: Result.Result<A, E>) {
   return Result.isFailure(result) && Option.isSome(result.previousValue)

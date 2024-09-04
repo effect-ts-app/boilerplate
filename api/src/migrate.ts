@@ -9,11 +9,11 @@ import { SendgridConfig, StorageConfig } from "./config.js"
 export const RepoLive = StorageConfig
   .pipe(Effect.andThen(StoreMakerLayer), Layer.unwrapEffect, Layer.merge(ContextMapContainer.live))
 
-  export const RepoTest = StoreMakerLayer({ url: Secret.fromString("mem://"), prefix: "test_", dbName: "test" })
+export const RepoTest = StoreMakerLayer({ url: Secret.fromString("mem://"), prefix: "test_", dbName: "test" })
   .pipe(
     Layer.merge(ContextMapContainer.live)
   )
-  
+
 export const EmailerLive = SendgridConfig
   .pipe(
     Effect.andThen((cfg) =>

@@ -1,10 +1,10 @@
 import { typedKeysOf } from "@effect-app/core/utils"
-import type { ApiConfig } from "effect-app/client/config"
-import { layer as ApiConfigLayer } from "effect-app/client/config"
 import { initializeSync } from "@effect-app/vue/runtime"
 import * as HttpClientNode from "@effect/platform-node/NodeHttpClient"
 import type * as HttpClient from "@effect/platform/HttpClient"
 import { HashMap, Layer } from "effect"
+import type { ApiConfig } from "effect-app/client/config"
+import { layer as ApiConfigLayer } from "effect-app/client/config"
 import { readFileSync } from "fs"
 
 export function makeRuntime(config: ApiConfig) {
@@ -27,10 +27,12 @@ export function makeHeaders(namespace: string, role?: "manager") {
     cookie = cookies.map((_) => `${_.name}=${_.value}`).join(";")
   }
   return <Record<string, string>> {
-    ...(basicAuthCredentials ? { "authorization": `Basic ${Buffer.from(basicAuthCredentials).toString("base64")}` } : undefined),
+    ...(basicAuthCredentials
+      ? { "authorization": `Basic ${Buffer.from(basicAuthCredentials).toString("base64")}` }
+      : undefined),
     ...(cookie ? { "Cookie": cookie } : undefined),
     "x-store-id": namespace
-  };
+  }
 }
 
 export function makeHeadersHashMap(namespace: string, role?: "manager") {
@@ -39,7 +41,7 @@ export function makeHeadersHashMap(namespace: string, role?: "manager") {
   return HashMap.make(...keys.map((_) => [_, headers[_]!] as const))
 }
 
-type Env = ApiConfig | HttpClient.Client.Default
+type Env = ApiConfig | HttpClient.HttpClient.Default
 export type SupportedEnv = Env // Effect.DefaultEnv |
 
 export function toBase64(b: string) {
