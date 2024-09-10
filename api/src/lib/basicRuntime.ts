@@ -1,6 +1,5 @@
 import { reportError } from "@effect-app/infra/errorReporter"
 import { logJson } from "@effect-app/infra/logger/jsonLogger"
-import { logFmt } from "@effect-app/infra/logger/logFmtLogger"
 import { constantCase } from "change-case"
 import { Cause, Effect, Layer, ManagedRuntime } from "effect-app"
 import * as ConfigProvider from "effect/ConfigProvider"
@@ -36,7 +35,9 @@ if (!logLevel) throw new Error(`Invalid LOG_LEVEL: ${configuredLogLevel}`)
 
 export const basicLayer = Layer.mergeAll(
   Logger.minimumLogLevel(logLevel),
-  configuredEnv && configuredEnv !== "local-dev" ? logJson : logFmt,
+  configuredEnv && configuredEnv !== "local-dev"
+    ? logJson
+    : Logger.replace(Logger.defaultLogger, Logger.withSpanAnnotations(Logger.prettyLogger())),
   Layer.setConfigProvider(envProviderConstantCase)
 )
 

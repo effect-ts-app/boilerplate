@@ -64,7 +64,8 @@ function runMain<A, E>(eff: Effect<A, E, never>) {
       .pipe(
         Effect.tapErrorCause(reportMainError),
         Effect.provide(basicLayer)
-      )
+      ),
+    { disablePrettyLogger: true }
   )
 }
 
