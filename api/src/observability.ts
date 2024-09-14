@@ -100,7 +100,7 @@ const filterAttrs = {
 }
 const filteredEntries = Object.entries(filterAttrs)
 
-const setupSentry = (options?: Sentry.NodeOptions | undefined) => {
+const setupSentry = (options?: Sentry.NodeOptions) => {
   Sentry.init({
     ...dropUndefinedT({
       // otherwise sentry will set it up and override ours
