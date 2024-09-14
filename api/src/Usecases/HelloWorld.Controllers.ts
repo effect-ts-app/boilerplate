@@ -7,25 +7,23 @@ import { HelloWorldRsc } from "resources.js"
 
 const helloWorld = matchFor(HelloWorldRsc)
 
-class Get extends helloWorld.Get(({ echo }, { Response, context }) =>
-  UserRepo
-    .getCurrentUser
-    .pipe(
-      Effect.catchTags({
-        "NotLoggedInError": () => Effect.succeed(null),
-        "NotFoundError": () => Effect.succeed(null)
-      }),
-      Effect.andThen((user) =>
-        new Response({
-          context,
-          echo,
-          currentUser: user,
-          randomUser: generate(S.A.make(User)).value
-        })
-      )
-    )
-) {}
-
 export default helloWorld.controllers({
-  Get
+  Get: class extends helloWorld.Get(({ echo }, { Response, context }) =>
+    UserRepo
+      .getCurrentUser
+      .pipe(
+        Effect.catchTags({
+          "NotLoggedInError": () => Effect.succeed(null),
+          "NotFoundError": () => Effect.succeed(null)
+        }),
+        Effect.andThen((user) =>
+          new Response({
+            context,
+            echo,
+            currentUser: user,
+            randomUser: generate(S.A.make(User)).value
+          })
+        )
+      )
+  ) {}
 })

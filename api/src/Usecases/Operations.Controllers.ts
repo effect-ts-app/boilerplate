@@ -5,13 +5,11 @@ import { OperationsRsc } from "resources.js"
 
 const operations = matchFor(OperationsRsc)
 
-class Find extends operations.Find(({ id }) =>
-  Effect.andThen(
-    Operations.find(id),
-    Option.getOrNull
-  )
-) {}
-
 export default operations.controllers({
-  Find
+  Find: class extends operations.Find(({ id }) =>
+    Effect.andThen(
+      Operations.find(id),
+      Option.getOrNull
+    )
+  ) {}
 })
