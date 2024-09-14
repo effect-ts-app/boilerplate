@@ -1,17 +1,18 @@
 {
   // https://v3.nuxtjs.org/concepts/typescript
-  "extends": "./.nuxt/tsconfig.json",
+  "extends": [
+    "@tsconfig/strictest/tsconfig.json",
+    "./.nuxt/tsconfig.json",
+  ],
   "compilerOptions": {
     "lib": [
       "DOM",
       "dom.iterable",
       "ES2022"
     ],
-    "strict": true
-  },
-  "references": [
-    {
-      "path": "../api"
-    }
-  ]
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    // This is not desirable, as it's useful in generators.
+    "noImplicitReturns": false,
+  }
 }
