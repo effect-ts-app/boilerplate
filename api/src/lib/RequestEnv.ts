@@ -2,13 +2,13 @@
 import { JWTError, type RequestHandler } from "@effect-app/infra/api/routing"
 import type { RequestContext } from "@effect-app/infra/RequestContext"
 import { RequestContextContainer } from "@effect-app/infra/services/RequestContextContainer"
-import { Req as Req_ } from "@effect-app/schema/REST"
 import type { Struct } from "@effect/schema/Schema"
 import { NotLoggedInError, UnauthorizedError } from "api/errors.js"
 import { Auth0Config, checkJWTI } from "api/middleware/auth.js"
 import { Duration, Effect, Exit, Layer, Option, Request } from "effect-app"
 import { HttpServerRequest } from "effect-app/http"
 import { Role } from "models/User.js"
+import type { AllowAnonymous, RequestConfig } from "resources/lib.js"
 import {
   makeUserProfileFromAuthorizationHeader,
   makeUserProfileFromUserHeader,
@@ -18,14 +18,6 @@ import { basicRuntime } from "./basicRuntime.js"
 
 // Workaround for the error when using
 // import type { AllowAnonymous, RequestConfig } from "resources/lib.js"
-
-export type RequestConfig = { allowAnonymous?: true; allowedRoles?: readonly Role[] }
-
-export type AllowAnonymous<A> = A extends { allowAnonymous: true } ? true : false
-
-export function Req<C extends RequestConfig>(config?: C) {
-  return Req_(config)
-}
 
 export interface CTX {
   context: RequestContext
