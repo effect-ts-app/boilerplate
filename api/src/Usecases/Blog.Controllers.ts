@@ -10,11 +10,11 @@ import { BogusEvent } from "resources/Events.js"
 const blog = matchFor(BlogRsc)
 
 export default blog.controllers({
-  FindPost: blog.FindPost((req) =>
+  FindPost: class extends blog.FindPost((req) =>
     BlogPostRepo
       .find(req.id)
       .pipe(Effect.andThen(Option.getOrNull))
-  ),
+  ) {},
 
   GetPosts: blog.GetPosts(
     BlogPostRepo
@@ -22,16 +22,16 @@ export default blog.controllers({
       .pipe(Effect.andThen((items) => ({ items })))
   ),
 
-  CreatePost: blog.CreatePost((req) =>
+  CreatePost: class extends blog.CreatePost((req) =>
     UserRepo
       .getCurrentUser
       .pipe(
         Effect.andThen((author) => (new BlogPost({ ...req, author }, true))),
         Effect.tap(BlogPostRepo.save)
       )
-  ),
+  ) {},
 
-  PublishPost: blog.PublishPost((req) =>
+  PublishPost: class extends blog.PublishPost((req) =>
     Effect.gen(function*() {
       const post = yield* BlogPostRepo.get(req.id)
 
@@ -77,5 +77,5 @@ export default blog.controllers({
 
       return op.id
     })
-  )
+  ) {}
 })
