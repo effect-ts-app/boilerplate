@@ -12,7 +12,7 @@ export default defineNitroPlugin(nitroApp => {
     timeout: 1_000,
   })
 
-  otlpProxy.on("proxyReq", (proxyReq, req, res, options) => {
+  otlpProxy.on("proxyReq", proxyReq => {
     proxyReq.path = "/v1/traces"
   })
 
@@ -21,7 +21,7 @@ export default defineNitroPlugin(nitroApp => {
     target: config.apiRoot,
   })
 
-  apiProxy.on("proxyReq", (proxyReq, req, res, options) => {
+  apiProxy.on("proxyReq", (proxyReq, _, res) => {
     proxyReq.path = proxyReq.path.replace("/api/api", "")
     res.setHeader("x-fe-version", config.public.feVersion)
 

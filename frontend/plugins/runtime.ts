@@ -54,6 +54,7 @@ function makeRuntime(feVersion: string, disableTracing: boolean) {
             WebSdkLive({
               serviceName: "effect-app-boilerplate-frontend",
               serviceVersion: feVersion,
+              attributes: {},
             }),
           ),
         ),

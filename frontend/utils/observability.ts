@@ -32,7 +32,7 @@ import { isErrorReported } from "effect-app/client"
 //   propagator: new B3Propagator(),
 // })
 type Primitive = number | string | boolean | bigint | symbol | null | undefined
-const annotateTags = (tags: { [key: string]: Primitive }) => {
+const annotateTags = (_tags: { [key: string]: Primitive }) => {
   // tags["user.role"] = store.user?.role
 }
 
@@ -96,8 +96,8 @@ export const setupSentry = (app: App<Element>, isRemote: boolean) => {
 
 export const WebSdkLive = (resource: {
   readonly serviceName: string
-  readonly serviceVersion?: string | undefined
-  readonly attributes?: Resources.ResourceAttributes | undefined
+  readonly serviceVersion: string
+  readonly attributes: Resources.ResourceAttributes
 }) =>
   layer(() => ({
     resource,
@@ -115,8 +115,8 @@ export const WebSdkLive = (resource: {
 export const SentrySdkLive = (
   resource: {
     readonly serviceName: string
-    readonly serviceVersion?: string | undefined
-    readonly attributes?: Resources.ResourceAttributes | undefined
+    readonly serviceVersion: string
+    readonly attributes: Resources.ResourceAttributes
   },
   _env: string,
 ) =>

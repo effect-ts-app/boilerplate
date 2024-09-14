@@ -46,7 +46,7 @@ export default defineNuxtConfig({
       // workaround for commonjs/esm module prod issue
       // https://github.com/nuxt/framework/issues/7698
       .concat(
-        process.env.NODE_ENV === "production" ? ["vue-toastification"] : [],
+        process.env["NODE_ENV"] === "production" ? ["vue-toastification"] : [],
       ),
   },
 
@@ -59,7 +59,7 @@ export default defineNuxtConfig({
         fs.readFileSync("../.telemetry-exporter-running", "utf-8") === "true",
       baseUrl: "http://localhost:4000",
       feVersion: "-1",
-      env: process.env.ENV ?? "local-dev",
+      env: process.env["ENV"] ?? "local-dev",
     },
   },
 
@@ -84,7 +84,7 @@ export default defineNuxtConfig({
         "@effect-app/vue/routeParams",
       ],
     },
-    plugins: process.env.CI
+    plugins: process.env["CI"]
       ? [
           // sentryVitePlugin({
           //   org: "???",
