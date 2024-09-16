@@ -6,7 +6,7 @@ import { VueQueryDevtools } from "@tanstack/vue-query-devtools"
 import { Result } from "~/composables/client"
 
 const meClient = clientFor(MeRsc)
-const [userResult, currentUser, getCurrentUser] = useSafeQuery(meClient.Get)
+const [userResult, currentUser, getCurrentUser] = useSafeQuery(meClient.GetMe)
 
 const appConfig = {
   title: "@effect-app/boilerplate",

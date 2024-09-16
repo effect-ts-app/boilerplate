@@ -86,7 +86,7 @@ export class MetricsReader extends Context.TagMakeId("MetricsReader", makeMetric
   static readonly Live = this.toLayer()
 }
 
-const filteredOps = ["Import.AllOperations", "Operations.Find"]
+const filteredOps = ["Import.AllOperations", "Operations.FindOperation"]
 const filteredPaths = ["/.well-known/local/server-health", ...filteredOps.map((op) => `/${op}`)]
 const filteredMethods = ["OPTIONS"]
 const filterAttrs = {
