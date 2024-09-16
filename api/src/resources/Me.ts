@@ -1,12 +1,7 @@
-// codegen:start {preset: barrel, import: star, include: ./Me/*.ts, nodir: false, modulegen: true }
-import * as get from "./Me/Get.js"
+import { User } from "models/User.js"
+import { S } from "./lib.js"
 
-type Id<T> = T
-/* eslint-disable @typescript-eslint/no-empty-object-type */
-
-export interface Get extends Id<typeof get> {}
-export const Get: Get = get
-// codegen:end
+export class GetMe extends S.Req<GetMe>()({}, { success: User }) {}
 
 // codegen:start {preset: meta, sourcePrefix: src/resources/}
 export const meta = { moduleName: "Me" }

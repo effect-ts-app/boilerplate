@@ -1,12 +1,9 @@
-// codegen:start {preset: barrel, import: star, include: ./Operations/*.ts, nodir: false, modulegen: true }
-import * as find from "./Operations/Find.js"
+import { Operation, OperationId } from "effect-app/Operations"
+import { S } from "./lib.js"
 
-type Id<T> = T
-/* eslint-disable @typescript-eslint/no-empty-object-type */
-
-export interface Find extends Id<typeof find> {}
-export const Find: Find = find
-// codegen:end
+export class FindOperation extends S.Req<FindOperation>()({
+  id: OperationId
+}, { allowAnonymous: true, allowRoles: ["user"], success: S.NullOr(Operation) }) {}
 
 // codegen:start {preset: meta, sourcePrefix: src/resources/}
 export const meta = { moduleName: "Operations" }

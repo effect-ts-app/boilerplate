@@ -1,12 +1,17 @@
-// codegen:start {preset: barrel, import: star, include: ./HelloWorld/*.ts, nodir: false, modulegen: true }
-import * as get from "./HelloWorld/Get.js"
+import { S } from "./lib.js"
+import { UserView } from "./Views.js"
 
-type Id<T> = T
-/* eslint-disable @typescript-eslint/no-empty-object-type */
+class Response extends S.Class<Response>()({
+  now: S.Date.withDefault,
+  echo: S.String,
+  context: S.Unknown,
+  currentUser: S.NullOr(UserView),
+  randomUser: UserView
+}) {}
 
-export interface Get extends Id<typeof get> {}
-export const Get: Get = get
-// codegen:end
+export class GetHelloWorld extends S.Req<GetHelloWorld>()({
+  echo: S.String
+}, { allowAnonymous: true, allowRoles: ["user"], success: Response }) {}
 
 // codegen:start {preset: meta, sourcePrefix: src/resources/}
 export const meta = { moduleName: "HelloWorld" }

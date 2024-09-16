@@ -6,7 +6,7 @@ import { OperationsRsc } from "resources.js"
 const operations = matchFor(OperationsRsc)
 
 export default operations.controllers({
-  Find: class extends operations.Find(({ id }) =>
+  FindOperation: class extends operations.FindOperation(({ id }) =>
     Effect.andThen(
       Operations.find(id),
       Option.getOrNull
