@@ -69,7 +69,7 @@ function makeRuntime(feVersion: string, disableTracing: boolean) {
 }
 
 // TODO: make sure the runtime provides these
-export type RT = ApiConfig | HttpClient.HttpClient.Default
+export type RT = ApiConfig | HttpClient.HttpClient
 
 export default defineNuxtPlugin(_ => {
   const config = useRuntimeConfig()

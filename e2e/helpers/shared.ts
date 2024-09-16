@@ -41,7 +41,7 @@ export function makeHeadersHashMap(namespace: string, role?: "manager") {
   return HashMap.make(...keys.map((_) => [_, headers[_]!] as const))
 }
 
-type Env = ApiConfig | HttpClient.HttpClient.Default
+type Env = ApiConfig | HttpClient.HttpClient
 export type SupportedEnv = Env // Effect.DefaultEnv |
 
 export function toBase64(b: string) {
