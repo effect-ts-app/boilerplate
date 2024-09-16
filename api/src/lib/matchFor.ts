@@ -437,23 +437,23 @@ export function matchFor<Rsc extends Record<string, any>>(
               static handler = (req: any, ctx: any) => svcOrFnOrEffect(req, { ...ctx, Response: rsc[cur].Response })
             }
             : class {
-              _tag = "d"
-              handler = matchWithServices(cur)(svcOrFnOrEffect, fnOrNone)
+              static _tag = "d"
+              static handler = matchWithServices(cur)(svcOrFnOrEffect, fnOrNone)
             }
         ;(prev as any)[(cur as any) + "Raw"] = (svcOrFnOrEffect: any, fnOrNone: any) =>
           Effect.isEffect(svcOrFnOrEffect)
             ? class {
-              _tag = "raw"
-              handler = () => svcOrFnOrEffect
+              static _tag = "raw"
+              static handler = () => svcOrFnOrEffect
             }
             : typeof svcOrFnOrEffect === "function"
             ? class {
-              _tag = "raw"
-              handler = (req: any, ctx: any) => svcOrFnOrEffect(req, { ...ctx, Response: rsc[cur].Response })
+              static _tag = "raw"
+              static handler = (req: any, ctx: any) => svcOrFnOrEffect(req, { ...ctx, Response: rsc[cur].Response })
             }
             : class {
-              _tag = "raw"
-              handler = matchWithServices(cur)(svcOrFnOrEffect, fnOrNone)
+              static _tag = "raw"
+              static handler = matchWithServices(cur)(svcOrFnOrEffect, fnOrNone)
             }
         return prev
       },
