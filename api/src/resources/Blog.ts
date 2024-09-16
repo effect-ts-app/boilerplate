@@ -1,21 +1,28 @@
-// codegen:start {preset: barrel, import: star, include: ./Blog/*.ts, nodir: false, modulegen: true }
-import * as createPost from "./Blog/CreatePost.js"
-import * as findPost from "./Blog/FindPost.js"
-import * as getPosts from "./Blog/GetPosts.js"
-import * as publishPost from "./Blog/PublishPost.js"
+import { OperationId } from "effect-app/Operations"
+import { BlogPost, BlogPostId } from "models/Blog.js"
+import { S } from "./lib.js"
+import { BlogPostView } from "./Views.js"
 
-type Id<T> = T
-/* eslint-disable @typescript-eslint/no-empty-object-type */
+export class CreatePost extends S.Req<CreatePost>()(
+  BlogPost.pick("title", "body"),
+  { allowAnonymous: true, allowRoles: ["user"], success: S.Struct({ id: BlogPostId }) }
+) {}
 
-export interface CreatePost extends Id<typeof createPost> {}
-export const CreatePost: CreatePost = createPost
-export interface FindPost extends Id<typeof findPost> {}
-export const FindPost: FindPost = findPost
-export interface GetPosts extends Id<typeof getPosts> {}
-export const GetPosts: GetPosts = getPosts
-export interface PublishPost extends Id<typeof publishPost> {}
-export const PublishPost: PublishPost = publishPost
-// codegen:end
+export class FindPost extends S.Req<FindPost>()({
+  id: BlogPostId
+}, { allowAnonymous: true, allowRoles: ["user"], success: S.NullOr(BlogPostView) }) {}
+
+export class GetPosts extends S.Req<GetPosts>()({}, {
+  allowAnonymous: true,
+  allowRoles: ["user"],
+  success: S.Struct({
+    items: S.Array(BlogPostView)
+  })
+}) {}
+
+export class PublishPost extends S.Req<PublishPost>()({
+  id: BlogPostId
+}, { allowAnonymous: true, allowRoles: ["user"], success: OperationId }) {}
 
 // codegen:start {preset: meta, sourcePrefix: src/resources/}
 export const meta = { moduleName: "Blog" }

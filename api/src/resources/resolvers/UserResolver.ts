@@ -18,7 +18,7 @@ const userClient = clientFor(UsersRsc)
 const getUserViewByIdResolver = RequestResolver
   .makeBatched((requests: GetUserViewById[]) =>
     userClient
-      .Index
+      .IndexUsers
       .handler({ filterByIds: pipe(requests.map((_) => _.id), Array.toNonEmptyArray, Option.getOrUndefined)! })
       .pipe(
         Effect.andThen(({ body: { users } }) =>

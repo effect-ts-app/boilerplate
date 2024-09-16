@@ -8,7 +8,7 @@ import type { UserView } from "resources/Views.js"
 const users = matchFor(UsersRsc)
 
 export default users.controllers({
-  Index: users.Index((req) =>
+  IndexUsers: users.IndexUsers((req) =>
     UserRepo
       .query(Q.where("id", "in", req.filterByIds))
       .pipe(Effect.andThen((users) => ({

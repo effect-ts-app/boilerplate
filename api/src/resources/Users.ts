@@ -1,6 +1,16 @@
-// codegen:start {preset: barrel, include: ./Users/*.ts, export: { as: 'PascalCase' }, nodir: false }
-export * as Index from "./Users/Index.js"
-// codegen:end
+import { UserId } from "models/User.js"
+import { S } from "./lib.js"
+import { UserView } from "./Views/UserView.js"
+
+export class IndexUsers extends S.Req<IndexUsers>()({
+  filterByIds: S.NonEmptyArray(UserId)
+}, {
+  allowAnonymous: true,
+  allowRoles: ["user"],
+  success: S.Struct({
+    users: S.Array(UserView)
+  })
+}) {}
 
 // codegen:start {preset: meta, sourcePrefix: src/resources/}
 export const meta = { moduleName: "Users" }
