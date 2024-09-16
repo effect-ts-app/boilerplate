@@ -8,7 +8,6 @@ import type {
 import { Req as Req_ } from "@effect-app/schema/REST"
 import { S } from "effect-app"
 import type { Role } from "models/User.js"
-import type { C } from "vite-node/dist/index-CCsqCcr7.js"
 
 export type RequestConfig = { allowAnonymous?: true; allowedRoles?: readonly Role[] }
 
@@ -110,7 +109,9 @@ export function Req<M>(): {
         "/",
         "AUTO",
         M,
-        C
+        {
+          Response: S.Void
+        }
       >
     }
 } {
