@@ -54,6 +54,7 @@
     "nnm": "find . -name 'node_modules' -type d -prune -exec rm -rf '{}' + && pnpm i"
   },
   "resolutions": {
+    "@effect/schema": "$@effect/schema",
     "@opentelemetry/api": "$@opentelemetry/api",
     "@opentelemetry/exporter-metrics-otlp-http": "$@opentelemetry/exporter-metrics-otlp-http",
     "@opentelemetry/exporter-trace-otlp-http": "$@opentelemetry/exporter-trace-otlp-http",
@@ -68,13 +69,13 @@
     "vue": "$vue"
   },
   "dependencies": {
-    "date-fns": "^3.6.0",
-    "effect": "^3.7.3",
-    "@effect/experimental": "^0.25.2",
-    "@effect/opentelemetry": "^0.36.3",
-    "@effect/platform": "^0.64.1",
-    "@effect/platform-node": "^0.59.1",
-    "@effect/schema": "^0.72.4",
+    "date-fns": "^4.0.0",
+    "effect": "^3.8.0",
+    "@effect/experimental": "^0.26.1",
+    "@effect/opentelemetry": "^0.37.0",
+    "@effect/platform": "^0.65.1",
+    "@effect/platform-node": "^0.60.1",
+    "@effect/schema": "0.73.0",
     "@opentelemetry/api": "^1.9",
     "@opentelemetry/exporter-metrics-otlp-http": "^0.53.0",
     "@opentelemetry/exporter-trace-otlp-http": "^0.53.0",
@@ -91,13 +92,13 @@
     "ts-patch": "^3.2.1",
     "vite-node": "^2.1.1",
     "vite-tsconfig-paths": "^5.0.1",
-    "vue": "^3.5.5"
+    "vue": "^3.5.6"
   },
   "devDependencies": {
     "@dprint/typescript": "^0.91.8",
-    "@effect-app/cli": "^0.79.3",
-    "@effect-app/core": "^1.7.5",
-    "@effect-app/eslint-codegen-model": "^1.8.3",
+    "@effect-app/cli": "^0.80.0",
+    "@effect-app/core": "^1.8.0",
+    "@effect-app/eslint-codegen-model": "^1.9.0",
     "@phaphoso/eslint-plugin-dprint": "^0.5.2",
     "@tsconfig/strictest": "^2.0.5",
     "@types/lodash": "^4.17.7",
@@ -107,7 +108,7 @@
     "@typescript-eslint/scope-manager": "^8.5.0",
     "concurrently": "^9.0.1",
     "dprint": "^0.47.2",
-    "effect-app": "^1.12.4",
+    "effect-app": "^1.13.0",
     "enhanced-resolve": "^5.17.1",
     "eslint": "^8.57.0",
     "eslint-import-resolver-typescript": "^3.6.3",
