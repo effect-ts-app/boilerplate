@@ -82,7 +82,7 @@ export function Req<M>(): {
   ) => {
     const req = config?.success
       ? Req_<C>({ ...config, Response: config.success })<M>()<Fields>(fields)
-      : Req_({ ...config, success: S.Void })<M>()<Fields>(fields)
+      : Req_({ ...config, success: S.Void, Response: S.Void })<M>()<Fields>(fields)
     const req2 = Object.assign(req, { Request: req }) // bwc
     return req2
   }
