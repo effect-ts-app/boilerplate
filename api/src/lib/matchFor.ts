@@ -242,39 +242,36 @@ export function matchFor<Rsc extends Record<string, any>>(
   type MatchWithServicesNew<RT extends "raw" | "d", Key extends keyof Rsc> = {
     <R2, E, A>(
       f: Effect<A, E, R2>
-    ):
-      & HandleVoid<
-        S.Schema.Type<REST.GetResponse<Rsc[Key]>>,
+    ): HandleVoid<
+      S.Schema.Type<REST.GetResponse<Rsc[Key]>>,
+      A,
+      Handler<
+        ReqFromSchema<REST.GetRequest<Rsc[Key]>>,
+        Types.Simplify<GetCTX<REST.GetRequest<Rsc[Key]>>>,
+        RT,
         A,
-        Handler<
-          ReqFromSchema<REST.GetRequest<Rsc[Key]>>,
-          Types.Simplify<GetCTX<REST.GetRequest<Rsc[Key]>>>,
-          RT,
-          A,
-          E,
-          R2
-        >
+        E,
+        R2
       >
-      & { new(): {} }
+    >
     <R2, E, A>(
       f: (
         req: ReqFromSchema<REST.GetRequest<Rsc[Key]>>,
         ctx: GetCTX<REST.GetRequest<Rsc[Key]>> & Pick<Rsc[Key], "Response">
       ) => Effect<A, E, R2>
-    ):
-      & HandleVoid<
-        S.Schema.Type<REST.GetResponse<Rsc[Key]>>,
+    ): HandleVoid<
+      S.Schema.Type<REST.GetResponse<Rsc[Key]>>,
+      A,
+      Handler<
+        ReqFromSchema<REST.GetRequest<Rsc[Key]>>,
+        Types.Simplify<GetCTX<REST.GetRequest<Rsc[Key]>>>,
+        RT,
         A,
-        Handler<
-          ReqFromSchema<REST.GetRequest<Rsc[Key]>>,
-          Types.Simplify<GetCTX<REST.GetRequest<Rsc[Key]>>>,
-          RT,
-          A,
-          E,
-          R2
-        >
+        E,
+        R2
       >
-      & { new(): {} }
+    >
+
     <
       SVC extends Record<
         string,
@@ -292,24 +289,23 @@ export function matchFor<Rsc extends Record<string, any>>(
           "flat"
         >
       ) => Effect<A, E, R2>
-    ):
-      & HandleVoid<
-        S.Schema.Type<REST.GetResponse<Rsc[Key]>>,
+    ): HandleVoid<
+      S.Schema.Type<REST.GetResponse<Rsc[Key]>>,
+      A,
+      Handler<
+        ReqFromSchema<REST.GetRequest<Rsc[Key]>>,
+        Types.Simplify<GetCTX<REST.GetRequest<Rsc[Key]>>>,
+        RT,
         A,
-        Handler<
-          ReqFromSchema<REST.GetRequest<Rsc[Key]>>,
-          Types.Simplify<GetCTX<REST.GetRequest<Rsc[Key]>>>,
-          RT,
-          A,
-          E,
-          R2
-        >
+        E,
+        R2
       >
-      & { new(): {} }
+    >
   }
 
   type Keys = keyof Filtered
   type Handler<Req, Context, RT extends "raw" | "d", A, E, R> = {
+    new(): {}
     _tag: RT
     handler: (
       req: Req,
