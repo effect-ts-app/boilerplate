@@ -1,5 +1,5 @@
 import { Operation, OperationId } from "effect-app/Operations"
-import { S } from "./lib.js"
+import * as S from "./lib/schema.js"
 
 export class FindOperation extends S.Req<FindOperation>()({
   id: OperationId
