@@ -40,7 +40,7 @@ export function Req<M>(): {
       "AUTO",
       M,
       C & {
-        Response: S.Void
+        Response: typeof S.Void
       }
     >
     & {
@@ -61,7 +61,7 @@ export function Req<M>(): {
       "AUTO",
       M,
       {
-        Response: S.Void
+        Response: typeof S.Void
       }
     >
     & {
@@ -71,7 +71,7 @@ export function Req<M>(): {
         "AUTO",
         M,
         {
-          Response: S.Void
+          Response: typeof S.Void
         }
       >
     }
