@@ -129,7 +129,9 @@ export function match<
   const route = HttpRouter.makeRoute(
     requestHandler.Request.method,
     requestHandler.Request.path,
-    handler
+    handler.pipe(
+      Effect.withSpan("Request." + requestHandler.name, { captureStackTrace: () => (requestHandler as any).stack })
+    )
   )
   // TODO
   // rdesc.push(makeRouteDescriptor(
@@ -162,9 +164,10 @@ function handle<
   type Res = S.Schema.Type<Extr<ResSchema>>
 
   return <R, E>(
-    h: { _tag: "raw" | "d"; handler: (r: Req) => Effect<Res, E, R> }
+    h: { _tag: "raw" | "d"; handler: (r: Req) => Effect<Res, E, R>; stack?: string }
   ) => ({
     adaptResponse,
+    stack: h.stack,
     h: h.handler,
     name,
     Request,
@@ -407,36 +410,46 @@ export function matchFor<Rsc extends Record<string, any>>(
     controllers,
     ...typedKeysOf(rsc).reduce(
       (prev, cur) => {
-        ;(prev as any)[cur] = (svcOrFnOrEffect: any, fnOrNone: any) =>
-          Effect.isEffect(svcOrFnOrEffect)
+        ;(prev as any)[cur] = (svcOrFnOrEffect: any, fnOrNone: any) => {
+          const stack = new Error().stack?.split("\n").slice(2).join("\n")
+          return Effect.isEffect(svcOrFnOrEffect)
             ? class {
+              static stack = stack
               static _tag = "d"
               static handler = () => svcOrFnOrEffect
             }
             : typeof svcOrFnOrEffect === "function"
             ? class {
+              static stack = stack
               static _tag = "d"
               static handler = (req: any, ctx: any) => svcOrFnOrEffect(req, { ...ctx, Response: rsc[cur].Response })
             }
             : class {
+              static stack = stack
               static _tag = "d"
               static handler = matchWithServices(cur)(svcOrFnOrEffect, fnOrNone)
             }
-        ;(prev as any)[(cur as any) + "Raw"] = (svcOrFnOrEffect: any, fnOrNone: any) =>
-          Effect.isEffect(svcOrFnOrEffect)
+        }
+        ;(prev as any)[(cur as any) + "Raw"] = (svcOrFnOrEffect: any, fnOrNone: any) => {
+          const stack = new Error().stack?.split("\n").slice(2).join("\n")
+          return Effect.isEffect(svcOrFnOrEffect)
             ? class {
+              static stack = stack
               static _tag = "raw"
               static handler = () => svcOrFnOrEffect
             }
             : typeof svcOrFnOrEffect === "function"
             ? class {
+              static stack = stack
               static _tag = "raw"
               static handler = (req: any, ctx: any) => svcOrFnOrEffect(req, { ...ctx, Response: rsc[cur].Response })
             }
             : class {
+              static stack = stack
               static _tag = "raw"
               static handler = matchWithServices(cur)(svcOrFnOrEffect, fnOrNone)
             }
+        }
         return prev
       },
       {} as
@@ -669,36 +682,46 @@ export function matchForN<Rsc extends Record<string, any>>(
     controllers,
     ...typedKeysOf(filtered).reduce(
       (prev, cur) => {
-        ;(prev as any)[cur] = (svcOrFnOrEffect: any, fnOrNone: any) =>
-          Effect.isEffect(svcOrFnOrEffect)
+        ;(prev as any)[cur] = (svcOrFnOrEffect: any, fnOrNone: any) => {
+          const stack = new Error().stack?.split("\n").slice(2).join("\n")
+          return Effect.isEffect(svcOrFnOrEffect)
             ? class {
+              static stack = stack
               static _tag = "d"
               static handler = () => svcOrFnOrEffect
             }
             : typeof svcOrFnOrEffect === "function"
             ? class {
+              static stack = stack
               static _tag = "d"
               static handler = (req: any, ctx: any) => svcOrFnOrEffect(req, { ...ctx, Response: rsc[cur].Response })
             }
             : class {
-              _tag = "d"
-              handler = matchWithServices(cur)(svcOrFnOrEffect, fnOrNone)
+              static stack = stack
+              static _tag = "d"
+              static handler = matchWithServices(cur)(svcOrFnOrEffect, fnOrNone)
             }
-        ;(prev as any)[(cur as any) + "Raw"] = (svcOrFnOrEffect: any, fnOrNone: any) =>
-          Effect.isEffect(svcOrFnOrEffect)
+        }
+        ;(prev as any)[(cur as any) + "Raw"] = (svcOrFnOrEffect: any, fnOrNone: any) => {
+          const stack = new Error().stack?.split("\n").slice(2).join("\n")
+          return Effect.isEffect(svcOrFnOrEffect)
             ? class {
-              _tag = "raw"
-              handler = () => svcOrFnOrEffect
+              static stack = stack
+              static _tag = "raw"
+              static handler = () => svcOrFnOrEffect
             }
             : typeof svcOrFnOrEffect === "function"
             ? class {
-              _tag = "raw"
-              handler = (req: any, ctx: any) => svcOrFnOrEffect(req, { ...ctx, Response: rsc[cur].Response })
+              static stack = stack
+              static _tag = "raw"
+              static handler = (req: any, ctx: any) => svcOrFnOrEffect(req, { ...ctx, Response: rsc[cur].Response })
             }
             : class {
-              _tag = "raw"
-              handler = matchWithServices(cur)(svcOrFnOrEffect, fnOrNone)
+              static stack = stack
+              static _tag = "raw"
+              static handler = matchWithServices(cur)(svcOrFnOrEffect, fnOrNone)
             }
+        }
         return prev
       },
       {} as
