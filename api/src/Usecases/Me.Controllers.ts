@@ -5,5 +5,5 @@ import { MeRsc } from "resources.js"
 const me = matchFor(MeRsc)
 
 export default me.controllers({
-  GetMe: class extends me.GetMe(UserRepo.getCurrentUser) {}
+  GetMe: me.GetMe(UserRepo.getCurrentUser)
 })
