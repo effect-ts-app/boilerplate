@@ -54,7 +54,6 @@
     "nnm": "find . -name 'node_modules' -type d -prune -exec rm -rf '{}' + && pnpm i"
   },
   "resolutions": {
-    "@effect/schema": "$@effect/schema",
     "@opentelemetry/api": "$@opentelemetry/api",
     "@opentelemetry/exporter-metrics-otlp-http": "$@opentelemetry/exporter-metrics-otlp-http",
     "@opentelemetry/exporter-trace-otlp-http": "$@opentelemetry/exporter-trace-otlp-http",
@@ -96,7 +95,7 @@
   },
   "devDependencies": {
     "@dprint/typescript": "^0.93.0",
-    "@effect-app/cli": "^0.80.0",
+    "@effect-app/cli": "^0.80.1",
     "@effect-app/core": "^1.9.0",
     "@effect-app/eslint-codegen-model": "^1.10.0",
     "@phaphoso/eslint-plugin-dprint": "^0.5.2",
@@ -108,7 +107,7 @@
     "@typescript-eslint/scope-manager": "^8.6.0",
     "concurrently": "^9.0.1",
     "dprint": "^0.47.2",
-    "effect-app": "^1.15.0",
+    "effect-app": "^1.15.3",
     "enhanced-resolve": "^5.17.1",
     "eslint": "^8.57.0",
     "eslint-import-resolver-typescript": "^3.6.3",
