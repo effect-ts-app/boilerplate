@@ -8,7 +8,7 @@ import { Auth0Config, checkJWTI } from "api/middleware/auth.js"
 import { Duration, Effect, Exit, Layer, Option, Request } from "effect-app"
 import { HttpServerRequest } from "effect-app/http"
 import { Role } from "models/User.js"
-import type { AllowAnonymous, RequestConfig } from "resources/lib.js"
+import type { RequestConfig } from "resources/lib.js"
 import {
   makeUserProfileFromAuthorizationHeader,
   makeUserProfileFromUserHeader,
@@ -22,16 +22,6 @@ import { basicRuntime } from "./basicRuntime.js"
 export interface CTX {
   context: RequestContext
 }
-
-export type GetCTX<Req> =
-  & CTX
-  & (AllowAnonymous<Req> extends true ? {
-      userProfile?: UserProfile
-    }
-    : { userProfile: UserProfile })
-
-export type GetContext<Req> = AllowAnonymous<Req> extends true ? never
-  : UserProfile
 
 export const RequestCacheLayers = Layer.mergeAll(
   Layer.setRequestCache(

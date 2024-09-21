@@ -1,5 +1,5 @@
+import { makeClientRouter } from "effect-app/client/router"
 import type { Role } from "models/User.js"
-import { makeClientRouter } from "./clientRouter.js"
 
 export type RequestConfig = { allowAnonymous?: true; allowedRoles?: readonly Role[] }
 
