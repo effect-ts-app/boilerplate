@@ -8,7 +8,7 @@ import { HelloWorldRsc } from "resources.js"
 const helloWorld = matchFor(HelloWorldRsc)
 
 export default helloWorld.controllers({
-  GetHelloWorld: helloWorld.GetHelloWorld(({ echo }, { Response, context }) =>
+  GetHelloWorld: class extends helloWorld.GetHelloWorld(({ echo }, { Response, context }) =>
     UserRepo
       .getCurrentUser
       .pipe(
@@ -25,5 +25,5 @@ export default helloWorld.controllers({
           })
         )
       )
-  )
+  ) {}
 })

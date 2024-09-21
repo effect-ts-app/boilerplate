@@ -6,10 +6,10 @@ import { OperationsRsc } from "resources.js"
 const operations = matchFor(OperationsRsc)
 
 export default operations.controllers({
-  FindOperation: operations.FindOperation(({ id }) =>
+  FindOperation: class extends operations.FindOperation(({ id }) =>
     Effect.andThen(
       Operations.find(id),
       Option.getOrNull
     )
-  )
+  ) {}
 })
