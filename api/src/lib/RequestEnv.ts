@@ -16,9 +16,6 @@ import {
 } from "../services/UserProfile.js"
 import { basicRuntime } from "./basicRuntime.js"
 
-// Workaround for the error when using
-// import type { AllowAnonymous, RequestConfig } from "resources/lib.js"
-
 export interface CTX {
   context: RequestContext
 }
