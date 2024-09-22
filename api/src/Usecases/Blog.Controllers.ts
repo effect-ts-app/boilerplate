@@ -1,4 +1,4 @@
-import { matchFor } from "api/lib/matchFor.js"
+import { matchFor } from "api/lib/routing.js"
 import { BlogPostRepo, Events, forkOperationWithEffect, Operations, UserRepo } from "api/services.js"
 import { Duration, Effect, Schedule } from "effect"
 import { Option } from "effect-app"
@@ -16,11 +16,11 @@ export default blog.controllers({
       .pipe(Effect.andThen(Option.getOrNull))
   ) {},
 
-  GetPosts: blog.GetPosts(
+  GetPosts: class extends blog.GetPosts(
     BlogPostRepo
       .all
       .pipe(Effect.andThen((items) => ({ items })))
-  ),
+  ) {},
 
   CreatePost: class extends blog.CreatePost((req) =>
     UserRepo
