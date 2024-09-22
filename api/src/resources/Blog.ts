@@ -5,7 +5,7 @@ import { BlogPostView } from "./Views.js"
 
 export class CreatePost extends S.Req<CreatePost>()(
   BlogPost.pick("title", "body"),
-  { allowAnonymous: true, allowRoles: ["user"], success: S.Struct({ id: BlogPostId }) }
+  { allowRoles: ["user"], success: S.Struct({ id: BlogPostId }) }
 ) {}
 
 export class FindPost extends S.Req<FindPost>()({
@@ -22,7 +22,7 @@ export class GetPosts extends S.Req<GetPosts>()({}, {
 
 export class PublishPost extends S.Req<PublishPost>()({
   id: BlogPostId
-}, { allowAnonymous: true, allowRoles: ["user"], success: OperationId }) {}
+}, { allowRoles: ["user"], success: OperationId }) {}
 
 // codegen:start {preset: meta, sourcePrefix: src/resources/}
 export const meta = { moduleName: "Blog" }
