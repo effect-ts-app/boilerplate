@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { JWTError, type RequestHandler } from "@effect-app/infra/api/routing"
 import type { RequestContext } from "@effect-app/infra/RequestContext"
+import { makeRouter } from "@effect-app/infra/router"
+import type { ContextMapInverted } from "@effect-app/infra/router"
 import { RequestContextContainer } from "@effect-app/infra/services/RequestContextContainer"
 import type { Struct } from "@effect/schema/Schema"
 import { NotLoggedInError, UnauthorizedError } from "api/errors.js"
@@ -19,6 +21,8 @@ import { basicRuntime } from "./basicRuntime.js"
 export interface CTX {
   context: RequestContext
 }
+
+export type CTXMap = { allowAnonymous: ContextMapInverted<"userProfile", UserProfile> }
 
 export const RequestCacheLayers = Layer.mergeAll(
   Layer.setRequestCache(
@@ -133,3 +137,5 @@ export function handleRequestEnv<
     makeRequestLayer: RequestEnv(handler)
   }
 }
+
+export const { matchAll, matchFor } = makeRouter<CTX, CTXMap>(handleRequestEnv)

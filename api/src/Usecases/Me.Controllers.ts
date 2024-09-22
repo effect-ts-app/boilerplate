@@ -1,4 +1,4 @@
-import { matchFor } from "api/lib/matchFor.js"
+import { matchFor } from "api/lib/routing.js"
 import { UserRepo } from "api/services.js"
 import { MeRsc } from "resources.js"
 
