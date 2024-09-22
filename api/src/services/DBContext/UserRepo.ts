@@ -78,7 +78,7 @@ export class UserRepo extends RepositoryDefaultImpl<UserRepo>()(
     )
     .pipe(Layer.provide(this.Live))
 
-  get getCurrentUser() {
+  get tryGetCurrentUser() {
     return pipe(
       Effect.serviceOption(UserProfile),
       Effect.andThen((_) => _.pipe(Effect.mapError(() => new NotLoggedInError()))),
@@ -86,7 +86,15 @@ export class UserRepo extends RepositoryDefaultImpl<UserRepo>()(
     )
   }
 
+  get getCurrentUser() {
+    return pipe(
+      UserProfile,
+      Effect.andThen((_) => this.get(_.sub))
+    )
+  }
+
   static getCurrentUser = Effect.serviceConstants(this).getCurrentUser
+  static tryGetCurrentUser = Effect.serviceConstants(this).tryGetCurrentUser
 }
 
 interface GetUserById extends Request.Request<User, NotFoundError<"User">> {
