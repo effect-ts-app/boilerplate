@@ -40,7 +40,7 @@ const checkRoles = (request: any, userProfile: Option<UserProfile>) =>
     const userRoles = Option
       .map(userProfile, (_) => _.roles.includes("manager") ? [Role("manager"), Role("user")] : [Role("user")])
       .pipe(Option.getOrElse(() => [Role("user")]))
-    const allowedRoles: readonly Role[] = request.allowedRoles ?? ["user"]
+    const allowedRoles: readonly Role[] = request.allowRoles ?? ["user"]
     if (!allowedRoles.some((_) => userRoles.includes(_))) {
       return yield* new UnauthorizedError()
     }
