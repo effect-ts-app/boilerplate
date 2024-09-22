@@ -10,7 +10,7 @@ const helloWorld = matchFor(HelloWorldRsc)
 export default helloWorld.controllers({
   GetHelloWorld: class extends helloWorld.GetHelloWorld(({ echo }, { Response, context }) =>
     UserRepo
-      .getCurrentUser
+      .tryGetCurrentUser
       .pipe(
         Effect.catchTags({
           "NotLoggedInError": () => Effect.succeed(null),
