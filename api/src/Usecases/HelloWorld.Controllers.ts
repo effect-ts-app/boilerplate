@@ -1,4 +1,4 @@
-import { generate } from "@effect-app/infra/test.arbs"
+import { generate } from "@effect-app/infra/test"
 import { matchFor } from "api/lib/routing.js"
 import { UserRepo } from "api/services.js"
 import { Effect, S } from "effect-app"
