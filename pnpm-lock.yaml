@@ -253,8 +253,8 @@ importers:
         specifier: ^1.10.1
         version: 1.10.1(@effect/platform@0.66.2(patch_hash=ajrtezc3hngsildcvut2hkv3ui)(@effect/schema@0.74.1(patch_hash=idh6pjrid4dz7jyrs5buwdls7u)(effect@3.8.4))(effect@3.8.4))(effect@3.8.4)(encoding@0.1.13)
       '@effect-app/infra':
-        specifier: 1.18.3
-        version: 1.18.3(@effect/platform@0.66.2(patch_hash=ajrtezc3hngsildcvut2hkv3ui)(@effect/schema@0.74.1(patch_hash=idh6pjrid4dz7jyrs5buwdls7u)(effect@3.8.4))(effect@3.8.4))(@effect/schema@0.74.1(patch_hash=idh6pjrid4dz7jyrs5buwdls7u)(effect@3.8.4))(@effect/vitest@0.10.5(effect@3.8.4)(vitest@2.1.1(@types/node@22.7.4)(jsdom@20.0.3)(sass@1.79.4)(terser@5.27.0)))(effect@3.8.4)(encoding@0.1.13)(express@4.21.0)
+        specifier: 1.20.0
+        version: 1.20.0(@effect/platform@0.66.2(patch_hash=ajrtezc3hngsildcvut2hkv3ui)(@effect/schema@0.74.1(patch_hash=idh6pjrid4dz7jyrs5buwdls7u)(effect@3.8.4))(effect@3.8.4))(@effect/schema@0.74.1(patch_hash=idh6pjrid4dz7jyrs5buwdls7u)(effect@3.8.4))(@effect/vitest@0.10.5(effect@3.8.4)(vitest@2.1.1(@types/node@22.7.4)(jsdom@20.0.3)(sass@1.79.4)(terser@5.27.0)))(effect@3.8.4)(encoding@0.1.13)(express@4.21.0)
       '@effect-app/infra-adapters':
         specifier: ^1.11.3
         version: 1.11.3(@effect/platform@0.66.2(patch_hash=ajrtezc3hngsildcvut2hkv3ui)(@effect/schema@0.74.1(patch_hash=idh6pjrid4dz7jyrs5buwdls7u)(effect@3.8.4))(effect@3.8.4))(@effect/schema@0.74.1(patch_hash=idh6pjrid4dz7jyrs5buwdls7u)(effect@3.8.4))(effect@3.8.4)(encoding@0.1.13)
@@ -1474,8 +1474,8 @@ packages:
       '@effect/schema': ^0.74.1
       effect: ^3.8.4
 
-  '@effect-app/infra@1.18.3':
-    resolution: {integrity: sha512-rFrLBgrolb9pSMTQSJgvhLLW4l4MmSvPmcoRLKHsOoH22TfIN6enf6EzGEVHXDqWws0N38YgjqwRUZuTWt2nVQ==}
+  '@effect-app/infra@1.20.0':
+    resolution: {integrity: sha512-E5cPPd2cgrn/+r9iNeUAHfDjIX8nCR1x+3+wt8zjI4uC7UZrz7XWcmbWk4wbXwGWc7opoF5/fSOkr3yR/K86Uw==}
     peerDependencies:
       '@effect/platform': ^0.66.2
       '@effect/schema': ^0.74.1
@@ -10481,7 +10481,7 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
-  '@effect-app/infra@1.18.3(@effect/platform@0.66.2(patch_hash=ajrtezc3hngsildcvut2hkv3ui)(@effect/schema@0.74.1(patch_hash=idh6pjrid4dz7jyrs5buwdls7u)(effect@3.8.4))(effect@3.8.4))(@effect/schema@0.74.1(patch_hash=idh6pjrid4dz7jyrs5buwdls7u)(effect@3.8.4))(@effect/vitest@0.10.5(effect@3.8.4)(vitest@2.1.1(@types/node@22.7.4)(jsdom@20.0.3)(sass@1.79.4)(terser@5.27.0)))(effect@3.8.4)(encoding@0.1.13)(express@4.21.0)':
+  '@effect-app/infra@1.20.0(@effect/platform@0.66.2(patch_hash=ajrtezc3hngsildcvut2hkv3ui)(@effect/schema@0.74.1(patch_hash=idh6pjrid4dz7jyrs5buwdls7u)(effect@3.8.4))(effect@3.8.4))(@effect/schema@0.74.1(patch_hash=idh6pjrid4dz7jyrs5buwdls7u)(effect@3.8.4))(@effect/vitest@0.10.5(effect@3.8.4)(vitest@2.1.1(@types/node@22.7.4)(jsdom@20.0.3)(sass@1.79.4)(terser@5.27.0)))(effect@3.8.4)(encoding@0.1.13)(express@4.21.0)':
     dependencies:
       '@azure/cosmos': 4.1.1
       '@azure/service-bus': 7.9.5

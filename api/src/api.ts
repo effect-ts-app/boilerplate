@@ -7,7 +7,7 @@ import { ContextMapContainer } from "@effect-app/infra/services/Store/ContextMap
 import * as HttpClientNode from "@effect/platform-node/NodeHttpClient"
 import * as HttpNode from "@effect/platform-node/NodeHttpServer"
 import { router } from "api/routes.js"
-import { Effect, Layer, Option } from "effect-app"
+import { Effect, Layer, Option, Stream } from "effect-app"
 import { HttpMiddleware, HttpRouter, HttpServer } from "effect-app/http"
 import { GenericTag } from "effect/Context"
 import { createServer } from "node:http"
@@ -17,6 +17,7 @@ import { RequestContextMiddleware } from "./middleware/index.js"
 import { RepoTest } from "./migrate.js"
 import { BlogPostRepo, UserRepo } from "./services.js"
 import { Events } from "./services/Events.js"
+import { ClientEvents } from "resources.js"
 
 export const ApiPortTag = GenericTag<{ port: number }>("@services/ApiPortTag")
 
@@ -37,7 +38,7 @@ export const api = Effect
 
     const app = router
       .pipe(
-        HttpRouter.get("/events", MW.events),
+        HttpRouter.get("/events", MW.makeSSE(Stream.flatten(Events.stream), ClientEvents)),
         // HttpRouter.use(Effect.provide(RequestLayerLive)),
         HttpRouter.use(RequestContextMiddleware),
         MW.serverHealth(cfg.apiVersion),

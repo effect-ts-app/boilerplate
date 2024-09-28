@@ -79,11 +79,3 @@ export const checkJwt = (config: Effect.Success<typeof Auth0Config>) => {
     })
   )
 }
-
-// const checkScopes = requiredScopes('read:messages');
-
-// app.get('/api/private-scoped', checkJwt, checkScopes, function(req, res) {
-//   res.json({
-//     message: 'Hello from a private endpoint! You need to be authenticated and have a scope of read:messages to see this.'
-//   });
-// });
