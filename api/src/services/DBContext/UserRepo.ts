@@ -14,47 +14,47 @@ import { UserProfile } from "../UserProfile.js"
 
 export type UserSeed = "sample" | ""
 
+const makeInitial = RepoConfig.pipe(Effect.andThen((cfg) => {
+  const seed = cfg.fakeUsers === "seed" ? "seed" : cfg.fakeUsers === "sample" ? "sample" : ""
+  const fakeUsers = pipe(
+    Array
+      .range(1, 8)
+      .map((_, i): User => {
+        const g = generate(S.A.make(User)).value
+        const emailArb = fakerArb((_) => () =>
+          _
+            .internet
+            .exampleEmail({ firstName: g.name.firstName, lastName: g.name.lastName })
+        )
+        return new User({
+          ...g,
+          email: Email(generate(emailArb(fc)).value),
+          role: i === 0 || i === 1 ? "manager" : "user"
+        })
+      }),
+    Array.toNonEmptyArray,
+    Option
+      .match({
+        onNone: () => {
+          throw new Error("must have fake users")
+        },
+        onSome: (_) => _
+      })
+  )
+  return Effect.sync(() => {
+    const items = seed === "sample" ? fakeUsers : []
+    return items
+  })
+}))
+
 export class UserRepo extends RepositoryDefaultImpl<UserRepo>()(
   "User",
   User
 ) {
-  static Live = Effect
-    .andThen(RepoConfig, (cfg) => {
-      const seed = cfg.fakeUsers === "seed" ? "seed" : cfg.fakeUsers === "sample" ? "sample" : ""
-      const fakeUsers = pipe(
-        Array
-          .range(1, 8)
-          .map((_, i): User => {
-            const g = generate(S.A.make(User)).value
-            const emailArb = fakerArb((_) => () =>
-              _
-                .internet
-                .exampleEmail({ firstName: g.name.firstName, lastName: g.name.lastName })
-            )
-            return new User({
-              ...g,
-              email: Email(generate(emailArb(fc)).value),
-              role: i === 0 || i === 1 ? "manager" : "user"
-            })
-          }),
-        Array.toNonEmptyArray,
-        Option
-          .match({
-            onNone: () => {
-              throw new Error("must have fake users")
-            },
-            onSome: (_) => _
-          })
-      )
-      const makeInitial = Effect.sync(() => {
-        const items = seed === "sample" ? fakeUsers : []
-        return items
-      })
-      return UserRepo
-        .makeWith({ makeInitial }, (_) => new UserRepo(_))
-        .pipe(Layer.effect(UserRepo))
-    })
-    .pipe(Layer.unwrapEffect, Layer.provide(RepoLive))
+  static Live = UserRepo
+    .makeWith({ makeInitial }, (_) => new UserRepo(_))
+    .pipe(Layer.effect(UserRepo))
+    .pipe(Layer.provide(RepoLive))
 
   static readonly UserFromIdLayer = User
     .resolver
