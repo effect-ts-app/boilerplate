@@ -1,5 +1,5 @@
 import { RepositoryDefaultImpl } from "@effect-app/infra/services/RepositoryBase"
-import { RepoLive } from "api/migrate.js"
+import { RepoLive } from "api/lib/layers.js"
 import { Effect, Layer } from "effect"
 import { NonEmptyString255, NonEmptyString2k } from "effect-app/schema"
 import { BlogPost } from "models/Blog.js"
