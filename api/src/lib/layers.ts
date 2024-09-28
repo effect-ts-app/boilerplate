@@ -4,7 +4,7 @@ import { ContextMapContainer } from "@effect-app/infra/services/Store/ContextMap
 import { StoreMakerLayer } from "@effect-app/infra/services/Store/index"
 import * as HttpClientNode from "@effect/platform-node/NodeHttpClient"
 import { Effect, Layer, Secret } from "effect-app"
-import { SendgridConfig, StorageConfig } from "./config.js"
+import { SendgridConfig, StorageConfig } from "../config.js"
 
 export const RepoLive = StorageConfig
   .pipe(Effect.andThen(StoreMakerLayer), Layer.unwrapEffect, Layer.merge(ContextMapContainer.live))
