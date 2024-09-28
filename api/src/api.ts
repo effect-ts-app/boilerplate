@@ -15,7 +15,7 @@ import { GenericTag } from "effect/Context"
 import { createServer } from "node:http"
 import { ClientEvents } from "resources.js"
 import { MergedConfig } from "./config.js"
-import { RepoTest } from "./migrate.js"
+import { RepoTest } from "./lib/layers.js"
 import { BlogPostRepo, UserRepo } from "./services.js"
 import { Events } from "./services/Events.js"
 
