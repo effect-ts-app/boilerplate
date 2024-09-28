@@ -8,7 +8,6 @@ import { RequestContextContainer } from "@effect-app/infra/services/RequestConte
 import { ContextMapContainer } from "@effect-app/infra/services/Store/ContextMapContainer"
 import * as HttpClientNode from "@effect/platform-node/NodeHttpClient"
 import * as HttpNode from "@effect/platform-node/NodeHttpServer"
-import { router } from "api/routes.js"
 import { Effect, Layer, Option, Stream } from "effect-app"
 import { HttpMiddleware, HttpRouter, HttpServer } from "effect-app/http"
 import { GenericTag } from "effect/Context"
@@ -16,8 +15,10 @@ import { createServer } from "node:http"
 import { ClientEvents } from "resources.js"
 import { MergedConfig } from "./config.js"
 import { RepoTest } from "./lib/layers.js"
+import { matchAll } from "./lib/routing.js"
 import { BlogPostRepo, UserRepo } from "./services.js"
 import { Events } from "./services/Events.js"
+import * as Usecases from "./Usecases.js"
 
 export const ApiPortTag = GenericTag<{ port: number }>("@services/ApiPortTag")
 
@@ -31,6 +32,8 @@ class OperationsRepoImpl extends OperationsRepo {
     .pipe(Layer.effect(this))
   static readonly Live = this.toLayer.pipe(Layer.provide(RepoTest))
 }
+
+const router = matchAll(Usecases)
 
 export const api = Effect
   .gen(function*() {
