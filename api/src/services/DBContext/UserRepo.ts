@@ -1,6 +1,6 @@
 import { NotFoundError, NotLoggedInError } from "@effect-app/infra/errors"
 import { RepositoryDefaultImpl } from "@effect-app/infra/services/RepositoryBase"
-import { generate } from "@effect-app/infra/test.arbs"
+import { generate } from "@effect-app/infra/test"
 import { RepoConfig } from "api/config.js"
 import { RepoLive } from "api/migrate.js"
 import { Array, Effect, Exit, Layer, Option, pipe, Request, RequestResolver, S } from "effect-app"

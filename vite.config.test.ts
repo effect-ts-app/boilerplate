@@ -43,7 +43,27 @@ export default function defineTestConfig(
     //   /\.test\.[tj]sx?$/ // .ts, .tsx, .js, .jsx
     // ],
     imports: [
-      "vitest"
+      "vitest",
+      {
+        "@effect-app/infra/vitest": [
+          "describe",
+          "it",
+          "expect",
+          "beforeAll",
+          "afterAll",
+          "beforeEach",
+          "afterEach",
+
+          "layer",
+
+          "createRandomInstance",
+          "createRandomInstanceI",
+
+          "assert",
+          "suite",
+          "test"
+        ]
+      }
     ]
   })
 
