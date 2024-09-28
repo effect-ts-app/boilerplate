@@ -1,5 +1,7 @@
 // import { writeOpenapiDocsI } from "@effect-app/infra/api/writeDocs"
 import { RequestFiberSet } from "@effect-app/infra-adapters/RequestFiberSet"
+import * as MW from "@effect-app/infra/api/middlewares"
+import { RequestContextMiddleware } from "@effect-app/infra/api/middlewares"
 import { Operations } from "@effect-app/infra/services/Operations"
 import { OperationsRepo } from "@effect-app/infra/services/OperationsRepo"
 import { RequestContextContainer } from "@effect-app/infra/services/RequestContextContainer"
@@ -13,8 +15,6 @@ import { GenericTag } from "effect/Context"
 import { createServer } from "node:http"
 import { ClientEvents } from "resources.js"
 import { MergedConfig } from "./config.js"
-import * as MW from "./middleware/index.js"
-import { RequestContextMiddleware } from "./middleware/index.js"
 import { RepoTest } from "./migrate.js"
 import { BlogPostRepo, UserRepo } from "./services.js"
 import { Events } from "./services/Events.js"
@@ -40,7 +40,7 @@ export const api = Effect
       .pipe(
         HttpRouter.get("/events", MW.makeSSE(Stream.flatten(Events.stream), ClientEvents)),
         // HttpRouter.use(Effect.provide(RequestLayerLive)),
-        HttpRouter.use(RequestContextMiddleware),
+        HttpRouter.use(RequestContextMiddleware()),
         MW.serverHealth(cfg.apiVersion),
         MW.cors(),
         // we trust proxy and handle the x-forwarded etc headers

@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { checkJWTI } from "@effect-app/infra/api/middlewares"
 import { JWTError, type RequestHandler } from "@effect-app/infra/api/routing"
 import type { RequestContext } from "@effect-app/infra/RequestContext"
 import { makeRouter } from "@effect-app/infra/router"
@@ -6,8 +7,7 @@ import type { ContextMapInverted } from "@effect-app/infra/router"
 import { RequestContextContainer } from "@effect-app/infra/services/RequestContextContainer"
 import type { Struct } from "@effect/schema/Schema"
 import { NotLoggedInError, UnauthorizedError } from "api/errors.js"
-import { Auth0Config, checkJWTI } from "api/middleware/auth.js"
-import { Duration, Effect, Exit, Layer, Option, Request } from "effect-app"
+import { Config, Duration, Effect, Exit, Layer, Option, Request } from "effect-app"
 import { HttpServerRequest } from "effect-app/http"
 import { Role } from "models/User.js"
 import type { RequestConfig } from "resources/lib.js"
@@ -32,6 +32,14 @@ export const RequestCacheLayers = Layer.mergeAll(
   Layer.setRequestBatching(true)
 )
 
+export const Auth0Config = Config.all({
+  audience: Config.string("audience").pipe(Config.nested("auth0"), Config.withDefault("http://localhost:3610")),
+  issuer: Config.string("issuer").pipe(
+    Config.nested("auth0"),
+    Config.withDefault("https://effect-app-boilerplate-dev.eu.auth0.com")
+  )
+})
+
 const authConfig = basicRuntime.runSync(Auth0Config)
 const fakeLogin = true
 
@@ -50,7 +58,14 @@ const UserAuthorizationLive = <Req extends RequestConfig>(request: Req) =>
   Effect
     .gen(function*() {
       if (!fakeLogin && !request.allowAnonymous) {
-        yield* Effect.catchAll(checkJWTI(authConfig), (err) => Effect.fail(new JWTError({ error: err })))
+        yield* Effect.catchAll(
+          checkJWTI({
+            ...authConfig,
+            issuer: authConfig.issuer + "/",
+            jwksUri: `${authConfig.issuer}/.well-known/jwks.json`
+          }),
+          (err) => Effect.fail(new JWTError({ error: err }))
+        )
       }
       const req = yield* HttpServerRequest.HttpServerRequest
       const r = (fakeLogin
