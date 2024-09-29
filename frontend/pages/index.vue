@@ -65,7 +65,7 @@ onMounted(() => {
         <TextField
           :label="name"
           :placeholder="name"
-          v-model="state.name"
+          v-model="state[name]"
           :field="field"
         />
       </template>
