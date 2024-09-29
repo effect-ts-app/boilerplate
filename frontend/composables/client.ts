@@ -32,12 +32,6 @@ export {
   Result,
   type MutationResult,
 } from "@effect-app/vue"
-export {
-  refreshAndWaitAForOperation,
-  refreshAndWaitAForOperationP,
-  refreshAndWaitForOperation,
-  refreshAndWaitForOperationP,
-} from "resources/lib/operations"
 
 type ResErrors =
   | S.ParseResult.ParseError
