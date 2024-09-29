@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { BlogRsc } from "resources"
+import { BlogRsc, OperationsRsc } from "resources"
 import type { ClientEvents } from "resources"
 import { BlogPostId } from "models/Blog"
 
@@ -26,7 +26,7 @@ const progress = ref("")
 const [publishing, publish] = useAndHandleMutation(
   {
     ...blogClient.PublishPost,
-    handler: refreshAndWaitForOperation(
+    handler: OperationsRsc.refreshAndWaitForOperation(
       blogClient.PublishPost.handler,
       Effect.promise(() => reloadPost()),
       op => {
