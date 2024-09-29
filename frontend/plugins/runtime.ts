@@ -2,11 +2,14 @@
 import { makeApiLayers, initializeSync } from "@effect-app/vue"
 import * as Layer from "effect/Layer"
 import * as Runtime from "effect/Runtime"
-import { Effect, HttpClient, Option } from "@/utils/prelude"
+import { Duration, Effect, Option } from "effect-app"
 import { WebSdkLive } from "~/utils/observability"
 import type { ApiConfig } from "effect-app/client"
 import * as EffectRequest from "effect/Request"
 import "@effect-app/core/builtin"
+import { defineNuxtPlugin } from "#app"
+import { ref } from "vue"
+import { HttpClient } from "effect-app/http"
 
 export const versionMatch = ref(true)
 

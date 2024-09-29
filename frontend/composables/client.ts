@@ -14,14 +14,14 @@ import {
   type Pausable,
   type UseIntervalFnOptions,
 } from "@vueuse/core"
-import type { ComputedRef } from "vue"
-import type { Either, HttpClient } from "@/utils/prelude"
-import { Array$, Effect, Match, Option } from "@/utils/prelude"
-import { Cause, S } from "effect-app"
+import { computed, type ComputedRef } from "vue"
+import type { Either } from "effect-app"
+import { Array, Effect, Match, Option, Cause, S } from "effect-app"
 import { useToast } from "vue-toastification"
 import { intl } from "./intl"
 
 import { Result, useSafeMutation, type MutationResult } from "@effect-app/vue"
+import type { HttpClient } from "effect-app/http"
 
 export { useToast } from "vue-toastification"
 
@@ -460,13 +460,13 @@ export function composeQueries<
   if (error) {
     return error
   }
-  const initial = Array$.findFirst(values, x =>
+  const initial = Array.findFirst(values, x =>
     x._tag === "Initial" ? Option.some(x) : Option.none(),
   )
   if (initial.value !== undefined) {
     return initial.value
   }
-  const loading = Array$.findFirst(values, x =>
+  const loading = Array.findFirst(values, x =>
     Result.isInitial(x) && x.waiting ? Option.some(x) : Option.none(),
   )
   if (loading.value !== undefined) {

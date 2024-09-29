@@ -11,6 +11,7 @@ import {
 import type { App } from "vue"
 import otelApi from "@opentelemetry/api"
 import { isErrorReported } from "effect-app/client"
+import { Layer, Effect } from "effect-app"
 
 // import {
 //   ConsoleSpanExporter,
