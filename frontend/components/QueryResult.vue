@@ -38,7 +38,7 @@
 </template>
 <script setup lang="ts" generic="E extends SupportedErrors | FetchError | ResError, A">
 import type { FetchError, ResError, SupportedErrors } from "effect-app/client"
-import { Match, Option } from "@/utils/prelude"
+import { Cause, Either, Match, Option } from "effect-app"
 import Delayed from "./Delayed.vue"
 import type { ResponseError } from "@effect/platform/HttpClientError"
 import { Result } from "~/composables/client"
