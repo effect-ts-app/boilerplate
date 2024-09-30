@@ -1,5 +1,5 @@
 import { S } from "./lib.js"
-import { UserView } from "./Views.js"
+import { UserView } from "./views.js"
 
 class Response extends S.Class<Response>()({
   now: S.Date.withDefault,
