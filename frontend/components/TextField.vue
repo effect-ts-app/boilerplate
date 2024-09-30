@@ -29,7 +29,7 @@ export interface Fields
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   field: FieldInfo<any>
   extraRules?: InstanceType<typeof VTextField>["$props"]["rules"]
-  modelValue: string | null
+  modelValue: string | number | null
 }
 
 const props = defineProps<Fields>()

@@ -14,11 +14,11 @@ import { GenericTag } from "effect/Context"
 import { createServer } from "node:http"
 import { ClientEvents } from "resources.js"
 import { MergedConfig } from "./config.js"
+import * as controllers from "./controllers.js"
 import { RepoTest } from "./lib/layers.js"
 import { matchAll } from "./lib/routing.js"
 import { BlogPostRepo, UserRepo } from "./services.js"
 import { Events } from "./services/Events.js"
-import * as Usecases from "./Usecases.js"
 
 export const ApiPortTag = GenericTag<{ port: number }>("@services/ApiPortTag")
 
@@ -33,7 +33,7 @@ class OperationsRepoImpl extends OperationsRepo {
   static readonly Live = this.toLayer.pipe(Layer.provide(RepoTest))
 }
 
-const router = matchAll(Usecases)
+const router = matchAll(controllers)
 
 export const api = Effect
   .gen(function*() {

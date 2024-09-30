@@ -22,8 +22,8 @@ import {
 import { Context, Effect, Layer, Secret } from "effect-app"
 import fs from "fs"
 import tcpPortUsed from "tcp-port-used"
-import { BaseConfig } from "./config.js"
-import { basicRuntime } from "./lib/basicRuntime.js"
+import { BaseConfig } from "../config.js"
+import { basicRuntime } from "./basicRuntime.js"
 
 const localConsole = false
 

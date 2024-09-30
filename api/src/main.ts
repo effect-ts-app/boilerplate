@@ -5,7 +5,7 @@ import { Effect, Layer, pipe } from "effect-app"
 import { setFaker } from "effect-app/faker"
 import { MergedConfig } from "./config.js"
 import { runMain } from "./lib/basicRuntime.js"
-import { TracingLive } from "./observability.js"
+import { TracingLive } from "./lib/observability.js"
 
 setFaker(faker)
 const logConfig = pipe(
