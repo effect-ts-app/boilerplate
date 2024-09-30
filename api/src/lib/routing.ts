@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { checkJWTI } from "@effect-app/infra/api/middlewares"
 import { JWTError, type RequestHandler } from "@effect-app/infra/api/routing"
+import { NotLoggedInError, UnauthorizedError } from "@effect-app/infra/errors"
 import type { RequestContext } from "@effect-app/infra/RequestContext"
 import { makeRouter } from "@effect-app/infra/router"
 import type { ContextMapInverted } from "@effect-app/infra/router"
 import { RequestContextContainer } from "@effect-app/infra/services/RequestContextContainer"
 import type { Struct } from "@effect/schema/Schema"
-import { NotLoggedInError, UnauthorizedError } from "api/errors.js"
 import { Config, Duration, Effect, Exit, Layer, Option, Request } from "effect-app"
 import { HttpServerRequest } from "effect-app/http"
 import { Role } from "models/User.js"
