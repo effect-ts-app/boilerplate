@@ -5,7 +5,7 @@ import { HttpClient } from "effect-app/http"
 import { type Schema } from "effect-app/schema"
 import { UserId } from "models/User.js"
 import * as UsersRsc from "../Users.js"
-import { UserView } from "../Views/UserView.js"
+import { UserView } from "../views/UserView.js"
 
 interface GetUserViewById extends Request.Request<UserView, NotFoundError<"User">> {
   readonly _tag: "GetUserViewById"

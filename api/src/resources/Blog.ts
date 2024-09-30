@@ -1,7 +1,7 @@
 import { OperationId } from "effect-app/Operations"
 import { BlogPost, BlogPostId } from "models/Blog.js"
 import { S } from "./lib.js"
-import { BlogPostView } from "./Views.js"
+import { BlogPostView } from "./views.js"
 
 export class CreatePost extends S.Req<CreatePost>()(
   BlogPost.pick("title", "body"),

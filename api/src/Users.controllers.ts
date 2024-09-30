@@ -3,7 +3,7 @@ import { Q, UserRepo } from "api/services.js"
 import { Array } from "effect"
 import { Effect, Order } from "effect-app"
 import { UsersRsc } from "resources.js"
-import type { UserView } from "resources/Views.js"
+import type { UserView } from "resources/views.js"
 
 const users = matchFor(UsersRsc)
 
