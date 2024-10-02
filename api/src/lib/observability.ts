@@ -55,9 +55,9 @@ const checkTelemetryExporterRunning = Effect.promise<boolean>(() => tcpPortUsed.
   Effect.runSync
 )
 
-const makeMetricsReader = Effect.gen(function*($) {
+const makeMetricsReader = Effect.gen(function*() {
   const isTelemetryExporterRunning = !isRemote
-    && (yield* $(checkTelemetryExporterRunning))
+    && (yield* checkTelemetryExporterRunning)
 
   const makeMetricReader = !isTelemetryExporterRunning
     ? isRemote
@@ -135,11 +135,11 @@ const setupSentry = (options?: Sentry.NodeOptions) => {
 }
 
 const ConfigLive = Effect
-  .gen(function*($) {
+  .gen(function*() {
     const isTelemetryExporterRunning = !isRemote
-      && (yield* $(checkTelemetryExporterRunning))
+      && (yield* checkTelemetryExporterRunning)
 
-    const { makeMetricReader } = yield* $(MetricsReader)
+    const { makeMetricReader } = yield* MetricsReader
 
     const mr = makeMetricReader?.()
 
@@ -160,7 +160,7 @@ const ConfigLive = Effect
 
     setupSentry(dropUndefinedT({}))
 
-    const resource = yield* $(Resource.Resource)
+    const resource = yield* Resource.Resource
 
     if (isRemote) {
       const client = Sentry.getClient()!
@@ -196,7 +196,7 @@ const ConfigLive = Effect
     // setOpenTelemetryContextAsyncContextStrategy()
 
     sdk.start()
-    yield* $(Effect.addFinalizer(() => Effect.promise(() => sdk.shutdown())))
+    yield* Effect.addFinalizer(() => Effect.promise(() => sdk.shutdown()))
   })
   .pipe(Layer.scopedDiscard, Layer.provide(Layer.mergeAll(MetricsReader.Live, ResourceLive)))
 
