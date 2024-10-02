@@ -282,6 +282,22 @@
 				"Client Build"
 			],
 			"problemMatcher": []
+		},
+		{
+			"label": "Develop",
+			"type": "shell",
+			"dependsOn": [
+				"Watch Frontend",
+				"Run UI",
+				"Run API"
+			],
+			"isBackground": true,
+			"dependsOrder": "parallel",
+			"presentation": {
+				"group": "run",
+				"reveal": "never"
+			},
+			"problemMatcher":[]
 		}
 	]
 }
