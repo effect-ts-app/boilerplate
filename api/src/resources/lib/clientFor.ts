@@ -2,24 +2,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { Effect, flow, Predicate } from "@effect-app/core"
+import { RpcResolver } from "@effect/rpc"
+import { HttpRpcResolver } from "@effect/rpc-http"
+import type { RpcRouter } from "@effect/rpc/RpcRouter"
 import type * as Serializable from "@effect/schema/Serializable"
 import type { ApiConfig, FetchResponse } from "effect-app/client"
-import {
-  fetchApi,
-  fetchApi3S,
-  fetchApi3SE,
-  makePathWithBody,
-  makePathWithQuery,
-  mapResponseM,
-  ResError
-} from "effect-app/client"
+import { makePathWithBody, makePathWithQuery } from "effect-app/client"
 import type { HttpClient } from "effect-app/http"
-import type { Schema } from "effect-app/schema"
-import { REST } from "effect-app/schema"
+import type { REST, Schema } from "effect-app/schema"
 import { typedKeysOf } from "effect-app/utils"
 import type * as Request from "effect/Request"
-import { Path } from "path-parser"
-import { S } from "../lib.js"
+import { apiClient, S } from "../lib.js"
 
 type Requests = Record<string, any>
 type AnyRequest =
@@ -57,9 +50,8 @@ export function clientFor<M extends Requests>(
 
 function clientFor_<M extends Requests>(models: M) {
   type Filtered = {
-    [K in keyof Requests as Requests[K] extends { success: any } ? K : never]: Requests[K] extends { success: any }
-      ? Requests[K]
-      : never
+    [K in keyof Requests as Requests[K] extends S.Schema.All & { success: S.Schema.All } ? K : never]:
+      Requests[K] extends S.Schema.All & { success: S.Schema.All } ? Requests[K] : never
   }
   const filtered = typedKeysOf(models).reduce((acc, cur) => {
     if (
@@ -76,7 +68,7 @@ function clientFor_<M extends Requests>(models: M) {
     .reduce((prev, cur) => {
       const h = filtered[cur]
 
-      const Request_ = h
+      const Request = h
       const Response = h.success
 
       const m = (models as any).meta as { moduleName: string }
@@ -84,53 +76,43 @@ function clientFor_<M extends Requests>(models: M) {
       const requestName = `${m.moduleName}.${cur as string}`
         .replaceAll(".js", "")
 
-      const Request = class extends (Request_ as any) {
-        static path = "/" + requestName + (Request_.path === "/" ? "" : Request_.path)
-        static method = Request_.method as REST.SupportedMethods === "AUTO"
-          ? REST.determineMethod(cur as string, Request_)
-          : Request_.method
-      } as unknown as AnyRequest
-
-      if ((Request_ as any).method === "AUTO") {
-        Object.assign(Request, {
-          [Request.method === "GET" || Request.method === "DELETE" ? "Query" : "Body"]: (Request_ as any).Auto
-        })
-      }
-
-      const b = Object.assign({}, h, { Request, Response })
-
       const meta = {
         Request,
         Response,
-        mapPath: Request.path,
+        mapPath: Request._tag,
         name: requestName
       }
 
-      const res = Response as Schema<any>
-      const parseResponse = flow(S.decodeUnknown(res), (_) => Effect.mapError(_, (err) => new ResError(err)))
-      const parseResponseE = flow(
-        S.decodeUnknown(S.encodedSchema(res)),
-        (_) => Effect.mapError(_, (err) => new ResError(err))
+      const resolver = flow(
+        HttpRpcResolver.make<RpcRouter<any, any>>,
+        (_) => RpcResolver.toClient(_ as any)
       )
+      const client = apiClient.pipe(Effect.andThen(resolver))
 
-      const path = new Path(Request.path)
-      const parse = mapResponseM(parseResponse)
-      const parseE = mapResponseM(parseResponseE)
+      // const res = Response as Schema<any>
+      // const parseResponse = flow(S.decodeUnknown(res), (_) => Effect.mapError(_, (err) => new ResError(err)))
+      // const parseResponseE = flow(
+      //   S.decodeUnknown(S.encodedSchema(res)),
+      //   (_) => Effect.mapError(_, (err) => new ResError(err))
+      // )
+
+      // const path = new Path(Request.path)
+      // const parse = mapResponseM(parseResponse)
+      // const parseE = mapResponseM(parseResponseE)
 
       // TODO: look into ast, look for propertySignatures, etc.
       // TODO: and fix type wise
       // if we don't need fields, then also dont require an argument.
-      const fields = [Request.Body, Request.Query, Request.Path]
-        .filter((x) => x)
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-        .flatMap((x) => x.ast.propertySignatures)
+      const fields = Request.fields
+      const path = Request._tag // TODO
       // @ts-expect-error doc
       prev[cur] = Request.method === "GET"
         ? fields.length === 0
           ? {
-            handler: fetchApi(Request.method, Request.path, undefined, Request.errors)
+            handler: client
               .pipe(
-                Effect.flatMap(parse),
+                Effect.andThen((cl) => cl(new Request())),
+                Effect.map((_) => ({ body: _, status: 200, headers: {} })), // TODO
                 Effect
                   .withSpan("client.request " + requestName, {
                     captureStackTrace: false,
@@ -141,9 +123,10 @@ function clientFor_<M extends Requests>(models: M) {
           }
           : {
             handler: (req: any) =>
-              fetchApi(Request.method, makePathWithQuery(path, S.encodeSync(Request)(req)), undefined, Request.errors)
+              client
                 .pipe(
-                  Effect.flatMap(parse),
+                  Effect.andThen((cl) => cl(new Request(req))),
+                  Effect.map((_) => ({ body: _, status: 200, headers: {} })), // TODO
                   Effect
                     .withSpan("client.request " + requestName, {
                       captureStackTrace: false,
@@ -155,18 +138,28 @@ function clientFor_<M extends Requests>(models: M) {
           }
         : fields.length === 0
         ? {
-          handler: fetchApi3S(b)({}).pipe(Effect.withSpan("client.request " + requestName, {
-            captureStackTrace: false,
-            attributes: { "request.name": requestName }
-          })),
+          handler: client
+            .pipe(
+              Effect.andThen((cl) => cl(new Request())),
+              Effect.map((_) => ({ body: _, status: 200, headers: {} })), // TODO
+              Effect.withSpan("client.request " + requestName, {
+                captureStackTrace: false,
+                attributes: { "request.name": requestName }
+              })
+            ),
           ...meta
         }
         : {
           handler: (req: any) =>
-            fetchApi3S(b)(req).pipe(Effect.withSpan("client.request " + requestName, {
-              captureStackTrace: false,
-              attributes: { "request.name": requestName }
-            })),
+            client
+              .pipe(
+                Effect.andThen((cl) => cl(new Request(req))),
+                Effect.map((_) => ({ body: _, status: 200, headers: {} })), // TODO
+                Effect.withSpan("client.request " + requestName, {
+                  captureStackTrace: false,
+                  attributes: { "request.name": requestName }
+                })
+              ),
 
           ...meta,
           mapPath: (req: any) =>
@@ -183,9 +176,11 @@ function clientFor_<M extends Requests>(models: M) {
       prev[`${cur}E`] = Request.method === "GET"
         ? fields.length === 0
           ? {
-            handler: fetchApi(Request.method, Request.path)
+            handler: client
               .pipe(
-                Effect.flatMap(parseE),
+                Effect.andThen((cl) => cl(new Request())),
+                Effect.flatMap((res) => S.encode(Response)(res)), // TODO
+                Effect.map((_) => ({ body: _, status: 200, headers: {} })), // TODO,
                 Effect
                   .withSpan("client.request " + requestName, {
                     captureStackTrace: false,
@@ -196,9 +191,11 @@ function clientFor_<M extends Requests>(models: M) {
           }
           : {
             handler: (req: any) =>
-              fetchApi(Request.method, makePathWithQuery(path, S.encodeSync(Request)(req)))
+              client
                 .pipe(
-                  Effect.flatMap(parseE),
+                  Effect.andThen((cl) => cl(new Request(req))),
+                  Effect.flatMap((res) => S.encode(Response)(res)), // TODO
+                  Effect.map((_) => ({ body: _, status: 200, headers: {} })), // TODO,
                   Effect
                     .withSpan("client.request " + requestName, {
                       captureStackTrace: false,
@@ -211,18 +208,30 @@ function clientFor_<M extends Requests>(models: M) {
           }
         : fields.length === 0
         ? {
-          handler: fetchApi3SE(b)({}).pipe(Effect.withSpan("client.request " + requestName, {
-            captureStackTrace: false,
-            attributes: { "request.name": requestName }
-          })),
+          handler: client
+            .pipe(
+              Effect.andThen((cl) => cl(new Request())),
+              Effect.flatMap((res) => S.encode(Response)(res)), // TODO
+              Effect.map((_) => ({ body: _, status: 200, headers: {} })), // TODO,
+              Effect.withSpan("client.request " + requestName, {
+                captureStackTrace: false,
+                attributes: { "request.name": requestName }
+              })
+            ),
           ...meta
         }
         : {
           handler: (req: any) =>
-            fetchApi3SE(b)(req).pipe(Effect.withSpan("client.request " + requestName, {
-              captureStackTrace: false,
-              attributes: { "request.name": requestName }
-            })),
+            client
+              .pipe(
+                Effect.andThen((cl) => cl(new Request(req))),
+                Effect.flatMap((res) => S.encode(Response)(res)), // TODO
+                Effect.map((_) => ({ body: _, status: 200, headers: {} })), // TODO,
+                Effect.withSpan("client.request " + requestName, {
+                  captureStackTrace: false,
+                  attributes: { "request.name": requestName }
+                })
+              ),
 
           ...meta,
           mapPath: (req: any) =>
