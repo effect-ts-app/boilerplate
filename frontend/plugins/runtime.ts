@@ -2,10 +2,9 @@
 import { makeApiLayers, initializeSync } from "@effect-app/vue"
 import * as Layer from "effect/Layer"
 import * as Runtime from "effect/Runtime"
-import { Duration, Effect, Option } from "effect-app"
+import { Effect, Option } from "effect-app"
 import { WebSdkLive } from "~/utils/observability"
 import type { ApiConfig } from "effect-app/client"
-import * as EffectRequest from "effect/Request"
 import "@effect-app/core/builtin"
 import { defineNuxtPlugin } from "#app"
 import { ref } from "vue"
@@ -14,14 +13,6 @@ import { HttpClient } from "effect-app/http"
 export const versionMatch = ref(true)
 
 export const runtime = ref<ReturnType<typeof makeRuntime>>()
-
-const RequestCacheLayers = Layer.mergeAll(
-  Layer.setRequestCache(
-    EffectRequest.makeCache({ capacity: 500, timeToLive: Duration.hours(8) }),
-  ),
-  Layer.setRequestCaching(true),
-  Layer.setRequestBatching(true),
-)
 
 function makeRuntime(feVersion: string, disableTracing: boolean) {
   const apiLayers = Layer.mergeAll(
@@ -42,7 +33,6 @@ function makeRuntime(feVersion: string, disableTracing: boolean) {
       ),
       makeApiLayers({ apiUrl: "/api/api", headers: Option.none() }),
     ),
-    RequestCacheLayers,
   )
 
   const rt: {
