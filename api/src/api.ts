@@ -49,8 +49,7 @@ export const api = Effect
     )
 
     const app = HttpRpcRouter.toHttpApp(router).pipe(
-      Effect.map(HttpServer.serve(middleware)),
-      Layer.unwrapEffect
+      HttpServer.serve(middleware)
     )
 
     const extra = HttpRouter.empty.pipe(
