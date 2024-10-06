@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-object-type */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import type { EffectUnunified } from "@effect-app/core/Effect"
@@ -8,9 +9,10 @@ import { NotLoggedInError, UnauthorizedError } from "@effect-app/infra/errors"
 import type { RequestContext } from "@effect-app/infra/RequestContext"
 import { RequestContextContainer } from "@effect-app/infra/services/RequestContextContainer"
 import { Rpc, RpcRouter } from "@effect/rpc"
+import { HttpRpcRouter } from "@effect/rpc-http"
 import type { S } from "effect-app"
 import { Config, Context, Duration, Effect, Exit, FiberRef, Layer, Option, Predicate, Request } from "effect-app"
-import { HttpHeaders, HttpServerRequest } from "effect-app/http"
+import { HttpHeaders, HttpRouter, HttpServerRequest } from "effect-app/http"
 import { NonEmptyString255 } from "effect-app/schema"
 import type * as EffectRequest from "effect/Request"
 import type { ContextMapCustom, ContextMapInverted, GetEffectContext } from "resources/lib/DynamicMiddleware.js"
@@ -120,7 +122,8 @@ export const makeRpc = () => {
         EffectRequest.Request.Success<Req>,
         EffectRequest.Request.Error<Req>,
         R
-      >
+      >,
+      moduleName?: string
     ) =>
       Rpc.effect<Req, Exclude<R, GetEffectContext<CTXMap, T["config"]>>>(
         schema,
@@ -178,7 +181,10 @@ export const makeRpc = () => {
               Effect.provide(
                 Effect
                   .gen(function*() {
-                    yield* RequestContextContainer.update((_) => ({ ..._, name: NonEmptyString255(req._tag) }))
+                    yield* RequestContextContainer.update((_) => ({
+                      ..._,
+                      name: NonEmptyString255(moduleName ? `${moduleName}.${req._tag}` : req._tag)
+                    }))
                     const httpReq = yield* HttpServerRequest.HttpServerRequest
                     // TODO: only pass Authentication etc, or move headers to actual Rpc Headers
                     yield* FiberRef.update(
@@ -311,9 +317,12 @@ type Filter<T> = {
   [K in keyof T as T[K] extends S.Schema.All & { success: S.Schema.Any; failure: S.Schema.Any } ? K : never]: T[K]
 }
 
-export function matchFor<Rsc extends Record<string, any>>(
+export function matchFor<Rsc extends Record<string, any> & { meta: { moduleName: string } }>(
   rsc: Rsc
 ) {
+  const meta = (rsc as any).meta as { moduleName: string }
+  if (!meta) throw new Error("Resource has no meta specified") // TODO: do something with moduleName+cur etc.
+
   type Filtered = Filter<Rsc>
   const filtered = typedKeysOf(rsc).reduce((acc, cur) => {
     if (Predicate.isObject(rsc[cur]) && rsc[cur]["success"]) {
@@ -359,7 +368,7 @@ export function matchFor<Rsc extends Record<string, any>>(
         RT,
         A,
         E,
-        R2,
+        Exclude<R2, GetEffectContext<CTXMap, Rsc[Key]["config"]>>,
         { Response: Rsc[Key]["success"] } //
       >
     >
@@ -377,7 +386,7 @@ export function matchFor<Rsc extends Record<string, any>>(
         RT,
         A,
         E,
-        R2,
+        Exclude<R2, GetEffectContext<CTXMap, Rsc[Key]["config"]>>,
         { Response: Rsc[Key]["success"] } //
       >
     >
@@ -408,7 +417,7 @@ export function matchFor<Rsc extends Record<string, any>>(
         RT,
         A,
         E,
-        R2,
+        Exclude<R2, GetEffectContext<CTXMap, Rsc[Key]["config"]>>,
         { Response: Rsc[Key]["success"] } //
       >
     >
@@ -427,16 +436,10 @@ export function matchFor<Rsc extends Record<string, any>>(
     const handlers = typedKeysOf(filtered).reduce(
       (acc, cur) => {
         if (cur === "meta") return acc
-        const m = (rsc as any).meta as { moduleName: string }
-        if (!m) throw new Error("Resource has no meta specified") // TODO: do something with moduleName+cur etc.
-         // TODO: Fix, this is the Request, not the handler :D
         ;(acc as any)[cur] = {
           h: controllers[cur as keyof typeof controllers].handler,
           Request: rsc[cur]
-        } /*handle(
-          rsc[cur],
-          m.moduleName + "." + (cur as string)
-        )(controllers[cur as keyof typeof controllers] as any)*/
+        }
 
         return acc
       },
@@ -454,8 +457,6 @@ export function matchFor<Rsc extends Record<string, any>>(
       }
     )
 
-    console.log({ handlers })
-
     const mapped = typedKeysOf(handlers).reduce((acc, cur) => {
       const handler = handlers[cur]
       const req = handler.Request
@@ -472,7 +473,7 @@ export function matchFor<Rsc extends Record<string, any>>(
       //   })
       // }
       // Object.assign(handler, { Request })
-      acc[cur] = RPC.effect(req, handler.h as any) // TODO
+      acc[cur] = RPC.effect(req, handler.h as any, meta.moduleName) // TODO
       return acc
     }, {} as any) as {
       [K in Keys]: Rpc.Rpc<
@@ -481,20 +482,24 @@ export function matchFor<Rsc extends Record<string, any>>(
       >
     }
 
-    type _RRoute<T extends Rpc.Rpc<any, any>> = [T] extends [
+    type RPCRouteR<T extends Rpc.Rpc<any, any>> = [T] extends [
       Rpc.Rpc<any, infer R>
     ] ? R
       : never
 
-    type _ReqRoute<T extends Rpc.Rpc<any, any>> = [T] extends [
+    type RPCRouteReq<T extends Rpc.Rpc<any, any>> = [T] extends [
       Rpc.Rpc<infer Req, any>
     ] ? Req
       : never
 
-    return RpcRouter.make(...Object.values(mapped) as any) as RpcRouter.RpcRouter<
-      _ReqRoute<typeof mapped[keyof typeof mapped]>,
-      _RRoute<typeof mapped[keyof typeof mapped]>
+    const router = RpcRouter.make(...Object.values(mapped) as any) as RpcRouter.RpcRouter<
+      RPCRouteReq<typeof mapped[keyof typeof mapped]>,
+      RPCRouteR<typeof mapped[keyof typeof mapped]>
     >
+
+    return HttpRouter.empty.pipe(
+      HttpRouter.all(("/rpc/" + rsc.meta.moduleName) as any, HttpRpcRouter.toHttpApp(router))
+    )
   }
 
   const r = {
@@ -561,4 +566,28 @@ export function matchFor<Rsc extends Record<string, any>>(
     )
   }
   return r
+}
+
+type RequestHandlersTest = {
+  [key: string]: HttpRouter.HttpRouter<any, any>
+}
+export function matchAll<T extends RequestHandlersTest>(handlers: T) {
+  const r = typedKeysOf(handlers).reduce((acc, cur) => {
+    return HttpRouter.concat(acc, handlers[cur] as any)
+  }, HttpRouter.empty)
+
+  type _RRouter<T extends HttpRouter.HttpRouter<any, any>> = [T] extends [
+    HttpRouter.HttpRouter<any, infer R>
+  ] ? R
+    : never
+
+  type _ERouter<T extends HttpRouter.HttpRouter<any, any>> = [T] extends [
+    HttpRouter.HttpRouter<infer E, any>
+  ] ? E
+    : never
+
+  return r as HttpRouter.HttpRouter<
+    _ERouter<typeof handlers[keyof typeof handlers]>,
+    _RRouter<typeof handlers[keyof typeof handlers]>
+  >
 }

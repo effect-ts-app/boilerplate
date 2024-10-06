@@ -7,17 +7,15 @@ import { RequestContextContainer } from "@effect-app/infra/services/RequestConte
 import { ContextMapContainer } from "@effect-app/infra/services/Store/ContextMapContainer"
 import * as HttpClientNode from "@effect/platform-node/NodeHttpClient"
 import * as HttpNode from "@effect/platform-node/NodeHttpServer"
-import { RpcRouter } from "@effect/rpc"
-import { HttpRpcRouter } from "@effect/rpc-http"
 import { Effect, flow, Layer, Option, Stream } from "effect-app"
 import { HttpMiddleware, HttpRouter, HttpServer } from "effect-app/http"
-import { typedValuesOf } from "effect-app/utils"
 import { GenericTag } from "effect/Context"
 import { createServer } from "node:http"
 import { ClientEvents } from "resources.js"
 import { MergedConfig } from "./config.js"
 import * as controllers from "./controllers.js"
 import { RepoTest } from "./lib/layers.js"
+import { matchAll } from "./lib/routing.js"
 import { UserRepo } from "./services.js"
 import { Events } from "./services/Events.js"
 
@@ -34,7 +32,7 @@ class OperationsRepoImpl extends OperationsRepo {
   static readonly Live = this.toLayer.pipe(Layer.provide(RepoTest))
 }
 
-const router = RpcRouter.make(...typedValuesOf(controllers) as any)
+const router = matchAll(controllers)
 
 export const api = Effect
   .gen(function*() {
@@ -47,8 +45,7 @@ export const api = Effect
       HttpMiddleware.xForwardedHeaders
     )
 
-    const app = HttpRouter.empty.pipe(
-      HttpRouter.post("/rpc", HttpRpcRouter.toHttpApp(router)),
+    const app = router.pipe(
       HttpRouter.get("/events", MW.makeSSE(Stream.flatten(Events.stream), ClientEvents)),
       // HttpRouter.use(Effect.provide(RequestLayerLive)),
       HttpRouter.use(MW.RequestContextMiddleware()),

@@ -8,7 +8,7 @@ import type { RpcRouter } from "@effect/rpc/RpcRouter"
 import type * as Serializable from "@effect/schema/Serializable"
 import type { ApiConfig, FetchResponse } from "effect-app/client"
 import { makePathWithBody, makePathWithQuery } from "effect-app/client"
-import type { HttpClient } from "effect-app/http"
+import { HttpClient, HttpClientRequest } from "effect-app/http"
 import type { Schema } from "effect-app/schema"
 import { typedKeysOf } from "effect-app/utils"
 import type * as Request from "effect/Request"
@@ -65,6 +65,19 @@ function clientFor_<M extends Requests>(models: M) {
     }
     return acc
   }, {} as Record<keyof Filtered, Req>)
+
+  const meta = (models as any).meta as { moduleName: string }
+  if (!meta) throw new Error("No meta defined in Resource!")
+
+  const resolver = flow(
+    HttpRpcResolver.make<RpcRouter<any, any>>,
+    (_) => RpcResolver.toClient(_ as any)
+  )
+
+  const baseClient = apiClient.pipe(
+    Effect.andThen(HttpClient.mapRequest(HttpClientRequest.appendUrl("/" + meta.moduleName)))
+  )
+
   return (typedKeysOf(filtered)
     .reduce((prev, cur) => {
       const h = filtered[cur]!
@@ -76,12 +89,10 @@ function clientFor_<M extends Requests>(models: M) {
         Request as unknown as S.Schema<any, any>
       )
 
-      const m = (models as any).meta as { moduleName: string }
-      if (!m) throw new Error("No meta defined in Resource!")
-      const requestName = `${m.moduleName}.${cur as string}`
+      const requestName = `${meta.moduleName}.${cur as string}`
         .replaceAll(".js", "")
 
-      const meta = {
+      const requestMeta = {
         method: "POST", // TODO
         Request,
         Response,
@@ -89,17 +100,16 @@ function clientFor_<M extends Requests>(models: M) {
         name: requestName
       }
 
-      const resolver = flow(
-        HttpRpcResolver.make<RpcRouter<any, any>>,
-        (_) => RpcResolver.toClient(_ as any)
+      const client = baseClient.pipe(
+        Effect.andThen(HttpClient.mapRequest(HttpClientRequest.appendUrlParam("action", cur as string))),
+        Effect.andThen(resolver)
       )
-      const client = apiClient.pipe(Effect.andThen(resolver))
 
       const fields = Request.fields
       const p = Request._tag
       const path = new Path(p) // TODO
       // @ts-expect-error doc
-      prev[cur] = meta.method === "GET"
+      prev[cur] = requestMeta.method === "GET"
         ? Object.keys(fields).length === 0
           ? {
             handler: client
@@ -112,7 +122,7 @@ function clientFor_<M extends Requests>(models: M) {
                     attributes: { "request.name": requestName }
                   })
               ),
-            ...meta
+            ...requestMeta
           }
           : {
             handler: (req: any) =>
@@ -126,7 +136,7 @@ function clientFor_<M extends Requests>(models: M) {
                       attributes: { "request.name": requestName }
                     })
                 ),
-            ...meta,
+            ...requestMeta,
             mapPath: (req: any) => req ? makePathWithQuery(path, encodeRequest(req)) : p
           }
         : Object.keys(fields).length === 0
@@ -140,7 +150,7 @@ function clientFor_<M extends Requests>(models: M) {
                 attributes: { "request.name": requestName }
               })
             ),
-          ...meta
+          ...requestMeta
         }
         : {
           handler: (req: any) =>
@@ -154,10 +164,10 @@ function clientFor_<M extends Requests>(models: M) {
                 })
               ),
 
-          ...meta,
+          ...requestMeta,
           mapPath: (req: any) =>
             req
-              ? meta.method === "DELETE"
+              ? requestMeta.method === "DELETE"
                 ? makePathWithQuery(path, encodeRequest(req))
                 : makePathWithBody(path, encodeRequest(req))
               : p
@@ -166,7 +176,7 @@ function clientFor_<M extends Requests>(models: M) {
       // generate handler
 
       // @ts-expect-error doc
-      prev[`${cur}E`] = meta.method === "GET"
+      prev[`${cur}E`] = requestMeta.method === "GET"
         ? Object.keys(fields).length === 0
           ? {
             handler: client
@@ -180,7 +190,7 @@ function clientFor_<M extends Requests>(models: M) {
                     attributes: { "request.name": requestName }
                   })
               ),
-            ...meta
+            ...requestMeta
           }
           : {
             handler: (req: any) =>
@@ -196,7 +206,7 @@ function clientFor_<M extends Requests>(models: M) {
                     })
                 ),
 
-            ...meta,
+            ...requestMeta,
             mapPath: (req: any) => req ? makePathWithQuery(path, encodeRequest(req)) : p
           }
         : Object.keys(fields).length === 0
@@ -211,7 +221,7 @@ function clientFor_<M extends Requests>(models: M) {
                 attributes: { "request.name": requestName }
               })
             ),
-          ...meta
+          ...requestMeta
         }
         : {
           handler: (req: any) =>
@@ -226,10 +236,10 @@ function clientFor_<M extends Requests>(models: M) {
                 })
               ),
 
-          ...meta,
+          ...requestMeta,
           mapPath: (req: any) =>
             req
-              ? meta.method === "DELETE"
+              ? requestMeta.method === "DELETE"
                 ? makePathWithQuery(path, encodeRequest(req))
                 : makePathWithBody(path, encodeRequest(req))
               : p
