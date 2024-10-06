@@ -9,18 +9,12 @@ import type * as Serializable from "@effect/schema/Serializable"
 import type { ApiConfig, FetchResponse } from "effect-app/client"
 import { makePathWithBody, makePathWithQuery } from "effect-app/client"
 import type { HttpClient } from "effect-app/http"
-import type { REST, Schema } from "effect-app/schema"
+import type { Schema } from "effect-app/schema"
 import { typedKeysOf } from "effect-app/utils"
 import type * as Request from "effect/Request"
 import { apiClient, S } from "../lib.js"
 
 type Requests = Record<string, any>
-type AnyRequest =
-  & Omit<
-    REST.QueryRequest<any, any, any, any, any, any>,
-    "method"
-  >
-  & REST.RequestSchemed<any, any>
 
 const cache = new Map<any, Client<any>>()
 
@@ -77,6 +71,7 @@ function clientFor_<M extends Requests>(models: M) {
         .replaceAll(".js", "")
 
       const meta = {
+        method: "POST", // TODO
         Request,
         Response,
         mapPath: Request._tag,
@@ -89,24 +84,10 @@ function clientFor_<M extends Requests>(models: M) {
       )
       const client = apiClient.pipe(Effect.andThen(resolver))
 
-      // const res = Response as Schema<any>
-      // const parseResponse = flow(S.decodeUnknown(res), (_) => Effect.mapError(_, (err) => new ResError(err)))
-      // const parseResponseE = flow(
-      //   S.decodeUnknown(S.encodedSchema(res)),
-      //   (_) => Effect.mapError(_, (err) => new ResError(err))
-      // )
-
-      // const path = new Path(Request.path)
-      // const parse = mapResponseM(parseResponse)
-      // const parseE = mapResponseM(parseResponseE)
-
-      // TODO: look into ast, look for propertySignatures, etc.
-      // TODO: and fix type wise
-      // if we don't need fields, then also dont require an argument.
       const fields = Request.fields
       const path = Request._tag // TODO
       // @ts-expect-error doc
-      prev[cur] = Request.method === "GET"
+      prev[cur] = meta.method === "GET"
         ? fields.length === 0
           ? {
             handler: client
@@ -164,7 +145,7 @@ function clientFor_<M extends Requests>(models: M) {
           ...meta,
           mapPath: (req: any) =>
             req
-              ? Request.method === "DELETE"
+              ? meta.method === "DELETE"
                 ? makePathWithQuery(path, S.encodeSync(Request)(req))
                 : makePathWithBody(path, S.encodeSync(Request)(req))
               : Request.path
@@ -173,7 +154,7 @@ function clientFor_<M extends Requests>(models: M) {
       // generate handler
 
       // @ts-expect-error doc
-      prev[`${cur}E`] = Request.method === "GET"
+      prev[`${cur}E`] = meta.method === "GET"
         ? fields.length === 0
           ? {
             handler: client
@@ -236,7 +217,7 @@ function clientFor_<M extends Requests>(models: M) {
           ...meta,
           mapPath: (req: any) =>
             req
-              ? Request.method === "DELETE"
+              ? meta.method === "DELETE"
                 ? makePathWithQuery(path, S.encodeSync(Request)(req))
                 : makePathWithBody(path, S.encodeSync(Request)(req))
               : Request.path
