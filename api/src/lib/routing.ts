@@ -3,7 +3,8 @@ import { NotLoggedInError, UnauthorizedError } from "@effect-app/infra/errors"
 import type { RequestContext } from "@effect-app/infra/RequestContext"
 import { Rpc } from "@effect/rpc"
 import type { S } from "effect-app"
-import { Config, Context, Duration, Effect, Exit, Layer, Option, Request } from "effect-app"
+import { Config, Context, Duration, Effect, Exit, FiberRef, Layer, Option, Request } from "effect-app"
+import { HttpHeaders, HttpServerRequest } from "effect-app/http"
 import type * as EffectRequest from "effect/Request"
 import type { ContextMapCustom, ContextMapInverted, GetEffectContext } from "resources/lib/DynamicMiddleware.js"
 import {
@@ -117,54 +118,75 @@ export const makeRpc = () => {
       Rpc.effect<Req, Exclude<R, GetEffectContext<CTXMap, T["config"]>>>(
         schema,
         (req) =>
-          Effect.gen(function*() {
-            const headers = yield* Rpc.currentHeaders
-            let ctx = Context.empty()
+          Effect
+            .gen(function*() {
+              const headers = yield* Rpc.currentHeaders
+              let ctx = Context.empty()
 
-            const config = "config" in schema ? schema.config : undefined
+              const config = "config" in schema ? schema.config : undefined
 
-            // Check JWT
-            // TODO
-            // if (!fakeLogin && !request.allowAnonymous) {
-            //   yield* Effect.catchAll(
-            //     checkJWTI({
-            //       ...authConfig,
-            //       issuer: authConfig.issuer + "/",
-            //       jwksUri: `${authConfig.issuer}/.well-known/jwks.json`
-            //     }),
-            //     (err) => Effect.fail(new JWTError({ error: err }))
-            //   )
-            // }
-
-            const fakeLogin = true
-            const r = (fakeLogin
-              ? makeUserProfileFromUserHeader(headers["x-user"])
-              : makeUserProfileFromAuthorizationHeader(
-                headers["authorization"]
-              ))
-              .pipe(Effect.exit, basicRuntime.runSync)
-            if (!Exit.isSuccess(r)) {
-              yield* Effect.logWarning("Parsing userInfo failed").pipe(Effect.annotateLogs("r", r))
-            }
-            const userProfile = Option.fromNullable(Exit.isSuccess(r) ? r.value : undefined)
-            if (Option.isSome(userProfile)) {
-              ctx = ctx.pipe(Context.add(UserProfile, userProfile.value))
-            } else if (config && !config.allowAnonymous) {
-              return yield* new NotLoggedInError({ message: "no auth" })
-            }
-
-            if (config?.requireRoles) {
+              // Check JWT
               // TODO
-              if (
-                !userProfile.value
-                || !(config.requireRoles as any).every((role: any) => userProfile.value!.roles.includes(role))
-              ) {
-                return yield* new UnauthorizedError()
-              }
-            }
+              // if (!fakeLogin && !request.allowAnonymous) {
+              //   yield* Effect.catchAll(
+              //     checkJWTI({
+              //       ...authConfig,
+              //       issuer: authConfig.issuer + "/",
+              //       jwksUri: `${authConfig.issuer}/.well-known/jwks.json`
+              //     }),
+              //     (err) => Effect.fail(new JWTError({ error: err }))
+              //   )
+              // }
 
-            return yield* handler(req).pipe(Effect.provide(ctx))
-          }) as any
+              const fakeLogin = true
+              const r = (fakeLogin
+                ? makeUserProfileFromUserHeader(headers["x-user"])
+                : makeUserProfileFromAuthorizationHeader(
+                  headers["authorization"]
+                ))
+                .pipe(Effect.exit, basicRuntime.runSync)
+              if (!Exit.isSuccess(r)) {
+                yield* Effect.logWarning("Parsing userInfo failed").pipe(Effect.annotateLogs("r", r))
+              }
+              const userProfile = Option.fromNullable(Exit.isSuccess(r) ? r.value : undefined)
+              if (Option.isSome(userProfile)) {
+                ctx = ctx.pipe(Context.add(UserProfile, userProfile.value))
+              } else if (config && !config.allowAnonymous) {
+                return yield* new NotLoggedInError({ message: "no auth" })
+              }
+
+              if (config?.requireRoles) {
+                // TODO
+                if (
+                  !userProfile.value
+                  || !(config.requireRoles as any).every((role: any) => userProfile.value!.roles.includes(role))
+                ) {
+                  return yield* new UnauthorizedError()
+                }
+              }
+
+              return yield* handler(req).pipe(Effect.provide(ctx))
+            })
+            .pipe(
+              Effect.provide(
+                Effect
+                  .gen(function*() {
+                    console.log("$wtf")
+                    const req = yield* HttpServerRequest.HttpServerRequest
+                    // TODO: only pass Authentication etc, or move headers to actual Rpc Headers
+                    yield* FiberRef.update(
+                      Rpc.currentHeaders,
+                      (headers) =>
+                        HttpHeaders.merge(
+                          req.headers,
+                          headers
+                        )
+                    )
+                    console.log("hhheaders", yield* FiberRef.get(Rpc.currentHeaders))
+                  })
+                  .pipe(Layer.effectDiscard)
+              )
+            ) as any
       )
   }
 }
