@@ -168,4 +168,4 @@ export const makeRpc = <CTXMap extends Record<string, [string, any, S.Schema.Any
   }
 }
 
-const { effect } = makeRpc<CTXMap>()
+export const RPC = makeRpc<CTXMap>()
