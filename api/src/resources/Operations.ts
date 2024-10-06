@@ -1,10 +1,10 @@
 import { RpcResolver } from "@effect/rpc"
 import { HttpRpcResolver } from "@effect/rpc-http"
 import type { RpcRouter } from "@effect/rpc/RpcRouter"
-import { apiClient } from "api/lib/routing.js"
 import { Duration, Effect, flow } from "effect-app"
 import { type FetchResponse } from "effect-app/client"
 import { Operation, OperationId } from "effect-app/Operations"
+import { apiClient } from "resources/lib/req.js"
 import * as S from "./lib/schema.js"
 
 export class FindOperation extends S.Req<FindOperation>()("FindOperation", {

@@ -3,9 +3,7 @@ import { NotLoggedInError, UnauthorizedError } from "@effect-app/infra/errors"
 import type { RequestContext } from "@effect-app/infra/RequestContext"
 import { Rpc } from "@effect/rpc"
 import type { S } from "effect-app"
-import { Config, Context, Duration, Effect, Exit, HashMap, Layer, Option, Request } from "effect-app"
-import { ApiConfig } from "effect-app/client"
-import { HttpClient, HttpClientRequest } from "effect-app/http"
+import { Config, Context, Duration, Effect, Exit, Layer, Option, Request } from "effect-app"
 import type * as EffectRequest from "effect/Request"
 import type { ContextMapCustom, ContextMapInverted, GetEffectContext } from "resources/lib/DynamicMiddleware.js"
 import {
@@ -186,16 +184,5 @@ export const makeRpc = () => {
 //       )
 //     return RpcResolver.toClient(resolver)
 //   })
-
-export const apiClient = Effect.gen(function*() {
-  const client = yield* HttpClient.HttpClient
-  const config = yield* ApiConfig.Tag
-  return client.pipe(
-    HttpClient.mapRequest(HttpClientRequest.prependUrl(config.apiUrl + "/rpc")),
-    HttpClient.mapRequest(
-      HttpClientRequest.setHeaders(config.headers.pipe(Option.getOrElse(() => HashMap.empty())))
-    )
-  )
-})
 
 export const RPC = makeRpc()
