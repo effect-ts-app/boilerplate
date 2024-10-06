@@ -246,14 +246,16 @@ export type ExtractEResponse<T> = T extends Schema<any, any, any> ? Schema.Encod
   : T extends unknown ? void
   : never
 
-type HasEmptyTo<T extends Schema<any, any, any>> = keyof Schema.Type<T> extends never ? true
+type IsEmpty<T> = keyof T extends never ? true
   : false
+
+type HasEmptyTo<T extends Schema<any, any, any>> = IsEmpty<Schema.Type<T>>
 
 type Cruft = "_tag" | Request.RequestTypeId | typeof Serializable.symbol | typeof Serializable.symbolResult
 
 // TODO: refactor to new Request pattern, then filter out non-requests similar to the runtime changes in clientFor, and matchFor (boilerplate)
 type RequestHandlers<R, E, M extends Requests> = {
-  [K in keyof M]: HasEmptyTo<M[K]> extends true ? {
+  [K in keyof M]: IsEmpty<Omit<S.Schema.Type<M[K]>, Cruft>> extends true ? {
       handler: Effect<FetchResponse<Schema.Type<M[K]["success"]>>, Schema.Type<M[K]["failure"]> | E, R>
       Request: M[K]
       Reponse: Schema.Type<M[K]["success"]>
@@ -276,7 +278,7 @@ type RequestHandlers<R, E, M extends Requests> = {
 }
 
 type RequestHandlersE<R, E, M extends Requests> = {
-  [K in keyof M & string as `${K}E`]: HasEmptyTo<M[K]> extends true ? {
+  [K in keyof M & string as `${K}E`]: IsEmpty<Omit<S.Schema.Type<M[K]>, Cruft>> extends true ? {
       handler: Effect<
         FetchResponse<Schema.Encoded<M[K]["success"]>>,
         Schema.Type<M[K]["failure"]> | E,
