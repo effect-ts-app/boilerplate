@@ -1,9 +1,12 @@
 <script setup lang="ts">
-import { HelloWorldRsc } from "resources"
 import { useSafeQuery } from "@effect-app/vue"
 import { buildFormFromSchema } from "@effect-app/vue/form"
-import { clientFor } from "effect-app/client"
-import { S } from "effect-app"
+import { RpcResolver } from "@effect/rpc"
+import { HttpRpcResolver } from "@effect/rpc-http"
+import type { RpcRouter } from "@effect/rpc/RpcRouter"
+import { Effect, flow, S } from "effect-app"
+import { GetHelloWorld } from "resources/HelloWorld"
+import { apiClient } from "resources/lib"
 
 const schema = S.Struct({
   title: S.NonEmptyString255,
@@ -29,8 +32,20 @@ const makeReq = () => ({
 
 const req = ref(makeReq())
 
-const helloWorldClient = clientFor(HelloWorldRsc)
-const [result] = useSafeQuery(helloWorldClient.GetHelloWorld, req)
+// TODO: just build this into a new clientFor for now..
+const resolver = flow(
+  HttpRpcResolver.make<RpcRouter<GetHelloWorld, never>>,
+  RpcResolver.toClient,
+)
+const helloWorldClient = apiClient.pipe(Effect.andThen(resolver))
+const [result] = useSafeQuery({
+  mapPath: GetHelloWorld._tag,
+  name: GetHelloWorld._tag,
+  handler: helloWorldClient.pipe(
+    Effect.andThen(cl => cl(new GetHelloWorld(req.value))), // TODO: watch computed
+    Effect.andThen(_ => ({ body: _, headers: {}, status: 200 })),
+  ),
+})
 
 // onMounted(() => {
 //   setInterval(() => {
