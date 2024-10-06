@@ -1,7 +1,6 @@
 // import { writeOpenapiDocsI } from "@effect-app/infra/api/writeDocs"
 import { RequestFiberSet } from "@effect-app/infra-adapters/RequestFiberSet"
 import * as MW from "@effect-app/infra/api/middlewares"
-import { RequestContextMiddleware } from "@effect-app/infra/api/middlewares"
 import { Operations } from "@effect-app/infra/services/Operations"
 import { OperationsRepo } from "@effect-app/infra/services/OperationsRepo"
 import { RequestContextContainer } from "@effect-app/infra/services/RequestContextContainer"
@@ -48,14 +47,11 @@ export const api = Effect
       HttpMiddleware.xForwardedHeaders
     )
 
-    const app = HttpRpcRouter.toHttpApp(router).pipe(
-      HttpServer.serve(middleware)
-    )
-
-    const extra = HttpRouter.empty.pipe(
+    const app = HttpRouter.empty.pipe(
+      HttpRouter.post("/rpc", HttpRpcRouter.toHttpApp(router)),
       HttpRouter.get("/events", MW.makeSSE(Stream.flatten(Events.stream), ClientEvents)),
       // HttpRouter.use(Effect.provide(RequestLayerLive)),
-      HttpRouter.use(RequestContextMiddleware()),
+      HttpRouter.use(MW.RequestContextMiddleware()),
       MW.serverHealth(cfg.apiVersion),
       HttpServer.serve(middleware)
     )
@@ -66,7 +62,7 @@ export const api = Effect
       .logInfo(`Running on http://${cfg.host}:${cfg.port} at version: ${cfg.apiVersion}. ENV: ${cfg.env}`)
       .pipe(
         Layer.effectDiscard,
-        Layer.provide(Layer.mergeAll(app, extra))
+        Layer.provide(app)
       )
 
     const portOverride = yield* Effect.serviceOption(ApiPortTag)

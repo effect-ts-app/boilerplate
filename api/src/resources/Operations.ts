@@ -1,5 +1,9 @@
-import { Duration, Effect } from "effect-app"
-import { clientFor, type FetchResponse } from "effect-app/client"
+import { RpcResolver } from "@effect/rpc"
+import { HttpRpcResolver } from "@effect/rpc-http"
+import type { RpcRouter } from "@effect/rpc/RpcRouter"
+import { apiClient } from "api/lib/routing.js"
+import { Duration, Effect, flow } from "effect-app"
+import { type FetchResponse } from "effect-app/client"
 import { Operation, OperationId } from "effect-app/Operations"
 import * as S from "./lib/schema.js"
 
@@ -8,7 +12,9 @@ export class FindOperation extends S.Req<FindOperation>()("FindOperation", {
 }, { allowAnonymous: true, allowRoles: ["user"], success: S.NullOr(Operation) }) {}
 
 // Extensions
-const opsClient = clientFor({ FindOperation })
+
+const resolver = flow(HttpRpcResolver.make<RpcRouter<FindOperation, never>>, RpcResolver.toClient)
+const opsClient = apiClient.pipe(Effect.andThen(resolver))
 
 export function refreshAndWaitAForOperationP<R, E>(
   act: Effect<FetchResponse<OperationId>, E, R>,
@@ -60,12 +66,13 @@ export function waitForOperation_<Req, R, E>(self: (req: Req) => Effect<FetchRes
 
 function _waitForOperation(id: OperationId, cb?: (op: Operation) => void) {
   return Effect.gen(function*() {
-    let r = yield* opsClient.FindOperation.handler({ id }).pipe(Effect.andThen((_) => _.body))
+    const client = yield* opsClient
+    let r = yield* client(new FindOperation({ id }))
     while (r) {
       if (cb) cb(r)
       if (r.result) return r.result
       yield* Effect.sleep(Duration.seconds(2))
-      r = yield* opsClient.FindOperation.handler({ id }).pipe(Effect.andThen((_) => _.body))
+      r = yield* client(new FindOperation({ id }))
     }
   })
 }

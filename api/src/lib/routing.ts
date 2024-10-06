@@ -3,7 +3,9 @@ import { NotLoggedInError, UnauthorizedError } from "@effect-app/infra/errors"
 import type { RequestContext } from "@effect-app/infra/RequestContext"
 import { Rpc } from "@effect/rpc"
 import type { S } from "effect-app"
-import { Config, Context, Duration, Effect, Exit, Layer, Option, Request } from "effect-app"
+import { Config, Context, Duration, Effect, Exit, HashMap, Layer, Option, Request } from "effect-app"
+import { ApiConfig } from "effect-app/client"
+import { HttpClient, HttpClientRequest } from "effect-app/http"
 import type * as EffectRequest from "effect/Request"
 import type { ContextMapCustom, ContextMapInverted, GetEffectContext } from "resources/lib/DynamicMiddleware.js"
 import {
@@ -101,7 +103,8 @@ export const Auth0Config = Config.all({
 // export type RequestEnv = Layer.Layer.Success<ReturnType<typeof RequestEnv>>
 
 // TODO: parameterise the Middleware handler and extract to DynamicMiddlware.ts?..
-export const makeRpc = <CTXMap extends Record<string, [string, any, S.Schema.Any, any]>>() => {
+// TODO: <CTXMap extends Record<string, [string, any, S.Schema.Any, any]>>
+export const makeRpc = () => {
   return {
     effect: <T extends { config?: { [K in keyof CTXMap]?: any } }, Req extends S.TaggedRequest.All, R>(
       schema: T & S.Schema<Req, any, never>,
@@ -168,4 +171,31 @@ export const makeRpc = <CTXMap extends Record<string, [string, any, S.Schema.Any
   }
 }
 
-export const RPC = makeRpc<CTXMap>()
+// const makeClient = <Router extends RpcRouter<S.TaggedRequest.All, never>>() =>
+//   Effect.gen(function*() {
+//     const client = yield* HttpClient.HttpClient
+//     const config = yield* ApiConfig.Tag
+//     const resolver = HttpRpcResolver
+//       .make<Router>(
+//         client.pipe(
+//           HttpClient.mapRequest(HttpClientRequest.prependUrl(config.apiUrl + "/rpc")),
+//           HttpClient.mapRequest(
+//             HttpClientRequest.setHeaders(config.headers.pipe(Option.getOrElse(() => HashMap.empty())))
+//           )
+//         )
+//       )
+//     return RpcResolver.toClient(resolver)
+//   })
+
+export const apiClient = Effect.gen(function*() {
+  const client = yield* HttpClient.HttpClient
+  const config = yield* ApiConfig.Tag
+  return client.pipe(
+    HttpClient.mapRequest(HttpClientRequest.prependUrl(config.apiUrl + "/rpc")),
+    HttpClient.mapRequest(
+      HttpClientRequest.setHeaders(config.headers.pipe(Option.getOrElse(() => HashMap.empty())))
+    )
+  )
+})
+
+export const RPC = makeRpc()
