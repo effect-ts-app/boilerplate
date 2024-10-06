@@ -261,7 +261,7 @@ type AHandler<Action extends AnyRequestModule> =
     S.Schema.Encoded<GetSuccess<Action>>,
     S.Schema.Type<GetFailure<Action>>,
     any,
-    any
+    { Response: any }
   >
   | Handler<
     Action,
@@ -269,7 +269,7 @@ type AHandler<Action extends AnyRequestModule> =
     S.Schema.Type<GetSuccess<Action>>,
     S.Schema.Type<GetFailure<Action>>,
     any,
-    any
+    { Response: any }
   >
 
 // type GetRouteContext<T> =
@@ -305,14 +305,14 @@ type AHandler<Action extends AnyRequestModule> =
 //     ]?: CTXMap[key][1]
 //   }
 
+type Filter<T> = {
+  [K in keyof T as T[K] extends S.Schema.All & { success: S.Schema.Any; failure: S.Schema.Any } ? K : never]: T[K]
+}
+
 export function matchFor<Rsc extends Record<string, any>>(
   rsc: Rsc
 ) {
-  type Filtered = {
-    [K in keyof Rsc as Rsc[K] extends S.TaggedRequestClass<any, any, any, any, any> ? K : never]: Rsc[K] extends
-      S.TaggedRequestClass<any, any, any, any, any> ? Rsc[K]
-      : never
-  }
+  type Filtered = Filter<Rsc>
   const filtered = typedKeysOf(rsc).reduce((acc, cur) => {
     if (Predicate.isObject(rsc[cur]) && rsc[cur][Request.RequestTypeId]) {
       acc[cur as keyof Filtered] = rsc[cur]
@@ -358,14 +358,14 @@ export function matchFor<Rsc extends Record<string, any>>(
         A,
         E,
         R2,
-        never //
+        { Response: Rsc[Key]["success"] } //
       >
     >
 
     <R2, E, A>(
       f: (
         req: S.Schema.Type<Rsc[Key]>,
-        ctx: Pick<Rsc[Key], "Response">
+        ctx: { Response: Rsc[Key]["success"] }
       ) => Effect<A, E, R2>
     ): HandleVoid<
       GetSuccessShape<Rsc[Key], RT>,
@@ -376,7 +376,7 @@ export function matchFor<Rsc extends Record<string, any>>(
         A,
         E,
         R2,
-        never //
+        { Response: Rsc[Key]["success"] } //
       >
     >
 
@@ -407,7 +407,7 @@ export function matchFor<Rsc extends Record<string, any>>(
         A,
         E,
         R2,
-        never //
+        { Response: Rsc[Key]["success"] } //
       >
     >
   }

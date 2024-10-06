@@ -1,13 +1,14 @@
 import { generate } from "@effect-app/infra/test"
-import { RpcRouter } from "@effect/rpc"
-import { RPC } from "api/lib/routing.js"
+import { matchFor } from "api/lib/routing.js"
 import { UserRepo } from "api/services.js"
 import { Effect, S } from "effect-app"
 import { User } from "models/User.js"
-import { GetHelloWorld } from "resources/HelloWorld.js"
+import { HelloWorldRsc } from "resources.js"
 
-export default RpcRouter.make(
-  RPC.effect(GetHelloWorld, ({ echo }) =>
+const helloWorld = matchFor(HelloWorldRsc)
+
+export default helloWorld.controllers({
+  GetHelloWorld: class extends helloWorld.GetHelloWorld(({ echo }, { Response, context }) =>
     UserRepo
       .tryGetCurrentUser
       .pipe(
@@ -16,12 +17,13 @@ export default RpcRouter.make(
           "NotFoundError": () => Effect.succeed(null)
         }),
         Effect.andThen((user) =>
-          new GetHelloWorld.success({
-            context: {}, // TODO: no more
+          new Response({
+            context,
             echo,
             currentUser: user,
             randomUser: generate(S.A.make(User)).value
           })
         )
-      ))
-)
+      )
+  ) {}
+})

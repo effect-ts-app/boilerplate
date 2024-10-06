@@ -1,13 +1,15 @@
-import { RpcRouter } from "@effect/rpc"
+import { matchFor } from "api/lib/routing.js"
 import { Operations } from "api/services.js"
 import { Effect, Option } from "effect-app"
-import { FindOperation } from "resources/Operations.js"
-import { RPC } from "./lib/routing.js"
+import { OperationsRsc } from "resources.js"
 
-export default RpcRouter.make(
-  RPC.effect(FindOperation, ({ id }) =>
+const operations = matchFor(OperationsRsc)
+
+export default operations.controllers({
+  FindOperation: class extends operations.FindOperation(({ id }) =>
     Effect.andThen(
       Operations.find(id),
       Option.getOrNull
-    ))
-)
+    )
+  ) {}
+})

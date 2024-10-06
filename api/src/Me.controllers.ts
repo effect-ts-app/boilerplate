@@ -1,8 +1,9 @@
-import { RpcRouter } from "@effect/rpc"
-import { RPC } from "api/lib/routing.js"
+import { matchFor } from "api/lib/routing.js"
 import { UserRepo } from "api/services.js"
-import { GetMe } from "resources/Me.js"
+import { MeRsc } from "resources.js"
 
-export default RpcRouter.make(
-  RPC.effect(GetMe, () => UserRepo.getCurrentUser)
-)
+const me = matchFor(MeRsc)
+
+export default me.controllers({
+  GetMe: class extends me.GetMe(UserRepo.getCurrentUser) {}
+})
