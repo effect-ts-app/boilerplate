@@ -250,7 +250,6 @@ type HasEmptyTo<T extends Schema<any, any, any>> = keyof Schema.Type<T> extends 
   : false
 
 type Cruft = "_tag" | Request.RequestTypeId | typeof Serializable.symbol | typeof Serializable.symbolResult
-"_tag" | Request.RequestTypeId | typeof Serializable.symbol | typeof Serializable.symbolResult
 
 // TODO: refactor to new Request pattern, then filter out non-requests similar to the runtime changes in clientFor, and matchFor (boilerplate)
 type RequestHandlers<R, E, M extends Requests> = {
