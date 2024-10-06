@@ -96,7 +96,7 @@ function clientFor_<M extends Requests>(models: M) {
         method: "POST", // TODO
         Request,
         Response,
-        mapPath: Request._tag,
+        mapPath: requestName,
         name: requestName
       }
 
@@ -106,7 +106,7 @@ function clientFor_<M extends Requests>(models: M) {
       )
 
       const fields = Request.fields
-      const p = Request._tag
+      const p = requestName
       const path = new Path(p) // TODO
       // @ts-expect-error doc
       prev[cur] = requestMeta.method === "GET"
