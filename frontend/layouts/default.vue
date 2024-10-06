@@ -1,29 +1,12 @@
 <script setup lang="ts">
+import { MeRsc } from "resources"
 import { onMounted } from "vue"
 import { useRouter } from "vue-router"
 import { VueQueryDevtools } from "@tanstack/vue-query-devtools"
 import { Result } from "~/composables/client"
-import { GetMe } from "resources/Me"
-import { apiClient } from "resources/lib"
-import { flow, Effect } from "effect-app"
-import { RpcResolver } from "@effect/rpc"
-import { HttpRpcResolver } from "@effect/rpc-http"
-import type { RpcRouter } from "@effect/rpc/RpcRouter"
 
-// TODO: just build this into a new clientFor for now..
-const resolver = flow(
-  HttpRpcResolver.make<RpcRouter<GetMe, never>>,
-  RpcResolver.toClient,
-)
-const meClient = apiClient.pipe(Effect.andThen(resolver))
-const [userResult, currentUser, getCurrentUser] = useSafeQuery({
-  mapPath: GetMe._tag,
-  name: GetMe._tag,
-  handler: meClient.pipe(
-    Effect.andThen(cl => cl(new GetMe())),
-    Effect.andThen(_ => ({ body: _, headers: {}, status: 200 })),
-  ),
-})
+const meClient = clientFor(MeRsc)
+const [userResult, currentUser, getCurrentUser] = useSafeQuery(meClient.GetMe)
 
 const appConfig = {
   title: "@effect-app/boilerplate",

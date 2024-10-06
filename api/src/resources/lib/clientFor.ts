@@ -3,8 +3,7 @@
 
 import { Effect, flow, Predicate } from "@effect-app/core"
 import type * as Serializable from "@effect/schema/Serializable"
-import type { ApiConfig } from "api/config.js"
-import type { FetchResponse } from "effect-app/client"
+import type { ApiConfig, FetchResponse } from "effect-app/client"
 import {
   fetchApi,
   fetchApi3S,
@@ -250,6 +249,9 @@ export type ExtractEResponse<T> = T extends Schema<any, any, any> ? Schema.Encod
 type HasEmptyTo<T extends Schema<any, any, any>> = keyof Schema.Type<T> extends never ? true
   : false
 
+type Cruft = "_tag" | Request.RequestTypeId | typeof Serializable.symbol | typeof Serializable.symbolResult
+"_tag" | Request.RequestTypeId | typeof Serializable.symbol | typeof Serializable.symbolResult
+
 // TODO: refactor to new Request pattern, then filter out non-requests similar to the runtime changes in clientFor, and matchFor (boilerplate)
 type RequestHandlers<R, E, M extends Requests> = {
   [K in keyof M]: HasEmptyTo<M[K]> extends true ? {
@@ -261,10 +263,7 @@ type RequestHandlers<R, E, M extends Requests> = {
     }
     : {
       handler: (
-        req: Omit<
-          S.Schema.Type<M[K]>,
-          "_tag" | Request.RequestTypeId | typeof Serializable.symbol | typeof Serializable.symbolResult
-        >
+        req: Omit<S.Schema.Type<M[K]>, Cruft>
       ) => Effect<
         FetchResponse<Schema.Type<M[K]["success"]>>,
         Schema.Type<M[K]["failure"]> | E,
@@ -272,7 +271,7 @@ type RequestHandlers<R, E, M extends Requests> = {
       >
       Request: M[K]
       Reponse: Schema.Type<M[K]["success"]>
-      mapPath: (req: S.Schema.Type<M[K]>) => string
+      mapPath: (req: Omit<S.Schema.Type<M[K]>, Cruft>) => string
       name: string
     }
 }
@@ -293,7 +292,7 @@ type RequestHandlersE<R, E, M extends Requests> = {
       handler: (
         req: Omit<
           S.Schema.Type<M[K]>,
-          "_tag" | Request.RequestTypeId | typeof Serializable.symbol | typeof Serializable.symbolResult
+          Cruft
         >
       ) => Effect<
         FetchResponse<Schema.Encoded<M[K]["success"]>>,
@@ -302,7 +301,7 @@ type RequestHandlersE<R, E, M extends Requests> = {
       >
       Request: M[K]
       Reponse: Schema.Type<M[K]["success"]>
-      mapPath: (req: S.Schema.Type<M[K]>) => string
+      mapPath: (req: Omit<S.Schema.Type<M[K]>, Cruft>) => string
       name: string
     }
 }
