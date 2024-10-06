@@ -34,7 +34,7 @@ class OperationsRepoImpl extends OperationsRepo {
   static readonly Live = this.toLayer.pipe(Layer.provide(RepoTest))
 }
 
-const router = RpcRouter.make(...typedValuesOf(controllers))
+const router = RpcRouter.make(...typedValuesOf(controllers) as any)
 
 export const api = Effect
   .gen(function*() {

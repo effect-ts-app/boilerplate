@@ -314,7 +314,7 @@ export function matchFor<Rsc extends Record<string, any>>(
 ) {
   type Filtered = Filter<Rsc>
   const filtered = typedKeysOf(rsc).reduce((acc, cur) => {
-    if (Predicate.isObject(rsc[cur]) && rsc[cur][Request.RequestTypeId]) {
+    if (Predicate.isObject(rsc[cur]) && rsc[cur]["success"]) {
       acc[cur as keyof Filtered] = rsc[cur]
     }
     return acc
@@ -330,7 +330,7 @@ export function matchFor<Rsc extends Record<string, any>>(
       E,
       A
     >(
-      services: SVC,
+      _services: SVC,
       f: (
         req: S.Schema.Type<Rsc[Key]>,
         ctx: any
@@ -427,7 +427,10 @@ export function matchFor<Rsc extends Record<string, any>>(
         if (cur === "meta") return acc
         const m = (rsc as any).meta as { moduleName: string }
         if (!m) throw new Error("Resource has no meta specified") // TODO: do something with moduleName+cur etc.
-        ;(acc as any)[cur] = controllers[cur as keyof typeof controllers] /*handle(
+        ;(acc as any)[cur] = {
+          h: controllers[cur as keyof typeof controllers],
+          Request: rsc[cur]
+        } /*handle(
           rsc[cur],
           m.moduleName + "." + (cur as string)
         )(controllers[cur as keyof typeof controllers] as any)*/
@@ -483,7 +486,7 @@ export function matchFor<Rsc extends Record<string, any>>(
     ] ? Req
       : never
 
-    return RpcRouter.make(...Object.values(mapped)) as RpcRouter.RpcRouter<
+    return RpcRouter.make(...Object.values(mapped) as any) as RpcRouter.RpcRouter<
       _ReqRoute<typeof mapped[keyof typeof mapped]>,
       _RRoute<typeof mapped[keyof typeof mapped]>
     >
