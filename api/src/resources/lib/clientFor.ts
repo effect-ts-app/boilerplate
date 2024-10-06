@@ -6,6 +6,7 @@ import { RpcResolver } from "@effect/rpc"
 import { HttpRpcResolver } from "@effect/rpc-http"
 import type { RpcRouter } from "@effect/rpc/RpcRouter"
 import type * as Serializable from "@effect/schema/Serializable"
+import { S } from "effect-app"
 import type { ApiConfig, FetchResponse } from "effect-app/client"
 import { makePathWithBody, makePathWithQuery } from "effect-app/client"
 import { HttpClient, HttpClientRequest } from "effect-app/http"
@@ -13,7 +14,7 @@ import type { Schema } from "effect-app/schema"
 import { typedKeysOf } from "effect-app/utils"
 import type * as Request from "effect/Request"
 import { Path } from "path-parser"
-import { apiClient, S } from "../lib.js"
+import { apiClient, RequestCacheLayers } from "./req.js"
 
 type Requests = Record<string, any>
 
@@ -120,7 +121,8 @@ function clientFor_<M extends Requests>(models: M) {
                   .withSpan("client.request " + requestName, {
                     captureStackTrace: false,
                     attributes: { "request.name": requestName }
-                  })
+                  }),
+                Effect.provide(RequestCacheLayers)
               ),
             ...requestMeta
           }
@@ -134,7 +136,8 @@ function clientFor_<M extends Requests>(models: M) {
                     .withSpan("client.request " + requestName, {
                       captureStackTrace: false,
                       attributes: { "request.name": requestName }
-                    })
+                    }),
+                  Effect.provide(RequestCacheLayers)
                 ),
             ...requestMeta,
             mapPath: (req: any) => req ? makePathWithQuery(path, encodeRequest(req)) : p
@@ -148,7 +151,8 @@ function clientFor_<M extends Requests>(models: M) {
               Effect.withSpan("client.request " + requestName, {
                 captureStackTrace: false,
                 attributes: { "request.name": requestName }
-              })
+              }),
+              Effect.provide(RequestCacheLayers)
             ),
           ...requestMeta
         }
@@ -161,7 +165,8 @@ function clientFor_<M extends Requests>(models: M) {
                 Effect.withSpan("client.request " + requestName, {
                   captureStackTrace: false,
                   attributes: { "request.name": requestName }
-                })
+                }),
+                Effect.provide(RequestCacheLayers)
               ),
 
           ...requestMeta,
@@ -188,7 +193,8 @@ function clientFor_<M extends Requests>(models: M) {
                   .withSpan("client.request " + requestName, {
                     captureStackTrace: false,
                     attributes: { "request.name": requestName }
-                  })
+                  }),
+                Effect.provide(RequestCacheLayers)
               ),
             ...requestMeta
           }
@@ -203,7 +209,8 @@ function clientFor_<M extends Requests>(models: M) {
                     .withSpan("client.request " + requestName, {
                       captureStackTrace: false,
                       attributes: { "request.name": requestName }
-                    })
+                    }),
+                  Effect.provide(RequestCacheLayers)
                 ),
 
             ...requestMeta,
@@ -219,7 +226,8 @@ function clientFor_<M extends Requests>(models: M) {
               Effect.withSpan("client.request " + requestName, {
                 captureStackTrace: false,
                 attributes: { "request.name": requestName }
-              })
+              }),
+              Effect.provide(RequestCacheLayers)
             ),
           ...requestMeta
         }
@@ -233,7 +241,8 @@ function clientFor_<M extends Requests>(models: M) {
                 Effect.withSpan("client.request " + requestName, {
                   captureStackTrace: false,
                   attributes: { "request.name": requestName }
-                })
+                }),
+                Effect.provide(RequestCacheLayers)
               ),
 
           ...requestMeta,

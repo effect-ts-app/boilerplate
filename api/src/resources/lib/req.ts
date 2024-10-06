@@ -1,5 +1,5 @@
 import { NotLoggedInError, UnauthorizedError } from "@effect-app/infra/errors"
-import { Effect, HashMap, Option } from "effect-app"
+import { Duration, Effect, HashMap, Layer, Option, Request as EffectRequest } from "effect-app"
 import { ApiConfig } from "effect-app/client"
 import { HttpClient, HttpClientRequest } from "effect-app/http"
 import type { UserProfileId } from "effect-app/ids"
@@ -40,3 +40,11 @@ export const apiClient = Effect.gen(function*() {
     )
   )
 })
+
+export const RequestCacheLayers = Layer.mergeAll(
+  Layer.setRequestCache(
+    EffectRequest.makeCache({ capacity: 500, timeToLive: Duration.hours(8) })
+  ),
+  Layer.setRequestCaching(true),
+  Layer.setRequestBatching(true)
+)

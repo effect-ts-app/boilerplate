@@ -64,13 +64,15 @@ export function waitForOperation_<Req, R, E>(self: (req: Req) => Effect<FetchRes
 }
 
 function _waitForOperation(id: OperationId, cb?: (op: Operation) => void) {
-  return Effect.gen(function*() {
-    let r = yield* opsClient.FindOperation.handler({ id }).pipe(Effect.andThen((_) => _.body))
-    while (r) {
-      if (cb) cb(r)
-      if (r.result) return r.result
-      yield* Effect.sleep(Duration.seconds(2))
-      r = yield* opsClient.FindOperation.handler({ id }).pipe(Effect.andThen((_) => _.body))
-    }
-  })
+  return Effect
+    .gen(function*() {
+      let r = yield* opsClient.FindOperation.handler({ id }).pipe(Effect.andThen((_) => _.body))
+      while (r) {
+        if (cb) cb(r)
+        if (r.result) return r.result
+        yield* Effect.sleep(Duration.seconds(2))
+        r = yield* opsClient.FindOperation.handler({ id }).pipe(Effect.andThen((_) => _.body))
+      }
+    })
+  // .pipe(Effect.provide(Layer.setRequestCaching(false)))
 }
