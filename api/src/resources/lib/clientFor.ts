@@ -57,14 +57,14 @@ export function clientFor<M extends Requests>(
 
 function clientFor_<M extends Requests>(models: M) {
   type Filtered = {
-    [K in keyof Requests as Requests[K] extends { Response: any } ? K : never]: Requests[K] extends { Response: any }
+    [K in keyof Requests as Requests[K] extends { success: any } ? K : never]: Requests[K] extends { success: any }
       ? Requests[K]
       : never
   }
   const filtered = typedKeysOf(models).reduce((acc, cur) => {
     if (
       Predicate.isObject(models[cur])
-      && (models[cur].Request || Object.keys(models[cur]).some((_) => _.endsWith("Request")) /* bwc */)
+      && (models[cur].success)
     ) {
       acc[cur as keyof Filtered] = models[cur]
     }
@@ -76,8 +76,8 @@ function clientFor_<M extends Requests>(models: M) {
     .reduce((prev, cur) => {
       const h = filtered[cur]
 
-      const Request_ = REST.extractRequest(h) as AnyRequest
-      const Response = REST.extractResponse(h)
+      const Request_ = h
+      const Response = h.success
 
       const m = (models as any).meta as { moduleName: string }
       if (!m) throw new Error("No meta defined in Resource!")
