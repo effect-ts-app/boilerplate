@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { Effect, flow, Predicate } from "@effect-app/core"
+import { Effect, flow, Predicate, Struct } from "@effect-app/core"
 import { RpcResolver } from "@effect/rpc"
 import { HttpRpcResolver } from "@effect/rpc-http"
 import type { RpcRouter } from "@effect/rpc/RpcRouter"
@@ -105,7 +105,7 @@ function clientFor_<M extends Requests>(models: M) {
         Effect.andThen(resolver)
       )
 
-      const fields = Request.fields
+      const fields = Struct.omit(Request.fields, "_tag")
       const p = requestName
       const path = new Path(p) // TODO
       // @ts-expect-error doc
