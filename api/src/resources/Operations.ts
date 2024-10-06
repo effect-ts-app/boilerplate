@@ -3,7 +3,7 @@ import { clientFor, type FetchResponse } from "effect-app/client"
 import { Operation, OperationId } from "effect-app/Operations"
 import * as S from "./lib/schema.js"
 
-export class FindOperation extends S.Req<FindOperation>()({
+export class FindOperation extends S.Req<FindOperation>()("FindOperation", {
   id: OperationId
 }, { allowAnonymous: true, allowRoles: ["user"], success: S.NullOr(Operation) }) {}
 
