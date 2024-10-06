@@ -6,10 +6,12 @@ import type { Compute } from "@effect-app/core/utils"
 import type { _E, _R } from "@effect-app/infra/api/routing"
 import { NotLoggedInError, UnauthorizedError } from "@effect-app/infra/errors"
 import type { RequestContext } from "@effect-app/infra/RequestContext"
+import { RequestContextContainer } from "@effect-app/infra/services/RequestContextContainer"
 import { Rpc, RpcRouter } from "@effect/rpc"
 import type { S } from "effect-app"
 import { Config, Context, Duration, Effect, Exit, FiberRef, Layer, Option, Predicate, Request } from "effect-app"
 import { HttpHeaders, HttpServerRequest } from "effect-app/http"
+import { NonEmptyString255 } from "effect-app/schema"
 import type * as EffectRequest from "effect/Request"
 import type { ContextMapCustom, ContextMapInverted, GetEffectContext } from "resources/lib/DynamicMiddleware.js"
 import {
@@ -176,14 +178,14 @@ export const makeRpc = () => {
               Effect.provide(
                 Effect
                   .gen(function*() {
-                    console.log("$wtf")
-                    const req = yield* HttpServerRequest.HttpServerRequest
+                    yield* RequestContextContainer.update((_) => ({ ..._, name: NonEmptyString255(req._tag) }))
+                    const httpReq = yield* HttpServerRequest.HttpServerRequest
                     // TODO: only pass Authentication etc, or move headers to actual Rpc Headers
                     yield* FiberRef.update(
                       Rpc.currentHeaders,
                       (headers) =>
                         HttpHeaders.merge(
-                          req.headers,
+                          httpReq.headers,
                           headers
                         )
                     )
@@ -427,8 +429,9 @@ export function matchFor<Rsc extends Record<string, any>>(
         if (cur === "meta") return acc
         const m = (rsc as any).meta as { moduleName: string }
         if (!m) throw new Error("Resource has no meta specified") // TODO: do something with moduleName+cur etc.
+         // TODO: Fix, this is the Request, not the handler :D
         ;(acc as any)[cur] = {
-          h: controllers[cur as keyof typeof controllers],
+          h: controllers[cur as keyof typeof controllers].handler,
           Request: rsc[cur]
         } /*handle(
           rsc[cur],
@@ -450,6 +453,8 @@ export function matchFor<Rsc extends Record<string, any>>(
         }
       }
     )
+
+    console.log({ handlers })
 
     const mapped = typedKeysOf(handlers).reduce((acc, cur) => {
       const handler = handlers[cur]
@@ -508,7 +513,7 @@ export function matchFor<Rsc extends Record<string, any>>(
             ? class {
               static stack = stack
               static _tag = "d"
-              static handler = (req: any, ctx: any) => svcOrFnOrEffect(req, { ...ctx, Response: rsc[cur].Response })
+              static handler = (req: any, ctx: any) => svcOrFnOrEffect(req, { ...ctx, Response: rsc[cur].success })
             }
             : class {
               static stack = stack
@@ -528,7 +533,7 @@ export function matchFor<Rsc extends Record<string, any>>(
             ? class {
               static stack = stack
               static _tag = "raw"
-              static handler = (req: any, ctx: any) => svcOrFnOrEffect(req, { ...ctx, Response: rsc[cur].Response })
+              static handler = (req: any, ctx: any) => svcOrFnOrEffect(req, { ...ctx, Response: rsc[cur].success })
             }
             : class {
               static stack = stack

@@ -12,6 +12,7 @@ import type { HttpClient } from "effect-app/http"
 import type { Schema } from "effect-app/schema"
 import { typedKeysOf } from "effect-app/utils"
 import type * as Request from "effect/Request"
+import { Path } from "path-parser"
 import { apiClient, S } from "../lib.js"
 
 type Requests = Record<string, any>
@@ -42,10 +43,18 @@ export function clientFor<M extends Requests>(
   return m
 }
 
+type Req = S.Schema.All & {
+  new(...args: any[]): any
+  _tag: string
+  fields: S.Struct.Fields
+  success: S.Schema.Any
+  failure: S.Schema.Any
+  config?: Record<string, any>
+}
+
 function clientFor_<M extends Requests>(models: M) {
   type Filtered = {
-    [K in keyof Requests as Requests[K] extends S.Schema.All & { success: S.Schema.All } ? K : never]:
-      Requests[K] extends S.Schema.All & { success: S.Schema.All } ? Requests[K] : never
+    [K in keyof Requests as Requests[K] extends Req ? K : never]: Requests[K] extends Req ? Requests[K] : never
   }
   const filtered = typedKeysOf(models).reduce((acc, cur) => {
     if (
@@ -55,15 +64,17 @@ function clientFor_<M extends Requests>(models: M) {
       acc[cur as keyof Filtered] = models[cur]
     }
     return acc
-  }, {} as Filtered)
+  }, {} as Record<keyof Filtered, Req>)
   return (typedKeysOf(filtered)
-    // ignore module interop with automatic default exports..
-    .filter((x) => x !== "default" && x !== "meta")
     .reduce((prev, cur) => {
-      const h = filtered[cur]
+      const h = filtered[cur]!
 
       const Request = h
       const Response = h.success
+
+      const encodeRequest = S.encodeSync(
+        Request as unknown as S.Schema<any, any>
+      )
 
       const m = (models as any).meta as { moduleName: string }
       if (!m) throw new Error("No meta defined in Resource!")
@@ -85,10 +96,11 @@ function clientFor_<M extends Requests>(models: M) {
       const client = apiClient.pipe(Effect.andThen(resolver))
 
       const fields = Request.fields
-      const path = Request._tag // TODO
+      const p = Request._tag
+      const path = new Path(p) // TODO
       // @ts-expect-error doc
       prev[cur] = meta.method === "GET"
-        ? fields.length === 0
+        ? Object.keys(fields).length === 0
           ? {
             handler: client
               .pipe(
@@ -115,9 +127,9 @@ function clientFor_<M extends Requests>(models: M) {
                     })
                 ),
             ...meta,
-            mapPath: (req: any) => req ? makePathWithQuery(path, S.encodeSync(Request)(req)) : Request.path
+            mapPath: (req: any) => req ? makePathWithQuery(path, encodeRequest(req)) : p
           }
-        : fields.length === 0
+        : Object.keys(fields).length === 0
         ? {
           handler: client
             .pipe(
@@ -146,16 +158,16 @@ function clientFor_<M extends Requests>(models: M) {
           mapPath: (req: any) =>
             req
               ? meta.method === "DELETE"
-                ? makePathWithQuery(path, S.encodeSync(Request)(req))
-                : makePathWithBody(path, S.encodeSync(Request)(req))
-              : Request.path
+                ? makePathWithQuery(path, encodeRequest(req))
+                : makePathWithBody(path, encodeRequest(req))
+              : p
         }
 
       // generate handler
 
       // @ts-expect-error doc
       prev[`${cur}E`] = meta.method === "GET"
-        ? fields.length === 0
+        ? Object.keys(fields).length === 0
           ? {
             handler: client
               .pipe(
@@ -185,9 +197,9 @@ function clientFor_<M extends Requests>(models: M) {
                 ),
 
             ...meta,
-            mapPath: (req: any) => req ? makePathWithQuery(path, S.encodeSync(Request)(req)) : Request.path
+            mapPath: (req: any) => req ? makePathWithQuery(path, encodeRequest(req)) : p
           }
-        : fields.length === 0
+        : Object.keys(fields).length === 0
         ? {
           handler: client
             .pipe(
@@ -218,9 +230,9 @@ function clientFor_<M extends Requests>(models: M) {
           mapPath: (req: any) =>
             req
               ? meta.method === "DELETE"
-                ? makePathWithQuery(path, S.encodeSync(Request)(req))
-                : makePathWithBody(path, S.encodeSync(Request)(req))
-              : Request.path
+                ? makePathWithQuery(path, encodeRequest(req))
+                : makePathWithBody(path, encodeRequest(req))
+              : p
         }
       // generate handler
 
