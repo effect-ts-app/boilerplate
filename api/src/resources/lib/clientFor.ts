@@ -249,8 +249,6 @@ export type ExtractEResponse<T> = T extends Schema<any, any, any> ? Schema.Encod
 type IsEmpty<T> = keyof T extends never ? true
   : false
 
-type HasEmptyTo<T extends Schema<any, any, any>> = IsEmpty<Schema.Type<T>>
-
 type Cruft = "_tag" | Request.RequestTypeId | typeof Serializable.symbol | typeof Serializable.symbolResult
 
 // TODO: refactor to new Request pattern, then filter out non-requests similar to the runtime changes in clientFor, and matchFor (boilerplate)
