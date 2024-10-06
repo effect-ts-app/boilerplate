@@ -1,14 +1,13 @@
 // import { writeOpenapiDocsI } from "@effect-app/infra/api/writeDocs"
 import { RequestFiberSet } from "@effect-app/infra-adapters/RequestFiberSet"
 import * as MW from "@effect-app/infra/api/middlewares"
-import { RequestContextMiddleware } from "@effect-app/infra/api/middlewares"
 import { Operations } from "@effect-app/infra/services/Operations"
 import { OperationsRepo } from "@effect-app/infra/services/OperationsRepo"
 import { RequestContextContainer } from "@effect-app/infra/services/RequestContextContainer"
 import { ContextMapContainer } from "@effect-app/infra/services/Store/ContextMapContainer"
 import * as HttpClientNode from "@effect/platform-node/NodeHttpClient"
 import * as HttpNode from "@effect/platform-node/NodeHttpServer"
-import { Effect, Layer, Option, Stream } from "effect-app"
+import { Effect, flow, Layer, Option, Stream } from "effect-app"
 import { HttpMiddleware, HttpRouter, HttpServer } from "effect-app/http"
 import { GenericTag } from "effect/Context"
 import { createServer } from "node:http"
@@ -39,27 +38,28 @@ export const api = Effect
   .gen(function*() {
     let cfg = yield* MergedConfig
 
-    const app = router
-      .pipe(
-        HttpRouter.get("/events", MW.makeSSE(Stream.flatten(Events.stream), ClientEvents)),
-        // HttpRouter.use(Effect.provide(RequestLayerLive)),
-        HttpRouter.use(RequestContextMiddleware()),
-        MW.serverHealth(cfg.apiVersion),
-        MW.cors(),
-        // we trust proxy and handle the x-forwarded etc headers
-        HttpMiddleware.xForwardedHeaders
-      )
+    const middleware = flow(
+      HttpMiddleware.logger,
+      MW.cors(),
+      // we trust proxy and handle the x-forwarded etc headers
+      HttpMiddleware.xForwardedHeaders
+    )
+
+    const app = router.pipe(
+      HttpRouter.get("/events", MW.makeSSE(Stream.flatten(Events.stream), ClientEvents)),
+      // HttpRouter.use(Effect.provide(RequestLayerLive)),
+      HttpRouter.use(MW.RequestContextMiddleware()),
+      MW.serverHealth(cfg.apiVersion),
+      HttpServer.serve(middleware)
+    )
 
     // .tap(RouteDescriptors.andThen((_) => _.get).andThen(writeOpenapiDocsI))
     // .provideService(RouteDescriptors, Ref.unsafeMake<RouteDescriptorAny[]>([]))
     const serve = Effect
-      .succeed(app)
+      .logInfo(`Running on http://${cfg.host}:${cfg.port} at version: ${cfg.apiVersion}. ENV: ${cfg.env}`)
       .pipe(
-        Effect.zipLeft(
-          Effect.logInfo(`Running on http://${cfg.host}:${cfg.port} at version: ${cfg.apiVersion}. ENV: ${cfg.env}`)
-        ),
-        Effect.map(HttpServer.serve(HttpMiddleware.logger)),
-        Layer.unwrapEffect
+        Layer.effectDiscard,
+        Layer.provide(app)
       )
 
     const portOverride = yield* Effect.serviceOption(ApiPortTag)

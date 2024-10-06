@@ -1,14 +1,19 @@
 import { Duration, Effect } from "effect-app"
-import { clientFor, type FetchResponse } from "effect-app/client"
+import { type FetchResponse } from "effect-app/client"
 import { Operation, OperationId } from "effect-app/Operations"
+import { clientFor } from "./lib/clientFor.js"
 import * as S from "./lib/schema.js"
 
-export class FindOperation extends S.Req<FindOperation>()({
+export class FindOperation extends S.Req<FindOperation>()("FindOperation", {
   id: OperationId
 }, { allowAnonymous: true, allowRoles: ["user"], success: S.NullOr(Operation) }) {}
 
+// codegen:start {preset: meta, sourcePrefix: src/resources/}
+export const meta = { moduleName: "Operations" }
+// codegen:end
+
 // Extensions
-const opsClient = clientFor({ FindOperation })
+const opsClient = clientFor({ FindOperation, meta })
 
 export function refreshAndWaitAForOperationP<R, E>(
   act: Effect<FetchResponse<OperationId>, E, R>,
@@ -69,7 +74,3 @@ function _waitForOperation(id: OperationId, cb?: (op: Operation) => void) {
     }
   })
 }
-
-// codegen:start {preset: meta, sourcePrefix: src/resources/}
-export const meta = { moduleName: "Operations" }
-// codegen:end

@@ -1,5 +1,22 @@
-import { makeClientRouter } from "effect-app/client/router"
+import { NotLoggedInError, UnauthorizedError } from "@effect-app/infra/errors"
+import { Effect, HashMap, Option } from "effect-app"
+import { ApiConfig } from "effect-app/client"
+import { HttpClient, HttpClientRequest } from "effect-app/http"
+import type { UserProfileId } from "effect-app/ids"
 import type { Role } from "models/User.js"
+import type { ContextMapCustom, ContextMapInverted } from "./DynamicMiddleware.js"
+import { makeRpcClient } from "./DynamicMiddleware.js"
+
+// TODO: this shouldn't be in client area but api area
+type UserProfile = {
+  id: UserProfileId
+  roles: Role[]
+}
+export type CTXMap = {
+  allowAnonymous: ContextMapInverted<"userProfile", UserProfile, typeof NotLoggedInError>
+  // TODO: not boolean but `string[]`
+  requireRoles: ContextMapCustom<"", void, typeof UnauthorizedError, Array<string>>
+}
 
 export type RequestConfig = {
   /** Disable authentication requirement */
@@ -8,4 +25,18 @@ export type RequestConfig = {
   allowRoles?: readonly Role[]
 }
 
-export const Req = makeClientRouter<RequestConfig>()
+export const { TaggedRequest: Req } = makeRpcClient<RequestConfig, CTXMap>({
+  allowAnonymous: NotLoggedInError,
+  requireRoles: UnauthorizedError
+})
+
+export const apiClient = Effect.gen(function*() {
+  const client = yield* HttpClient.HttpClient
+  const config = yield* ApiConfig.Tag
+  return client.pipe(
+    HttpClient.mapRequest(HttpClientRequest.prependUrl(config.apiUrl + "/rpc")),
+    HttpClient.mapRequest(
+      HttpClientRequest.setHeaders(config.headers.pipe(Option.getOrElse(() => HashMap.empty())))
+    )
+  )
+})
