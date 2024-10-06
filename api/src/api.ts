@@ -8,15 +8,17 @@ import { RequestContextContainer } from "@effect-app/infra/services/RequestConte
 import { ContextMapContainer } from "@effect-app/infra/services/Store/ContextMapContainer"
 import * as HttpClientNode from "@effect/platform-node/NodeHttpClient"
 import * as HttpNode from "@effect/platform-node/NodeHttpServer"
-import { Effect, Layer, Option, Stream } from "effect-app"
+import { RpcRouter } from "@effect/rpc"
+import { HttpRpcRouter } from "@effect/rpc-http"
+import { Effect, flow, Layer, Option, Stream } from "effect-app"
 import { HttpMiddleware, HttpRouter, HttpServer } from "effect-app/http"
+import { typedValuesOf } from "effect-app/utils"
 import { GenericTag } from "effect/Context"
 import { createServer } from "node:http"
 import { ClientEvents } from "resources.js"
 import { MergedConfig } from "./config.js"
 import * as controllers from "./controllers.js"
 import { RepoTest } from "./lib/layers.js"
-import { matchAll } from "./lib/routing.js"
 import { UserRepo } from "./services.js"
 import { Events } from "./services/Events.js"
 
@@ -33,33 +35,39 @@ class OperationsRepoImpl extends OperationsRepo {
   static readonly Live = this.toLayer.pipe(Layer.provide(RepoTest))
 }
 
-const router = matchAll(controllers)
+const router = RpcRouter.make(...typedValuesOf(controllers))
 
 export const api = Effect
   .gen(function*() {
     let cfg = yield* MergedConfig
 
-    const app = router
-      .pipe(
-        HttpRouter.get("/events", MW.makeSSE(Stream.flatten(Events.stream), ClientEvents)),
-        // HttpRouter.use(Effect.provide(RequestLayerLive)),
-        HttpRouter.use(RequestContextMiddleware()),
-        MW.serverHealth(cfg.apiVersion),
-        MW.cors(),
-        // we trust proxy and handle the x-forwarded etc headers
-        HttpMiddleware.xForwardedHeaders
-      )
+    const middleware = flow(
+      HttpMiddleware.logger,
+      MW.cors(),
+      // we trust proxy and handle the x-forwarded etc headers
+      HttpMiddleware.xForwardedHeaders
+    )
+
+    const app = HttpRpcRouter.toHttpApp(router).pipe(
+      Effect.map(HttpServer.serve(middleware)),
+      Layer.unwrapEffect
+    )
+
+    const extra = HttpRouter.empty.pipe(
+      HttpRouter.get("/events", MW.makeSSE(Stream.flatten(Events.stream), ClientEvents)),
+      // HttpRouter.use(Effect.provide(RequestLayerLive)),
+      HttpRouter.use(RequestContextMiddleware()),
+      MW.serverHealth(cfg.apiVersion),
+      HttpServer.serve(middleware)
+    )
 
     // .tap(RouteDescriptors.andThen((_) => _.get).andThen(writeOpenapiDocsI))
     // .provideService(RouteDescriptors, Ref.unsafeMake<RouteDescriptorAny[]>([]))
     const serve = Effect
-      .succeed(app)
+      .logInfo(`Running on http://${cfg.host}:${cfg.port} at version: ${cfg.apiVersion}. ENV: ${cfg.env}`)
       .pipe(
-        Effect.zipLeft(
-          Effect.logInfo(`Running on http://${cfg.host}:${cfg.port} at version: ${cfg.apiVersion}. ENV: ${cfg.env}`)
-        ),
-        Effect.map(HttpServer.serve(HttpMiddleware.logger)),
-        Layer.unwrapEffect
+        Layer.effectDiscard,
+        Layer.provide(Layer.mergeAll(app, extra))
       )
 
     const portOverride = yield* Effect.serviceOption(ApiPortTag)
