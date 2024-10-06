@@ -2,7 +2,6 @@
 import { HelloWorldRsc } from "resources"
 import { useSafeQuery } from "@effect-app/vue"
 import { buildFormFromSchema } from "@effect-app/vue/form"
-import { clientFor } from "effect-app/client"
 import { S } from "effect-app"
 
 const schema = S.Struct({

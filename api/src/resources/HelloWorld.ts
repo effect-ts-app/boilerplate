@@ -9,7 +9,7 @@ class Response extends S.Class<Response>()({
   randomUser: UserView
 }) {}
 
-export class GetHelloWorld extends S.Req<GetHelloWorld>()({
+export class GetHelloWorld extends S.Req<GetHelloWorld>()("GetHelloWorld", {
   echo: S.String
 }, { allowAnonymous: true, allowRoles: ["user"], success: Response }) {}
 
