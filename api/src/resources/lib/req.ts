@@ -1,7 +1,5 @@
 import { NotLoggedInError, UnauthorizedError } from "@effect-app/infra/errors"
-import { Duration, Effect, HashMap, Layer, Option, Request as EffectRequest } from "effect-app"
-import { ApiConfig } from "effect-app/client"
-import { HttpClient, HttpClientRequest } from "effect-app/http"
+import { Duration, Layer, Request as EffectRequest } from "effect-app"
 import type { UserProfileId } from "effect-app/ids"
 import type { Role } from "models/User.js"
 import type { ContextMapCustom, ContextMapInverted } from "./DynamicMiddleware.js"
@@ -28,17 +26,6 @@ export type RequestConfig = {
 export const { TaggedRequest: Req } = makeRpcClient<RequestConfig, CTXMap>({
   allowAnonymous: NotLoggedInError,
   requireRoles: UnauthorizedError
-})
-
-export const apiClient = Effect.gen(function*() {
-  const client = yield* HttpClient.HttpClient
-  const config = yield* ApiConfig.Tag
-  return client.pipe(
-    HttpClient.mapRequest(HttpClientRequest.prependUrl(config.apiUrl + "/rpc")),
-    HttpClient.mapRequest(
-      HttpClientRequest.setHeaders(config.headers.pipe(Option.getOrElse(() => HashMap.empty())))
-    )
-  )
 })
 
 export const RequestCacheLayers = Layer.mergeAll(

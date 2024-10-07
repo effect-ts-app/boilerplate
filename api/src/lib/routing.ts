@@ -110,9 +110,126 @@ export const Auth0Config = Config.all({
 
 // export type RequestEnv = Layer.Layer.Success<ReturnType<typeof RequestEnv>>
 
-// TODO: parameterise the Middleware handler and extract to DynamicMiddlware.ts?..
-// TODO: <CTXMap extends Record<string, [string, any, S.Schema.Any, any]>>
-export const makeRpc = () => {
+const middleware = {
+  contextMap: null as unknown as CTXMap,
+  // helper to deal with nested generic lmitations
+  context: null as any as
+    | RequestContextContainer
+    | HttpServerRequest.HttpServerRequest,
+  execute: <T extends { config?: { [K in keyof CTXMap]?: any } }, Req extends S.TaggedRequest.All, R>(
+    schema: T & S.Schema<Req, any, never>,
+    handler: (request: Req) => Effect.Effect<EffectRequest.Request.Success<Req>, EffectRequest.Request.Error<Req>, R>,
+    moduleName?: string
+  ) =>
+  (
+    req: Req
+  ): Effect.Effect<
+    Request.Request.Success<Req>,
+    Request.Request.Error<Req>,
+    | RequestContextContainer
+    | HttpServerRequest.HttpServerRequest
+    | Exclude<R, GetEffectContext<CTXMap, T["config"]>>
+  > =>
+    Effect
+      .gen(function*() {
+        const headers = yield* Rpc.currentHeaders
+        let ctx = Context.empty()
+
+        const config = "config" in schema ? schema.config : undefined
+
+        // Check JWT
+        // TODO
+        // if (!fakeLogin && !request.allowAnonymous) {
+        //   yield* Effect.catchAll(
+        //     checkJWTI({
+        //       ...authConfig,
+        //       issuer: authConfig.issuer + "/",
+        //       jwksUri: `${authConfig.issuer}/.well-known/jwks.json`
+        //     }),
+        //     (err) => Effect.fail(new JWTError({ error: err }))
+        //   )
+        // }
+
+        const fakeLogin = true
+        const r = (fakeLogin
+          ? makeUserProfileFromUserHeader(headers["x-user"])
+          : makeUserProfileFromAuthorizationHeader(
+            headers["authorization"]
+          ))
+          .pipe(Effect.exit, basicRuntime.runSync)
+        if (!Exit.isSuccess(r)) {
+          yield* Effect.logWarning("Parsing userInfo failed").pipe(Effect.annotateLogs("r", r))
+        }
+        const userProfile = Option.fromNullable(Exit.isSuccess(r) ? r.value : undefined)
+        if (Option.isSome(userProfile)) {
+          ctx = ctx.pipe(Context.add(UserProfile, userProfile.value))
+        } else if (config && !config.allowAnonymous) {
+          return yield* new NotLoggedInError({ message: "no auth" })
+        }
+
+        if (config?.requireRoles) {
+          // TODO
+          if (
+            !userProfile.value
+            || !(config.requireRoles as any).every((role: any) => userProfile.value!.roles.includes(role))
+          ) {
+            return yield* new UnauthorizedError()
+          }
+        }
+
+        return yield* handler(req).pipe(Effect.provide(ctx as Context.Context<GetEffectContext<CTXMap, T["config"]>>))
+      })
+      .pipe(
+        Effect.provide(
+          Effect
+            .gen(function*() {
+              yield* RequestContextContainer.update((_) => ({
+                ..._,
+                name: NonEmptyString255(moduleName ? `${moduleName}.${req._tag}` : req._tag)
+              }))
+              const httpReq = yield* HttpServerRequest.HttpServerRequest
+              // TODO: only pass Authentication etc, or move headers to actual Rpc Headers
+              yield* FiberRef.update(
+                Rpc.currentHeaders,
+                (headers) =>
+                  HttpHeaders.merge(
+                    httpReq.headers,
+                    headers
+                  )
+              )
+            })
+            .pipe(Layer.effectDiscard)
+        )
+      ) as any
+}
+
+interface Middleware<Context, CTXMap extends Record<string, [string, any, S.Schema.All, any]>> {
+  contextMap: CTXMap
+  context: Context
+  execute: <
+    T extends {
+      config?: { [K in keyof CTXMap]?: any }
+    },
+    Req extends S.TaggedRequest.All,
+    R
+  >(
+    schema: T & S.Schema<Req, any, never>,
+    handler: (
+      request: Req
+    ) => Effect.Effect<EffectRequest.Request.Success<Req>, EffectRequest.Request.Error<Req>, R>,
+    moduleName?: string
+  ) => (
+    req: Req
+  ) => Effect.Effect<
+    Request.Request.Success<Req>,
+    Request.Request.Error<Req>,
+    any // smd
+  >
+}
+
+export const makeRpc = <Context, CTXMap extends Record<string, [string, any, S.Schema.All, any]>>(
+  middleware: Middleware<Context, CTXMap>
+) => {
   return {
     effect: <T extends { config?: { [K in keyof CTXMap]?: any } }, Req extends S.TaggedRequest.All, R>(
       schema: T & S.Schema<Req, any, never>,
@@ -124,85 +241,16 @@ export const makeRpc = () => {
         R
       >,
       moduleName?: string
-    ) =>
-      Rpc.effect<Req, Exclude<R, GetEffectContext<CTXMap, T["config"]>>>(
+    ) => {
+      return Rpc.effect<Req, Context | Exclude<R, GetEffectContext<CTXMap, T["config"]>>>(
         schema,
-        (req) =>
-          Effect
-            .gen(function*() {
-              const headers = yield* Rpc.currentHeaders
-              let ctx = Context.empty()
-
-              const config = "config" in schema ? schema.config : undefined
-
-              // Check JWT
-              // TODO
-              // if (!fakeLogin && !request.allowAnonymous) {
-              //   yield* Effect.catchAll(
-              //     checkJWTI({
-              //       ...authConfig,
-              //       issuer: authConfig.issuer + "/",
-              //       jwksUri: `${authConfig.issuer}/.well-known/jwks.json`
-              //     }),
-              //     (err) => Effect.fail(new JWTError({ error: err }))
-              //   )
-              // }
-
-              const fakeLogin = true
-              const r = (fakeLogin
-                ? makeUserProfileFromUserHeader(headers["x-user"])
-                : makeUserProfileFromAuthorizationHeader(
-                  headers["authorization"]
-                ))
-                .pipe(Effect.exit, basicRuntime.runSync)
-              if (!Exit.isSuccess(r)) {
-                yield* Effect.logWarning("Parsing userInfo failed").pipe(Effect.annotateLogs("r", r))
-              }
-              const userProfile = Option.fromNullable(Exit.isSuccess(r) ? r.value : undefined)
-              if (Option.isSome(userProfile)) {
-                ctx = ctx.pipe(Context.add(UserProfile, userProfile.value))
-              } else if (config && !config.allowAnonymous) {
-                return yield* new NotLoggedInError({ message: "no auth" })
-              }
-
-              if (config?.requireRoles) {
-                // TODO
-                if (
-                  !userProfile.value
-                  || !(config.requireRoles as any).every((role: any) => userProfile.value!.roles.includes(role))
-                ) {
-                  return yield* new UnauthorizedError()
-                }
-              }
-
-              return yield* handler(req).pipe(Effect.provide(ctx))
-            })
-            .pipe(
-              Effect.provide(
-                Effect
-                  .gen(function*() {
-                    yield* RequestContextContainer.update((_) => ({
-                      ..._,
-                      name: NonEmptyString255(moduleName ? `${moduleName}.${req._tag}` : req._tag)
-                    }))
-                    const httpReq = yield* HttpServerRequest.HttpServerRequest
-                    // TODO: only pass Authentication etc, or move headers to actual Rpc Headers
-                    yield* FiberRef.update(
-                      Rpc.currentHeaders,
-                      (headers) =>
-                        HttpHeaders.merge(
-                          httpReq.headers,
-                          headers
-                        )
-                    )
-                    console.log("hhheaders", yield* FiberRef.get(Rpc.currentHeaders))
-                  })
-                  .pipe(Layer.effectDiscard)
-              )
-            ) as any
+        middleware.execute(schema, handler, moduleName)
       )
+    }
   }
 }
+
+export const RPC = makeRpc(middleware)
 
 // const makeClient = <Router extends RpcRouter<S.TaggedRequest.All, never>>() =>
 //   Effect.gen(function*() {
@@ -219,8 +267,6 @@ export const makeRpc = () => {
 //       )
 //     return RpcResolver.toClient(resolver)
 //   })
-
-export const RPC = makeRpc()
 
 // export type RouteMatch<
 //   R,
@@ -317,255 +363,262 @@ type Filter<T> = {
   [K in keyof T as T[K] extends S.Schema.All & { success: S.Schema.Any; failure: S.Schema.Any } ? K : never]: T[K]
 }
 
-export function matchFor<Rsc extends Record<string, any> & { meta: { moduleName: string } }>(
-  rsc: Rsc
-) {
-  const meta = (rsc as any).meta as { moduleName: string }
-  if (!meta) throw new Error("Resource has no meta specified") // TODO: do something with moduleName+cur etc.
+export const makeRouter = <Context, CTXMap extends Record<string, [string, any, S.Schema.All, any]>>(
+  middleware: Middleware<Context, CTXMap>
+) => {
+  const rpc = makeRpc(middleware)
+  function matchFor<Rsc extends Record<string, any> & { meta: { moduleName: string } }>(
+    rsc: Rsc
+  ) {
+    const meta = (rsc as any).meta as { moduleName: string }
+    if (!meta) throw new Error("Resource has no meta specified") // TODO: do something with moduleName+cur etc.
 
-  type Filtered = Filter<Rsc>
-  const filtered = typedKeysOf(rsc).reduce((acc, cur) => {
-    if (Predicate.isObject(rsc[cur]) && rsc[cur]["success"]) {
-      acc[cur as keyof Filtered] = rsc[cur]
-    }
-    return acc
-  }, {} as Filtered)
-
-  const matchWithServices = <Key extends keyof Filtered>(action: Key) => {
-    return <
-      SVC extends Record<
-        string,
-        Effect<any, any, any>
-      >,
-      R2,
-      E,
-      A
-    >(
-      _services: SVC,
-      f: (
-        req: S.Schema.Type<Rsc[Key]>,
-        ctx: any
-        // ctx: Compute<
-        //   LowerServices<EffectDeps<SVC>> & never // ,
-        //   "flat"
-        // >
-      ) => Effect<A, E, R2>
-    ) =>
-    (req: any) =>
-      // Effect.andThen(allLower(services), (svc2) =>
-      // ...ctx, ...svc2,
-      f(req, { Response: rsc[action].success })
-  }
-
-  type MatchWithServicesNew<RT extends "raw" | "d", Key extends keyof Rsc> = {
-    <R2, E, A>(
-      f: Effect<A, E, R2>
-    ): HandleVoid<
-      GetSuccessShape<Rsc[Key], RT>,
-      A,
-      Handler<
-        Rsc[Key],
-        RT,
-        A,
-        E,
-        Exclude<R2, GetEffectContext<CTXMap, Rsc[Key]["config"]>>,
-        { Response: Rsc[Key]["success"] } //
-      >
-    >
-
-    <R2, E, A>(
-      f: (
-        req: S.Schema.Type<Rsc[Key]>,
-        ctx: { Response: Rsc[Key]["success"] }
-      ) => Effect<A, E, R2>
-    ): HandleVoid<
-      GetSuccessShape<Rsc[Key], RT>,
-      A,
-      Handler<
-        Rsc[Key],
-        RT,
-        A,
-        E,
-        Exclude<R2, GetEffectContext<CTXMap, Rsc[Key]["config"]>>,
-        { Response: Rsc[Key]["success"] } //
-      >
-    >
-
-    <
-      SVC extends Record<
-        string,
-        EffectUnunified<any, any, any>
-      >,
-      R2,
-      E,
-      A
-    >(
-      services: SVC,
-      f: (
-        req: S.Schema.Type<Rsc[Key]>,
-        ctx: Compute<
-          // LowerServices<EffectDeps<SVC>> & Pick<Rsc[Key], "success">,
-          { Response: Rsc[Key] },
-          "flat"
-        >
-      ) => Effect<A, E, R2>
-    ): HandleVoid<
-      GetSuccessShape<Rsc[Key], RT>,
-      A,
-      Handler<
-        Rsc[Key],
-        RT,
-        A,
-        E,
-        Exclude<R2, GetEffectContext<CTXMap, Rsc[Key]["config"]>>,
-        { Response: Rsc[Key]["success"] } //
-      >
-    >
-  }
-
-  type Keys = keyof Filtered
-
-  const controllers = <
-    THandlers extends {
-      // import to keep them separate via | for type checking!!
-      [K in Keys]: AHandler<Rsc[K]>
-    }
-  >(
-    controllers: THandlers
-  ) => {
-    const handlers = typedKeysOf(filtered).reduce(
-      (acc, cur) => {
-        if (cur === "meta") return acc
-        ;(acc as any)[cur] = {
-          h: controllers[cur as keyof typeof controllers].handler,
-          Request: rsc[cur]
-        }
-
-        return acc
-      },
-      {} as {
-        [K in Keys]: {
-          h: (
-            r: S.Schema.Type<Rsc[K]>
-          ) => Effect<
-            S.Schema.Type<GetSuccess<Rsc[K]>>,
-            _E<ReturnType<THandlers[K]["handler"]>>,
-            _R<ReturnType<THandlers[K]["handler"]>>
-          >
-          Request: Rsc[K]
-        }
+    type Filtered = Filter<Rsc>
+    const filtered = typedKeysOf(rsc).reduce((acc, cur) => {
+      if (Predicate.isObject(rsc[cur]) && rsc[cur]["success"]) {
+        acc[cur as keyof Filtered] = rsc[cur]
       }
-    )
-
-    const mapped = typedKeysOf(handlers).reduce((acc, cur) => {
-      const handler = handlers[cur]
-      const req = handler.Request
-
-      // class Request extends (req as any) {
-      //   static path = "/" + handler.name + (req.path === "/" ? "" : req.path)
-      //   static method = req.method === "AUTO"
-      //     ? REST.determineMethod(handler.name.split(".")[1]!, req)
-      //     : req.method
-      // }
-      // if (req.method === "AUTO") {
-      //   Object.assign(Request, {
-      //     [Request.method === "GET" || Request.method === "DELETE" ? "Query" : "Body"]: req.Auto
-      //   })
-      // }
-      // Object.assign(handler, { Request })
-      acc[cur] = RPC.effect(req, handler.h as any, meta.moduleName) // TODO
       return acc
-    }, {} as any) as {
-      [K in Keys]: Rpc.Rpc<
-        Rsc[K],
-        _R<ReturnType<THandlers[K]["handler"]>>
+    }, {} as Filtered)
+
+    const matchWithServices = <Key extends keyof Filtered>(action: Key) => {
+      return <
+        SVC extends Record<
+          string,
+          Effect<any, any, any>
+        >,
+        R2,
+        E,
+        A
+      >(
+        _services: SVC,
+        f: (
+          req: S.Schema.Type<Rsc[Key]>,
+          ctx: any
+          // ctx: Compute<
+          //   LowerServices<EffectDeps<SVC>> & never // ,
+          //   "flat"
+          // >
+        ) => Effect<A, E, R2>
+      ) =>
+      (req: any) =>
+        // Effect.andThen(allLower(services), (svc2) =>
+        // ...ctx, ...svc2,
+        f(req, { Response: rsc[action].success })
+    }
+
+    type MatchWithServicesNew<RT extends "raw" | "d", Key extends keyof Rsc> = {
+      <R2, E, A>(
+        f: Effect<A, E, R2>
+      ): HandleVoid<
+        GetSuccessShape<Rsc[Key], RT>,
+        A,
+        Handler<
+          Rsc[Key],
+          RT,
+          A,
+          E,
+          Exclude<R2, GetEffectContext<CTXMap, Rsc[Key]["config"]>>,
+          { Response: Rsc[Key]["success"] } //
+        >
+      >
+
+      <R2, E, A>(
+        f: (
+          req: S.Schema.Type<Rsc[Key]>,
+          ctx: { Response: Rsc[Key]["success"] }
+        ) => Effect<A, E, R2>
+      ): HandleVoid<
+        GetSuccessShape<Rsc[Key], RT>,
+        A,
+        Handler<
+          Rsc[Key],
+          RT,
+          A,
+          E,
+          Exclude<R2, GetEffectContext<CTXMap, Rsc[Key]["config"]>>,
+          { Response: Rsc[Key]["success"] } //
+        >
+      >
+
+      <
+        SVC extends Record<
+          string,
+          EffectUnunified<any, any, any>
+        >,
+        R2,
+        E,
+        A
+      >(
+        services: SVC,
+        f: (
+          req: S.Schema.Type<Rsc[Key]>,
+          ctx: Compute<
+            // LowerServices<EffectDeps<SVC>> & Pick<Rsc[Key], "success">,
+            { Response: Rsc[Key] },
+            "flat"
+          >
+        ) => Effect<A, E, R2>
+      ): HandleVoid<
+        GetSuccessShape<Rsc[Key], RT>,
+        A,
+        Handler<
+          Rsc[Key],
+          RT,
+          A,
+          E,
+          Exclude<R2, GetEffectContext<CTXMap, Rsc[Key]["config"]>>,
+          { Response: Rsc[Key]["success"] } //
+        >
       >
     }
 
-    type RPCRouteR<T extends Rpc.Rpc<any, any>> = [T] extends [
-      Rpc.Rpc<any, infer R>
-    ] ? R
-      : never
+    type Keys = keyof Filtered
 
-    type RPCRouteReq<T extends Rpc.Rpc<any, any>> = [T] extends [
-      Rpc.Rpc<infer Req, any>
-    ] ? Req
-      : never
+    const controllers = <
+      THandlers extends {
+        // import to keep them separate via | for type checking!!
+        [K in Keys]: AHandler<Rsc[K]>
+      }
+    >(
+      controllers: THandlers
+    ) => {
+      const handlers = typedKeysOf(filtered).reduce(
+        (acc, cur) => {
+          if (cur === "meta") return acc
+          ;(acc as any)[cur] = {
+            h: controllers[cur as keyof typeof controllers].handler,
+            Request: rsc[cur]
+          }
 
-    const router = RpcRouter.make(...Object.values(mapped) as any) as RpcRouter.RpcRouter<
-      RPCRouteReq<typeof mapped[keyof typeof mapped]>,
-      RPCRouteR<typeof mapped[keyof typeof mapped]>
-    >
+          return acc
+        },
+        {} as {
+          [K in Keys]: {
+            h: (
+              r: S.Schema.Type<Rsc[K]>
+            ) => Effect<
+              S.Schema.Type<GetSuccess<Rsc[K]>>,
+              _E<ReturnType<THandlers[K]["handler"]>>,
+              _R<ReturnType<THandlers[K]["handler"]>>
+            >
+            Request: Rsc[K]
+          }
+        }
+      )
 
-    return HttpRouter.empty.pipe(
-      HttpRouter.all(("/rpc/" + rsc.meta.moduleName) as any, HttpRpcRouter.toHttpApp(router))
-    )
+      const mapped = typedKeysOf(handlers).reduce((acc, cur) => {
+        const handler = handlers[cur]
+        const req = handler.Request
+
+        // class Request extends (req as any) {
+        //   static path = "/" + handler.name + (req.path === "/" ? "" : req.path)
+        //   static method = req.method === "AUTO"
+        //     ? REST.determineMethod(handler.name.split(".")[1]!, req)
+        //     : req.method
+        // }
+        // if (req.method === "AUTO") {
+        //   Object.assign(Request, {
+        //     [Request.method === "GET" || Request.method === "DELETE" ? "Query" : "Body"]: req.Auto
+        //   })
+        // }
+        // Object.assign(handler, { Request })
+        acc[cur] = rpc.effect(req, handler.h as any, meta.moduleName) // TODO
+        return acc
+      }, {} as any) as {
+        [K in Keys]: Rpc.Rpc<
+          Rsc[K],
+          _R<ReturnType<THandlers[K]["handler"]>>
+        >
+      }
+
+      type RPCRouteR<T extends Rpc.Rpc<any, any>> = [T] extends [
+        Rpc.Rpc<any, infer R>
+      ] ? R
+        : never
+
+      type RPCRouteReq<T extends Rpc.Rpc<any, any>> = [T] extends [
+        Rpc.Rpc<infer Req, any>
+      ] ? Req
+        : never
+
+      const router = RpcRouter.make(...Object.values(mapped) as any) as RpcRouter.RpcRouter<
+        RPCRouteReq<typeof mapped[keyof typeof mapped]>,
+        RPCRouteR<typeof mapped[keyof typeof mapped]>
+      >
+
+      return HttpRouter.empty.pipe(
+        HttpRouter.all(("/rpc/" + rsc.meta.moduleName) as any, HttpRpcRouter.toHttpApp(router))
+      )
+    }
+
+    const r = {
+      controllers,
+      ...typedKeysOf(filtered).reduce(
+        (prev, cur) => {
+          ;(prev as any)[cur] = (svcOrFnOrEffect: any, fnOrNone: any) => {
+            const stack = new Error().stack?.split("\n").slice(2).join("\n")
+            return Effect.isEffect(svcOrFnOrEffect)
+              ? class {
+                static stack = stack
+                static _tag = "d"
+                static handler = () => svcOrFnOrEffect
+              }
+              : typeof svcOrFnOrEffect === "function"
+              ? class {
+                static stack = stack
+                static _tag = "d"
+                static handler = (req: any, ctx: any) => svcOrFnOrEffect(req, { ...ctx, Response: rsc[cur].success })
+              }
+              : class {
+                static stack = stack
+                static _tag = "d"
+                static handler = matchWithServices(cur)(svcOrFnOrEffect, fnOrNone)
+              }
+          }
+          ;(prev as any)[(cur as any) + "Raw"] = (svcOrFnOrEffect: any, fnOrNone: any) => {
+            const stack = new Error().stack?.split("\n").slice(2).join("\n")
+            return Effect.isEffect(svcOrFnOrEffect)
+              ? class {
+                static stack = stack
+                static _tag = "raw"
+                static handler = () => svcOrFnOrEffect
+              }
+              : typeof svcOrFnOrEffect === "function"
+              ? class {
+                static stack = stack
+                static _tag = "raw"
+                static handler = (req: any, ctx: any) => svcOrFnOrEffect(req, { ...ctx, Response: rsc[cur].success })
+              }
+              : class {
+                static stack = stack
+                static _tag = "raw"
+                static handler = matchWithServices(cur)(svcOrFnOrEffect, fnOrNone)
+              }
+          }
+          return prev
+        },
+        {} as
+          & {
+            // use Rsc as Key over using Keys, so that the Go To on X.Action remain in tact in Controllers files
+            /**
+             * Requires the Type shape
+             */
+            [Key in keyof Filtered]: MatchWithServicesNew<"d", Key>
+          }
+          & {
+            // use Rsc as Key over using Keys, so that the Go To on X.Action remain in tact in Controllers files
+            /**
+             * Requires the Encoded shape (e.g directly undecoded from DB, so that we don't do multiple Decode/Encode)
+             */
+            [Key in keyof Filtered as Key extends string ? `${Key}Raw` : never]: MatchWithServicesNew<"raw", Key>
+          }
+      )
+    }
+    return r
   }
 
-  const r = {
-    controllers,
-    ...typedKeysOf(filtered).reduce(
-      (prev, cur) => {
-        ;(prev as any)[cur] = (svcOrFnOrEffect: any, fnOrNone: any) => {
-          const stack = new Error().stack?.split("\n").slice(2).join("\n")
-          return Effect.isEffect(svcOrFnOrEffect)
-            ? class {
-              static stack = stack
-              static _tag = "d"
-              static handler = () => svcOrFnOrEffect
-            }
-            : typeof svcOrFnOrEffect === "function"
-            ? class {
-              static stack = stack
-              static _tag = "d"
-              static handler = (req: any, ctx: any) => svcOrFnOrEffect(req, { ...ctx, Response: rsc[cur].success })
-            }
-            : class {
-              static stack = stack
-              static _tag = "d"
-              static handler = matchWithServices(cur)(svcOrFnOrEffect, fnOrNone)
-            }
-        }
-        ;(prev as any)[(cur as any) + "Raw"] = (svcOrFnOrEffect: any, fnOrNone: any) => {
-          const stack = new Error().stack?.split("\n").slice(2).join("\n")
-          return Effect.isEffect(svcOrFnOrEffect)
-            ? class {
-              static stack = stack
-              static _tag = "raw"
-              static handler = () => svcOrFnOrEffect
-            }
-            : typeof svcOrFnOrEffect === "function"
-            ? class {
-              static stack = stack
-              static _tag = "raw"
-              static handler = (req: any, ctx: any) => svcOrFnOrEffect(req, { ...ctx, Response: rsc[cur].success })
-            }
-            : class {
-              static stack = stack
-              static _tag = "raw"
-              static handler = matchWithServices(cur)(svcOrFnOrEffect, fnOrNone)
-            }
-        }
-        return prev
-      },
-      {} as
-        & {
-          // use Rsc as Key over using Keys, so that the Go To on X.Action remain in tact in Controllers files
-          /**
-           * Requires the Type shape
-           */
-          [Key in keyof Filtered]: MatchWithServicesNew<"d", Key>
-        }
-        & {
-          // use Rsc as Key over using Keys, so that the Go To on X.Action remain in tact in Controllers files
-          /**
-           * Requires the Encoded shape (e.g directly undecoded from DB, so that we don't do multiple Decode/Encode)
-           */
-          [Key in keyof Filtered as Key extends string ? `${Key}Raw` : never]: MatchWithServicesNew<"raw", Key>
-        }
-    )
-  }
-  return r
+  return { matchFor }
 }
 
 type RequestHandlersTest = {
@@ -591,3 +644,5 @@ export function matchAll<T extends RequestHandlersTest>(handlers: T) {
     _RRouter<typeof handlers[keyof typeof handlers]>
   >
 }
+
+export const { matchFor } = makeRouter(middleware)

@@ -1,24 +1,35 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { Effect, flow, Predicate } from "@effect-app/core"
+import { Effect, flow, HashMap, Option, Predicate } from "@effect-app/core"
 import { RpcResolver } from "@effect/rpc"
 import { HttpRpcResolver } from "@effect/rpc-http"
 import type { RpcRouter } from "@effect/rpc/RpcRouter"
 import type * as Serializable from "@effect/schema/Serializable"
 import { S } from "effect-app"
-import type { ApiConfig, FetchResponse } from "effect-app/client"
-import { makePathWithBody, makePathWithQuery } from "effect-app/client"
+import type { FetchResponse } from "effect-app/client"
+import { ApiConfig, makePathWithBody, makePathWithQuery } from "effect-app/client"
 import { HttpClient, HttpClientRequest } from "effect-app/http"
 import type { Schema } from "effect-app/schema"
 import { typedKeysOf } from "effect-app/utils"
 import type * as Request from "effect/Request"
 import { Path } from "path-parser"
-import { apiClient, RequestCacheLayers } from "./req.js"
+import { RequestCacheLayers } from "./req.js"
 
 type Requests = Record<string, any>
 
 const cache = new Map<any, Client<any>>()
+
+const apiClient = Effect.gen(function*() {
+  const client = yield* HttpClient.HttpClient
+  const config = yield* ApiConfig.Tag
+  return client.pipe(
+    HttpClient.mapRequest(HttpClientRequest.prependUrl(config.apiUrl + "/rpc")),
+    HttpClient.mapRequest(
+      HttpClientRequest.setHeaders(config.headers.pipe(Option.getOrElse(() => HashMap.empty())))
+    )
+  )
+})
 
 export type Client<M extends Requests> =
   & RequestHandlers<
