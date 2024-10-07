@@ -69,7 +69,7 @@ export const makeRpcClient = <
   RequestConfig extends object,
   CTXMap extends Record<string, [string, any, S.Schema.All, any]>
 >(
-  errors: { [K in keyof CTXMap]: S.Schema.Any }
+  errors: { [K in keyof CTXMap]: CTXMap[K][2] }
 ) => {
   // Long way around Context/C extends etc to support actual jsdoc from passed in RequestConfig etc...
   type Context = { success: S.Schema.Any; failure: S.Schema.Any }
