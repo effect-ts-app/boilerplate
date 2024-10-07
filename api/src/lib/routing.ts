@@ -8,7 +8,7 @@ import type { RequestContext } from "@effect-app/infra/RequestContext"
 import { RequestContextContainer } from "@effect-app/infra/services/RequestContextContainer"
 import { Rpc } from "@effect/rpc"
 import type { S } from "effect-app"
-import { Config, Context, Duration, Effect, Exit, FiberRef, Layer, Option, Request } from "effect-app"
+import { Config, Context, Duration, Effect, Exit, FiberRef, Layer, Option, Request, Schedule } from "effect-app"
 import { HttpHeaders, HttpServerRequest } from "effect-app/http"
 import { NonEmptyString255 } from "effect-app/schema"
 import type * as EffectRequest from "effect/Request"
@@ -18,6 +18,9 @@ import {
   UserProfile
 } from "../services/UserProfile.js"
 import { basicRuntime } from "./basicRuntime.js"
+
+const optimisticConcurrencySchedule = Schedule.once
+  && Schedule.recurWhile<any>((a) => a?._tag === "OptimisticConcurrencyException")
 
 export interface CTX {
   context: RequestContext
@@ -115,7 +118,10 @@ const middleware = {
           }
         }
 
-        return yield* handler(req).pipe(Effect.provide(ctx as Context.Context<GetEffectContext<CTXMap, T["config"]>>))
+        return yield* handler(req).pipe(
+          Effect.retry(optimisticConcurrencySchedule),
+          Effect.provide(ctx as Context.Context<GetEffectContext<CTXMap, T["config"]>>)
+        )
       })
       .pipe(
         Effect.provide(
