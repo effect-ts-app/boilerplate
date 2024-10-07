@@ -2,11 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { makeRouter2 } from "@effect-app/infra/api/routing2"
-import type {
-  ContextMapCustom,
-  ContextMapInverted,
-  GetEffectContext
-} from "@effect-app/infra/api/routing2/DynamicMiddleware"
+import type { ContextMap, GetEffectContext } from "@effect-app/infra/api/routing2/DynamicMiddleware"
 import { NotLoggedInError, UnauthorizedError } from "@effect-app/infra/errors"
 import type { RequestContext } from "@effect-app/infra/RequestContext"
 import { RequestContextContainer } from "@effect-app/infra/services/RequestContextContainer"
@@ -28,9 +24,9 @@ export interface CTX {
 }
 
 export type CTXMap = {
-  allowAnonymous: ContextMapInverted<"userProfile", UserProfile, typeof NotLoggedInError>
+  allowAnonymous: ContextMap.Inverted<"userProfile", UserProfile, typeof NotLoggedInError>
   // TODO: not boolean but `string[]`
-  requireRoles: ContextMapCustom<"", void, typeof UnauthorizedError, Array<string>>
+  requireRoles: ContextMap.Custom<"", void, typeof UnauthorizedError, Array<string>>
 }
 
 export const RequestCacheLayers = Layer.mergeAll(
