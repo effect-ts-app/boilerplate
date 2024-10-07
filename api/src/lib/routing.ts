@@ -29,7 +29,7 @@ export interface CTX {
 export type CTXMap = {
   allowAnonymous: ContextMap.Inverted<"userProfile", UserProfile, typeof NotLoggedInError>
   // TODO: not boolean but `string[]`
-  requireRoles: ContextMap.Custom<"", void, typeof UnauthorizedError, Array<string>>
+  requireRoles: ContextMap.Custom<"", never, typeof UnauthorizedError, Array<string>>
 }
 
 export const RequestCacheLayers = Layer.mergeAll(
@@ -52,6 +52,15 @@ export const Auth0Config = Config.all({
 // const fakeLogin = true
 
 const middleware = {
+  makeContext: Effect.all({
+    userProfile: Effect.serviceOption(UserProfile).pipe(Effect.map(Option.getOrUndefined))
+  }) as unknown as Effect.Effect<
+    {
+      userProfile: UserProfile
+    },
+    never,
+    never
+  >,
   contextMap: null as unknown as CTXMap,
   // helper to deal with nested generic lmitations
   context: null as any as
