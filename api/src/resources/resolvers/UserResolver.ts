@@ -4,7 +4,7 @@ import { ApiConfig, NotFoundError } from "effect-app/client"
 import { HttpClient } from "effect-app/http"
 import { type Schema } from "effect-app/schema"
 import { UserId } from "models/User.js"
-import { clientFor } from "resources/lib/clientFor.js"
+import { clientFor } from "resources/lib.js"
 import * as UsersRsc from "../Users.js"
 import { UserView } from "../views/UserView.js"
 

@@ -1,7 +1,7 @@
 import { Duration, Effect } from "effect-app"
 import { type FetchResponse } from "effect-app/client"
 import { Operation, OperationId } from "effect-app/Operations"
-import { clientFor } from "./lib/clientFor.js"
+import { clientFor } from "./lib.js"
 import * as S from "./lib/schema.js"
 
 export class FindOperation extends S.Req<FindOperation>()("FindOperation", {

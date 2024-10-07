@@ -25,7 +25,7 @@ import type { HttpClient } from "effect-app/http"
 
 export { useToast } from "vue-toastification"
 
-export { clientFor } from "resources/lib/clientFor"
+export { clientFor } from "resources/lib"
 export {
   useSafeMutation,
   useSafeQuery,
