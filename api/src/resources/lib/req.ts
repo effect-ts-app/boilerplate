@@ -1,17 +1,13 @@
+import type { ContextMapCustom, ContextMapInverted } from "@effect-app/infra/api/routing2/DynamicMiddleware"
+import { makeRpcClient } from "@effect-app/infra/api/routing2/DynamicMiddleware"
 import { NotLoggedInError, UnauthorizedError } from "@effect-app/infra/errors"
 import { Duration, Layer, Request as EffectRequest } from "effect-app"
-import type { UserProfileId } from "effect-app/ids"
 import type { Role } from "models/User.js"
-import type { ContextMapCustom, ContextMapInverted } from "./DynamicMiddleware.js"
-import { makeRpcClient } from "./DynamicMiddleware.js"
 
-// TODO: this shouldn't be in client area but api area
-type UserProfile = {
-  id: UserProfileId
-  roles: Role[]
-}
-export type CTXMap = {
-  allowAnonymous: ContextMapInverted<"userProfile", UserProfile, typeof NotLoggedInError>
+type CTXMap = {
+  // we put `never`, because we can't access this service here in the client, and we also don't need to
+  // TODO: a base map for client, that the server extends
+  allowAnonymous: ContextMapInverted<"userProfile", never, typeof NotLoggedInError>
   // TODO: not boolean but `string[]`
   requireRoles: ContextMapCustom<"", void, typeof UnauthorizedError, Array<string>>
 }
