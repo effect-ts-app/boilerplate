@@ -138,7 +138,8 @@ const middleware = {
             })
             .pipe(Layer.effectDiscard)
         )
-      ) as any
+      )
+      .pipe(Effect.provide(RequestCacheLayers)) as any
 }
 
 export const { matchAll, matchFor } = makeRouter2(middleware)
