@@ -4,6 +4,8 @@ import { NotLoggedInError, UnauthorizedError } from "@effect-app/infra/errors"
 import { Duration, Layer, Request as EffectRequest } from "effect-app"
 import type { Role } from "models/User.js"
 
+import { clientFor2 } from "effect-app/client/clientFor2"
+
 type CTXMap = {
   // we put `never`, because we can't access this service here in the client, and we also don't need to
   // TODO: a base map for client, that the server extends
@@ -31,3 +33,4 @@ export const RequestCacheLayers = Layer.mergeAll(
   Layer.setRequestCaching(true),
   Layer.setRequestBatching(true)
 )
+export const clientFor = clientFor2(RequestCacheLayers)
