@@ -8,7 +8,7 @@ import type { RequestContext } from "@effect-app/infra/RequestContext"
 import { RequestContextContainer } from "@effect-app/infra/services/RequestContextContainer"
 import { Rpc } from "@effect/rpc"
 import type { S } from "effect-app"
-import { Config, Context, Duration, Effect, Exit, FiberRef, Layer, Option, Request } from "effect-app"
+import { Config, Context, Duration, Effect, Exit, FiberRef, Layer, Option, Request, Schedule } from "effect-app"
 import { HttpHeaders, HttpServerRequest } from "effect-app/http"
 import { NonEmptyString255 } from "effect-app/schema"
 import type * as EffectRequest from "effect/Request"
@@ -19,6 +19,9 @@ import {
 } from "../services/UserProfile.js"
 import { basicRuntime } from "./basicRuntime.js"
 
+const optimisticConcurrencySchedule = Schedule.once
+  && Schedule.recurWhile<any>((a) => a?._tag === "OptimisticConcurrencyException")
+
 export interface CTX {
   context: RequestContext
 }
@@ -26,7 +29,7 @@ export interface CTX {
 export type CTXMap = {
   allowAnonymous: ContextMap.Inverted<"userProfile", UserProfile, typeof NotLoggedInError>
   // TODO: not boolean but `string[]`
-  requireRoles: ContextMap.Custom<"", void, typeof UnauthorizedError, Array<string>>
+  requireRoles: ContextMap.Custom<"", never, typeof UnauthorizedError, Array<string>>
 }
 
 export const RequestCacheLayers = Layer.mergeAll(
@@ -49,6 +52,15 @@ export const Auth0Config = Config.all({
 // const fakeLogin = true
 
 const middleware = {
+  makeContext: Effect.all({
+    userProfile: Effect.serviceOption(UserProfile).pipe(Effect.map(Option.getOrUndefined))
+  }) as unknown as Effect.Effect<
+    {
+      userProfile: UserProfile
+    },
+    never,
+    never
+  >,
   contextMap: null as unknown as CTXMap,
   // helper to deal with nested generic lmitations
   context: null as any as
@@ -115,7 +127,10 @@ const middleware = {
           }
         }
 
-        return yield* handler(req).pipe(Effect.provide(ctx as Context.Context<GetEffectContext<CTXMap, T["config"]>>))
+        return yield* handler(req).pipe(
+          Effect.retry(optimisticConcurrencySchedule),
+          Effect.provide(ctx as Context.Context<GetEffectContext<CTXMap, T["config"]>>)
+        )
       })
       .pipe(
         Effect.provide(
