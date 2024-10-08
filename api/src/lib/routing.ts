@@ -2,13 +2,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { makeRouter } from "@effect-app/infra/api/routing"
-import type { ContextMap, GetEffectContext } from "@effect-app/infra/api/routing/DynamicMiddleware"
 import { NotLoggedInError, UnauthorizedError } from "@effect-app/infra/errors"
 import type { RequestContext } from "@effect-app/infra/RequestContext"
 import { RequestContextContainer } from "@effect-app/infra/services/RequestContextContainer"
 import { Rpc } from "@effect/rpc"
 import type { S } from "effect-app"
 import { Config, Context, Duration, Effect, Exit, FiberRef, Layer, Option, Request, Schedule } from "effect-app"
+import type { GetEffectContext, RPCContextMap } from "effect-app/client"
 import { HttpHeaders, HttpServerRequest } from "effect-app/http"
 import { NonEmptyString255 } from "effect-app/schema"
 import type * as EffectRequest from "effect/Request"
@@ -27,9 +27,9 @@ export interface CTX {
 }
 
 export type CTXMap = {
-  allowAnonymous: ContextMap.Inverted<"userProfile", UserProfile, typeof NotLoggedInError>
+  allowAnonymous: RPCContextMap.Inverted<"userProfile", UserProfile, typeof NotLoggedInError>
   // TODO: not boolean but `string[]`
-  requireRoles: ContextMap.Custom<"", never, typeof UnauthorizedError, Array<string>>
+  requireRoles: RPCContextMap.Custom<"", never, typeof UnauthorizedError, Array<string>>
 }
 
 export const RequestCacheLayers = Layer.mergeAll(
