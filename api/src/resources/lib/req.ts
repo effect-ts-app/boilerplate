@@ -1,10 +1,10 @@
-import type { ContextMap } from "@effect-app/infra/api/routing2/DynamicMiddleware"
-import { makeRpcClient } from "@effect-app/infra/api/routing2/DynamicMiddleware"
+import type { ContextMap } from "@effect-app/infra/api/routing/DynamicMiddleware"
+import { makeRpcClient } from "@effect-app/infra/api/routing/DynamicMiddleware"
 import { NotLoggedInError, UnauthorizedError } from "@effect-app/infra/errors"
 import { Duration, Layer, Request as EffectRequest } from "effect-app"
 import type { Role } from "models/User.js"
 
-import { clientFor2 } from "effect-app/client/clientFor2"
+import { makeClientFor } from "effect-app/client/clientFor"
 
 type CTXMap = {
   // we put `never`, because we can't access this service here in the client, and we also don't need to
@@ -33,4 +33,4 @@ export const RequestCacheLayers = Layer.mergeAll(
   Layer.setRequestCaching(true),
   Layer.setRequestBatching(true)
 )
-export const clientFor = clientFor2(RequestCacheLayers)
+export const clientFor = makeClientFor(RequestCacheLayers)

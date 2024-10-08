@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-empty-object-type */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { makeRouter2 } from "@effect-app/infra/api/routing2"
-import type { ContextMap, GetEffectContext } from "@effect-app/infra/api/routing2/DynamicMiddleware"
+import { makeRouter } from "@effect-app/infra/api/routing"
+import type { ContextMap, GetEffectContext } from "@effect-app/infra/api/routing/DynamicMiddleware"
 import { NotLoggedInError, UnauthorizedError } from "@effect-app/infra/errors"
 import type { RequestContext } from "@effect-app/infra/RequestContext"
 import { RequestContextContainer } from "@effect-app/infra/services/RequestContextContainer"
@@ -113,7 +113,7 @@ const middleware = {
         const userProfile = Option.fromNullable(Exit.isSuccess(r) ? r.value : undefined)
         if (Option.isSome(userProfile)) {
           ctx = ctx.pipe(Context.add(UserProfile, userProfile.value))
-        } else if (config && !config.allowAnonymous) {
+        } else if (!config?.allowAnonymous) {
           return yield* new NotLoggedInError({ message: "no auth" })
         }
 
@@ -157,4 +157,4 @@ const middleware = {
       .pipe(Effect.provide(RequestCacheLayers)) as any
 }
 
-export const { matchAll, matchFor } = makeRouter2(middleware)
+export const { matchAll, matchFor } = makeRouter(middleware)
