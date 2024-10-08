@@ -1,11 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { flow, pipe, tuple } from "@effect-app/core/Function"
-import {
-  type ApiConfig,
-  type FetchError,
-  type ResError,
-  type SupportedErrors,
-} from "effect-app/client"
+import { type ApiConfig, type SupportedErrors } from "effect-app/client"
 import { Failure, Success } from "effect-app/Operations"
 import * as Sentry from "@sentry/browser"
 import {
@@ -33,11 +28,7 @@ export {
   type MutationResult,
 } from "@effect-app/vue"
 
-type ResErrors =
-  | S.ParseResult.ParseError
-  | SupportedErrors
-  | FetchError
-  | ResError
+type ResErrors = S.ParseResult.ParseError | SupportedErrors
 
 export function pauseWhileProcessing(
   iv: Pausable,
@@ -362,40 +353,40 @@ export function handleRequestWithToast<
 export function renderError(e: ResErrors): string {
   return Match.value(e).pipe(
     Match.tags({
-      HttpErrorRequest: e =>
-        intl.value.formatMessage(
-          { id: "handle.request_error" },
-          { error: `${e.error}` },
-        ),
-      HttpErrorResponse: e =>
-        e.response.status >= 500 ||
-        e.response.body._tag !== "Some" ||
-        !e.response.body.value
-          ? intl.value.formatMessage(
-              { id: "handle.error_response" },
-              {
-                error: `${
-                  e.response.body._tag === "Some" && e.response.body.value
-                    ? parseError(e.response.body.value)
-                    : "Unknown"
-                } (${e.response.status})`,
-              },
-            )
-          : intl.value.formatMessage(
-              { id: "handle.unexpected_error" },
-              {
-                error:
-                  JSON.stringify(e.response.body, undefined, 2) +
-                  "( " +
-                  e.response.status +
-                  ")",
-              },
-            ),
-      ResponseError: e =>
-        intl.value.formatMessage(
-          { id: "handle.response_error" },
-          { error: `${e.error}` },
-        ),
+      // HttpErrorRequest: e =>
+      //   intl.value.formatMessage(
+      //     { id: "handle.request_error" },
+      //     { error: `${e.error}` },
+      //   ),
+      // HttpErrorResponse: e =>
+      //   e.response.status >= 500 ||
+      //   e.response.body._tag !== "Some" ||
+      //   !e.response.body.value
+      //     ? intl.value.formatMessage(
+      //         { id: "handle.error_response" },
+      //         {
+      //           error: `${
+      //             e.response.body._tag === "Some" && e.response.body.value
+      //               ? parseError(e.response.body.value)
+      //               : "Unknown"
+      //           } (${e.response.status})`,
+      //         },
+      //       )
+      //     : intl.value.formatMessage(
+      //         { id: "handle.unexpected_error" },
+      //         {
+      //           error:
+      //             JSON.stringify(e.response.body, undefined, 2) +
+      //             "( " +
+      //             e.response.status +
+      //             ")",
+      //         },
+      //       ),
+      // ResponseError: e =>
+      //   intl.value.formatMessage(
+      //     { id: "handle.response_error" },
+      //     { error: `${e.error}` },
+      //   ),
       ParseError: e => {
         console.warn(e.toString())
         return intl.value.formatMessage({ id: "validation.failed" })
@@ -410,24 +401,6 @@ export function renderError(e: ResErrors): string {
       ),
     ),
   )
-}
-
-function parseError(e: string) {
-  try {
-    const js = JSON.parse(e) as any
-    if ("_tag" in js) {
-      if ("message" in js) {
-        return `${js.message || js._tag}`
-      }
-      return js._tag
-    }
-    if ("message" in js) {
-      return js.message
-    }
-    return "Unknown"
-  } catch {
-    return "There was an error trying to parse the error response"
-  }
 }
 
 function orPrevious<E, A>(result: Result.Result<A, E>) {

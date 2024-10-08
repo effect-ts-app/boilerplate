@@ -14,7 +14,7 @@
       <div>
         {{
           Cause.failureOrCause(result.cause)
-          .pipe(Either.match({ onLeft: (error) => Match.value(error as SupportedErrors | FetchError | ResponseError).pipe(
+          .pipe(Either.match({ onLeft: (error) => Match.value(error as SupportedErrors).pipe(
             Match.tags({
               NotFoundError: () => "Nicht gefunden",
               NotLoggedInError: () => "Sie mussen eingelogt sein",
@@ -36,11 +36,10 @@
   </template>
   <Delayed v-else><v-progress-circular /></Delayed>
 </template>
-<script setup lang="ts" generic="E extends SupportedErrors | FetchError | ResError, A">
-import type { FetchError, ResError, SupportedErrors } from "effect-app/client"
+<script setup lang="ts" generic="E extends SupportedErrors, A">
+import type { SupportedErrors } from "effect-app/client"
 import { Cause, Either, Match, Option } from "effect-app"
 import Delayed from "./Delayed.vue"
-import type { ResponseError } from "@effect/platform/HttpClientError"
 import { Result } from "~/composables/client"
 
 defineProps<{ result: Result.Result<A, E> }>()
