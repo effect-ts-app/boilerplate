@@ -113,7 +113,7 @@ const middleware = {
         const userProfile = Option.fromNullable(Exit.isSuccess(r) ? r.value : undefined)
         if (Option.isSome(userProfile)) {
           ctx = ctx.pipe(Context.add(UserProfile, userProfile.value))
-        } else if (config && !config.allowAnonymous) {
+        } else if (!config?.allowAnonymous) {
           return yield* new NotLoggedInError({ message: "no auth" })
         }
 
