@@ -22,7 +22,7 @@ const getUserViewByIdResolver = RequestResolver
       .IndexUsers
       .handler({ filterByIds: pipe(requests.map((_) => _.id), Array.toNonEmptyArray, Option.getOrUndefined)! })
       .pipe(
-        Effect.andThen(({ body: { users } }) =>
+        Effect.andThen(({ users }) =>
           Effect.forEach(requests, (r) =>
             Request.complete(
               r,
