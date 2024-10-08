@@ -1,5 +1,4 @@
 import { Duration, Effect } from "effect-app"
-import { type FetchResponse } from "effect-app/client"
 import { Operation, OperationId } from "effect-app/Operations"
 import { clientFor } from "./lib.js"
 import * as S from "./lib/schema.js"
@@ -16,7 +15,7 @@ export const meta = { moduleName: "Operations" }
 const opsClient = clientFor({ FindOperation, meta })
 
 export function refreshAndWaitAForOperationP<R, E>(
-  act: Effect<FetchResponse<OperationId>, E, R>,
+  act: Effect<OperationId, E, R>,
   refresh: () => Promise<void>,
   cb?: (op: Operation) => void
 ) {
@@ -24,7 +23,7 @@ export function refreshAndWaitAForOperationP<R, E>(
 }
 
 export function refreshAndWaitAForOperation<R2, E2, A2, R, E>(
-  act: Effect<FetchResponse<OperationId>, E, R>,
+  act: Effect<OperationId, E, R>,
   refresh: Effect<A2, E2, R2>,
   cb?: (op: Operation) => void
 ) {
@@ -38,14 +37,14 @@ export function refreshAndWaitAForOperation<R2, E2, A2, R, E>(
 }
 
 export function refreshAndWaitForOperationP<Req, R, E>(
-  act: (req: Req) => Effect<FetchResponse<OperationId>, E, R>,
+  act: (req: Req) => Effect<OperationId, E, R>,
   refresh: () => Promise<void>
 ) {
   return refreshAndWaitForOperation(act, Effect.promise(refresh))
 }
 
 export function refreshAndWaitForOperation<Req, R2, E2, A2, R, E>(
-  act: (req: Req) => Effect<FetchResponse<OperationId>, E, R>,
+  act: (req: Req) => Effect<OperationId, E, R>,
   refresh: Effect<A2, E2, R2>,
   cb?: (op: Operation) => void
 ) {
@@ -53,25 +52,25 @@ export function refreshAndWaitForOperation<Req, R2, E2, A2, R, E>(
 }
 
 export function waitForOperation<R, E>(
-  self: Effect<FetchResponse<OperationId>, E, R>,
+  self: Effect<OperationId, E, R>,
   cb?: (op: Operation) => void
 ) {
-  return Effect.andThen(self, (r) => _waitForOperation(r.body, cb))
+  return Effect.andThen(self, (r) => _waitForOperation(r, cb))
 }
 
-export function waitForOperation_<Req, R, E>(self: (req: Req) => Effect<FetchResponse<OperationId>, E, R>) {
-  return (req: Req) => Effect.andThen(self(req), (r) => _waitForOperation(r.body))
+export function waitForOperation_<Req, R, E>(self: (req: Req) => Effect<OperationId, E, R>) {
+  return (req: Req) => Effect.andThen(self(req), _waitForOperation)
 }
 
 function _waitForOperation(id: OperationId, cb?: (op: Operation) => void) {
   return Effect
     .gen(function*() {
-      let r = yield* opsClient.FindOperation.handler({ id }).pipe(Effect.andThen((_) => _.body))
+      let r = yield* opsClient.FindOperation.handler({ id })
       while (r) {
         if (cb) cb(r)
         if (r.result) return r.result
         yield* Effect.sleep(Duration.seconds(2))
-        r = yield* opsClient.FindOperation.handler({ id }).pipe(Effect.andThen((_) => _.body))
+        r = yield* opsClient.FindOperation.handler({ id })
       }
     })
   // .pipe(Effect.provide(Layer.setRequestCaching(false)))
