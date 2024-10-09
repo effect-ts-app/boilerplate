@@ -37,7 +37,7 @@ const getUserViewByIdResolver = RequestResolver
   .pipe(RequestResolver.batchN(25), RequestResolver.contextFromServices(HttpClient.HttpClient, ApiConfig.Tag))
 
 // TODO: How to globally cache - right now we had to move the RequestCache from the runtime to clientFor
-export const UserViewFromId: Schema<UserView, string, ApiConfig | HttpClient.HttpClient.Service> = S.transformOrFail(
+export const UserViewFromId: Schema<UserView, string, ApiConfig | HttpClient.HttpClient> = S.transformOrFail(
   UserId,
   S.typeSchema(UserView),
   {
