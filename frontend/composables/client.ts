@@ -74,7 +74,7 @@ interface Opts<A> {
 export const useAndHandleMutation: {
   <I, E extends ResErrors, A>(
     self: {
-      handler: (i: I) => Effect<A, E, ApiConfig | HttpClient.HttpClient.Service>
+      handler: (i: I) => Effect<A, E, ApiConfig | HttpClient.HttpClient>
       name: string
     },
     action: string,
@@ -82,7 +82,7 @@ export const useAndHandleMutation: {
   ): Resp<I, E, A>
   <E extends ResErrors, A>(
     self: {
-      handler: Effect<A, E, ApiConfig | HttpClient.HttpClient.Service>
+      handler: Effect<A, E, ApiConfig | HttpClient.HttpClient>
       name: string
     },
     action: string,
@@ -109,7 +109,7 @@ export const useAndHandleMutation: {
   )
 }
 export const useSafeMutationWithState = <I, E, A>(self: {
-  handler: (i: I) => Effect<A, E, ApiConfig | HttpClient.HttpClient.Service>
+  handler: (i: I) => Effect<A, E, ApiConfig | HttpClient.HttpClient>
   name: string
 }) => {
   const [a, b] = useSafeMutation(self)
@@ -136,9 +136,7 @@ export function makeUseAndHandleMutation(onSuccess: () => Promise<void>) {
   }) as {
     <I, E extends ResErrors, A>(
       self: {
-        handler: (
-          i: I,
-        ) => Effect<A, E, ApiConfig | HttpClient.HttpClient.Service>
+        handler: (i: I) => Effect<A, E, ApiConfig | HttpClient.HttpClient>
         name: string
       },
       action: string,
@@ -146,7 +144,7 @@ export function makeUseAndHandleMutation(onSuccess: () => Promise<void>) {
     ): Resp<I, E, A>
     <E extends ResErrors, A>(
       self: {
-        handler: Effect<A, E, ApiConfig | HttpClient.HttpClient.Service>
+        handler: Effect<A, E, ApiConfig | HttpClient.HttpClient>
         name: string
       },
       action: string,
@@ -158,22 +156,22 @@ export function makeUseAndHandleMutation(onSuccess: () => Promise<void>) {
 export const withSuccess: {
   <I, E extends ResErrors, A, X>(
     self: {
-      handler: (i: I) => Effect<A, E, ApiConfig | HttpClient.HttpClient.Service>
+      handler: (i: I) => Effect<A, E, ApiConfig | HttpClient.HttpClient>
       name: string
     },
     onSuccess: (a: A, i: I) => Promise<X>,
   ): {
-    handler: (i: I) => Effect<X, E, ApiConfig | HttpClient.HttpClient.Service>
+    handler: (i: I) => Effect<X, E, ApiConfig | HttpClient.HttpClient>
     name: string
   }
   <E extends ResErrors, A, X>(
     self: {
-      handler: Effect<A, E, ApiConfig | HttpClient.HttpClient.Service>
+      handler: Effect<A, E, ApiConfig | HttpClient.HttpClient>
       name: string
     },
     onSuccess: (_: A) => Promise<X>,
   ): {
-    handler: Effect<X, E, ApiConfig | HttpClient.HttpClient.Service>
+    handler: Effect<X, E, ApiConfig | HttpClient.HttpClient>
     name: string
   }
 } = (self: any, onSuccess: any): any => ({
@@ -185,7 +183,7 @@ export const withSuccess: {
             (
               self.handler as (
                 i: any,
-              ) => Effect<any, any, ApiConfig | HttpClient.HttpClient.Service>
+              ) => Effect<any, any, ApiConfig | HttpClient.HttpClient>
             )(i),
             Effect.flatMap(_ => Effect.promise(() => onSuccess(_, i))),
           )
@@ -194,7 +192,7 @@ export const withSuccess: {
 
 export function withSuccessE<I, E extends ResErrors, A, E2, X>(
   self: {
-    handler: (i: I) => Effect<A, E, ApiConfig | HttpClient.HttpClient.Service>
+    handler: (i: I) => Effect<A, E, ApiConfig | HttpClient.HttpClient>
     name: string
   },
   onSuccessE: (_: A, i: I) => Effect<X, E2>,
