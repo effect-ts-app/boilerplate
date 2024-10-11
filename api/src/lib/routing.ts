@@ -6,6 +6,7 @@ import { NotLoggedInError, UnauthorizedError } from "@effect-app/infra/errors"
 import type { RequestContext } from "@effect-app/infra/RequestContext"
 import { RequestContextContainer } from "@effect-app/infra/services/RequestContextContainer"
 import { Rpc } from "@effect/rpc"
+import { BaseConfig } from "api/config.js"
 import type { S } from "effect-app"
 import { Config, Context, Duration, Effect, Exit, FiberRef, Layer, Option, Request, Schedule } from "effect-app"
 import type { GetEffectContext, RPCContextMap } from "effect-app/client"
@@ -157,4 +158,5 @@ const middleware = {
       .pipe(Effect.provide(RequestCacheLayers)) as any
 }
 
-export const { matchAll, matchFor } = makeRouter(middleware)
+const baseConfig = basicRuntime.runSync(BaseConfig)
+export const { matchAll, matchFor } = makeRouter(middleware, baseConfig.env !== "prod")

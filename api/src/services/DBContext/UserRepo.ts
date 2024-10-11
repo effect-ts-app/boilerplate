@@ -3,7 +3,7 @@ import { RepositoryDefaultImpl } from "@effect-app/infra/services/RepositoryBase
 import { generate } from "@effect-app/infra/test"
 import { RepoConfig } from "api/config.js"
 import { RepoLive } from "api/lib/layers.js"
-import { Array, Effect, Exit, Layer, Option, pipe, Request, RequestResolver, S } from "effect-app"
+import { Array, Effect, Exit, Layer, Option, Request, RequestResolver, S } from "effect-app"
 import { fakerArb } from "effect-app/faker"
 import { Email } from "effect-app/schema"
 import fc from "fast-check"
@@ -16,31 +16,31 @@ export type UserSeed = "sample" | ""
 
 const makeInitial = RepoConfig.pipe(Effect.andThen((cfg) => {
   const seed = cfg.fakeUsers === "seed" ? "seed" : cfg.fakeUsers === "sample" ? "sample" : ""
-  const fakeUsers = pipe(
-    Array
-      .range(1, 8)
-      .map((_, i): User => {
-        const g = generate(S.A.make(User)).value
-        const emailArb = fakerArb((_) => () =>
-          _
-            .internet
-            .exampleEmail({ firstName: g.name.firstName, lastName: g.name.lastName })
-        )
-        return new User({
-          ...g,
-          email: Email(generate(emailArb(fc)).value),
-          role: i === 0 || i === 1 ? "manager" : "user"
-        })
-      }),
-    Array.toNonEmptyArray,
-    Option
-      .match({
-        onNone: () => {
-          throw new Error("must have fake users")
-        },
-        onSome: (_) => _
+  const fakeUsers = Array
+    .range(1, 8)
+    .map((_, i): User => {
+      const g = generate(S.A.make(User)).value
+      const emailArb = fakerArb((_) => () =>
+        _
+          .internet
+          .exampleEmail({ firstName: g.name.firstName, lastName: g.name.lastName })
+      )
+      return new User({
+        ...g,
+        email: Email(generate(emailArb(fc)).value),
+        role: i === 0 || i === 1 ? "manager" : "user"
       })
-  )
+    })
+    .pipe(
+      Array.toNonEmptyArray,
+      Option
+        .match({
+          onNone: () => {
+            throw new Error("must have fake users")
+          },
+          onSome: (_) => _
+        })
+    )
   return Effect.sync(() => {
     const items = seed === "sample" ? fakeUsers : []
     return items
@@ -75,16 +75,14 @@ export class UserRepo extends RepositoryDefaultImpl<UserRepo>()(
     .pipe(Layer.provide(this.Live))
 
   get tryGetCurrentUser() {
-    return pipe(
-      Effect.serviceOption(UserProfile),
+    return Effect.serviceOption(UserProfile).pipe(
       Effect.andThen((_) => _.pipe(Effect.mapError(() => new NotLoggedInError()))),
       Effect.andThen((_) => this.get(_.sub))
     )
   }
 
   get getCurrentUser() {
-    return pipe(
-      UserProfile,
+    return UserProfile.pipe(
       Effect.andThen((_) => this.get(_.sub))
     )
   }

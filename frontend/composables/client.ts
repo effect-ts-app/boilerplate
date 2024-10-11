@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { flow, pipe, tuple } from "@effect-app/core/Function"
+import { flow, tuple } from "@effect-app/core/Function"
 import { type ApiConfig, type SupportedErrors } from "effect-app/client"
 import { Failure, Success } from "effect-app/Operations"
 import * as Sentry from "@sentry/browser"
@@ -91,15 +91,13 @@ export const useAndHandleMutation: {
 } = (self: any, action: any, options: any) => {
   const [a, b] = useSafeMutation({
     handler: Effect.isEffect(self.handler)
-      ? (pipe(
-          self.handler,
+      ? (self.handler.pipe(
           Effect.withSpan("mutation", { attributes: { action } }),
         ) as any)
       : (...args: any[]) =>
-          pipe(
-            self.handler(...args),
-            Effect.withSpan("mutation", { attributes: { action } }),
-          ),
+          self
+            .handler(...args)
+            .pipe(Effect.withSpan("mutation", { attributes: { action } })),
     name: self.name,
   })
 
@@ -179,14 +177,11 @@ export const withSuccess: {
   handler:
     typeof self.handler === "function"
       ? (i: any) =>
-          pipe(
-            (
-              self.handler as (
-                i: any,
-              ) => Effect<any, any, ApiConfig | HttpClient.HttpClient>
-            )(i),
-            Effect.flatMap(_ => Effect.promise(() => onSuccess(_, i))),
-          )
+          (
+            self.handler as (
+              i: any,
+            ) => Effect<any, any, ApiConfig | HttpClient.HttpClient>
+          )(i).pipe(Effect.flatMap(_ => Effect.promise(() => onSuccess(_, i))))
       : Effect.flatMap(self.handler, _ => Effect.promise(() => onSuccess(_))),
 })
 
@@ -200,10 +195,7 @@ export function withSuccessE<I, E extends ResErrors, A, E2, X>(
   return {
     ...self,
     handler: (i: any) =>
-      pipe(
-        self.handler(i),
-        Effect.flatMap(_ => onSuccessE(_, i)),
-      ),
+      self.handler(i).pipe(Effect.flatMap(_ => onSuccessE(_, i))),
   }
 }
 
