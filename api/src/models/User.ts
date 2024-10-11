@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/unbound-method */
 import * as A from "@effect/schema/Arbitrary"
 import { type Schema } from "@effect/schema/Schema"
-import { Context, Effect, Equivalence, S } from "effect-app"
+import { Context, Effect, Equivalence, pipe, S } from "effect-app"
 import { fakerArb } from "effect-app/faker"
 import { UserProfileId } from "effect-app/ids"
 
@@ -84,7 +84,7 @@ export const UserFromId: Schema<User, string, UserFromIdResolver> = S.transformO
   { decode: User.resolver.get, encode: (u) => Effect.succeed(u.id) }
 )
 
-export const defaultEqual = Equivalence.string.pipe(Equivalence.mapInput((u: User) => u.id))
+export const defaultEqual = pipe(Equivalence.string, Equivalence.mapInput((u: User) => u.id))
 
 // codegen:start {preset: model}
 //
