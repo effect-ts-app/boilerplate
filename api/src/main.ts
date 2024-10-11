@@ -1,15 +1,14 @@
 import * as DevTools from "@effect/experimental/DevTools"
 import { faker } from "@faker-js/faker"
 import { api } from "api/api.js"
-import { Effect, Layer, pipe } from "effect-app"
+import { Effect, Layer } from "effect-app"
 import { setFaker } from "effect-app/faker"
 import { MergedConfig } from "./config.js"
 import { runMain } from "./lib/basicRuntime.js"
 import { TracingLive } from "./lib/observability.js"
 
 setFaker(faker)
-const logConfig = pipe(
-  MergedConfig,
+const logConfig = MergedConfig.pipe(
   Effect.andThen((cfg) => console.debug(`Config: ${JSON.stringify(cfg, undefined, 2)}`))
 )
 
