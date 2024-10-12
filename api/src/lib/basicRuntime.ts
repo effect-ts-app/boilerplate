@@ -1,29 +1,15 @@
 import { dual } from "@effect-app/core/Function"
 import { reportError } from "@effect-app/infra/errorReporter"
 import { logJson } from "@effect-app/infra/logger/jsonLogger"
+import { PlatformLogger } from "@effect/platform"
+import { NodeFileSystem } from "@effect/platform-node"
 import { defaultTeardown, type RunMain, type Teardown } from "@effect/platform/Runtime"
 import { constantCase } from "change-case"
-import { Cause, Effect, Exit, Fiber, Layer } from "effect-app"
+import { Cause, Effect, Fiber, Layer, ManagedRuntime } from "effect-app"
 import * as ConfigProvider from "effect/ConfigProvider"
 import * as Logger from "effect/Logger"
 import * as Level from "effect/LogLevel"
-import * as Runtime from "effect/Runtime"
-import * as Scope from "effect/Scope"
-
-const makeBasicRuntime = <R, A, E>(layer: Layer<R, A, E>) =>
-  Effect.gen(function*() {
-    const scope = yield* Scope.make()
-    const env = yield* Layer.buildWithScope(layer, scope)
-    const runtime = yield* Effect.runtime<A>().pipe(Effect.scoped, Effect.provide(env))
-
-    return {
-      runtime,
-      clean: Scope.close(scope, Exit.void),
-      runSync: Runtime.runSync(runtime),
-      runPromise: Runtime.runPromise(runtime),
-      runFork: Runtime.runFork(runtime)
-    }
-  })
+import type * as Runtime from "effect/Runtime"
 
 const envProviderConstantCase = ConfigProvider.mapInputPath(
   ConfigProvider.fromEnv({
@@ -51,15 +37,25 @@ const logLevel = configuredLogLevel
   : Level.Debug
 if (!logLevel) throw new Error(`Invalid LOG_LEVEL: ${configuredLogLevel}`)
 
+const devLog = Logger
+  .withSpanAnnotations(Logger.logfmtLogger)
+  .pipe(
+    PlatformLogger.toFile("./dev.log")
+  )
+
 export const basicLayer = Layer.mergeAll(
   Logger.minimumLogLevel(logLevel),
   configuredEnv && configuredEnv !== "local-dev"
     ? logJson
-    : Logger.replace(Logger.defaultLogger, Logger.withSpanAnnotations(Logger.prettyLogger())),
+    : Layer.mergeAll(
+      Logger.replace(Logger.defaultLogger, Logger.withSpanAnnotations(Logger.prettyLogger())),
+      Logger.addScoped(devLog).pipe(Layer.provide(NodeFileSystem.layer))
+    ),
   Layer.setConfigProvider(envProviderConstantCase)
 )
 
-export const basicRuntime = Effect.runSync(makeBasicRuntime(basicLayer))
+export const basicRuntime = ManagedRuntime.make(basicLayer)
+await basicRuntime.runtime()
 
 const reportMainError = <E>(cause: Cause.Cause<E>) =>
   Cause.isInterruptedOnly(cause) ? Effect.void : reportError("Main")(cause)
