@@ -6,4 +6,4 @@ const me = matchFor(MeRsc)
 
 export default me.controllers({
   GetMe: class extends me.GetMe(UserRepo.getCurrentUser) {}
-})
+}, [UserRepo.Default])

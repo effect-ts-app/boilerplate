@@ -30,4 +30,4 @@ export default helloWorld.controllers({
         )
     })
   ) {}
-})
+}, [RequestContextContainer.live, UserRepo.Default])

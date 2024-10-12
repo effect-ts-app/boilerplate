@@ -55,7 +55,7 @@ export class UserRepo extends RepositoryDefaultImpl<UserRepo>()(
   "User",
   User
 ) {
-  static Live = UserRepo
+  static Default = UserRepo
     .makeWith({ makeInitial }, (_) => new UserRepo(_))
     .pipe(Layer.effect(UserRepo))
     .pipe(Layer.provide(RepoLive))
@@ -76,7 +76,7 @@ export class UserRepo extends RepositoryDefaultImpl<UserRepo>()(
               }))
             ))
     )
-    .pipe(Layer.provide(this.Live))
+    .pipe(Layer.provide(this.Default))
 
   get tryGetCurrentUser() {
     return Effect.serviceOption(UserProfile).pipe(
