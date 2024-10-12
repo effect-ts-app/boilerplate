@@ -43,13 +43,20 @@ const devLog = Logger
     PlatformLogger.toFile("./dev.log")
   )
 
+const addDevLog = Logger.addScoped(devLog).pipe(Layer.provide(NodeFileSystem.layer))
+
 export const basicLayer = Layer.mergeAll(
   Logger.minimumLogLevel(logLevel),
   configuredEnv && configuredEnv !== "local-dev"
     ? logJson
+    : process.env["NO_CONSOLE_LOG"]
+    ? Layer.mergeAll(
+      Logger.remove(Logger.defaultLogger),
+      addDevLog
+    )
     : Layer.mergeAll(
       Logger.replace(Logger.defaultLogger, Logger.withSpanAnnotations(Logger.prettyLogger())),
-      Logger.addScoped(devLog).pipe(Layer.provide(NodeFileSystem.layer))
+      addDevLog
     ),
   Layer.setConfigProvider(envProviderConstantCase)
 )
