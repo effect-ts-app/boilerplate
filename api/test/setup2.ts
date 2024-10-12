@@ -1,7 +1,8 @@
 /* eslint-disable no-var */
 import * as HttpClientNode from "@effect/platform-node/NodeHttpClient"
-import { api, ApiPortTag } from "api/api.js"
+import { api } from "api/api.js"
 import { basicLayer, basicRuntime } from "api/lib/basicRuntime.js"
+import { ApiPortTag } from "api/lib/layers.js"
 import { Config, Effect, Layer, ManagedRuntime } from "effect-app"
 import { layer as LiveApiConfig } from "effect-app/client/config"
 import type { Runtime } from "effect/Runtime"
