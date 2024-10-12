@@ -1,4 +1,4 @@
-import { createIntl, createIntlCache } from "@formatjs/intl"
+import { makeIntl } from "@effect-app/vue"
 
 const messages = {
   de: {
@@ -45,44 +45,6 @@ const messages = {
       "The entered value is not a valid {type}: {message}",
     "validation.failed": "Invalid input",
   },
-}
+} as const
 
-const intlCache = createIntlCache()
-
-const intls = {
-  de: createIntl(
-    {
-      defaultLocale: "en",
-      locale: "de",
-      messages: messages.de,
-    },
-    intlCache,
-  ),
-  en: createIntl(
-    {
-      defaultLocale: "en",
-      locale: "en",
-      messages: messages.en,
-    },
-    intlCache,
-  ),
-}
-
-export const trans = (id: keyof (typeof messages)["en"]) =>
-  intls["de"].formatMessage({ id })
-
-export const intl = computed(() => intls["de"])
-// watch(
-//   locale,
-//   locale => {
-//     const intl = intls[locale]
-//     translate.value = intl.formatMessage.bind(intl)
-//     customSchemaErrors.value =
-//       locale === "de"
-//         ? new Map([
-//             [ISIN, () => "erwarte eine gültige ISIN wie 'US0378331005'"],
-//           ])
-//         : new Map([[ISIN, () => "expected a valid ISIN like 'US0378331005'"]])
-//   },
-//   { immediate: true }
-// )
+export const { LocaleContext, useIntl } = makeIntl(messages, "de")
