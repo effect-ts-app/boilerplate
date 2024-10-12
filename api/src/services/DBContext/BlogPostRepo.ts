@@ -11,7 +11,7 @@ export class BlogPostRepo extends RepositoryDefaultImpl<BlogPostRepo>()(
   "BlogPost",
   BlogPost
 ) {
-  static readonly Live = Effect
+  static readonly Default = Effect
     .sync(() => {
       const seed = "sample"
       const makeInitial = seed === "sample"
@@ -35,5 +35,12 @@ export class BlogPostRepo extends RepositoryDefaultImpl<BlogPostRepo>()(
         .makeWith({ makeInitial }, (_) => new BlogPostRepo(_))
         .pipe(Layer.effect(BlogPostRepo))
     })
-    .pipe(Layer.unwrapEffect, Layer.provide(Layer.mergeAll(RepoLive, UserRepo.Live, UserRepo.UserFromIdLayer)))
+    .pipe(
+      Layer.unwrapEffect,
+      Layer.provide(Layer.mergeAll(
+        RepoLive,
+        UserRepo.Default,
+        UserRepo.UserFromIdLayer
+      ))
+    )
 }

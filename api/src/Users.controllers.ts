@@ -12,8 +12,7 @@ export default users.controllers({
     UserRepo
       .query(Q.where("id", "in", req.filterByIds))
       .pipe(Effect.andThen((users) => ({
-        users: Array
-          .sort(users, Order.mapInput(Order.string, (_: UserView) => _.displayName))
+        users: Array.sort(users, Order.mapInput(Order.string, (_: UserView) => _.displayName))
       })))
   ) {}
-})
+}, [UserRepo.Default])

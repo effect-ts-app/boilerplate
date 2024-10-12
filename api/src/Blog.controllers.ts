@@ -1,3 +1,4 @@
+import { RequestFiberSet } from "@effect-app/infra-adapters/RequestFiberSet"
 import { matchFor } from "api/lib/routing.js"
 import { BlogPostRepo, Events, forkOperationWithEffect, Operations, UserRepo } from "api/services.js"
 import { Duration, Effect, Schedule } from "effect"
@@ -6,6 +7,7 @@ import { NonEmptyString2k, NonNegativeInt } from "effect-app/schema"
 import { BlogPost } from "models/Blog.js"
 import { BlogRsc } from "resources.js"
 import { BogusEvent } from "resources/Events.js"
+import { OperationsLive } from "./lib/layers.js"
 
 const blog = matchFor(BlogRsc)
 
@@ -78,4 +80,4 @@ export default blog.controllers({
       return op.id
     })
   ) {}
-})
+}, [BlogPostRepo.Default, UserRepo.Default, OperationsLive, RequestFiberSet.Live, Events.Default])
