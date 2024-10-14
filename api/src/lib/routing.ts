@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-empty-object-type */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+import type { ExtendedMiddleware } from "@effect-app/infra/api/routing2"
 import { makeRouter } from "@effect-app/infra/api/routing2"
 import { NotLoggedInError, UnauthorizedError } from "@effect-app/infra/errors"
 import type { RequestContext } from "@effect-app/infra/RequestContext"
@@ -156,7 +157,7 @@ const middleware = {
         )
       )
       .pipe(Effect.provide(RequestCacheLayers)) as any
-}
+} satisfies ExtendedMiddleware<any, CTXMap>
 
 const baseConfig = basicRuntime.runSync(BaseConfig)
 export const { matchAll, matchFor } = makeRouter(middleware, baseConfig.env !== "prod")
