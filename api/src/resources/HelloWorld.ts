@@ -14,5 +14,5 @@ export class GetHelloWorld extends S.Req<GetHelloWorld>()("GetHelloWorld", {
 }, { allowAnonymous: true, allowRoles: ["user"], success: Response }) {}
 
 // codegen:start {preset: meta, sourcePrefix: src/resources/}
-export const meta = { moduleName: "HelloWorld" }
+export const meta = { moduleName: "HelloWorld" } as const
 // codegen:end
