@@ -4,7 +4,7 @@ import { ContextMapContainer } from "@effect-app/infra/services/Store/ContextMap
 import * as MW from "api/lib/middleware.js"
 import { RequestContextMiddleware } from "api/lib/middleware.js"
 import type { ConfigError } from "effect-app"
-import { Effect, flow, Layer } from "effect-app"
+import { Console, Effect, flow, Layer } from "effect-app"
 import { HttpMiddleware, HttpRouter, HttpServer } from "effect-app/http"
 import { MergedConfig } from "./config/api.js"
 import { Events } from "./services.js"
@@ -39,10 +39,9 @@ export const makeHttpServer = <E, R, E3, R3>(
   Effect
     .gen(function*() {
       const cfg = yield* MergedConfig
-      return yield* Effect
-        .logInfo(
-          `Running on http://${cfg.host}:${cfg.port} at version: ${cfg.apiVersion}. ENV: ${cfg.env}`
-        )
+      // using Console.log for vscode to know we're ready
+      return yield* Console
+        .log(`Running on http://${cfg.host}:${cfg.port} at version: ${cfg.apiVersion}. ENV: ${cfg.env}`)
         .pipe(
           Effect.andThen(
             RootAppRouter.unwrap((root) =>
