@@ -47,17 +47,21 @@ const addDevLog = Logger.addScoped(devLog).pipe(Layer.provide(NodeFileSystem.lay
 
 export const basicLayer = Layer.mergeAll(
   Logger.minimumLogLevel(logLevel),
-  configuredEnv && configuredEnv !== "local-dev"
-    ? logJson
-    : process.env["NO_CONSOLE_LOG"]
-    ? Layer.mergeAll(
-      Logger.remove(Logger.defaultLogger),
-      addDevLog
+  Effect
+    .sync(() =>
+      configuredEnv && configuredEnv !== "local-dev"
+        ? logJson
+        : process.env["NO_CONSOLE_LOG"]
+        ? Layer.mergeAll(
+          Logger.remove(Logger.defaultLogger),
+          addDevLog
+        )
+        : Layer.mergeAll(
+          Logger.replace(Logger.defaultLogger, Logger.withSpanAnnotations(Logger.prettyLogger())),
+          addDevLog
+        )
     )
-    : Layer.mergeAll(
-      Logger.replace(Logger.defaultLogger, Logger.withSpanAnnotations(Logger.prettyLogger())),
-      addDevLog
-    ),
+    .pipe(Layer.unwrapEffect),
   Layer.setConfigProvider(envProviderConstantCase)
 )
 

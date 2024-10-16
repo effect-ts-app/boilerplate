@@ -9,7 +9,7 @@ import { TracingLive } from "./lib/observability.js"
 
 setFaker(faker)
 const logConfig = MergedConfig.pipe(
-  Effect.andThen((cfg) => console.debug(`Config: ${JSON.stringify(cfg, undefined, 2)}`))
+  Effect.andThen((cfg) => Effect.logInfo(`Config: ${JSON.stringify(cfg, undefined, 2)}`))
 )
 
 const program = api
