@@ -7,77 +7,87 @@ import { NonEmptyString2k, NonNegativeInt } from "effect-app/schema"
 import { BlogPost } from "models/Blog.js"
 import { BlogRsc } from "resources.js"
 import { BogusEvent } from "resources/Events.js"
-import { OperationsLive } from "./lib/layers.js"
+import { OperationsDefault } from "./lib/layers.js"
 
-const blog = matchFor(BlogRsc)
+const blogRouter = matchFor(BlogRsc)
 
-export default blog.controllers({
-  FindPost: class extends blog.FindPost((req) =>
-    BlogPostRepo
-      .find(req.id)
-      .pipe(Effect.andThen(Option.getOrNull))
-  ) {},
+export default blogRouter.effect(
+  [BlogPostRepo.Default, UserRepo.Default, OperationsDefault, Events.Default, RequestFiberSet.Live],
+  Effect.gen(function*() {
+    const blogPostRepo = yield* BlogPostRepo
+    const userRepo = yield* UserRepo
+    const events = yield* Events
+    const operations = yield* Operations
 
-  GetPosts: class extends blog.GetPosts(
-    BlogPostRepo
-      .all
-      .pipe(Effect.andThen((items) => ({ items })))
-  ) {},
+    return {
+      FindPost: class extends blogRouter.FindPost((req) =>
+        blogPostRepo
+          .find(req.id)
+          .pipe(Effect.andThen(Option.getOrNull))
+      ) {},
 
-  CreatePost: class extends blog.CreatePost((req) =>
-    UserRepo
-      .getCurrentUser
-      .pipe(
-        Effect.andThen((author) => (new BlogPost({ ...req, author }, true))),
-        Effect.tap(BlogPostRepo.save)
-      )
-  ) {},
+      GetPosts: class extends blogRouter.GetPosts(
+        blogPostRepo
+          .all
+          .pipe(Effect.andThen((items) => ({ items })))
+      ) {},
 
-  PublishPost: class extends blog.PublishPost((req) =>
-    Effect.gen(function*() {
-      const post = yield* BlogPostRepo.get(req.id)
+      CreatePost: class extends blogRouter.CreatePost((req) =>
+        userRepo
+          .getCurrentUser
+          .pipe(
+            Effect.andThen((author) => (new BlogPost({ ...req, author }, true))),
+            Effect.tap(blogPostRepo.save)
+          )
+      ) {},
 
-      console.log("publishing post", post)
+      PublishPost: class extends blogRouter.PublishPost((req) =>
+        Effect.gen(function*() {
+          const post = yield* blogPostRepo.get(req.id)
 
-      const targets = [
-        "google",
-        "twitter",
-        "facebook"
-      ]
+          console.log("publishing post", post)
 
-      const done: string[] = []
+          const targets = [
+            "google",
+            "twitter",
+            "facebook"
+          ]
 
-      const op = yield* forkOperationWithEffect(
-        (opId) =>
-          Operations
-            .update(opId, {
-              total: NonNegativeInt(targets.length),
-              completed: NonNegativeInt(done.length)
-            })
-            .pipe(
-              Effect.andThen(Effect.forEach(targets, (_) =>
-                Effect
-                  .sync(() => done.push(_))
-                  .pipe(
-                    Effect.tap(() =>
-                      Operations.update(opId, {
-                        total: NonNegativeInt(targets.length),
-                        completed: NonNegativeInt(done.length)
-                      })
-                    ),
-                    Effect.delay(Duration.seconds(4))
-                  ))),
-              Effect.andThen(() => "the answer to the universe is 41")
-            ),
-        // while operation is running...
-        (_opId) =>
-          Effect
-            .suspend(() => Events.publish(new BogusEvent()))
-            .pipe(Effect.schedule(Schedule.spaced(Duration.seconds(1)))),
-        NonEmptyString2k("post publishing")
-      )
+          const done: string[] = []
 
-      return op.id
-    })
-  ) {}
-}, [BlogPostRepo.Default, UserRepo.Default, OperationsLive, RequestFiberSet.Live, Events.Default])
+          const op = yield* forkOperationWithEffect(
+            (opId) =>
+              operations
+                .update(opId, {
+                  total: NonNegativeInt(targets.length),
+                  completed: NonNegativeInt(done.length)
+                })
+                .pipe(
+                  Effect.andThen(Effect.forEach(targets, (_) =>
+                    Effect
+                      .sync(() => done.push(_))
+                      .pipe(
+                        Effect.tap(() =>
+                          operations.update(opId, {
+                            total: NonNegativeInt(targets.length),
+                            completed: NonNegativeInt(done.length)
+                          })
+                        ),
+                        Effect.delay(Duration.seconds(4))
+                      ))),
+                  Effect.andThen(() => "the answer to the universe is 41")
+                ),
+            // while operation is running...
+            (_opId) =>
+              Effect
+                .suspend(() => events.publish(new BogusEvent()))
+                .pipe(Effect.schedule(Schedule.spaced(Duration.seconds(1)))),
+            NonEmptyString2k("post publishing")
+          )
+
+          return op.id
+        })
+      ) {}
+    }
+  })
+)
