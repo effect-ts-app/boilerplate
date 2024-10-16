@@ -1,16 +1,22 @@
 import { matchFor } from "api/lib/routing.js"
 import { Operations } from "api/services.js"
-import { Effect, Option } from "effect-app"
+import { Effect } from "effect-app"
 import { OperationsRsc } from "resources.js"
-import { OperationsLive } from "./lib/layers.js"
+import { OperationsDefault } from "./lib/layers.js"
 
-const operations = matchFor(OperationsRsc)
+const operationsRouter = matchFor(OperationsRsc)
 
-export default operations.controllers({
-  FindOperation: class extends operations.FindOperation(({ id }) =>
-    Effect.andThen(
-      Operations.find(id),
-      Option.getOrNull
-    )
-  ) {}
-}, [OperationsLive])
+export default operationsRouter.effect(
+  [OperationsDefault],
+  Effect.gen(function*() {
+    const operations = yield* Operations
+    return {
+      FindOperation: operationsRouter.FindOperation(
+        ({ id }) =>
+          operations
+            .find(id)
+            .pipe(Effect.andThen((_) => _.value ?? null))
+      )
+    }
+  })
+)

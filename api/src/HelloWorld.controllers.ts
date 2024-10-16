@@ -6,28 +6,36 @@ import { Effect, S } from "effect-app"
 import { User } from "models/User.js"
 import { HelloWorldRsc } from "resources.js"
 
-const helloWorld = matchFor(HelloWorldRsc)
+const helloWorldRouter = matchFor(HelloWorldRsc)
 
-export default helloWorld.controllers({
-  GetHelloWorld: class extends helloWorld.GetHelloWorld(({ echo }, { Response }) =>
-    Effect.gen(function*() {
-      const context = yield* RequestContextContainer.get
-      return yield* UserRepo
-        .tryGetCurrentUser
-        .pipe(
-          Effect.catchTags({
-            "NotLoggedInError": () => Effect.succeed(null),
-            "NotFoundError": () => Effect.succeed(null)
-          }),
-          Effect.andThen((user) =>
-            new Response({
-              context,
-              echo,
-              currentUser: user,
-              randomUser: generate(S.A.make(User)).value
-            })
-          )
-        )
-    })
-  ) {}
-}, [RequestContextContainer.live, UserRepo.Default])
+export default helloWorldRouter.effect(
+  [RequestContextContainer.live, UserRepo.Default],
+  Effect.gen(function*() {
+    const rcc = yield* RequestContextContainer
+    const userRepo = yield* UserRepo
+
+    return {
+      GetHelloWorld: class extends helloWorldRouter.GetHelloWorld(({ echo }, { Response }) =>
+        Effect.gen(function*() {
+          const context = yield* rcc.requestContext
+          return yield* userRepo
+            .tryGetCurrentUser
+            .pipe(
+              Effect.catchTags({
+                "NotLoggedInError": () => Effect.succeed(null),
+                "NotFoundError": () => Effect.succeed(null)
+              }),
+              Effect.andThen((user) =>
+                new Response({
+                  context,
+                  echo,
+                  currentUser: user,
+                  randomUser: generate(S.A.make(User)).value
+                })
+              )
+            )
+        })
+      ) {}
+    }
+  })
+)

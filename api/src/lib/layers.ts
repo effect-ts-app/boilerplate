@@ -39,7 +39,7 @@ class OperationsRepoImpl extends OperationsRepo {
     .pipe(Layer.effect(this))
   static readonly Default = this.toLayer.pipe(Layer.provide(RepoTest))
 }
-export const OperationsLive = Operations.Live.pipe(Layer.provide(OperationsRepoImpl.Default))
+export const OperationsDefault = Operations.Live.pipe(Layer.provide(OperationsRepoImpl.Default))
 
 export const Platform = HttpClientNode.layer
 
