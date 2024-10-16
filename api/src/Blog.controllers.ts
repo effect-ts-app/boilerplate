@@ -1,6 +1,5 @@
-import { RequestFiberSet } from "@effect-app/infra-adapters/RequestFiberSet"
 import { matchFor } from "api/lib/routing.js"
-import { BlogPostRepo, Events, forkOperationWithEffect, Operations, UserRepo } from "api/services.js"
+import { BlogPostRepo, Events, Operations, UserRepo } from "api/services.js"
 import { Duration, Effect, Schedule } from "effect"
 import { Option } from "effect-app"
 import { NonEmptyString2k, NonNegativeInt } from "effect-app/schema"
@@ -12,7 +11,7 @@ import { OperationsDefault } from "./lib/layers.js"
 const blogRouter = matchFor(BlogRsc)
 
 export default blogRouter.effect(
-  [BlogPostRepo.Default, UserRepo.Default, OperationsDefault, Events.Default, RequestFiberSet.Live],
+  [BlogPostRepo.Default, UserRepo.Default, OperationsDefault, Events.Default],
   Effect.gen(function*() {
     const blogPostRepo = yield* BlogPostRepo
     const userRepo = yield* UserRepo
@@ -55,7 +54,7 @@ export default blogRouter.effect(
 
           const done: string[] = []
 
-          const op = yield* forkOperationWithEffect(
+          const op = yield* operations.fork(
             (opId) =>
               operations
                 .update(opId, {
