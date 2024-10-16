@@ -5,14 +5,20 @@ import { Effect, Order } from "effect-app"
 import { UsersRsc } from "resources.js"
 import type { UserView } from "resources/views.js"
 
-const users = matchFor(UsersRsc)
+const usersRouter = matchFor(UsersRsc)
 
-export default users.controllers({
-  IndexUsers: class extends users.IndexUsers((req) =>
-    UserRepo
-      .query(Q.where("id", "in", req.filterByIds))
-      .pipe(Effect.andThen((users) => ({
-        users: Array.sort(users, Order.mapInput(Order.string, (_: UserView) => _.displayName))
-      })))
-  ) {}
-}, [UserRepo.Default])
+export default usersRouter.effect(
+  [UserRepo.Default],
+  Effect.gen(function*() {
+    const userRepo = yield* UserRepo
+    return {
+      IndexUsers: class extends usersRouter.IndexUsers((req) =>
+        userRepo
+          .query(Q.where("id", "in", req.filterByIds))
+          .pipe(Effect.andThen((users) => ({
+            users: Array.sort(users, Order.mapInput(Order.string, (_: UserView) => _.displayName))
+          })))
+      ) {}
+    }
+  })
+)
