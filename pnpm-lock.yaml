@@ -253,8 +253,8 @@ importers:
         specifier: ^1.17.0
         version: 1.17.0(@effect/platform@0.68.5(patch_hash=jzbgt2jsurxhy7zlsaepkw7wey)(@effect/schema@0.75.4(patch_hash=2ljvqfbex5pvxfq5bo3svxymmq)(effect@3.9.2))(effect@3.9.2))(effect@3.9.2)(encoding@0.1.13)
       '@effect-app/infra':
-        specifier: 1.39.0
-        version: 1.39.0(ggx76cnm6grshpubygjy6do3ti)
+        specifier: 1.40.0
+        version: 1.40.0(ggx76cnm6grshpubygjy6do3ti)
       '@effect-app/infra-adapters':
         specifier: ^1.19.0
         version: 1.19.0(@effect/platform-node@0.63.5(@effect/platform@0.68.5(patch_hash=jzbgt2jsurxhy7zlsaepkw7wey)(@effect/schema@0.75.4(patch_hash=2ljvqfbex5pvxfq5bo3svxymmq)(effect@3.9.2))(effect@3.9.2))(effect@3.9.2))(@effect/platform@0.68.5(patch_hash=jzbgt2jsurxhy7zlsaepkw7wey)(@effect/schema@0.75.4(patch_hash=2ljvqfbex5pvxfq5bo3svxymmq)(effect@3.9.2))(effect@3.9.2))(@effect/schema@0.75.4(patch_hash=2ljvqfbex5pvxfq5bo3svxymmq)(effect@3.9.2))(effect@3.9.2)(encoding@0.1.13)(ioredis@5.4.1)(ws@8.18.0)
@@ -1418,8 +1418,8 @@ packages:
       '@effect/schema': ^0.75.4
       effect: ^3.9.2
 
-  '@effect-app/infra@1.39.0':
-    resolution: {integrity: sha512-EeNICQfvvY4gKa9Iwz4kzU42RoZQnL7iGo51rgMV/cXGJSZTjCEuzpFLP3vN8mU47hKhygqmUbUIk9jZBpbzhg==}
+  '@effect-app/infra@1.40.0':
+    resolution: {integrity: sha512-m9IZlH1p1GyYVS0xgrhw4dpr/jGuehvXqS5rewY237SaWYEv7n3WgdUjn+AUfqOgxDpq+tpSuN3/iA3k5kX1YA==}
     peerDependencies:
       '@effect/platform': ^0.68.5
       '@effect/schema': ^0.75.4
@@ -10196,7 +10196,7 @@ snapshots:
       - lmdb
       - ws
 
-  '@effect-app/infra@1.39.0(ggx76cnm6grshpubygjy6do3ti)':
+  '@effect-app/infra@1.40.0(ggx76cnm6grshpubygjy6do3ti)':
     dependencies:
       '@azure/cosmos': 4.1.1
       '@azure/service-bus': 7.9.5
