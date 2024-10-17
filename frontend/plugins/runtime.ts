@@ -63,10 +63,36 @@ function makeRuntime(feVersion: string, disableTracing: boolean) {
 // TODO: make sure the runtime provides these
 export type RT = ApiConfig | HttpClient.HttpClient
 
-export default defineNuxtPlugin(_ => {
+export default defineNuxtPlugin(nuxtApp => {
   const config = useRuntimeConfig()
-  runtime.value = makeRuntime(
+
+  const rt = makeRuntime(
     config.public.feVersion,
     config.public.env !== "local-dev" || !config.public.telemetry,
   )
+  nuxtApp.vueApp.config.globalProperties.$run = rt.runFork
+  ;(nuxtApp.vueApp.config.globalProperties as any).$runIfEffect = (a: any) => {
+    console.log("run if effect", a)
+    return a && Effect.isEffect(a) ? rt.runFork(a as any) : a
+  }
+  runtime.value = rt
 })
+
+export const runFork = <A, E>(
+  self: Effect.Effect<A, E, RT>,
+  options?: Runtime.RunForkOptions,
+) => runtime.value!.runFork(self, options)
+export const runPromise = <A, E>(
+  effect: Effect.Effect<A, E, RT>,
+  options?:
+    | {
+        readonly signal?: AbortSignal
+      }
+    | undefined,
+) => runtime.value!.runPromise(effect, options)
+
+declare module "vue" {
+  export interface ComponentCustomProperties {
+    $run: ReturnType<typeof makeRuntime>["runFork"]
+  }
+}
