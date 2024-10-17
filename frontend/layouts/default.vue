@@ -36,6 +36,7 @@ onMounted(() => {
         <v-btn @click="() => Console.log('test')">Test cb</v-btn>
         <v-btn
           @click="
+            // eslint-disable-next-line prettier-vue/prettier
             console.log('123');
             console.log('2,3,4')
           "
