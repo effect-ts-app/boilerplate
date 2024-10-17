@@ -71,6 +71,10 @@ export default defineNuxtPlugin(nuxtApp => {
     config.public.env !== "local-dev" || !config.public.telemetry,
   )
   nuxtApp.vueApp.config.globalProperties.$run = rt.runFork
+  ;(nuxtApp.vueApp.config.globalProperties as any).$runIfEffect = (a: any) => {
+    console.log("run if effect", a)
+    return a && Effect.isEffect(a) ? rt.runFork(a as any) : a
+  }
   runtime.value = rt
 })
 
