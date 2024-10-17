@@ -6,16 +6,16 @@ import { Effect, S } from "effect-app"
 import { User } from "models/User.js"
 import { HelloWorldRsc } from "resources.js"
 
-const helloWorldRouter = matchFor(HelloWorldRsc)
+const router = matchFor(HelloWorldRsc)
 
-export default helloWorldRouter.effect(
+export default router.effect(
   [RequestContextContainer.live, UserRepo.Default],
   Effect.gen(function*() {
     const rcc = yield* RequestContextContainer
     const userRepo = yield* UserRepo
 
     return {
-      GetHelloWorld: class extends helloWorldRouter.GetHelloWorld(({ echo }, { Response }) =>
+      GetHelloWorld: class extends router.GetHelloWorld(({ echo }, { Response }) =>
         Effect.gen(function*() {
           const context = yield* rcc.requestContext
           return yield* userRepo
