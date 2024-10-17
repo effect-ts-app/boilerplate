@@ -84,6 +84,7 @@ const middleware = {
   > =>
     Effect
       .gen(function*() {
+        const rcc = yield* RequestContextContainer
         const headers = yield* Rpc.currentHeaders
         let ctx = Context.empty()
 
@@ -114,6 +115,7 @@ const middleware = {
         }
         const userProfile = Option.fromNullable(Exit.isSuccess(r) ? r.value : undefined)
         if (Option.isSome(userProfile)) {
+          yield* rcc.update((_) => ({ ..._, userPorfile: userProfile.value }))
           ctx = ctx.pipe(Context.add(UserProfile, userProfile.value))
         } else if (!config?.allowAnonymous) {
           return yield* new NotLoggedInError({ message: "no auth" })
