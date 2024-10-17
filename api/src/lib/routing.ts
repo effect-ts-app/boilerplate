@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-empty-object-type */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import type { ExtendedMiddleware } from "@effect-app/infra/api/routing2"
-import { makeRouter } from "@effect-app/infra/api/routing2"
+import type { ExtendedMiddleware } from "@effect-app/infra/api/routing3"
+import { makeRouter } from "@effect-app/infra/api/routing3"
 import { NotLoggedInError, UnauthorizedError } from "@effect-app/infra/errors"
 import type { RequestContext } from "@effect-app/infra/RequestContext"
 import { RequestContextContainer } from "@effect-app/infra/services/RequestContextContainer"
