@@ -8,9 +8,9 @@ import { BlogRsc } from "resources.js"
 import { BogusEvent } from "resources/Events.js"
 import { OperationsDefault } from "./lib/layers.js"
 
-const blogRouter = matchFor(BlogRsc)
+const router = matchFor(BlogRsc)
 
-export default blogRouter.effect(
+export default router.effect(
   [BlogPostRepo.Default, UserRepo.Default, OperationsDefault, Events.Default],
   Effect.gen(function*() {
     const blogPostRepo = yield* BlogPostRepo
@@ -19,19 +19,19 @@ export default blogRouter.effect(
     const operations = yield* Operations
 
     return {
-      FindPost: class extends blogRouter.FindPost((req) =>
+      FindPost: class extends router.FindPost((req) =>
         blogPostRepo
           .find(req.id)
           .pipe(Effect.andThen(Option.getOrNull))
       ) {},
 
-      GetPosts: class extends blogRouter.GetPosts(
+      GetPosts: class extends router.GetPosts(
         blogPostRepo
           .all
           .pipe(Effect.andThen((items) => ({ items })))
       ) {},
 
-      CreatePost: class extends blogRouter.CreatePost((req) =>
+      CreatePost: class extends router.CreatePost((req) =>
         userRepo
           .getCurrentUser
           .pipe(
@@ -40,7 +40,7 @@ export default blogRouter.effect(
           )
       ) {},
 
-      PublishPost: class extends blogRouter.PublishPost((req) =>
+      PublishPost: class extends router.PublishPost((req) =>
         Effect.gen(function*() {
           const post = yield* blogPostRepo.get(req.id)
 
