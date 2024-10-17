@@ -14,7 +14,7 @@ export default matchFor(HelloWorldRsc)(
       const userRepo = yield* UserRepo
 
       return {
-        GetHelloWorld: class extends GetHelloWorld(({ echo }) =>
+        GetHelloWorld: GetHelloWorld(({ echo }) =>
           Effect.gen(function*() {
             const context = yield* rcc.requestContext
             return yield* userRepo
@@ -34,7 +34,7 @@ export default matchFor(HelloWorldRsc)(
                 )
               )
           })
-        ) {}
+        )
       }
     })
 )
