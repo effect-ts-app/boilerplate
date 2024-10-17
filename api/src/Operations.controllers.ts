@@ -4,19 +4,18 @@ import { Effect } from "effect-app"
 import { OperationsRsc } from "resources.js"
 import { OperationsDefault } from "./lib/layers.js"
 
-const router = matchFor(OperationsRsc)
-
-export default router.effect(
+export default matchFor(OperationsRsc)(
   [OperationsDefault],
-  Effect.gen(function*() {
-    const operations = yield* Operations
-    return {
-      FindOperation: router.FindOperation(
-        ({ id }) =>
-          operations
-            .find(id)
-            .pipe(Effect.andThen((_) => _.value ?? null))
-      )
-    }
-  })
+  ({ FindOperation }) =>
+    Effect.gen(function*() {
+      const operations = yield* Operations
+      return {
+        FindOperation: FindOperation(
+          ({ id }) =>
+            operations
+              .find(id)
+              .pipe(Effect.andThen((_) => _.value ?? null))
+        )
+      }
+    })
 )
