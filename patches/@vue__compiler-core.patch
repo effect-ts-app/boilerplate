@@ -1,8 +1,8 @@
 diff --git a/dist/compiler-core.cjs.js b/dist/compiler-core.cjs.js
-index 82db1049612f62ed6d50e7002094b56f5e388a0e..f58818a35b7b6d467a0edafb3bd441231b6797b3 100644
+index 82db1049612f62ed6d50e7002094b56f5e388a0e..d903085c893e1805894265a2abdec5cdcec74375 100644
 --- a/dist/compiler-core.cjs.js
 +++ b/dist/compiler-core.cjs.js
-@@ -6198,7 +6198,7 @@ const transformOn = (dir, node, context, augmentor) => {
+@@ -6198,10 +6198,17 @@ const transformOn = (dir, node, context, augmentor) => {
        exp = createCompoundExpression([
          `${isInlineStatement ? context.isTS ? `($event: any)` : `$event` : `${context.isTS ? `
  //@ts-ignore
@@ -11,11 +11,21 @@ index 82db1049612f62ed6d50e7002094b56f5e388a0e..f58818a35b7b6d467a0edafb3bd44123
          exp,
          hasMultipleStatements ? `}` : `)`
        ]);
++    } else {
++      exp = createCompoundExpression([
++        `(...args) => _ctx.$runIfEffect((`,
++        exp,
++        // () => Console.log("hi")
++        `)(...args))`
++      ]);
+     }
+   }
+   let ret = {
 diff --git a/dist/compiler-core.cjs.prod.js b/dist/compiler-core.cjs.prod.js
-index d0c48efd1a1931f3b0dc9b74acd86130bf6de72a..f80afb4b26de10088dfc66d723a0eabd15bc76d7 100644
+index d0c48efd1a1931f3b0dc9b74acd86130bf6de72a..2e04ed2ab6aedc6f02fc782c3089a2b087a6d03c 100644
 --- a/dist/compiler-core.cjs.prod.js
 +++ b/dist/compiler-core.cjs.prod.js
-@@ -6080,7 +6080,7 @@ const transformOn = (dir, node, context, augmentor) => {
+@@ -6080,10 +6080,17 @@ const transformOn = (dir, node, context, augmentor) => {
        exp = createCompoundExpression([
          `${isInlineStatement ? context.isTS ? `($event: any)` : `$event` : `${context.isTS ? `
  //@ts-ignore
@@ -24,11 +34,21 @@ index d0c48efd1a1931f3b0dc9b74acd86130bf6de72a..f80afb4b26de10088dfc66d723a0eabd
          exp,
          hasMultipleStatements ? `}` : `)`
        ]);
++    } else {
++      exp = createCompoundExpression([
++        `(...args) => _ctx.$runIfEffect((`,
++        exp,
++        // () => Console.log("hi")
++        `)(...args))`
++      ]);
+     }
+   }
+   let ret = {
 diff --git a/dist/compiler-core.esm-bundler.js b/dist/compiler-core.esm-bundler.js
-index f7fb746c4faf842cd00b873f18324f6e4dabc7f1..82b9dfcfc7e776cbd54d91c5e49cfbb2e33f5bf1 100644
+index f7fb746c4faf842cd00b873f18324f6e4dabc7f1..a9c695fde1077c5d5113ab48bb69f5d1560b71dd 100644
 --- a/dist/compiler-core.esm-bundler.js
 +++ b/dist/compiler-core.esm-bundler.js
-@@ -5348,7 +5348,7 @@ const transformOn = (dir, node, context, augmentor) => {
+@@ -5348,10 +5348,17 @@ const transformOn = (dir, node, context, augmentor) => {
      }
      if (isInlineStatement || shouldCache && isMemberExp) {
        exp = createCompoundExpression([
@@ -37,3 +57,13 @@ index f7fb746c4faf842cd00b873f18324f6e4dabc7f1..82b9dfcfc7e776cbd54d91c5e49cfbb2
          exp,
          hasMultipleStatements ? `}` : `)`
        ]);
++    } else {
++      exp = createCompoundExpression([
++        `(...args) => _ctx.$runIfEffect((`,
++        exp,
++        // () => Console.log("hi")
++        `)(...args))`
++      ]);
+     }
+   }
+   let ret = {
