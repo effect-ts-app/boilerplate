@@ -4,6 +4,7 @@ import { onMounted } from "vue"
 import { useRouter } from "vue-router"
 import { VueQueryDevtools } from "@tanstack/vue-query-devtools"
 import { Result } from "~/composables/client"
+import { Console } from "effect"
 
 const meClient = clientFor(MeRsc)
 const [userResult, currentUser, getCurrentUser] = useSafeQuery(meClient.GetMe)
@@ -30,6 +31,17 @@ onMounted(() => {
     <v-app-bar app>
       <v-app-bar-title>
         <NuxtLink :to="{ name: 'index' }">Home</NuxtLink>
+        <v-btn @click="$run(Console.log('test'))">Explicit test</v-btn>
+        <v-btn @click="Console.log('test')">Test</v-btn>
+        <v-btn @click="() => Console.log('test')">Test cb</v-btn>
+        <v-btn
+          @click="
+            console.log('123');
+            console.log('2,3,4')
+          "
+        >
+          Test block still works
+        </v-btn>
       </v-app-bar-title>
 
       <div>{{ router.currentRoute.value.name }}</div>
