@@ -5,6 +5,7 @@ import { useRouter } from "vue-router"
 import { VueQueryDevtools } from "@tanstack/vue-query-devtools"
 import { Result } from "~/composables/client"
 import { Console } from "effect"
+import { runPromise } from "~/plugins/runtime"
 
 const meClient = clientFor(MeRsc)
 const [userResult, currentUser, getCurrentUser] = useSafeQuery(meClient.GetMe)
@@ -18,6 +19,8 @@ useHead({
 })
 
 const router = useRouter()
+
+const test = () => runPromise(Console.log("test"))
 
 onMounted(() => {
   if (getUserId()) {
@@ -34,6 +37,7 @@ onMounted(() => {
         <v-btn @click="$run(Console.log('test'))">Explicit test</v-btn>
         <v-btn @click="Console.log('test')">Test</v-btn>
         <v-btn @click="() => Console.log('test')">Test cb</v-btn>
+        <v-btn @click="test()">classic</v-btn>
         <v-btn
           @click="
             // eslint-disable-next-line prettier-vue/prettier
