@@ -18,28 +18,28 @@ export default matchFor(BlogRsc)(
       const operations = yield* Operations
 
       return {
-        FindPost: class extends FindPost((req) =>
+        FindPost: FindPost((req) =>
           blogPostRepo
             .find(req.id)
             .pipe(Effect.andThen(Option.getOrNull))
-        ) {},
+        ),
 
-        GetPosts: class extends GetPosts(
+        GetPosts: GetPosts(
           blogPostRepo
             .all
             .pipe(Effect.andThen((items) => ({ items })))
-        ) {},
+        ),
 
-        CreatePost: class extends CreatePost((req) =>
+        CreatePost: CreatePost((req) =>
           userRepo
             .getCurrentUser
             .pipe(
               Effect.andThen((author) => (new BlogPost({ ...req, author }, true))),
               Effect.tap(blogPostRepo.save)
             )
-        ) {},
+        ),
 
-        PublishPost: class extends PublishPost((req) =>
+        PublishPost: PublishPost((req) =>
           Effect.gen(function*() {
             const post = yield* blogPostRepo.get(req.id)
 
@@ -85,7 +85,7 @@ export default matchFor(BlogRsc)(
 
             return op.id
           })
-        ) {}
+        )
       }
     })
 )

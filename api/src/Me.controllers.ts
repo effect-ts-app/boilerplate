@@ -8,7 +8,7 @@ export default matchFor(MeRsc)(
   ({ GetMe }) =>
     Effect.gen(function*() {
       return {
-        GetMe: class extends GetMe(UserRepo.getCurrentUser) {}
+        GetMe: GetMe(UserRepo.getCurrentUser)
       }
     })
 )
