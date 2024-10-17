@@ -3,13 +3,13 @@ import { UserRepo } from "api/services.js"
 import { Effect } from "effect-app"
 import { MeRsc } from "resources.js"
 
-const meRouter = matchFor(MeRsc)
+const router = matchFor(MeRsc)
 
-export default meRouter.effect(
+export default router.effect(
   [UserRepo.Default],
   Effect.gen(function*() {
     return {
-      GetMe: class extends meRouter.GetMe(UserRepo.getCurrentUser) {}
+      GetMe: class extends router.GetMe(UserRepo.getCurrentUser) {}
     }
   })
 )

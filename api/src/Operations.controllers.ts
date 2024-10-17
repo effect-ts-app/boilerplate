@@ -4,14 +4,14 @@ import { Effect } from "effect-app"
 import { OperationsRsc } from "resources.js"
 import { OperationsDefault } from "./lib/layers.js"
 
-const operationsRouter = matchFor(OperationsRsc)
+const router = matchFor(OperationsRsc)
 
-export default operationsRouter.effect(
+export default router.effect(
   [OperationsDefault],
   Effect.gen(function*() {
     const operations = yield* Operations
     return {
-      FindOperation: operationsRouter.FindOperation(
+      FindOperation: router.FindOperation(
         ({ id }) =>
           operations
             .find(id)
