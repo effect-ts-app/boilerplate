@@ -2,7 +2,6 @@
 import { BlogRsc, OperationsRsc } from "resources"
 import type { ClientEvents } from "resources"
 import { BlogPostId } from "models/Blog"
-import { Effect } from "effect-app"
 
 const { id } = useRouteParams({ id: BlogPostId })
 
@@ -24,17 +23,14 @@ onMountedWithCleanup(() => {
 })
 
 const progress = ref("")
+
 const [publishing, publish] = useAndHandleMutation(
-  {
-    ...blogClient.PublishPost,
-    handler: OperationsRsc.refreshAndWaitForOperation(
-      blogClient.PublishPost.handler,
-      Effect.promise(() => reloadPost()),
-      op => {
-        progress.value = `${op.progress?.completed}/${op.progress?.total}`
-      },
-    ),
-  },
+  mapHandler(
+    blogClient.PublishPost,
+    OperationsRsc.refreshAndWaitForOperation(reloadPost(), op => {
+      progress.value = `${op.progress?.completed}/${op.progress?.total}`
+    }),
+  ),
   "Publish Blog Post",
 )
 </script>
@@ -46,7 +42,7 @@ const [publishing, publish] = useAndHandleMutation(
   <QueryResult :result="r" v-slot="{ latest, refreshing }">
     <Delayed v-if="refreshing"><v-progress-circular /></Delayed>
     <div>
-      <v-btn @click="publish({ id })" :disabled="publishing.loading">
+      <v-btn @click="$run(publish({ id }))" :disabled="publishing.loading">
         Publish to all blog sites
         {{ publishing.loading ? `(${progress})` : "" }}
       </v-btn>

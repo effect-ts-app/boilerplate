@@ -17,7 +17,7 @@ const [r] = useSafeQuery(blogClient.GetPosts)
           createPost({
             title: S.NonEmptyString255(new Date().toString()),
             body: S.NonEmptyString2k('A body'),
-          })
+          }).pipe($run)
         "
       >
         Create new post
