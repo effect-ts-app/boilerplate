@@ -63,8 +63,9 @@ export function waitForOperation<R, E>(
   return Effect.andThen(self, (r) => _waitForOperation(r, cb))
 }
 
-export function waitForOperation_<Req, R, E>(self: (req: Req) => Effect<OperationId, E, R>) {
-  return (req: Req) => Effect.andThen(self(req), _waitForOperation)
+export function waitForOperation_(cb?: (op: Operation) => void) {
+  return <Req, R, E>(self: (req: Req) => Effect<OperationId, E, R>) => (req: Req) =>
+    Effect.andThen(self(req), (r) => _waitForOperation(r, cb))
 }
 
 const isFailure = S.is(OperationFailure)
