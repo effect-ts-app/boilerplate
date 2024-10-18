@@ -109,6 +109,7 @@ const setupSentry = (options?: Sentry.NodeOptions) => {
       environment: appConfig.env,
       enabled: isRemote,
       release: appConfig.apiVersion,
+      normalizeDepth: 5, // default 3
       // Set tracesSampleRate to 1.0 to capture 100%
       // of transactions for performance monitoring.
       // We recommend adjusting this value in production

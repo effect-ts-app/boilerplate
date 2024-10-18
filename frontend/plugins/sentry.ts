@@ -6,6 +6,7 @@ export default defineNuxtPlugin(nuxtApp => {
   Sentry.init({
     app: nuxtApp.vueApp,
     release: config.public.feVersion,
+    normalizeDepth: 5, // default 3
     enabled: config.public.env !== "local-dev",
     dsn: "???",
     integrations: [
