@@ -11,7 +11,7 @@ import { HttpClient } from "effect-app/http"
 
 export const versionMatch = ref(true)
 
-export const runtime = ref<ReturnType<typeof makeRuntime>>()
+export const runtime = shallowRef<ReturnType<typeof makeRuntime>>()
 
 function makeRuntime(feVersion: string, disableTracing: boolean) {
   const apiLayers = Layer.mergeAll(

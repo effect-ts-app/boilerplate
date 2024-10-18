@@ -2,8 +2,7 @@ import { makeClient, makeMutation, makeQuery } from "@effect-app/vue"
 
 import { useToast } from "vue-toastification"
 import { useIntl } from "./intl"
-import { runtime, type RT } from "~/plugins/runtime"
-import type { Runtime } from "effect-app"
+import { runtime } from "~/plugins/runtime"
 
 export { useToast } from "vue-toastification"
 
@@ -17,10 +16,9 @@ export {
   composeQueries,
   SuppressErrors,
   mapHandler,
-} from "@effect-app/vue/makeClient"
+} from "@effect-app/vue"
 
-// sue me
-const rt = computed(() => runtime.value?.runtime as Runtime.Runtime<RT>)
+const rt = computed(() => runtime.value?.runtime)
 export const useSafeQuery = makeQuery(rt)
 export const useSafeMutation = makeMutation(rt)
 
