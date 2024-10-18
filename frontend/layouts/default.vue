@@ -4,6 +4,7 @@ import { onMounted } from "vue"
 import { useRouter } from "vue-router"
 import { VueQueryDevtools } from "@tanstack/vue-query-devtools"
 import { Result } from "~/composables/client"
+import { runFork } from "~/plugins/runtime"
 
 const meClient = clientFor(MeRsc)
 const [userResult, currentUser, getCurrentUser] = useSafeQuery(meClient.GetMe)
@@ -20,7 +21,7 @@ const router = useRouter()
 
 onMounted(() => {
   if (getUserId()) {
-    void getCurrentUser()
+    runFork(getCurrentUser())
   }
 })
 </script>
