@@ -92,6 +92,7 @@ const filteredMethods = ["OPTIONS"]
 const filterAttrs = {
   "request.name": filteredOps,
   "http.request.path": filteredPaths,
+  "http.target": filteredPaths,
   "http.url": filteredPaths,
   "http.route": filteredPaths,
   "url.path": filteredPaths,
