@@ -14,10 +14,12 @@ const [r] = useSafeQuery(blogClient.GetPosts)
       a new Title and a new body
       <v-btn
         @click="
-          createPost({
-            title: S.NonEmptyString255(new Date().toString()),
-            body: S.NonEmptyString2k('A body'),
-          }).pipe($run)
+          run(
+            createPost({
+              title: S.NonEmptyString255(new Date().toString()),
+              body: S.NonEmptyString2k('A body'),
+            }),
+          )
         "
       >
         Create new post

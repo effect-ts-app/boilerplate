@@ -42,7 +42,7 @@ const [publishing, publish] = useAndHandleMutation(
   <QueryResult :result="r" v-slot="{ latest, refreshing }">
     <Delayed v-if="refreshing"><v-progress-circular /></Delayed>
     <div>
-      <v-btn @click="$run(publish({ id }))" :disabled="publishing.loading">
+      <v-btn @click="run(publish({ id }))" :disabled="publishing.loading">
         Publish to all blog sites
         {{ publishing.loading ? `(${progress})` : "" }}
       </v-btn>
