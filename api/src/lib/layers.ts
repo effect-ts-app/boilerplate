@@ -11,7 +11,7 @@ import { Context, Effect, Layer, Secret } from "effect-app"
 import { createServer } from "http"
 import { MergedConfig, SendgridConfig, StorageConfig } from "../config.js"
 
-export const RepoLive = StorageConfig
+export const RepoDefault = StorageConfig
   .pipe(Effect.andThen(StoreMakerLayer), Layer.unwrapEffect, Layer.merge(ContextMapContainer.live))
 
 export const RepoTest = StoreMakerLayer({ url: Secret.fromString("mem://"), prefix: "test_", dbName: "test" })
