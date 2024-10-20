@@ -253,8 +253,8 @@ importers:
         specifier: ^1.17.1
         version: 1.17.1(@effect/platform@0.68.6(patch_hash=lr3z7f7x7ael3buriw52tyuonq)(@effect/schema@0.75.5(patch_hash=2ljvqfbex5pvxfq5bo3svxymmq)(effect@3.9.2))(effect@3.9.2))(effect@3.9.2)(encoding@0.1.13)
       '@effect-app/infra':
-        specifier: 1.44.1
-        version: 1.44.1(mjybzyinvzradac5z6ggb22ilq)
+        specifier: 1.45.1
+        version: 1.45.1(mjybzyinvzradac5z6ggb22ilq)
       '@effect-app/infra-adapters':
         specifier: ^1.20.6
         version: 1.20.6(@effect/platform-node@0.63.6(@effect/platform@0.68.6(patch_hash=lr3z7f7x7ael3buriw52tyuonq)(@effect/schema@0.75.5(patch_hash=2ljvqfbex5pvxfq5bo3svxymmq)(effect@3.9.2))(effect@3.9.2))(effect@3.9.2))(@effect/platform@0.68.6(patch_hash=lr3z7f7x7ael3buriw52tyuonq)(@effect/schema@0.75.5(patch_hash=2ljvqfbex5pvxfq5bo3svxymmq)(effect@3.9.2))(effect@3.9.2))(@effect/schema@0.75.5(patch_hash=2ljvqfbex5pvxfq5bo3svxymmq)(effect@3.9.2))(effect@3.9.2)(encoding@0.1.13)(ioredis@5.4.1)(ws@8.18.0)
@@ -655,8 +655,8 @@ importers:
         specifier: ^14.1.2
         version: 14.1.2
       eslint-plugin-vue:
-        specifier: ^9.29.0
-        version: 9.29.0(eslint@8.57.0)
+        specifier: ^9.29.1
+        version: 9.29.1(eslint@8.57.0)
       h3:
         specifier: ^1.13.0
         version: 1.13.0
@@ -1418,8 +1418,8 @@ packages:
       '@effect/schema': ^0.75.5
       effect: ^3.9.2
 
-  '@effect-app/infra@1.44.1':
-    resolution: {integrity: sha512-mbDF9ksuGoqD/D81ZE5eVIVU2+AO1HlShi/E3qf/hzf1CMTz9W00qxtelHixc5lSNu16xTtnKX4t0FCZd0EHgw==}
+  '@effect-app/infra@1.45.1':
+    resolution: {integrity: sha512-o0vK1P6ExKLqqxCWrL2pAf78ugcal7KTTryt0nOptwWMG/ybSqbIRadQs6LaeXKCdmsmkFrk26Lss5m+MUusAw==}
     peerDependencies:
       '@effect/platform': ^0.68.6
       '@effect/schema': ^0.75.5
@@ -5281,8 +5281,8 @@ packages:
       '@typescript-eslint/eslint-plugin':
         optional: true
 
-  eslint-plugin-vue@9.29.0:
-    resolution: {integrity: sha512-hamyjrBhNH6Li6R1h1VF9KHfshJlKgKEg3ARbGTn72CMNDSMhWbgC7NdkRDEh25AFW+4SDATzyNM+3gWuZii8g==}
+  eslint-plugin-vue@9.29.1:
+    resolution: {integrity: sha512-MH/MbVae4HV/tM8gKAVWMPJbYgW04CK7SuzYRrlNERpxbO0P3+Zdsa2oAcFBW6xNu7W6lIkGOsFAMCRTYmrlWQ==}
     engines: {node: ^14.17.0 || >=16.0.0}
     peerDependencies:
       eslint: ^6.2.0 || ^7.0.0 || ^8.0.0 || ^9.0.0
@@ -10169,7 +10169,7 @@ snapshots:
       - lmdb
       - ws
 
-  '@effect-app/infra@1.44.1(mjybzyinvzradac5z6ggb22ilq)':
+  '@effect-app/infra@1.45.1(mjybzyinvzradac5z6ggb22ilq)':
     dependencies:
       '@azure/cosmos': 4.1.1
       '@azure/service-bus': 7.9.5
@@ -14700,7 +14700,7 @@ snapshots:
     optionalDependencies:
       '@typescript-eslint/eslint-plugin': 8.10.0(@typescript-eslint/parser@8.10.0(eslint@8.57.0)(typescript@5.6.3(patch_hash=yoypwiw4x7ikhinpyfewievf3q)))(eslint@8.57.0)(typescript@5.6.3(patch_hash=yoypwiw4x7ikhinpyfewievf3q))
 
-  eslint-plugin-vue@9.29.0(eslint@8.57.0):
+  eslint-plugin-vue@9.29.1(eslint@8.57.0):
     dependencies:
       '@eslint-community/eslint-utils': 4.4.0(eslint@8.57.0)
       eslint: 8.57.0
