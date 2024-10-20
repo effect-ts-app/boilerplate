@@ -1,8 +1,8 @@
 import { NotFoundError, NotLoggedInError } from "@effect-app/infra/errors"
-import { RepositoryDefaultImpl } from "@effect-app/infra/services/RepositoryBase"
+import { RepositoryDefaultImpl2 } from "@effect-app/infra/services/RepositoryBase"
 import { generate } from "@effect-app/infra/test"
 import { RepoConfig } from "api/config.js"
-import { RepoLive } from "api/lib/layers.js"
+import { RepoDefault } from "api/lib/layers.js"
 import { Array, Effect, Exit, Layer, Option, pipe, Request, RequestResolver, S } from "effect-app"
 import { fakerArb } from "effect-app/faker"
 import { Email } from "effect-app/schema"
@@ -14,48 +14,49 @@ import { UserProfile } from "../UserProfile.js"
 
 export type UserSeed = "sample" | ""
 
-const makeInitial = RepoConfig.pipe(Effect.andThen((cfg) => {
-  const seed = cfg.fakeUsers === "seed" ? "seed" : cfg.fakeUsers === "sample" ? "sample" : ""
-  const fakeUsers = pipe(
-    Array
-      .range(1, 8)
-      .map((_, i): User => {
-        const g = generate(S.A.make(User)).value
-        const emailArb = fakerArb((_) => () =>
-          _
-            .internet
-            .exampleEmail({ firstName: g.name.firstName, lastName: g.name.lastName })
-        )
-        return new User({
-          ...g,
-          email: Email(generate(emailArb(fc)).value),
-          role: i === 0 || i === 1 ? "manager" : "user"
-        })
-      }),
-    Array.toNonEmptyArray,
-    Option
-      .match({
-        onNone: () => {
-          throw new Error("must have fake users")
-        },
-        onSome: (_) => _
-      })
-  )
-  return Effect.sync(() => {
-    const items = seed === "sample" ? fakeUsers : []
-    return items
-  })
-}))
-
-export class UserRepo extends RepositoryDefaultImpl<UserRepo>()(
+export class UserRepo extends RepositoryDefaultImpl2<UserRepo>()(
   "User",
-  User
-) {
-  static Default = UserRepo
-    .makeWith({ makeInitial }, (_) => new UserRepo(_))
-    .pipe(Layer.effect(UserRepo))
-    .pipe(Layer.provide(RepoLive))
+  User,
+  {
+    dependencies: [RepoDefault],
+    options: Effect.gen(function*() {
+      const cfg = yield* RepoConfig
 
+      const makeInitial = yield* Effect.cached(Effect.sync(() => {
+        const seed = cfg.fakeUsers === "seed" ? "seed" : cfg.fakeUsers === "sample" ? "sample" : ""
+        const fakeUsers = pipe(
+          Array
+            .range(1, 8)
+            .map((_, i): User => {
+              const g = generate(S.A.make(User)).value
+              const emailArb = fakerArb((_) => () =>
+                _
+                  .internet
+                  .exampleEmail({ firstName: g.name.firstName, lastName: g.name.lastName })
+              )
+              return new User({
+                ...g,
+                email: Email(generate(emailArb(fc)).value),
+                role: i === 0 || i === 1 ? "manager" : "user"
+              })
+            }),
+          Array.toNonEmptyArray,
+          Option
+            .match({
+              onNone: () => {
+                throw new Error("must have fake users")
+              },
+              onSome: (_) => _
+            })
+        )
+        const items = seed === "sample" ? fakeUsers : []
+        return items
+      }))
+
+      return { makeInitial }
+    })
+  }
+) {
   static readonly UserFromIdLayer = User
     .resolver
     .toLayer(
