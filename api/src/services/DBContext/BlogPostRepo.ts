@@ -14,12 +14,13 @@ export class BlogPostRepo extends RepositoryDefaultImpl2<BlogPostRepo>()(
     dependencies: [RepoDefault, UserRepo.Default, UserRepo.UserFromIdLayer],
     options: Effect.gen(function*() {
       const seed = "sample"
+      const userRepo = yield* UserRepo
 
       const makeInitial = yield* Effect.cached(
         seed === "sample"
-          ? UserRepo
+          ? userRepo
+            .all
             .pipe(
-              Effect.andThen((userRepo) => userRepo.all),
               Effect.andThen((users) =>
                 users
                   .flatMap((_) => [_, _])
