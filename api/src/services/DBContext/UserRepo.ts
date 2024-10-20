@@ -22,6 +22,7 @@ export class UserRepo extends RepositoryDefaultImpl2<UserRepo>()(
   "User",
   User,
   {
+    idKey: "woot",
     dependencies: [RepoDefault],
     options: Effect.gen(function*() {
       const cfg = yield* RepoConfig
@@ -106,15 +107,18 @@ const getUserByIdResolver = RequestResolver
   .makeBatched((requests: GetUserById[]) =>
     UserRepo
       .query(Q.where("id", "in", requests.map((_) => _.id)))
-      .pipe(Effect.andThen((users) =>
-        Effect.forEach(requests, (r) =>
-          Request.complete(
-            r,
-            Array
-              .findFirst(users, (_) => _.id === r.id ? Option.some(Exit.succeed(_)) : Option.none())
-              .pipe(Option.getOrElse(() => Exit.fail(new NotFoundError({ type: "User", id: r.id }))))
-          ), { discard: true })
-      ))
+      .pipe(
+        Effect.tap((users) => console.log({ users, requests })),
+        Effect.andThen((users) =>
+          Effect.forEach(requests, (r) =>
+            Request.complete(
+              r,
+              Array
+                .findFirst(users, (_) => _.woot === r.id ? Option.some(Exit.succeed(_)) : Option.none())
+                .pipe(Option.getOrElse(() => Exit.fail(new NotFoundError({ type: "User", id: r.id }))))
+            ), { discard: true })
+        )
+      )
   )
   .pipe(
     RequestResolver.batchN(25),

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/unbound-method */
 import * as A from "@effect/schema/Arbitrary"
 import { type Schema } from "@effect/schema/Schema"
-import { Context, Effect, Equivalence, pipe, S } from "effect-app"
+import { Context, Effect, Equivalence, flow, pipe, S } from "effect-app"
 import { fakerArb } from "effect-app/faker"
 import { UserProfileId } from "effect-app/ids"
 
@@ -65,8 +65,10 @@ export class UserFromIdResolver
   extends Context.TagId("UserFromId")<UserFromIdResolver, { get: (userId: UserId) => Effect<User> }>()
 {}
 
+export const PrimaryKey = flow(S.propertySignature, S.fromKey("id"))
+
 export class User extends S.ExtendedClass<User, User.From>()({
-  id: UserId.withDefault,
+  woot: PrimaryKey(UserId),
   name: FullName,
   email: S.Email,
   role: Role,
@@ -81,10 +83,10 @@ export class User extends S.ExtendedClass<User, User.From>()({
 export const UserFromId: Schema<User, string, UserFromIdResolver> = S.transformOrFail(
   UserId,
   S.typeSchema(User),
-  { decode: User.resolver.get, encode: (u) => Effect.succeed(u.id) }
+  { decode: User.resolver.get, encode: (u) => Effect.succeed(u.woot) }
 )
 
-export const defaultEqual = pipe(Equivalence.string, Equivalence.mapInput((u: User) => u.id))
+export const defaultEqual = pipe(Equivalence.string, Equivalence.mapInput((u: User) => u.woot))
 
 // codegen:start {preset: model}
 //

@@ -2,7 +2,7 @@ import { User } from "models/User.js"
 import { S } from "resources/lib.js"
 
 export class UserView extends S.ExtendedClass<UserView, UserView.From>()({
-  ...User.pick("id", "role"),
+  ...User.pick("woot", "role"),
   displayName: S.NonEmptyString2k
 }) {}
 
