@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { ContextMapContainer } from "@effect-app/infra/services/Store/ContextMapContainer"
 import * as MW from "api/lib/middleware.js"
 import { RequestContextMiddleware } from "api/lib/middleware.js"
 import type { ConfigError } from "effect-app"
@@ -13,11 +12,11 @@ class SystemRouter extends HttpRouter.Tag("SystemRouter")<SystemRouter>() {}
 const GetSystems = SystemRouter
   .use((router) =>
     Effect.gen(function*() {
-      const ctx = yield* Effect.context<ContextMapContainer | Events>()
+      const ctx = yield* Effect.context<Events>()
       yield* router.get("/events", MW.events.pipe(Effect.provide(ctx)))
     })
   )
-  .pipe(Layer.provide([ContextMapContainer.live, Events.Default]))
+  .pipe(Layer.provide([Events.Default]))
 
 const AllSystemRoutes = Layer.mergeAll(GetSystems).pipe(
   Layer.provideMerge(SystemRouter.Live)
@@ -66,8 +65,6 @@ export const makeHttpServer = <E, R, E3, R3>(
     .pipe(
       Layer.unwrapEffect,
       Layer.provide(router.layer),
-      Layer.provide(AllRoutes),
-      // for RequestContextMiddleware
-      Layer.provide([ContextMapContainer.live])
+      Layer.provide(AllRoutes)
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     ) as any
