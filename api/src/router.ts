@@ -12,8 +12,7 @@ class SystemRouter extends HttpRouter.Tag("SystemRouter")<SystemRouter>() {}
 const GetSystems = SystemRouter
   .use((router) =>
     Effect.gen(function*() {
-      const ctx = yield* Effect.context<Events>()
-      yield* router.get("/events", MW.events.pipe(Effect.provide(ctx)))
+      yield* router.get("/events", yield* MW.makeEvents)
     })
   )
   .pipe(Layer.provide([Events.Default]))
