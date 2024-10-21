@@ -5,14 +5,12 @@ import type { ExtendedMiddleware } from "@effect-app/infra/api/routing3"
 import { makeRouter } from "@effect-app/infra/api/routing3"
 import { NotLoggedInError, UnauthorizedError } from "@effect-app/infra/errors"
 import type { RequestContext } from "@effect-app/infra/RequestContext"
-import { RequestContextContainer } from "@effect-app/infra/services/RequestContextContainer"
 import { Rpc } from "@effect/rpc"
 import { BaseConfig } from "api/config.js"
 import type { S } from "effect-app"
 import { Config, Context, Duration, Effect, Exit, FiberRef, Layer, Option, Request, Schedule } from "effect-app"
 import type { GetEffectContext, RPCContextMap } from "effect-app/client"
 import { HttpHeaders, HttpServerRequest } from "effect-app/http"
-import { NonEmptyString255 } from "effect-app/schema"
 import type * as EffectRequest from "effect/Request"
 import {
   makeUserProfileFromAuthorizationHeader,
@@ -65,9 +63,7 @@ const middleware = {
   >,
   contextMap: null as unknown as CTXMap,
   // helper to deal with nested generic lmitations
-  context: null as any as
-    | RequestContextContainer
-    | HttpServerRequest.HttpServerRequest,
+  context: null as any as HttpServerRequest.HttpServerRequest,
   execute: <T extends { config?: { [K in keyof CTXMap]?: any } }, Req extends S.TaggedRequest.All, R>(
     schema: T & S.Schema<Req, any, never>,
     handler: (request: Req) => Effect.Effect<EffectRequest.Request.Success<Req>, EffectRequest.Request.Error<Req>, R>,
@@ -78,13 +74,11 @@ const middleware = {
   ): Effect.Effect<
     Request.Request.Success<Req>,
     Request.Request.Error<Req>,
-    | RequestContextContainer
     | HttpServerRequest.HttpServerRequest
     | Exclude<R, GetEffectContext<CTXMap, T["config"]>>
   > =>
     Effect
       .gen(function*() {
-        const rcc = yield* RequestContextContainer
         const headers = yield* Rpc.currentHeaders
         let ctx = Context.empty()
 
@@ -115,7 +109,7 @@ const middleware = {
         }
         const userProfile = Option.fromNullable(Exit.isSuccess(r) ? r.value : undefined)
         if (Option.isSome(userProfile)) {
-          yield* rcc.update((_) => ({ ..._, userPorfile: userProfile.value }))
+          // yield* rcc.update((_) => ({ ..._, userPorfile: userProfile.value }))
           ctx = ctx.pipe(Context.add(UserProfile, userProfile.value))
         } else if (!config?.allowAnonymous) {
           return yield* new NotLoggedInError({ message: "no auth" })
@@ -140,10 +134,11 @@ const middleware = {
         Effect.provide(
           Effect
             .gen(function*() {
-              yield* RequestContextContainer.update((_) => ({
-                ..._,
-                name: NonEmptyString255(moduleName ? `${moduleName}.${req._tag}` : req._tag)
-              }))
+              yield* Effect.annotateCurrentSpan("request.name", moduleName ? `${moduleName}.${req._tag}` : req._tag)
+              // yield* RequestContextContainer.update((_) => ({
+              //   ..._,
+              //   name: NonEmptyString255(moduleName ? `${moduleName}.${req._tag}` : req._tag)
+              // }))
               const httpReq = yield* HttpServerRequest.HttpServerRequest
               // TODO: only pass Authentication etc, or move headers to actual Rpc Headers
               yield* FiberRef.update(
