@@ -1,4 +1,4 @@
-import { RequestContextContainer } from "@effect-app/infra/services/RequestContextContainer"
+import { getRequestContext } from "@effect-app/infra/api/setupRequest"
 import { generate } from "@effect-app/infra/test"
 import { matchFor } from "api/lib/routing.js"
 import { UserRepo } from "api/services.js"
@@ -7,17 +7,15 @@ import { User } from "models/User.js"
 import { HelloWorldRsc } from "resources.js"
 
 export default matchFor(HelloWorldRsc)([
-  RequestContextContainer.live,
   UserRepo.Default
 ], ({ GetHelloWorld }) =>
   Effect.gen(function*() {
-    const rcc = yield* RequestContextContainer
     const userRepo = yield* UserRepo
 
     return {
       GetHelloWorld: GetHelloWorld(({ echo }) =>
         Effect.gen(function*() {
-          const context = yield* rcc.requestContext
+          const context = yield* getRequestContext
           return yield* userRepo
             .tryGetCurrentUser
             .pipe(
