@@ -2,7 +2,6 @@ import { FakeSendgrid } from "@effect-app/infra/services/Emailer/fake"
 import { Sendgrid } from "@effect-app/infra/services/Emailer/Sendgrid"
 import { Operations } from "@effect-app/infra/services/Operations"
 import { OperationsRepo } from "@effect-app/infra/services/OperationsRepo"
-import { ContextMapContainer } from "@effect-app/infra/services/Store/ContextMapContainer"
 import { StoreMakerLayer } from "@effect-app/infra/services/Store/index"
 import { NodeContext } from "@effect/platform-node"
 import * as HttpClientNode from "@effect/platform-node/NodeHttpClient"
@@ -12,12 +11,9 @@ import { createServer } from "http"
 import { MergedConfig, SendgridConfig, StorageConfig } from "../config.js"
 
 export const RepoDefault = StorageConfig
-  .pipe(Effect.andThen(StoreMakerLayer), Layer.unwrapEffect, Layer.merge(ContextMapContainer.live))
+  .pipe(Effect.andThen(StoreMakerLayer), Layer.unwrapEffect)
 
 export const RepoTest = StoreMakerLayer({ url: Secret.fromString("mem://"), prefix: "test_", dbName: "test" })
-  .pipe(
-    Layer.merge(ContextMapContainer.live)
-  )
 
 export const EmailerLive = SendgridConfig
   .pipe(
