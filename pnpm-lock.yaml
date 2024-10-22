@@ -18,7 +18,7 @@ overrides:
   fast-check: ^3.22.0
   vue: ^3.5.12
 
-pnpmfileChecksum: z6xh33srjxthn3imrcxtlhxwga
+pnpmfileChecksum: tcfoikrbhceove5soutytj6cuu
 
 patchedDependencies:
   '@effect/platform':
@@ -124,8 +124,8 @@ importers:
         specifier: ^0.93.0
         version: 0.93.0
       '@effect-app/cli':
-        specifier: ^1.0.0
-        version: 1.0.0
+        specifier: ^1.1.0
+        version: 1.1.0
       '@effect-app/eslint-codegen-model':
         specifier: ^1.19.0
         version: 1.19.0(effect@3.10.0(patch_hash=pknxnlnopxqwfakxocgrmgal2e))(eslint@8.57.0)(fp-ts@2.16.2)(typescript@5.6.3(patch_hash=yoypwiw4x7ikhinpyfewievf3q))
@@ -247,11 +247,8 @@ importers:
         specifier: ^12.25.0
         version: 12.25.0
       '@effect-app/infra':
-        specifier: 2.0.2
-        version: 2.0.2(g5ecz6zedbe57oaizamdiroeni)
-      '@effect-app/infra-adapters':
-        specifier: ^2.0.1
-        version: 2.0.1(@effect/platform-node@0.64.3(@effect/platform@0.69.2(patch_hash=xrhj34svzsaswoalw65buaxr7q)(effect@3.10.0(patch_hash=pknxnlnopxqwfakxocgrmgal2e)))(effect@3.10.0(patch_hash=pknxnlnopxqwfakxocgrmgal2e)))(@effect/platform@0.69.2(patch_hash=xrhj34svzsaswoalw65buaxr7q)(effect@3.10.0(patch_hash=pknxnlnopxqwfakxocgrmgal2e)))(effect@3.10.0(patch_hash=pknxnlnopxqwfakxocgrmgal2e))(ioredis@5.4.1)(ws@8.18.0)
+        specifier: 2.1.0
+        version: 2.1.0(tmx5ontdp3uhoyyd6qniokf63u)
       '@effect/opentelemetry':
         specifier: ^0.39.0
         version: 0.39.0(@opentelemetry/api@1.9.0)(@opentelemetry/resources@1.26.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-metrics@1.26.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@1.26.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-node@1.26.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-web@1.26.0(@opentelemetry/api@1.9.0))(@opentelemetry/semantic-conventions@1.27.0)(effect@3.10.0(patch_hash=pknxnlnopxqwfakxocgrmgal2e))
@@ -1360,8 +1357,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@effect-app/cli@1.0.0':
-    resolution: {integrity: sha512-JxpS+h/Vigvn55in0tAnp8fzBphsKjtxjhxf5hXfx1AAN29nK3RDO5cDJkobKiDtrU79z5GXFTlGrSV2gFntdA==}
+  '@effect-app/cli@1.1.0':
+    resolution: {integrity: sha512-7D/r015kei4+z0Oq2Bv6qrbf4JnngQeBdK2kbe9h8yIq+L/elodwq7XUftDPilpi5WdpuvRlDRm+3sOajCCg1A==}
     hasBin: true
 
   '@effect-app/eslint-codegen-model@1.19.0':
@@ -1369,20 +1366,23 @@ packages:
     peerDependencies:
       effect: ^3.10.0
 
-  '@effect-app/infra-adapters@2.0.1':
-    resolution: {integrity: sha512-wZ4UIB+fgoTWsBccR/2ssNfpYjq1J/PtGaxXFMjuEeRA3eaLKClfvV3sYBMwl2MpNpPHIAeNsMDnpQ7KUeFHfg==}
+  '@effect-app/infra@2.1.0':
+    resolution: {integrity: sha512-AB6eMX5B5F/7NP86RbTsrq3NCpR/+t6Se3m3uALUBLYDrKrCZmIqUD6HxKdfbmnUe8m9bLovPYLdmaIQBKy1AQ==}
     peerDependencies:
+      '@azure/cosmos': ^4.1.1
+      '@azure/service-bus': ^7.9.5
+      '@effect/experimental': ^0.30.3
       '@effect/platform': ^0.69.2
-      effect: ^3.10.0
-
-  '@effect-app/infra@2.0.2':
-    resolution: {integrity: sha512-tm9yv0ONC0XDhIf/y2ip7DXsvz9CS8EF1WVmn77I2H1eNjAG7rnBuGQreZre5+BiM9mweuhV4fza4IdYN7/2Bw==}
-    peerDependencies:
-      '@effect/platform': ^0.69.2
+      '@effect/rpc': ^0.44.2
+      '@effect/rpc-http': ^0.42.2
       '@effect/sql': ^0.18.3
       '@effect/vitest': ^0.13.0
+      '@sendgrid/helpers': ^8.0.0
+      '@sendgrid/mail': ^8.1.4
       effect: ^3.10.0
       express: ^4.21.1
+      redis: ^3.1.2
+      redlock: ^4.2.0
 
   '@effect-app/vue@2.0.1':
     resolution: {integrity: sha512-PwW8xxu/7F+04fdkqhTcns2h50QkSa6dw9xWccqs6Whn13QcbE7GQOXa2fLYE+rL3y3KDy65/1dX4NtioN/wXA==}
@@ -4270,9 +4270,6 @@ packages:
 
   bl@4.1.0:
     resolution: {integrity: sha512-1W07cM9gS6DcLperZfFSj+bWLtaPGSOHWhPiGzXmvVJbRLdG82sH/Kn8EtW1VqWVA54AKf2h5k5BbnIbwF3h6w==}
-
-  bluebird@3.7.2:
-    resolution: {integrity: sha512-XpNj6GDQzdfW+r2Wnn7xiSAd7TM3jzkxGXBGTtWKuSXv1xUV+azxAm8jdWZN06QTQk+2N2XB9jRDkvbmQmcRtg==}
 
   body-parser@1.20.3:
     resolution: {integrity: sha512-7rAxByjUMqQ3/bHJy7D6OGXvx/MMc4IqBn/X0fcM1QUcAItpZrBEYhWGem+tzXH90c+G01ypMcYJBO9Y30203g==}
@@ -7625,10 +7622,6 @@ packages:
     resolution: {integrity: sha512-grn5KoZLr/qrRQVwoSkmzdbw6pwF+/rwODtrOr6vuBRiR/f3rjSTGupbF90Zpqm2oenix8Do6RV7pYEkGwlKkw==}
     engines: {node: '>=10'}
 
-  redlock@4.2.0:
-    resolution: {integrity: sha512-j+oQlG+dOwcetUt2WJWttu4CZVeRzUrcVcISFmEmfyuwCVSJ93rDT7YSgg7H7rnxwoRyk/jU46kycVka5tW7jA==}
-    engines: {node: '>=8.0.0'}
-
   redlock@5.0.0-beta.2:
     resolution: {integrity: sha512-2RDWXg5jgRptDrB1w9O/JgSZC0j7y4SlaXnor93H/UJm/QyDiFgBKNtrh0TI6oCXqYSaSoXxFh6Sd3VtYfhRXw==}
     engines: {node: '>=12'}
@@ -10060,7 +10053,7 @@ snapshots:
   '@dprint/win32-x64@0.47.4':
     optional: true
 
-  '@effect-app/cli@1.0.0':
+  '@effect-app/cli@1.1.0':
     dependencies:
       node-watch: 0.7.4
 
@@ -10082,25 +10075,11 @@ snapshots:
       - supports-color
       - typescript
 
-  '@effect-app/infra-adapters@2.0.1(@effect/platform-node@0.64.3(@effect/platform@0.69.2(patch_hash=xrhj34svzsaswoalw65buaxr7q)(effect@3.10.0(patch_hash=pknxnlnopxqwfakxocgrmgal2e)))(effect@3.10.0(patch_hash=pknxnlnopxqwfakxocgrmgal2e)))(@effect/platform@0.69.2(patch_hash=xrhj34svzsaswoalw65buaxr7q)(effect@3.10.0(patch_hash=pknxnlnopxqwfakxocgrmgal2e)))(effect@3.10.0(patch_hash=pknxnlnopxqwfakxocgrmgal2e))(ioredis@5.4.1)(ws@8.18.0)':
-    dependencies:
-      '@effect/experimental': 0.30.3(@effect/platform-node@0.64.3(@effect/platform@0.69.2(patch_hash=xrhj34svzsaswoalw65buaxr7q)(effect@3.10.0(patch_hash=pknxnlnopxqwfakxocgrmgal2e)))(effect@3.10.0(patch_hash=pknxnlnopxqwfakxocgrmgal2e)))(@effect/platform@0.69.2(patch_hash=xrhj34svzsaswoalw65buaxr7q)(effect@3.10.0(patch_hash=pknxnlnopxqwfakxocgrmgal2e)))(effect@3.10.0(patch_hash=pknxnlnopxqwfakxocgrmgal2e))(ioredis@5.4.1)(ws@8.18.0)
-      '@effect/platform': 0.69.2(patch_hash=xrhj34svzsaswoalw65buaxr7q)(effect@3.10.0(patch_hash=pknxnlnopxqwfakxocgrmgal2e))
-      '@effect/sql': 0.18.3(@effect/experimental@0.30.3(@effect/platform-node@0.64.3(@effect/platform@0.69.2(patch_hash=xrhj34svzsaswoalw65buaxr7q)(effect@3.10.0(patch_hash=pknxnlnopxqwfakxocgrmgal2e)))(effect@3.10.0(patch_hash=pknxnlnopxqwfakxocgrmgal2e)))(@effect/platform@0.69.2(patch_hash=xrhj34svzsaswoalw65buaxr7q)(effect@3.10.0(patch_hash=pknxnlnopxqwfakxocgrmgal2e)))(effect@3.10.0(patch_hash=pknxnlnopxqwfakxocgrmgal2e))(ioredis@5.4.1)(ws@8.18.0))(@effect/platform@0.69.2(patch_hash=xrhj34svzsaswoalw65buaxr7q)(effect@3.10.0(patch_hash=pknxnlnopxqwfakxocgrmgal2e)))(effect@3.10.0(patch_hash=pknxnlnopxqwfakxocgrmgal2e))
-      effect: 3.10.0(patch_hash=pknxnlnopxqwfakxocgrmgal2e)
-      effect-app: 2.0.1(@effect/platform@0.69.2(patch_hash=xrhj34svzsaswoalw65buaxr7q)(effect@3.10.0(patch_hash=pknxnlnopxqwfakxocgrmgal2e)))(effect@3.10.0(patch_hash=pknxnlnopxqwfakxocgrmgal2e))
-      query-string: 9.1.1
-    transitivePeerDependencies:
-      - '@effect/platform-node'
-      - ioredis
-      - lmdb
-      - ws
-
-  '@effect-app/infra@2.0.2(g5ecz6zedbe57oaizamdiroeni)':
+  '@effect-app/infra@2.1.0(tmx5ontdp3uhoyyd6qniokf63u)':
     dependencies:
       '@azure/cosmos': 4.1.1
       '@azure/service-bus': 7.9.5
-      '@effect-app/infra-adapters': 2.0.1(@effect/platform-node@0.64.3(@effect/platform@0.69.2(patch_hash=xrhj34svzsaswoalw65buaxr7q)(effect@3.10.0(patch_hash=pknxnlnopxqwfakxocgrmgal2e)))(effect@3.10.0(patch_hash=pknxnlnopxqwfakxocgrmgal2e)))(@effect/platform@0.69.2(patch_hash=xrhj34svzsaswoalw65buaxr7q)(effect@3.10.0(patch_hash=pknxnlnopxqwfakxocgrmgal2e)))(effect@3.10.0(patch_hash=pknxnlnopxqwfakxocgrmgal2e))(ioredis@5.4.1)(ws@8.18.0)
+      '@effect/experimental': 0.30.3(@effect/platform-node@0.64.3(@effect/platform@0.69.2(patch_hash=xrhj34svzsaswoalw65buaxr7q)(effect@3.10.0(patch_hash=pknxnlnopxqwfakxocgrmgal2e)))(effect@3.10.0(patch_hash=pknxnlnopxqwfakxocgrmgal2e)))(@effect/platform@0.69.2(patch_hash=xrhj34svzsaswoalw65buaxr7q)(effect@3.10.0(patch_hash=pknxnlnopxqwfakxocgrmgal2e)))(effect@3.10.0(patch_hash=pknxnlnopxqwfakxocgrmgal2e))(ioredis@5.4.1)(ws@8.18.0)
       '@effect/platform': 0.69.2(patch_hash=xrhj34svzsaswoalw65buaxr7q)(effect@3.10.0(patch_hash=pknxnlnopxqwfakxocgrmgal2e))
       '@effect/rpc': 0.44.2(@effect/platform@0.69.2(patch_hash=xrhj34svzsaswoalw65buaxr7q)(effect@3.10.0(patch_hash=pknxnlnopxqwfakxocgrmgal2e)))(effect@3.10.0(patch_hash=pknxnlnopxqwfakxocgrmgal2e))
       '@effect/rpc-http': 0.42.2(@effect/platform@0.69.2(patch_hash=xrhj34svzsaswoalw65buaxr7q)(effect@3.10.0(patch_hash=pknxnlnopxqwfakxocgrmgal2e)))(effect@3.10.0(patch_hash=pknxnlnopxqwfakxocgrmgal2e))
@@ -10120,15 +10099,11 @@ snapshots:
       path-parser: 6.1.0
       proper-lockfile: 4.1.2
       pure-rand: 6.1.0
-      redlock: 4.2.0
+      query-string: 9.1.1
+      redis: 3.1.2
+      redlock: 5.0.0-beta.2
     transitivePeerDependencies:
-      - '@effect/platform-node'
-      - debug
       - encoding
-      - ioredis
-      - lmdb
-      - supports-color
-      - ws
 
   '@effect-app/vue@2.0.1(@effect-rx/rx-vue@0.8.1(effect@3.10.0(patch_hash=pknxnlnopxqwfakxocgrmgal2e))(vue@3.5.12(typescript@5.6.3(patch_hash=yoypwiw4x7ikhinpyfewievf3q))))(@effect-rx/rx@0.29.1(effect@3.10.0(patch_hash=pknxnlnopxqwfakxocgrmgal2e)))(@effect/platform-browser@0.48.2(@effect/platform@0.69.2(patch_hash=xrhj34svzsaswoalw65buaxr7q)(effect@3.10.0(patch_hash=pknxnlnopxqwfakxocgrmgal2e)))(effect@3.10.0(patch_hash=pknxnlnopxqwfakxocgrmgal2e)))(@effect/platform@0.69.2(patch_hash=xrhj34svzsaswoalw65buaxr7q)(effect@3.10.0(patch_hash=pknxnlnopxqwfakxocgrmgal2e)))(@sentry/browser@7.116.0)(effect@3.10.0(patch_hash=pknxnlnopxqwfakxocgrmgal2e))(typescript@5.6.3(patch_hash=yoypwiw4x7ikhinpyfewievf3q))(vue@3.5.12(typescript@5.6.3(patch_hash=yoypwiw4x7ikhinpyfewievf3q)))':
     dependencies:
@@ -13457,8 +13432,6 @@ snapshots:
       buffer: 5.7.1
       inherits: 2.0.4
       readable-stream: 3.6.2
-
-  bluebird@3.7.2: {}
 
   body-parser@1.20.3:
     dependencies:
@@ -17411,10 +17384,6 @@ snapshots:
       redis-commands: 1.7.0
       redis-errors: 1.2.0
       redis-parser: 3.0.0
-
-  redlock@4.2.0:
-    dependencies:
-      bluebird: 3.7.2
 
   redlock@5.0.0-beta.2:
     dependencies:
