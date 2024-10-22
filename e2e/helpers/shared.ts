@@ -1,10 +1,10 @@
-import { typedKeysOf } from "effect-app/utils"
 import { initializeSync } from "@effect-app/vue/runtime"
 import * as HttpClientNode from "@effect/platform-node/NodeHttpClient"
 import type * as HttpClient from "@effect/platform/HttpClient"
 import { HashMap, Layer } from "effect"
 import type { ApiConfig } from "effect-app/client/config"
 import { layer as ApiConfigLayer } from "effect-app/client/config"
+import { typedKeysOf } from "effect-app/utils"
 import { readFileSync } from "fs"
 
 export function makeRuntime(config: ApiConfig) {
