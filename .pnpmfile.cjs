@@ -2,7 +2,6 @@
 const enforceSingleVersion = [
     "effect",
     "@effect/schema",
-    "@effect-app/infra-adapters",
     "@effect-app/infra",
     "effect-app",
     "@effect-app/react",
