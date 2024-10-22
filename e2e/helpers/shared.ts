@@ -1,4 +1,4 @@
-import { typedKeysOf } from "@effect-app/core/utils"
+import { typedKeysOf } from "effect-app/utils"
 import { initializeSync } from "@effect-app/vue/runtime"
 import * as HttpClientNode from "@effect/platform-node/NodeHttpClient"
 import type * as HttpClient from "@effect/platform/HttpClient"

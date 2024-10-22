@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { dropUndefinedT } from "@effect-app/core/utils"
+import { dropUndefinedT } from "effect-app/utils"
 import * as Metrics from "@effect/opentelemetry/Metrics"
 import * as Resource from "@effect/opentelemetry/Resource"
 import * as Tracer from "@effect/opentelemetry/Tracer"

@@ -5,7 +5,7 @@ import * as Runtime from "effect/Runtime"
 import { Effect, Option } from "effect-app"
 import { WebSdkLive } from "~/utils/observability"
 import type { ApiConfig } from "effect-app/client"
-import "@effect-app/core/builtin"
+import "effect-app/builtin"
 import { ref } from "vue"
 import { HttpClient } from "effect-app/http"
 

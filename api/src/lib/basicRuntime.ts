@@ -1,4 +1,4 @@
-import { dual } from "@effect-app/core/Function"
+import { dual } from "effect-app/Function"
 import { reportError } from "@effect-app/infra/errorReporter"
 import { logJson } from "@effect-app/infra/logger/jsonLogger"
 import { PlatformLogger } from "@effect/platform"
