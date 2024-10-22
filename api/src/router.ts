@@ -7,28 +7,14 @@ import { HttpMiddleware, HttpRouter, HttpServer } from "effect-app/http"
 import { MergedConfig } from "./config/api.js"
 import { Events } from "./services.js"
 
-class SystemRouter extends HttpRouter.Tag("SystemRouter")<SystemRouter>() {}
-
-const GetSystems = SystemRouter
+class RootAppRouter extends HttpRouter.Tag("RootAppRouter")<RootAppRouter>() {}
+const AllRoutes = RootAppRouter
   .use((router) =>
     Effect.gen(function*() {
       yield* router.get("/events", yield* MW.makeEvents)
     })
   )
   .pipe(Layer.provide([Events.Default]))
-
-const AllSystemRoutes = Layer.mergeAll(GetSystems).pipe(
-  Layer.provideMerge(SystemRouter.Live)
-)
-
-class RootAppRouter extends HttpRouter.Tag("RootAppRouter")<RootAppRouter>() {}
-const AllRoutes = RootAppRouter
-  .use((router) =>
-    Effect.gen(function*() {
-      yield* router.mount("/", yield* SystemRouter.router)
-    })
-  )
-  .pipe(Layer.provide(AllSystemRoutes))
 
 export const makeHttpServer = <E, R, E3, R3>(
   router: { layer: Layer<never, E, R>; Router: HttpRouter.HttpRouter.TagClass<any, any, E3, R3> }
