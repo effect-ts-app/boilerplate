@@ -1,7 +1,7 @@
 import { RepositoryDefaultImpl2 } from "@effect-app/infra/services/RepositoryBase"
 import { RepoDefault } from "api/lib/layers.js"
 import { Effect } from "effect"
-import { NonEmptyString255, NonEmptyString2k } from "effect-app/schema"
+import { NonEmptyString255, NonEmptyString2k } from "effect-app/Schema"
 import { BlogPost } from "models/Blog.js"
 import { UserRepo } from "./UserRepo.js"
 
