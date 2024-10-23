@@ -25,17 +25,9 @@ export const EmailerLive = SendgridConfig
     Layer.unwrapEffect
   )
 
-class OperationsRepoImpl extends OperationsRepo {
-  static readonly toLayer = this
-    .makeWith({
-      config: {
-        allowNamespace: () => true
-      }
-    }, (_) => new this(_))
-    .pipe(Layer.effect(this))
-  static readonly Default = this.toLayer.pipe(Layer.provide(RepoTest))
-}
-export const OperationsDefault = Operations.Live.pipe(Layer.provide(OperationsRepoImpl.Default))
+export const OperationsDefault = Operations.Live.pipe(
+  Layer.provide(OperationsRepo.Default.pipe(Layer.provide(RepoTest)))
+)
 
 export const Platform = HttpClientNode.layer
 
