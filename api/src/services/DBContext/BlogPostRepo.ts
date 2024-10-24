@@ -1,8 +1,10 @@
 import { Model } from "@effect-app/infra"
 import { RepoDefault } from "api/lib/layers.js"
 import { Effect } from "effect"
+import { Context, S } from "effect-app"
 import { NonEmptyString255, NonEmptyString2k } from "effect-app/Schema"
 import { BlogPost } from "models/Blog.js"
+import { UserFromIdResolver } from "models/User.js"
 import { UserRepo } from "./UserRepo.js"
 
 export type BlogPostSeed = "sample" | ""
@@ -12,6 +14,7 @@ export class BlogPostRepo extends Effect.Service<BlogPostRepo>()("BlogPostRepo",
   effect: Effect.gen(function*() {
     const seed = "sample"
     const userRepo = yield* UserRepo
+    const resolver = yield* UserFromIdResolver
 
     const makeInitial = yield* Effect.cached(
       seed === "sample"
@@ -33,7 +36,13 @@ export class BlogPostRepo extends Effect.Service<BlogPostRepo>()("BlogPostRepo",
         : Effect.succeed([])
     )
 
-    return yield* Model.makeRepo("BlogPost", BlogPost, { makeInitial })
+    return yield* Model.makeRepo(
+      "BlogPost",
+      S.provide(BlogPost, Context.make(UserFromIdResolver, resolver)),
+      {
+        makeInitial
+      }
+    )
   })
 }) {
 }
