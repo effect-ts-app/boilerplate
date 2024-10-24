@@ -107,7 +107,7 @@ export const WebSdkLive = (resource: {
         new OTLPTraceExporter({
           headers: {}, // magic here !!!
 
-          url: "/api/traces",
+          url: "http://localhost:4000/api/traces",
         }),
       ),
     ],
