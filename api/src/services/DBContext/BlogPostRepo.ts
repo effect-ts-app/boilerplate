@@ -1,7 +1,7 @@
 import { Model } from "@effect-app/infra"
 import { RepoDefault } from "api/lib/layers.js"
 import { Effect } from "effect"
-import { Context, S } from "effect-app"
+import { Context } from "effect-app"
 import { NonEmptyString255, NonEmptyString2k } from "effect-app/Schema"
 import { BlogPost } from "models/Blog.js"
 import { UserFromIdResolver } from "models/User.js"
@@ -38,9 +38,10 @@ export class BlogPostRepo extends Effect.Service<BlogPostRepo>()("BlogPostRepo",
 
     return yield* Model.makeRepo(
       "BlogPost",
-      S.provide(BlogPost, Context.make(UserFromIdResolver, resolver)),
+      BlogPost,
       {
-        makeInitial
+        makeInitial,
+        schemaContext: Context.make(UserFromIdResolver, resolver)
       }
     )
   })
