@@ -7,7 +7,8 @@ export default matchFor(MeRsc)([
   UserRepo.Default
 ], ({ GetMe }) =>
   Effect.gen(function*() {
+    const userRepo = yield* UserRepo
     return {
-      GetMe: GetMe(UserRepo.getCurrentUser)
+      GetMe: GetMe(userRepo.getCurrentUser)
     }
   }))
