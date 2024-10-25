@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-empty-object-type */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { makeMiddleware, makeRouter } from "@effect-app/infra/api/routing"
+import { makeMiddleware, makeRouter } from "@effect-app/infra/api/routing4"
 import { NotLoggedInError, UnauthorizedError } from "@effect-app/infra/errors"
 import type { RequestContext } from "@effect-app/infra/RequestContext"
 import { Rpc } from "@effect/rpc"
