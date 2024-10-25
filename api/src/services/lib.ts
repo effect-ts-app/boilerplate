@@ -1,7 +1,7 @@
-export * from "@effect-app/infra/services/adapters/memQueue"
-export * from "@effect-app/infra/services/adapters/ServiceBus"
-export * from "@effect-app/infra/services/Emailer"
-export * from "@effect-app/infra/services/Operations"
-export * from "@effect-app/infra/services/Store/index"
+export * from "@effect-app/infra/adapters/memQueue"
+export * from "@effect-app/infra/adapters/ServiceBus"
+export * from "@effect-app/infra/Emailer"
+export * from "@effect-app/infra/Operations"
+export * from "@effect-app/infra/Store/index"
 
-export * as Q from "@effect-app/infra/services/query"
+export { Q } from "@effect-app/infra/Model"
