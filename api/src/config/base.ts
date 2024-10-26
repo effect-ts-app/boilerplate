@@ -35,7 +35,7 @@ export const BaseConfig = C.all({
   sendgrid: SendgridConfig,
   sentry: C.all({
     dsn: C
-      .secret("dsn")
+      .redacted("dsn")
       .pipe(
         C.nested("sentry"),
         C.withDefault(
