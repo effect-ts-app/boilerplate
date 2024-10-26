@@ -18,7 +18,7 @@ import {
   setupEventContextTrace,
   wrapContextManagerClass
 } from "@sentry/opentelemetry"
-import { Context, Effect, Layer, Secret } from "effect-app"
+import { Context, Effect, Layer, Redacted } from "effect-app"
 import { dropUndefinedT } from "effect-app/utils"
 import fs from "fs"
 import tcpPortUsed from "tcp-port-used"
@@ -106,7 +106,7 @@ const setupSentry = (options?: Sentry.NodeOptions) => {
     ...dropUndefinedT({
       // otherwise sentry will set it up and override ours
       skipOpenTelemetrySetup: true,
-      dsn: Secret.value(appConfig.sentry.dsn),
+      dsn: Redacted.value(appConfig.sentry.dsn),
       environment: appConfig.env,
       enabled: isRemote,
       release: appConfig.apiVersion,

@@ -1,5 +1,5 @@
 import dotenv from "dotenv"
-import { Config as C, S, Secret } from "effect-app"
+import { Config as C, Redacted, S } from "effect-app"
 
 const envFile = "./.env.local"
 
@@ -21,8 +21,8 @@ export const envConfig = C.string("env").pipe(C.withDefault("local-dev"))
 
 export const SendgridConfig = C.all({
   realMail: C.boolean("realMail").pipe(C.withDefault(false)),
-  apiKey: C.secret("sendgridApiKey").pipe(C.withDefault(
-    Secret.fromString("")
+  apiKey: C.redacted("sendgridApiKey").pipe(C.withDefault(
+    Redacted.make("")
   )),
   defaultFrom: C.succeed(FROM),
   subjectPrefix: envConfig.pipe(C.map((env) => env === "prod" ? "" : `[${serviceName}] [${env}] `))
@@ -39,7 +39,7 @@ export const BaseConfig = C.all({
       .pipe(
         C.nested("sentry"),
         C.withDefault(
-          Secret.fromString(
+          Redacted.make(
             "???"
           )
         )
