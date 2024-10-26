@@ -26,6 +26,7 @@
     "dev:tsx": "pnpm start:tsx",
     "dev:vite": "vite-node --watch ./src/main.ts",
     "start": "pnpm start:compiled",
+    "debug": "tsx ./src/main.ts --inspect",
     "start:compiled": "node -r source-map-support/register ./dist/main.js",
     "start:tsx": "tsx ./src/main.ts",
     "ncu": "ncu",
