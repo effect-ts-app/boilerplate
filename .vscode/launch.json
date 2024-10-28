@@ -11,7 +11,12 @@
       "skipFiles": [
         "<node_internals>/**"
       ],
-      "type": "pwa-node"
+      "sourceMaps": true,
+      "resolveSourceMapLocations": [
+        "${workspaceFolder}/api/dist/**/*",
+        "${workspaceFolder}/node_modules/**/*"
+      ],
+      "type": "node"
     },
     // {
     //   "name": "UI debug",
@@ -24,7 +29,7 @@
     //   "skipFiles": [
     //     "<node_internals>/**"
     //   ],
-    //   "type": "pwa-node",
+    //   "type": "node",
     // },
     {
       "name": "API Debug Attach",
@@ -34,7 +39,7 @@
       "skipFiles": [
         "<node_internals>/**"
       ],
-      "type": "pwa-node",
+      "type": "node",
       "sourceMaps": true
     },
     {
@@ -45,7 +50,7 @@
       "skipFiles": [
         "<node_internals>/**"
       ],
-      "type": "pwa-node",
+      "type": "node",
       "webRoot": "${workspaceFolder}/frontend",
       "sourceMaps": true
     },
