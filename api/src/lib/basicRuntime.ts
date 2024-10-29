@@ -118,14 +118,15 @@ const runMainPlatform: RunMain = dual((args) => Effect.isEffect(args[0]), (effec
   }
 })
 
-export function runMain<A, E>(eff: Effect<A, E, never>) {
+export function runMain<A, E>(eff: Effect<A, E, never>, filterReport?: (cause: Cause.Cause<E>) => boolean) {
   return runMainPlatform(
     eff
       .pipe(
-        Effect.tapErrorCause(reportMainError),
+        Effect.tapErrorCause((cause) => !filterReport || filterReport(cause) ? reportMainError(cause) : Effect.void),
+        Effect.ensuring(basicRuntime.disposeEffect),
         Effect.provide(basicLayer)
       ),
-    { disablePrettyLogger: true }
+    { disablePrettyLogger: true, disableErrorReporting: true }
   )
 }
 
