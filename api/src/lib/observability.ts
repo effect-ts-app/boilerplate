@@ -8,7 +8,7 @@ import { OTLPMetricExporter } from "@opentelemetry/exporter-metrics-otlp-http"
 import { OTLPTraceExporter } from "@opentelemetry/exporter-trace-otlp-http"
 import { ConsoleMetricExporter, PeriodicExportingMetricReader } from "@opentelemetry/sdk-metrics"
 import opentelemetry from "@opentelemetry/sdk-node"
-import { BatchSpanProcessor, ConsoleSpanExporter } from "@opentelemetry/sdk-trace-node"
+import { BatchSpanProcessor, ConsoleSpanExporter, NoopSpanProcessor } from "@opentelemetry/sdk-trace-node"
 import { SemanticResourceAttributes } from "@opentelemetry/semantic-conventions"
 import * as Sentry from "@sentry/node"
 import {
@@ -157,7 +157,7 @@ const ConfigLive = Effect
               : new ConsoleSpanExporter()
           )
         ]
-        : undefined
+        : [new NoopSpanProcessor()]
     })
 
     setupSentry(dropUndefinedT({}))
