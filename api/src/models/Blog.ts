@@ -7,7 +7,7 @@ export interface BlogPostIdBrand {
 }
 export type BlogPostId = S.StringId & BlogPostIdBrand & `post-${string}`
 
-export class BlogPost extends S.ExtendedClass<BlogPost, BlogPost.From>()({
+export class BlogPost extends S.ExtendedClass<BlogPost, BlogPost.Encoded>()({
   id: BlogPostId.withDefault,
   title: S.NonEmptyString255,
   body: S.NonEmptyString2k,
@@ -19,7 +19,7 @@ export class BlogPost extends S.ExtendedClass<BlogPost, BlogPost.From>()({
 //
 /* eslint-disable */
 export namespace BlogPost {
-  export interface From extends S.Struct.Encoded<typeof BlogPost["fields"]> {}
+  export interface Encoded extends S.Struct.Encoded<typeof BlogPost["fields"]> {}
 }
 /* eslint-enable */
 //
