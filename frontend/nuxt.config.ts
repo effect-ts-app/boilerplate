@@ -27,13 +27,13 @@ export default defineNuxtConfig({
       ? {
           "effect-app": fileURLToPath(
             new URL(
-              "../../../effect-app/libs/packages/prelude/src",
+              "../../../effect-app/libs/packages/prelude/dist",
               import.meta.url,
             ),
           ),
           "@effect-app/vue": fileURLToPath(
             new URL(
-              "../../../effect-app/libs/packages/vue/src",
+              "../../../effect-app/libs/packages/vue/dist",
               import.meta.url,
             ),
           ),
