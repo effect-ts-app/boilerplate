@@ -34,7 +34,7 @@ export const LastName = S
 
 export type LastName = Schema.Type<typeof LastName>
 
-export class FullName extends S.ExtendedClass<FullName, FullName.From>()({
+export class FullName extends S.ExtendedClass<FullName, FullName.Encoded>()({
   firstName: FirstName,
   lastName: LastName
 }) {
@@ -65,7 +65,7 @@ export class UserFromIdResolver
   extends Context.TagId("UserFromId")<UserFromIdResolver, { get: (userId: UserId) => Effect<User> }>()
 {}
 
-export class User extends S.ExtendedClass<User, User.From>()({
+export class User extends S.ExtendedClass<User, User.Encoded>()({
   id: UserId.withDefault,
   name: FullName,
   email: S.Email,
@@ -90,10 +90,10 @@ export const defaultEqual = pipe(Equivalence.string, Equivalence.mapInput((u: Us
 //
 /* eslint-disable */
 export namespace FullName {
-  export interface From extends S.Struct.Encoded<typeof FullName["fields"]> {}
+  export interface Encoded extends S.Struct.Encoded<typeof FullName["fields"]> {}
 }
 export namespace User {
-  export interface From extends S.Struct.Encoded<typeof User["fields"]> {}
+  export interface Encoded extends S.Struct.Encoded<typeof User["fields"]> {}
 }
 /* eslint-enable */
 //

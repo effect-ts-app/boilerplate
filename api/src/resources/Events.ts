@@ -1,7 +1,7 @@
 import type { Schema } from "effect-app/Schema"
 import { S } from "resources/lib.js"
 
-export class BogusEvent extends S.ExtendedTaggedClass<BogusEvent, BogusEvent.From>()("BogusEvent", {
+export class BogusEvent extends S.ExtendedTaggedClass<BogusEvent, BogusEvent.Encoded>()("BogusEvent", {
   id: S.StringId.withDefault,
   at: S.Date.withDefault
 }) {}
@@ -13,7 +13,7 @@ export type ClientEvents = Schema.Type<typeof ClientEvents>
 //
 /* eslint-disable */
 export namespace BogusEvent {
-  export interface From extends S.Struct.Encoded<typeof BogusEvent["fields"]> {}
+  export interface Encoded extends S.Struct.Encoded<typeof BogusEvent["fields"]> {}
 }
 /* eslint-enable */
 //
