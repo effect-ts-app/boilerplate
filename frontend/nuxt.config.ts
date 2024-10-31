@@ -27,7 +27,7 @@ export default defineNuxtConfig({
       ? {
           "effect-app": fileURLToPath(
             new URL(
-              "../../../effect-app/libs/packages/prelude/dist",
+              "../../../effect-app/libs/packages/effect-app/dist",
               import.meta.url,
             ),
           ),
