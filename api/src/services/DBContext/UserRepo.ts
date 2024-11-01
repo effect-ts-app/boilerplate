@@ -70,9 +70,6 @@ export class UserRepo extends Effect.Service<UserRepo>()("UserRepo", {
     )
   }
 
-  static getCurrentUser = Effect.serviceConstants(this).getCurrentUser
-  static tryGetCurrentUser = Effect.serviceConstants(this).tryGetCurrentUser
-
   static readonly getUserByIdResolver = RequestResolver
     .makeBatched((requests: GetUserById[]) =>
       this.use((_) =>
