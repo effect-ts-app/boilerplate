@@ -75,13 +75,16 @@ export default defineNuxtConfig({
       sourcemap: true,
     },
     optimizeDeps: {
+      // noDiscovery: true, // this breaks; "validator/lib/isEmail.js" has no default export
       include: [
-        "@effect-app/vue/form",
         "@mdi/js",
         "@unhead/vue",
-
+        "reconnecting-eventsource",
+        "mitt",
+        "@tanstack/vue-query",
         "effect-app/utils",
         "@effect-app/vue/routeParams",
+        "@effect-app/vue/form",
       ],
     },
     plugins: process.env["CI"]
