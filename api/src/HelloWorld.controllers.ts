@@ -6,12 +6,12 @@ import { Effect, S } from "effect-app"
 import { User } from "models/User.js"
 import { HelloWorldRsc } from "resources.js"
 
-export default matchFor(HelloWorldRsc)([
-  UserRepo.Default
-], ({ GetHelloWorld }) =>
-  Effect.gen(function*() {
+export default matchFor(HelloWorldRsc)({
+  dependencies: [UserRepo.Default],
+  effect: Effect.gen(function*() {
     const userRepo = yield* UserRepo
 
+    const { GetHelloWorld } = matchFor(HelloWorldRsc)
     return {
       GetHelloWorld: GetHelloWorld(({ echo }) =>
         Effect.gen(function*() {
@@ -35,4 +35,5 @@ export default matchFor(HelloWorldRsc)([
         })
       )
     }
-  }))
+  })
+})

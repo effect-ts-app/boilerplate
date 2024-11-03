@@ -247,8 +247,8 @@ importers:
         specifier: ^12.25.0
         version: 12.25.0
       '@effect-app/infra':
-        specifier: 2.16.5
-        version: 2.16.5(tndvxrnfrqqx4ihqdlb2l2yxvu)
+        specifier: 2.17.0
+        version: 2.17.0(tndvxrnfrqqx4ihqdlb2l2yxvu)
       '@effect/opentelemetry':
         specifier: ^0.39.8
         version: 0.39.8(@opentelemetry/api@1.9.0)(@opentelemetry/resources@1.27.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-metrics@1.27.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@1.27.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-node@1.27.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-web@1.27.0(@opentelemetry/api@1.9.0))(@opentelemetry/semantic-conventions@1.27.0)(effect@3.10.8(patch_hash=ae3lvlkubpts42fjrnxa6e2jpq))
@@ -564,8 +564,8 @@ importers:
         specifier: ^5.59.17
         version: 5.59.17(vue@3.5.12(typescript@5.6.3(patch_hash=yoypwiw4x7ikhinpyfewievf3q)))
       '@tanstack/vue-query-devtools':
-        specifier: ^5.59.17
-        version: 5.59.17(@tanstack/vue-query@5.59.17(vue@3.5.12(typescript@5.6.3(patch_hash=yoypwiw4x7ikhinpyfewievf3q))))(vue@3.5.12(typescript@5.6.3(patch_hash=yoypwiw4x7ikhinpyfewievf3q)))
+        specifier: ^5.59.19
+        version: 5.59.19(@tanstack/vue-query@5.59.17(vue@3.5.12(typescript@5.6.3(patch_hash=yoypwiw4x7ikhinpyfewievf3q))))(vue@3.5.12(typescript@5.6.3(patch_hash=yoypwiw4x7ikhinpyfewievf3q)))
       '@vueuse/core':
         specifier: ^11.2.0
         version: 11.2.0(vue@3.5.12(typescript@5.6.3(patch_hash=yoypwiw4x7ikhinpyfewievf3q)))
@@ -1368,8 +1368,8 @@ packages:
     peerDependencies:
       effect: ^3.10.8
 
-  '@effect-app/infra@2.16.5':
-    resolution: {integrity: sha512-GaEzaZx3iUfaN2OWeds609OUgIML+agNqS4N7wBwtqQnrM6aOOMhy9blSy1IanW/x+KXPL7+0aE+1/Y5elPYkA==}
+  '@effect-app/infra@2.17.0':
+    resolution: {integrity: sha512-M44RhibU5QRbdG4iqbueGi67F/u+Ym6fXx6tYH0AdxiF+B3O+py/hRcVH0eqVFVr9NPuYtUrmyLVrQWNr0uenA==}
     peerDependencies:
       '@azure/cosmos': ^4.1.1
       '@azure/service-bus': ^7.9.5
@@ -3446,11 +3446,11 @@ packages:
   '@tanstack/query-core@5.59.17':
     resolution: {integrity: sha512-jWdDiif8kaqnRGHNXAa9CnudtxY5v9DUxXhodgqX2Rwzj+1UwStDHEbBd9IA5C7VYAaJ2s+BxFR6PUBs8ERorA==}
 
-  '@tanstack/query-devtools@5.58.0':
-    resolution: {integrity: sha512-iFdQEFXaYYxqgrv63ots+65FGI+tNp5ZS5PdMU1DWisxk3fez5HG3FyVlbUva+RdYS5hSLbxZ9aw3yEs97GNTw==}
+  '@tanstack/query-devtools@5.59.19':
+    resolution: {integrity: sha512-Gw+3zsADpqiYgx/6MMr9bP1+x2LR8vOuGjo5Un/89qwwP3z7WAHPWFagLFDYkLq68NX7ekUpW/EOYlUMugMXGA==}
 
-  '@tanstack/vue-query-devtools@5.59.17':
-    resolution: {integrity: sha512-dU5ogqE/IRT3w08z5y9TYNT0MU7dlr1iiAW1aAJC0cfGH7aV2HK0oUd6Zek9MxKL0CXLRPrVV4qDUUBnsc3AWg==}
+  '@tanstack/vue-query-devtools@5.59.19':
+    resolution: {integrity: sha512-NSfDHyUdPeQS3Mwu5I+R7JF7/V0kT54iXnSHc0rh1sEzL+SJU59Hx07lnIR2UPMLfhI1Pw/hUc9kcrkbJsIMkg==}
     peerDependencies:
       '@tanstack/vue-query': ^5.59.17
       vue: ^3.5.12
@@ -10040,7 +10040,7 @@ snapshots:
       - supports-color
       - typescript
 
-  '@effect-app/infra@2.16.5(tndvxrnfrqqx4ihqdlb2l2yxvu)':
+  '@effect-app/infra@2.17.0(tndvxrnfrqqx4ihqdlb2l2yxvu)':
     dependencies:
       '@azure/cosmos': 4.1.1
       '@azure/service-bus': 7.9.5
@@ -12309,11 +12309,11 @@ snapshots:
 
   '@tanstack/query-core@5.59.17': {}
 
-  '@tanstack/query-devtools@5.58.0': {}
+  '@tanstack/query-devtools@5.59.19': {}
 
-  '@tanstack/vue-query-devtools@5.59.17(@tanstack/vue-query@5.59.17(vue@3.5.12(typescript@5.6.3(patch_hash=yoypwiw4x7ikhinpyfewievf3q))))(vue@3.5.12(typescript@5.6.3(patch_hash=yoypwiw4x7ikhinpyfewievf3q)))':
+  '@tanstack/vue-query-devtools@5.59.19(@tanstack/vue-query@5.59.17(vue@3.5.12(typescript@5.6.3(patch_hash=yoypwiw4x7ikhinpyfewievf3q))))(vue@3.5.12(typescript@5.6.3(patch_hash=yoypwiw4x7ikhinpyfewievf3q)))':
     dependencies:
-      '@tanstack/query-devtools': 5.58.0
+      '@tanstack/query-devtools': 5.59.19
       '@tanstack/vue-query': 5.59.17(vue@3.5.12(typescript@5.6.3(patch_hash=yoypwiw4x7ikhinpyfewievf3q)))
       vue: 3.5.12(typescript@5.6.3(patch_hash=yoypwiw4x7ikhinpyfewievf3q))
 

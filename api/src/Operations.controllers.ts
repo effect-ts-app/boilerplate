@@ -4,11 +4,12 @@ import { Effect } from "effect-app"
 import { OperationsRsc } from "resources.js"
 import { OperationsDefault } from "./lib/layers.js"
 
-export default matchFor(OperationsRsc)([
-  OperationsDefault
-], ({ FindOperation }) =>
-  Effect.gen(function*() {
+export default matchFor(OperationsRsc)({
+  dependencies: [OperationsDefault],
+  effect: Effect.gen(function*() {
     const operations = yield* Operations
+
+    const { FindOperation } = matchFor(OperationsRsc)
     return {
       FindOperation: FindOperation(
         ({ id }) =>
@@ -17,4 +18,5 @@ export default matchFor(OperationsRsc)([
             .pipe(Effect.andThen((_) => _.value ?? null))
       )
     }
-  }))
+  })
+})
