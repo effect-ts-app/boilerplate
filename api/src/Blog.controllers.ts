@@ -8,18 +8,20 @@ import { BlogRsc } from "resources.js"
 import { BogusEvent } from "resources/Events.js"
 import { OperationsDefault } from "./lib/layers.js"
 
-export default matchFor(BlogRsc)([
-  BlogPostRepo.Default,
-  UserRepo.Default,
-  OperationsDefault,
-  Events.Default
-], ({ CreatePost, FindPost, GetPosts, PublishPost }) =>
-  Effect.gen(function*() {
+export default matchFor(BlogRsc)({
+  dependencies: [
+    BlogPostRepo.Default,
+    UserRepo.Default,
+    OperationsDefault,
+    Events.Default
+  ],
+  effect: Effect.gen(function*() {
     const blogPostRepo = yield* BlogPostRepo
     const userRepo = yield* UserRepo
     const events = yield* Events
     const operations = yield* Operations
 
+    const { CreatePost, FindPost, GetPosts, PublishPost } = matchFor(BlogRsc)
     return {
       FindPost: FindPost((req) =>
         blogPostRepo
@@ -90,4 +92,5 @@ export default matchFor(BlogRsc)([
         })
       )
     }
-  }))
+  })
+})

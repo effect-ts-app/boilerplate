@@ -5,11 +5,12 @@ import { Effect, Order } from "effect-app"
 import { UsersRsc } from "resources.js"
 import type { UserView } from "resources/views.js"
 
-export default matchFor(UsersRsc)([
-  UserRepo.Default
-], ({ IndexUsers }) =>
-  Effect.gen(function*() {
+export default matchFor(UsersRsc)({
+  dependencies: [UserRepo.Default],
+  effect: Effect.gen(function*() {
     const userRepo = yield* UserRepo
+
+    const { IndexUsers } = matchFor(UsersRsc)
     return {
       IndexUsers: IndexUsers((req) =>
         userRepo
@@ -19,4 +20,5 @@ export default matchFor(UsersRsc)([
           })))
       )
     }
-  }))
+  })
+})
