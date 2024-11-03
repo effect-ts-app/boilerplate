@@ -1,14 +1,13 @@
 {
-  "ModelConstructor": {
+  "ServiceConstructor": {
     "prefix": "svc",
     "body": [
-      "const make$1 = Effect.gen(function* ($) { $2 })",
-      "export interface $1 extends Effect.Success<typeof make$1> {}",
-      "",
-      "export interface $1Ops extends Tag<$1> {}",
-      "export const $1: $1Ops = Tag<$1>()",
-      "",
-      "export const Live$1 = make$1.toLayer($1)",
+      "export class $1 extends Effect.Service<$1>()(\"$1\", {",
+      "  dependencies: [$3],",
+      "  effect: Effect.gen(function*() {",
+      "    $2",
+      "  })",
+      "}) {}",
     ]
   }
 }
