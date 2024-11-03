@@ -1,21 +1,20 @@
 {
-    "ModelConstructor": {
-        "prefix": "mocns",
-        "body": [
-            "/** @ignore @internal @deprecated */",
-            "export type $1Constructor = typeof $1"
-        ]
-    },
     "ModelCodegen": {
         "prefix": "genmod",
         "body": [
             "// codegen:start {preset: model}"
         ]
     },
+    "ResourceCodegen": {
+        "prefix": "genrsc",
+        "body": [
+            "// codegen:start {preset: meta, sourcePrefix: src/resources/}"
+        ]
+    },
     "ModelComplete": {
         "prefix": "moc",
         "body": [
-            "export class $1 extends ExtendedClass<$1, $1.Encoded> ()({",
+            "export class $1 extends S.ExtendedClass<$1, $1.Encoded>()({",
             "$2",
             "}) {}"
         ],
@@ -24,7 +23,7 @@
     "Model": {
         "prefix": "mo",
         "body": [
-            "export class $1 extends Class<$1>()({$2}) {}",
+            "export class $1 extends S.Class<$1>()({$2}) {}",
             ""
         ],
         "description": "Defines a Model signature"
@@ -42,50 +41,20 @@
             "}"
         ]
     },
-    "GetRequest": {
-        "prefix": "gr",
+    "Request": {
+        "prefix": "req",
         "body": [
-            "export default class Request extends Get(\"/$1\")<Request>()({$2}) {}",
+            "export class $1 extends S.Req<$1>()(\"$1\", {",
+            "  $2",
+            "}, { success: $3 }) {}",
             ""
         ],
-        "description": "Defines a GetRequest signature"
-    },
-    "DeleteRequest": {
-        "prefix": "dr",
-        "body": [
-            "export default class Request extends Delete(\"/$1\")<Request>()({$2}) {}",
-            ""
-        ],
-        "description": "Defines a DeleteRequest signature"
-    },
-    "PatchRequest": {
-        "prefix": "par",
-        "body": [
-            "export default class Request extends Patch(\"/$1\")<Request>()({$2}) {}",
-            ""
-        ],
-        "description": "Defines a PatchRequest signature"
-    },
-    "PutRequest": {
-        "prefix": "pur",
-        "body": [
-            "export default class Request extends Put(\"/$1\")<Request>()({$2}) {}",
-            ""
-        ],
-        "description": "Defines a PutRequest signature"
-    },
-    "PostRequest": {
-        "prefix": "por",
-        "body": [
-            "export default class Request extends Post(\"/$1\")<Request>()({$2}) {}",
-            ""
-        ],
-        "description": "Defines a PostRequest signature"
+        "description": "Defines a Request signature"
     },
     "Response": {
         "prefix": "res",
         "body": [
-            "export class Response extends Class<Response()({$1}) {}",
+            "export class Response extends S.Class<Response()({$1}) {}",
             ""
         ],
         "description": "Defines a Response signature"
@@ -93,11 +62,16 @@
     "controller": {
         "prefix": "controller",
         "body": [
-            "const ${1/(.*)/${1:/camelcase}/} = matchFor($1Rsc)",
+            "export default matchFor($1Rsc)([",
+            "  $4",
+            "], ({ $2 }) =>",
+            "  Effect.gen(function*() {",
+            "    //const userRepo = yield* UserRepo",
             "",
-            "const $2 = ${1/(.*)/${1:/camelcase}/}.$2($3)",
-            "",
-            "export default ${1/(.*)/${1:/camelcase}/}.controllers({ $2 })"
+            "    return {",
+            "      $2: $2($3)",
+            "    }",
+            "  })"
         ]
     }
 }
