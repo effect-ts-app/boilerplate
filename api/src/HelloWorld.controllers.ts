@@ -11,29 +11,27 @@ export default matchFor(HelloWorldRsc)({
   effect: Effect.gen(function*() {
     const userRepo = yield* UserRepo
 
-    const { GetHelloWorld } = matchFor(HelloWorldRsc)
-    return {
-      GetHelloWorld: GetHelloWorld(({ echo }) =>
-        Effect.gen(function*() {
-          const context = yield* getRequestContext
-          return yield* userRepo
-            .tryGetCurrentUser
-            .pipe(
-              Effect.catchTags({
-                "NotLoggedInError": () => Effect.succeed(null),
-                "NotFoundError": () => Effect.succeed(null)
-              }),
-              Effect.andThen((user) =>
-                new GetHelloWorld.success({
-                  context,
-                  echo,
-                  currentUser: user,
-                  randomUser: generate(S.A.make(User)).value
-                })
-              )
+    const { GetHelloWorld, router } = matchFor(HelloWorldRsc)
+    return router.add(GetHelloWorld(({ echo }) =>
+      Effect.gen(function*() {
+        const context = yield* getRequestContext
+        return yield* userRepo
+          .tryGetCurrentUser
+          .pipe(
+            Effect.catchTags({
+              "NotLoggedInError": () => Effect.succeed(null),
+              "NotFoundError": () => Effect.succeed(null)
+            }),
+            Effect.andThen((user) =>
+              new GetHelloWorld.success({
+                context,
+                echo,
+                currentUser: user,
+                randomUser: generate(S.A.make(User)).value
+              })
             )
-        })
-      )
-    }
+          )
+      })
+    ))
   })
 })

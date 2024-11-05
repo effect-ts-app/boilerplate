@@ -8,9 +8,9 @@ export default matchFor(MeRsc)({
   effect: Effect.gen(function*() {
     const userRepo = yield* UserRepo
 
-    const { GetMe } = matchFor(MeRsc)
-    return {
-      GetMe: GetMe(userRepo.getCurrentUser)
-    }
+    const { GetMe, router } = matchFor(MeRsc)
+    return router.add(
+      GetMe(userRepo.getCurrentUser)
+    )
   })
 })
