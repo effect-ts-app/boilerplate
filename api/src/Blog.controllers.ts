@@ -1,4 +1,4 @@
-import { matchFor } from "api/lib/routing.js"
+import { matchFor, Router } from "api/lib/routing.js"
 import { BlogPostRepo, Events, Operations, UserRepo } from "api/services.js"
 import { Duration, Effect, Schedule } from "effect"
 import { Option } from "effect-app"
@@ -8,7 +8,7 @@ import { BlogRsc } from "resources.js"
 import { BogusEvent } from "resources/Events.js"
 import { OperationsDefault } from "./lib/layers.js"
 
-export default matchFor(BlogRsc)({
+export default Router(BlogRsc)({
   dependencies: [
     BlogPostRepo.Default,
     UserRepo.Default,
@@ -21,26 +21,22 @@ export default matchFor(BlogRsc)({
     const events = yield* Events
     const operations = yield* Operations
 
-    return matchFor(BlogRsc)
-      .FindPost((req) =>
+    return matchFor(BlogRsc)({
+      FindPost: (req) =>
         blogPostRepo
           .find(req.id)
-          .pipe(Effect.andThen(Option.getOrNull))
-      )
-      .GetPosts(
-        blogPostRepo
-          .all
-          .pipe(Effect.andThen((items) => ({ items })))
-      )
-      .CreatePost((req) =>
+          .pipe(Effect.andThen(Option.getOrNull)),
+      GetPosts: blogPostRepo
+        .all
+        .pipe(Effect.andThen((items) => ({ items }))),
+      CreatePost: (req) =>
         userRepo
           .getCurrentUser
           .pipe(
             Effect.andThen((author) => (new BlogPost({ ...req, author }, true))),
             Effect.tap(blogPostRepo.save)
-          )
-      )
-      .PublishPost((req) =>
+          ),
+      PublishPost: (req) =>
         Effect.gen(function*() {
           const post = yield* blogPostRepo.get(req.id)
 
@@ -86,6 +82,6 @@ export default matchFor(BlogRsc)({
 
           return op.id
         })
-      )
+    })
   })
 })
