@@ -64,7 +64,14 @@
     "@opentelemetry/semantic-conventions": "$@opentelemetry/semantic-conventions",
     "date-fns": "$date-fns",
     "fast-check": "$fast-check",
-    "vue": "$vue"
+    "vue": "$vue",
+    "@effect-app/eslint-codegen-model": "file:../../effect-app/libs/packages/eslint-codegen-model",
+    "effect-app": "file:../../effect-app/libs/packages/effect-app",
+    "@effect-app/infra": "file:../../effect-app/libs/packages/infra",
+    "@effect-app/vue": "file:../../effect-app/libs/packages/vue",
+    "effect": "file:../../effect-app/libs/node_modules/effect",
+    "@effect/platform": "file:../../effect-app/libs/node_modules/@effect/platform",
+    "@effect/platform-node": "file:../../effect-app/libs/node_modules/@effect/platform-node"
   },
   "dependencies": {
     "date-fns": "^4.1.0",
@@ -94,8 +101,8 @@
   },
   "devDependencies": {
     "@dprint/typescript": "^0.93.2",
-    "@effect-app/cli": "^1.7.0",
-    "@effect-app/eslint-codegen-model": "^1.26.0",
+    "@effect-app/cli": "^1.7.1",
+    "@effect-app/eslint-codegen-model": "^1.26.1",
     "@phaphoso/eslint-plugin-dprint": "^0.5.2",
     "@tsconfig/strictest": "^2.0.5",
     "@types/lodash": "^4.17.13",
@@ -105,7 +112,7 @@
     "@typescript-eslint/scope-manager": "^8.13.0",
     "concurrently": "^9.1.0",
     "dprint": "^0.47.5",
-    "effect-app": "^2.11.0",
+    "effect-app": "^2.11.1",
     "enhanced-resolve": "^5.17.1",
     "eslint": "^8.57.0",
     "eslint-import-resolver-typescript": "^3.6.3",
