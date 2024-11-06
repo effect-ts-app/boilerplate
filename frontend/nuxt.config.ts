@@ -31,12 +31,12 @@ export default defineNuxtConfig({
               import.meta.url,
             ),
           ),
-          "@effect-app/vue": fileURLToPath(
-            new URL(
-              "../../../effect-app/libs/packages/vue/dist",
-              import.meta.url,
-            ),
-          ),
+          // "@effect-app/vue": fileURLToPath(
+          //   new URL(
+          //     "../../../effect-app/libs/packages/vue/dist",
+          //     import.meta.url,
+          //   ),
+          // ),
         }
       : {}),
   },
