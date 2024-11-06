@@ -1,14 +1,10 @@
 <script setup lang="ts">
 import { AccountsRsc } from "resources"
-import { onMounted } from "vue"
 import { useRouter } from "vue-router"
 import { VueQueryDevtools } from "@tanstack/vue-query-devtools"
-import { Result } from "~/composables/client"
 
 const accountsClient = clientFor(AccountsRsc)
-const [userResult, currentUser, getCurrentUser] = useSafeQuery(
-  accountsClient.GetMe,
-)
+const [userResult] = useSafeQuery(accountsClient.GetMe)
 
 const appConfig = {
   title: "@effect-app/boilerplate",
@@ -19,12 +15,6 @@ useHead({
 })
 
 const router = useRouter()
-
-onMounted(() => {
-  if (getUserId()) {
-    run(getCurrentUser())
-  }
-})
 </script>
 
 <template>
@@ -38,13 +28,15 @@ onMounted(() => {
 
       <div>{{ router.currentRoute.value.name }}</div>
       &nbsp;
-      <div v-if="Result.isInitial(userResult)">Loading...</div>
-      <div v-else>
-        <span v-if="currentUser">{{ currentUser.displayName }}</span>
-        <span v-else>
+      <QueryResult :result="userResult">
+        <template v-slot="{ latest }">
+          <div>{{ latest.displayName }}</div>
+          <div><a href="/logout">Logout</a></div>
+        </template>
+        <template #error>
           <a href="/login/No3o_xbwEh8z2gSbcantz">Login</a>
-        </span>
-      </div>
+        </template>
+      </QueryResult>
     </v-app-bar>
     <v-main>
       <slot />
