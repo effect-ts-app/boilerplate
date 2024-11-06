@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-empty-object-type */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { makeMiddleware, makeRouter } from "@effect-app/infra/api/routing6"
+import { makeMiddleware, makeRouter } from "@effect-app/infra/api/routing7"
 import { NotLoggedInError, UnauthorizedError } from "@effect-app/infra/errors"
 import type { RequestContext } from "@effect-app/infra/RequestContext"
 import { Rpc } from "@effect/rpc"
@@ -149,4 +149,4 @@ const middleware = makeMiddleware({
 })
 
 const baseConfig = basicRuntime.runSync(BaseConfig)
-export const { matchAll, matchFor } = makeRouter(middleware, baseConfig.env !== "prod")
+export const { Router, matchAll, matchFor } = makeRouter(middleware, baseConfig.env !== "prod")

@@ -62,15 +62,15 @@
     "controller": {
         "prefix": "controller",
         "body": [
-            "export default matchFor($1Rsc)([",
+            "export default Router($1Rsc)([",
             "  $4",
             "], ({ $2 }) =>",
             "  Effect.gen(function*() {",
             "    //const userRepo = yield* UserRepo",
             "",
-            "    return {",
-            "      $2: $2($3)",
-            "    }",
+            "    return matchFor($1Rsc)({",
+            "      $2: $3",
+            "    })",
             "  })"
         ]
     }
