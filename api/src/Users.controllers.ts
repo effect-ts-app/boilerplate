@@ -10,13 +10,12 @@ export default matchFor(UsersRsc)({
   effect: Effect.gen(function*() {
     const userRepo = yield* UserRepo
 
-    const { IndexUsers, router } = matchFor(UsersRsc)
-    return router.add(IndexUsers((req) =>
+    return matchFor(UsersRsc).IndexUsers((req) =>
       userRepo
         .query(Q.where("id", "in", req.filterByIds))
         .pipe(Effect.andThen((users) => ({
           users: Array.sort(users, Order.mapInput(Order.string, (_: UserView) => _.displayName))
         })))
-    ))
+    )
   })
 })
