@@ -244,8 +244,8 @@ importers:
         specifier: ^12.25.0
         version: 12.25.0
       '@effect-app/infra':
-        specifier: 2.21.5
-        version: 2.21.5(jshkpwrrpqz4estuyedrmlqhde)
+        specifier: 2.22.1
+        version: 2.22.1(jshkpwrrpqz4estuyedrmlqhde)
       '@effect/opentelemetry':
         specifier: ^0.39.12
         version: 0.39.12(@opentelemetry/api@1.9.0)(@opentelemetry/resources@1.27.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-metrics@1.27.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@1.27.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-node@1.27.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-web@1.27.0(@opentelemetry/api@1.9.0))(@opentelemetry/semantic-conventions@1.27.0)(effect@3.10.12(patch_hash=6gosoogodjflhroicpp7ujvudu))
@@ -1365,8 +1365,8 @@ packages:
     peerDependencies:
       effect: ^3.10.12
 
-  '@effect-app/infra@2.21.5':
-    resolution: {integrity: sha512-DM+Os6uK5xF3i2MhWRXY8VvVw3eyJ55RA+CMbMGGMFZPJJ65hAFKOu2wQ3H5WRjy2Ci7xUiwtIoyg7Am9KEvmg==}
+  '@effect-app/infra@2.22.1':
+    resolution: {integrity: sha512-lr+X0ZwNfez8IdkBdugXzrq8QtljyFxXzYKsYNGWnhOljR9monHuErrkAlZbiECr8rmuNGi4Ir32+rnR3vT6Ug==}
     peerDependencies:
       '@azure/cosmos': ^4.1.1
       '@azure/service-bus': ^7.9.5
@@ -1403,7 +1403,7 @@ packages:
   '@effect-rx/rx@0.29.1':
     resolution: {integrity: sha512-3fH65J3IqkwgkYI2UJc0PICGGfnuYCbI+ItlSZ2wZOqGnieki3aElJVs4Q4FLvxmseZhY8C6e3HX26eiV+8SdA==}
     peerDependencies:
-      effect: ^3.0.5
+      effect: file:/Users/patrickroza/pj/effect-app/libs/node_modules/effect
 
   '@effect/experimental@0.32.2':
     resolution: {integrity: sha512-tx0h4zSbdirJ1l3b6059fUfZ8+BnjZZlhrGG9xuEl4C6yDio82R98aGAO8fTY8WjRwKEMAr7DAVIfWiTK9th7A==}
@@ -10057,7 +10057,7 @@ snapshots:
       - supports-color
       - typescript
 
-  '@effect-app/infra@2.21.5(jshkpwrrpqz4estuyedrmlqhde)':
+  '@effect-app/infra@2.22.1(jshkpwrrpqz4estuyedrmlqhde)':
     dependencies:
       '@azure/cosmos': 4.1.1
       '@azure/service-bus': 7.9.5
