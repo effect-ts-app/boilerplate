@@ -9,12 +9,11 @@ export default matchFor(OperationsRsc)({
   effect: Effect.gen(function*() {
     const operations = yield* Operations
 
-    const { FindOperation, router } = matchFor(OperationsRsc)
-    return router.add(FindOperation(
+    return matchFor(OperationsRsc).FindOperation(
       ({ id }) =>
         operations
           .find(id)
           .pipe(Effect.andThen((_) => _.value ?? null))
-    ))
+    )
   })
 })

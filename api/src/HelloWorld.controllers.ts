@@ -5,14 +5,14 @@ import { UserRepo } from "api/services.js"
 import { Effect, S } from "effect-app"
 import { User } from "models/User.js"
 import { HelloWorldRsc } from "resources.js"
+import { GetHelloWorld } from "resources/HelloWorld.js"
 
 export default matchFor(HelloWorldRsc)({
   dependencies: [UserRepo.Default],
   effect: Effect.gen(function*() {
     const userRepo = yield* UserRepo
 
-    const { GetHelloWorld, router } = matchFor(HelloWorldRsc)
-    return router.add(GetHelloWorld(({ echo }) =>
+    return matchFor(HelloWorldRsc).GetHelloWorld(({ echo }) =>
       Effect.gen(function*() {
         const context = yield* getRequestContext
         return yield* userRepo
@@ -32,6 +32,6 @@ export default matchFor(HelloWorldRsc)({
             )
           )
       })
-    ))
+    )
   })
 })
