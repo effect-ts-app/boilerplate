@@ -14,7 +14,8 @@
     }
   },
   "engines": {
-    "pnpm": ">= 9.0.4"
+    "pnpm": ">= 9.0.4",
+    "node": ">= 22.11.0"
   },
   "scripts": {
     "all": "pnpm -r --filter \"!./play\" --filter \"!./libs/**/*\"",
