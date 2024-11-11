@@ -3,4 +3,7 @@ import { Events } from "api/services.js"
 import { Effect } from "effect-app"
 import { ClientEvents } from "resources.js"
 
-export const makeEvents = Events.pipe(Effect.map((events) => makeSSE(events.stream, ClientEvents)))
+export const makeEvents = Effect.gen(function*() {
+  const stream = yield* Events.use((_) => _.stream)
+  return makeSSE(ClientEvents)(stream)
+})

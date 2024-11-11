@@ -7,7 +7,7 @@ import { Events } from "./services.js"
 
 class RootAppRouter extends HttpRouter.Tag("RootAppRouter")<RootAppRouter>() {}
 const AllRoutes = RootAppRouter
-  .use((router) =>
+  .useScoped((router) =>
     Effect.gen(function*() {
       const cfg = yield* BaseConfig
       yield* router.get("/events", yield* MW.makeEvents)

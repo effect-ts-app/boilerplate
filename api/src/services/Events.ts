@@ -11,7 +11,7 @@ export class Events extends Effect.Service<Events>()("Events", {
       publish: (...evts: NonEmptyReadonlyArray<ClientEvents>) =>
         storeId.pipe(FiberRef.get, Effect.andThen((namespace) => q.offerAll(evts.map((evt) => ({ evt, namespace }))))),
       subscribe: q.subscribe,
-      stream: Stream.fromPubSub(q)
+      stream: Stream.fromPubSub(q, { scoped: true })
     }
     return svc
   })
