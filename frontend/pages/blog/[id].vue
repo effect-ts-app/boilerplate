@@ -2,12 +2,11 @@
 import { BlogRsc } from "resources"
 import type { ClientEvents } from "resources"
 import { BlogPostId } from "models/Blog"
-import { OperationsClient } from "resources/Operations"
 
 const { id } = useRouteParams({ id: BlogPostId })
 
-const blogClient = runSync(clientFor(BlogRsc))
-const opsClient = runSync(OperationsClient)
+const blogClient = clientFor(BlogRsc)
+const opsClient = useOperationsClient()
 
 const [r, , reloadPost] = useSafeQuery(blogClient.FindPost, {
   id,

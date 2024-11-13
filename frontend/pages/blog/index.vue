@@ -2,7 +2,7 @@
 import { BlogRsc } from "resources"
 import { S } from "effect-app"
 
-const blogClient = runSync(clientFor(BlogRsc))
+const blogClient = clientFor(BlogRsc)
 
 const [, createPost] = useSafeMutation(blogClient.CreatePost)
 const [r] = useSafeQuery(blogClient.GetPosts)
