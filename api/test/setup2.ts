@@ -4,7 +4,7 @@ import { api } from "api/api.js"
 import { basicLayer, basicRuntime } from "api/lib/basicRuntime.js"
 import { ApiPortTag } from "api/lib/layers.js"
 import { Config, Effect, Layer, ManagedRuntime } from "effect-app"
-import { layer as LiveApiConfig } from "effect-app/client/config"
+import { ApiClient } from "effect-app/client"
 import type { Runtime } from "effect/Runtime"
 
 const POOL_ID = process.env["VITEST_POOL_ID"]
@@ -13,26 +13,21 @@ const PORT = 40000 + parseInt(POOL_ID ?? "1")
 const ApiLive = api
   .pipe(Layer.provide(Layer.succeed(ApiPortTag, { port: PORT })))
 
-const ApiConfigLive = Config
+const ApiClientLive = Config
   .all({
-    apiUrl: Config.string("apiUrl").pipe(Config.withDefault("http://127.0.0.1:" + PORT)),
+    url: Config.string("apiUrl").pipe(Config.withDefault("http://127.0.0.1:" + PORT)),
     headers: Config
-      .hashMap(
-        Config
-          .string(),
-        "headers"
-      )
+      .hashMap(Config.string(), "headers")
       .pipe(Config.option)
   })
-  .pipe(Effect.andThen(LiveApiConfig), Layer.unwrapEffect)
+  .pipe(Effect.andThen(ApiClient.layer), Layer.unwrapEffect, Layer.provide(HttpClientNode.layer))
 
 const appLayer = ApiLive
   .pipe(Layer.provideMerge(
     Layer
       .mergeAll(
         basicLayer,
-        ApiConfigLive,
-        HttpClientNode.layer
+        ApiClientLive
       )
   ))
 

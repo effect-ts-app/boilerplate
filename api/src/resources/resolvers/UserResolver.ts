@@ -1,7 +1,6 @@
 import { Effect, Exit, Request, RequestResolver } from "effect"
 import { Array, Option, pipe, S } from "effect-app"
-import { ApiConfig, NotFoundError } from "effect-app/client"
-import { HttpClient } from "effect-app/http"
+import { ApiClient, NotFoundError } from "effect-app/client"
 import { type Schema } from "effect-app/Schema"
 import { UserId } from "models/User.js"
 import { clientFor } from "resources/lib.js"
@@ -14,30 +13,30 @@ interface GetUserViewById extends Request.Request<UserView, NotFoundError<"User"
 }
 const GetUserViewById = Request.tagged<GetUserViewById>("GetUserViewById")
 
-const userClient = clientFor(UsersRsc)
-
 const getUserViewByIdResolver = RequestResolver
   .makeBatched((requests: GetUserViewById[]) =>
-    userClient
-      .IndexUsers
-      .handler({ filterByIds: pipe(requests.map((_) => _.id), Array.toNonEmptyArray, Option.getOrUndefined)! })
-      .pipe(
-        Effect.andThen(({ users }) =>
-          Effect.forEach(requests, (r) =>
-            Request.complete(
-              r,
-              Array
-                .findFirst(users, (_) => _.id === r.id ? Option.some(Exit.succeed(_)) : Option.none())
-                .pipe(Option.getOrElse(() => Exit.fail(new NotFoundError({ type: "User", id: r.id }))))
-            ), { discard: true })
-        ),
-        Effect.orDie
-      )
+    clientFor(UsersRsc).pipe(
+      Effect.flatMap((client) =>
+        client
+          .IndexUsers
+          .handler({ filterByIds: pipe(requests.map((_) => _.id), Array.toNonEmptyArray, Option.getOrUndefined)! })
+      ),
+      Effect.andThen(({ users }) =>
+        Effect.forEach(requests, (r) =>
+          Request.complete(
+            r,
+            Array
+              .findFirst(users, (_) => _.id === r.id ? Option.some(Exit.succeed(_)) : Option.none())
+              .pipe(Option.getOrElse(() => Exit.fail(new NotFoundError({ type: "User", id: r.id }))))
+          ), { discard: true })
+      ),
+      Effect.orDie
+    )
   )
-  .pipe(RequestResolver.batchN(25), RequestResolver.contextFromServices(HttpClient.HttpClient, ApiConfig.Tag))
+  .pipe(RequestResolver.batchN(25), RequestResolver.contextFromServices(ApiClient))
 
 // TODO: How to globally cache - right now we had to move the RequestCache from the runtime to clientFor
-export const UserViewFromId: Schema<UserView, string, ApiConfig | HttpClient.HttpClient> = S.transformOrFail(
+export const UserViewFromId: Schema<UserView, string, ApiClient> = S.transformOrFail(
   UserId,
   S.typeSchema(UserView),
   {

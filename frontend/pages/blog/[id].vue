@@ -1,11 +1,14 @@
 <script setup lang="ts">
-import { BlogRsc, OperationsRsc } from "resources"
+import { BlogRsc } from "resources"
 import type { ClientEvents } from "resources"
 import { BlogPostId } from "models/Blog"
+import { OperationsClient } from "resources/Operations"
 
 const { id } = useRouteParams({ id: BlogPostId })
 
-const blogClient = clientFor(BlogRsc)
+const blogClient = runSync(clientFor(BlogRsc))
+const opsClient = runSync(OperationsClient)
+
 const [r, , reloadPost] = useSafeQuery(blogClient.FindPost, {
   id,
 })
@@ -27,7 +30,7 @@ const progress = ref("")
 const [publishing, publish] = useAndHandleMutation(
   mapHandler(
     blogClient.PublishPost,
-    OperationsRsc.refreshAndWaitForOperation(reloadPost(), op => {
+    opsClient.refreshAndWaitForOperation(reloadPost(), op => {
       progress.value = `${op.progress?.completed}/${op.progress?.total}`
     }),
   ),

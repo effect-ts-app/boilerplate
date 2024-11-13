@@ -29,6 +29,9 @@ export const run = <A, E>(
     | undefined,
 ) => runtime.value!.runPromise(effect, options)
 
+export const runSync = <A, E>(effect: Effect.Effect<A, E, RT>) =>
+  runtime.value!.runSync(effect)
+
 export const {
   buildFormFromSchema,
   makeUseAndHandleMutation,
