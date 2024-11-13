@@ -1,10 +1,8 @@
 import { NotLoggedInError, UnauthorizedError } from "@effect-app/infra/errors"
 import { Duration, Layer, Request as EffectRequest } from "effect-app"
 import type { RPCContextMap } from "effect-app/client"
-import { makeRpcClient } from "effect-app/client"
+import { ApiClient, makeRpcClient } from "effect-app/client"
 import type { Role } from "models/User.js"
-
-import { makeClientFor } from "effect-app/client/clientFor"
 
 type CTXMap = {
   // we put `never`, because we can't access this service here in the client, and we also don't need to
@@ -33,4 +31,4 @@ export const RequestCacheLayers = Layer.mergeAll(
   Layer.setRequestCaching(true),
   Layer.setRequestBatching(true)
 )
-export const clientFor = makeClientFor(RequestCacheLayers)
+export const clientFor = ApiClient.makeFor(RequestCacheLayers)
