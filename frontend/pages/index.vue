@@ -27,7 +27,7 @@ const makeReq = () => ({
 
 const req = ref(makeReq())
 
-const helloWorldClient = runSync(clientFor(HelloWorldRsc))
+const helloWorldClient = clientFor(HelloWorldRsc)
 const [result] = useSafeQuery(helloWorldClient.GetHelloWorld, req)
 
 // onMounted(() => {
