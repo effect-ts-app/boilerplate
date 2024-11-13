@@ -3,10 +3,11 @@ import { useToast } from "vue-toastification"
 import { useIntl } from "./intl"
 import { runtime, type RT } from "~/plugins/runtime"
 import type { Effect } from "effect-app"
+import { clientFor as clientFor_ } from "resources/lib"
+import type { Requests } from "effect-app/client"
 
 export { useToast } from "vue-toastification"
 
-export { clientFor } from "resources/lib"
 export { Result, type MutationResult, makeContext } from "@effect-app/vue"
 export {
   pauseWhileProcessing,
@@ -31,6 +32,8 @@ export const run = <A, E>(
 
 export const runSync = <A, E>(effect: Effect.Effect<A, E, RT>) =>
   runtime.value!.runSync(effect)
+
+export const clientFor = <M extends Requests>(m: M) => runSync(clientFor_(m))
 
 export const {
   buildFormFromSchema,
