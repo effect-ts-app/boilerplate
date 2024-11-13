@@ -1,21 +1,25 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { makeApiLayers, initializeSync } from "@effect-app/vue"
+import { initializeSync } from "@effect-app/vue"
 import * as Layer from "effect/Layer"
 import * as Runtime from "effect/Runtime"
 import { Effect, Option } from "effect-app"
 import { WebSdkLive } from "~/utils/observability"
-import type { ApiConfig } from "effect-app/client"
 import "effect-app/builtin"
 import { ref } from "vue"
 import { HttpClient } from "effect-app/http"
+import { ApiClient } from "effect-app/client"
+import { FetchHttpClient } from "@effect/platform"
 
 export const versionMatch = ref(true)
 
 export const runtime = shallowRef<ReturnType<typeof makeRuntime>>()
 
 function makeRuntime(feVersion: string, disableTracing: boolean) {
-  const apiLayers = Layer.mergeAll(
-    Layer.provideMerge(
+  const apiLayers = ApiClient.layer({
+    url: "/api/api",
+    headers: Option.none(),
+  }).pipe(
+    Layer.provide(
       Layer.effect(
         HttpClient.HttpClient,
         Effect.map(
@@ -30,8 +34,8 @@ function makeRuntime(feVersion: string, disableTracing: boolean) {
           ),
         ),
       ),
-      makeApiLayers({ apiUrl: "/api/api", headers: Option.none() }),
     ),
+    Layer.provide(FetchHttpClient.layer),
   )
 
   const rt: {
@@ -61,7 +65,7 @@ function makeRuntime(feVersion: string, disableTracing: boolean) {
 }
 
 // TODO: make sure the runtime provides these
-export type RT = ApiConfig | HttpClient.HttpClient
+export type RT = ApiClient
 
 export default defineNuxtPlugin(_ => {
   const config = useRuntimeConfig()

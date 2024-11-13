@@ -3,7 +3,7 @@ import { AccountsRsc } from "resources"
 import { useRouter } from "vue-router"
 import { VueQueryDevtools } from "@tanstack/vue-query-devtools"
 
-const accountsClient = clientFor(AccountsRsc)
+const accountsClient = runSync(clientFor(AccountsRsc))
 const [userResult] = useSafeQuery(accountsClient.GetMe)
 
 const appConfig = {
