@@ -17,7 +17,6 @@
     "clean": "rm -rf ./.nuxt ./node_modules/.cache"
   },
   "dependencies": {
-    "@effect-app-boilerplate/api": "workspace:*",
     "@effect-app/vue": "^2.9.1",
     "@effect/platform": "^0.69.21",
     "@effect/platform-browser": "^0.48.21",
@@ -57,6 +56,7 @@
     "xlsx": "^0.18.5"
   },
   "devDependencies": {
+    "@effect-app-boilerplate/api": "workspace:*",
     "@mdi/js": "^7.4.47",
     "@types/cookie": "^1.0.0",
     "@types/http-proxy": "^1.17.15",
