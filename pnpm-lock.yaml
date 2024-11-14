@@ -497,9 +497,6 @@ importers:
 
   frontend:
     dependencies:
-      '@effect-app-boilerplate/api':
-        specifier: workspace:*
-        version: link:../api
       '@effect-app/vue':
         specifier: ^2.9.1
         version: 2.9.1(@effect-rx/rx-vue@0.8.1(effect@3.10.14(patch_hash=abl7xwvob5jcp7mgz2pfmn726m))(vue@3.5.12(typescript@5.6.3(patch_hash=yoypwiw4x7ikhinpyfewievf3q))))(@effect-rx/rx@0.29.1(effect@3.10.14(patch_hash=abl7xwvob5jcp7mgz2pfmn726m)))(@effect/platform-browser@0.48.21(@effect/platform@0.69.21(patch_hash=xrhj34svzsaswoalw65buaxr7q)(effect@3.10.14(patch_hash=abl7xwvob5jcp7mgz2pfmn726m)))(effect@3.10.14(patch_hash=abl7xwvob5jcp7mgz2pfmn726m)))(@effect/platform@0.69.21(patch_hash=xrhj34svzsaswoalw65buaxr7q)(effect@3.10.14(patch_hash=abl7xwvob5jcp7mgz2pfmn726m)))(@sentry/browser@7.116.0)(effect@3.10.14(patch_hash=abl7xwvob5jcp7mgz2pfmn726m))(typescript@5.6.3(patch_hash=yoypwiw4x7ikhinpyfewievf3q))(vue@3.5.12(typescript@5.6.3(patch_hash=yoypwiw4x7ikhinpyfewievf3q)))
@@ -612,6 +609,9 @@ importers:
         specifier: ^0.18.5
         version: 0.18.5
     devDependencies:
+      '@effect-app-boilerplate/api':
+        specifier: workspace:*
+        version: link:../api
       '@mdi/js':
         specifier: ^7.4.47
         version: 7.4.47
