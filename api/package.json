@@ -57,12 +57,12 @@
   "imports": {
     "#api/*": {
       "import": {
-        "types": "./dist/api/*.d.ts",
-        "default": "./dist/api/*.js"
+        "types": "./dist/*.d.ts",
+        "default": "./dist/*.js"
       },
       "require": {
-        "types": "./dist/api/*.d.ts",
-        "default": "./_cjs/api/*.cjs"
+        "types": "./dist/*.d.ts",
+        "default": "./_cjs/*.cjs"
       }
     },
     "#core/*": {
