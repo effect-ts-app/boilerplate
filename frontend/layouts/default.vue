@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { AccountsRsc } from "resources"
+import { AccountsRsc } from "#resources"
 import { useRouter } from "vue-router"
 import { VueQueryDevtools } from "@tanstack/vue-query-devtools"
 

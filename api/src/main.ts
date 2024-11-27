@@ -1,6 +1,6 @@
+import { api } from "#api/api"
 import * as DevTools from "@effect/experimental/DevTools"
 import { faker } from "@faker-js/faker"
-import { api } from "api/api.js"
 import { Effect, Layer } from "effect-app"
 import { setFaker } from "effect-app/faker"
 import { MergedConfig } from "./config.js"

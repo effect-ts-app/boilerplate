@@ -1,4 +1,4 @@
-import { ClientEvents } from "resources"
+import { ClientEvents } from "#resources"
 import ReconnectingEventSource from "reconnecting-eventsource"
 import { bus } from "./bus"
 import { onMountedWithCleanup } from "./onMountedWithCleanup"

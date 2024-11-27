@@ -7,7 +7,7 @@
   "scripts": {
     "test": "playwright test",
     "test:watch": "playwright-watch test",
-    "build": "tspc --build",
+    "build": "tsc --build",
     "lint": "NODE_OPTIONS=--max-old-space-size=8192 ESLINT_TS=1 eslint .",
     "lint:watch": "ESLINT_TS=1 esw -w --changed --clear --ext ts,tsx .",
     "autofix": "pnpm lint --fix",
@@ -45,13 +45,13 @@
     "prettier": "^3.4.1",
     "ts-loader": "^9.5.1",
     "tsconfig-paths-webpack-plugin": "^4.2.0",
-    "typescript": "~5.6.3",
+    "typescript": "~5.7.2",
     "webpack": "^5.96.1"
   },
   "dependencies": {
     "@effect-app-boilerplate/api": "workspace:*",
     "@effect/platform-node": "0.64.29",
-    "effect-app": "^2.16.0",
+    "effect-app": "^2.17.0",
     "@effect/platform": "^0.69.27",
     "effect": "^3.10.18",
     "cross-fetch": "^4.0.0",

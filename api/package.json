@@ -11,10 +11,10 @@
     "circular:dist": "madge --circular --extensions js ./dist",
     "clean": "rm -rf dist test/dist",
     "clean-dist": "sh ../scripts/clean-dist.sh",
-    "build": "pnpm clean-dist && NODE_OPTIONS=--max-old-space-size=8192 tspc --build",
+    "build": "pnpm clean-dist && NODE_OPTIONS=--max-old-space-size=8192 tsc --build",
     "watch": "pnpm build --watch",
-    "watch2": "pnpm clean-dist && NODE_OPTIONS=--max-old-space-size=8192 tspc -w",
-    "compile": "NODE_OPTIONS=--max-old-space-size=8192 tspc --noEmit",
+    "watch2": "pnpm clean-dist && NODE_OPTIONS=--max-old-space-size=8192 tsc -w",
+    "compile": "NODE_OPTIONS=--max-old-space-size=8192 tsc --noEmit",
     "lint": "NODE_OPTIONS=--max-old-space-size=8192 ESLINT_TS=1 eslint src test",
     "lint:watch": "ESLINT_TS=1 esw -w --changed --clear --ext ts,tsx src test",
     "autofix": "pnpm lint --fix",
@@ -54,13 +54,75 @@
       }
     }
   },
+  "imports": {
+    "#api/*": {
+      "import": {
+        "types": "./dist/api/*.d.ts",
+        "default": "./dist/api/*.js"
+      },
+      "require": {
+        "types": "./dist/api/*.d.ts",
+        "default": "./_cjs/api/*.cjs"
+      }
+    },
+    "#core/*": {
+      "import": {
+        "types": "./dist/core/*.d.ts",
+        "default": "./dist/core/*.js"
+      },
+      "require": {
+        "types": "./dist/core/*.d.ts",
+        "default": "./_cjs/core/*.cjs"
+      }
+    },
+    "#models": {
+      "import": {
+        "types": "./dist/models.d.ts",
+        "default": "./dist/models.js"
+      },
+      "require": {
+        "types": "./dist/models.d.ts",
+        "default": "./_cjs/models.cjs"
+      }
+    },
+    "#resources": {
+      "import": {
+        "types": "./dist/resources.d.ts",
+        "default": "./dist/resources.js"
+      },
+      "require": {
+        "types": "./dist/resources.d.ts",
+        "default": "./_cjs/resources.cjs"
+      }
+    },
+    "#models/*": {
+      "import": {
+        "types": "./dist/models/*.d.ts",
+        "default": "./dist/models/*.js"
+      },
+      "require": {
+        "types": "./dist/models/*.d.ts",
+        "default": "./_cjs/models/*.cjs"
+      }
+    },
+    "#resources/*": {
+      "import": {
+        "types": "./dist/resources/*.d.ts",
+        "default": "./dist/resources/*.js"
+      },
+      "require": {
+        "types": "./dist/resources/*.d.ts",
+        "default": "./_cjs/resources/*.cjs"
+      }
+    }
+  },
   "dependencies": {
     "@azure/arm-monitor": "^7.0.0",
     "@azure/cosmos": "^4.2.0",
     "@azure/service-bus": "^7.9.5",
     "@azure/storage-blob": "^12.26.0",
-    "@effect-app/infra": "2.28.0",
-    "effect-app": "^2.16.0",
+    "@effect-app/infra": "2.29.0",
+    "effect-app": "^2.17.0",
     "@effect/platform": "^0.69.27",
     "@effect/opentelemetry": "^0.39.18",
     "@effect/platform-node": "0.64.29",
@@ -107,6 +169,6 @@
     "@types/redis": "^2.8.32",
     "@types/swagger-ui-express": "^4.1.7",
     "eslint-plugin-formatjs": "^5.2.5",
-    "typescript": "~5.6.3"
+    "typescript": "~5.7.2"
   }
 }

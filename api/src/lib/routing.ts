@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-empty-object-type */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+import { BaseConfig } from "#api/config"
 import { makeMiddleware, makeRouter } from "@effect-app/infra/api/routing"
 import { NotLoggedInError, UnauthorizedError } from "@effect-app/infra/errors"
 import type { RequestContext } from "@effect-app/infra/RequestContext"
 import { Rpc } from "@effect/rpc"
-import { BaseConfig } from "api/config.js"
 import type { S } from "effect-app"
 import { Config, Context, Duration, Effect, Exit, FiberRef, Layer, Option, Request, Schedule } from "effect-app"
 import type { GetEffectContext, RPCContextMap } from "effect-app/client"
