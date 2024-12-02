@@ -1,5 +1,5 @@
+import { S } from "#resources/lib"
 import type { Schema } from "effect-app/Schema"
-import { S } from "resources/lib.js"
 
 export class BogusEvent extends S.ExtendedTaggedClass<BogusEvent, BogusEvent.Encoded>()("BogusEvent", {
   id: S.StringId.withDefault,

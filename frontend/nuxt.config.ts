@@ -21,8 +21,10 @@ export default defineNuxtConfig({
   },
 
   alias: {
-    resources: fileURLToPath(new URL("../api/src/resources", import.meta.url)),
-    models: fileURLToPath(new URL("../api/src/models", import.meta.url)),
+    "#resources": fileURLToPath(
+      new URL("../api/src/resources", import.meta.url),
+    ),
+    "#models": fileURLToPath(new URL("../api/src/models", import.meta.url)),
     ...(localLibs
       ? {
           "effect-app": fileURLToPath(

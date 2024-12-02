@@ -11,23 +11,23 @@
     // keep in here, cause madge can't detect it from extended tsconfig
     "moduleResolution": "Node16",
     "paths": {
-      "core/*": [
-        "./src/core/*"
+      "#core/*": [
+        "./src/core/*.js"
       ],
-      "resources.js": [
+      "#resources": [
         "./src/resources.js"
       ],
-      "models.js": [
+      "#models": [
         "./src/models.js"
       ],
-      "resources/*": [
-        "./src/resources/*"
+      "#resources/*": [
+        "./src/resources/*.js"
       ],
-      "models/*": [
-        "./src/models/*"
+      "#models/*": [
+        "./src/models/*.js"
       ],
-      "api/*": [
-        "./src/*"
+      "#api/*": [
+        "./src/*.js"
       ]
     },
     "types": [
@@ -35,17 +35,6 @@
       "vite/types/importMeta.d.ts"
     ],
     "outDir": "./dist",
-    "plugins": [
-      // Transform paths in output .js files
-      {
-        "transform": "typescript-transform-paths"
-      },
-      // Transform paths in output .d.ts files (Include this line if you output declarations files)
-      {
-        "transform": "typescript-transform-paths",
-        "position": "afterDeclaration"
-      }
-    ]
   },
   "include": [
     "./src/**/*.ts"

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import * as MW from "api/lib/middleware.js"
+import * as MW from "#api/lib/middleware"
 import { Console, Effect, Layer } from "effect-app"
 import { HttpMiddleware, HttpRouter, HttpServer } from "effect-app/http"
 import { BaseConfig, MergedConfig } from "./config.js"

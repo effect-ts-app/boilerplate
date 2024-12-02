@@ -1,3 +1,3 @@
-import "api/basicRuntime.js"
+import "#api/basicRuntime"
 
 import "./setup2.js"

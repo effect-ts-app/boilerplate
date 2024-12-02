@@ -31,9 +31,6 @@ export default function defineTestConfig(
     useDist = true
   }
 
-  const alias = (name: string) => ({
-    [basePj + "/" + name]: path.join(__dirname, `/${name}/` + (useDist || useTransform ? "dist" : "src"))
-  })
 
   const b = makeConfig(dirName, useDist, useTransform)
   // autoimport seems to work best, even if in some cases setting vitest/globals as types works.
@@ -90,7 +87,6 @@ export default function defineTestConfig(
     ],
     test: {
       ...b.test,
-      alias: ["api", "core", "messages", "resources", "models"].reduce((acc, cur) => ({ ...acc, ...alias(cur) }), {}),
       include: useFullDist
         ? ["./test/**/*.test.{js,mjs,cjs,jsx}"]
         : ["./test/**/*.test.{ts,mts,cts,tsx}"],
