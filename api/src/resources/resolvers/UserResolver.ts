@@ -1,9 +1,9 @@
+import { UserId } from "#models/User"
+import { clientFor } from "#resources/lib"
 import { Effect, Exit, Request, RequestResolver } from "effect"
 import { Array, Option, pipe, S } from "effect-app"
 import { ApiClient, NotFoundError } from "effect-app/client"
 import { type Schema } from "effect-app/Schema"
-import { UserId } from "models/User.js"
-import { clientFor } from "resources/lib.js"
 import * as UsersRsc from "../Users.js"
 import { UserView } from "../views/UserView.js"
 

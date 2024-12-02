@@ -1,4 +1,4 @@
-import { UserId } from "models/User.js"
+import { UserId } from "#models/User"
 import { S } from "./lib.js"
 import { UserView } from "./views/UserView.js"
 

@@ -1,6 +1,6 @@
+import { BlogPost, BlogPostId } from "#models/Blog"
 import { InvalidStateError, NotFoundError, OptimisticConcurrencyException } from "effect-app/client"
 import { OperationId } from "effect-app/Operations"
-import { BlogPost, BlogPostId } from "models/Blog.js"
 import { S } from "./lib.js"
 import { BlogPostView } from "./views.js"
 

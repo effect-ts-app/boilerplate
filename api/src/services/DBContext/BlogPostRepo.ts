@@ -1,10 +1,10 @@
+import { RepoDefault } from "#api/lib/layers"
+import { BlogPost } from "#models/Blog"
+import { UserFromIdResolver } from "#models/User"
 import { Model } from "@effect-app/infra"
-import { RepoDefault } from "api/lib/layers.js"
 import { Effect } from "effect"
 import { Context } from "effect-app"
 import { NonEmptyString255, NonEmptyString2k } from "effect-app/Schema"
-import { BlogPost } from "models/Blog.js"
-import { UserFromIdResolver } from "models/User.js"
 import { UserRepo } from "./UserRepo.js"
 
 export type BlogPostSeed = "sample" | ""
