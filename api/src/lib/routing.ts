@@ -47,8 +47,12 @@ const middleware = makeMiddleware({
     const fakeLogin = true
     // const authConfig = yield* Auth0Config
     const makeUserProfile = fakeLogin
-      ? ((headers: HttpHeaders.Headers) => makeUserProfileFromUserHeader(headers["x-user"]))
-      : ((headers: HttpHeaders.Headers) => makeUserProfileFromAuthorizationHeader(headers["authorization"]))
+      ? ((headers: HttpHeaders.Headers) =>
+        headers["x-user"] ? makeUserProfileFromUserHeader(headers["x-user"]) : Effect.succeed(undefined))
+      : ((headers: HttpHeaders.Headers) =>
+        headers["authorization"]
+          ? makeUserProfileFromAuthorizationHeader(headers["authorization"])
+          : Effect.succeed(undefined))
 
     return <T extends { config?: { [K in keyof CTXMap]?: any } }, Req extends S.TaggedRequest.All, R>(
       schema: T & S.Schema<Req, any, never>,
