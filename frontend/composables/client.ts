@@ -1,4 +1,4 @@
-import { makeClient2 } from "@effect-app/vue/makeClient2"
+import { makeClient } from "@effect-app/vue/makeClient"
 import { useToast } from "vue-toastification"
 import { useIntl } from "./intl"
 import { runtime, type RT } from "~/plugins/runtime"
@@ -13,8 +13,6 @@ export { Result, type MutationResult, makeContext } from "@effect-app/vue"
 export {
   pauseWhileProcessing,
   useIntervalPauseWhileProcessing,
-  withSuccess,
-  withSuccessE,
   composeQueries,
   SuppressErrors,
   mapHandler,
@@ -44,4 +42,4 @@ export const {
   useSafeMutation,
   useSafeMutationWithState,
   useSafeQuery,
-} = makeClient2(useIntl, useToast, rt)
+} = makeClient(useIntl, useToast, rt)
