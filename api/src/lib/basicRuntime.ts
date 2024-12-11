@@ -1,3 +1,4 @@
+import { AppLogger } from "#api/chore/logger"
 import { reportError } from "@effect-app/infra/errorReporter"
 import { logJson } from "@effect-app/infra/logger/jsonLogger"
 import { PlatformLogger } from "@effect/platform"
@@ -87,7 +88,7 @@ const runMainPlatform: RunMain = dual((args) => Effect.isEffect(args[0]), (effec
         if (Cause.isInterruptedOnly(cause)) {
           return Effect.void
         }
-        return Effect.logError(cause)
+        return AppLogger.logError(cause)
       })
   )
 
