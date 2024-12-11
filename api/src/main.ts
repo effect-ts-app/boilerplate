@@ -3,13 +3,14 @@ import * as DevTools from "@effect/experimental/DevTools"
 import { faker } from "@faker-js/faker"
 import { Effect, Layer } from "effect-app"
 import { setFaker } from "effect-app/faker"
+import { AppLogger } from "./chore/logger.js"
 import { MergedConfig } from "./config.js"
 import { runMain } from "./lib/basicRuntime.js"
 import { TracingLive } from "./lib/observability.js"
 
 setFaker(faker)
 const logConfig = MergedConfig.pipe(
-  Effect.andThen((cfg) => Effect.logInfo(`Config: ${JSON.stringify(cfg, undefined, 2)}`))
+  Effect.andThen((cfg) => AppLogger.logInfo(`Config: ${JSON.stringify(cfg, undefined, 2)}`))
 )
 
 const program = api

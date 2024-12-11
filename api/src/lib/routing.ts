@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-empty-object-type */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+import { AppLogger } from "#api/chore/logger"
 import { BaseConfig } from "#api/config"
 import { RequestCacheLayers } from "#api/resources/lib"
 import { makeMiddleware, makeRouter, RpcHeadersFromHttpHeaders } from "@effect-app/infra/api/routing"
@@ -83,7 +84,7 @@ const middleware = makeMiddleware({
 
             const r = yield* Effect.exit(makeUserProfile(headers))
             if (!Exit.isSuccess(r)) {
-              yield* Effect.logWarning("Parsing userInfo failed").pipe(Effect.annotateLogs("r", r))
+              yield* AppLogger.logWarning("Parsing userInfo failed").pipe(Effect.annotateLogs("r", r))
             }
             const userProfile = Option.fromNullable(Exit.isSuccess(r) ? r.value : undefined)
             if (Option.isSome(userProfile)) {
