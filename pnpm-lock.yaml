@@ -379,6 +379,9 @@ importers:
       eslint-plugin-formatjs:
         specifier: ^5.2.5
         version: 5.2.5(eslint@8.57.0)(typescript@5.7.2(patch_hash=i2s6pnnksgwmnqxtmioljcvjfq))
+      ts-plugin-sort-import-suggestions:
+        specifier: ^1.0.4
+        version: 1.0.4
       typescript:
         specifier: ~5.7.2
         version: 5.7.2(patch_hash=i2s6pnnksgwmnqxtmioljcvjfq)
@@ -633,6 +636,9 @@ importers:
       sass:
         specifier: ^1.82.0
         version: 1.82.0
+      ts-plugin-sort-import-suggestions:
+        specifier: ^1.0.4
+        version: 1.0.4
       typescript:
         specifier: ~5.7.2
         version: 5.7.2(patch_hash=i2s6pnnksgwmnqxtmioljcvjfq)
@@ -8335,6 +8341,9 @@ packages:
 
   ts-pattern@5.5.0:
     resolution: {integrity: sha512-jqbIpTsa/KKTJYWgPNsFNbLVpwCgzXfFJ1ukNn4I8hMwyQzHMJnk/BqWzggB0xpkILuKzaO/aMYhS0SkaJyKXg==}
+
+  ts-plugin-sort-import-suggestions@1.0.4:
+    resolution: {integrity: sha512-85n5lm2OQQ+b7aRNK9omU1gmjMNXRsgeLwojm5u4OSY5sVBkAHTcgMQPEeHMNlyyfFW0uXnwgqAU0pNfhD96Bw==}
 
   ts-toolbelt@9.6.0:
     resolution: {integrity: sha512-nsZd8ZeNUzukXPlJmTBwUAuABDe/9qtVDelJeT/qW0ow3ZS3BsQJtNkan1802aM9Uf68/Y8ljw86Hu0h5IUW3w==}
@@ -18192,6 +18201,8 @@ snapshots:
       webpack: 5.97.1
 
   ts-pattern@5.5.0: {}
+
+  ts-plugin-sort-import-suggestions@1.0.4: {}
 
   ts-toolbelt@9.6.0: {}
 
