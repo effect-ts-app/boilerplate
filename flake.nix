@@ -1,5 +1,5 @@
 {
-  description = "Node 24 + pnpm 11 dev shell";
+  description = "Node 24 + pnpm 12 dev shell";
 
   inputs = {
     # nixos-unstable, not master: same channel the scanner repo tracks, so
@@ -9,8 +9,14 @@
     flake-utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = { self, nixpkgs, flake-utils }:
-    flake-utils.lib.eachDefaultSystem (system:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      flake-utils,
+    }:
+    flake-utils.lib.eachDefaultSystem (
+      system:
       let
         pkgs = import nixpkgs { inherit system; };
         # keep the existing Nixpkgs lock and use the official security release
@@ -55,15 +61,55 @@
             runHook postInstall
           '';
         };
-        # Pin the exact pnpm from package.json's `packageManager` — nixpkgs'
-        # pnpm_11 trails npm by weeks, and a devShell pnpm that differs from
-        # the one CI/Docker use is how lockfile churn starts.
-        # Bump both together; `hash` is the npm tarball's SRI digest:
-        #   nix store prefetch-file --json https://registry.npmjs.org/pnpm/-/pnpm-<version>.tgz
-        pnpm = pkgs.pnpm_11.override {
-          nodejs-slim = nodejs;
-          version = "11.20.0";
-          hash = "sha256-NOGYyx5DI3UX7O39MfmuJqbAo+U2bOWKLQX0sh+18Zo=";
+        # pnpm 12 is a native release archive; retain its adjacent node-gyp files
+        pnpmVersion = "12.14.0";
+        pnpmAssets = {
+          x86_64-linux = {
+            file = "pnpm-linux-x64.tar.gz";
+            hash = "sha256-ORDDhSE2vtW8FRG5E3pF/UNX7Ws5cNnQiJNkHpAFhn4=";
+          };
+          aarch64-linux = {
+            file = "pnpm-linux-arm64.tar.gz";
+            hash = "sha256-z8eAueaQVJ5mM+EEX7H7bvhOOQcR4gmebMuukcMkVuo=";
+          };
+          x86_64-darwin = {
+            file = "pnpm-darwin-x64.tar.gz";
+            hash = "sha256-LEEuBzggSbTtsE+m2njz1O94ELdYU8gFRNz7fA7XmIA=";
+          };
+          aarch64-darwin = {
+            file = "pnpm-darwin-arm64.tar.gz";
+            hash = "sha256-UPSODhdQiVJ5Cj+/WPzxTzuC76X1lMoErZBOKar4VLA=";
+          };
+        };
+        pnpmAsset = pnpmAssets.${system};
+        pnpm = pkgs.stdenv.mkDerivation {
+          pname = "pnpm";
+          version = pnpmVersion;
+          src = pkgs.fetchurl {
+            url = "https://github.com/pnpm/pnpm/releases/download/v${pnpmVersion}/${pnpmAsset.file}";
+            hash = pnpmAsset.hash;
+          };
+          nativeBuildInputs = pkgs.lib.optionals pkgs.stdenv.isLinux [ pkgs.autoPatchelfHook ];
+          buildInputs = pkgs.lib.optionals pkgs.stdenv.isLinux [ pkgs.stdenv.cc.cc.lib ];
+          # the archive has the pnpm binary next to dist/. Nix otherwise
+          # treats the only directory, dist/, as the source root and the
+          # binary is left behind. dist/ is the bundled node-gyp. pnpm looks
+          # for it beside the executable, and beside a symlink's target.
+          sourceRoot = ".";
+          dontConfigure = true;
+          dontBuild = true;
+          installPhase = ''
+            runHook preInstall
+            mkdir -p "$out/lib/pnpm" "$out/bin"
+            cp -r pnpm dist "$out/lib/pnpm/"
+            ln -s "$out/lib/pnpm/dist" "$out/bin/dist"
+            chmod 755 "$out/lib/pnpm/pnpm"
+            ln "$out/lib/pnpm/pnpm" "$out/bin/pnpm"
+            ln "$out/lib/pnpm/pnpm" "$out/bin/pn"
+            ln "$out/lib/pnpm/pnpm" "$out/bin/pnx"
+            ln "$out/lib/pnpm/pnpm" "$out/bin/pnpx"
+            runHook postInstall
+          '';
         };
         python = pkgs.python3.withPackages (ps: [ ps.pymupdf ]);
         java = pkgs.jdk21_headless;
@@ -71,10 +117,20 @@
         typescript = pkgs.typescript.override {
           buildNpmPackage = pkgs.buildNpmPackage.override { inherit nodejs; };
         };
-        tools = with pkgs; [ git java nixfmt nodejs pnpm typescript python ];
-      in {
+        tools = with pkgs; [
+          git
+          java
+          nixfmt
+          nodejs
+          pnpm
+          typescript
+          python
+        ];
+      in
+      {
         devShells.default = pkgs.mkShell {
           packages = tools;
         };
-      });
+      }
+    );
 }
