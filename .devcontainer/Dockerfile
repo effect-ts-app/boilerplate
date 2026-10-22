@@ -28,7 +28,7 @@ WORKDIR /workspaces/boilerplate
 
 # and install node and pnpm
 # corepack picks the pnpm version up from package.json's `packageManager`.
-RUN volta install node@24
+RUN volta install node@24.22.1
 RUN corepack enable
 
 RUN echo 

@@ -1,4 +1,4 @@
-FROM node:24.18-alpine
+FROM node:24.22.1-alpine
 
 RUN corepack enable pnpm && corepack install -g pnpm@11.20.0
 

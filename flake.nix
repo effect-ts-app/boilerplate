@@ -13,7 +13,48 @@
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = import nixpkgs { inherit system; };
-        nodejs = pkgs.nodejs_24;
+        # keep the existing Nixpkgs lock and use the official security release
+        nodeVersion = "24.22.1";
+        nodeAssets = {
+          x86_64-linux = {
+            file = "linux-x64.tar.xz";
+            hash = "sha256-bBcqmrZxj3uAH7WnvUhq8u5eMnWAhqBLhPzOKqdwleY=";
+          };
+          aarch64-linux = {
+            file = "linux-arm64.tar.xz";
+            hash = "sha256-26v3ocv5R+YFn/rSwnuABB25feoeVTtir97n8T/KM24=";
+          };
+          x86_64-darwin = {
+            file = "darwin-x64.tar.xz";
+            hash = "sha256-ZeRQ+Qpuqs1QAPYRhhxM5l+tyH+BN5XcTtDA5fL8otQ=";
+          };
+          aarch64-darwin = {
+            file = "darwin-arm64.tar.xz";
+            hash = "sha256-ZUunneYVVkfiIyGTK0Xyocy3BZdswzfJuOJ4vrCFpig=";
+          };
+        };
+        nodeAsset = nodeAssets.${system};
+        nodejs = pkgs.stdenv.mkDerivation {
+          pname = "nodejs";
+          version = nodeVersion;
+          src = pkgs.fetchurl {
+            url = "https://nodejs.org/dist/v${nodeVersion}/node-v${nodeVersion}-${nodeAsset.file}";
+            hash = nodeAsset.hash;
+          };
+          nativeBuildInputs = pkgs.lib.optionals pkgs.stdenv.isLinux [ pkgs.autoPatchelfHook ];
+          buildInputs = pkgs.lib.optionals pkgs.stdenv.isLinux [ pkgs.stdenv.cc.cc.lib ];
+          passthru.python = pkgs.python3;
+          meta.platforms = builtins.attrNames nodeAssets;
+          dontConfigure = true;
+          dontBuild = true;
+          dontStrip = true;
+          installPhase = ''
+            runHook preInstall
+            mkdir -p "$out"
+            cp -R . "$out"
+            runHook postInstall
+          '';
+        };
         # Pin the exact pnpm from package.json's `packageManager` — nixpkgs'
         # pnpm_11 trails npm by weeks, and a devShell pnpm that differs from
         # the one CI/Docker use is how lockfile churn starts.
@@ -26,6 +67,10 @@
         };
         python = pkgs.python3.withPackages (ps: [ ps.pymupdf ]);
         java = pkgs.jdk21_headless;
+        # keep generated compiler launchers on the patched runtime
+        typescript = pkgs.typescript.override {
+          buildNpmPackage = pkgs.buildNpmPackage.override { inherit nodejs; };
+        };
         tools = with pkgs; [ git java nixfmt nodejs pnpm typescript python ];
       in {
         devShells.default = pkgs.mkShell {
