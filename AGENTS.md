@@ -2,7 +2,7 @@
 
 This is the `@effect-app/boilerplate` starter — a TypeScript monorepo seed (`api/` Effect backend + `frontend/` Nuxt + `e2e/` Playwright) for projects built on the Effect App ecosystem.
 
-- Package manager: `pnpm` (v11, pinned via `packageManager`)
+- Package manager: `pnpm` (v12, pinned via `packageManager`)
 - Base branch: `main`
 
 ## Read First
